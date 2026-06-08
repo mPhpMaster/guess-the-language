@@ -60,7 +60,7 @@ pnpm run dist     # produces an NSIS installer in dist/
 pnpm run pack
 ```
 
-The output is written to `dist/` (e.g. `Guess The Language Setup 2.3.0.exe`).
+The output is written to `dist/` (e.g. `Guess The Language Setup 2.4.0.exe`).
 
 ---
 
