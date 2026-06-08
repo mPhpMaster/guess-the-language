@@ -6,7 +6,9 @@ const { contextBridge, ipcRenderer } = require('electron');
 contextBridge.exposeInMainWorld('appWindow', {
   minimize: () => ipcRenderer.send('window:minimize'),
   toggleMaximize: () => ipcRenderer.send('window:toggle-maximize'),
-  close: () => ipcRenderer.send('window:close')
+  close: () => ipcRenderer.send('window:close'),
+  openExternal: (url) => ipcRenderer.send('open-external', url),
+  getVersion: () => ipcRenderer.invoke('app:version')
 });
 
 // Game data is read from disk by the main process and handed to the

@@ -52,8 +52,8 @@ app.whenReady().then(async () => {
       if (await run("!document.querySelector('#btn-start').disabled")) break;
       await sleep(100);
     }
-    const t2 = await run("document.querySelector('#menu-title-1').textContent");
-    check('menu reflects All mode', /All|الكل/.test(t2), t2);
+    const activeMode = await run("(document.querySelector('.mode-card.active')||{}).dataset?.mode");
+    check('All card is highlighted as active', activeMode === 'all', activeMode);
 
     await run("document.querySelector('#btn-start').click(); 'ok'");
     await sleep(200);

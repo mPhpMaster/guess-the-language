@@ -1,6 +1,6 @@
 'use strict';
 
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
@@ -15,7 +15,7 @@ function createWindow() {
     frame: false,
     backgroundColor: '#0b1a2b',
     show: false,
-    title: 'Guess the Programming Language',
+    title: 'Guess the Language',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -49,6 +49,13 @@ ipcMain.on('window:toggle-maximize', () => {
 ipcMain.on('window:close', () => {
   if (mainWindow) mainWindow.close();
 });
+
+// ---- Open trusted external links in the default browser ----
+ipcMain.on('open-external', (_event, url) => {
+  if (typeof url === 'string' && /^https:\/\//i.test(url)) shell.openExternal(url);
+});
+
+ipcMain.handle('app:version', () => app.getVersion());
 
 // ---- Load a questions database from disk, by mode ----
 const QUESTION_FILES = {

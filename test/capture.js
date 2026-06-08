@@ -9,12 +9,17 @@ const fs = require('fs');
 
 const SRC = path.join(__dirname, '..', 'src');
 const OUT = path.join(__dirname, '..', 'screenshots');
-const FILES = { languages: 'questions.json', cybersecurity: 'questions-cyber.json' };
+const FILES = {
+  languages: 'questions.json', cybersecurity: 'questions-cyber.json',
+  devops: 'questions-devops.json', network: 'questions-network.json'
+};
+const readBank = async (f) => JSON.parse(await fs.promises.readFile(path.join(SRC, 'data', f), 'utf-8'));
 
 ipcMain.handle('questions:get', async (_e, mode) => {
-  const f = FILES[mode] || FILES.languages;
-  return JSON.parse(await fs.promises.readFile(path.join(SRC, 'data', f), 'utf-8'));
+  if (mode === 'all') return (await Promise.all(Object.values(FILES).map(readBank))).flat();
+  return readBank(FILES[mode] || FILES.languages);
 });
+ipcMain.handle('app:version', () => '2.4.0');
 
 app.whenReady().then(async () => {
   fs.mkdirSync(OUT, { recursive: true });
@@ -64,14 +69,25 @@ app.whenReady().then(async () => {
     await run(`(() => { const b = [...document.querySelectorAll('#options-grid button')].find(x => x.dataset.answer === ${JSON.stringify(answer)}); if (b) b.click(); return 'ok'; })()`);
   }
 
+  // Warm up the window so the first real capture isn't a blank first-paint frame.
+  await win.loadFile(path.join(SRC, 'index.html'));
+  await sleep(800);
+
   try {
-  // ---- English: mode select ----
+  // ---- English: home (mode picker + actions in one page) ----
   await reload('en', { questions: 10, sound: false, difficulty: 'all', name: '' });
+  await sleep(250);
   await snap('8-modeselect.png');
+
+  // About dialog
+  await run("document.querySelector('#btn-about').click(); 'ok'");
+  await sleep(450);
+  await snap('12-about.png');
+  await run("document.querySelector('#about-close').click(); 'ok'");
+  await sleep(150);
 
   // ---- English: languages mode ----
   await pickMode('languages');
-  await snap('1-menu.png');
   await run("document.querySelector('#btn-start').click(); 'ok'");
   await sleep(500);
   await snap('2-game.png');
@@ -99,7 +115,6 @@ app.whenReady().then(async () => {
   await reload('ar', { questions: 10, sound: false, difficulty: 'all', name: '' });
   await snap('11-modeselect-ar.png');
   await pickMode('languages');
-  await snap('5-menu-ar.png');
   await run("document.querySelector('#btn-start').click(); 'ok'");
   await sleep(500);
   await snap('6-game-ar.png');

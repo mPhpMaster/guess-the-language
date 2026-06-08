@@ -32,9 +32,9 @@ app.whenReady().then(async () => {
   await sleep(400);
 
   try {
-    // Mode-select default language, then enter the languages mode menu.
-    const msTitle = await run("document.querySelector('.ms-title').textContent");
-    check('mode-select title is English', /Choose a game mode/.test(msTitle), msTitle.trim());
+    // Home default language (English), then select the languages mode.
+    const homeSub = await run("document.querySelector('.home-sub').textContent");
+    check('home subtitle is English', /Pick a mode/.test(homeSub), homeSub.trim());
     await run("document.querySelector('.mode-card[data-mode=\"languages\"]').click(); 'ok'");
     for (let i = 0; i < 20; i++) {
       const ready = await run("!document.querySelector('#btn-start').disabled");
@@ -54,8 +54,8 @@ app.whenReady().then(async () => {
     check('switches to RTL (Arabic)', dir1 === 'rtl', dir1);
     const start1 = await run("document.querySelector('#btn-start').textContent");
     check('start button is Arabic', /ابدأ/.test(start1), start1.trim());
-    const sub1 = await run("document.querySelector('.menu-sub').textContent");
-    check('subtitle translated to Arabic', /خمّن/.test(sub1));
+    const sub1 = await run("document.querySelector('.home-sub').textContent");
+    check('subtitle translated to Arabic', /اختر/.test(sub1), sub1.trim());
     const persisted = await run("localStorage.getItem('gtl_lang')");
     check('language choice persisted', persisted === 'ar', persisted);
 

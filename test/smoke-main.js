@@ -45,9 +45,9 @@ app.whenReady().then(async () => {
   await run("window.SUPABASE_CONFIG = { url: '', anonKey: '' }; 'ok'");
 
   try {
-    // 0. Mode select shown first; pick the languages mode
-    const modeSelectActive = await run("document.querySelector('#screen-modeselect').classList.contains('active')");
-    check('mode-select screen shown at launch', modeSelectActive);
+    // 0. Home (mode + actions) shown first; pick the languages mode
+    const homeActive = await run("document.querySelector('#screen-home').classList.contains('active')");
+    check('home screen shown at launch', homeActive);
     await run("document.querySelector('.mode-card[data-mode=\"languages\"]').click(); 'ok'");
     // wait for the mode's questions to load (start button becomes enabled)
     for (let i = 0; i < 20; i++) {

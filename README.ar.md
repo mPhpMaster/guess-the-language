@@ -1,6 +1,6 @@
 <div dir="rtl">
 
-# خمّن لغة البرمجة
+# خمّن اللغة
 
 [English](README.md) · **العربية**
 
@@ -22,9 +22,9 @@
 | --- | --- |
 | ![اللعب](screenshots/6-game-ar.png) | ![سيبراني](screenshots/10-cyber-game-ar.png) |
 
-| شاشة النتائج | القائمة |
+| شاشة النتائج | حول التطبيق |
 | --- | --- |
-| ![النتائج](screenshots/7-results-ar.png) | ![القائمة](screenshots/5-menu-ar.png) |
+| ![النتائج](screenshots/7-results-ar.png) | ![حول](screenshots/12-about.png) |
 
 ---
 
@@ -91,7 +91,7 @@ prog-game2/
 │  ├─ supabase-config.js         # بيانات Supabase (محلي، غير مُتتبَّع بـ git)
 │  ├─ supabase-config.example.js # قالب الإعداد
 │  └─ data/
-│     ├─ questions.json          # بنك اللغات (180 سؤالاً)
+│     ├─ questions.json          # بنك اللغات (211 سؤالاً)
 │     ├─ questions-cyber.json    # بنك الأمن السيبراني (79 سؤالاً)
 │     ├─ questions-devops.json   # بنك DevOps (38 سؤالاً)
 │     └─ questions-network.json  # بنك الشبكات (37 سؤالاً)
@@ -106,7 +106,7 @@ prog-game2/
 
 ## قواعد بيانات الأسئلة
 
-**اللغات** — يحوي `src/data/questions.json` **180 سؤالاً** على 6 لغات وثلاث مستويات صعوبة:
+**اللغات** — يحوي `src/data/questions.json` **211 سؤالاً** على 6 لغات وثلاث مستويات صعوبة:
 
 ```json
 {

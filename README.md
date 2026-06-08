@@ -1,11 +1,12 @@
-# Guess the Programming Language
+# Guess the Language
 
 **English** · [العربية](README.ar.md)
 
-An interactive **Windows** desktop game built with **Electron**. At launch you
-pick one of five quiz modes, then race the timer — with scoring, streaks, and a
-per-mode friends/global leaderboard. The entire UI is available in **English and
-Arabic** (with full RTL layout), switchable from the menu.
+An interactive **Windows** desktop game built with **Electron**. From a single
+home page you pick one of five quiz modes and race the timer — with scoring,
+streaks, a correct/total counter, and a per-mode **live global leaderboard**
+(Supabase). The entire UI is available in **English and Arabic** (with full RTL
+layout), switchable anytime.
 
 ### Five game modes
 - **💻 Programming Languages** — a code snippet appears; guess the language
@@ -19,21 +20,21 @@ Arabic** (with full RTL layout), switchable from the menu.
 - **🎲 All (Mixed)** — all four banks shuffled together; each question renders
   with its own answer style.
 
-![Mode select](screenshots/8-modeselect.png)
+![Home](screenshots/8-modeselect.png)
 
 | Languages mode | Cybersecurity mode |
 | --- | --- |
 | ![Game](screenshots/2-game.png) | ![Cyber](screenshots/9-cyber-game.png) |
 
-| Results | Cybersecurity (AR, RTL) |
+| Results | About |
 | --- | --- |
-| ![Results](screenshots/4-results.png) | ![Cyber AR](screenshots/10-cyber-game-ar.png) |
+| ![Results](screenshots/4-results.png) | ![About](screenshots/12-about.png) |
 
 Arabic (RTL):
 
-| Menu (AR) | Gameplay (AR) | Results (AR) |
+| Home (AR) | Gameplay (AR) | Results (AR) |
 | --- | --- | --- |
-| ![Menu AR](screenshots/5-menu-ar.png) | ![Game AR](screenshots/6-game-ar.png) | ![Results AR](screenshots/7-results-ar.png) |
+| ![Home AR](screenshots/11-modeselect-ar.png) | ![Game AR](screenshots/6-game-ar.png) | ![Results AR](screenshots/7-results-ar.png) |
 
 ---
 
@@ -65,15 +66,20 @@ The output is written to `dist/` (e.g. `Guess The Language Setup 2.3.0.exe`).
 
 ## How to play
 
-1. At launch, choose **Programming Languages** or **Cybersecurity** (use **Modes**
-   on the menu to switch later).
-2. Click **Start**.
-3. A snippet/question appears with a circular countdown (12–15s by difficulty).
-4. Pick the correct answer from the buttons — or press the number keys.
-5. After the round, the results screen shows your score and the leaderboard.
+Everything starts on one **home page**: pick a mode card, then **Start**, view
+the **leaderboard** (Friends & Scores), open **Settings**, or read **About** — all
+without leaving the page.
 
-Switch between **English and Arabic** anytime via the EN / ع toggle in the menu
-(also under Settings). The choice is persisted, and Arabic flips the UI to RTL.
+1. Tap a mode card to select it, then **Start**.
+2. A snippet/question appears with a circular countdown (12–15s by difficulty).
+3. Pick the correct answer from the buttons — or press the number keys. The HUD
+   shows your score and a **correct/total** counter; you can **End** the quiz
+   early to jump to the results.
+4. The results screen shows your score, how many you got right, and the
+   leaderboard. Your name defaults to **User** (change it in Settings).
+
+Switch between **English and Arabic** anytime via the EN / ع toggle (also under
+Settings). The choice is persisted, and Arabic flips the UI to RTL.
 
 ### Scoring
 - Correct answer: **+100**
@@ -94,13 +100,13 @@ prog-game2/
 ├─ src/
 │  ├─ main.js                   # Electron main process (window + IPC)
 │  ├─ preload.js                # secure bridge (window controls + question load)
-│  ├─ index.html                # the three screens (menu / game / results)
+│  ├─ index.html                # the three screens (home / game / results)
 │  ├─ styles.css                # dark + neon theme
 │  ├─ renderer.js               # game logic, modes, timer, scoring, leaderboard
 │  ├─ supabase-config.js         # Supabase creds (local, git-ignored)
 │  ├─ supabase-config.example.js # config template
 │  └─ data/
-│     ├─ questions.json          # languages bank (180 questions)
+│     ├─ questions.json          # languages bank (211 questions)
 │     ├─ questions-cyber.json    # cybersecurity bank (79 questions)
 │     ├─ questions-devops.json   # devops bank (38 questions)
 │     └─ questions-network.json  # networking bank (37 questions)
@@ -117,7 +123,7 @@ prog-game2/
 
 ## Questions databases
 
-**Languages** — `src/data/questions.json` holds **180 questions** across 6
+**Languages** — `src/data/questions.json` holds **211 questions** across 6
 languages and three difficulty levels:
 
 ```json

@@ -40,10 +40,10 @@ app.whenReady().then(async () => {
       if (ready) break;
       await sleep(100);
     }
-    const menuActive = await run("document.querySelector('#screen-menu').classList.contains('active')");
-    check('menu shown after picking cyber mode', menuActive);
-    const title2 = await run("document.querySelector('#menu-title-2').textContent");
-    check('menu title reflects cyber mode', /Security/.test(title2), title2);
+    const homeActive = await run("document.querySelector('#screen-home').classList.contains('active')");
+    check('home stays active after picking cyber mode', homeActive);
+    const activeMode = await run("(document.querySelector('.mode-card.active')||{}).dataset?.mode");
+    check('cyber card is highlighted as active', activeMode === 'cybersecurity', activeMode);
 
     // Start a cyber game.
     await run("document.querySelector('#btn-start').click(); 'ok'");

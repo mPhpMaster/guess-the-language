@@ -29,10 +29,15 @@ const RING_CIRCUMFERENCE = 2 * Math.PI * 52; // r = 52 -> ~326.7
 // ============================================================
 const I18N = {
   en: {
-    appTitle: 'Guess the Programming Language',
-    menuTitle1: 'Guess the',
-    menuTitle2: 'Programming Language',
-    menuSubtitle: 'Identify the language from the snippet before time runs out',
+    appTitle: 'Guess the Language',
+    homeSub: 'Pick a mode and beat the timer',
+    langPrompt: 'Which language is this?',
+    endQuiz: 'End',
+    correctLabel: 'Correct:',
+    aboutTitle: 'About',
+    aboutDesc: 'A bilingual (EN / AR) IT quiz game: programming languages, cybersecurity, DevOps & networking.',
+    aboutQuestions: 'Questions:',
+    close: 'Close',
     start: '▶  Start',
     friends: '👥  Friends & Scores',
     settings: '⚙  Settings',
@@ -78,10 +83,15 @@ const I18N = {
     diff: { easy: 'Easy', medium: 'Medium', hard: 'Hard' }
   },
   ar: {
-    appTitle: 'خمّن لغة البرمجة',
-    menuTitle1: 'خمِّن',
-    menuTitle2: 'لغة البرمجة',
-    menuSubtitle: 'خمّن لغة البرمجة من مقتطف الكود قبل انتهاء الوقت',
+    appTitle: 'خمّن اللغة',
+    homeSub: 'اختر نمطاً وتغلّب على المؤقّت',
+    langPrompt: 'ما هذه اللغة؟',
+    endQuiz: 'إنهاء',
+    correctLabel: 'الإجابات الصحيحة:',
+    aboutTitle: 'حول التطبيق',
+    aboutDesc: 'لعبة اختبارات تقنية بالعربية والإنجليزية: لغات البرمجة والأمن السيبراني وDevOps والشبكات.',
+    aboutQuestions: 'عدد الأسئلة:',
+    close: 'إغلاق',
     start: '▶  ابدأ اللعب',
     friends: '👥  الأصدقاء والنتائج',
     settings: '⚙  الإعدادات',
@@ -195,8 +205,8 @@ function diffLabel(d) {
 }
 function challengeText(score) {
   return getLang() === 'ar'
-    ? `حصلت على ${score} نقطة في لعبة "خمّن لغة البرمجة"! هل تستطيع التغلب عليّ؟`
-    : `I scored ${score} points in "Guess the Programming Language"! Can you beat me?`;
+    ? `حصلت على ${score} نقطة في لعبة "خمّن اللغة"! هل تستطيع التغلب عليّ؟`
+    : `I scored ${score} points in "Guess the Language"! Can you beat me?`;
 }
 
 function applyLanguage() {
@@ -216,22 +226,14 @@ function applyLanguage() {
   // Refresh the currently-shown difficulty badge if a question is loaded.
   const dEl = document.querySelector('#code-difficulty');
   if (dEl && dEl.dataset.diff) dEl.textContent = diffLabel(dEl.dataset.diff);
-  // Menu title/subtitle depend on both mode and language.
-  renderMenuForMode();
+  renderHome();
 }
 
-// Apply the active mode's icon, title and subtitle to the menu.
-function renderMenuForMode() {
-  const m = MODES[state.mode] || MODES.languages;
-  const lang = getLang();
-  const logo = document.querySelector('#menu-logo');
-  const t1 = document.querySelector('#menu-title-1');
-  const t2 = document.querySelector('#menu-title-2');
-  const sub = document.querySelector('#menu-sub');
-  if (logo) logo.textContent = m.icon;
-  if (t1) t1.textContent = m.title[lang][0];
-  if (t2) t2.textContent = m.title[lang][1];
-  if (sub) sub.textContent = m.desc[lang];
+// Highlight the active mode card and show its best score on the home page.
+function renderHome() {
+  document.querySelectorAll('#mode-grid .mode-card').forEach((c) => {
+    c.classList.toggle('active', c.dataset.mode === state.mode);
+  });
   refreshMenu();
 }
 
@@ -255,10 +257,12 @@ const state = {
   round: [],
   index: 0,
   score: 0,
+  correct: 0,
   streak: 0,
   timeLeft: 0,
   questionTime: 15,
   timerId: null,
+  advanceTimer: null,
   answered: false,
   current: null
 };
@@ -266,8 +270,7 @@ const state = {
 // ---------- DOM helpers ----------
 const $ = (sel) => document.querySelector(sel);
 const screens = {
-  modeselect: $('#screen-modeselect'),
-  menu: $('#screen-menu'),
+  home: $('#screen-home'),
   game: $('#screen-game'),
   results: $('#screen-results')
 };
@@ -327,26 +330,43 @@ function highlight(code) {
 //  Simple WebAudio sound effects (no asset files needed)
 // ============================================================
 let audioCtx = null;
-function beep(freq, durationMs, type = 'sine', gain = 0.08) {
+let masterGain = null;
+function ensureAudio() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    masterGain = audioCtx.createGain();
+    masterGain.gain.value = 0.5; // keep everything gentle overall
+    masterGain.connect(audioCtx.destination);
+  }
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+
+// A soft sine note with a smooth attack/release envelope (no harsh edges).
+function note(freq, when = 0, dur = 0.18, peak = 0.11) {
   if (!getSettings().sound) return;
   try {
-    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
-    const osc = audioCtx.createOscillator();
-    const g = audioCtx.createGain();
-    osc.type = type;
+    const ctx = ensureAudio();
+    const t0 = ctx.currentTime + when;
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    osc.type = 'sine';
     osc.frequency.value = freq;
-    g.gain.value = gain;
-    osc.connect(g); g.connect(audioCtx.destination);
-    osc.start();
-    g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + durationMs / 1000);
-    osc.stop(audioCtx.currentTime + durationMs / 1000);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.linearRampToValueAtTime(peak, t0 + 0.025);       // gentle fade-in
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);  // smooth fade-out
+    osc.connect(g);
+    g.connect(masterGain);
+    osc.start(t0);
+    osc.stop(t0 + dur + 0.04);
   } catch (_) { /* audio not available — ignore */ }
 }
+
 const sfx = {
-  correct() { beep(660, 120, 'triangle'); setTimeout(() => beep(880, 160, 'triangle'), 110); },
-  wrong()   { beep(180, 260, 'sawtooth', 0.07); },
-  tick()    { beep(1200, 40, 'sine', 0.03); },
-  finish()  { [523, 659, 784, 1046].forEach((f, i) => setTimeout(() => beep(f, 180, 'triangle'), i * 130)); }
+  correct() { note(659, 0, 0.16, 0.12); note(988, 0.10, 0.24, 0.10); }, // soft rising chime
+  wrong()   { note(311, 0, 0.20, 0.10); note(233, 0.11, 0.30, 0.08); }, // soft descending
+  tick()    { /* per-second ticking removed — it was distracting */ },
+  finish()  { [523, 659, 784, 1047].forEach((f, i) => note(f, i * 0.13, 0.30, 0.09)); } // gentle arpeggio
 };
 
 // ============================================================
@@ -374,16 +394,11 @@ function saveSettingsFromUI() {
   };
 }
 
-// Player name used on the leaderboard. Falls back to a stable guest id.
+// Player name used on the leaderboard. Defaults to "User".
 function getPlayerName() {
   const s = getSettings();
   if (s.name && s.name.trim()) return s.name.trim().slice(0, 24);
-  let guest = localStorage.getItem('gtl_guest');
-  if (!guest) {
-    guest = 'Guest-' + Math.floor(1000 + Math.random() * 9000);
-    localStorage.setItem('gtl_guest', guest);
-  }
-  return guest;
+  return 'User';
 }
 
 // ============================================================
@@ -417,10 +432,14 @@ function startGame() {
   buildRound();
   state.index = 0;
   state.score = 0;
+  state.correct = 0;
   state.streak = 0;
+  state.viewOnly = false;
   updateScore();
+  updateCorrect();
   updateStreakPill();
   $('#q-total').textContent = String(state.round.length);
+  $('#correct-total').textContent = String(state.round.length);
   showScreen('game');
   nextQuestion();
 }
@@ -446,7 +465,7 @@ function normalizeQuestion(q) {
     style: 'languages',
     panelText: q.codeSnippet,
     panelIsCode: true,
-    questionText: '',
+    questionText: t('langPrompt'),
     options: LANGUAGES.map((l) => ({ label: l.name, glyph: l.glyph, color: l.color })),
     answer: q.correctLanguage,
     difficulty: q.difficulty,
@@ -456,6 +475,7 @@ function normalizeQuestion(q) {
 
 function nextQuestion() {
   clearTimer();
+  if (state.advanceTimer) { clearTimeout(state.advanceTimer); state.advanceTimer = null; }
   state.answered = false;
   if (state.index >= state.round.length) { endGame(); return; }
 
@@ -526,12 +546,14 @@ function onAnswer(chosen, btn) {
 
   if (correct) {
     state.streak += 1;
+    state.correct += 1;
     const multiplier = state.streak >= 3 ? 1.5 : 1;
     const base = 100 + 10 * state.timeLeft;
     const gained = Math.round(base * multiplier);
     state.score += gained;
     sfx.correct();
     updateScore(true);
+    updateCorrect();
     showToast(`${t('correct')} +${gained}${multiplier > 1 ? '  ' + t('streakBonus') : ''}  —  ${cur.explanation[getLang()]}`, 'good');
   } else {
     state.streak = 0;
@@ -542,7 +564,7 @@ function onAnswer(chosen, btn) {
 
   updateStreakPill();
   state.index += 1;
-  setTimeout(nextQuestion, 1900);
+  state.advanceTimer = setTimeout(nextQuestion, 1900);
 }
 
 // ---------- Timer ----------
@@ -575,7 +597,14 @@ function onTimeout() {
   showToast(`${t('timeUp')} ${cur.answer}.  ${cur.explanation[getLang()]}`, 'bad');
   updateStreakPill();
   state.index += 1;
-  setTimeout(nextQuestion, 1900);
+  state.advanceTimer = setTimeout(nextQuestion, 1900);
+}
+
+// End the round early and show the results so far.
+function endQuiz() {
+  clearTimer();
+  if (state.advanceTimer) { clearTimeout(state.advanceTimer); state.advanceTimer = null; }
+  endGame();
 }
 
 function clearTimer() {
@@ -606,6 +635,10 @@ function updateScore(pulse) {
   }
 }
 
+function updateCorrect() {
+  $('#correct-count').textContent = String(state.correct);
+}
+
 function updateStreakPill() {
   const pill = $('#streak-pill');
   if (state.streak >= 3) {
@@ -629,10 +662,22 @@ function hideToast() {
 //  Results / leaderboard
 // ============================================================
 async function endGame() {
-  if (state.score > store.highScore(state.mode)) store.setHighScore(state.mode, state.score);
-  sfx.finish();
+  const viewOnly = !!state.viewOnly;
+  if (!viewOnly && state.score > store.highScore(state.mode)) {
+    store.setHighScore(state.mode, state.score);
+  }
+  if (!viewOnly) sfx.finish();
   showScreen('results');
-  countUp($('#final-score'), state.score, 900);
+
+  // In view-only mode (opened from "Friends & Scores") hide the score lines.
+  $('.final-score').classList.toggle('hidden', viewOnly);
+  $('.results-correct').classList.toggle('hidden', viewOnly);
+  $('#btn-challenge').classList.toggle('hidden', viewOnly);
+  if (!viewOnly) {
+    countUp($('#final-score'), state.score, 900);
+    $('#results-correct').textContent = String(state.correct);
+    $('#results-total').textContent = String(state.round.length);
+  }
   await buildResultsLeaderboard();
 }
 
@@ -793,34 +838,48 @@ function bindEvents() {
   $('#tb-max').addEventListener('click', () => window.appWindow?.toggleMaximize());
   $('#tb-close').addEventListener('click', () => window.appWindow?.close());
 
-  // language switch (menu toggle + settings dropdown)
+  // language switch (home toggle + settings dropdown)
   document.querySelectorAll('.lang-switch button').forEach((b) => {
     b.addEventListener('click', () => setLang(b.dataset.setlang));
   });
   $('#set-language').addEventListener('change', () => setLang($('#set-language').value));
 
-  // mode select
-  document.querySelectorAll('.mode-card').forEach((card) => {
+  // mode cards — select in place (stay on the home page)
+  document.querySelectorAll('#mode-grid .mode-card').forEach((card) => {
     card.addEventListener('click', () => selectMode(card.dataset.mode));
   });
-  $('#btn-modes').addEventListener('click', () => showScreen('modeselect'));
 
-  // menu
+  // home actions
   $('#btn-start').addEventListener('click', startGame);
-  $('#btn-friends').addEventListener('click', () => { state.score = 0; endGame(); });
+  $('#btn-friends').addEventListener('click', viewLeaderboard);
   $('#btn-settings').addEventListener('click', () => {
+    $('#about-panel').classList.add('hidden');
     applySettingsToUI();
     $('#settings-panel').classList.toggle('hidden');
   });
   $('#set-close').addEventListener('click', () => {
     saveSettingsFromUI();
     $('#settings-panel').classList.add('hidden');
+    applyLanguage();
   });
+
+  // about
+  $('#btn-about').addEventListener('click', () => {
+    $('#settings-panel').classList.add('hidden');
+    openAbout();
+  });
+  $('#about-close').addEventListener('click', () => $('#about-panel').classList.add('hidden'));
+  document.querySelectorAll('.about-link').forEach((b) => {
+    b.addEventListener('click', () => window.appWindow?.openExternal(b.dataset.url));
+  });
+
+  // game — end the quiz early
+  $('#btn-end').addEventListener('click', endQuiz);
 
   // results
   $('#btn-challenge').addEventListener('click', challengeFriend);
   $('#btn-replay').addEventListener('click', startGame);
-  $('#btn-menu').addEventListener('click', () => { renderMenuForMode(); showScreen('menu'); });
+  $('#btn-menu').addEventListener('click', () => { showScreen('home'); renderHome(); });
 
   // keyboard: number keys select the matching option
   document.addEventListener('keydown', (e) => {
@@ -835,12 +894,37 @@ function refreshMenu() {
   $('#menu-highscore-val').textContent = String(store.highScore(state.mode));
 }
 
-// Choose a mode: load its question bank and open the menu.
+// Open the leaderboard from the home page (view only — does not submit a score).
+function viewLeaderboard() {
+  clearTimer();
+  if (state.advanceTimer) { clearTimeout(state.advanceTimer); state.advanceTimer = null; }
+  state.score = 0;
+  state.correct = 0;
+  state.round = [];
+  state.viewOnly = true;
+  endGame();
+}
+
+// Populate and show the About dialog (version + total question count).
+async function openAbout() {
+  const panel = $('#about-panel');
+  $('#about-count').textContent = '…';
+  panel.classList.remove('hidden');
+  try {
+    const all = await window.gameAPI.getQuestions('all');
+    $('#about-count').textContent = String(all.length);
+  } catch { $('#about-count').textContent = '—'; }
+  try {
+    const v = await window.appWindow?.getVersion?.();
+    if (v) $('#about-version').textContent = 'v' + v;
+  } catch { /* ignore */ }
+}
+
+// Select a mode in place: highlight it, load its bank, enable Start. Stays home.
 async function selectMode(mode) {
   state.mode = MODES[mode] ? mode : 'languages';
   localStorage.setItem('gtl_mode', state.mode);
-  renderMenuForMode();
-  showScreen('menu');
+  renderHome();
 
   const startBtn = $('#btn-start');
   startBtn.removeAttribute('data-i18n');
@@ -869,7 +953,8 @@ function boot() {
   const savedMode = localStorage.getItem('gtl_mode');
   if (savedMode && MODES[savedMode]) state.mode = savedMode;
   applyLanguage();
-  showScreen('modeselect');
+  showScreen('home');
+  selectMode(state.mode);
 }
 
 boot();

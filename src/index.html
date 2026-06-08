@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; connect-src 'self' https://*.supabase.co;" />
-  <title>Guess the Programming Language</title>
+  <title>Guess the Language</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -12,7 +12,7 @@
   <header class="titlebar" dir="ltr">
     <div class="titlebar-left">
       <span class="win-logo">▦</span>
-      <span class="titlebar-title" data-i18n="appTitle">Guess the Programming Language</span>
+      <span class="titlebar-title" data-i18n="appTitle">Guess the Language</span>
     </div>
     <div class="titlebar-controls">
       <button class="tb-btn" id="tb-min" title="Minimize">&#8211;</button>
@@ -23,15 +23,19 @@
 
   <main id="app">
 
-    <!-- ============ MODE SELECT SCREEN ============ -->
-    <section id="screen-modeselect" class="screen active">
-      <div class="modeselect-card">
+    <!-- ============ HOME SCREEN (mode + actions in one page) ============ -->
+    <section id="screen-home" class="screen active">
+      <div class="home-card">
+        <button class="corner-btn about-btn" id="btn-about" title="About">&#9432;</button>
         <div class="lang-switch">
           <button data-setlang="en">EN</button>
           <button data-setlang="ar">ع</button>
         </div>
-        <h1 class="ms-title" data-i18n="modeSelectTitle">Choose a game mode</h1>
-        <div class="mode-grid">
+
+        <h1 class="home-title"><span class="neon" data-i18n="appTitle">Guess the Language</span></h1>
+        <p class="home-sub" data-i18n="homeSub">Pick a mode and beat the timer</p>
+
+        <div class="mode-grid" id="mode-grid">
           <button class="mode-card" data-mode="languages">
             <div class="mode-icon">&#128187;</div>
             <div class="mode-name" data-i18n="modeLanguages">Programming Languages</div>
@@ -58,28 +62,13 @@
             <div class="mode-desc" data-i18n="modeAllDesc">Everything: all four banks together</div>
           </button>
         </div>
-      </div>
-    </section>
 
-    <!-- ============ MENU SCREEN ============ -->
-    <section id="screen-menu" class="screen">
-      <div class="menu-card">
-        <button class="modes-back" id="btn-modes">&#8592; <span data-i18n="changeMode">Modes</span></button>
-        <div class="lang-switch">
-          <button data-setlang="en">EN</button>
-          <button data-setlang="ar">ع</button>
-        </div>
-        <div class="menu-logo" id="menu-logo">&#128187;</div>
-        <h1 class="menu-title">
-          <span id="menu-title-1">Guess the</span><br>
-          <span class="neon" id="menu-title-2">Programming Language</span>
-        </h1>
-        <p class="menu-sub" id="menu-sub">Identify the language from the snippet before time runs out</p>
-
-        <div class="menu-buttons">
+        <div class="home-actions">
           <button class="btn btn-primary" id="btn-start" data-i18n="start">▶  Start</button>
-          <button class="btn btn-ghost" id="btn-friends" data-i18n="friends">👥  Friends &amp; Scores</button>
-          <button class="btn btn-ghost" id="btn-settings" data-i18n="settings">⚙  Settings</button>
+          <div class="home-actions-row">
+            <button class="btn btn-ghost" id="btn-friends" data-i18n="friends">👥  Friends &amp; Scores</button>
+            <button class="btn btn-ghost" id="btn-settings" data-i18n="settings">⚙  Settings</button>
+          </div>
         </div>
 
         <div class="menu-highscore">
@@ -99,7 +88,7 @@
         </label>
         <label class="setting-row">
           <span data-i18n="settingName">Your leaderboard name</span>
-          <input type="text" id="set-name" maxlength="24" placeholder="Player" />
+          <input type="text" id="set-name" maxlength="24" placeholder="User" />
         </label>
         <label class="setting-row">
           <span data-i18n="settingQuestions">Questions per round</span>
@@ -125,16 +114,37 @@
         </label>
         <button class="btn btn-primary btn-sm" id="set-close" data-i18n="save">Save &amp; Close</button>
       </div>
+
+      <!-- About popover -->
+      <div id="about-panel" class="popover hidden">
+        <h3 data-i18n="aboutTitle">About</h3>
+        <div class="about-logo">&#127918;</div>
+        <p class="about-app"><span data-i18n="appTitle">Guess the Language</span> <span id="about-version"></span></p>
+        <p class="about-desc" data-i18n="aboutDesc">A bilingual (EN / AR) IT quiz game: languages, cybersecurity, DevOps & networking.</p>
+        <p class="about-count"><span data-i18n="aboutQuestions">Questions:</span> <strong id="about-count">…</strong></p>
+        <div class="about-links">
+          <button class="about-link" data-url="https://github.com/mPhpMaster/guess-the-language">&#128187; GitHub</button>
+          <button class="about-link" data-url="https://discord.gg/BRgVPum">&#128172; Discord</button>
+          <button class="about-link" data-url="https://www.linkedin.com/in/mohammad-al-safadi/">&#128188; LinkedIn</button>
+        </div>
+        <button class="btn btn-primary btn-sm" id="about-close" data-i18n="close">Close</button>
+      </div>
     </section>
 
     <!-- ============ GAME SCREEN ============ -->
     <section id="screen-game" class="screen">
       <div class="game-topbar">
-        <div class="score-pill"><span data-i18n="score">Score:</span> <span id="game-score">0</span></div>
-        <div class="streak-pill hidden" id="streak-pill">🔥 <span id="streak-count">0</span> &nbsp;×1.5</div>
-        <div class="progress-pill">
-          <span data-i18n="question">Question</span>
-          <span id="q-current">1</span> / <span id="q-total">10</span>
+        <div class="topbar-left">
+          <div class="score-pill"><span data-i18n="score">Score:</span> <span id="game-score">0</span></div>
+          <div class="correct-pill">✓ <span id="correct-count">0</span>/<span id="correct-total">10</span></div>
+          <div class="streak-pill hidden" id="streak-pill">🔥 <span id="streak-count">0</span> &nbsp;×1.5</div>
+        </div>
+        <div class="topbar-right">
+          <div class="progress-pill">
+            <span data-i18n="question">Question</span>
+            <span id="q-current">1</span> / <span id="q-total">10</span>
+          </div>
+          <button class="end-btn" id="btn-end">&#10005; <span data-i18n="endQuiz">End</span></button>
         </div>
       </div>
 
@@ -167,6 +177,7 @@
       <div class="results-card">
         <div class="trophy">&#127942;</div>
         <h2 class="final-score"><span data-i18n="finalScore">Final Score:</span> <span id="final-score">0</span></h2>
+        <p class="results-correct"><span data-i18n="correctLabel">Correct:</span> <span id="results-correct">0</span>/<span id="results-total">0</span></p>
         <p class="results-sub" data-i18n="comparison">Friends Comparison</p>
         <div class="lb-note" id="lb-note"></div>
         <div class="leaderboard" id="leaderboard"><!-- rows injected --></div>
@@ -174,7 +185,7 @@
         <div class="results-buttons">
           <button class="btn btn-primary" id="btn-challenge" data-i18n="challenge">🔗  Challenge a friend</button>
           <button class="btn btn-accent" id="btn-replay" data-i18n="replay">🔄  Play again</button>
-          <button class="btn btn-ghost" id="btn-menu" data-i18n="backMenu">🏠  Main menu</button>
+          <button class="btn btn-ghost" id="btn-menu" data-i18n="backMenu">🏠  Home</button>
         </div>
       </div>
     </section>

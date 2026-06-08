@@ -362,3 +362,62 @@ body::before {
 .opt-btn:disabled { cursor: default; opacity: .95; }
 .opt-btn.correct { border-color: var(--good); box-shadow: 0 0 0 2px var(--good), 0 0 26px #25d07d77; }
 .opt-btn.wrong { border-color: var(--bad); box-shadow: 0 0 0 2px var(--bad), 0 0 26px #ff547077; }
+
+/* ===================== Unified home page ===================== */
+.home-card {
+  position: relative; width: min(1200px, 97%); text-align: center;
+  padding: 26px 30px 30px;
+  background: linear-gradient(180deg, #0d213aee, #0a1828ee);
+  border: 1px solid #ffffff14; border-radius: 22px;
+  box-shadow: 0 30px 80px #00000066, inset 0 1px 0 #ffffff10;
+}
+.home-title { font-size: 40px; line-height: 1.1; margin: 6px 0 4px; }
+.home-sub { color: var(--muted); font-size: 15px; margin-bottom: 22px; }
+.home-card .mode-grid { margin-bottom: 22px; }
+.mode-card.active { border-color: var(--neon); box-shadow: 0 0 0 2px var(--neon), 0 18px 50px #2ec5ff33; }
+.mode-card.active .mode-name { color: var(--neon); }
+
+.home-actions { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.home-actions #btn-start { width: min(460px, 90%); }
+.home-actions-row { display: flex; gap: 12px; width: min(460px, 90%); }
+.home-actions-row .btn { flex: 1; }
+
+.corner-btn {
+  position: absolute; top: 14px; inset-inline-start: 14px;
+  width: 34px; height: 34px; border-radius: 10px;
+  background: #ffffff0d; border: 1px solid #ffffff1f; color: #cfe0f2;
+  font-size: 16px; cursor: pointer; line-height: 1;
+}
+.corner-btn:hover { background: #ffffff1a; }
+
+/* ===================== Game topbar additions ===================== */
+.topbar-left, .topbar-right { display: flex; align-items: center; gap: 12px; }
+.correct-pill {
+  background: #0e2238cc; border: 1px solid #25d07d44; border-radius: 999px;
+  padding: 9px 16px; font-size: 16px; font-weight: 700; color: var(--good);
+}
+.end-btn {
+  background: #2a1320; border: 1px solid #ff547055; color: #ff9fb1;
+  font-size: 14px; font-weight: 700; padding: 9px 16px; border-radius: 999px; cursor: pointer;
+  transition: background .15s, box-shadow .2s;
+}
+.end-btn:hover { background: #3a1320; box-shadow: 0 0 18px #ff547033; }
+
+/* ===================== Results additions ===================== */
+.results-correct { color: var(--muted); font-size: 17px; font-weight: 600; margin: -2px 0 12px; }
+.results-correct.hidden, .final-score.hidden, #btn-challenge.hidden { display: none; }
+
+/* ===================== About dialog ===================== */
+.about-logo { font-size: 44px; text-align: center; filter: drop-shadow(0 0 14px #2ec5ff66); }
+.about-app { text-align: center; font-size: 18px; font-weight: 700; margin: 6px 0 2px; }
+.about-app #about-version { color: var(--muted); font-size: 13px; font-weight: 600; }
+.about-desc { text-align: center; color: var(--muted); font-size: 13px; line-height: 1.6; margin-bottom: 10px; }
+.about-count { text-align: center; font-size: 14px; margin-bottom: 14px; }
+.about-count strong { color: var(--neon); }
+.about-links { display: flex; gap: 10px; justify-content: center; margin-bottom: 16px; flex-wrap: wrap; }
+.about-link {
+  background: #ffffff0d; border: 1px solid #ffffff1f; color: #d8e6f6;
+  font-size: 14px; font-weight: 600; padding: 9px 14px; border-radius: 10px; cursor: pointer;
+  transition: background .15s, border-color .2s, transform .12s;
+}
+.about-link:hover { background: #ffffff1a; border-color: #2ec5ff66; transform: translateY(-2px); }

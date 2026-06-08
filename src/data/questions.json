@@ -1798,5 +1798,315 @@
       "en": "time.NewTicker is from Go's time package.",
       "ar": "time.NewTicker من حزمة time في Go."
     }
+  },
+  {
+    "id": 181,
+    "correctLanguage": "Python",
+    "difficulty": "easy",
+    "codeSnippet": "numbers = [1, 2, 3]\ntotal = sum(numbers)",
+    "explanation": {
+      "en": "sum() on a list with no semicolons is Python.",
+      "ar": "sum() على قائمة بلا فواصل منقوطة من بايثون."
+    }
+  },
+  {
+    "id": 182,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "import json\ndata = json.loads(raw)",
+    "explanation": {
+      "en": "import json and json.loads() are from Python's standard library.",
+      "ar": "import json و json.loads() من مكتبة بايثون القياسية."
+    }
+  },
+  {
+    "id": 183,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "print(f\"{value:.2f}\")",
+    "explanation": {
+      "en": "An f-string with a :.2f format spec is Python.",
+      "ar": "سلسلة f-string مع منسّق ‎:.2f‎ من بايثون."
+    }
+  },
+  {
+    "id": 184,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "from typing import Optional, List",
+    "explanation": {
+      "en": "from typing import ... type hints are Python.",
+      "ar": "from typing import ... لتلميحات الأنواع من بايثون."
+    }
+  },
+  {
+    "id": 185,
+    "correctLanguage": "Python",
+    "difficulty": "hard",
+    "codeSnippet": "match command:\n    case \"go\":\n        run()",
+    "explanation": {
+      "en": "match/case structural pattern matching is Python 3.10+.",
+      "ar": "مطابقة الأنماط match/case من بايثون 3.10+."
+    }
+  },
+  {
+    "id": 186,
+    "correctLanguage": "Python",
+    "difficulty": "hard",
+    "codeSnippet": "with contextlib.suppress(KeyError):\n    del d[key]",
+    "explanation": {
+      "en": "contextlib.suppress with 'with' is Python.",
+      "ar": "contextlib.suppress مع with من بايثون."
+    }
+  },
+  {
+    "id": 187,
+    "correctLanguage": "JavaScript",
+    "difficulty": "easy",
+    "codeSnippet": "const add = (a, b) => a + b;",
+    "explanation": {
+      "en": "A const arrow function is modern JavaScript.",
+      "ar": "دالة سهمية const من جافاسكربت الحديثة."
+    }
+  },
+  {
+    "id": 188,
+    "correctLanguage": "JavaScript",
+    "difficulty": "medium",
+    "codeSnippet": "const unique = new Set([1, 2, 2, 3]);",
+    "explanation": {
+      "en": "new Set([...]) is JavaScript.",
+      "ar": "new Set([...]) من جافاسكربت."
+    }
+  },
+  {
+    "id": 189,
+    "correctLanguage": "JavaScript",
+    "difficulty": "medium",
+    "codeSnippet": "nums.sort((a, b) => a - b);",
+    "explanation": {
+      "en": "Array.sort with a (a, b) => comparator is JavaScript.",
+      "ar": "Array.sort مع مقارن (a, b) => من جافاسكربت."
+    }
+  },
+  {
+    "id": 190,
+    "correctLanguage": "JavaScript",
+    "difficulty": "medium",
+    "codeSnippet": "if (Array.isArray(value)) {}",
+    "explanation": {
+      "en": "Array.isArray is a JavaScript API.",
+      "ar": "Array.isArray واجهة جافاسكربت."
+    }
+  },
+  {
+    "id": 191,
+    "correctLanguage": "JavaScript",
+    "difficulty": "hard",
+    "codeSnippet": "const { id, ...rest } = props;",
+    "explanation": {
+      "en": "Rest in object destructuring (...rest) is JavaScript.",
+      "ar": "بقية التفكيك (...rest) من جافاسكربت."
+    }
+  },
+  {
+    "id": 192,
+    "correctLanguage": "JavaScript",
+    "difficulty": "hard",
+    "codeSnippet": "el.classList.toggle('active');",
+    "explanation": {
+      "en": "element.classList.toggle is a JavaScript DOM API.",
+      "ar": "element.classList.toggle من واجهات DOM في جافاسكربت."
+    }
+  },
+  {
+    "id": 193,
+    "correctLanguage": "C++",
+    "difficulty": "easy",
+    "codeSnippet": "#include <map>\nstd::map<int, int> m;",
+    "explanation": {
+      "en": "#include <map> and std::map are C++.",
+      "ar": "‎#include <map> و std::map من ++C."
+    }
+  },
+  {
+    "id": 194,
+    "correctLanguage": "C++",
+    "difficulty": "medium",
+    "codeSnippet": "std::cout << std::setw(5) << x;",
+    "explanation": {
+      "en": "std::setw from <iomanip> with std::cout is C++.",
+      "ar": "std::setw من iomanip مع std::cout من ++C."
+    }
+  },
+  {
+    "id": 195,
+    "correctLanguage": "C++",
+    "difficulty": "medium",
+    "codeSnippet": "auto it = std::find(v.begin(), v.end(), x);",
+    "explanation": {
+      "en": "std::find with begin()/end() is C++.",
+      "ar": "std::find مع begin()/end() من ++C."
+    }
+  },
+  {
+    "id": 196,
+    "correctLanguage": "C++",
+    "difficulty": "hard",
+    "codeSnippet": "std::thread t(worker);\nt.join();",
+    "explanation": {
+      "en": "std::thread with join() is C++.",
+      "ar": "std::thread مع join() من ++C."
+    }
+  },
+  {
+    "id": 197,
+    "correctLanguage": "C++",
+    "difficulty": "hard",
+    "codeSnippet": "std::lock_guard<std::mutex> lock(mtx);",
+    "explanation": {
+      "en": "std::lock_guard<std::mutex> is C++.",
+      "ar": "std::lock_guard<std::mutex> من ++C."
+    }
+  },
+  {
+    "id": 198,
+    "correctLanguage": "Java",
+    "difficulty": "easy",
+    "codeSnippet": "int sum = a + b;\nSystem.out.println(sum);",
+    "explanation": {
+      "en": "System.out.println with typed variables is Java.",
+      "ar": "System.out.println مع متغيرات موسومة من جافا."
+    }
+  },
+  {
+    "id": 199,
+    "correctLanguage": "Java",
+    "difficulty": "medium",
+    "codeSnippet": "List<String> list = List.of(\"a\", \"b\");",
+    "explanation": {
+      "en": "List.of(...) factory method is Java 9+.",
+      "ar": "التابع المصنع List.of(...) من جافا 9+."
+    }
+  },
+  {
+    "id": 200,
+    "correctLanguage": "Java",
+    "difficulty": "medium",
+    "codeSnippet": "int n = Integer.parseInt(text);",
+    "explanation": {
+      "en": "Integer.parseInt is Java.",
+      "ar": "Integer.parseInt من جافا."
+    }
+  },
+  {
+    "id": 201,
+    "correctLanguage": "Java",
+    "difficulty": "hard",
+    "codeSnippet": "try (var in = open()) {\n}",
+    "explanation": {
+      "en": "try-with-resources (try (...)) is Java.",
+      "ar": "try مع الموارد (try (...)) من جافا."
+    }
+  },
+  {
+    "id": 202,
+    "correctLanguage": "Java",
+    "difficulty": "hard",
+    "codeSnippet": "IntStream.range(0, 10).forEach(System.out::println);",
+    "explanation": {
+      "en": "IntStream.range with a method reference is Java.",
+      "ar": "IntStream.range مع مرجع تابع من جافا."
+    }
+  },
+  {
+    "id": 203,
+    "correctLanguage": "Rust",
+    "difficulty": "easy",
+    "codeSnippet": "let v = vec![0; 5];",
+    "explanation": {
+      "en": "vec![value; count] is a Rust macro.",
+      "ar": "ماكرو ![vec![0; 5 من رست."
+    }
+  },
+  {
+    "id": 204,
+    "correctLanguage": "Rust",
+    "difficulty": "medium",
+    "codeSnippet": "let n = s.parse::<i32>().unwrap();",
+    "explanation": {
+      "en": "Turbofish parse::<i32>() with unwrap() is Rust.",
+      "ar": "parse::<i32>() (turbofish) مع unwrap() من رست."
+    }
+  },
+  {
+    "id": 205,
+    "correctLanguage": "Rust",
+    "difficulty": "medium",
+    "codeSnippet": "#[derive(Clone, Debug)]\nstruct User;",
+    "explanation": {
+      "en": "The #[derive(...)] attribute is Rust.",
+      "ar": "السمة #[derive(...)] من رست."
+    }
+  },
+  {
+    "id": 206,
+    "correctLanguage": "Rust",
+    "difficulty": "hard",
+    "codeSnippet": "let mut s = String::with_capacity(16);",
+    "explanation": {
+      "en": "String::with_capacity and let mut are Rust.",
+      "ar": "String::with_capacity و let mut من رست."
+    }
+  },
+  {
+    "id": 207,
+    "correctLanguage": "Rust",
+    "difficulty": "hard",
+    "codeSnippet": "let n = arr.iter().filter(|&&x| x > 0).count();",
+    "explanation": {
+      "en": "iter().filter(|&&x| ...).count() is Rust.",
+      "ar": "iter().filter(|&&x| ...).count() من رست."
+    }
+  },
+  {
+    "id": 208,
+    "correctLanguage": "Go",
+    "difficulty": "easy",
+    "codeSnippet": "s := []string{\"a\", \"b\"}",
+    "explanation": {
+      "en": "[]string{...} slice literal with := is Go.",
+      "ar": "شريحة []string{...} مع =: من Go."
+    }
+  },
+  {
+    "id": 209,
+    "correctLanguage": "Go",
+    "difficulty": "medium",
+    "codeSnippet": "t := time.Now()",
+    "explanation": {
+      "en": "time.Now() with := is Go.",
+      "ar": "time.Now() مع =: من Go."
+    }
+  },
+  {
+    "id": 210,
+    "correctLanguage": "Go",
+    "difficulty": "medium",
+    "codeSnippet": "ch <- value",
+    "explanation": {
+      "en": "Sending on a channel (ch <- value) is Go.",
+      "ar": "الإرسال عبر قناة (ch <- value) من Go."
+    }
+  },
+  {
+    "id": 211,
+    "correctLanguage": "Go",
+    "difficulty": "hard",
+    "codeSnippet": "b, err := json.Marshal(data)",
+    "explanation": {
+      "en": "json.Marshal with multiple return values is Go.",
+      "ar": "json.Marshal مع إرجاع متعدد من Go."
+    }
   }
 ]
