@@ -838,5 +838,824 @@
       "en": "Least privilege limits each account to the minimum access required.",
       "ar": "يقصُر مبدأ أقل امتياز كل حساب على الحد الأدنى من الوصول اللازم."
     }
+  },
+  {
+    "id": 41,
+    "category": "nmap",
+    "difficulty": "medium",
+    "codeSnippet": "nmap -Pn 10.0.0.5",
+    "question": {
+      "en": "What does the -Pn flag do?",
+      "ar": "ماذا يفعل الخيار Pn-؟"
+    },
+    "options": [
+      "Skip host discovery (treat host as online)",
+      "Scan all ports",
+      "Disable DNS resolution",
+      "Ping only"
+    ],
+    "answer": "Skip host discovery (treat host as online)",
+    "explanation": {
+      "en": "-Pn skips the ping/host-discovery phase and scans as if the host is up.",
+      "ar": "يتخطّى Pn- مرحلة اكتشاف المضيف ويفحص كأنه متصل."
+    }
+  },
+  {
+    "id": 42,
+    "category": "nmap",
+    "difficulty": "medium",
+    "codeSnippet": "nmap -sn 10.0.0.0/24",
+    "question": {
+      "en": "What does -sn perform?",
+      "ar": "ماذا يؤدي sn-؟"
+    },
+    "options": [
+      "Host discovery only (no port scan)",
+      "Full port scan",
+      "UDP scan",
+      "Version detection"
+    ],
+    "answer": "Host discovery only (no port scan)",
+    "explanation": {
+      "en": "-sn is a ping sweep: it finds live hosts without scanning ports.",
+      "ar": "sn- مسح ping: يكتشف المضيفين الأحياء دون فحص المنافذ."
+    }
+  },
+  {
+    "id": 43,
+    "category": "nmap",
+    "difficulty": "medium",
+    "codeSnippet": "nmap -T4 10.0.0.5",
+    "question": {
+      "en": "What does -T4 control?",
+      "ar": "ماذا يضبط T4-؟"
+    },
+    "options": [
+      "Timing/speed template",
+      "Thread count only",
+      "Target count",
+      "Output format"
+    ],
+    "answer": "Timing/speed template",
+    "explanation": {
+      "en": "-T0..-T5 set timing templates; -T4 is fast/aggressive.",
+      "ar": "تضبط T0..T5- قوالب التوقيت؛ وT4- سريع/عدواني."
+    }
+  },
+  {
+    "id": 44,
+    "category": "nmap",
+    "difficulty": "easy",
+    "codeSnippet": "nmap -F 10.0.0.5",
+    "question": {
+      "en": "What does -F do?",
+      "ar": "ماذا يفعل F-؟"
+    },
+    "options": [
+      "Fast scan (top 100 ports)",
+      "Full 65535 ports",
+      "Force scan",
+      "Firewall evasion"
+    ],
+    "answer": "Fast scan (top 100 ports)",
+    "explanation": {
+      "en": "-F scans only the 100 most common ports.",
+      "ar": "يفحص F- أكثر 100 منفذ شيوعاً فقط."
+    }
+  },
+  {
+    "id": 45,
+    "category": "nmap",
+    "difficulty": "easy",
+    "codeSnippet": "nmap -oN scan.txt 10.0.0.5",
+    "question": {
+      "en": "What does -oN do?",
+      "ar": "ماذا يفعل oN-؟"
+    },
+    "options": [
+      "Save normal output to a file",
+      "Scan only open ports",
+      "Disable output",
+      "Run NSE scripts"
+    ],
+    "answer": "Save normal output to a file",
+    "explanation": {
+      "en": "-oN writes results in normal format to the given file.",
+      "ar": "يكتب oN- النتائج بصيغة عادية إلى الملف المحدد."
+    }
+  },
+  {
+    "id": 46,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "nc -lvnp 4444",
+    "question": {
+      "en": "What is netcat (nc) doing here?",
+      "ar": "ماذا يفعل netcat هنا؟"
+    },
+    "options": [
+      "Listening for a reverse shell",
+      "Cracking hashes",
+      "Scanning ports",
+      "Sniffing Wi-Fi"
+    ],
+    "answer": "Listening for a reverse shell",
+    "explanation": {
+      "en": "nc -lvnp opens a listener, commonly to catch a reverse shell.",
+      "ar": "يفتح nc -lvnp مستمعاً، غالباً لاستقبال reverse shell."
+    }
+  },
+  {
+    "id": 47,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "gobuster dir -u http://site -w words.txt",
+    "question": {
+      "en": "What does gobuster do here?",
+      "ar": "ماذا يفعل gobuster هنا؟"
+    },
+    "options": [
+      "Brute-force directories/files",
+      "Crack passwords",
+      "Capture packets",
+      "Exploit SMB"
+    ],
+    "answer": "Brute-force directories/files",
+    "explanation": {
+      "en": "gobuster dir brute-forces web paths from a wordlist.",
+      "ar": "يخمّن gobuster dir مسارات الويب من قائمة كلمات."
+    }
+  },
+  {
+    "id": 48,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which tool scans web servers for known vulnerabilities/misconfigurations?",
+      "ar": "أي أداة تفحص خوادم الويب بحثاً عن ثغرات وأخطاء إعداد معروفة؟"
+    },
+    "options": [
+      "Nikto",
+      "Hydra",
+      "John the Ripper",
+      "Aircrack-ng"
+    ],
+    "answer": "Nikto",
+    "explanation": {
+      "en": "Nikto scans web servers for thousands of known issues.",
+      "ar": "يفحص Nikto خوادم الويب بحثاً عن آلاف المشاكل المعروفة."
+    }
+  },
+  {
+    "id": 49,
+    "category": "tools",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Mimikatz is primarily used to?",
+      "ar": "فيمَ يُستخدم Mimikatz أساساً؟"
+    },
+    "options": [
+      "Extract Windows credentials from memory",
+      "Scan ports",
+      "Crack Wi-Fi",
+      "Fuzz web apps"
+    ],
+    "answer": "Extract Windows credentials from memory",
+    "explanation": {
+      "en": "Mimikatz dumps plaintext passwords, hashes and tickets from memory.",
+      "ar": "يستخرج Mimikatz كلمات المرور والتجزئات والتذاكر من الذاكرة."
+    }
+  },
+  {
+    "id": 50,
+    "category": "tools",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "BloodHound is used to?",
+      "ar": "فيمَ يُستخدم BloodHound؟"
+    },
+    "options": [
+      "Map Active Directory attack paths",
+      "Capture packets",
+      "Brute-force logins",
+      "Disassemble binaries"
+    ],
+    "answer": "Map Active Directory attack paths",
+    "explanation": {
+      "en": "BloodHound graphs AD relationships to find privilege-escalation paths.",
+      "ar": "يرسم BloodHound علاقات Active Directory لإيجاد مسارات تصعيد الصلاحيات."
+    }
+  },
+  {
+    "id": 51,
+    "category": "tools",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Responder is used to?",
+      "ar": "فيمَ يُستخدم Responder؟"
+    },
+    "options": [
+      "Poison LLMNR/NBT-NS to capture hashes",
+      "Scan ports",
+      "Crack hashes",
+      "Proxy web traffic"
+    ],
+    "answer": "Poison LLMNR/NBT-NS to capture hashes",
+    "explanation": {
+      "en": "Responder spoofs LLMNR/NBT-NS responses to capture NetNTLM hashes.",
+      "ar": "يزوّر Responder ردود LLMNR/NBT-NS لالتقاط تجزئات NetNTLM."
+    }
+  },
+  {
+    "id": 52,
+    "category": "tools",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which is a commercial command-and-control / adversary-simulation framework?",
+      "ar": "أيّها إطار قيادة وتحكم / محاكاة خصوم تجاري؟"
+    },
+    "options": [
+      "Cobalt Strike",
+      "Wireshark",
+      "Nmap",
+      "sqlmap"
+    ],
+    "answer": "Cobalt Strike",
+    "explanation": {
+      "en": "Cobalt Strike is a commercial C2 and red-team platform.",
+      "ar": "Cobalt Strike منصة قيادة وتحكم واختبار أحمر تجارية."
+    }
+  },
+  {
+    "id": 53,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Ghidra and IDA are tools for?",
+      "ar": "Ghidra و IDA أدوات لـ؟"
+    },
+    "options": [
+      "Reverse engineering / disassembly",
+      "Port scanning",
+      "Packet capture",
+      "Password cracking"
+    ],
+    "answer": "Reverse engineering / disassembly",
+    "explanation": {
+      "en": "Ghidra and IDA disassemble/decompile binaries for analysis.",
+      "ar": "يفكّك Ghidra و IDA الملفات الثنائية لتحليلها."
+    }
+  },
+  {
+    "id": 54,
+    "category": "tools",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Volatility is used for?",
+      "ar": "فيمَ يُستخدم Volatility؟"
+    },
+    "options": [
+      "Memory (RAM) forensics",
+      "Disk imaging",
+      "Port scanning",
+      "Web fuzzing"
+    ],
+    "answer": "Memory (RAM) forensics",
+    "explanation": {
+      "en": "Volatility analyzes RAM dumps to investigate compromises.",
+      "ar": "يحلّل Volatility صور الذاكرة للتحقيق في الاختراقات."
+    }
+  },
+  {
+    "id": 55,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which tool enumerates SMB shares and users on Windows?",
+      "ar": "أي أداة تعدّد مشاركات ومستخدمي SMB على ويندوز؟"
+    },
+    "options": [
+      "enum4linux",
+      "hashcat",
+      "Aircrack-ng",
+      "Volatility"
+    ],
+    "answer": "enum4linux",
+    "explanation": {
+      "en": "enum4linux enumerates SMB shares, users and policies.",
+      "ar": "يعدّد enum4linux مشاركات ومستخدمي وسياسات SMB."
+    }
+  },
+  {
+    "id": 56,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Burp Suite's 'Intruder' is used for?",
+      "ar": "فيمَ يُستخدم Intruder في Burp Suite؟"
+    },
+    "options": [
+      "Automated/customized request attacks (fuzzing, brute force)",
+      "Disk forensics",
+      "Port scanning",
+      "Packet capture"
+    ],
+    "answer": "Automated/customized request attacks (fuzzing, brute force)",
+    "explanation": {
+      "en": "Intruder automates customized HTTP request attacks.",
+      "ar": "يؤتمت Intruder هجمات طلبات HTTP المخصّصة."
+    }
+  },
+  {
+    "id": 57,
+    "category": "malware",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Malware that secretly collects a user's information/activity is?",
+      "ar": "البرمجية التي تجمع معلومات/نشاط المستخدم سراً تُسمى؟"
+    },
+    "options": [
+      "Spyware",
+      "Adware",
+      "Worm",
+      "Rootkit"
+    ],
+    "answer": "Spyware",
+    "explanation": {
+      "en": "Spyware covertly gathers information about the user.",
+      "ar": "تجمع برامج التجسس معلومات المستخدم خفية."
+    }
+  },
+  {
+    "id": 58,
+    "category": "malware",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Malware that gives an attacker full remote control of a host is a?",
+      "ar": "البرمجية التي تمنح المهاجم تحكّماً كاملاً عن بُعد هي؟"
+    },
+    "options": [
+      "RAT (Remote Access Trojan)",
+      "Adware",
+      "Worm",
+      "Keylogger"
+    ],
+    "answer": "RAT (Remote Access Trojan)",
+    "explanation": {
+      "en": "A RAT gives covert, full remote control of the victim machine.",
+      "ar": "يمنح RAT تحكّماً كاملاً خفياً بجهاز الضحية."
+    }
+  },
+  {
+    "id": 59,
+    "category": "malware",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Malware that runs entirely in memory, leaving little on disk, is?",
+      "ar": "البرمجية التي تعمل في الذاكرة دون أثر يُذكر على القرص هي؟"
+    },
+    "options": [
+      "Fileless malware",
+      "Macro virus",
+      "Boot-sector virus",
+      "Adware"
+    ],
+    "answer": "Fileless malware",
+    "explanation": {
+      "en": "Fileless malware lives in memory to evade file-based detection.",
+      "ar": "تعيش البرمجيات عديمة الملفات في الذاكرة لتفادي الكشف."
+    }
+  },
+  {
+    "id": 60,
+    "category": "malware",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Malware whose only goal is to destroy data is a?",
+      "ar": "البرمجية التي هدفها الوحيد تدمير البيانات هي؟"
+    },
+    "options": [
+      "Wiper",
+      "Ransomware",
+      "Spyware",
+      "Adware"
+    ],
+    "answer": "Wiper",
+    "explanation": {
+      "en": "A wiper irreversibly destroys data (no ransom involved).",
+      "ar": "يُدمّر الـ wiper البيانات نهائياً دون فدية."
+    }
+  },
+  {
+    "id": 61,
+    "category": "malware",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "A small program that downloads and installs other malware is a?",
+      "ar": "البرنامج الصغير الذي ينزّل ويثبّت برمجيات أخرى هو؟"
+    },
+    "options": [
+      "Dropper",
+      "Honeypot",
+      "Sandbox",
+      "Proxy"
+    ],
+    "answer": "Dropper",
+    "explanation": {
+      "en": "A dropper delivers and installs additional malware payloads.",
+      "ar": "يوصل الـ dropper ويثبّت حمولات خبيثة إضافية."
+    }
+  },
+  {
+    "id": 62,
+    "category": "malware",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Hijacking a victim's resources to secretly mine cryptocurrency is?",
+      "ar": "اختطاف موارد الضحية لتعدين العملات سراً هو؟"
+    },
+    "options": [
+      "Cryptojacking",
+      "Phishing",
+      "Sniffing",
+      "Spoofing"
+    ],
+    "answer": "Cryptojacking",
+    "explanation": {
+      "en": "Cryptojacking abuses a victim's CPU/GPU to mine cryptocurrency.",
+      "ar": "يستغل Cryptojacking معالج الضحية لتعدين العملات."
+    }
+  },
+  {
+    "id": 63,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Gaining higher permissions than originally granted is?",
+      "ar": "الحصول على صلاحيات أعلى مما مُنح أصلاً هو؟"
+    },
+    "options": [
+      "Privilege escalation",
+      "Lateral movement",
+      "Enumeration",
+      "Pivoting"
+    ],
+    "answer": "Privilege escalation",
+    "explanation": {
+      "en": "Privilege escalation raises an attacker's access level.",
+      "ar": "يرفع تصعيد الامتيازات مستوى وصول المهاجم."
+    }
+  },
+  {
+    "id": 64,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Moving from one compromised host to others on the network is?",
+      "ar": "الانتقال من مضيف مخترق إلى آخر في الشبكة هو؟"
+    },
+    "options": [
+      "Lateral movement",
+      "Privilege escalation",
+      "Reconnaissance",
+      "Exfiltration"
+    ],
+    "answer": "Lateral movement",
+    "explanation": {
+      "en": "Lateral movement spreads access across the network.",
+      "ar": "تنشر الحركة الجانبية الوصول عبر الشبكة."
+    }
+  },
+  {
+    "id": 65,
+    "category": "concepts",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Writing past the end of a memory buffer to corrupt memory is a?",
+      "ar": "الكتابة بعد نهاية مخزن في الذاكرة لإفسادها هو؟"
+    },
+    "options": [
+      "Buffer overflow",
+      "Race condition",
+      "SQL injection",
+      "XSS"
+    ],
+    "answer": "Buffer overflow",
+    "explanation": {
+      "en": "A buffer overflow overwrites adjacent memory, often enabling code execution.",
+      "ar": "يُفسد تجاوز سعة المخزن الذاكرة المجاورة وقد يسمح بتنفيذ شيفرة."
+    }
+  },
+  {
+    "id": 66,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Using ../ sequences to read files outside the web root is?",
+      "ar": "استخدام ../ لقراءة ملفات خارج جذر الموقع هو؟"
+    },
+    "options": [
+      "Directory (path) traversal",
+      "XSS",
+      "CSRF",
+      "Clickjacking"
+    ],
+    "answer": "Directory (path) traversal",
+    "explanation": {
+      "en": "Path traversal escapes the intended directory to read arbitrary files.",
+      "ar": "يتجاوز اجتياز المسارات المجلد المقصود لقراءة ملفات عشوائية."
+    }
+  },
+  {
+    "id": 67,
+    "category": "concepts",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Injecting operating-system commands through application input is?",
+      "ar": "حقن أوامر نظام التشغيل عبر مدخلات التطبيق هو؟"
+    },
+    "options": [
+      "Command injection",
+      "SQL injection",
+      "XSS",
+      "SSRF"
+    ],
+    "answer": "Command injection",
+    "explanation": {
+      "en": "Command injection runs OS commands via unsanitized input.",
+      "ar": "ينفّذ حقن الأوامر أوامر النظام عبر مدخلات غير مُنقّاة."
+    }
+  },
+  {
+    "id": 68,
+    "category": "concepts",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Accessing another user's record by changing an id parameter is?",
+      "ar": "الوصول لسجل مستخدم آخر بتغيير معرّف هو؟"
+    },
+    "options": [
+      "IDOR",
+      "XSS",
+      "CSRF",
+      "SSRF"
+    ],
+    "answer": "IDOR",
+    "explanation": {
+      "en": "IDOR exposes objects directly by a guessable reference with no access check.",
+      "ar": "يكشف IDOR الكائنات عبر معرّف يمكن تخمينه دون تحقق من الصلاحية."
+    }
+  },
+  {
+    "id": 69,
+    "category": "concepts",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Forcing a server to make requests to internal resources is?",
+      "ar": "إجبار الخادم على إرسال طلبات لموارد داخلية هو؟"
+    },
+    "options": [
+      "SSRF",
+      "CSRF",
+      "XSS",
+      "RCE"
+    ],
+    "answer": "SSRF",
+    "explanation": {
+      "en": "SSRF makes the server fetch attacker-chosen (often internal) URLs.",
+      "ar": "يجعل SSRF الخادم يجلب روابط يحددها المهاجم (غالباً داخلية)."
+    }
+  },
+  {
+    "id": 70,
+    "category": "concepts",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "The C-I-A triad stands for?",
+      "ar": "ماذا يعني ثالوث C-I-A؟"
+    },
+    "options": [
+      "Confidentiality, Integrity, Availability",
+      "Control, Identity, Access",
+      "Cipher, Integrity, Auth",
+      "Confidentiality, Identity, Audit"
+    ],
+    "answer": "Confidentiality, Integrity, Availability",
+    "explanation": {
+      "en": "The CIA triad is the core model of information security.",
+      "ar": "ثالوث CIA هو النموذج الأساسي لأمن المعلومات."
+    }
+  },
+  {
+    "id": 71,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Adding random data to a password before hashing is called?",
+      "ar": "إضافة بيانات عشوائية لكلمة المرور قبل التجزئة تُسمى؟"
+    },
+    "options": [
+      "Salting",
+      "Encoding",
+      "Encrypting",
+      "Compressing"
+    ],
+    "answer": "Salting",
+    "explanation": {
+      "en": "A salt makes identical passwords hash differently, defeating rainbow tables.",
+      "ar": "يجعل التمليح كلمات المرور المتطابقة تُجزّأ مختلفة، ويُبطل جداول قوس قزح."
+    }
+  },
+  {
+    "id": 72,
+    "category": "concepts",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which uses a public/private key pair?",
+      "ar": "أيّها يستخدم زوج مفاتيح عام/خاص؟"
+    },
+    "options": [
+      "Asymmetric encryption (RSA)",
+      "Symmetric encryption (AES)",
+      "Hashing (SHA-256)",
+      "Base64 encoding"
+    ],
+    "answer": "Asymmetric encryption (RSA)",
+    "explanation": {
+      "en": "Asymmetric crypto (e.g. RSA) uses a public and a private key.",
+      "ar": "يستخدم التشفير غير المتماثل (مثل RSA) مفتاحاً عاماً وآخر خاصاً."
+    }
+  },
+  {
+    "id": 73,
+    "category": "concepts",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which port does HTTPS use by default?",
+      "ar": "أي منفذ يستخدمه HTTPS افتراضياً؟"
+    },
+    "options": [
+      "443",
+      "80",
+      "22",
+      "3389"
+    ],
+    "answer": "443",
+    "explanation": {
+      "en": "HTTPS uses TCP port 443.",
+      "ar": "يستخدم HTTPS المنفذ 443."
+    }
+  },
+  {
+    "id": 74,
+    "category": "concepts",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which port does SSH use by default?",
+      "ar": "أي منفذ يستخدمه SSH افتراضياً؟"
+    },
+    "options": [
+      "22",
+      "23",
+      "21",
+      "25"
+    ],
+    "answer": "22",
+    "explanation": {
+      "en": "SSH listens on TCP port 22.",
+      "ar": "يستمع SSH على المنفذ 22."
+    }
+  },
+  {
+    "id": 75,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which port does RDP use by default?",
+      "ar": "أي منفذ يستخدمه RDP افتراضياً؟"
+    },
+    "options": [
+      "3389",
+      "3306",
+      "5900",
+      "8080"
+    ],
+    "answer": "3389",
+    "explanation": {
+      "en": "Remote Desktop (RDP) uses TCP port 3389.",
+      "ar": "يستخدم سطح المكتب البعيد RDP المنفذ 3389."
+    }
+  },
+  {
+    "id": 76,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which port does DNS primarily use?",
+      "ar": "أي منفذ يستخدمه DNS أساساً؟"
+    },
+    "options": [
+      "53",
+      "80",
+      "443",
+      "123"
+    ],
+    "answer": "53",
+    "explanation": {
+      "en": "DNS primarily uses port 53 (UDP/TCP).",
+      "ar": "يستخدم DNS المنفذ 53 أساساً."
+    }
+  },
+  {
+    "id": 77,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "SMB (exploited by EternalBlue) commonly runs on which port?",
+      "ar": "على أي منفذ يعمل SMB (الذي استغلّه EternalBlue) عادةً؟"
+    },
+    "options": [
+      "445",
+      "21",
+      "110",
+      "389"
+    ],
+    "answer": "445",
+    "explanation": {
+      "en": "Modern SMB runs on TCP port 445.",
+      "ar": "يعمل SMB الحديث على المنفذ 445."
+    }
+  },
+  {
+    "id": 78,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "An IPS differs from an IDS because it?",
+      "ar": "كيف يختلف IPS عن IDS؟"
+    },
+    "options": [
+      "Actively blocks/prevents threats",
+      "Only logs traffic",
+      "Encrypts traffic",
+      "Stores backups"
+    ],
+    "answer": "Actively blocks/prevents threats",
+    "explanation": {
+      "en": "An IDS only detects/alerts; an IPS can block traffic inline.",
+      "ar": "يكتشف IDS وينبّه فقط، بينما يستطيع IPS حظر الحركة."
+    }
+  },
+  {
+    "id": 79,
+    "category": "tools",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "A decoy system designed to lure and study attackers is a?",
+      "ar": "النظام الفخّ المصمّم لجذب المهاجمين ودراستهم هو؟"
+    },
+    "options": [
+      "Honeypot",
+      "Firewall",
+      "Sandbox",
+      "Proxy"
+    ],
+    "answer": "Honeypot",
+    "explanation": {
+      "en": "A honeypot is a decoy that attracts and observes attackers.",
+      "ar": "Honeypot نظام خداع يجذب المهاجمين ويراقبهم."
+    }
   }
 ]

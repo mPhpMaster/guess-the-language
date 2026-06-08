@@ -68,6 +68,8 @@ const I18N = {
     modeLanguagesDesc: 'Guess the language from a code snippet',
     modeCyber: 'Cybersecurity',
     modeCyberDesc: 'Tools, malware, Nmap, Metasploit & more',
+    modeAll: 'All (Mixed)',
+    modeAllDesc: 'Everything: languages + cybersecurity',
     changeMode: 'Modes',
     diff: { easy: 'Easy', medium: 'Medium', hard: 'Hard' }
   },
@@ -111,6 +113,8 @@ const I18N = {
     modeLanguagesDesc: 'خمّن اللغة من مقتطف كود',
     modeCyber: 'الأمن السيبراني',
     modeCyberDesc: 'أدوات وبرمجيات خبيثة وNmap وMetasploit والمزيد',
+    modeAll: 'الكل (مدمج)',
+    modeAllDesc: 'كل شيء: لغات البرمجة + الأمن السيبراني',
     changeMode: 'الأنماط',
     diff: { easy: 'سهل', medium: 'متوسط', hard: 'صعب' }
   }
@@ -134,6 +138,15 @@ const MODES = {
     desc: {
       en: 'Identify tools, malware, Nmap, Metasploit & more',
       ar: 'تعرّف على الأدوات والبرمجيات الخبيثة وNmap وMetasploit والمزيد'
+    }
+  },
+  all: {
+    key: 'all',
+    icon: '🎲',
+    title: { en: ['All', 'Mixed Quiz'], ar: ['الكل', 'اختبار شامل'] },
+    desc: {
+      en: 'Everything mixed: programming languages + cybersecurity',
+      ar: 'كل شيء مدمج: لغات البرمجة + الأمن السيبراني'
     }
   }
 };
@@ -386,9 +399,11 @@ function startGame() {
   nextQuestion();
 }
 
-// Turn a raw question (either mode) into a uniform shape for rendering.
+// Turn a raw question into a uniform shape for rendering. The type is detected
+// per-question (by its fields) so the "All" mode can mix both kinds in a round.
 function normalizeQuestion(q) {
-  if (state.mode === 'cybersecurity') {
+  const isCyber = Array.isArray(q.options) && q.answer != null;
+  if (isCyber) {
     const hasCmd = !!(q.codeSnippet && q.codeSnippet.trim().length);
     return {
       style: 'cyber',

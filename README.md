@@ -7,12 +7,14 @@ pick one of two quiz modes, then race the timer — with scoring, streaks, and a
 per-mode friends/global leaderboard. The entire UI is available in **English and
 Arabic** (with full RTL layout), switchable from the menu.
 
-### Two game modes
+### Three game modes
 - **💻 Programming Languages** — a code snippet appears; guess the language
   (Python, JavaScript, C++, Java, Rust, Go).
 - **🛡️ Cybersecurity** — multiple-choice questions on tools, malware, Nmap (and
-  its flags), Metasploit, pentest tools (Wireshark, Burp, sqlmap, John, Hydra…)
-  and security concepts.
+  its flags), Metasploit, pentest tools (Wireshark, Burp, sqlmap, John, Hydra…),
+  ports/protocols and security concepts.
+- **🎲 All (Mixed)** — both banks shuffled together; each question renders with
+  its own answer style.
 
 ![Mode select](screenshots/8-modeselect.png)
 
@@ -96,7 +98,7 @@ prog-game2/
 │  ├─ supabase-config.example.js # config template
 │  └─ data/
 │     ├─ questions.json          # languages bank (180 questions)
-│     └─ questions-cyber.json    # cybersecurity bank (40 questions)
+│     └─ questions-cyber.json    # cybersecurity bank (79 questions)
 └─ test/
    ├─ smoke-main.js             # languages mode end-to-end (14 checks)
    ├─ smoke-cyber.js            # cybersecurity mode (12 checks)
@@ -121,7 +123,7 @@ languages and three difficulty levels:
 }
 ```
 
-**Cybersecurity** — `src/data/questions-cyber.json` holds **40 questions**
+**Cybersecurity** — `src/data/questions-cyber.json` holds **79 questions**
 (categories: nmap, malware, metasploit, tools, concepts). Each has its own
 options:
 

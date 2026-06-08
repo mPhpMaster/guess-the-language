@@ -55,11 +55,16 @@ const QUESTION_FILES = {
   languages: 'questions.json',
   cybersecurity: 'questions-cyber.json'
 };
-ipcMain.handle('questions:get', async (_event, mode) => {
-  const fileName = QUESTION_FILES[mode] || QUESTION_FILES.languages;
-  const file = path.join(__dirname, 'data', fileName);
-  const raw = await fs.promises.readFile(file, 'utf-8');
+async function readBank(fileName) {
+  const raw = await fs.promises.readFile(path.join(__dirname, 'data', fileName), 'utf-8');
   return JSON.parse(raw);
+}
+ipcMain.handle('questions:get', async (_event, mode) => {
+  if (mode === 'all') {
+    const banks = await Promise.all(Object.values(QUESTION_FILES).map(readBank));
+    return banks.flat();
+  }
+  return readBank(QUESTION_FILES[mode] || QUESTION_FILES.languages);
 });
 
 app.whenReady().then(() => {

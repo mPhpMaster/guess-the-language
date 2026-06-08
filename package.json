@@ -1,38 +1,38 @@
 {
-  "name": "guess-the-language",
-  "version": "2.1.0",
-  "description": "خمن لغة البرمجة — Guess the Programming Language, an interactive Windows desktop game.",
-  "main": "src/main.js",
-  "author": "shureapp",
-  "license": "MIT",
-  "scripts": {
-    "start": "electron .",
-    "dist": "electron-builder --win",
-    "pack": "electron-builder --dir"
-  },
-  "devDependencies": {
-    "electron": "^39.8.5",
-    "electron-builder": "^25.1.8"
-  },
-  "build": {
-    "appId": "com.shureapp.guessthelanguage",
-    "productName": "Guess The Language",
-    "directories": {
-      "output": "dist"
+    "name": "guess-the-language",
+    "version": "2.1.0",
+    "description": "IT quiz game for Windows.",
+    "main": "src/main.js",
+    "author": "mPhpMaster",
+    "license": "MIT",
+    "scripts": {
+        "start": "electron .",
+        "dist": "electron-builder --win",
+        "pack": "electron-builder --dir"
     },
-    "files": [
-      "src/**/*",
-      "package.json"
-    ],
-    "win": {
-      "target": [
-        "nsis"
-      ]
+    "devDependencies": {
+        "electron": "^39.8.5",
+        "electron-builder": "^25.1.8"
     },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": true
+    "build": {
+        "appId": "com.mphpmaster.guessthelanguage",
+        "productName": "Guess The Language",
+        "directories": {
+            "output": "dist"
+        },
+        "files": [
+            "src/**/*",
+            "package.json"
+        ],
+        "win": {
+            "target": [
+                "nsis"
+            ]
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true,
+            "createDesktopShortcut": true
+        }
     }
-  }
 }
