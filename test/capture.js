@@ -72,5 +72,39 @@ app.whenReady().then(async () => {
   await sleep(3200); // 1700ms auto-advance -> endGame, count-up + bar animation
   await snap('4-results.png');
 
+  // ---- Arabic (RTL) captures ----
+  async function playOneAndSnap(name) {
+    await run("document.querySelector('#btn-start').click(); 'ok'");
+    await sleep(300);
+    const snip = await run("document.querySelector('#code-snippet').textContent");
+    const corr = await run(
+      `window.gameAPI.getQuestions().then(qs => { const q = qs.find(x => x.codeSnippet === ${JSON.stringify(snip)}); return q ? q.correctLanguage : null; })`
+    );
+    await run(
+      `(() => { const b = [...document.querySelectorAll('.lang-btn')].find(x => x.dataset.lang === ${JSON.stringify(corr)}); if (b) b.click(); return 'ok'; })()`
+    );
+    await sleep(3200);
+    await snap(name);
+  }
+
+  await run("localStorage.setItem('gtl_lang', 'ar'); 'ok'");
+  await win.loadFile(path.join(SRC, 'index.html'));
+  await sleep(500);
+  await snap('5-menu-ar.png');
+
+  // Arabic game screen (use the default round; just show one question)
+  await run("localStorage.setItem('gtl_settings', JSON.stringify({questions:10, sound:false, difficulty:'all', name:''})); 'ok'");
+  await win.loadFile(path.join(SRC, 'index.html'));
+  await sleep(400);
+  await run("document.querySelector('#btn-start').click(); 'ok'");
+  await sleep(500);
+  await snap('6-game-ar.png');
+
+  // Arabic results screen with a real score
+  await run("localStorage.setItem('gtl_settings', JSON.stringify({questions:1, sound:false, difficulty:'all', name:''})); 'ok'");
+  await win.loadFile(path.join(SRC, 'index.html'));
+  await sleep(400);
+  await playOneAndSnap('7-results-ar.png');
+
   app.exit(0);
 });

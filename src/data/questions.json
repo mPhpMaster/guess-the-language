@@ -1,133 +1,1202 @@
 [
-  { "id": 1,  "correctLanguage": "Python",     "difficulty": "easy",   "codeSnippet": "print('Hello, World!')", "explanation": "دالة print() بهذا الشكل وبدون فاصلة منقوطة مميزة في بايثون." },
-  { "id": 2,  "correctLanguage": "Python",     "difficulty": "easy",   "codeSnippet": "def greet(name):\n    return f\"Hello, {name}!\"", "explanation": "الكلمة def وسلسلة f-string من علامات بايثون الواضحة." },
-  { "id": 3,  "correctLanguage": "Python",     "difficulty": "easy",   "codeSnippet": "if __name__ == \"__main__\":\n    main()", "explanation": "النمط __name__ == \"__main__\" خاص ببايثون." },
-  { "id": 4,  "correctLanguage": "Python",     "difficulty": "medium", "codeSnippet": "squares = [x ** 2 for x in range(10)]", "explanation": "List comprehension مع المعامل ** للأس من مميزات بايثون." },
-  { "id": 5,  "correctLanguage": "Python",     "difficulty": "medium", "codeSnippet": "with open('data.txt') as f:\n    data = f.read()", "explanation": "عبارة with لإدارة الموارد (context manager) مميزة لبايثون." },
-  { "id": 6,  "correctLanguage": "Python",     "difficulty": "medium", "codeSnippet": "import numpy as np\narr = np.array([1, 2, 3])", "explanation": "صيغة import ... as ومكتبة numpy شائعة جداً في بايثون." },
-  { "id": 7,  "correctLanguage": "Python",     "difficulty": "medium", "codeSnippet": "@app.route('/')\ndef index():\n    return 'Home'", "explanation": "الديكوريتر @ مع تعريف def يدل على بايثون (Flask هنا)." },
-  { "id": 8,  "correctLanguage": "Python",     "difficulty": "hard",   "codeSnippet": "async def fetch(url):\n    async with session.get(url) as r:\n        return await r.json()", "explanation": "async def و async with صيغة بايثون غير المتزامنة." },
-  { "id": 9,  "correctLanguage": "Python",     "difficulty": "hard",   "codeSnippet": "result = {k: v for k, v in pairs if v is not None}", "explanation": "Dict comprehension مع is not None من بنى بايثون." },
-  { "id": 10, "correctLanguage": "Python",     "difficulty": "hard",   "codeSnippet": "nums = list(map(lambda x: x * 2, filter(lambda y: y > 0, data)))", "explanation": "lambda و map/filter بهذه الصيغة دلالة قوية على بايثون." },
-
-  { "id": 11, "correctLanguage": "JavaScript", "difficulty": "easy",   "codeSnippet": "console.log('Hello, World!');", "explanation": "console.log هي طريقة الطباعة القياسية في جافاسكربت." },
-  { "id": 12, "correctLanguage": "JavaScript", "difficulty": "easy",   "codeSnippet": "const double = arr.map(x => x * 2);", "explanation": "const مع الدالة السهمية => من سمات جافاسكربت الحديثة." },
-  { "id": 13, "correctLanguage": "JavaScript", "difficulty": "easy",   "codeSnippet": "document.querySelector('#app').innerHTML = 'Hi';", "explanation": "document.querySelector و innerHTML خاصة بـ DOM في جافاسكربت." },
-  { "id": 14, "correctLanguage": "JavaScript", "difficulty": "easy",   "codeSnippet": "setTimeout(() => console.log('done'), 1000);", "explanation": "setTimeout مع دالة سهمية من واجهات جافاسكربت." },
-  { "id": 15, "correctLanguage": "JavaScript", "difficulty": "medium", "codeSnippet": "const { name, age } = user;", "explanation": "تفكيك الكائن (object destructuring) شائع في جافاسكربت/ES6." },
-  { "id": 16, "correctLanguage": "JavaScript", "difficulty": "medium", "codeSnippet": "async function load() {\n  const res = await fetch(url);\n  return res.json();\n}", "explanation": "fetch() و res.json() واجهات متصفح خاصة بجافاسكربت." },
-  { "id": 17, "correctLanguage": "JavaScript", "difficulty": "medium", "codeSnippet": "let p = new Promise((resolve, reject) => resolve(42));", "explanation": "Promise بهذه الصيغة من نواة جافاسكربت غير المتزامنة." },
-  { "id": 18, "correctLanguage": "JavaScript", "difficulty": "medium", "codeSnippet": "export default function App() {\n  return null;\n}", "explanation": "export default صيغة وحدات ES في جافاسكربت." },
-  { "id": 19, "correctLanguage": "JavaScript", "difficulty": "hard",   "codeSnippet": "const total = items.filter(i => i.active).reduce((a, b) => a + b.price, 0);", "explanation": "سلسلة filter().reduce() مع دوال سهمية نمط جافاسكربت." },
-  { "id": 20, "correctLanguage": "JavaScript", "difficulty": "hard",   "codeSnippet": "const merged = { ...defaults, ...options, id: 1 };", "explanation": "معامل الانتشار ... داخل كائن من ميزات جافاسكربت ES." },
-
-  { "id": 21, "correctLanguage": "C++",        "difficulty": "easy",   "codeSnippet": "#include <iostream>\nint main() {\n    std::cout << \"Hello\";\n}", "explanation": "‎#include <iostream> و std::cout علامات مؤكدة على ++C." },
-  { "id": 22, "correctLanguage": "C++",        "difficulty": "easy",   "codeSnippet": "std::cout << \"Sum: \" << a + b << std::endl;", "explanation": "std::cout << و std::endl من نواة ++C." },
-  { "id": 23, "correctLanguage": "C++",        "difficulty": "easy",   "codeSnippet": "std::vector<int> v = {1, 2, 3};", "explanation": "std::vector بمساحة الأسماء std خاص بـ ++C." },
-  { "id": 24, "correctLanguage": "C++",        "difficulty": "medium", "codeSnippet": "template <typename T>\nT maxOf(T a, T b) { return a > b ? a : b; }", "explanation": "template <typename T> من القوالب العامة في ++C." },
-  { "id": 25, "correctLanguage": "C++",        "difficulty": "medium", "codeSnippet": "int* ptr = new int(5);\ndelete ptr;", "explanation": "new/delete وإدارة المؤشرات يدوياً من ++C." },
-  { "id": 26, "correctLanguage": "C++",        "difficulty": "medium", "codeSnippet": "class Animal {\npublic:\n    virtual void speak() = 0;\n};", "explanation": "virtual ... = 0 (دالة افتراضية بحتة) من ++C." },
-  { "id": 27, "correctLanguage": "C++",        "difficulty": "medium", "codeSnippet": "std::sort(v.begin(), v.end());", "explanation": "std::sort مع begin()/end() من مكتبة ++C القياسية." },
-  { "id": 28, "correctLanguage": "C++",        "difficulty": "hard",   "codeSnippet": "auto ptr = std::make_unique<Foo>(42);", "explanation": "std::make_unique والمؤشرات الذكية من ++11C وما بعده." },
-  { "id": 29, "correctLanguage": "C++",        "difficulty": "hard",   "codeSnippet": "for (const auto& item : container) {\n    std::cout << item;\n}", "explanation": "const auto& مع std::cout من أنماط ++C الحديثة." },
-  { "id": 30, "correctLanguage": "C++",        "difficulty": "hard",   "codeSnippet": "std::map<std::string, int> counts;\ncounts[\"a\"]++;", "explanation": "std::map<std::string, int> بمساحة std خاص بـ ++C." },
-
-  { "id": 31, "correctLanguage": "Java",       "difficulty": "easy",   "codeSnippet": "public static void main(String[] args) {\n}", "explanation": "توقيع public static void main(String[] args) بصمة جافا." },
-  { "id": 32, "correctLanguage": "Java",       "difficulty": "easy",   "codeSnippet": "System.out.println(\"Hello, World!\");", "explanation": "System.out.println الطريقة القياسية للطباعة في جافا." },
-  { "id": 33, "correctLanguage": "Java",       "difficulty": "easy",   "codeSnippet": "public class Main {\n}", "explanation": "public class بحرف كبير كاسم الملف نمط جافا." },
-  { "id": 34, "correctLanguage": "Java",       "difficulty": "medium", "codeSnippet": "ArrayList<String> list = new ArrayList<>();", "explanation": "ArrayList<String> ... new ArrayList<>() من مجموعات جافا." },
-  { "id": 35, "correctLanguage": "Java",       "difficulty": "medium", "codeSnippet": "@Override\npublic String toString() {\n    return name;\n}", "explanation": "‎@Override مع توقيع public String من جافا." },
-  { "id": 36, "correctLanguage": "Java",       "difficulty": "medium", "codeSnippet": "for (String item : items) {\n    System.out.println(item);\n}", "explanation": "حلقة for-each مع System.out.println تدل على جافا." },
-  { "id": 37, "correctLanguage": "Java",       "difficulty": "medium", "codeSnippet": "private final int count = 0;", "explanation": "محددات الوصول private final قبل النوع من سمات جافا." },
-  { "id": 38, "correctLanguage": "Java",       "difficulty": "hard",   "codeSnippet": "list.stream().filter(x -> x > 0).collect(Collectors.toList());", "explanation": "stream() مع Collectors.toList() من Stream API في جافا." },
-  { "id": 39, "correctLanguage": "Java",       "difficulty": "hard",   "codeSnippet": "public void read() throws IOException {\n}", "explanation": "عبارة throws IOException ضمن التوقيع خاصة بجافا." },
-  { "id": 40, "correctLanguage": "Java",       "difficulty": "hard",   "codeSnippet": "Map<String, Integer> map = new HashMap<>();\nmap.put(\"a\", 1);", "explanation": "HashMap<>() مع map.put من مجموعات جافا." },
-
-  { "id": 41, "correctLanguage": "Rust",       "difficulty": "easy",   "codeSnippet": "fn main() {\n    println!(\"Hello, World!\");\n}", "explanation": "الماكرو println! بعلامة التعجب وكلمة fn علامتان أكيدتان على رست." },
-  { "id": 42, "correctLanguage": "Rust",       "difficulty": "easy",   "codeSnippet": "let mut count = 0;", "explanation": "let mut للمتغيرات القابلة للتعديل من رست." },
-  { "id": 43, "correctLanguage": "Rust",       "difficulty": "easy",   "codeSnippet": "fn add(a: i32, b: i32) -> i32 {\n    a + b\n}", "explanation": "الأنواع i32 والسهم <- لنوع الإرجاع من صيغة رست." },
-  { "id": 44, "correctLanguage": "Rust",       "difficulty": "medium", "codeSnippet": "let v: Vec<i32> = vec![1, 2, 3];", "explanation": "الماكرو ![vec ونوع <Vec<i32 خاصان برست." },
-  { "id": 45, "correctLanguage": "Rust",       "difficulty": "medium", "codeSnippet": "match value {\n    Some(n) => n,\n    None => 0,\n}", "explanation": "match مع Some/None من نمط رست (و Option)." },
-  { "id": 46, "correctLanguage": "Rust",       "difficulty": "medium", "codeSnippet": "struct Point {\n    x: f64,\n    y: f64,\n}", "explanation": "struct بحقول name: type والأنواع f64 من رست." },
-  { "id": 47, "correctLanguage": "Rust",       "difficulty": "medium", "codeSnippet": "for i in 0..10 {\n    println!(\"{}\", i);\n}", "explanation": "نطاق 0..10 مع println! دلالة على رست." },
-  { "id": 48, "correctLanguage": "Rust",       "difficulty": "hard",   "codeSnippet": "let content = std::fs::read_to_string(path)?;", "explanation": "معامل ? لانتشار الأخطاء و std::fs من رست." },
-  { "id": 49, "correctLanguage": "Rust",       "difficulty": "hard",   "codeSnippet": "impl Display for Point {\n    fn fmt(&self, f: &mut Formatter) -> fmt::Result {}\n}", "explanation": "impl Trait for Type و self& من نظام السمات في رست." },
-  { "id": 50, "correctLanguage": "Rust",       "difficulty": "hard",   "codeSnippet": "let name = String::from(\"Rust\");\nlet slice: &str = &name;", "explanation": "String::from والنوع str& (شريحة) من ملكية رست." },
-
-  { "id": 51, "correctLanguage": "Go",         "difficulty": "easy",   "codeSnippet": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Hello, World!\")\n}", "explanation": "package main و fmt.Println وكلمة func علامات أكيدة على Go." },
-  { "id": 52, "correctLanguage": "Go",         "difficulty": "easy",   "codeSnippet": "func add(a int, b int) int {\n    return a + b\n}", "explanation": "النوع يأتي بعد اسم المعامل (a int) وهذا نمط Go." },
-  { "id": 53, "correctLanguage": "Go",         "difficulty": "easy",   "codeSnippet": "if err != nil {\n    return err\n}", "explanation": "نمط معالجة الأخطاء if err != nil من بصمات Go." },
-  { "id": 54, "correctLanguage": "Go",         "difficulty": "medium", "codeSnippet": "count := 0\nfor i := 0; i < 10; i++ {\n}", "explanation": "معامل الإسناد القصير =: خاص بـ Go." },
-  { "id": 55, "correctLanguage": "Go",         "difficulty": "medium", "codeSnippet": "defer file.Close()", "explanation": "الكلمة المفتاحية defer لتأجيل التنفيذ من Go." },
-  { "id": 56, "correctLanguage": "Go",         "difficulty": "medium", "codeSnippet": "type Point struct {\n    X, Y int\n}", "explanation": "type Name struct وحقول بأنواع بعد الاسم نمط Go." },
-  { "id": 57, "correctLanguage": "Go",         "difficulty": "medium", "codeSnippet": "m := map[string]int{\"a\": 1}", "explanation": "map[string]int مع الإسناد =: من صيغة Go." },
-  { "id": 58, "correctLanguage": "Go",         "difficulty": "hard",   "codeSnippet": "ch := make(chan int)\ngo worker(ch)", "explanation": "make(chan int) والكلمة go لإطلاق goroutine من Go." },
-  { "id": 59, "correctLanguage": "Go",         "difficulty": "hard",   "codeSnippet": "func (p *Point) Move(dx int) {\n    p.X += dx\n}", "explanation": "المستقبِل (func (p *Point)) قبل اسم الدالة نمط Go." },
-  { "id": 60, "correctLanguage": "Go",         "difficulty": "hard",   "codeSnippet": "fmt.Printf(\"%v\\n\", result)", "explanation": "fmt.Printf مع المحدد %v من مكتبة fmt في Go." },
-
-  { "id": 61, "correctLanguage": "Python",     "difficulty": "easy",   "codeSnippet": "for i in range(5):\n    print(i)", "explanation": "حلقة for ... in range() مع print بلا أقواس معقوفة نمط بايثون." },
-  { "id": 62, "correctLanguage": "Python",     "difficulty": "easy",   "codeSnippet": "name = input('Enter your name: ')", "explanation": "دالة input() لقراءة المدخلات مميزة في بايثون." },
-  { "id": 63, "correctLanguage": "Python",     "difficulty": "easy",   "codeSnippet": "numbers = [1, 2, 3]\nnumbers.append(4)", "explanation": "التابع list.append() وبناء القوائم من بايثون." },
-  { "id": 64, "correctLanguage": "Python",     "difficulty": "medium", "codeSnippet": "try:\n    x = int(value)\nexcept ValueError:\n    x = 0", "explanation": "try/except مع ValueError ونقطتان بعد العبارة من بايثون." },
-  { "id": 65, "correctLanguage": "Python",     "difficulty": "medium", "codeSnippet": "class Dog:\n    def __init__(self, name):\n        self.name = name", "explanation": "الباني __init__ والمعامل self من أصناف بايثون." },
-  { "id": 66, "correctLanguage": "Python",     "difficulty": "medium", "codeSnippet": "print(', '.join(items))", "explanation": "التابع str.join() على سلسلة فاصلة من أنماط بايثون." },
-  { "id": 67, "correctLanguage": "Python",     "difficulty": "medium", "codeSnippet": "from collections import Counter\nc = Counter(words)", "explanation": "from collections import Counter من المكتبة القياسية لبايثون." },
-  { "id": 68, "correctLanguage": "Python",     "difficulty": "hard",   "codeSnippet": "def gen():\n    yield from range(10)", "explanation": "yield from لتفويض المولّدات خاص ببايثون." },
-  { "id": 69, "correctLanguage": "Python",     "difficulty": "hard",   "codeSnippet": "items = sorted(data, key=lambda x: x[1], reverse=True)", "explanation": "sorted(key=lambda, reverse=True) صيغة بايثون." },
-  { "id": 70, "correctLanguage": "Python",     "difficulty": "hard",   "codeSnippet": "df = pd.DataFrame(data)\nmean = df['col'].mean()", "explanation": "pandas DataFrame والوصول للأعمدة شائع جداً في بايثون." },
-
-  { "id": 71, "correctLanguage": "JavaScript", "difficulty": "easy",   "codeSnippet": "let sum = 0;\nfor (let i = 0; i < 5; i++) sum += i;", "explanation": "let داخل حلقة for من جافاسكربت الحديثة." },
-  { "id": 72, "correctLanguage": "JavaScript", "difficulty": "easy",   "codeSnippet": "const name = prompt('What is your name?');", "explanation": "prompt() واجهة متصفح خاصة بجافاسكربت." },
-  { "id": 73, "correctLanguage": "JavaScript", "difficulty": "easy",   "codeSnippet": "arr.forEach(item => console.log(item));", "explanation": "forEach مع دالة سهمية و console.log من جافاسكربت." },
-  { "id": 74, "correctLanguage": "JavaScript", "difficulty": "medium", "codeSnippet": "button.addEventListener('click', () => {});", "explanation": "addEventListener من واجهات DOM في جافاسكربت." },
-  { "id": 75, "correctLanguage": "JavaScript", "difficulty": "medium", "codeSnippet": "const data = JSON.stringify({ id: 1, ok: true });", "explanation": "JSON.stringify مع الكائن {} نمط جافاسكربت." },
-  { "id": 76, "correctLanguage": "JavaScript", "difficulty": "medium", "codeSnippet": "class Cat extends Animal {\n  constructor() { super(); }\n}", "explanation": "class extends مع constructor و super() صيغة أصناف جافاسكربت." },
-  { "id": 77, "correctLanguage": "JavaScript", "difficulty": "hard",   "codeSnippet": "const unique = [...new Set(arr)];", "explanation": "Set مع معامل الانتشار ... لإزالة التكرار من جافاسكربت." },
-  { "id": 78, "correctLanguage": "JavaScript", "difficulty": "hard",   "codeSnippet": "app.get('/api', (req, res) => res.json(data));", "explanation": "req/res و res.json من Express في جافاسكربت/Node." },
-  { "id": 79, "correctLanguage": "JavaScript", "difficulty": "hard",   "codeSnippet": "const [count, setCount] = useState(0);", "explanation": "useState وتفكيك المصفوفة من React (جافاسكربت)." },
-  { "id": 80, "correctLanguage": "JavaScript", "difficulty": "hard",   "codeSnippet": "const results = await Promise.all(urls.map(u => fetch(u)));", "explanation": "Promise.all مع map و fetch من جافاسكربت غير المتزامنة." },
-
-  { "id": 81, "correctLanguage": "C++",        "difficulty": "easy",   "codeSnippet": "#include <vector>\nusing namespace std;", "explanation": "using namespace std و#include بأقواس زاوية من ++C." },
-  { "id": 82, "correctLanguage": "C++",        "difficulty": "easy",   "codeSnippet": "int x;\nstd::cin >> x;", "explanation": "std::cin >> لقراءة الإدخال من ++C." },
-  { "id": 83, "correctLanguage": "C++",        "difficulty": "medium", "codeSnippet": "std::string name = \"C++\";\nstd::cout << name.length();", "explanation": "std::string مع std::cout ومساحة std من ++C." },
-  { "id": 84, "correctLanguage": "C++",        "difficulty": "medium", "codeSnippet": "for (auto it = v.begin(); it != v.end(); ++it) {}", "explanation": "مكرّر صريح begin()/end() مع auto و++it من ++C." },
-  { "id": 85, "correctLanguage": "C++",        "difficulty": "medium", "codeSnippet": "struct Node {\n    int data;\n    Node* next;\n};", "explanation": "بنية مع مؤشر ذاتي Node* وفاصلة منقوطة بعد } من ++C." },
-  { "id": 86, "correctLanguage": "C++",        "difficulty": "medium", "codeSnippet": "std::cout << \"Enter: \";\nstd::cin >> n;", "explanation": "تركيبة cout/cin مع مساحة std من ++C." },
-  { "id": 87, "correctLanguage": "C++",        "difficulty": "hard",   "codeSnippet": "auto p = std::make_shared<int>(10);", "explanation": "std::make_shared والمؤشر الذكي shared_ptr من ++C الحديثة." },
-  { "id": 88, "correctLanguage": "C++",        "difficulty": "hard",   "codeSnippet": "std::cout << std::fixed << std::setprecision(2) << pi;", "explanation": "std::setprecision و std::fixed من iomanip في ++C." },
-  { "id": 89, "correctLanguage": "C++",        "difficulty": "hard",   "codeSnippet": "std::vector<std::pair<int, int>> edges;", "explanation": "vector<pair<>> مع مساحة std من حاويات ++C." },
-  { "id": 90, "correctLanguage": "C++",        "difficulty": "hard",   "codeSnippet": "template <class T>\nclass Stack { std::vector<T> data; };", "explanation": "template <class T> وقالب صنف من ++C." },
-
-  { "id": 91, "correctLanguage": "Java",       "difficulty": "easy",   "codeSnippet": "int[] arr = new int[10];", "explanation": "صيغة المصفوفة [] new int[10] مع النوع قبل الاسم من جافا." },
-  { "id": 92, "correctLanguage": "Java",       "difficulty": "easy",   "codeSnippet": "String msg = \"Hi\";\nSystem.out.println(msg.length());", "explanation": "String مع System.out.println من جافا." },
-  { "id": 93, "correctLanguage": "Java",       "difficulty": "medium", "codeSnippet": "Scanner sc = new Scanner(System.in);", "explanation": "Scanner(System.in) لقراءة الإدخال خاص بجافا." },
-  { "id": 94, "correctLanguage": "Java",       "difficulty": "medium", "codeSnippet": "public abstract class Shape {\n    abstract double area();\n}", "explanation": "abstract class وتابع abstract من جافا." },
-  { "id": 95, "correctLanguage": "Java",       "difficulty": "medium", "codeSnippet": "try {\n} catch (Exception e) {\n    e.printStackTrace();\n}", "explanation": "e.printStackTrace() ضمن catch من جافا." },
-  { "id": 96, "correctLanguage": "Java",       "difficulty": "medium", "codeSnippet": "Map<String, List<Integer>> m = new HashMap<>();", "explanation": "أنواع مولّدة متداخلة و new HashMap<>() من مجموعات جافا." },
-  { "id": 97, "correctLanguage": "Java",       "difficulty": "hard",   "codeSnippet": "list.forEach(System.out::println);", "explanation": "مرجع التابع :: (System.out::println) من جافا 8+." },
-  { "id": 98, "correctLanguage": "Java",       "difficulty": "hard",   "codeSnippet": "Optional<String> name = Optional.ofNullable(value);", "explanation": "Optional.ofNullable من جافا." },
-  { "id": 99, "correctLanguage": "Java",       "difficulty": "hard",   "codeSnippet": "@SpringBootApplication\npublic class App { }", "explanation": "الموسوم @SpringBootApplication من إطار Spring في جافا." },
-  { "id": 100, "correctLanguage": "Java",      "difficulty": "medium", "codeSnippet": "StringBuilder sb = new StringBuilder();\nsb.append(\"a\");", "explanation": "StringBuilder مع append() من جافا." },
-
-  { "id": 101, "correctLanguage": "Rust",      "difficulty": "easy",   "codeSnippet": "let x: i32 = 10;\nlet y = x + 5;", "explanation": "let مع نوع i32 من رست." },
-  { "id": 102, "correctLanguage": "Rust",      "difficulty": "easy",   "codeSnippet": "println!(\"{} + {} = {}\", a, b, a + b);", "explanation": "الماكرو println! مع المنوبات {} من رست." },
-  { "id": 103, "correctLanguage": "Rust",      "difficulty": "medium", "codeSnippet": "let sum: i32 = v.iter().sum();", "explanation": "iter().sum() ونوع i32 من رست." },
-  { "id": 104, "correctLanguage": "Rust",      "difficulty": "medium", "codeSnippet": "enum Direction {\n    North,\n    South,\n}", "explanation": "enum بهذا الشكل من رست." },
-  { "id": 105, "correctLanguage": "Rust",      "difficulty": "medium", "codeSnippet": "let s = String::new();\nlet n: usize = s.len();", "explanation": "String::new() والنوع usize من رست." },
-  { "id": 106, "correctLanguage": "Rust",      "difficulty": "medium", "codeSnippet": "if let Some(x) = option {\n    println!(\"{}\", x);\n}", "explanation": "نمط if let Some(...) من رست." },
-  { "id": 107, "correctLanguage": "Rust",      "difficulty": "hard",   "codeSnippet": "fn largest<T: PartialOrd>(list: &[T]) -> &T {}", "explanation": "حدود السمات <T: PartialOrd> والشريحة &[T] من رست." },
-  { "id": 108, "correctLanguage": "Rust",      "difficulty": "hard",   "codeSnippet": "let inc = |x: i32| -> i32 { x + 1 };", "explanation": "إغلاق مع |x| ونوع إرجاع <- من رست." },
-  { "id": 109, "correctLanguage": "Rust",      "difficulty": "hard",   "codeSnippet": "use std::collections::HashMap;\nlet mut map = HashMap::new();", "explanation": "use std::collections و let mut من رست." },
-  { "id": 110, "correctLanguage": "Rust",      "difficulty": "hard",   "codeSnippet": "let result: Result<i32, String> = Ok(5);", "explanation": "النوع <Result<i32, String و Ok من رست." },
-
-  { "id": 111, "correctLanguage": "Go",        "difficulty": "easy",   "codeSnippet": "var name string = \"Go\"", "explanation": "var name string (النوع بعد الاسم) من Go." },
-  { "id": 112, "correctLanguage": "Go",        "difficulty": "easy",   "codeSnippet": "nums := []int{1, 2, 3}", "explanation": "شريحة []int مع الإسناد القصير =: من Go." },
-  { "id": 113, "correctLanguage": "Go",        "difficulty": "medium", "codeSnippet": "s := fmt.Sprintf(\"%d items\", n)", "explanation": "fmt.Sprintf مع =: من Go." },
-  { "id": 114, "correctLanguage": "Go",        "difficulty": "medium", "codeSnippet": "for index, value := range items {\n}", "explanation": "for ... range مع index, value و =: من Go." },
-  { "id": 115, "correctLanguage": "Go",        "difficulty": "medium", "codeSnippet": "type Animal interface {\n    Sound() string\n}", "explanation": "interface بتواقيع توابع بسيطة نمط Go." },
-  { "id": 116, "correctLanguage": "Go",        "difficulty": "hard",   "codeSnippet": "wg.Add(1)\ngo func() { defer wg.Done() }()", "explanation": "WaitGroup مع go func و defer من تزامن Go." },
-  { "id": 117, "correctLanguage": "Go",        "difficulty": "hard",   "codeSnippet": "result, err := strconv.Atoi(str)", "explanation": "الإرجاع المتعدد result, err و strconv.Atoi من Go." },
-  { "id": 118, "correctLanguage": "Go",        "difficulty": "hard",   "codeSnippet": "select {\ncase msg := <-ch:\n}", "explanation": "select مع قناة <-ch من Go." },
-  { "id": 119, "correctLanguage": "Go",        "difficulty": "medium", "codeSnippet": "slice = append(slice, item)", "explanation": "الدالة المدمجة append على الشرائح من Go." },
-  { "id": 120, "correctLanguage": "Go",        "difficulty": "hard",   "codeSnippet": "func (s *Server) Handle(w http.ResponseWriter, r *http.Request) {}", "explanation": "مستقبِل (s *Server) وتوقيع http.ResponseWriter من Go." }
+  {
+    "id": 1,
+    "correctLanguage": "Python",
+    "difficulty": "easy",
+    "codeSnippet": "print('Hello, World!')",
+    "explanation": {
+      "en": "The print() function written this way, without a semicolon, is distinctive to Python.",
+      "ar": "دالة print() بهذا الشكل وبدون فاصلة منقوطة مميزة في بايثون."
+    }
+  },
+  {
+    "id": 2,
+    "correctLanguage": "Python",
+    "difficulty": "easy",
+    "codeSnippet": "def greet(name):\n    return f\"Hello, {name}!\"",
+    "explanation": {
+      "en": "The def keyword and an f-string are clear Python markers.",
+      "ar": "الكلمة def وسلسلة f-string من علامات بايثون الواضحة."
+    }
+  },
+  {
+    "id": 3,
+    "correctLanguage": "Python",
+    "difficulty": "easy",
+    "codeSnippet": "if __name__ == \"__main__\":\n    main()",
+    "explanation": {
+      "en": "The __name__ == \"__main__\" pattern is specific to Python.",
+      "ar": "النمط __name__ == \"__main__\" خاص ببايثون."
+    }
+  },
+  {
+    "id": 4,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "squares = [x ** 2 for x in range(10)]",
+    "explanation": {
+      "en": "A list comprehension with the ** power operator is a Python feature.",
+      "ar": "List comprehension مع المعامل ** للأس من مميزات بايثون."
+    }
+  },
+  {
+    "id": 5,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "with open('data.txt') as f:\n    data = f.read()",
+    "explanation": {
+      "en": "The with statement (context manager) is characteristic of Python.",
+      "ar": "عبارة with لإدارة الموارد (context manager) مميزة لبايثون."
+    }
+  },
+  {
+    "id": 6,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "import numpy as np\narr = np.array([1, 2, 3])",
+    "explanation": {
+      "en": "import ... as syntax and the numpy library are very common in Python.",
+      "ar": "صيغة import ... as ومكتبة numpy شائعة جداً في بايثون."
+    }
+  },
+  {
+    "id": 7,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "@app.route('/')\ndef index():\n    return 'Home'",
+    "explanation": {
+      "en": "The @ decorator above a def points to Python (Flask here).",
+      "ar": "الديكوريتر @ مع تعريف def يدل على بايثون (Flask هنا)."
+    }
+  },
+  {
+    "id": 8,
+    "correctLanguage": "Python",
+    "difficulty": "hard",
+    "codeSnippet": "async def fetch(url):\n    async with session.get(url) as r:\n        return await r.json()",
+    "explanation": {
+      "en": "async def and async with are Python's asynchronous syntax.",
+      "ar": "async def و async with صيغة بايثون غير المتزامنة."
+    }
+  },
+  {
+    "id": 9,
+    "correctLanguage": "Python",
+    "difficulty": "hard",
+    "codeSnippet": "result = {k: v for k, v in pairs if v is not None}",
+    "explanation": {
+      "en": "A dict comprehension with 'is not None' is Python.",
+      "ar": "Dict comprehension مع is not None من بنى بايثون."
+    }
+  },
+  {
+    "id": 10,
+    "correctLanguage": "Python",
+    "difficulty": "hard",
+    "codeSnippet": "nums = list(map(lambda x: x * 2, filter(lambda y: y > 0, data)))",
+    "explanation": {
+      "en": "lambda with map/filter like this strongly indicates Python.",
+      "ar": "lambda و map/filter بهذه الصيغة دلالة قوية على بايثون."
+    }
+  },
+  {
+    "id": 11,
+    "correctLanguage": "JavaScript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log('Hello, World!');",
+    "explanation": {
+      "en": "console.log is the standard way to print in JavaScript.",
+      "ar": "console.log هي طريقة الطباعة القياسية في جافاسكربت."
+    }
+  },
+  {
+    "id": 12,
+    "correctLanguage": "JavaScript",
+    "difficulty": "easy",
+    "codeSnippet": "const double = arr.map(x => x * 2);",
+    "explanation": {
+      "en": "const with the arrow function => is modern JavaScript.",
+      "ar": "const مع الدالة السهمية => من سمات جافاسكربت الحديثة."
+    }
+  },
+  {
+    "id": 13,
+    "correctLanguage": "JavaScript",
+    "difficulty": "easy",
+    "codeSnippet": "document.querySelector('#app').innerHTML = 'Hi';",
+    "explanation": {
+      "en": "document.querySelector and innerHTML are JavaScript DOM APIs.",
+      "ar": "document.querySelector و innerHTML خاصة بـ DOM في جافاسكربت."
+    }
+  },
+  {
+    "id": 14,
+    "correctLanguage": "JavaScript",
+    "difficulty": "easy",
+    "codeSnippet": "setTimeout(() => console.log('done'), 1000);",
+    "explanation": {
+      "en": "setTimeout with an arrow function is a JavaScript API.",
+      "ar": "setTimeout مع دالة سهمية من واجهات جافاسكربت."
+    }
+  },
+  {
+    "id": 15,
+    "correctLanguage": "JavaScript",
+    "difficulty": "medium",
+    "codeSnippet": "const { name, age } = user;",
+    "explanation": {
+      "en": "Object destructuring is common in JavaScript/ES6.",
+      "ar": "تفكيك الكائن (object destructuring) شائع في جافاسكربت/ES6."
+    }
+  },
+  {
+    "id": 16,
+    "correctLanguage": "JavaScript",
+    "difficulty": "medium",
+    "codeSnippet": "async function load() {\n  const res = await fetch(url);\n  return res.json();\n}",
+    "explanation": {
+      "en": "fetch() and res.json() are browser APIs specific to JavaScript.",
+      "ar": "fetch() و res.json() واجهات متصفح خاصة بجافاسكربت."
+    }
+  },
+  {
+    "id": 17,
+    "correctLanguage": "JavaScript",
+    "difficulty": "medium",
+    "codeSnippet": "let p = new Promise((resolve, reject) => resolve(42));",
+    "explanation": {
+      "en": "A Promise written this way is core to JavaScript's async model.",
+      "ar": "Promise بهذه الصيغة من نواة جافاسكربت غير المتزامنة."
+    }
+  },
+  {
+    "id": 18,
+    "correctLanguage": "JavaScript",
+    "difficulty": "medium",
+    "codeSnippet": "export default function App() {\n  return null;\n}",
+    "explanation": {
+      "en": "export default is ES module syntax in JavaScript.",
+      "ar": "export default صيغة وحدات ES في جافاسكربت."
+    }
+  },
+  {
+    "id": 19,
+    "correctLanguage": "JavaScript",
+    "difficulty": "hard",
+    "codeSnippet": "const total = items.filter(i => i.active).reduce((a, b) => a + b.price, 0);",
+    "explanation": {
+      "en": "Chaining filter().reduce() with arrow functions is a JavaScript pattern.",
+      "ar": "سلسلة filter().reduce() مع دوال سهمية نمط جافاسكربت."
+    }
+  },
+  {
+    "id": 20,
+    "correctLanguage": "JavaScript",
+    "difficulty": "hard",
+    "codeSnippet": "const merged = { ...defaults, ...options, id: 1 };",
+    "explanation": {
+      "en": "The spread operator ... inside an object is a JavaScript ES feature.",
+      "ar": "معامل الانتشار ... داخل كائن من ميزات جافاسكربت ES."
+    }
+  },
+  {
+    "id": 21,
+    "correctLanguage": "C++",
+    "difficulty": "easy",
+    "codeSnippet": "#include <iostream>\nint main() {\n    std::cout << \"Hello\";\n}",
+    "explanation": {
+      "en": "#include <iostream> and std::cout are sure signs of C++.",
+      "ar": "‎#include <iostream> و std::cout علامات مؤكدة على ++C."
+    }
+  },
+  {
+    "id": 22,
+    "correctLanguage": "C++",
+    "difficulty": "easy",
+    "codeSnippet": "std::cout << \"Sum: \" << a + b << std::endl;",
+    "explanation": {
+      "en": "std::cout << and std::endl are core C++.",
+      "ar": "std::cout << و std::endl من نواة ++C."
+    }
+  },
+  {
+    "id": 23,
+    "correctLanguage": "C++",
+    "difficulty": "easy",
+    "codeSnippet": "std::vector<int> v = {1, 2, 3};",
+    "explanation": {
+      "en": "std::vector with the std namespace is specific to C++.",
+      "ar": "std::vector بمساحة الأسماء std خاص بـ ++C."
+    }
+  },
+  {
+    "id": 24,
+    "correctLanguage": "C++",
+    "difficulty": "medium",
+    "codeSnippet": "template <typename T>\nT maxOf(T a, T b) { return a > b ? a : b; }",
+    "explanation": {
+      "en": "template <typename T> is C++ generic templates.",
+      "ar": "template <typename T> من القوالب العامة في ++C."
+    }
+  },
+  {
+    "id": 25,
+    "correctLanguage": "C++",
+    "difficulty": "medium",
+    "codeSnippet": "int* ptr = new int(5);\ndelete ptr;",
+    "explanation": {
+      "en": "new/delete and manual pointer management are C++.",
+      "ar": "new/delete وإدارة المؤشرات يدوياً من ++C."
+    }
+  },
+  {
+    "id": 26,
+    "correctLanguage": "C++",
+    "difficulty": "medium",
+    "codeSnippet": "class Animal {\npublic:\n    virtual void speak() = 0;\n};",
+    "explanation": {
+      "en": "virtual ... = 0 (a pure virtual function) is C++.",
+      "ar": "virtual ... = 0 (دالة افتراضية بحتة) من ++C."
+    }
+  },
+  {
+    "id": 27,
+    "correctLanguage": "C++",
+    "difficulty": "medium",
+    "codeSnippet": "std::sort(v.begin(), v.end());",
+    "explanation": {
+      "en": "std::sort with begin()/end() is from the C++ standard library.",
+      "ar": "std::sort مع begin()/end() من مكتبة ++C القياسية."
+    }
+  },
+  {
+    "id": 28,
+    "correctLanguage": "C++",
+    "difficulty": "hard",
+    "codeSnippet": "auto ptr = std::make_unique<Foo>(42);",
+    "explanation": {
+      "en": "std::make_unique and smart pointers are modern C++ (C++11+).",
+      "ar": "std::make_unique والمؤشرات الذكية من ++11C وما بعده."
+    }
+  },
+  {
+    "id": 29,
+    "correctLanguage": "C++",
+    "difficulty": "hard",
+    "codeSnippet": "for (const auto& item : container) {\n    std::cout << item;\n}",
+    "explanation": {
+      "en": "const auto& with std::cout is a modern C++ pattern.",
+      "ar": "const auto& مع std::cout من أنماط ++C الحديثة."
+    }
+  },
+  {
+    "id": 30,
+    "correctLanguage": "C++",
+    "difficulty": "hard",
+    "codeSnippet": "std::map<std::string, int> counts;\ncounts[\"a\"]++;",
+    "explanation": {
+      "en": "std::map<std::string, int> with the std namespace is C++.",
+      "ar": "std::map<std::string, int> بمساحة std خاص بـ ++C."
+    }
+  },
+  {
+    "id": 31,
+    "correctLanguage": "Java",
+    "difficulty": "easy",
+    "codeSnippet": "public static void main(String[] args) {\n}",
+    "explanation": {
+      "en": "The public static void main(String[] args) signature is Java's fingerprint.",
+      "ar": "توقيع public static void main(String[] args) بصمة جافا."
+    }
+  },
+  {
+    "id": 32,
+    "correctLanguage": "Java",
+    "difficulty": "easy",
+    "codeSnippet": "System.out.println(\"Hello, World!\");",
+    "explanation": {
+      "en": "System.out.println is Java's standard print method.",
+      "ar": "System.out.println الطريقة القياسية للطباعة في جافا."
+    }
+  },
+  {
+    "id": 33,
+    "correctLanguage": "Java",
+    "difficulty": "easy",
+    "codeSnippet": "public class Main {\n}",
+    "explanation": {
+      "en": "A capitalized public class matching the file name is a Java pattern.",
+      "ar": "public class بحرف كبير كاسم الملف نمط جافا."
+    }
+  },
+  {
+    "id": 34,
+    "correctLanguage": "Java",
+    "difficulty": "medium",
+    "codeSnippet": "ArrayList<String> list = new ArrayList<>();",
+    "explanation": {
+      "en": "ArrayList<String> ... new ArrayList<>() is from Java collections.",
+      "ar": "ArrayList<String> ... new ArrayList<>() من مجموعات جافا."
+    }
+  },
+  {
+    "id": 35,
+    "correctLanguage": "Java",
+    "difficulty": "medium",
+    "codeSnippet": "@Override\npublic String toString() {\n    return name;\n}",
+    "explanation": {
+      "en": "@Override with a public String signature is Java.",
+      "ar": "‎@Override مع توقيع public String من جافا."
+    }
+  },
+  {
+    "id": 36,
+    "correctLanguage": "Java",
+    "difficulty": "medium",
+    "codeSnippet": "for (String item : items) {\n    System.out.println(item);\n}",
+    "explanation": {
+      "en": "A for-each loop with System.out.println indicates Java.",
+      "ar": "حلقة for-each مع System.out.println تدل على جافا."
+    }
+  },
+  {
+    "id": 37,
+    "correctLanguage": "Java",
+    "difficulty": "medium",
+    "codeSnippet": "private final int count = 0;",
+    "explanation": {
+      "en": "The access modifiers private final before the type are Java traits.",
+      "ar": "محددات الوصول private final قبل النوع من سمات جافا."
+    }
+  },
+  {
+    "id": 38,
+    "correctLanguage": "Java",
+    "difficulty": "hard",
+    "codeSnippet": "list.stream().filter(x -> x > 0).collect(Collectors.toList());",
+    "explanation": {
+      "en": "stream() with Collectors.toList() is Java's Stream API.",
+      "ar": "stream() مع Collectors.toList() من Stream API في جافا."
+    }
+  },
+  {
+    "id": 39,
+    "correctLanguage": "Java",
+    "difficulty": "hard",
+    "codeSnippet": "public void read() throws IOException {\n}",
+    "explanation": {
+      "en": "A 'throws IOException' clause in the signature is specific to Java.",
+      "ar": "عبارة throws IOException ضمن التوقيع خاصة بجافا."
+    }
+  },
+  {
+    "id": 40,
+    "correctLanguage": "Java",
+    "difficulty": "hard",
+    "codeSnippet": "Map<String, Integer> map = new HashMap<>();\nmap.put(\"a\", 1);",
+    "explanation": {
+      "en": "HashMap<>() with map.put is from Java collections.",
+      "ar": "HashMap<>() مع map.put من مجموعات جافا."
+    }
+  },
+  {
+    "id": 41,
+    "correctLanguage": "Rust",
+    "difficulty": "easy",
+    "codeSnippet": "fn main() {\n    println!(\"Hello, World!\");\n}",
+    "explanation": {
+      "en": "The println! macro with an exclamation mark and the fn keyword are sure signs of Rust.",
+      "ar": "الماكرو println! بعلامة التعجب وكلمة fn علامتان أكيدتان على رست."
+    }
+  },
+  {
+    "id": 42,
+    "correctLanguage": "Rust",
+    "difficulty": "easy",
+    "codeSnippet": "let mut count = 0;",
+    "explanation": {
+      "en": "let mut for mutable variables is from Rust.",
+      "ar": "let mut للمتغيرات القابلة للتعديل من رست."
+    }
+  },
+  {
+    "id": 43,
+    "correctLanguage": "Rust",
+    "difficulty": "easy",
+    "codeSnippet": "fn add(a: i32, b: i32) -> i32 {\n    a + b\n}",
+    "explanation": {
+      "en": "The i32 types and the -> return arrow are Rust syntax.",
+      "ar": "الأنواع i32 والسهم <- لنوع الإرجاع من صيغة رست."
+    }
+  },
+  {
+    "id": 44,
+    "correctLanguage": "Rust",
+    "difficulty": "medium",
+    "codeSnippet": "let v: Vec<i32> = vec![1, 2, 3];",
+    "explanation": {
+      "en": "The vec! macro and the Vec<i32> type are specific to Rust.",
+      "ar": "الماكرو ![vec ونوع <Vec<i32 خاصان برست."
+    }
+  },
+  {
+    "id": 45,
+    "correctLanguage": "Rust",
+    "difficulty": "medium",
+    "codeSnippet": "match value {\n    Some(n) => n,\n    None => 0,\n}",
+    "explanation": {
+      "en": "match with Some/None is a Rust pattern (Option).",
+      "ar": "match مع Some/None من نمط رست (و Option)."
+    }
+  },
+  {
+    "id": 46,
+    "correctLanguage": "Rust",
+    "difficulty": "medium",
+    "codeSnippet": "struct Point {\n    x: f64,\n    y: f64,\n}",
+    "explanation": {
+      "en": "A struct with name: type fields and f64 types is Rust.",
+      "ar": "struct بحقول name: type والأنواع f64 من رست."
+    }
+  },
+  {
+    "id": 47,
+    "correctLanguage": "Rust",
+    "difficulty": "medium",
+    "codeSnippet": "for i in 0..10 {\n    println!(\"{}\", i);\n}",
+    "explanation": {
+      "en": "The 0..10 range with println! indicates Rust.",
+      "ar": "نطاق 0..10 مع println! دلالة على رست."
+    }
+  },
+  {
+    "id": 48,
+    "correctLanguage": "Rust",
+    "difficulty": "hard",
+    "codeSnippet": "let content = std::fs::read_to_string(path)?;",
+    "explanation": {
+      "en": "The ? error-propagation operator and std::fs are Rust.",
+      "ar": "معامل ? لانتشار الأخطاء و std::fs من رست."
+    }
+  },
+  {
+    "id": 49,
+    "correctLanguage": "Rust",
+    "difficulty": "hard",
+    "codeSnippet": "impl Display for Point {\n    fn fmt(&self, f: &mut Formatter) -> fmt::Result {}\n}",
+    "explanation": {
+      "en": "impl Trait for Type and &self are from Rust's trait system.",
+      "ar": "impl Trait for Type و self& من نظام السمات في رست."
+    }
+  },
+  {
+    "id": 50,
+    "correctLanguage": "Rust",
+    "difficulty": "hard",
+    "codeSnippet": "let name = String::from(\"Rust\");\nlet slice: &str = &name;",
+    "explanation": {
+      "en": "String::from and the &str (slice) type are from Rust's ownership model.",
+      "ar": "String::from والنوع str& (شريحة) من ملكية رست."
+    }
+  },
+  {
+    "id": 51,
+    "correctLanguage": "Go",
+    "difficulty": "easy",
+    "codeSnippet": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Hello, World!\")\n}",
+    "explanation": {
+      "en": "package main, fmt.Println and the func keyword are sure signs of Go.",
+      "ar": "package main و fmt.Println وكلمة func علامات أكيدة على Go."
+    }
+  },
+  {
+    "id": 52,
+    "correctLanguage": "Go",
+    "difficulty": "easy",
+    "codeSnippet": "func add(a int, b int) int {\n    return a + b\n}",
+    "explanation": {
+      "en": "The type comes after the parameter name (a int) — a Go pattern.",
+      "ar": "النوع يأتي بعد اسم المعامل (a int) وهذا نمط Go."
+    }
+  },
+  {
+    "id": 53,
+    "correctLanguage": "Go",
+    "difficulty": "easy",
+    "codeSnippet": "if err != nil {\n    return err\n}",
+    "explanation": {
+      "en": "The 'if err != nil' error-handling pattern is a Go fingerprint.",
+      "ar": "نمط معالجة الأخطاء if err != nil من بصمات Go."
+    }
+  },
+  {
+    "id": 54,
+    "correctLanguage": "Go",
+    "difficulty": "medium",
+    "codeSnippet": "count := 0\nfor i := 0; i < 10; i++ {\n}",
+    "explanation": {
+      "en": "The short assignment operator := is specific to Go.",
+      "ar": "معامل الإسناد القصير =: خاص بـ Go."
+    }
+  },
+  {
+    "id": 55,
+    "correctLanguage": "Go",
+    "difficulty": "medium",
+    "codeSnippet": "defer file.Close()",
+    "explanation": {
+      "en": "The defer keyword for deferring execution is from Go.",
+      "ar": "الكلمة المفتاحية defer لتأجيل التنفيذ من Go."
+    }
+  },
+  {
+    "id": 56,
+    "correctLanguage": "Go",
+    "difficulty": "medium",
+    "codeSnippet": "type Point struct {\n    X, Y int\n}",
+    "explanation": {
+      "en": "type Name struct with fields typed after the name is a Go pattern.",
+      "ar": "type Name struct وحقول بأنواع بعد الاسم نمط Go."
+    }
+  },
+  {
+    "id": 57,
+    "correctLanguage": "Go",
+    "difficulty": "medium",
+    "codeSnippet": "m := map[string]int{\"a\": 1}",
+    "explanation": {
+      "en": "map[string]int with := assignment is Go syntax.",
+      "ar": "map[string]int مع الإسناد =: من صيغة Go."
+    }
+  },
+  {
+    "id": 58,
+    "correctLanguage": "Go",
+    "difficulty": "hard",
+    "codeSnippet": "ch := make(chan int)\ngo worker(ch)",
+    "explanation": {
+      "en": "make(chan int) and the go keyword to launch a goroutine are Go.",
+      "ar": "make(chan int) والكلمة go لإطلاق goroutine من Go."
+    }
+  },
+  {
+    "id": 59,
+    "correctLanguage": "Go",
+    "difficulty": "hard",
+    "codeSnippet": "func (p *Point) Move(dx int) {\n    p.X += dx\n}",
+    "explanation": {
+      "en": "A receiver (func (p *Point)) before the function name is a Go pattern.",
+      "ar": "المستقبِل (func (p *Point)) قبل اسم الدالة نمط Go."
+    }
+  },
+  {
+    "id": 60,
+    "correctLanguage": "Go",
+    "difficulty": "hard",
+    "codeSnippet": "fmt.Printf(\"%v\\n\", result)",
+    "explanation": {
+      "en": "fmt.Printf with the %v verb is from Go's fmt package.",
+      "ar": "fmt.Printf مع المحدد %v من مكتبة fmt في Go."
+    }
+  },
+  {
+    "id": 61,
+    "correctLanguage": "Python",
+    "difficulty": "easy",
+    "codeSnippet": "for i in range(5):\n    print(i)",
+    "explanation": {
+      "en": "A for ... in range() loop with print and no braces is a Python pattern.",
+      "ar": "حلقة for ... in range() مع print بلا أقواس معقوفة نمط بايثون."
+    }
+  },
+  {
+    "id": 62,
+    "correctLanguage": "Python",
+    "difficulty": "easy",
+    "codeSnippet": "name = input('Enter your name: ')",
+    "explanation": {
+      "en": "The input() function for reading input is distinctive to Python.",
+      "ar": "دالة input() لقراءة المدخلات مميزة في بايثون."
+    }
+  },
+  {
+    "id": 63,
+    "correctLanguage": "Python",
+    "difficulty": "easy",
+    "codeSnippet": "numbers = [1, 2, 3]\nnumbers.append(4)",
+    "explanation": {
+      "en": "The list.append() method and list building are from Python.",
+      "ar": "التابع list.append() وبناء القوائم من بايثون."
+    }
+  },
+  {
+    "id": 64,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "try:\n    x = int(value)\nexcept ValueError:\n    x = 0",
+    "explanation": {
+      "en": "try/except with ValueError and a colon after the statement are Python.",
+      "ar": "try/except مع ValueError ونقطتان بعد العبارة من بايثون."
+    }
+  },
+  {
+    "id": 65,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "class Dog:\n    def __init__(self, name):\n        self.name = name",
+    "explanation": {
+      "en": "The __init__ constructor and the self parameter are from Python classes.",
+      "ar": "الباني __init__ والمعامل self من أصناف بايثون."
+    }
+  },
+  {
+    "id": 66,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "print(', '.join(items))",
+    "explanation": {
+      "en": "The str.join() method on a separator string is a Python pattern.",
+      "ar": "التابع str.join() على سلسلة فاصلة من أنماط بايثون."
+    }
+  },
+  {
+    "id": 67,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "from collections import Counter\nc = Counter(words)",
+    "explanation": {
+      "en": "from collections import Counter is from Python's standard library.",
+      "ar": "from collections import Counter من المكتبة القياسية لبايثون."
+    }
+  },
+  {
+    "id": 68,
+    "correctLanguage": "Python",
+    "difficulty": "hard",
+    "codeSnippet": "def gen():\n    yield from range(10)",
+    "explanation": {
+      "en": "yield from for generator delegation is specific to Python.",
+      "ar": "yield from لتفويض المولّدات خاص ببايثون."
+    }
+  },
+  {
+    "id": 69,
+    "correctLanguage": "Python",
+    "difficulty": "hard",
+    "codeSnippet": "items = sorted(data, key=lambda x: x[1], reverse=True)",
+    "explanation": {
+      "en": "sorted(key=lambda, reverse=True) is Python syntax.",
+      "ar": "sorted(key=lambda, reverse=True) صيغة بايثون."
+    }
+  },
+  {
+    "id": 70,
+    "correctLanguage": "Python",
+    "difficulty": "hard",
+    "codeSnippet": "df = pd.DataFrame(data)\nmean = df['col'].mean()",
+    "explanation": {
+      "en": "pandas DataFrame and column access are very common in Python.",
+      "ar": "pandas DataFrame والوصول للأعمدة شائع جداً في بايثون."
+    }
+  },
+  {
+    "id": 71,
+    "correctLanguage": "JavaScript",
+    "difficulty": "easy",
+    "codeSnippet": "let sum = 0;\nfor (let i = 0; i < 5; i++) sum += i;",
+    "explanation": {
+      "en": "let inside a for loop is modern JavaScript.",
+      "ar": "let داخل حلقة for من جافاسكربت الحديثة."
+    }
+  },
+  {
+    "id": 72,
+    "correctLanguage": "JavaScript",
+    "difficulty": "easy",
+    "codeSnippet": "const name = prompt('What is your name?');",
+    "explanation": {
+      "en": "prompt() is a browser API specific to JavaScript.",
+      "ar": "prompt() واجهة متصفح خاصة بجافاسكربت."
+    }
+  },
+  {
+    "id": 73,
+    "correctLanguage": "JavaScript",
+    "difficulty": "easy",
+    "codeSnippet": "arr.forEach(item => console.log(item));",
+    "explanation": {
+      "en": "forEach with an arrow function and console.log are JavaScript.",
+      "ar": "forEach مع دالة سهمية و console.log من جافاسكربت."
+    }
+  },
+  {
+    "id": 74,
+    "correctLanguage": "JavaScript",
+    "difficulty": "medium",
+    "codeSnippet": "button.addEventListener('click', () => {});",
+    "explanation": {
+      "en": "addEventListener is a JavaScript DOM API.",
+      "ar": "addEventListener من واجهات DOM في جافاسكربت."
+    }
+  },
+  {
+    "id": 75,
+    "correctLanguage": "JavaScript",
+    "difficulty": "medium",
+    "codeSnippet": "const data = JSON.stringify({ id: 1, ok: true });",
+    "explanation": {
+      "en": "JSON.stringify with the {} object is a JavaScript pattern.",
+      "ar": "JSON.stringify مع الكائن {} نمط جافاسكربت."
+    }
+  },
+  {
+    "id": 76,
+    "correctLanguage": "JavaScript",
+    "difficulty": "medium",
+    "codeSnippet": "class Cat extends Animal {\n  constructor() { super(); }\n}",
+    "explanation": {
+      "en": "class extends with constructor and super() is JavaScript class syntax.",
+      "ar": "class extends مع constructor و super() صيغة أصناف جافاسكربت."
+    }
+  },
+  {
+    "id": 77,
+    "correctLanguage": "JavaScript",
+    "difficulty": "hard",
+    "codeSnippet": "const unique = [...new Set(arr)];",
+    "explanation": {
+      "en": "Set with the spread operator ... to dedupe is from JavaScript.",
+      "ar": "Set مع معامل الانتشار ... لإزالة التكرار من جافاسكربت."
+    }
+  },
+  {
+    "id": 78,
+    "correctLanguage": "JavaScript",
+    "difficulty": "hard",
+    "codeSnippet": "app.get('/api', (req, res) => res.json(data));",
+    "explanation": {
+      "en": "req/res and res.json are from Express in JavaScript/Node.",
+      "ar": "req/res و res.json من Express في جافاسكربت/Node."
+    }
+  },
+  {
+    "id": 79,
+    "correctLanguage": "JavaScript",
+    "difficulty": "hard",
+    "codeSnippet": "const [count, setCount] = useState(0);",
+    "explanation": {
+      "en": "useState and array destructuring are from React (JavaScript).",
+      "ar": "useState وتفكيك المصفوفة من React (جافاسكربت)."
+    }
+  },
+  {
+    "id": 80,
+    "correctLanguage": "JavaScript",
+    "difficulty": "hard",
+    "codeSnippet": "const results = await Promise.all(urls.map(u => fetch(u)));",
+    "explanation": {
+      "en": "Promise.all with map and fetch are from async JavaScript.",
+      "ar": "Promise.all مع map و fetch من جافاسكربت غير المتزامنة."
+    }
+  },
+  {
+    "id": 81,
+    "correctLanguage": "C++",
+    "difficulty": "easy",
+    "codeSnippet": "#include <vector>\nusing namespace std;",
+    "explanation": {
+      "en": "using namespace std and #include with angle brackets are C++.",
+      "ar": "using namespace std و#include بأقواس زاوية من ++C."
+    }
+  },
+  {
+    "id": 82,
+    "correctLanguage": "C++",
+    "difficulty": "easy",
+    "codeSnippet": "int x;\nstd::cin >> x;",
+    "explanation": {
+      "en": "std::cin >> for reading input is from C++.",
+      "ar": "std::cin >> لقراءة الإدخال من ++C."
+    }
+  },
+  {
+    "id": 83,
+    "correctLanguage": "C++",
+    "difficulty": "medium",
+    "codeSnippet": "std::string name = \"C++\";\nstd::cout << name.length();",
+    "explanation": {
+      "en": "std::string with std::cout and the std namespace are C++.",
+      "ar": "std::string مع std::cout ومساحة std من ++C."
+    }
+  },
+  {
+    "id": 84,
+    "correctLanguage": "C++",
+    "difficulty": "medium",
+    "codeSnippet": "for (auto it = v.begin(); it != v.end(); ++it) {}",
+    "explanation": {
+      "en": "An explicit begin()/end() iterator with auto and ++it is C++.",
+      "ar": "مكرّر صريح begin()/end() مع auto و++it من ++C."
+    }
+  },
+  {
+    "id": 85,
+    "correctLanguage": "C++",
+    "difficulty": "medium",
+    "codeSnippet": "struct Node {\n    int data;\n    Node* next;\n};",
+    "explanation": {
+      "en": "A struct with a self pointer Node* and a semicolon after } is C++.",
+      "ar": "بنية مع مؤشر ذاتي Node* وفاصلة منقوطة بعد } من ++C."
+    }
+  },
+  {
+    "id": 86,
+    "correctLanguage": "C++",
+    "difficulty": "medium",
+    "codeSnippet": "std::cout << \"Enter: \";\nstd::cin >> n;",
+    "explanation": {
+      "en": "The cout/cin combination with the std namespace is C++.",
+      "ar": "تركيبة cout/cin مع مساحة std من ++C."
+    }
+  },
+  {
+    "id": 87,
+    "correctLanguage": "C++",
+    "difficulty": "hard",
+    "codeSnippet": "auto p = std::make_shared<int>(10);",
+    "explanation": {
+      "en": "std::make_shared and the shared_ptr smart pointer are modern C++.",
+      "ar": "std::make_shared والمؤشر الذكي shared_ptr من ++C الحديثة."
+    }
+  },
+  {
+    "id": 88,
+    "correctLanguage": "C++",
+    "difficulty": "hard",
+    "codeSnippet": "std::cout << std::fixed << std::setprecision(2) << pi;",
+    "explanation": {
+      "en": "std::setprecision and std::fixed are from C++ iomanip.",
+      "ar": "std::setprecision و std::fixed من iomanip في ++C."
+    }
+  },
+  {
+    "id": 89,
+    "correctLanguage": "C++",
+    "difficulty": "hard",
+    "codeSnippet": "std::vector<std::pair<int, int>> edges;",
+    "explanation": {
+      "en": "vector<pair<>> with the std namespace is from C++ containers.",
+      "ar": "vector<pair<>> مع مساحة std من حاويات ++C."
+    }
+  },
+  {
+    "id": 90,
+    "correctLanguage": "C++",
+    "difficulty": "hard",
+    "codeSnippet": "template <class T>\nclass Stack { std::vector<T> data; };",
+    "explanation": {
+      "en": "template <class T> and a class template are from C++.",
+      "ar": "template <class T> وقالب صنف من ++C."
+    }
+  },
+  {
+    "id": 91,
+    "correctLanguage": "Java",
+    "difficulty": "easy",
+    "codeSnippet": "int[] arr = new int[10];",
+    "explanation": {
+      "en": "The [] array syntax new int[10] with the type before the name is Java.",
+      "ar": "صيغة المصفوفة [] new int[10] مع النوع قبل الاسم من جافا."
+    }
+  },
+  {
+    "id": 92,
+    "correctLanguage": "Java",
+    "difficulty": "easy",
+    "codeSnippet": "String msg = \"Hi\";\nSystem.out.println(msg.length());",
+    "explanation": {
+      "en": "String with System.out.println is from Java.",
+      "ar": "String مع System.out.println من جافا."
+    }
+  },
+  {
+    "id": 93,
+    "correctLanguage": "Java",
+    "difficulty": "medium",
+    "codeSnippet": "Scanner sc = new Scanner(System.in);",
+    "explanation": {
+      "en": "Scanner(System.in) for reading input is specific to Java.",
+      "ar": "Scanner(System.in) لقراءة الإدخال خاص بجافا."
+    }
+  },
+  {
+    "id": 94,
+    "correctLanguage": "Java",
+    "difficulty": "medium",
+    "codeSnippet": "public abstract class Shape {\n    abstract double area();\n}",
+    "explanation": {
+      "en": "abstract class and an abstract method are from Java.",
+      "ar": "abstract class وتابع abstract من جافا."
+    }
+  },
+  {
+    "id": 95,
+    "correctLanguage": "Java",
+    "difficulty": "medium",
+    "codeSnippet": "try {\n} catch (Exception e) {\n    e.printStackTrace();\n}",
+    "explanation": {
+      "en": "e.printStackTrace() inside a catch is from Java.",
+      "ar": "e.printStackTrace() ضمن catch من جافا."
+    }
+  },
+  {
+    "id": 96,
+    "correctLanguage": "Java",
+    "difficulty": "medium",
+    "codeSnippet": "Map<String, List<Integer>> m = new HashMap<>();",
+    "explanation": {
+      "en": "Nested generic types and new HashMap<>() are from Java collections.",
+      "ar": "أنواع مولّدة متداخلة و new HashMap<>() من مجموعات جافا."
+    }
+  },
+  {
+    "id": 97,
+    "correctLanguage": "Java",
+    "difficulty": "hard",
+    "codeSnippet": "list.forEach(System.out::println);",
+    "explanation": {
+      "en": "The :: method reference (System.out::println) is from Java 8+.",
+      "ar": "مرجع التابع :: (System.out::println) من جافا 8+."
+    }
+  },
+  {
+    "id": 98,
+    "correctLanguage": "Java",
+    "difficulty": "hard",
+    "codeSnippet": "Optional<String> name = Optional.ofNullable(value);",
+    "explanation": {
+      "en": "Optional.ofNullable is from Java.",
+      "ar": "Optional.ofNullable من جافا."
+    }
+  },
+  {
+    "id": 99,
+    "correctLanguage": "Java",
+    "difficulty": "hard",
+    "codeSnippet": "@SpringBootApplication\npublic class App { }",
+    "explanation": {
+      "en": "The @SpringBootApplication annotation is from the Spring framework in Java.",
+      "ar": "الموسوم @SpringBootApplication من إطار Spring في جافا."
+    }
+  },
+  {
+    "id": 100,
+    "correctLanguage": "Java",
+    "difficulty": "medium",
+    "codeSnippet": "StringBuilder sb = new StringBuilder();\nsb.append(\"a\");",
+    "explanation": {
+      "en": "StringBuilder with append() is from Java.",
+      "ar": "StringBuilder مع append() من جافا."
+    }
+  },
+  {
+    "id": 101,
+    "correctLanguage": "Rust",
+    "difficulty": "easy",
+    "codeSnippet": "let x: i32 = 10;\nlet y = x + 5;",
+    "explanation": {
+      "en": "let with the i32 type is from Rust.",
+      "ar": "let مع نوع i32 من رست."
+    }
+  },
+  {
+    "id": 102,
+    "correctLanguage": "Rust",
+    "difficulty": "easy",
+    "codeSnippet": "println!(\"{} + {} = {}\", a, b, a + b);",
+    "explanation": {
+      "en": "The println! macro with {} placeholders is from Rust.",
+      "ar": "الماكرو println! مع المنوبات {} من رست."
+    }
+  },
+  {
+    "id": 103,
+    "correctLanguage": "Rust",
+    "difficulty": "medium",
+    "codeSnippet": "let sum: i32 = v.iter().sum();",
+    "explanation": {
+      "en": "iter().sum() and the i32 type are from Rust.",
+      "ar": "iter().sum() ونوع i32 من رست."
+    }
+  },
+  {
+    "id": 104,
+    "correctLanguage": "Rust",
+    "difficulty": "medium",
+    "codeSnippet": "enum Direction {\n    North,\n    South,\n}",
+    "explanation": {
+      "en": "An enum written this way is from Rust.",
+      "ar": "enum بهذا الشكل من رست."
+    }
+  },
+  {
+    "id": 105,
+    "correctLanguage": "Rust",
+    "difficulty": "medium",
+    "codeSnippet": "let s = String::new();\nlet n: usize = s.len();",
+    "explanation": {
+      "en": "String::new() and the usize type are from Rust.",
+      "ar": "String::new() والنوع usize من رست."
+    }
+  },
+  {
+    "id": 106,
+    "correctLanguage": "Rust",
+    "difficulty": "medium",
+    "codeSnippet": "if let Some(x) = option {\n    println!(\"{}\", x);\n}",
+    "explanation": {
+      "en": "The if let Some(...) pattern is from Rust.",
+      "ar": "نمط if let Some(...) من رست."
+    }
+  },
+  {
+    "id": 107,
+    "correctLanguage": "Rust",
+    "difficulty": "hard",
+    "codeSnippet": "fn largest<T: PartialOrd>(list: &[T]) -> &T {}",
+    "explanation": {
+      "en": "Trait bounds <T: PartialOrd> and the slice &[T] are from Rust.",
+      "ar": "حدود السمات <T: PartialOrd> والشريحة &[T] من رست."
+    }
+  },
+  {
+    "id": 108,
+    "correctLanguage": "Rust",
+    "difficulty": "hard",
+    "codeSnippet": "let inc = |x: i32| -> i32 { x + 1 };",
+    "explanation": {
+      "en": "A closure with |x| and a -> return type is from Rust.",
+      "ar": "إغلاق مع |x| ونوع إرجاع <- من رست."
+    }
+  },
+  {
+    "id": 109,
+    "correctLanguage": "Rust",
+    "difficulty": "hard",
+    "codeSnippet": "use std::collections::HashMap;\nlet mut map = HashMap::new();",
+    "explanation": {
+      "en": "use std::collections and let mut are from Rust.",
+      "ar": "use std::collections و let mut من رست."
+    }
+  },
+  {
+    "id": 110,
+    "correctLanguage": "Rust",
+    "difficulty": "hard",
+    "codeSnippet": "let result: Result<i32, String> = Ok(5);",
+    "explanation": {
+      "en": "The Result<i32, String> type and Ok are from Rust.",
+      "ar": "النوع <Result<i32, String و Ok من رست."
+    }
+  },
+  {
+    "id": 111,
+    "correctLanguage": "Go",
+    "difficulty": "easy",
+    "codeSnippet": "var name string = \"Go\"",
+    "explanation": {
+      "en": "var name string (type after the name) is from Go.",
+      "ar": "var name string (النوع بعد الاسم) من Go."
+    }
+  },
+  {
+    "id": 112,
+    "correctLanguage": "Go",
+    "difficulty": "easy",
+    "codeSnippet": "nums := []int{1, 2, 3}",
+    "explanation": {
+      "en": "The []int slice with short assignment := is from Go.",
+      "ar": "شريحة []int مع الإسناد القصير =: من Go."
+    }
+  },
+  {
+    "id": 113,
+    "correctLanguage": "Go",
+    "difficulty": "medium",
+    "codeSnippet": "s := fmt.Sprintf(\"%d items\", n)",
+    "explanation": {
+      "en": "fmt.Sprintf with := is from Go.",
+      "ar": "fmt.Sprintf مع =: من Go."
+    }
+  },
+  {
+    "id": 114,
+    "correctLanguage": "Go",
+    "difficulty": "medium",
+    "codeSnippet": "for index, value := range items {\n}",
+    "explanation": {
+      "en": "for ... range with index, value and := is from Go.",
+      "ar": "for ... range مع index, value و =: من Go."
+    }
+  },
+  {
+    "id": 115,
+    "correctLanguage": "Go",
+    "difficulty": "medium",
+    "codeSnippet": "type Animal interface {\n    Sound() string\n}",
+    "explanation": {
+      "en": "An interface with simple method signatures is a Go pattern.",
+      "ar": "interface بتواقيع توابع بسيطة نمط Go."
+    }
+  },
+  {
+    "id": 116,
+    "correctLanguage": "Go",
+    "difficulty": "hard",
+    "codeSnippet": "wg.Add(1)\ngo func() { defer wg.Done() }()",
+    "explanation": {
+      "en": "WaitGroup with go func and defer are from Go concurrency.",
+      "ar": "WaitGroup مع go func و defer من تزامن Go."
+    }
+  },
+  {
+    "id": 117,
+    "correctLanguage": "Go",
+    "difficulty": "hard",
+    "codeSnippet": "result, err := strconv.Atoi(str)",
+    "explanation": {
+      "en": "Multiple return result, err and strconv.Atoi are from Go.",
+      "ar": "الإرجاع المتعدد result, err و strconv.Atoi من Go."
+    }
+  },
+  {
+    "id": 118,
+    "correctLanguage": "Go",
+    "difficulty": "hard",
+    "codeSnippet": "select {\ncase msg := <-ch:\n}",
+    "explanation": {
+      "en": "select with a channel <-ch is from Go.",
+      "ar": "select مع قناة <-ch من Go."
+    }
+  },
+  {
+    "id": 119,
+    "correctLanguage": "Go",
+    "difficulty": "medium",
+    "codeSnippet": "slice = append(slice, item)",
+    "explanation": {
+      "en": "The built-in append on slices is from Go.",
+      "ar": "الدالة المدمجة append على الشرائح من Go."
+    }
+  },
+  {
+    "id": 120,
+    "correctLanguage": "Go",
+    "difficulty": "hard",
+    "codeSnippet": "func (s *Server) Handle(w http.ResponseWriter, r *http.Request) {}",
+    "explanation": {
+      "en": "A receiver (s *Server) and the http.ResponseWriter signature are from Go.",
+      "ar": "مستقبِل (s *Server) وتوقيع http.ResponseWriter من Go."
+    }
+  }
 ]

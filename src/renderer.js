@@ -24,6 +24,125 @@ const FRIENDS = [
 
 const RING_CIRCUMFERENCE = 2 * Math.PI * 52; // r = 52 -> ~326.7
 
+// ============================================================
+//  Internationalization (English / Arabic)
+// ============================================================
+const I18N = {
+  en: {
+    appTitle: 'Guess the Programming Language',
+    menuTitle1: 'Guess the',
+    menuTitle2: 'Programming Language',
+    menuSubtitle: 'Identify the language from the snippet before time runs out',
+    start: '▶  Start',
+    friends: '👥  Friends & Scores',
+    settings: '⚙  Settings',
+    bestScore: 'Best score:',
+    settingsTitle: 'Settings',
+    settingLanguage: 'Language',
+    settingName: 'Your leaderboard name',
+    settingQuestions: 'Questions per round',
+    settingSound: 'Sound effects',
+    settingDifficulty: 'Difficulty',
+    diffAll: 'All', diffEasy: 'Easy', diffMedium: 'Medium', diffHard: 'Hard',
+    save: 'Save & Close',
+    score: 'Score:',
+    question: 'Question',
+    finalScore: 'Final Score:',
+    comparison: 'Friends Comparison',
+    challenge: '🔗  Challenge a friend',
+    replay: '🔄  Play again',
+    backMenu: '🏠  Main menu',
+    you: '(YOU)',
+    lbLoading: 'Loading leaderboard…',
+    lbOnline: '🌐 Global leaderboard (Supabase)',
+    lbOffline: '⚠ Could not reach the leaderboard — showing local results.',
+    correct: 'Correct!',
+    streakBonus: '(×1.5 🔥)',
+    wrong: 'Wrong — correct answer:',
+    timeUp: "Time's up! Answer:",
+    loadFail: '⚠ Failed to load questions',
+    challengeCopied: '✅ Challenge copied!',
+    diff: { easy: 'Easy', medium: 'Medium', hard: 'Hard' }
+  },
+  ar: {
+    appTitle: 'خمّن لغة البرمجة',
+    menuTitle1: 'خمِّن',
+    menuTitle2: 'لغة البرمجة',
+    menuSubtitle: 'خمّن لغة البرمجة من مقتطف الكود قبل انتهاء الوقت',
+    start: '▶  ابدأ اللعب',
+    friends: '👥  الأصدقاء والنتائج',
+    settings: '⚙  الإعدادات',
+    bestScore: 'أفضل نتيجة:',
+    settingsTitle: 'الإعدادات',
+    settingLanguage: 'اللغة',
+    settingName: 'اسمك في لوحة الصدارة',
+    settingQuestions: 'عدد الأسئلة في الجولة',
+    settingSound: 'المؤثرات الصوتية',
+    settingDifficulty: 'الصعوبة',
+    diffAll: 'الكل', diffEasy: 'سهل', diffMedium: 'متوسط', diffHard: 'صعب',
+    save: 'حفظ وإغلاق',
+    score: 'النقاط:',
+    question: 'سؤال',
+    finalScore: 'النتيجة النهائية:',
+    comparison: 'مقارنة الأصدقاء',
+    challenge: '🔗  تحدَّ صديقاً',
+    replay: '🔄  إعادة اللعب',
+    backMenu: '🏠  القائمة الرئيسية',
+    you: '(أنت)',
+    lbLoading: 'جارٍ تحميل لوحة الصدارة…',
+    lbOnline: '🌐 لوحة الصدارة العالمية (Supabase)',
+    lbOffline: '⚠ تعذّر الاتصال بلوحة الصدارة — عرض نتائج محلية.',
+    correct: 'صحيح!',
+    streakBonus: '(×1.5 🔥)',
+    wrong: 'خطأ — الإجابة الصحيحة:',
+    timeUp: 'انتهى الوقت! الإجابة:',
+    loadFail: '⚠ تعذّر تحميل الأسئلة',
+    challengeCopied: '✅ تم نسخ التحدي!',
+    diff: { easy: 'سهل', medium: 'متوسط', hard: 'صعب' }
+  }
+};
+
+function getLang() {
+  const l = localStorage.getItem('gtl_lang');
+  return l === 'ar' || l === 'en' ? l : 'en';
+}
+function setLang(lang) {
+  localStorage.setItem('gtl_lang', lang === 'ar' ? 'ar' : 'en');
+  applyLanguage();
+}
+function t(key) {
+  const d = I18N[getLang()];
+  if (d && d[key] != null) return d[key];
+  return I18N.en[key] != null ? I18N.en[key] : key;
+}
+function diffLabel(d) {
+  return (I18N[getLang()].diff || {})[d] || d;
+}
+function challengeText(score) {
+  return getLang() === 'ar'
+    ? `حصلت على ${score} نقطة في لعبة "خمّن لغة البرمجة"! هل تستطيع التغلب عليّ؟`
+    : `I scored ${score} points in "Guess the Programming Language"! Can you beat me?`;
+}
+
+function applyLanguage() {
+  const lang = getLang();
+  const dict = I18N[lang];
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('[data-i18n]').forEach((el) => {
+    const k = el.getAttribute('data-i18n');
+    if (dict[k] != null) el.textContent = dict[k];
+  });
+  document.querySelectorAll('.lang-switch button').forEach((b) => {
+    b.classList.toggle('active', b.dataset.setlang === lang);
+  });
+  const sel = document.querySelector('#set-language');
+  if (sel) sel.value = lang;
+  // Refresh the currently-shown difficulty badge if a question is loaded.
+  const dEl = document.querySelector('#code-difficulty');
+  if (dEl && dEl.dataset.diff) dEl.textContent = diffLabel(dEl.dataset.diff);
+}
+
 // ---------- Persistent settings / high score ----------
 const store = {
   get highScore() { return Number(localStorage.getItem('gtl_highscore') || 0); },
@@ -144,6 +263,7 @@ function getSettings() {
 
 function applySettingsToUI() {
   const s = getSettings();
+  $('#set-language').value = getLang();
   $('#set-name').value = s.name || '';
   $('#set-questions').value = String(s.questions);
   $('#set-sound').checked = !!s.sound;
@@ -217,7 +337,9 @@ function nextQuestion() {
 
   const q = state.round[state.index];
   $('#q-current').textContent = String(state.index + 1);
-  $('#code-difficulty').textContent = q.difficulty;
+  const dEl = $('#code-difficulty');
+  dEl.dataset.diff = q.difficulty;
+  dEl.textContent = diffLabel(q.difficulty);
   $('#code-snippet').innerHTML = highlight(q.codeSnippet);
   hideToast();
 
@@ -265,12 +387,12 @@ function onAnswer(chosen, btn) {
     state.score += gained;
     sfx.correct();
     updateScore(true);
-    showToast(`صحيح! +${gained}${multiplier > 1 ? '  (x1.5 🔥)' : ''}  —  ${q.explanation}`, 'good');
+    showToast(`${t('correct')} +${gained}${multiplier > 1 ? '  ' + t('streakBonus') : ''}  —  ${q.explanation[getLang()]}`, 'good');
   } else {
     state.streak = 0;
     if (btn) { btn.classList.add('wrong', 'shake'); }
     sfx.wrong();
-    showToast(`خطأ — الإجابة الصحيحة: ${q.correctLanguage}.  ${q.explanation}`, 'bad');
+    showToast(`${t('wrong')} ${q.correctLanguage}.  ${q.explanation[getLang()]}`, 'bad');
   }
 
   updateStreakPill();
@@ -305,7 +427,7 @@ function onTimeout() {
     if (b.dataset.lang === q.correctLanguage) b.classList.add('correct');
   });
   sfx.wrong();
-  showToast(`انتهى الوقت! الإجابة: ${q.correctLanguage}.  ${q.explanation}`, 'bad');
+  showToast(`${t('timeUp')} ${q.correctLanguage}.  ${q.explanation[getLang()]}`, 'bad');
   updateStreakPill();
   state.index += 1;
   setTimeout(nextQuestion, 1700);
@@ -425,7 +547,7 @@ async function buildResultsLeaderboard() {
 
   if (supabaseConfigured()) {
     note.className = 'lb-note';
-    note.textContent = 'جارٍ تحميل لوحة الصدارة…';
+    note.textContent = t('lbLoading');
     try {
       const me = await submitScore(playerName, state.score);
       const top = await fetchTopScores(10);
@@ -440,12 +562,12 @@ async function buildResultsLeaderboard() {
 
       renderLeaderboard(list);
       note.className = 'lb-note online';
-      note.textContent = '🌐 لوحة الصدارة العالمية (Supabase)';
+      note.textContent = t('lbOnline');
       return;
     } catch (e) {
       console.error('Leaderboard error:', e);
       note.className = 'lb-note offline';
-      note.textContent = '⚠ تعذّر الاتصال بلوحة الصدارة — عرض نتائج محلية.';
+      note.textContent = t('lbOffline');
     }
   } else {
     note.className = 'lb-note';
@@ -475,7 +597,7 @@ function renderLeaderboard(list) {
     if (p.you) {
       const tag = document.createElement('span');
       tag.className = 'lb-tag';
-      tag.textContent = ' (YOU)';
+      tag.textContent = ' ' + t('you');
       label.appendChild(tag);
     }
     const wrap = document.createElement('div');
@@ -500,10 +622,10 @@ function renderLeaderboard(list) {
 }
 
 function challengeFriend() {
-  const text = `حصلت على ${state.score} نقطة في لعبة "خمّن لغة البرمجة"! هل تستطيع التغلب عليّ؟`;
+  const text = challengeText(state.score);
   navigator.clipboard?.writeText(text).then(
-    () => flashButton('#btn-challenge', '✅ تم نسخ التحدي!'),
-    () => flashButton('#btn-challenge', 'انسخ يدوياً: ' + state.score)
+    () => flashButton('#btn-challenge', t('challengeCopied')),
+    () => flashButton('#btn-challenge', String(state.score))
   );
 }
 
@@ -522,6 +644,12 @@ function bindEvents() {
   $('#tb-min').addEventListener('click', () => window.appWindow?.minimize());
   $('#tb-max').addEventListener('click', () => window.appWindow?.toggleMaximize());
   $('#tb-close').addEventListener('click', () => window.appWindow?.close());
+
+  // language switch (menu toggle + settings dropdown)
+  document.querySelectorAll('.lang-switch button').forEach((b) => {
+    b.addEventListener('click', () => setLang(b.dataset.setlang));
+  });
+  $('#set-language').addEventListener('change', () => setLang($('#set-language').value));
 
   // menu
   $('#btn-start').addEventListener('click', startGame);
@@ -560,6 +688,7 @@ function refreshMenu() {
 // ============================================================
 async function boot() {
   bindEvents();
+  applyLanguage();
   refreshMenu();
   try {
     state.allQuestions = await window.gameAPI.getQuestions();
@@ -568,8 +697,10 @@ async function boot() {
     state.allQuestions = [];
   }
   if (!state.allQuestions.length) {
-    $('#btn-start').textContent = '⚠ تعذّر تحميل الأسئلة';
-    $('#btn-start').disabled = true;
+    const sb = $('#btn-start');
+    sb.removeAttribute('data-i18n'); // keep the error text from being overwritten
+    sb.textContent = t('loadFail');
+    sb.disabled = true;
   }
 }
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy"
@@ -8,11 +8,11 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- ===== Custom title bar ===== -->
-  <header class="titlebar">
+  <!-- ===== Custom title bar (kept LTR like native window chrome) ===== -->
+  <header class="titlebar" dir="ltr">
     <div class="titlebar-left">
       <span class="win-logo">▦</span>
-      <span class="titlebar-title">Guess the Programming Language</span>
+      <span class="titlebar-title" data-i18n="appTitle">Guess the Programming Language</span>
     </div>
     <div class="titlebar-controls">
       <button class="tb-btn" id="tb-min" title="Minimize">&#8211;</button>
@@ -26,30 +26,44 @@
     <!-- ============ MENU SCREEN ============ -->
     <section id="screen-menu" class="screen active">
       <div class="menu-card">
+        <div class="lang-switch">
+          <button data-setlang="en">EN</button>
+          <button data-setlang="ar">ع</button>
+        </div>
         <div class="menu-logo">&#128187;</div>
-        <h1 class="menu-title">Guess the<br><span class="neon">Programming Language</span></h1>
-        <p class="menu-sub">خمّن لغة البرمجة من مقتطف الكود قبل انتهاء الوقت</p>
+        <h1 class="menu-title">
+          <span data-i18n="menuTitle1">Guess the</span><br>
+          <span class="neon" data-i18n="menuTitle2">Programming Language</span>
+        </h1>
+        <p class="menu-sub" data-i18n="menuSubtitle">Identify the language from the snippet before time runs out</p>
 
         <div class="menu-buttons">
-          <button class="btn btn-primary" id="btn-start">▶ &nbsp;ابدأ اللعب</button>
-          <button class="btn btn-ghost" id="btn-friends">&#128101;&nbsp; الأصدقاء والنتائج</button>
-          <button class="btn btn-ghost" id="btn-settings">&#9881;&nbsp; الإعدادات</button>
+          <button class="btn btn-primary" id="btn-start" data-i18n="start">▶  Start</button>
+          <button class="btn btn-ghost" id="btn-friends" data-i18n="friends">👥  Friends &amp; Scores</button>
+          <button class="btn btn-ghost" id="btn-settings" data-i18n="settings">⚙  Settings</button>
         </div>
 
         <div class="menu-highscore">
-          أفضل نتيجة: <strong id="menu-highscore-val">0</strong>
+          <span data-i18n="bestScore">Best score:</span> <strong id="menu-highscore-val">0</strong>
         </div>
       </div>
 
       <!-- Settings popover -->
       <div id="settings-panel" class="popover hidden">
-        <h3>الإعدادات</h3>
+        <h3 data-i18n="settingsTitle">Settings</h3>
         <label class="setting-row">
-          <span>اسمك في لوحة الصدارة</span>
+          <span data-i18n="settingLanguage">Language</span>
+          <select id="set-language">
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+          </select>
+        </label>
+        <label class="setting-row">
+          <span data-i18n="settingName">Your leaderboard name</span>
           <input type="text" id="set-name" maxlength="24" placeholder="Player" />
         </label>
         <label class="setting-row">
-          <span>عدد الأسئلة في الجولة</span>
+          <span data-i18n="settingQuestions">Questions per round</span>
           <select id="set-questions">
             <option value="5">5</option>
             <option value="10" selected>10</option>
@@ -58,28 +72,31 @@
           </select>
         </label>
         <label class="setting-row">
-          <span>المؤثرات الصوتية</span>
+          <span data-i18n="settingSound">Sound effects</span>
           <input type="checkbox" id="set-sound" checked />
         </label>
         <label class="setting-row">
-          <span>الصعوبة</span>
+          <span data-i18n="settingDifficulty">Difficulty</span>
           <select id="set-difficulty">
-            <option value="all" selected>الكل</option>
-            <option value="easy">سهل</option>
-            <option value="medium">متوسط</option>
-            <option value="hard">صعب</option>
+            <option value="all" data-i18n="diffAll">All</option>
+            <option value="easy" data-i18n="diffEasy">Easy</option>
+            <option value="medium" data-i18n="diffMedium">Medium</option>
+            <option value="hard" data-i18n="diffHard">Hard</option>
           </select>
         </label>
-        <button class="btn btn-primary btn-sm" id="set-close">حفظ وإغلاق</button>
+        <button class="btn btn-primary btn-sm" id="set-close" data-i18n="save">Save &amp; Close</button>
       </div>
     </section>
 
     <!-- ============ GAME SCREEN ============ -->
     <section id="screen-game" class="screen">
       <div class="game-topbar">
-        <div class="score-pill">Score: <span id="game-score">0</span></div>
-        <div class="streak-pill hidden" id="streak-pill">🔥 <span id="streak-count">0</span> &nbsp;x1.5</div>
-        <div class="progress-pill">سؤال <span id="q-current">1</span> / <span id="q-total">10</span></div>
+        <div class="score-pill"><span data-i18n="score">Score:</span> <span id="game-score">0</span></div>
+        <div class="streak-pill hidden" id="streak-pill">🔥 <span id="streak-count">0</span> &nbsp;×1.5</div>
+        <div class="progress-pill">
+          <span data-i18n="question">Question</span>
+          <span id="q-current">1</span> / <span id="q-total">10</span>
+        </div>
       </div>
 
       <div class="game-body">
@@ -88,7 +105,7 @@
             <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
             <span class="code-difficulty" id="code-difficulty">easy</span>
           </div>
-          <pre class="code-panel"><code id="code-snippet"></code></pre>
+          <pre class="code-panel" dir="ltr"><code id="code-snippet"></code></pre>
           <div class="toast" id="answer-toast"></div>
         </div>
 
@@ -97,26 +114,26 @@
             <circle class="ring-bg" cx="60" cy="60" r="52" />
             <circle class="ring-fg" id="ring-fg" cx="60" cy="60" r="52" />
           </svg>
-          <div class="timer-num" id="timer-num">15</div>
+          <div class="timer-num" id="timer-num" dir="ltr">15</div>
         </div>
       </div>
 
-      <div class="options-grid" id="options-grid"><!-- language buttons injected --></div>
+      <div class="options-grid" id="options-grid" dir="ltr"><!-- language buttons injected --></div>
     </section>
 
     <!-- ============ RESULTS SCREEN ============ -->
     <section id="screen-results" class="screen">
       <div class="results-card">
         <div class="trophy">&#127942;</div>
-        <h2 class="final-score">Final Score: <span id="final-score">0</span></h2>
-        <p class="results-sub">Friends Comparison</p>
+        <h2 class="final-score"><span data-i18n="finalScore">Final Score:</span> <span id="final-score">0</span></h2>
+        <p class="results-sub" data-i18n="comparison">Friends Comparison</p>
         <div class="lb-note" id="lb-note"></div>
         <div class="leaderboard" id="leaderboard"><!-- rows injected --></div>
 
         <div class="results-buttons">
-          <button class="btn btn-primary" id="btn-challenge">&#128279; تحدّى صديقاً</button>
-          <button class="btn btn-accent" id="btn-replay">&#128260; إعادة اللعب</button>
-          <button class="btn btn-ghost" id="btn-menu">&#127968; القائمة الرئيسية</button>
+          <button class="btn btn-primary" id="btn-challenge" data-i18n="challenge">🔗  Challenge a friend</button>
+          <button class="btn btn-accent" id="btn-replay" data-i18n="replay">🔄  Play again</button>
+          <button class="btn btn-ghost" id="btn-menu" data-i18n="backMenu">🏠  Main menu</button>
         </div>
       </div>
     </section>

@@ -4,13 +4,21 @@
 
 An interactive **Windows** desktop game built with **Electron**. A mystery code
 snippet appears and you must identify the programming language before the timer
-runs out — with scoring, streaks, and a friends/global leaderboard.
+runs out — with scoring, streaks, and a friends/global leaderboard. The entire
+UI is available in **English and Arabic** (with full RTL layout), switchable
+from the menu.
 
 ![Menu](screenshots/1-menu.png)
 
 | Gameplay | Results |
 | --- | --- |
 | ![Game](screenshots/2-game.png) | ![Results](screenshots/4-results.png) |
+
+Arabic (RTL):
+
+| Menu (AR) | Gameplay (AR) | Results (AR) |
+| --- | --- | --- |
+| ![Menu AR](screenshots/5-menu-ar.png) | ![Game AR](screenshots/6-game-ar.png) | ![Results AR](screenshots/7-results-ar.png) |
 
 ---
 
@@ -46,6 +54,9 @@ The output is written to `dist/` (e.g. `Guess The Language Setup 1.0.0.exe`).
 2. A code snippet appears with a circular countdown (12–15s by difficulty).
 3. Pick the correct language from the six buttons — or press keys **1–6**.
 4. After the round, the results screen shows your score and the leaderboard.
+
+Switch between **English and Arabic** anytime via the EN / ع toggle in the menu
+(also under Settings). The choice is persisted, and Arabic flips the UI to RTL.
 
 ### Scoring
 - Correct answer: **+100**
@@ -91,7 +102,10 @@ JavaScript, C++, Java, Rust, Go) and three difficulty levels. Each entry:
   "correctLanguage": "Python",
   "difficulty": "easy",
   "codeSnippet": "print('Hello, World!')",
-  "explanation": "The print() function is a Python signature."
+  "explanation": {
+    "en": "The print() function written this way is a Python signature.",
+    "ar": "دالة print() بهذا الشكل مميزة في بايثون."
+  }
 }
 ```
 
