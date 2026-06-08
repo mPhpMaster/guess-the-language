@@ -165,4 +165,4 @@ pnpm exec electron test/smoke-online.js    # Supabase online path (8 checks)
 
 ## License
 
-MIT
+MIT — see [LICENSE](LICENSE).

@@ -155,6 +155,6 @@ pnpm exec electron test/smoke-online.js    # مسار Supabase المتصل (8 �
 
 ## الرخصة
 
-MIT
+رخصة MIT — انظر ملف [LICENSE](LICENSE).
 
 </div>
