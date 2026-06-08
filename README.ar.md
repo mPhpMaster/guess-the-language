@@ -39,7 +39,7 @@ pnpm run dist     # ينتج مُثبّت NSIS داخل مجلد dist/
 pnpm run pack
 ```
 
-الناتج يوضع في مجلد `dist/` (مثل `Guess The Language Setup 1.0.0.exe`).
+الناتج يوضع في مجلد `dist/` (مثل `Guess The Language Setup 2.0.0.exe`).
 
 ---
 
