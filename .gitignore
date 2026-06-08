@@ -18,3 +18,6 @@ src/supabase-config.js
 Thumbs.db
 .vscode/
 .idea/
+
+# Claude Code local session data
+.claude/
