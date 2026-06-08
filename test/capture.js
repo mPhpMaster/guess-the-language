@@ -1,7 +1,7 @@
 'use strict';
 
-/* Renders each screen and saves a PNG to screenshots/ so the visuals can be
-   reviewed. Run with:  electron test/capture.js                            */
+/* Renders each screen (both modes, both languages) and saves PNGs to
+   screenshots/ for review. Run with:  electron test/capture.js            */
 
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
@@ -9,26 +9,20 @@ const fs = require('fs');
 
 const SRC = path.join(__dirname, '..', 'src');
 const OUT = path.join(__dirname, '..', 'screenshots');
+const FILES = { languages: 'questions.json', cybersecurity: 'questions-cyber.json' };
 
-ipcMain.handle('questions:get', async () => {
-  const raw = await fs.promises.readFile(path.join(SRC, 'data', 'questions.json'), 'utf-8');
-  return JSON.parse(raw);
+ipcMain.handle('questions:get', async (_e, mode) => {
+  const f = FILES[mode] || FILES.languages;
+  return JSON.parse(await fs.promises.readFile(path.join(SRC, 'data', f), 'utf-8'));
 });
 
 app.whenReady().then(async () => {
   fs.mkdirSync(OUT, { recursive: true });
   const win = new BrowserWindow({
-    width: 1280,
-    height: 800,
-    frame: false,
-    show: true,
-    backgroundColor: '#0b1a2b',
+    width: 1280, height: 800, frame: false, show: true, backgroundColor: '#0b1a2b',
     webPreferences: {
-      preload: path.join(SRC, 'preload.js'),
-      contextIsolation: true,
-      nodeIntegration: false,
-      sandbox: true,
-      backgroundThrottling: false // keep timers/animations full-speed while unfocused
+      preload: path.join(SRC, 'preload.js'), contextIsolation: true,
+      nodeIntegration: false, sandbox: true, backgroundThrottling: false
     }
   });
 
@@ -39,72 +33,92 @@ app.whenReady().then(async () => {
     fs.writeFileSync(path.join(OUT, name), img.toPNG());
     console.log('saved', name);
   }
+  async function reload(lang, settings) {
+    // Load the file:// page first so localStorage is on the right origin.
+    await win.loadFile(path.join(SRC, 'index.html'));
+    await sleep(150);
+    if (lang) await run(`localStorage.setItem('gtl_lang', '${lang}'); 'ok'`);
+    if (settings) await run(`localStorage.setItem('gtl_settings', '${JSON.stringify(settings)}'); 'ok'`);
+    if (lang || settings) { await win.loadFile(path.join(SRC, 'index.html')); await sleep(450); }
+    else await sleep(300);
+  }
+  async function pickMode(mode) {
+    await run(`document.querySelector('.mode-card[data-mode="${mode}"]').click(); 'ok'`);
+    for (let i = 0; i < 25; i++) {
+      if (await run("!document.querySelector('#btn-start').disabled")) break;
+      await sleep(100);
+    }
+  }
+  async function answerCorrectly(mode, lang) {
+    const panel = await run("document.querySelector('#code-snippet').textContent");
+    const qtext = await run("document.querySelector('#question-text').textContent");
+    let answer;
+    if (mode === 'languages') {
+      answer = await run(`window.gameAPI.getQuestions('languages').then(qs => { const q = qs.find(x => x.codeSnippet === ${JSON.stringify(panel)}); return q ? q.correctLanguage : null; })`);
+    } else {
+      const shown = (qtext && qtext.trim()) ? qtext : panel;
+      answer = await run(`window.gameAPI.getQuestions('cybersecurity').then(qs => { const q = qs.find(x => x.question['${lang}'] === ${JSON.stringify(shown)}); return q ? q.answer : null; })`);
+    }
+    await run(`(() => { const b = [...document.querySelectorAll('#options-grid button')].find(x => x.dataset.answer === ${JSON.stringify(answer)}); if (b) b.click(); return 'ok'; })()`);
+  }
 
-  await win.loadFile(path.join(SRC, 'index.html'));
-  await sleep(600);
+  try {
+  // ---- English: mode select ----
+  await reload('en', { questions: 10, sound: false, difficulty: 'all', name: '' });
+  await snap('8-modeselect.png');
+
+  // ---- English: languages mode ----
+  await pickMode('languages');
   await snap('1-menu.png');
-
-  // Game screen
   await run("document.querySelector('#btn-start').click(); 'ok'");
   await sleep(500);
   await snap('2-game.png');
-
-  // Answered state (shows feedback + highlighted correct answer)
-  await run("document.querySelectorAll('.lang-btn')[2].click(); 'ok'");
+  await run("document.querySelectorAll('#options-grid button')[2].click(); 'ok'");
   await sleep(400);
   await snap('3-answered.png');
 
-  // Results screen — play a clean single-question round and answer it
-  // correctly so the final score is non-zero (resets state via reload first).
-  await run("localStorage.setItem('gtl_settings', JSON.stringify({questions:1, sound:false, difficulty:'all'})); 'ok'");
-  await win.loadFile(path.join(SRC, 'index.html'));
-  await sleep(500);
+  // languages results with a real score (single-question round)
+  await reload('en', { questions: 1, sound: false, difficulty: 'all', name: '' });
+  await pickMode('languages');
   await run("document.querySelector('#btn-start').click(); 'ok'");
   await sleep(300);
-  const snippet = await run("document.querySelector('#code-snippet').textContent");
-  const correct = await run(
-    `window.gameAPI.getQuestions().then(qs => { const q = qs.find(x => x.codeSnippet === ${JSON.stringify(snippet)}); return q ? q.correctLanguage : null; })`
-  );
-  console.log('answering correctly with:', correct);
-  await run(
-    `(() => { const b = [...document.querySelectorAll('.lang-btn')].find(x => x.dataset.lang === ${JSON.stringify(correct)}); if (b) b.click(); return 'ok'; })()`
-  );
-  await sleep(3200); // 1700ms auto-advance -> endGame, count-up + bar animation
+  await answerCorrectly('languages', 'en');
+  await sleep(3200);
   await snap('4-results.png');
 
-  // ---- Arabic (RTL) captures ----
-  async function playOneAndSnap(name) {
-    await run("document.querySelector('#btn-start').click(); 'ok'");
-    await sleep(300);
-    const snip = await run("document.querySelector('#code-snippet').textContent");
-    const corr = await run(
-      `window.gameAPI.getQuestions().then(qs => { const q = qs.find(x => x.codeSnippet === ${JSON.stringify(snip)}); return q ? q.correctLanguage : null; })`
-    );
-    await run(
-      `(() => { const b = [...document.querySelectorAll('.lang-btn')].find(x => x.dataset.lang === ${JSON.stringify(corr)}); if (b) b.click(); return 'ok'; })()`
-    );
-    await sleep(3200);
-    await snap(name);
-  }
-
-  await run("localStorage.setItem('gtl_lang', 'ar'); 'ok'");
-  await win.loadFile(path.join(SRC, 'index.html'));
+  // ---- English: cybersecurity mode ----
+  await reload('en', { questions: 10, sound: false, difficulty: 'all', name: '' });
+  await pickMode('cybersecurity');
+  await run("document.querySelector('#btn-start').click(); 'ok'");
   await sleep(500);
-  await snap('5-menu-ar.png');
+  await snap('9-cyber-game.png');
 
-  // Arabic game screen (use the default round; just show one question)
-  await run("localStorage.setItem('gtl_settings', JSON.stringify({questions:10, sound:false, difficulty:'all', name:''})); 'ok'");
-  await win.loadFile(path.join(SRC, 'index.html'));
-  await sleep(400);
+  // ---- Arabic: languages mode ----
+  await reload('ar', { questions: 10, sound: false, difficulty: 'all', name: '' });
+  await snap('11-modeselect-ar.png');
+  await pickMode('languages');
+  await snap('5-menu-ar.png');
   await run("document.querySelector('#btn-start').click(); 'ok'");
   await sleep(500);
   await snap('6-game-ar.png');
 
-  // Arabic results screen with a real score
-  await run("localStorage.setItem('gtl_settings', JSON.stringify({questions:1, sound:false, difficulty:'all', name:''})); 'ok'");
-  await win.loadFile(path.join(SRC, 'index.html'));
-  await sleep(400);
-  await playOneAndSnap('7-results-ar.png');
+  // Arabic languages results with a real score
+  await reload('ar', { questions: 1, sound: false, difficulty: 'all', name: '' });
+  await pickMode('languages');
+  await run("document.querySelector('#btn-start').click(); 'ok'");
+  await sleep(300);
+  await answerCorrectly('languages', 'ar');
+  await sleep(3200);
+  await snap('7-results-ar.png');
 
+  // ---- Arabic: cybersecurity game ----
+  await reload('ar', { questions: 10, sound: false, difficulty: 'all', name: '' });
+  await pickMode('cybersecurity');
+  await run("document.querySelector('#btn-start').click(); 'ok'");
+  await sleep(500);
+  await snap('10-cyber-game-ar.png');
+  } catch (err) {
+    console.error('capture failed:', err);
+  }
   app.exit(0);
 });

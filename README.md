@@ -2,17 +2,27 @@
 
 **English** · [العربية](README.ar.md)
 
-An interactive **Windows** desktop game built with **Electron**. A mystery code
-snippet appears and you must identify the programming language before the timer
-runs out — with scoring, streaks, and a friends/global leaderboard. The entire
-UI is available in **English and Arabic** (with full RTL layout), switchable
-from the menu.
+An interactive **Windows** desktop game built with **Electron**. At launch you
+pick one of two quiz modes, then race the timer — with scoring, streaks, and a
+per-mode friends/global leaderboard. The entire UI is available in **English and
+Arabic** (with full RTL layout), switchable from the menu.
 
-![Menu](screenshots/1-menu.png)
+### Two game modes
+- **💻 Programming Languages** — a code snippet appears; guess the language
+  (Python, JavaScript, C++, Java, Rust, Go).
+- **🛡️ Cybersecurity** — multiple-choice questions on tools, malware, Nmap (and
+  its flags), Metasploit, pentest tools (Wireshark, Burp, sqlmap, John, Hydra…)
+  and security concepts.
 
-| Gameplay | Results |
+![Mode select](screenshots/8-modeselect.png)
+
+| Languages mode | Cybersecurity mode |
 | --- | --- |
-| ![Game](screenshots/2-game.png) | ![Results](screenshots/4-results.png) |
+| ![Game](screenshots/2-game.png) | ![Cyber](screenshots/9-cyber-game.png) |
+
+| Results | Cybersecurity (AR, RTL) |
+| --- | --- |
+| ![Results](screenshots/4-results.png) | ![Cyber AR](screenshots/10-cyber-game-ar.png) |
 
 Arabic (RTL):
 
@@ -50,10 +60,12 @@ The output is written to `dist/` (e.g. `Guess The Language Setup 2.0.0.exe`).
 
 ## How to play
 
-1. Click **Start**.
-2. A code snippet appears with a circular countdown (12–15s by difficulty).
-3. Pick the correct language from the six buttons — or press keys **1–6**.
-4. After the round, the results screen shows your score and the leaderboard.
+1. At launch, choose **Programming Languages** or **Cybersecurity** (use **Modes**
+   on the menu to switch later).
+2. Click **Start**.
+3. A snippet/question appears with a circular countdown (12–15s by difficulty).
+4. Pick the correct answer from the buttons — or press the number keys.
+5. After the round, the results screen shows your score and the leaderboard.
 
 Switch between **English and Arabic** anytime via the EN / ع toggle in the menu
 (also under Settings). The choice is persisted, and Arabic flips the UI to RTL.
@@ -79,22 +91,25 @@ prog-game2/
 │  ├─ preload.js                # secure bridge (window controls + question load)
 │  ├─ index.html                # the three screens (menu / game / results)
 │  ├─ styles.css                # dark + neon theme
-│  ├─ renderer.js               # game logic, timer, scoring, leaderboard
+│  ├─ renderer.js               # game logic, modes, timer, scoring, leaderboard
 │  ├─ supabase-config.js         # Supabase creds (local, git-ignored)
 │  ├─ supabase-config.example.js # config template
 │  └─ data/
-│     └─ questions.json          # questions database (180 questions)
+│     ├─ questions.json          # languages bank (180 questions)
+│     └─ questions-cyber.json    # cybersecurity bank (40 questions)
 └─ test/
-   ├─ smoke-main.js             # headless end-to-end test (13 checks)
-   ├─ smoke-online.js           # Supabase online-path test (stubbed fetch)
+   ├─ smoke-main.js             # languages mode end-to-end (14 checks)
+   ├─ smoke-cyber.js            # cybersecurity mode (12 checks)
+   ├─ smoke-i18n.js             # language switch / RTL (9 checks)
+   ├─ smoke-online.js           # Supabase online-path test (8 checks)
    ├─ capture.js                # render screenshots of each screen
    └─ reset-state.js            # clear persisted local state
 ```
 
-## Questions database
+## Questions databases
 
-`src/data/questions.json` holds **180 questions** across 6 languages (Python,
-JavaScript, C++, Java, Rust, Go) and three difficulty levels. Each entry:
+**Languages** — `src/data/questions.json` holds **180 questions** across 6
+languages and three difficulty levels:
 
 ```json
 {
@@ -102,14 +117,28 @@ JavaScript, C++, Java, Rust, Go) and three difficulty levels. Each entry:
   "correctLanguage": "Python",
   "difficulty": "easy",
   "codeSnippet": "print('Hello, World!')",
-  "explanation": {
-    "en": "The print() function written this way is a Python signature.",
-    "ar": "دالة print() بهذا الشكل مميزة في بايثون."
-  }
+  "explanation": { "en": "...", "ar": "..." }
 }
 ```
 
-To add questions, append new objects in the same shape. They load automatically.
+**Cybersecurity** — `src/data/questions-cyber.json` holds **40 questions**
+(categories: nmap, malware, metasploit, tools, concepts). Each has its own
+options:
+
+```json
+{
+  "id": 1,
+  "category": "nmap",
+  "difficulty": "easy",
+  "codeSnippet": "nmap -sS 10.0.0.5",
+  "question": { "en": "What scan does -sS perform?", "ar": "..." },
+  "options": ["TCP SYN (stealth) scan", "UDP scan", "TCP connect scan", "Ping sweep"],
+  "answer": "TCP SYN (stealth) scan",
+  "explanation": { "en": "...", "ar": "..." }
+}
+```
+
+Both banks are generated by helper scripts in `scripts/` and load automatically.
 
 ---
 

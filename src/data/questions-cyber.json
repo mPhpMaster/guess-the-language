@@ -1,0 +1,842 @@
+[
+  {
+    "id": 1,
+    "category": "nmap",
+    "difficulty": "easy",
+    "codeSnippet": "nmap -sS 10.0.0.5",
+    "question": {
+      "en": "What kind of scan does the -sS flag perform?",
+      "ar": "أي نوع من الفحص يقوم به الخيار sS-؟"
+    },
+    "options": [
+      "TCP SYN (stealth) scan",
+      "UDP scan",
+      "TCP connect scan",
+      "Ping sweep"
+    ],
+    "answer": "TCP SYN (stealth) scan",
+    "explanation": {
+      "en": "-sS sends SYN packets without completing the handshake — a fast, stealthy scan.",
+      "ar": "يرسل sS- حزم SYN دون إكمال المصافحة، وهو فحص سريع وخفي."
+    }
+  },
+  {
+    "id": 2,
+    "category": "nmap",
+    "difficulty": "easy",
+    "codeSnippet": "nmap -sV 10.0.0.5",
+    "question": {
+      "en": "What does the -sV flag enable?",
+      "ar": "ماذا يُفعّل الخيار sV-؟"
+    },
+    "options": [
+      "Service/version detection",
+      "OS detection",
+      "Vulnerability scan",
+      "Port knocking"
+    ],
+    "answer": "Service/version detection",
+    "explanation": {
+      "en": "-sV probes open ports to determine the service and version running.",
+      "ar": "يفحص sV- المنافذ المفتوحة لتحديد الخدمة وإصدارها."
+    }
+  },
+  {
+    "id": 3,
+    "category": "nmap",
+    "difficulty": "easy",
+    "codeSnippet": "nmap -p- 10.0.0.5",
+    "question": {
+      "en": "Which ports does -p- scan?",
+      "ar": "أي منافذ يفحصها p--؟"
+    },
+    "options": [
+      "All 65535 TCP ports",
+      "Only the top 100 ports",
+      "UDP ports only",
+      "Privileged ports only"
+    ],
+    "answer": "All 65535 TCP ports",
+    "explanation": {
+      "en": "-p- tells Nmap to scan every TCP port from 1 to 65535.",
+      "ar": "يطلب p-- من Nmap فحص كل منفذ TCP من 1 إلى 65535."
+    }
+  },
+  {
+    "id": 4,
+    "category": "nmap",
+    "difficulty": "medium",
+    "codeSnippet": "nmap -O 10.0.0.5",
+    "question": {
+      "en": "What does the -O flag do?",
+      "ar": "ماذا يفعل الخيار O-؟"
+    },
+    "options": [
+      "OS detection",
+      "Output to a file",
+      "Open ports only",
+      "Aggressive timing"
+    ],
+    "answer": "OS detection",
+    "explanation": {
+      "en": "-O enables operating-system fingerprinting.",
+      "ar": "يُفعّل O- بصمة نظام التشغيل."
+    }
+  },
+  {
+    "id": 5,
+    "category": "nmap",
+    "difficulty": "medium",
+    "codeSnippet": "nmap -sU 10.0.0.5",
+    "question": {
+      "en": "What does -sU perform?",
+      "ar": "ماذا يؤدي sU-؟"
+    },
+    "options": [
+      "UDP scan",
+      "SYN scan",
+      "Slow comprehensive scan",
+      "Stealth TCP scan"
+    ],
+    "answer": "UDP scan",
+    "explanation": {
+      "en": "-sU scans UDP ports.",
+      "ar": "يفحص sU- منافذ UDP."
+    }
+  },
+  {
+    "id": 6,
+    "category": "nmap",
+    "difficulty": "medium",
+    "codeSnippet": "nmap -A 10.0.0.5",
+    "question": {
+      "en": "What does the -A flag enable?",
+      "ar": "ماذا يُفعّل الخيار A-؟"
+    },
+    "options": [
+      "OS + version + scripts + traceroute",
+      "Anonymous scanning",
+      "ARP scan only",
+      "All UDP ports"
+    ],
+    "answer": "OS + version + scripts + traceroute",
+    "explanation": {
+      "en": "-A is aggressive: OS detection, version detection, NSE scripts, and traceroute.",
+      "ar": "A- عدواني: كشف النظام والإصدار وسكربتات NSE وتتبّع المسار."
+    }
+  },
+  {
+    "id": 7,
+    "category": "nmap",
+    "difficulty": "hard",
+    "codeSnippet": "nmap --script vuln 10.0.0.5",
+    "question": {
+      "en": "What does this command run?",
+      "ar": "ماذا يُشغّل هذا الأمر؟"
+    },
+    "options": [
+      "NSE vulnerability scripts",
+      "A simple SYN scan",
+      "A brute-force attack",
+      "A packet capture"
+    ],
+    "answer": "NSE vulnerability scripts",
+    "explanation": {
+      "en": "--script vuln runs the Nmap Scripting Engine's vulnerability-detection scripts.",
+      "ar": "يشغّل script vuln-- سكربتات كشف الثغرات في محرك Nmap (NSE)."
+    }
+  },
+  {
+    "id": 8,
+    "category": "nmap",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which tool is the de-facto standard network port scanner?",
+      "ar": "ما الأداة المعيارية لفحص منافذ الشبكة؟"
+    },
+    "options": [
+      "Nmap",
+      "Metasploit",
+      "Wireshark",
+      "John the Ripper"
+    ],
+    "answer": "Nmap",
+    "explanation": {
+      "en": "Nmap is the most widely used network discovery and port-scanning tool.",
+      "ar": "Nmap هي الأداة الأكثر استخداماً لاكتشاف الشبكات وفحص المنافذ."
+    }
+  },
+  {
+    "id": 9,
+    "category": "malware",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Malware that encrypts your files and demands payment is called?",
+      "ar": "ما اسم البرمجية الخبيثة التي تشفّر ملفاتك وتطلب فدية؟"
+    },
+    "options": [
+      "Ransomware",
+      "Worm",
+      "Rootkit",
+      "Adware"
+    ],
+    "answer": "Ransomware",
+    "explanation": {
+      "en": "Ransomware encrypts data and demands a ransom for the decryption key.",
+      "ar": "تشفّر برمجيات الفدية البيانات وتطلب فدية مقابل مفتاح فك التشفير."
+    }
+  },
+  {
+    "id": 10,
+    "category": "malware",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Self-replicating malware that spreads across networks on its own is a?",
+      "ar": "البرمجية الخبيثة ذاتية الانتشار عبر الشبكات بلا تدخل تُسمى؟"
+    },
+    "options": [
+      "Worm",
+      "Virus",
+      "Trojan",
+      "Spyware"
+    ],
+    "answer": "Worm",
+    "explanation": {
+      "en": "A worm spreads independently without needing a host file or user action.",
+      "ar": "تنتشر الدودة ذاتياً دون الحاجة لملف مضيف أو تدخل المستخدم."
+    }
+  },
+  {
+    "id": 11,
+    "category": "malware",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Malware disguised as legitimate software is a?",
+      "ar": "البرمجية الخبيثة المتنكّرة كبرنامج شرعي تُسمى؟"
+    },
+    "options": [
+      "Trojan",
+      "Worm",
+      "Rootkit",
+      "Ransomware"
+    ],
+    "answer": "Trojan",
+    "explanation": {
+      "en": "A Trojan tricks the user into running it by appearing legitimate.",
+      "ar": "يخدع حصان طروادة المستخدم لتشغيله بالظهور كبرنامج شرعي."
+    }
+  },
+  {
+    "id": 12,
+    "category": "malware",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Malware that hides itself and grants stealthy privileged access is a?",
+      "ar": "البرمجية التي تُخفي نفسها وتمنح وصولاً متميزاً خفياً تُسمى؟"
+    },
+    "options": [
+      "Rootkit",
+      "Adware",
+      "Keylogger",
+      "Botnet"
+    ],
+    "answer": "Rootkit",
+    "explanation": {
+      "en": "A rootkit hides deep in the system and maintains privileged, stealthy access.",
+      "ar": "يختبئ الـ rootkit عميقاً في النظام ويحافظ على وصول متميز خفي."
+    }
+  },
+  {
+    "id": 13,
+    "category": "malware",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Software that secretly records keystrokes to steal credentials is a?",
+      "ar": "البرنامج الذي يسجّل ضغطات المفاتيح سراً لسرقة بيانات الدخول هو؟"
+    },
+    "options": [
+      "Keylogger",
+      "Ransomware",
+      "Worm",
+      "Rootkit"
+    ],
+    "answer": "Keylogger",
+    "explanation": {
+      "en": "A keylogger captures keystrokes, often to steal passwords.",
+      "ar": "يلتقط الـ keylogger ضغطات المفاتيح، غالباً لسرقة كلمات المرور."
+    }
+  },
+  {
+    "id": 14,
+    "category": "malware",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "A network of compromised machines remotely controlled by an attacker is a?",
+      "ar": "شبكة أجهزة مخترقة يتحكم بها المهاجم عن بُعد تُسمى؟"
+    },
+    "options": [
+      "Botnet",
+      "Honeypot",
+      "DMZ",
+      "Sandbox"
+    ],
+    "answer": "Botnet",
+    "explanation": {
+      "en": "A botnet is a group of infected 'bot' machines under an attacker's control.",
+      "ar": "الـ botnet مجموعة أجهزة مصابة (bots) تحت سيطرة المهاجم."
+    }
+  },
+  {
+    "id": 15,
+    "category": "malware",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Malware that needs a host program and runs when that program executes is a?",
+      "ar": "البرمجية التي تحتاج برنامجاً مضيفاً وتعمل عند تشغيله تُسمى؟"
+    },
+    "options": [
+      "Virus",
+      "Worm",
+      "Trojan",
+      "Spyware"
+    ],
+    "answer": "Virus",
+    "explanation": {
+      "en": "A virus attaches to a host file and runs when the host is executed.",
+      "ar": "يرتبط الفيروس بملف مضيف ويعمل عند تشغيل المضيف."
+    }
+  },
+  {
+    "id": 16,
+    "category": "malware",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Malicious code that triggers when a specific condition or date is met is a?",
+      "ar": "الشيفرة الخبيثة التي تنشط عند تحقق شرط أو تاريخ معيّن تُسمى؟"
+    },
+    "options": [
+      "Logic bomb",
+      "Worm",
+      "Trojan",
+      "Rootkit"
+    ],
+    "answer": "Logic bomb",
+    "explanation": {
+      "en": "A logic bomb lies dormant until its trigger condition is satisfied.",
+      "ar": "تظل القنبلة المنطقية خاملة حتى يتحقق شرط تفعيلها."
+    }
+  },
+  {
+    "id": 17,
+    "category": "metasploit",
+    "difficulty": "easy",
+    "codeSnippet": "msfconsole",
+    "question": {
+      "en": "msfconsole is the main interface for which framework?",
+      "ar": "msfconsole هي الواجهة الرئيسية لأي إطار عمل؟"
+    },
+    "options": [
+      "Metasploit Framework",
+      "Nmap",
+      "Burp Suite",
+      "Wireshark"
+    ],
+    "answer": "Metasploit Framework",
+    "explanation": {
+      "en": "msfconsole is the primary command-line interface to the Metasploit Framework.",
+      "ar": "msfconsole هي الواجهة الطرفية الأساسية لإطار Metasploit."
+    }
+  },
+  {
+    "id": 18,
+    "category": "metasploit",
+    "difficulty": "medium",
+    "codeSnippet": "use exploit/windows/smb/ms17_010_eternalblue",
+    "question": {
+      "en": "Which vulnerability does this Metasploit module target?",
+      "ar": "أي ثغرة تستهدفها هذه الوحدة في Metasploit؟"
+    },
+    "options": [
+      "SMBv1 (EternalBlue)",
+      "OpenSSH",
+      "Apache HTTP",
+      "FTP"
+    ],
+    "answer": "SMBv1 (EternalBlue)",
+    "explanation": {
+      "en": "ms17_010 / EternalBlue exploits a flaw in Microsoft SMBv1.",
+      "ar": "تستغل ms17_010 / EternalBlue ثغرة في بروتوكول SMBv1 من مايكروسوفت."
+    }
+  },
+  {
+    "id": 19,
+    "category": "metasploit",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "In Metasploit, what is a 'payload'?",
+      "ar": "في Metasploit، ما هو الـ payload؟"
+    },
+    "options": [
+      "Code that runs after a successful exploit",
+      "A port scanner",
+      "A firewall rule",
+      "A hashing algorithm"
+    ],
+    "answer": "Code that runs after a successful exploit",
+    "explanation": {
+      "en": "The payload is the code executed on the target after the exploit succeeds.",
+      "ar": "الـ payload هو الشيفرة التي تُنفَّذ على الهدف بعد نجاح الاستغلال."
+    }
+  },
+  {
+    "id": 20,
+    "category": "metasploit",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is Meterpreter?",
+      "ar": "ما هو Meterpreter؟"
+    },
+    "options": [
+      "An advanced in-memory Metasploit payload",
+      "A port scanner",
+      "A password cracker",
+      "A packet sniffer"
+    ],
+    "answer": "An advanced in-memory Metasploit payload",
+    "explanation": {
+      "en": "Meterpreter is a powerful, in-memory Metasploit payload for post-exploitation.",
+      "ar": "Meterpreter هو payload قوي يعمل في الذاكرة لمرحلة ما بعد الاستغلال."
+    }
+  },
+  {
+    "id": 21,
+    "category": "metasploit",
+    "difficulty": "medium",
+    "codeSnippet": "set RHOSTS 10.0.0.5",
+    "question": {
+      "en": "In Metasploit, what does RHOSTS set?",
+      "ar": "في Metasploit، ماذا يضبط RHOSTS؟"
+    },
+    "options": [
+      "The target host(s)",
+      "The local host",
+      "The payload",
+      "The port range"
+    ],
+    "answer": "The target host(s)",
+    "explanation": {
+      "en": "RHOSTS specifies the remote/target host(s); LHOST is your local host.",
+      "ar": "يحدد RHOSTS الهدف البعيد، بينما LHOST هو جهازك المحلي."
+    }
+  },
+  {
+    "id": 22,
+    "category": "metasploit",
+    "difficulty": "hard",
+    "codeSnippet": "msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.0.0.2 -f exe",
+    "question": {
+      "en": "What is msfvenom used for?",
+      "ar": "فيمَ يُستخدم msfvenom؟"
+    },
+    "options": [
+      "Generating payloads / shellcode",
+      "Scanning ports",
+      "Cracking hashes",
+      "Sniffing traffic"
+    ],
+    "answer": "Generating payloads / shellcode",
+    "explanation": {
+      "en": "msfvenom generates and encodes standalone payloads/shellcode.",
+      "ar": "يولّد msfvenom ويُرمّز payloads/shellcode مستقلة."
+    }
+  },
+  {
+    "id": 23,
+    "category": "tools",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which tool captures and analyzes network packets with a GUI?",
+      "ar": "أي أداة تلتقط وتحلّل حزم الشبكة بواجهة رسومية؟"
+    },
+    "options": [
+      "Wireshark",
+      "Nmap",
+      "Hydra",
+      "sqlmap"
+    ],
+    "answer": "Wireshark",
+    "explanation": {
+      "en": "Wireshark is the standard GUI packet analyzer.",
+      "ar": "Wireshark هي المحلّل الرسومي القياسي للحزم."
+    }
+  },
+  {
+    "id": 24,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which tool is an intercepting proxy/scanner for web application testing?",
+      "ar": "أي أداة تعمل كبروكسي اعتراضي وماسح لاختبار تطبيقات الويب؟"
+    },
+    "options": [
+      "Burp Suite",
+      "Nmap",
+      "Aircrack-ng",
+      "John the Ripper"
+    ],
+    "answer": "Burp Suite",
+    "explanation": {
+      "en": "Burp Suite proxies and manipulates web traffic for security testing.",
+      "ar": "يعترض Burp Suite حركة الويب ويعدّلها لأغراض اختبار الأمان."
+    }
+  },
+  {
+    "id": 25,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "sqlmap -u \"http://site/?id=1\" --dbs",
+    "question": {
+      "en": "What does sqlmap automate?",
+      "ar": "ماذا يُؤتمت sqlmap؟"
+    },
+    "options": [
+      "SQL injection detection & exploitation",
+      "Wi-Fi cracking",
+      "Port scanning",
+      "Packet capture"
+    ],
+    "answer": "SQL injection detection & exploitation",
+    "explanation": {
+      "en": "sqlmap automatically finds and exploits SQL injection flaws.",
+      "ar": "يكتشف sqlmap ثغرات حقن SQL ويستغلها آلياً."
+    }
+  },
+  {
+    "id": 26,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "john --wordlist=rockyou.txt hashes.txt",
+    "question": {
+      "en": "What is John the Ripper used for?",
+      "ar": "فيمَ يُستخدم John the Ripper؟"
+    },
+    "options": [
+      "Cracking password hashes offline",
+      "Scanning networks",
+      "Capturing packets",
+      "Proxying web requests"
+    ],
+    "answer": "Cracking password hashes offline",
+    "explanation": {
+      "en": "John the Ripper is a popular offline password-hash cracker.",
+      "ar": "John the Ripper أداة شهيرة لكسر تجزئات كلمات المرور دون اتصال."
+    }
+  },
+  {
+    "id": 27,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "hydra -l admin -P pass.txt ssh://10.0.0.5",
+    "question": {
+      "en": "What does Hydra do?",
+      "ar": "ماذا يفعل Hydra؟"
+    },
+    "options": [
+      "Online brute-force login attacks",
+      "Static code analysis",
+      "Packet sniffing",
+      "Disk forensics"
+    ],
+    "answer": "Online brute-force login attacks",
+    "explanation": {
+      "en": "Hydra brute-forces logins across many protocols (SSH, FTP, HTTP...).",
+      "ar": "ينفّذ Hydra هجمات تخمين تسجيل الدخول عبر بروتوكولات متعددة."
+    }
+  },
+  {
+    "id": 28,
+    "category": "tools",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which suite assesses Wi-Fi (WEP/WPA) security?",
+      "ar": "أي حزمة تُستخدم لتقييم أمان شبكات Wi-Fi؟"
+    },
+    "options": [
+      "Aircrack-ng",
+      "Burp Suite",
+      "Metasploit",
+      "sqlmap"
+    ],
+    "answer": "Aircrack-ng",
+    "explanation": {
+      "en": "Aircrack-ng is a suite for auditing wireless network security.",
+      "ar": "Aircrack-ng حزمة لتدقيق أمان الشبكات اللاسلكية."
+    }
+  },
+  {
+    "id": 29,
+    "category": "tools",
+    "difficulty": "hard",
+    "codeSnippet": "hashcat -m 0 hash.txt rockyou.txt",
+    "question": {
+      "en": "What is hashcat?",
+      "ar": "ما هو hashcat؟"
+    },
+    "options": [
+      "A GPU-accelerated password cracker",
+      "A port scanner",
+      "A web proxy",
+      "A packet sniffer"
+    ],
+    "answer": "A GPU-accelerated password cracker",
+    "explanation": {
+      "en": "hashcat is a fast, GPU-based password/hash recovery tool.",
+      "ar": "hashcat أداة سريعة لاستعادة كلمات المرور تعتمد على بطاقة الرسوميات."
+    }
+  },
+  {
+    "id": 30,
+    "category": "tools",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which Linux distribution is purpose-built for penetration testing?",
+      "ar": "أي توزيعة Linux مُصمّمة خصيصاً لاختبار الاختراق؟"
+    },
+    "options": [
+      "Kali Linux",
+      "Ubuntu Server",
+      "CentOS",
+      "Alpine"
+    ],
+    "answer": "Kali Linux",
+    "explanation": {
+      "en": "Kali Linux ships with hundreds of pre-installed security tools.",
+      "ar": "تأتي Kali Linux بمئات أدوات الأمان المثبتة مسبقاً."
+    }
+  },
+  {
+    "id": 31,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "tcpdump -i eth0 port 80",
+    "question": {
+      "en": "What does tcpdump do?",
+      "ar": "ماذا يفعل tcpdump؟"
+    },
+    "options": [
+      "Capture packets from the command line",
+      "Crack hashes",
+      "Scan ports",
+      "Exploit SMB"
+    ],
+    "answer": "Capture packets from the command line",
+    "explanation": {
+      "en": "tcpdump is a CLI packet capture/analysis tool.",
+      "ar": "tcpdump أداة طرفية لالتقاط وتحليل الحزم."
+    }
+  },
+  {
+    "id": 32,
+    "category": "tools",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which is an open-source vulnerability scanner (Nessus-like)?",
+      "ar": "أيّها ماسح ثغرات مفتوح المصدر (شبيه بـ Nessus)؟"
+    },
+    "options": [
+      "OpenVAS",
+      "Hydra",
+      "John the Ripper",
+      "Wireshark"
+    ],
+    "answer": "OpenVAS",
+    "explanation": {
+      "en": "OpenVAS (Greenbone) is an open-source vulnerability scanner.",
+      "ar": "OpenVAS ماسح ثغرات مفتوح المصدر."
+    }
+  },
+  {
+    "id": 33,
+    "category": "concepts",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Injecting malicious SQL through user input to manipulate a database is?",
+      "ar": "حقن SQL خبيث عبر مدخلات المستخدم للتلاعب بقاعدة البيانات هو؟"
+    },
+    "options": [
+      "SQL injection",
+      "XSS",
+      "CSRF",
+      "SSRF"
+    ],
+    "answer": "SQL injection",
+    "explanation": {
+      "en": "SQL injection abuses unsanitized input to alter database queries.",
+      "ar": "يستغل حقن SQL المدخلات غير المُنقّاة لتغيير استعلامات قاعدة البيانات."
+    }
+  },
+  {
+    "id": 34,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Injecting client-side scripts into pages viewed by other users is?",
+      "ar": "حقن سكربتات تعمل لدى المستخدمين الآخرين في صفحات الويب هو؟"
+    },
+    "options": [
+      "Cross-Site Scripting (XSS)",
+      "SQL injection",
+      "Phishing",
+      "MITM"
+    ],
+    "answer": "Cross-Site Scripting (XSS)",
+    "explanation": {
+      "en": "XSS injects scripts that run in other users' browsers.",
+      "ar": "يحقن XSS سكربتات تعمل في متصفحات المستخدمين الآخرين."
+    }
+  },
+  {
+    "id": 35,
+    "category": "concepts",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Tricking a victim's browser into making unwanted authenticated requests is?",
+      "ar": "خداع متصفح الضحية لإرسال طلبات مُصادَق عليها دون رغبته هو؟"
+    },
+    "options": [
+      "CSRF",
+      "XSS",
+      "SQL injection",
+      "DoS"
+    ],
+    "answer": "CSRF",
+    "explanation": {
+      "en": "CSRF abuses a user's existing session to perform actions they didn't intend.",
+      "ar": "يستغل CSRF جلسة المستخدم القائمة لتنفيذ أفعال لم يقصدها."
+    }
+  },
+  {
+    "id": 36,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Secretly intercepting communication between two parties is a ... attack?",
+      "ar": "اعتراض الاتصال بين طرفين سراً هو هجوم؟"
+    },
+    "options": [
+      "Man-in-the-Middle (MITM)",
+      "Brute force",
+      "Phishing",
+      "DDoS"
+    ],
+    "answer": "Man-in-the-Middle (MITM)",
+    "explanation": {
+      "en": "A MITM attacker sits between two parties and can read/alter traffic.",
+      "ar": "يجلس مهاجم MITM بين طرفين ويستطيع قراءة وتعديل الحركة."
+    }
+  },
+  {
+    "id": 37,
+    "category": "concepts",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Flooding a service with traffic from many sources to take it offline is?",
+      "ar": "إغراق خدمة بحركة من مصادر كثيرة لإسقاطها هو؟"
+    },
+    "options": [
+      "DDoS",
+      "Phishing",
+      "XSS",
+      "Privilege escalation"
+    ],
+    "answer": "DDoS",
+    "explanation": {
+      "en": "A Distributed Denial of Service overwhelms a target from many machines.",
+      "ar": "يُغرق هجوم الحرمان الموزّع الهدف من أجهزة كثيرة."
+    }
+  },
+  {
+    "id": 38,
+    "category": "concepts",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "A deceptive email that tricks users into revealing credentials is?",
+      "ar": "بريد خادع يخدع المستخدمين للكشف عن بياناتهم هو؟"
+    },
+    "options": [
+      "Phishing",
+      "Sniffing",
+      "Spoofing",
+      "Pivoting"
+    ],
+    "answer": "Phishing",
+    "explanation": {
+      "en": "Phishing uses deceptive messages to harvest credentials or data.",
+      "ar": "يستخدم التصيّد رسائل خادعة لجمع بيانات الاعتماد."
+    }
+  },
+  {
+    "id": 39,
+    "category": "concepts",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which is a SECURE choice for password storage?",
+      "ar": "أيّها خيار آمن لتخزين كلمات المرور؟"
+    },
+    "options": [
+      "bcrypt",
+      "MD5",
+      "SHA-1",
+      "Base64"
+    ],
+    "answer": "bcrypt",
+    "explanation": {
+      "en": "bcrypt is a slow, salted password hash; MD5/SHA-1 are weak and Base64 isn't hashing.",
+      "ar": "bcrypt تجزئة بطيئة ومملّحة؛ أما MD5/SHA-1 فضعيفتان وBase64 ليست تجزئة."
+    }
+  },
+  {
+    "id": 40,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Giving users only the access they need is the principle of?",
+      "ar": "منح المستخدمين الحد الأدنى من الصلاحيات هو مبدأ؟"
+    },
+    "options": [
+      "Least privilege",
+      "Defense in depth",
+      "Zero trust",
+      "Fail-safe defaults"
+    ],
+    "answer": "Least privilege",
+    "explanation": {
+      "en": "Least privilege limits each account to the minimum access required.",
+      "ar": "يقصُر مبدأ أقل امتياز كل حساب على الحد الأدنى من الوصول اللازم."
+    }
+  }
+]

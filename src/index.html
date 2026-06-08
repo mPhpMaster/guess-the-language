@@ -23,19 +23,43 @@
 
   <main id="app">
 
-    <!-- ============ MENU SCREEN ============ -->
-    <section id="screen-menu" class="screen active">
-      <div class="menu-card">
+    <!-- ============ MODE SELECT SCREEN ============ -->
+    <section id="screen-modeselect" class="screen active">
+      <div class="modeselect-card">
         <div class="lang-switch">
           <button data-setlang="en">EN</button>
           <button data-setlang="ar">ع</button>
         </div>
-        <div class="menu-logo">&#128187;</div>
+        <h1 class="ms-title" data-i18n="modeSelectTitle">Choose a game mode</h1>
+        <div class="mode-grid">
+          <button class="mode-card" data-mode="languages">
+            <div class="mode-icon">&#128187;</div>
+            <div class="mode-name" data-i18n="modeLanguages">Programming Languages</div>
+            <div class="mode-desc" data-i18n="modeLanguagesDesc">Guess the language from a code snippet</div>
+          </button>
+          <button class="mode-card mode-card-cyber" data-mode="cybersecurity">
+            <div class="mode-icon">&#128737;&#65039;</div>
+            <div class="mode-name" data-i18n="modeCyber">Cybersecurity</div>
+            <div class="mode-desc" data-i18n="modeCyberDesc">Tools, malware, Nmap, Metasploit &amp; more</div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MENU SCREEN ============ -->
+    <section id="screen-menu" class="screen">
+      <div class="menu-card">
+        <button class="modes-back" id="btn-modes">&#8592; <span data-i18n="changeMode">Modes</span></button>
+        <div class="lang-switch">
+          <button data-setlang="en">EN</button>
+          <button data-setlang="ar">ع</button>
+        </div>
+        <div class="menu-logo" id="menu-logo">&#128187;</div>
         <h1 class="menu-title">
-          <span data-i18n="menuTitle1">Guess the</span><br>
-          <span class="neon" data-i18n="menuTitle2">Programming Language</span>
+          <span id="menu-title-1">Guess the</span><br>
+          <span class="neon" id="menu-title-2">Programming Language</span>
         </h1>
-        <p class="menu-sub" data-i18n="menuSubtitle">Identify the language from the snippet before time runs out</p>
+        <p class="menu-sub" id="menu-sub">Identify the language from the snippet before time runs out</p>
 
         <div class="menu-buttons">
           <button class="btn btn-primary" id="btn-start" data-i18n="start">▶  Start</button>
@@ -100,7 +124,7 @@
       </div>
 
       <div class="game-body">
-        <div class="code-wrap">
+        <div class="code-wrap" id="code-wrap">
           <div class="code-header">
             <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
             <span class="code-difficulty" id="code-difficulty">easy</span>
@@ -118,7 +142,9 @@
         </div>
       </div>
 
-      <div class="options-grid" id="options-grid" dir="ltr"><!-- language buttons injected --></div>
+      <div id="question-text" class="question-text" dir="auto"></div>
+
+      <div class="options-grid" id="options-grid" dir="ltr"><!-- option buttons injected --></div>
     </section>
 
     <!-- ============ RESULTS SCREEN ============ -->

@@ -62,6 +62,13 @@ const I18N = {
     timeUp: "Time's up! Answer:",
     loadFail: '⚠ Failed to load questions',
     challengeCopied: '✅ Challenge copied!',
+    loading: 'Loading…',
+    modeSelectTitle: 'Choose a game mode',
+    modeLanguages: 'Programming Languages',
+    modeLanguagesDesc: 'Guess the language from a code snippet',
+    modeCyber: 'Cybersecurity',
+    modeCyberDesc: 'Tools, malware, Nmap, Metasploit & more',
+    changeMode: 'Modes',
     diff: { easy: 'Easy', medium: 'Medium', hard: 'Hard' }
   },
   ar: {
@@ -98,7 +105,36 @@ const I18N = {
     timeUp: 'انتهى الوقت! الإجابة:',
     loadFail: '⚠ تعذّر تحميل الأسئلة',
     challengeCopied: '✅ تم نسخ التحدي!',
+    loading: 'جارٍ التحميل…',
+    modeSelectTitle: 'اختر نمط اللعب',
+    modeLanguages: 'لغات البرمجة',
+    modeLanguagesDesc: 'خمّن اللغة من مقتطف كود',
+    modeCyber: 'الأمن السيبراني',
+    modeCyberDesc: 'أدوات وبرمجيات خبيثة وNmap وMetasploit والمزيد',
+    changeMode: 'الأنماط',
     diff: { easy: 'سهل', medium: 'متوسط', hard: 'صعب' }
+  }
+};
+
+// ---------- Game modes ----------
+const MODES = {
+  languages: {
+    key: 'languages',
+    icon: '💻',
+    title: { en: ['Guess the', 'Programming Language'], ar: ['خمِّن', 'لغة البرمجة'] },
+    desc: {
+      en: 'Identify the language from the snippet before time runs out',
+      ar: 'خمّن لغة البرمجة من مقتطف الكود قبل انتهاء الوقت'
+    }
+  },
+  cybersecurity: {
+    key: 'cybersecurity',
+    icon: '🛡️',
+    title: { en: ['Cyber', 'Security Quiz'], ar: ['اختبار', 'الأمن السيبراني'] },
+    desc: {
+      en: 'Identify tools, malware, Nmap, Metasploit & more',
+      ar: 'تعرّف على الأدوات والبرمجيات الخبيثة وNmap وMetasploit والمزيد'
+    }
   }
 };
 
@@ -141,12 +177,29 @@ function applyLanguage() {
   // Refresh the currently-shown difficulty badge if a question is loaded.
   const dEl = document.querySelector('#code-difficulty');
   if (dEl && dEl.dataset.diff) dEl.textContent = diffLabel(dEl.dataset.diff);
+  // Menu title/subtitle depend on both mode and language.
+  renderMenuForMode();
+}
+
+// Apply the active mode's icon, title and subtitle to the menu.
+function renderMenuForMode() {
+  const m = MODES[state.mode] || MODES.languages;
+  const lang = getLang();
+  const logo = document.querySelector('#menu-logo');
+  const t1 = document.querySelector('#menu-title-1');
+  const t2 = document.querySelector('#menu-title-2');
+  const sub = document.querySelector('#menu-sub');
+  if (logo) logo.textContent = m.icon;
+  if (t1) t1.textContent = m.title[lang][0];
+  if (t2) t2.textContent = m.title[lang][1];
+  if (sub) sub.textContent = m.desc[lang];
+  refreshMenu();
 }
 
 // ---------- Persistent settings / high score ----------
 const store = {
-  get highScore() { return Number(localStorage.getItem('gtl_highscore') || 0); },
-  set highScore(v) { localStorage.setItem('gtl_highscore', String(v)); },
+  highScore(mode) { return Number(localStorage.getItem(`gtl_highscore_${mode}`) || 0); },
+  setHighScore(mode, v) { localStorage.setItem(`gtl_highscore_${mode}`, String(v)); },
   get settings() {
     try { return JSON.parse(localStorage.getItem('gtl_settings')) || {}; }
     catch { return {}; }
@@ -158,6 +211,7 @@ const defaultSettings = { questions: 10, sound: true, difficulty: 'all', name: '
 
 // ---------- Game state ----------
 const state = {
+  mode: 'languages',
   allQuestions: [],
   round: [],
   index: 0,
@@ -166,12 +220,14 @@ const state = {
   timeLeft: 0,
   questionTime: 15,
   timerId: null,
-  answered: false
+  answered: false,
+  current: null
 };
 
 // ---------- DOM helpers ----------
 const $ = (sel) => document.querySelector(sel);
 const screens = {
+  modeselect: $('#screen-modeselect'),
   menu: $('#screen-menu'),
   game: $('#screen-game'),
   results: $('#screen-results')
@@ -330,36 +386,88 @@ function startGame() {
   nextQuestion();
 }
 
+// Turn a raw question (either mode) into a uniform shape for rendering.
+function normalizeQuestion(q) {
+  if (state.mode === 'cybersecurity') {
+    const hasCmd = !!(q.codeSnippet && q.codeSnippet.trim().length);
+    return {
+      style: 'cyber',
+      panelText: hasCmd ? q.codeSnippet : q.question[getLang()],
+      panelIsCode: hasCmd,
+      questionText: hasCmd ? q.question[getLang()] : '',
+      options: q.options.map((o) => ({ label: o })),
+      answer: q.answer,
+      difficulty: q.difficulty,
+      explanation: q.explanation
+    };
+  }
+  return {
+    style: 'languages',
+    panelText: q.codeSnippet,
+    panelIsCode: true,
+    questionText: '',
+    options: LANGUAGES.map((l) => ({ label: l.name, glyph: l.glyph, color: l.color })),
+    answer: q.correctLanguage,
+    difficulty: q.difficulty,
+    explanation: q.explanation
+  };
+}
+
 function nextQuestion() {
   clearTimer();
   state.answered = false;
   if (state.index >= state.round.length) { endGame(); return; }
 
-  const q = state.round[state.index];
+  const cur = normalizeQuestion(state.round[state.index]);
+  state.current = cur;
   $('#q-current').textContent = String(state.index + 1);
   const dEl = $('#code-difficulty');
-  dEl.dataset.diff = q.difficulty;
-  dEl.textContent = diffLabel(q.difficulty);
-  $('#code-snippet').innerHTML = highlight(q.codeSnippet);
-  hideToast();
+  dEl.dataset.diff = cur.difficulty;
+  dEl.textContent = diffLabel(cur.difficulty);
 
-  renderOptions(false);
-  state.questionTime = timeForDifficulty(q.difficulty);
+  // Prompt panel: highlighted code, or wrapped plain text for concept questions.
+  const codeEl = $('#code-snippet');
+  const panel = codeEl.parentElement; // the <pre class="code-panel">
+  if (cur.panelIsCode) {
+    panel.classList.remove('as-text');
+    panel.setAttribute('dir', 'ltr');
+    codeEl.innerHTML = highlight(cur.panelText);
+  } else {
+    panel.classList.add('as-text');
+    panel.setAttribute('dir', 'auto');
+    codeEl.textContent = cur.panelText;
+  }
+
+  // Sub-question (cyber: "what does this command do?").
+  const qt = $('#question-text');
+  if (cur.questionText) { qt.classList.remove('hidden'); qt.textContent = cur.questionText; }
+  else { qt.classList.add('hidden'); qt.textContent = ''; }
+
+  hideToast();
+  renderOptions(cur, false);
+  state.questionTime = timeForDifficulty(cur.difficulty);
   startTimer(state.questionTime);
 }
 
-function renderOptions(disabled) {
+function renderOptions(cur, disabled) {
   const grid = $('#options-grid');
   grid.innerHTML = '';
-  LANGUAGES.forEach((lang) => {
+  grid.classList.toggle('cyber', cur.style === 'cyber');
+  grid.classList.toggle('languages', cur.style === 'languages');
+  cur.options.forEach((opt) => {
     const btn = document.createElement('button');
-    btn.className = 'lang-btn';
-    btn.dataset.lang = lang.name;
-    btn.disabled = disabled;
-    btn.innerHTML =
-      `<span class="lang-icon" style="background:${lang.color}">${lang.glyph}</span>` +
-      `<span class="lang-name">${lang.name}</span>`;
-    btn.addEventListener('click', () => onAnswer(lang.name, btn));
+    btn.dataset.answer = opt.label;
+    btn.disabled = !!disabled;
+    if (cur.style === 'languages') {
+      btn.className = 'lang-btn';
+      btn.innerHTML =
+        `<span class="lang-icon" style="background:${opt.color}">${opt.glyph}</span>` +
+        `<span class="lang-name">${opt.label}</span>`;
+    } else {
+      btn.className = 'opt-btn';
+      btn.textContent = opt.label;
+    }
+    btn.addEventListener('click', () => onAnswer(opt.label, btn));
     grid.appendChild(btn);
   });
 }
@@ -369,15 +477,11 @@ function onAnswer(chosen, btn) {
   state.answered = true;
   clearTimer();
 
-  const q = state.round[state.index];
-  const correct = chosen === q.correctLanguage;
-  const buttons = document.querySelectorAll('.lang-btn');
+  const cur = state.current;
+  const correct = chosen === cur.answer;
+  const buttons = document.querySelectorAll('#options-grid button');
   buttons.forEach((b) => { b.disabled = true; });
-
-  // mark the correct one
-  buttons.forEach((b) => {
-    if (b.dataset.lang === q.correctLanguage) b.classList.add('correct');
-  });
+  buttons.forEach((b) => { if (b.dataset.answer === cur.answer) b.classList.add('correct'); });
 
   if (correct) {
     state.streak += 1;
@@ -387,17 +491,17 @@ function onAnswer(chosen, btn) {
     state.score += gained;
     sfx.correct();
     updateScore(true);
-    showToast(`${t('correct')} +${gained}${multiplier > 1 ? '  ' + t('streakBonus') : ''}  —  ${q.explanation[getLang()]}`, 'good');
+    showToast(`${t('correct')} +${gained}${multiplier > 1 ? '  ' + t('streakBonus') : ''}  —  ${cur.explanation[getLang()]}`, 'good');
   } else {
     state.streak = 0;
     if (btn) { btn.classList.add('wrong', 'shake'); }
     sfx.wrong();
-    showToast(`${t('wrong')} ${q.correctLanguage}.  ${q.explanation[getLang()]}`, 'bad');
+    showToast(`${t('wrong')} ${cur.answer}.  ${cur.explanation[getLang()]}`, 'bad');
   }
 
   updateStreakPill();
   state.index += 1;
-  setTimeout(nextQuestion, 1700);
+  setTimeout(nextQuestion, 1900);
 }
 
 // ---------- Timer ----------
@@ -420,17 +524,17 @@ function startTimer(seconds) {
 function onTimeout() {
   if (state.answered) return;
   state.answered = true;
-  const q = state.round[state.index];
+  const cur = state.current;
   state.streak = 0;
-  document.querySelectorAll('.lang-btn').forEach((b) => {
+  document.querySelectorAll('#options-grid button').forEach((b) => {
     b.disabled = true;
-    if (b.dataset.lang === q.correctLanguage) b.classList.add('correct');
+    if (b.dataset.answer === cur.answer) b.classList.add('correct');
   });
   sfx.wrong();
-  showToast(`${t('timeUp')} ${q.correctLanguage}.  ${q.explanation[getLang()]}`, 'bad');
+  showToast(`${t('timeUp')} ${cur.answer}.  ${cur.explanation[getLang()]}`, 'bad');
   updateStreakPill();
   state.index += 1;
-  setTimeout(nextQuestion, 1700);
+  setTimeout(nextQuestion, 1900);
 }
 
 function clearTimer() {
@@ -484,7 +588,7 @@ function hideToast() {
 //  Results / leaderboard
 // ============================================================
 async function endGame() {
-  if (state.score > store.highScore) store.highScore = state.score;
+  if (state.score > store.highScore(state.mode)) store.setHighScore(state.mode, state.score);
   sfx.finish();
   showScreen('results');
   countUp($('#final-score'), state.score, 900);
@@ -526,12 +630,12 @@ function submitScore(player, score) {
   return sbFetch('scores', {
     method: 'POST',
     headers: { Prefer: 'return=representation' },
-    body: JSON.stringify([{ player, score }])
+    body: JSON.stringify([{ player, score, mode: state.mode }])
   }).then((rows) => (Array.isArray(rows) ? rows[0] : null));
 }
 
 function fetchTopScores(limit = 10) {
-  return sbFetch(`scores?select=id,player,score&order=score.desc&limit=${limit}`);
+  return sbFetch(`scores?select=id,player,score&mode=eq.${state.mode}&order=score.desc&limit=${limit}`);
 }
 
 const AVATARS = ['🧑🏽', '👩🏼', '🧑🏻', '👩🏻‍🦰', '🧔🏽', '👨🏾', '👩🏽‍🦱', '🧑🏼‍🎤', '👨🏻‍💻', '👩🏾‍💻'];
@@ -651,6 +755,12 @@ function bindEvents() {
   });
   $('#set-language').addEventListener('change', () => setLang($('#set-language').value));
 
+  // mode select
+  document.querySelectorAll('.mode-card').forEach((card) => {
+    card.addEventListener('click', () => selectMode(card.dataset.mode));
+  });
+  $('#btn-modes').addEventListener('click', () => showScreen('modeselect'));
+
   // menu
   $('#btn-start').addEventListener('click', startGame);
   $('#btn-friends').addEventListener('click', () => { state.score = 0; endGame(); });
@@ -666,42 +776,56 @@ function bindEvents() {
   // results
   $('#btn-challenge').addEventListener('click', challengeFriend);
   $('#btn-replay').addEventListener('click', startGame);
-  $('#btn-menu').addEventListener('click', () => { refreshMenu(); showScreen('menu'); });
+  $('#btn-menu').addEventListener('click', () => { renderMenuForMode(); showScreen('menu'); });
 
-  // keyboard: 1-6 to answer
+  // keyboard: number keys select the matching option
   document.addEventListener('keydown', (e) => {
     if (!screens.game.classList.contains('active') || state.answered) return;
     const n = parseInt(e.key, 10);
-    if (n >= 1 && n <= 6) {
-      const btn = document.querySelectorAll('.lang-btn')[n - 1];
-      if (btn) btn.click();
-    }
+    const buttons = document.querySelectorAll('#options-grid button');
+    if (n >= 1 && n <= buttons.length) buttons[n - 1].click();
   });
 }
 
 function refreshMenu() {
-  $('#menu-highscore-val').textContent = String(store.highScore);
+  $('#menu-highscore-val').textContent = String(store.highScore(state.mode));
+}
+
+// Choose a mode: load its question bank and open the menu.
+async function selectMode(mode) {
+  state.mode = MODES[mode] ? mode : 'languages';
+  localStorage.setItem('gtl_mode', state.mode);
+  renderMenuForMode();
+  showScreen('menu');
+
+  const startBtn = $('#btn-start');
+  startBtn.removeAttribute('data-i18n');
+  startBtn.disabled = true;
+  startBtn.textContent = t('loading');
+  try {
+    state.allQuestions = await window.gameAPI.getQuestions(state.mode);
+  } catch (err) {
+    console.error('Failed to load questions:', err);
+    state.allQuestions = [];
+  }
+  if (state.allQuestions.length) {
+    startBtn.disabled = false;
+    startBtn.setAttribute('data-i18n', 'start'); // let language switches keep it in sync
+    startBtn.textContent = t('start');
+  } else {
+    startBtn.textContent = t('loadFail');
+  }
 }
 
 // ============================================================
 //  Boot
 // ============================================================
-async function boot() {
+function boot() {
   bindEvents();
+  const savedMode = localStorage.getItem('gtl_mode');
+  if (savedMode && MODES[savedMode]) state.mode = savedMode;
   applyLanguage();
-  refreshMenu();
-  try {
-    state.allQuestions = await window.gameAPI.getQuestions();
-  } catch (err) {
-    console.error('Failed to load questions:', err);
-    state.allQuestions = [];
-  }
-  if (!state.allQuestions.length) {
-    const sb = $('#btn-start');
-    sb.removeAttribute('data-i18n'); // keep the error text from being overwritten
-    sb.textContent = t('loadFail');
-    sb.disabled = true;
-  }
+  showScreen('modeselect');
 }
 
 boot();

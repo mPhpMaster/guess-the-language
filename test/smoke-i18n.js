@@ -32,6 +32,16 @@ app.whenReady().then(async () => {
   await sleep(400);
 
   try {
+    // Mode-select default language, then enter the languages mode menu.
+    const msTitle = await run("document.querySelector('.ms-title').textContent");
+    check('mode-select title is English', /Choose a game mode/.test(msTitle), msTitle.trim());
+    await run("document.querySelector('.mode-card[data-mode=\"languages\"]').click(); 'ok'");
+    for (let i = 0; i < 20; i++) {
+      const ready = await run("!document.querySelector('#btn-start').disabled");
+      if (ready) break;
+      await sleep(100);
+    }
+
     const dir0 = await run('document.documentElement.dir');
     check('defaults to LTR (English)', dir0 === 'ltr', dir0);
     const start0 = await run("document.querySelector('#btn-start').textContent");

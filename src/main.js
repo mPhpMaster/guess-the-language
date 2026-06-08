@@ -50,9 +50,14 @@ ipcMain.on('window:close', () => {
   if (mainWindow) mainWindow.close();
 });
 
-// ---- Load the questions database from disk ----
-ipcMain.handle('questions:get', async () => {
-  const file = path.join(__dirname, 'data', 'questions.json');
+// ---- Load a questions database from disk, by mode ----
+const QUESTION_FILES = {
+  languages: 'questions.json',
+  cybersecurity: 'questions-cyber.json'
+};
+ipcMain.handle('questions:get', async (_event, mode) => {
+  const fileName = QUESTION_FILES[mode] || QUESTION_FILES.languages;
+  const file = path.join(__dirname, 'data', fileName);
   const raw = await fs.promises.readFile(file, 'utf-8');
   return JSON.parse(raw);
 });

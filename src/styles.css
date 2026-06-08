@@ -308,3 +308,50 @@ body::before {
 .lb-tag { font-size: 11px; color: var(--neon); font-weight: 700; }
 
 .results-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* ===================== Mode select screen ===================== */
+.modeselect-card { position: relative; width: min(860px, 94%); text-align: center; padding: 30px; }
+.ms-title { font-size: 30px; margin-bottom: 28px; }
+.mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.mode-card {
+  background: linear-gradient(180deg, #0d213aee, #0a1828ee);
+  border: 1px solid #ffffff14; border-radius: 20px; padding: 36px 24px;
+  cursor: pointer; color: var(--text);
+  transition: transform .15s ease, box-shadow .25s, border-color .2s;
+  box-shadow: 0 20px 60px #00000055;
+}
+.mode-card:hover { transform: translateY(-6px); border-color: #2ec5ff66; box-shadow: 0 26px 70px #2ec5ff22; }
+.mode-card-cyber:hover { border-color: #19f0c466; box-shadow: 0 26px 70px #19f0c422; }
+.mode-icon { font-size: 60px; filter: drop-shadow(0 0 16px #2ec5ff66); margin-bottom: 12px; }
+.mode-card-cyber .mode-icon { filter: drop-shadow(0 0 16px #19f0c477); }
+.mode-name { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.mode-desc { font-size: 14px; color: var(--muted); line-height: 1.5; }
+@media (max-width: 720px) { .mode-grid { grid-template-columns: 1fr; } }
+
+.modes-back {
+  position: absolute; top: 14px; inset-inline-start: 14px;
+  background: #ffffff0d; border: 1px solid #ffffff1f; color: #cfe0f2;
+  font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 10px; cursor: pointer;
+}
+.modes-back:hover { background: #ffffff1a; }
+
+/* ===================== Cybersecurity mode (game screen) ===================== */
+.code-panel.as-text {
+  font-family: "Segoe UI", "Tahoma", sans-serif;
+  white-space: normal; font-size: 22px; line-height: 1.5;
+  display: flex; align-items: center; min-height: 180px;
+}
+.question-text { width: min(1000px, 96%); text-align: center; font-size: 20px; font-weight: 600; color: #dbe8f8; margin: 2px 0; }
+.question-text.hidden { display: none; }
+
+.options-grid.cyber { grid-template-columns: repeat(2, 1fr); max-width: 860px; }
+.opt-btn {
+  background: #0e2238; border: 1px solid #ffffff16; border-radius: 14px;
+  padding: 18px 20px; cursor: pointer; color: var(--text);
+  font-size: 16px; font-weight: 600; text-align: center; min-height: 64px;
+  transition: transform .12s, box-shadow .2s, border-color .2s;
+}
+.opt-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 12px 28px #00000055; border-color: #2ec5ff55; }
+.opt-btn:disabled { cursor: default; opacity: .95; }
+.opt-btn.correct { border-color: var(--good); box-shadow: 0 0 0 2px var(--good), 0 0 26px #25d07d77; }
+.opt-btn.wrong { border-color: var(--bad); box-shadow: 0 0 0 2px var(--bad), 0 0 26px #ff547077; }

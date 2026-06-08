@@ -43,8 +43,19 @@ app.whenReady().then(async () => {
   await sleep(400); // let boot() finish loading questions
 
   try {
+    // 0. Mode select shown first; pick the languages mode
+    const modeSelectActive = await run("document.querySelector('#screen-modeselect').classList.contains('active')");
+    check('mode-select screen shown at launch', modeSelectActive);
+    await run("document.querySelector('.mode-card[data-mode=\"languages\"]').click(); 'ok'");
+    // wait for the mode's questions to load (start button becomes enabled)
+    for (let i = 0; i < 20; i++) {
+      const ready = await run("!document.querySelector('#btn-start').disabled");
+      if (ready) break;
+      await sleep(100);
+    }
+
     // 1. Questions database loaded
-    const qcount = await run('window.gameAPI.getQuestions().then(a => a.length)');
+    const qcount = await run("window.gameAPI.getQuestions('languages').then(a => a.length)");
     check('questions DB has >= 50 entries', qcount >= 50, `count=${qcount}`);
 
     const startDisabled = await run("document.querySelector('#btn-start').disabled");

@@ -7,11 +7,15 @@ create table if not exists public.scores (
   id         bigint generated always as identity primary key,
   player     text not null check (char_length(player) between 1 and 24),
   score      integer not null check (score >= 0),
+  mode       text not null default 'languages',
   created_at timestamptz not null default now()
 );
 
--- Index to make "top scores" queries fast.
-create index if not exists scores_score_desc_idx on public.scores (score desc);
+-- If upgrading an existing table, add the per-mode column:
+alter table public.scores add column if not exists mode text not null default 'languages';
+
+-- Index to make per-mode "top scores" queries fast.
+create index if not exists scores_mode_score_idx on public.scores (mode, score desc);
 
 -- Row Level Security: a public game leaderboard allows anyone (the anon key)
 -- to read all scores and to insert their own. No update/delete is granted.
