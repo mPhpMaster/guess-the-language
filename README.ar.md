@@ -78,7 +78,7 @@ prog-game2/
 │  ├─ supabase-config.js         # بيانات Supabase (محلي، غير مُتتبَّع بـ git)
 │  ├─ supabase-config.example.js # قالب الإعداد
 │  └─ data/
-│     └─ questions.json          # قاعدة بيانات الأسئلة (120 سؤالاً)
+│     └─ questions.json          # قاعدة بيانات الأسئلة (180 سؤالاً)
 └─ test/
    ├─ smoke-main.js             # اختبار آلي شامل بدون واجهة (13 فحصاً)
    ├─ smoke-online.js           # اختبار مسار Supabase (بـ fetch وهمي)
@@ -88,7 +88,7 @@ prog-game2/
 
 ## قاعدة بيانات الأسئلة
 
-يحوي `src/data/questions.json` **120 سؤالاً** موزّعة على 6 لغات (Python و
+يحوي `src/data/questions.json` **180 سؤالاً** موزّعة على 6 لغات (Python و
 JavaScript و C++ و Java و Rust و Go) وثلاث مستويات صعوبة. كل عنصر:
 
 ```json

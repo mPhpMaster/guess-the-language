@@ -83,7 +83,7 @@ prog-game2/
 │  ├─ supabase-config.js         # Supabase creds (local, git-ignored)
 │  ├─ supabase-config.example.js # config template
 │  └─ data/
-│     └─ questions.json          # questions database (120 questions)
+│     └─ questions.json          # questions database (180 questions)
 └─ test/
    ├─ smoke-main.js             # headless end-to-end test (13 checks)
    ├─ smoke-online.js           # Supabase online-path test (stubbed fetch)
@@ -93,7 +93,7 @@ prog-game2/
 
 ## Questions database
 
-`src/data/questions.json` holds **120 questions** across 6 languages (Python,
+`src/data/questions.json` holds **180 questions** across 6 languages (Python,
 JavaScript, C++, Java, Rust, Go) and three difficulty levels. Each entry:
 
 ```json
