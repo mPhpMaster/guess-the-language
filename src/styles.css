@@ -310,9 +310,9 @@ body::before {
 .results-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
 /* ===================== Mode select screen ===================== */
-.modeselect-card { position: relative; width: min(1060px, 96%); text-align: center; padding: 30px; }
-.ms-title { font-size: 30px; margin-bottom: 28px; }
-.mode-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.modeselect-card { position: relative; width: min(1200px, 97%); text-align: center; padding: 26px; }
+.ms-title { font-size: 30px; margin-bottom: 24px; }
+.mode-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
 .mode-card {
   background: linear-gradient(180deg, #0d213aee, #0a1828ee);
   border: 1px solid #ffffff14; border-radius: 20px; padding: 36px 24px;
@@ -320,15 +320,20 @@ body::before {
   transition: transform .15s ease, box-shadow .25s, border-color .2s;
   box-shadow: 0 20px 60px #00000055;
 }
+.mode-card { padding: 28px 18px; }
 .mode-card:hover { transform: translateY(-6px); border-color: #2ec5ff66; box-shadow: 0 26px 70px #2ec5ff22; }
 .mode-card-cyber:hover { border-color: #19f0c466; box-shadow: 0 26px 70px #19f0c422; }
+.mode-card-devops:hover { border-color: #b18cff66; box-shadow: 0 26px 70px #b18cff22; }
+.mode-card-network:hover { border-color: #5fd0ff66; box-shadow: 0 26px 70px #5fd0ff22; }
 .mode-card-all:hover { border-color: #ffd87466; box-shadow: 0 26px 70px #ffd87422; }
-.mode-icon { font-size: 56px; filter: drop-shadow(0 0 16px #2ec5ff66); margin-bottom: 12px; }
+.mode-icon { font-size: 50px; filter: drop-shadow(0 0 16px #2ec5ff66); margin-bottom: 10px; }
 .mode-card-cyber .mode-icon { filter: drop-shadow(0 0 16px #19f0c477); }
+.mode-card-devops .mode-icon { filter: drop-shadow(0 0 16px #b18cff77); }
+.mode-card-network .mode-icon { filter: drop-shadow(0 0 16px #5fd0ff77); }
 .mode-card-all .mode-icon { filter: drop-shadow(0 0 16px #ffd87477); }
-.mode-name { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-.mode-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
-@media (max-width: 820px) { .mode-grid { grid-template-columns: 1fr; } }
+.mode-name { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+.mode-desc { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+@media (max-width: 820px) { .mode-grid { grid-template-columns: 1fr 1fr; } }
 
 .modes-back {
   position: absolute; top: 14px; inset-inline-start: 14px;

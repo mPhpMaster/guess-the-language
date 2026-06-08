@@ -41,6 +41,8 @@ app.whenReady().then(async () => {
     if (settings) await run(`localStorage.setItem('gtl_settings', '${JSON.stringify(settings)}'); 'ok'`);
     if (lang || settings) { await win.loadFile(path.join(SRC, 'index.html')); await sleep(450); }
     else await sleep(300);
+    // Use the offline mock leaderboard for screenshots (don't write to real Supabase).
+    await run("window.SUPABASE_CONFIG = { url: '', anonKey: '' }; 'ok'");
   }
   async function pickMode(mode) {
     await run(`document.querySelector('.mode-card[data-mode="${mode}"]').click(); 'ok'`);

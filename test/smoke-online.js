@@ -26,10 +26,14 @@ app.whenReady().then(async () => {
   const run = (js) => win.webContents.executeJavaScript(js, true);
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+  // Use a single-question round so finishing it triggers the leaderboard submit.
+  await win.loadFile(path.join(SRC, 'index.html'));
+  await sleep(200);
+  await run("localStorage.setItem('gtl_settings', JSON.stringify({questions:1, sound:false, difficulty:'all', name:''})); 'ok'");
   await win.loadFile(path.join(SRC, 'index.html'));
   await sleep(300);
 
-  // Configure Supabase + stub fetch with canned responses.
+  // Configure Supabase + stub fetch with canned responses (after the final load).
   await run(`
     window.SUPABASE_CONFIG = { url: 'https://test.supabase.co', anonKey: 'test-anon-key' };
     window.__calls = [];
@@ -47,8 +51,18 @@ app.whenReady().then(async () => {
   `);
 
   try {
-    await run("document.querySelector('#btn-friends').click(); 'ok'");
-    await sleep(400); // allow POST + GET microtasks
+    // Play one question correctly so a real (non-zero) score is submitted.
+    await run("document.querySelector('.mode-card[data-mode=\"languages\"]').click(); 'ok'");
+    for (let i = 0; i < 20; i++) {
+      if (await run("!document.querySelector('#btn-start').disabled")) break;
+      await sleep(100);
+    }
+    await run("document.querySelector('#btn-start').click(); 'ok'");
+    await sleep(300);
+    const snippet = await run("document.querySelector('#code-snippet').textContent");
+    const answer = await run(`window.gameAPI.getQuestions('languages').then(qs => { const q = qs.find(x => x.codeSnippet === ${JSON.stringify(snippet)}); return q ? q.correctLanguage : null; })`);
+    await run(`(() => { const b = [...document.querySelectorAll('#options-grid button')].find(x => x.dataset.answer === ${JSON.stringify(answer)}); if (b) b.click(); return 'ok'; })()`);
+    await sleep(2300); // 1900ms auto-advance -> endGame -> submit + fetch
 
     const noteClass = await run("document.querySelector('#lb-note').className");
     check('leaderboard note shows online state', /online/.test(noteClass), noteClass);

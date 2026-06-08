@@ -27,6 +27,7 @@ app.whenReady().then(async () => {
 
   await win.loadFile(path.join(SRC, 'index.html'));
   await sleep(300);
+  await run("window.SUPABASE_CONFIG = { url: '', anonKey: '' }; 'ok'"); // force offline mock
 
   try {
     const cyberCount = await run("window.gameAPI.getQuestions('cybersecurity').then(a => a.length)");

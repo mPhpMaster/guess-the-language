@@ -53,7 +53,9 @@ ipcMain.on('window:close', () => {
 // ---- Load a questions database from disk, by mode ----
 const QUESTION_FILES = {
   languages: 'questions.json',
-  cybersecurity: 'questions-cyber.json'
+  cybersecurity: 'questions-cyber.json',
+  devops: 'questions-devops.json',
+  network: 'questions-network.json'
 };
 async function readBank(fileName) {
   const raw = await fs.promises.readFile(path.join(__dirname, 'data', fileName), 'utf-8');

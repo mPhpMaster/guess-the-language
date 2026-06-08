@@ -41,6 +41,8 @@ app.whenReady().then(async () => {
 
   await win.loadFile(path.join(SRC, 'index.html'));
   await sleep(400); // let boot() finish loading questions
+  // Force the offline mock leaderboard (don't touch a real Supabase if configured).
+  await run("window.SUPABASE_CONFIG = { url: '', anonKey: '' }; 'ok'");
 
   try {
     // 0. Mode select shown first; pick the languages mode

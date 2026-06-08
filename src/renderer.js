@@ -68,8 +68,12 @@ const I18N = {
     modeLanguagesDesc: 'Guess the language from a code snippet',
     modeCyber: 'Cybersecurity',
     modeCyberDesc: 'Tools, malware, Nmap, Metasploit & more',
+    modeDevops: 'DevOps',
+    modeDevopsDesc: 'Docker, Kubernetes, CI/CD, Git, IaC & cloud',
+    modeNetwork: 'Networking',
+    modeNetworkDesc: 'OSI, TCP/IP, DNS, routing & protocols',
     modeAll: 'All (Mixed)',
-    modeAllDesc: 'Everything: languages + cybersecurity',
+    modeAllDesc: 'Everything: all four banks together',
     changeMode: 'Modes',
     diff: { easy: 'Easy', medium: 'Medium', hard: 'Hard' }
   },
@@ -113,8 +117,12 @@ const I18N = {
     modeLanguagesDesc: 'خمّن اللغة من مقتطف كود',
     modeCyber: 'الأمن السيبراني',
     modeCyberDesc: 'أدوات وبرمجيات خبيثة وNmap وMetasploit والمزيد',
+    modeDevops: 'DevOps',
+    modeDevopsDesc: 'Docker وKubernetes وCI/CD وGit والسحابة',
+    modeNetwork: 'الشبكات',
+    modeNetworkDesc: 'OSI وTCP/IP وDNS والتوجيه والبروتوكولات',
     modeAll: 'الكل (مدمج)',
-    modeAllDesc: 'كل شيء: لغات البرمجة + الأمن السيبراني',
+    modeAllDesc: 'كل شيء: البنوك الأربعة معاً',
     changeMode: 'الأنماط',
     diff: { easy: 'سهل', medium: 'متوسط', hard: 'صعب' }
   }
@@ -140,13 +148,31 @@ const MODES = {
       ar: 'تعرّف على الأدوات والبرمجيات الخبيثة وNmap وMetasploit والمزيد'
     }
   },
+  devops: {
+    key: 'devops',
+    icon: '♾️',
+    title: { en: ['DevOps', 'Quiz'], ar: ['اختبار', 'DevOps'] },
+    desc: {
+      en: 'Docker, Kubernetes, CI/CD, Git, Terraform & cloud',
+      ar: 'Docker وKubernetes وCI/CD وGit وTerraform والسحابة'
+    }
+  },
+  network: {
+    key: 'network',
+    icon: '🌐',
+    title: { en: ['Networking', 'Quiz'], ar: ['اختبار', 'الشبكات'] },
+    desc: {
+      en: 'OSI, TCP/IP, DNS, routing, subnetting & protocols',
+      ar: 'OSI وTCP/IP وDNS والتوجيه والتقسيم والبروتوكولات'
+    }
+  },
   all: {
     key: 'all',
     icon: '🎲',
     title: { en: ['All', 'Mixed Quiz'], ar: ['الكل', 'اختبار شامل'] },
     desc: {
-      en: 'Everything mixed: programming languages + cybersecurity',
-      ar: 'كل شيء مدمج: لغات البرمجة + الأمن السيبراني'
+      en: 'Everything mixed: all four banks together',
+      ar: 'كل شيء مدمج: البنوك الأربعة معاً'
     }
   }
 };
@@ -668,16 +694,19 @@ async function buildResultsLeaderboard() {
     note.className = 'lb-note';
     note.textContent = t('lbLoading');
     try {
-      const me = await submitScore(playerName, state.score);
+      // Only submit a real score; viewing scores (score 0) must not write a row.
+      const me = state.score > 0 ? await submitScore(playerName, state.score) : null;
       const top = await fetchTopScores(10);
       const list = (top || []).map((r) => ({
         id: r.id, name: r.player, avatar: avatarFor(r.player), score: r.score, you: false
       }));
-      // Flag the player's row (by inserted id, else by name+score heuristic).
-      let mine = me ? list.find((p) => p.id === me.id) : null;
-      if (!mine) mine = list.find((p) => !p.you && p.name === playerName && p.score === state.score);
-      if (mine) mine.you = true;
-      else list.push({ id: -1, name: playerName, avatar: avatarFor(playerName), score: state.score, you: true });
+      if (state.score > 0) {
+        // Flag the player's row (by inserted id, else by name+score heuristic).
+        let mine = me ? list.find((p) => p.id === me.id) : null;
+        if (!mine) mine = list.find((p) => !p.you && p.name === playerName && p.score === state.score);
+        if (mine) mine.you = true;
+        else list.push({ id: -1, name: playerName, avatar: avatarFor(playerName), score: state.score, you: true });
+      }
 
       renderLeaderboard(list);
       note.className = 'lb-note online';
