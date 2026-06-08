@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; connect-src 'self' https://*.supabase.co;" />
+  <title>Guess the Programming Language</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ===== Custom title bar ===== -->
+  <header class="titlebar">
+    <div class="titlebar-left">
+      <span class="win-logo">▦</span>
+      <span class="titlebar-title">Guess the Programming Language</span>
+    </div>
+    <div class="titlebar-controls">
+      <button class="tb-btn" id="tb-min" title="Minimize">&#8211;</button>
+      <button class="tb-btn" id="tb-max" title="Maximize">&#9633;</button>
+      <button class="tb-btn tb-close" id="tb-close" title="Close">&#10005;</button>
+    </div>
+  </header>
+
+  <main id="app">
+
+    <!-- ============ MENU SCREEN ============ -->
+    <section id="screen-menu" class="screen active">
+      <div class="menu-card">
+        <div class="menu-logo">&#128187;</div>
+        <h1 class="menu-title">Guess the<br><span class="neon">Programming Language</span></h1>
+        <p class="menu-sub">خمّن لغة البرمجة من مقتطف الكود قبل انتهاء الوقت</p>
+
+        <div class="menu-buttons">
+          <button class="btn btn-primary" id="btn-start">▶ &nbsp;ابدأ اللعب</button>
+          <button class="btn btn-ghost" id="btn-friends">&#128101;&nbsp; الأصدقاء والنتائج</button>
+          <button class="btn btn-ghost" id="btn-settings">&#9881;&nbsp; الإعدادات</button>
+        </div>
+
+        <div class="menu-highscore">
+          أفضل نتيجة: <strong id="menu-highscore-val">0</strong>
+        </div>
+      </div>
+
+      <!-- Settings popover -->
+      <div id="settings-panel" class="popover hidden">
+        <h3>الإعدادات</h3>
+        <label class="setting-row">
+          <span>اسمك في لوحة الصدارة</span>
+          <input type="text" id="set-name" maxlength="24" placeholder="Player" />
+        </label>
+        <label class="setting-row">
+          <span>عدد الأسئلة في الجولة</span>
+          <select id="set-questions">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select>
+        </label>
+        <label class="setting-row">
+          <span>المؤثرات الصوتية</span>
+          <input type="checkbox" id="set-sound" checked />
+        </label>
+        <label class="setting-row">
+          <span>الصعوبة</span>
+          <select id="set-difficulty">
+            <option value="all" selected>الكل</option>
+            <option value="easy">سهل</option>
+            <option value="medium">متوسط</option>
+            <option value="hard">صعب</option>
+          </select>
+        </label>
+        <button class="btn btn-primary btn-sm" id="set-close">حفظ وإغلاق</button>
+      </div>
+    </section>
+
+    <!-- ============ GAME SCREEN ============ -->
+    <section id="screen-game" class="screen">
+      <div class="game-topbar">
+        <div class="score-pill">Score: <span id="game-score">0</span></div>
+        <div class="streak-pill hidden" id="streak-pill">🔥 <span id="streak-count">0</span> &nbsp;x1.5</div>
+        <div class="progress-pill">سؤال <span id="q-current">1</span> / <span id="q-total">10</span></div>
+      </div>
+
+      <div class="game-body">
+        <div class="code-wrap">
+          <div class="code-header">
+            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+            <span class="code-difficulty" id="code-difficulty">easy</span>
+          </div>
+          <pre class="code-panel"><code id="code-snippet"></code></pre>
+          <div class="toast" id="answer-toast"></div>
+        </div>
+
+        <div class="timer-ring" id="timer-ring">
+          <svg viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="52" />
+            <circle class="ring-fg" id="ring-fg" cx="60" cy="60" r="52" />
+          </svg>
+          <div class="timer-num" id="timer-num">15</div>
+        </div>
+      </div>
+
+      <div class="options-grid" id="options-grid"><!-- language buttons injected --></div>
+    </section>
+
+    <!-- ============ RESULTS SCREEN ============ -->
+    <section id="screen-results" class="screen">
+      <div class="results-card">
+        <div class="trophy">&#127942;</div>
+        <h2 class="final-score">Final Score: <span id="final-score">0</span></h2>
+        <p class="results-sub">Friends Comparison</p>
+        <div class="lb-note" id="lb-note"></div>
+        <div class="leaderboard" id="leaderboard"><!-- rows injected --></div>
+
+        <div class="results-buttons">
+          <button class="btn btn-primary" id="btn-challenge">&#128279; تحدّى صديقاً</button>
+          <button class="btn btn-accent" id="btn-replay">&#128260; إعادة اللعب</button>
+          <button class="btn btn-ghost" id="btn-menu">&#127968; القائمة الرئيسية</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="supabase-config.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>

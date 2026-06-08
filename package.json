@@ -1,0 +1,38 @@
+{
+  "name": "guess-the-language",
+  "version": "1.0.0",
+  "description": "خمن لغة البرمجة — Guess the Programming Language, an interactive Windows desktop game.",
+  "main": "src/main.js",
+  "author": "shureapp",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win",
+    "pack": "electron-builder --dir"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.shureapp.guessthelanguage",
+    "productName": "Guess The Language",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    }
+  }
+}
