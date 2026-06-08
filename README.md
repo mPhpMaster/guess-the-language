@@ -1,83 +1,89 @@
-# خمّن لغة البرمجة — Guess the Programming Language
+# Guess the Programming Language
 
-لعبة سطح مكتب تفاعلية لنظام Windows: يُعرض مقتطف كود غامض، وعلى اللاعب تحديد لغة
-البرمجة قبل انتهاء المؤقت. تتضمّن نظام نقاط، سلاسل إجابات (streak)، وشاشة مقارنة
-نتائج مع الأصدقاء.
+**English** · [العربية](README.ar.md)
 
-An interactive Windows desktop game built with **Electron**. A mystery code snippet
-is shown and the player must guess the programming language before the timer runs
-out. Includes scoring, streaks, and a friends-comparison results screen.
+An interactive **Windows** desktop game built with **Electron**. A mystery code
+snippet appears and you must identify the programming language before the timer
+runs out — with scoring, streaks, and a friends/global leaderboard.
+
+![Menu](screenshots/1-menu.png)
+
+| Gameplay | Results |
+| --- | --- |
+| ![Game](screenshots/2-game.png) | ![Results](screenshots/4-results.png) |
 
 ---
 
-## المتطلبات / Requirements
+## Requirements
 
-- [Node.js](https://nodejs.org/) 18+ (تم التطوير على v22)
-- npm (يأتي مع Node.js)
+- [Node.js](https://nodejs.org/) 18+ (developed on v22)
+- A package manager — **pnpm** is recommended (`npm` is fine elsewhere; on the
+  dev machine npm was broken, so pnpm is used throughout)
 - Windows 10/11
 
-## التشغيل / Run (development)
+## Run (development)
 
 ```powershell
-npm install      # تثبيت الاعتماديات (Electron)
-npm start        # تشغيل اللعبة
+pnpm install      # install dependencies (Electron)
+pnpm start        # launch the game
 ```
 
-## بناء ملف تنفيذي / Build a Windows installer (.exe)
+## Build a Windows installer (.exe)
 
 ```powershell
-npm run dist     # ينتج مثبّت NSIS داخل مجلد dist/
-# أو نسخة محمولة غير مثبّتة:
-npm run pack
+pnpm run dist     # produces an NSIS installer in dist/
+# or a portable, uninstalled build:
+pnpm run pack
 ```
 
-الناتج يوضع في مجلد `dist/`.
+The output is written to `dist/` (e.g. `Guess The Language Setup 1.0.0.exe`).
 
 ---
 
-## آلية اللعب / How to play
+## How to play
 
-1. اضغط **ابدأ اللعب**.
-2. يُعرض مقتطف كود مع مؤقت دائري (12–15 ثانية حسب الصعوبة).
-3. اختر اللغة الصحيحة من الأزرار الستة (أو اضغط مفاتيح الأرقام **1–6**).
-4. في النهاية تظهر شاشة النتيجة مع مقارنة الأصدقاء.
+1. Click **Start**.
+2. A code snippet appears with a circular countdown (12–15s by difficulty).
+3. Pick the correct language from the six buttons — or press keys **1–6**.
+4. After the round, the results screen shows your score and the leaderboard.
 
-### نظام النقاط / Scoring
-- إجابة صحيحة: **+100** نقطة.
-- مكافأة السرعة: **+10** لكل ثانية متبقية.
-- سلسلة: مضاعف **×1.5** بعد 3 إجابات صحيحة متتالية.
-- إجابة خاطئة أو انتهاء الوقت: 0 نقطة وتُصفّر السلسلة.
+### Scoring
+- Correct answer: **+100**
+- Speed bonus: **+10** per remaining second
+- Streak: **×1.5** multiplier after 3 correct answers in a row
+- Wrong answer or timeout: 0 points and the streak resets
 
 ---
 
-## البنية / Project structure
+## Project structure
 
 ```
 prog-game2/
-├─ package.json                 # سكربتات + إعداد electron-builder
-├─ pnpm-workspace.yaml          # السماح ببناء سكربت Electron
+├─ package.json                 # scripts + electron-builder config
+├─ pnpm-workspace.yaml          # allows Electron's build script under pnpm
 ├─ supabase/
-│  └─ schema.sql                # جدول لوحة الصدارة + سياسات RLS
+│  └─ schema.sql                # leaderboard table + RLS policies
 ├─ src/
-│  ├─ main.js                   # عملية Electron الرئيسية (نافذة + IPC)
-│  ├─ preload.js                # جسر آمن (window controls + تحميل الأسئلة)
-│  ├─ index.html                # الشاشات الثلاث (قائمة / لعب / نتائج)
-│  ├─ styles.css                # التصميم الداكن + النيون
-│  ├─ renderer.js               # منطق اللعبة، المؤقت، النقاط، الصدارة
-│  ├─ supabase-config.js         # بيانات Supabase (محلي، غير مُتتبَّع بـ git)
-│  ├─ supabase-config.example.js # قالب الإعداد
+│  ├─ main.js                   # Electron main process (window + IPC)
+│  ├─ preload.js                # secure bridge (window controls + question load)
+│  ├─ index.html                # the three screens (menu / game / results)
+│  ├─ styles.css                # dark + neon theme
+│  ├─ renderer.js               # game logic, timer, scoring, leaderboard
+│  ├─ supabase-config.js         # Supabase creds (local, git-ignored)
+│  ├─ supabase-config.example.js # config template
 │  └─ data/
-│     └─ questions.json          # قاعدة بيانات الأسئلة (120 سؤالاً)
+│     └─ questions.json          # questions database (120 questions)
 └─ test/
-   ├─ smoke-main.js             # اختبار آلي بدون واجهة (13 فحصاً)
-   ├─ capture.js                # التقاط صور للشاشات
-   └─ reset-state.js            # تفريغ الحالة المحفوظة
+   ├─ smoke-main.js             # headless end-to-end test (13 checks)
+   ├─ smoke-online.js           # Supabase online-path test (stubbed fetch)
+   ├─ capture.js                # render screenshots of each screen
+   └─ reset-state.js            # clear persisted local state
 ```
 
-## قاعدة بيانات الأسئلة / Questions database
+## Questions database
 
-ملف `src/data/questions.json` يحوي **120 سؤالاً** موزّعة على 6 لغات
-(Python, JavaScript, C++, Java, Rust, Go) وثلاث مستويات صعوبة. كل سؤال:
+`src/data/questions.json` holds **120 questions** across 6 languages (Python,
+JavaScript, C++, Java, Rust, Go) and three difficulty levels. Each entry:
 
 ```json
 {
@@ -85,46 +91,64 @@ prog-game2/
   "correctLanguage": "Python",
   "difficulty": "easy",
   "codeSnippet": "print('Hello, World!')",
-  "explanation": "دالة print() مميزة في بايثون."
+  "explanation": "The print() function is a Python signature."
 }
 ```
 
-لإضافة أسئلة: أضِف عناصر جديدة إلى المصفوفة بنفس الشكل. تُقرأ تلقائياً عند التشغيل.
+To add questions, append new objects in the same shape. They load automatically.
 
 ---
 
-## لوحة الصدارة عبر Supabase / Cloud leaderboard (Supabase)
+## Cloud leaderboard (Supabase)
 
-اللعبة تعمل محلياً بالكامل بدون إعداد. لتفعيل لوحة صدارة عالمية حقيقية:
+The game is fully playable offline with no setup. To enable a real global
+leaderboard:
 
-1. أنشئ مشروعاً مجانياً على [supabase.com](https://supabase.com).
-2. في **SQL Editor**، نفّذ محتوى الملف [`supabase/schema.sql`](supabase/schema.sql)
-   (ينشئ جدول `scores` مع سياسات RLS للقراءة والإضافة العامة).
-3. انسخ `src/supabase-config.example.js` إلى `src/supabase-config.js`.
-4. من **Project Settings → API** انسخ `Project URL` و`anon public key` والصقهما
-   في `src/supabase-config.js`.
-5. أعد تشغيل اللعبة. ستظهر شاشة النتائج الآن أعلى 10 لاعبين عالمياً مع تمييز صفّك.
+1. Create a free project at [supabase.com](https://supabase.com).
+2. In the **SQL Editor**, run [`supabase/schema.sql`](supabase/schema.sql)
+   (creates the `scores` table with public read/insert RLS policies).
+3. Copy `src/supabase-config.example.js` to `src/supabase-config.js`.
+4. From **Project Settings → API**, paste your `Project URL` and the public
+   `anon` key into `src/supabase-config.js`.
+5. Restart the app. The results screen now shows the global top 10 with your
+   row highlighted.
 
-> المفتاح `anon` مُصمَّم ليكون عاماً في تطبيقات العميل؛ التحكم بالوصول يتم عبر
-> سياسات RLS. إذا تُرك الإعداد فارغاً تعود اللعبة تلقائياً للوحة المحلية التجريبية.
-> ملاحظة أمنية: الإضافة عبر `anon` قابلة للتزوير من العميل؛ لمنع الغش فعلياً انقل
-> إرسال النتيجة إلى Edge Function تتحقق من الجولة (انظر التعليق في `schema.sql`).
+> The `anon` key is meant to be public in client apps; access is governed by RLS
+> policies. If left blank, the game falls back to a local mock leaderboard.
+> **Security note:** anon inserts are spoofable from a client. To prevent
+> cheating, move score submission behind an Edge Function that validates the run
+> (see the comment in `schema.sql`).
 
-اسمك في اللوحة يُضبط من شاشة **الإعدادات**.
+Your leaderboard name is set in the **Settings** screen.
 
-## ملاحظات على التصميم / Implementation notes
+---
 
-- **محلي أولاً:** اللعبة تعمل كاملة دون إنترنت أو خادم. عند إعداد Supabase تتحول شاشة
-  المقارنة إلى لوحة صدارة عالمية حقيقية؛ وبدون إعداد تعود إلى بيانات تجريبية محلية.
-- **التظليل اللوني (Syntax highlighting):** مُنفّذ بمحرّك خفيف داخلي بلا اعتماديات
-  خارجية ليعمل دون اتصال.
-- **الصوت:** نغمات بسيطة مولّدة عبر WebAudio (لا حاجة لملفات صوتية).
-- **الأمان:** `contextIsolation` مفعّل، `nodeIntegration` معطّل، و`sandbox` مفعّل،
-  مع سياسة CSP صارمة. النتيجة الأعلى تُحفظ محلياً عبر `localStorage`.
+## Implementation notes
 
-## خارطة طريق / Roadmap
+- **Local-first:** the game runs fully without internet or a server. With
+  Supabase configured, the comparison screen becomes a real global leaderboard;
+  without it, it falls back to local mock data.
+- **Syntax highlighting:** a small built-in highlighter — no external
+  dependencies, works offline.
+- **Sound:** simple WebAudio tones (no audio asset files).
+- **Security:** `contextIsolation` on, `nodeIntegration` off, `sandbox` on, a
+  strict CSP, and DOM built with `textContent` (leaderboard names can't inject
+  markup). High score is stored locally via `localStorage`.
 
-- ✅ لوحة متصدرين عامة عبر Supabase.
-- ⏳ تسجيل دخول (Email / Google / Guest).
-- ⏳ نظام أصدقاء حقيقي (إضافة/متابعة) بدل اللوحة العامة فقط.
-- ⏳ إرسال النتيجة عبر Edge Function للتحقق منها (منع الغش).
+## Tests
+
+```powershell
+pnpm exec electron test/smoke-main.js      # offline end-to-end (13 checks)
+pnpm exec electron test/smoke-online.js    # Supabase online path (8 checks)
+```
+
+## Roadmap
+
+- ✅ Global leaderboard via Supabase
+- ⏳ Login (Email / Google / Guest)
+- ⏳ Real friends system (add / follow) instead of a global board only
+- ⏳ Server-validated score submission (anti-cheat) via Edge Function
+
+## License
+
+MIT
