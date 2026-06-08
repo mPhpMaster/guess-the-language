@@ -455,7 +455,8 @@ function normalizeQuestion(q) {
       panelText: hasCmd ? q.codeSnippet : q.question[getLang()],
       panelIsCode: hasCmd,
       questionText: hasCmd ? q.question[getLang()] : '',
-      options: q.options.map((o) => ({ label: o })),
+      // Shuffle so the correct answer isn't always in the same position.
+      options: shuffle(q.options).map((o) => ({ label: o })),
       answer: q.answer,
       difficulty: q.difficulty,
       explanation: q.explanation
