@@ -1657,5 +1657,278 @@
       "en": "A honeypot is a decoy that attracts and observes attackers.",
       "ar": "Honeypot نظام خداع يجذب المهاجمين ويراقبهم."
     }
+  },
+  {
+    "id": 80,
+    "category": "nmap",
+    "difficulty": "medium",
+    "codeSnippet": "nmap -p- 10.0.0.1",
+    "question": {
+      "en": "What does the -p- flag scan?",
+      "ar": "ماذا يفحص الخيار -p-؟"
+    },
+    "options": [
+      "All 65535 TCP ports",
+      "Only the top 100 ports",
+      "UDP ports only",
+      "Just port 80"
+    ],
+    "answer": "All 65535 TCP ports",
+    "explanation": {
+      "en": "-p- tells Nmap to scan every TCP port from 1 to 65535.",
+      "ar": "يطلب -p- من Nmap فحص كل منافذ TCP من 1 إلى 65535."
+    }
+  },
+  {
+    "id": 81,
+    "category": "nmap",
+    "difficulty": "medium",
+    "codeSnippet": "nmap -sn 192.168.1.0/24",
+    "question": {
+      "en": "What does the -sn option do?",
+      "ar": "ماذا يفعل الخيار -sn؟"
+    },
+    "options": [
+      "Host discovery without a port scan",
+      "A full SYN port scan",
+      "Service version detection",
+      "An aggressive OS scan"
+    ],
+    "answer": "Host discovery without a port scan",
+    "explanation": {
+      "en": "-sn performs a ping sweep to find live hosts and skips port scanning.",
+      "ar": "ينفّذ -sn مسحاً بالـ ping لاكتشاف المضيفات الحيّة دون فحص المنافذ."
+    }
+  },
+  {
+    "id": 82,
+    "category": "tools",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which tool captures and inspects network packets?",
+      "ar": "أي أداة تلتقط وتحلّل حزم الشبكة؟"
+    },
+    "options": [
+      "Wireshark",
+      "Hydra",
+      "Nikto",
+      "John the Ripper"
+    ],
+    "answer": "Wireshark",
+    "explanation": {
+      "en": "Wireshark is the standard packet capture and protocol analysis tool.",
+      "ar": "Wireshark هي الأداة المعيارية لالتقاط الحزم وتحليل البروتوكولات."
+    }
+  },
+  {
+    "id": 83,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "hydra -l admin -P rockyou.txt ssh://10.0.0.5",
+    "question": {
+      "en": "What is hydra doing in this command?",
+      "ar": "ماذا تفعل hydra في هذا الأمر؟"
+    },
+    "options": [
+      "Brute-forcing the SSH login",
+      "Scanning for open ports",
+      "Sniffing SSH traffic",
+      "Exploiting a buffer overflow"
+    ],
+    "answer": "Brute-forcing the SSH login",
+    "explanation": {
+      "en": "hydra tries passwords from rockyou.txt against the SSH service for user admin.",
+      "ar": "تجرّب hydra كلمات مرور من rockyou.txt ضد خدمة SSH للمستخدم admin."
+    }
+  },
+  {
+    "id": 84,
+    "category": "concepts",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does the CIA triad stand for in security?",
+      "ar": "ماذا يعني ثالوث CIA في الأمن؟"
+    },
+    "options": [
+      "Confidentiality, Integrity, Availability",
+      "Control, Identity, Access",
+      "Cipher, Integrity, Authentication",
+      "Confidentiality, Identity, Auditing"
+    ],
+    "answer": "Confidentiality, Integrity, Availability",
+    "explanation": {
+      "en": "The CIA triad — Confidentiality, Integrity, Availability — is the core model of information security.",
+      "ar": "ثالوث CIA — السرية والسلامة والتوافر — هو النموذج الأساسي لأمن المعلومات."
+    }
+  },
+  {
+    "id": 85,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a zero-day vulnerability?",
+      "ar": "ما هي ثغرة اليوم صفر (zero-day)؟"
+    },
+    "options": [
+      "A flaw unknown to the vendor with no patch yet",
+      "A bug fixed on the first day",
+      "An expired TLS certificate",
+      "A weak default password"
+    ],
+    "answer": "A flaw unknown to the vendor with no patch yet",
+    "explanation": {
+      "en": "A zero-day is a vulnerability unknown to the vendor, so no patch exists when it is exploited.",
+      "ar": "ثغرة اليوم صفر غير معروفة للمطوّر، فلا يوجد تصحيح لها وقت استغلالها."
+    }
+  },
+  {
+    "id": 86,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why is a salt added when hashing passwords?",
+      "ar": "لماذا يُضاف salt عند تجزئة كلمات المرور؟"
+    },
+    "options": [
+      "To defeat precomputed rainbow-table attacks",
+      "To encrypt the password reversibly",
+      "To compress the hash",
+      "To speed up hashing"
+    ],
+    "answer": "To defeat precomputed rainbow-table attacks",
+    "explanation": {
+      "en": "A unique random salt makes identical passwords hash differently, defeating rainbow tables.",
+      "ar": "يجعل الـ salt العشوائي كلمات المرور المتطابقة تُجزّأ بشكل مختلف، ما يبطل جداول rainbow."
+    }
+  },
+  {
+    "id": 87,
+    "category": "malware",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What distinguishes a worm from a virus?",
+      "ar": "ما الذي يميّز الدودة عن الفيروس؟"
+    },
+    "options": [
+      "A worm self-replicates across networks without a host file",
+      "A worm needs a user to run a file",
+      "A worm only infects boot sectors",
+      "A worm cannot spread over a network"
+    ],
+    "answer": "A worm self-replicates across networks without a host file",
+    "explanation": {
+      "en": "Worms propagate on their own across networks; viruses attach to and need a host file.",
+      "ar": "تنتشر الديدان ذاتياً عبر الشبكات، بينما يلتصق الفيروس بملف مضيف ويحتاجه."
+    }
+  },
+  {
+    "id": 88,
+    "category": "malware",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is the primary goal of ransomware?",
+      "ar": "ما الهدف الأساسي لبرمجيات الفدية؟"
+    },
+    "options": [
+      "Encrypt files and demand payment to decrypt them",
+      "Mine cryptocurrency silently",
+      "Log every keystroke only",
+      "Open a remote backdoor only"
+    ],
+    "answer": "Encrypt files and demand payment to decrypt them",
+    "explanation": {
+      "en": "Ransomware encrypts the victim’s data and demands payment for the decryption key.",
+      "ar": "تشفّر برمجيات الفدية بيانات الضحية وتطلب فدية مقابل مفتاح فك التشفير."
+    }
+  },
+  {
+    "id": 89,
+    "category": "metasploit",
+    "difficulty": "medium",
+    "codeSnippet": "use exploit/windows/smb/ms17_010_eternalblue",
+    "question": {
+      "en": "Which vulnerability does this Metasploit module exploit?",
+      "ar": "أي ثغرة تستغلها وحدة Metasploit هذه؟"
+    },
+    "options": [
+      "EternalBlue (SMBv1)",
+      "Heartbleed (OpenSSL)",
+      "Shellshock (Bash)",
+      "Log4Shell (Log4j)"
+    ],
+    "answer": "EternalBlue (SMBv1)",
+    "explanation": {
+      "en": "ms17_010 is the EternalBlue exploit against the SMBv1 protocol.",
+      "ar": "ms17_010 هي ثغرة EternalBlue ضد بروتوكول SMBv1."
+    }
+  },
+  {
+    "id": 90,
+    "category": "metasploit",
+    "difficulty": "easy",
+    "codeSnippet": "msfconsole",
+    "question": {
+      "en": "What does msfconsole start?",
+      "ar": "ماذا يشغّل msfconsole؟"
+    },
+    "options": [
+      "The Metasploit Framework console",
+      "A packet sniffer",
+      "A DNS server",
+      "A password vault"
+    ],
+    "answer": "The Metasploit Framework console",
+    "explanation": {
+      "en": "msfconsole is the main command-line interface to the Metasploit Framework.",
+      "ar": "msfconsole هي الواجهة الرئيسية لسطر أوامر إطار Metasploit."
+    }
+  },
+  {
+    "id": 91,
+    "category": "concepts",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "In TLS, what is the role of a Certificate Authority (CA)?",
+      "ar": "في TLS، ما دور سلطة الشهادات (CA)؟"
+    },
+    "options": [
+      "It signs certificates to vouch for a server’s public key",
+      "It encrypts all application data",
+      "It stores user passwords",
+      "It assigns IP addresses"
+    ],
+    "answer": "It signs certificates to vouch for a server’s public key",
+    "explanation": {
+      "en": "A CA digitally signs a server’s certificate, letting clients trust its public key.",
+      "ar": "توقّع سلطة الشهادات شهادة الخادم رقمياً ليثق العملاء بمفتاحه العام."
+    }
+  },
+  {
+    "id": 92,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "john --wordlist=rockyou.txt hashes.txt",
+    "question": {
+      "en": "What is John the Ripper doing here?",
+      "ar": "ماذا تفعل John the Ripper هنا؟"
+    },
+    "options": [
+      "Cracking password hashes using a wordlist",
+      "Scanning for vulnerabilities",
+      "Capturing packets",
+      "Encrypting the hashes file"
+    ],
+    "answer": "Cracking password hashes using a wordlist",
+    "explanation": {
+      "en": "John tries each word in rockyou.txt against the hashes to recover passwords.",
+      "ar": "تجرّب John كل كلمة في rockyou.txt ضد التجزئات لاستعادة كلمات المرور."
+    }
   }
 ]

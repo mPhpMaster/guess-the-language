@@ -796,5 +796,278 @@
       "en": "Istio is a popular service mesh managing traffic, security and observability.",
       "ar": "Istio service mesh شهير يدير الحركة والأمان والمراقبة."
     }
+  },
+  {
+    "id": 39,
+    "category": "docker",
+    "difficulty": "easy",
+    "codeSnippet": "docker ps -a",
+    "question": {
+      "en": "What does docker ps -a show?",
+      "ar": "ماذا يعرض docker ps -a؟"
+    },
+    "options": [
+      "All containers, including stopped ones",
+      "Only running containers",
+      "All images",
+      "All networks"
+    ],
+    "answer": "All containers, including stopped ones",
+    "explanation": {
+      "en": "docker ps -a lists every container, both running and stopped.",
+      "ar": "يسرد docker ps -a كل الحاويات، العاملة والمتوقفة."
+    }
+  },
+  {
+    "id": 40,
+    "category": "docker",
+    "difficulty": "medium",
+    "codeSnippet": "docker logs -f web",
+    "question": {
+      "en": "What does docker logs -f web do?",
+      "ar": "ماذا يفعل docker logs -f web؟"
+    },
+    "options": [
+      "Streams (follows) the web container’s logs in real time",
+      "Deletes the web container",
+      "Restarts the web container",
+      "Lists the container’s files"
+    ],
+    "answer": "Streams (follows) the web container’s logs in real time",
+    "explanation": {
+      "en": "docker logs -f tails and follows the container’s stdout/stderr live.",
+      "ar": "يتابع docker logs -f مخرجات الحاوية الحيّة لحظياً."
+    }
+  },
+  {
+    "id": 41,
+    "category": "docker",
+    "difficulty": "medium",
+    "codeSnippet": "docker compose up -d",
+    "question": {
+      "en": "What does the -d flag do here?",
+      "ar": "ماذا يفعل الخيار -d هنا؟"
+    },
+    "options": [
+      "Runs the containers in detached (background) mode",
+      "Deletes stopped containers",
+      "Enables debug logging",
+      "Disables networking"
+    ],
+    "answer": "Runs the containers in detached (background) mode",
+    "explanation": {
+      "en": "-d (detached) starts the services in the background and returns control to the shell.",
+      "ar": "يبدأ -d الخدمات في الخلفية ويعيد التحكم إلى الطرفية."
+    }
+  },
+  {
+    "id": 42,
+    "category": "kubernetes",
+    "difficulty": "easy",
+    "codeSnippet": "kubectl get pods",
+    "question": {
+      "en": "What does kubectl get pods list?",
+      "ar": "ماذا يسرد kubectl get pods؟"
+    },
+    "options": [
+      "Pods in the current namespace",
+      "All cluster nodes",
+      "Container images",
+      "Stored secrets"
+    ],
+    "answer": "Pods in the current namespace",
+    "explanation": {
+      "en": "It lists the pods running in the currently selected namespace.",
+      "ar": "يسرد الـ pods العاملة في مساحة الأسماء الحالية."
+    }
+  },
+  {
+    "id": 43,
+    "category": "kubernetes",
+    "difficulty": "medium",
+    "codeSnippet": "kubectl scale deployment web --replicas=5",
+    "question": {
+      "en": "What does this command do?",
+      "ar": "ماذا يفعل هذا الأمر؟"
+    },
+    "options": [
+      "Sets the deployment to run 5 pod replicas",
+      "Creates 5 new deployments",
+      "Limits the pod to 5 CPUs",
+      "Rolls back 5 revisions"
+    ],
+    "answer": "Sets the deployment to run 5 pod replicas",
+    "explanation": {
+      "en": "kubectl scale adjusts the \"web\" deployment to maintain 5 running pod replicas.",
+      "ar": "يضبط kubectl scale نشر \"web\" للحفاظ على 5 نسخ pod عاملة."
+    }
+  },
+  {
+    "id": 44,
+    "category": "kubernetes",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a Kubernetes Service used for?",
+      "ar": "فيمَ يُستخدم Service في Kubernetes؟"
+    },
+    "options": [
+      "Exposing a stable network endpoint for a set of pods",
+      "Storing persistent data",
+      "Building container images",
+      "Scheduling cron jobs"
+    ],
+    "answer": "Exposing a stable network endpoint for a set of pods",
+    "explanation": {
+      "en": "A Service gives a stable IP/DNS name and load-balances traffic to matching pods.",
+      "ar": "يمنح Service عنوان IP/DNS ثابتاً ويوزّع الحِمل على الـ pods المطابقة."
+    }
+  },
+  {
+    "id": 45,
+    "category": "kubernetes",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a liveness probe do in Kubernetes?",
+      "ar": "ماذا يفعل فحص liveness في Kubernetes؟"
+    },
+    "options": [
+      "Restarts a container when its health check fails",
+      "Delays pod startup",
+      "Scales the deployment up",
+      "Encrypts pod traffic"
+    ],
+    "answer": "Restarts a container when its health check fails",
+    "explanation": {
+      "en": "If a liveness probe fails, the kubelet restarts the container to recover it.",
+      "ar": "إذا فشل فحص liveness، يعيد kubelet تشغيل الحاوية لاستعادتها."
+    }
+  },
+  {
+    "id": 46,
+    "category": "cicd",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does CI stand for in DevOps?",
+      "ar": "ماذا تعني CI في DevOps؟"
+    },
+    "options": [
+      "Continuous Integration",
+      "Container Image",
+      "Cloud Infrastructure",
+      "Code Inspection"
+    ],
+    "answer": "Continuous Integration",
+    "explanation": {
+      "en": "CI is Continuous Integration — merging and testing code changes frequently.",
+      "ar": "CI تعني التكامل المستمر — دمج واختبار تغييرات الشيفرة بشكل متكرر."
+    }
+  },
+  {
+    "id": 47,
+    "category": "cicd",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is the main purpose of a CI pipeline?",
+      "ar": "ما الغرض الرئيسي من خط أنابيب CI؟"
+    },
+    "options": [
+      "Automatically build and test code on each change",
+      "Manually deploy to production",
+      "Store secrets securely",
+      "Monitor server uptime"
+    ],
+    "answer": "Automatically build and test code on each change",
+    "explanation": {
+      "en": "A CI pipeline automatically builds and runs tests whenever code changes, catching issues early.",
+      "ar": "يبني خط CI ويشغّل الاختبارات تلقائياً عند كل تغيير، فيكتشف المشاكل مبكراً."
+    }
+  },
+  {
+    "id": 48,
+    "category": "iac",
+    "difficulty": "medium",
+    "codeSnippet": "terraform apply",
+    "question": {
+      "en": "What does terraform apply do?",
+      "ar": "ماذا يفعل terraform apply؟"
+    },
+    "options": [
+      "Provisions infrastructure to match the configuration",
+      "Only previews changes",
+      "Deletes all resources",
+      "Formats the code"
+    ],
+    "answer": "Provisions infrastructure to match the configuration",
+    "explanation": {
+      "en": "terraform apply creates or updates real infrastructure to match the declared configuration.",
+      "ar": "ينشئ terraform apply أو يحدّث البنية الحقيقية لتطابق الإعداد المعلن."
+    }
+  },
+  {
+    "id": 49,
+    "category": "iac",
+    "difficulty": "medium",
+    "codeSnippet": "terraform plan",
+    "question": {
+      "en": "What does terraform plan show?",
+      "ar": "ماذا يعرض terraform plan؟"
+    },
+    "options": [
+      "A preview of changes without applying them",
+      "The current cloud bill",
+      "Live server metrics",
+      "The git history"
+    ],
+    "answer": "A preview of changes without applying them",
+    "explanation": {
+      "en": "terraform plan shows what would change, without modifying any infrastructure.",
+      "ar": "يعرض terraform plan ما سيتغيّر دون تعديل أي بنية."
+    }
+  },
+  {
+    "id": 50,
+    "category": "cloud",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is the main benefit of autoscaling?",
+      "ar": "ما الفائدة الأساسية من التوسّع التلقائي (autoscaling)؟"
+    },
+    "options": [
+      "Capacity automatically matches demand",
+      "Code never needs testing",
+      "Servers never restart",
+      "Storage becomes free"
+    ],
+    "answer": "Capacity automatically matches demand",
+    "explanation": {
+      "en": "Autoscaling adds or removes capacity automatically as load rises and falls.",
+      "ar": "يضيف التوسّع التلقائي السعة أو يزيلها تلقائياً مع ارتفاع الحِمل وانخفاضه."
+    }
+  },
+  {
+    "id": 51,
+    "category": "cloud",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does \"serverless\" mean?",
+      "ar": "ماذا تعني \"بلا خادم\" (serverless)؟"
+    },
+    "options": [
+      "You run code without managing servers",
+      "There are literally no servers",
+      "It only runs on your laptop",
+      "It cannot scale"
+    ],
+    "answer": "You run code without managing servers",
+    "explanation": {
+      "en": "Serverless means the provider manages the servers; you just deploy code that runs on demand.",
+      "ar": "يعني serverless أن المزوّد يدير الخوادم، وأنت تنشر شيفرة تعمل عند الطلب."
+    }
   }
 ]

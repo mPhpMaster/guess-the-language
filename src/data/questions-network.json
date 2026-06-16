@@ -775,5 +775,257 @@
       "en": "SLAAC lets hosts auto-configure IPv6 addresses without a DHCP server.",
       "ar": "يتيح SLAAC للأجهزة تهيئة عناوين IPv6 ذاتياً دون خادم DHCP."
     }
+  },
+  {
+    "id": 38,
+    "category": "osi",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "At which OSI layer does a router primarily operate?",
+      "ar": "في أي طبقة OSI يعمل الموجّه أساساً؟"
+    },
+    "options": [
+      "Layer 3 (Network)",
+      "Layer 2 (Data Link)",
+      "Layer 4 (Transport)",
+      "Layer 7 (Application)"
+    ],
+    "answer": "Layer 3 (Network)",
+    "explanation": {
+      "en": "Routers forward packets based on IP addresses at Layer 3, the Network layer.",
+      "ar": "توجّه الموجّهات الحزم بناءً على عناوين IP في الطبقة 3، طبقة الشبكة."
+    }
+  },
+  {
+    "id": 39,
+    "category": "osi",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which OSI layer uses MAC addresses?",
+      "ar": "أي طبقة OSI تستخدم عناوين MAC؟"
+    },
+    "options": [
+      "Layer 2 (Data Link)",
+      "Layer 1 (Physical)",
+      "Layer 3 (Network)",
+      "Layer 5 (Session)"
+    ],
+    "answer": "Layer 2 (Data Link)",
+    "explanation": {
+      "en": "MAC addressing and switching happen at Layer 2, the Data Link layer.",
+      "ar": "تحدث عنونة MAC والتبديل في الطبقة 2، طبقة ربط البيانات."
+    }
+  },
+  {
+    "id": 40,
+    "category": "tcp",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is the correct order of the TCP three-way handshake?",
+      "ar": "ما الترتيب الصحيح لمصافحة TCP الثلاثية؟"
+    },
+    "options": [
+      "SYN, SYN-ACK, ACK",
+      "ACK, SYN, FIN",
+      "SYN, ACK, SYN",
+      "FIN, ACK, RST"
+    ],
+    "answer": "SYN, SYN-ACK, ACK",
+    "explanation": {
+      "en": "TCP establishes a connection with SYN, then SYN-ACK, then ACK.",
+      "ar": "ينشئ TCP الاتصال عبر SYN ثم SYN-ACK ثم ACK."
+    }
+  },
+  {
+    "id": 41,
+    "category": "tcp",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "TCP is best described as?",
+      "ar": "كيف يُوصف TCP بدقّة؟"
+    },
+    "options": [
+      "Connection-oriented and reliable",
+      "Connectionless and unreliable",
+      "Encrypted by default",
+      "A routing protocol"
+    ],
+    "answer": "Connection-oriented and reliable",
+    "explanation": {
+      "en": "TCP is connection-oriented and guarantees ordered, reliable delivery.",
+      "ar": "TCP موجّه بالاتصال ويضمن تسليماً مرتّباً وموثوقاً."
+    }
+  },
+  {
+    "id": 42,
+    "category": "ip",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is the IPv4 loopback address?",
+      "ar": "ما عنوان الاسترجاع (loopback) في IPv4؟"
+    },
+    "options": [
+      "127.0.0.1",
+      "192.168.0.1",
+      "10.0.0.1",
+      "255.255.255.255"
+    ],
+    "answer": "127.0.0.1",
+    "explanation": {
+      "en": "127.0.0.1 (localhost) always refers to the local machine.",
+      "ar": "يشير 127.0.0.1 (localhost) دائماً إلى الجهاز المحلي."
+    }
+  },
+  {
+    "id": 43,
+    "category": "ip",
+    "difficulty": "medium",
+    "codeSnippet": "192.168.1.0/24",
+    "question": {
+      "en": "How many usable host addresses does a /24 subnet have?",
+      "ar": "كم عدد عناوين المضيفات القابلة للاستخدام في شبكة /24؟"
+    },
+    "options": [
+      "254",
+      "256",
+      "128",
+      "510"
+    ],
+    "answer": "254",
+    "explanation": {
+      "en": "A /24 has 256 addresses; minus the network and broadcast addresses leaves 254 usable hosts.",
+      "ar": "تحوي /24 على 256 عنواناً؛ بطرح عنواني الشبكة والبث يتبقّى 254 مضيفاً قابلاً للاستخدام."
+    }
+  },
+  {
+    "id": 44,
+    "category": "ip",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which range is a private (RFC 1918) address block?",
+      "ar": "أي نطاق هو كتلة عناوين خاصة (RFC 1918)؟"
+    },
+    "options": [
+      "10.0.0.0/8",
+      "8.8.8.0/24",
+      "1.1.1.0/24",
+      "172.0.0.0/8"
+    ],
+    "answer": "10.0.0.0/8",
+    "explanation": {
+      "en": "10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16 are the private RFC 1918 ranges.",
+      "ar": "النطاقات 10.0.0.0/8 و172.16.0.0/12 و192.168.0.0/16 هي نطاقات RFC 1918 الخاصة."
+    }
+  },
+  {
+    "id": 45,
+    "category": "dns",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a DNS A record map?",
+      "ar": "ماذا يربط سجل DNS من نوع A؟"
+    },
+    "options": [
+      "A hostname to an IPv4 address",
+      "A hostname to a MAC address",
+      "An IP to a port",
+      "A domain to an email server"
+    ],
+    "answer": "A hostname to an IPv4 address",
+    "explanation": {
+      "en": "An A record maps a domain name to an IPv4 address.",
+      "ar": "يربط سجل A اسم النطاق بعنوان IPv4."
+    }
+  },
+  {
+    "id": 46,
+    "category": "dns",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a CNAME record do?",
+      "ar": "ماذا يفعل سجل CNAME؟"
+    },
+    "options": [
+      "Aliases one domain name to another",
+      "Maps a name to an IPv6 address",
+      "Specifies a mail server",
+      "Stores an arbitrary text value"
+    ],
+    "answer": "Aliases one domain name to another",
+    "explanation": {
+      "en": "A CNAME makes one hostname an alias of another canonical name.",
+      "ar": "يجعل CNAME اسم مضيف مرادفاً لاسم قانوني آخر."
+    }
+  },
+  {
+    "id": 47,
+    "category": "protocols",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which protocol secures HTTPS connections?",
+      "ar": "أي بروتوكول يؤمّن اتصالات HTTPS؟"
+    },
+    "options": [
+      "TLS",
+      "FTP",
+      "ICMP",
+      "ARP"
+    ],
+    "answer": "TLS",
+    "explanation": {
+      "en": "HTTPS layers HTTP over TLS for encryption and authentication.",
+      "ar": "يضع HTTPS طبقة HTTP فوق TLS للتشفير والمصادقة."
+    }
+  },
+  {
+    "id": 48,
+    "category": "protocols",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is the default port for HTTPS?",
+      "ar": "ما المنفذ الافتراضي لـ HTTPS؟"
+    },
+    "options": [
+      "443",
+      "80",
+      "22",
+      "8080"
+    ],
+    "answer": "443",
+    "explanation": {
+      "en": "HTTPS uses TCP port 443 by default.",
+      "ar": "يستخدم HTTPS منفذ TCP رقم 443 افتراضياً."
+    }
+  },
+  {
+    "id": 49,
+    "category": "routing",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does NAT (Network Address Translation) do?",
+      "ar": "ماذا يفعل NAT (ترجمة عناوين الشبكة)؟"
+    },
+    "options": [
+      "Maps private IPs to a public IP",
+      "Encrypts all traffic",
+      "Resolves domain names",
+      "Assigns MAC addresses"
+    ],
+    "answer": "Maps private IPs to a public IP",
+    "explanation": {
+      "en": "NAT lets many devices with private IPs share one public IP for internet access.",
+      "ar": "يتيح NAT لأجهزة كثيرة بعناوين خاصة مشاركة عنوان عام واحد للوصول إلى الإنترنت."
+    }
   }
 ]

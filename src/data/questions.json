@@ -2708,5 +2708,125 @@
       "en": "Map literals written as map[string]int{...} are Go syntax.",
       "ar": "تعريف الخرائط بصيغة map[string]int{...} من Go."
     }
+  },
+  {
+    "id": 272,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "from contextlib import suppress\nwith suppress(KeyError):\n    del d[\"x\"]",
+    "explanation": {
+      "en": "contextlib.suppress used as a with-statement context manager is Python.",
+      "ar": "استخدام contextlib.suppress كمدير سياق مع with من بايثون."
+    }
+  },
+  {
+    "id": 273,
+    "correctLanguage": "Python",
+    "difficulty": "hard",
+    "codeSnippet": "results = await asyncio.gather(*tasks)",
+    "explanation": {
+      "en": "await with asyncio.gather and * unpacking is Python async.",
+      "ar": "await مع asyncio.gather وتفكيك * من بايثون غير المتزامن."
+    }
+  },
+  {
+    "id": 274,
+    "correctLanguage": "JavaScript",
+    "difficulty": "medium",
+    "codeSnippet": "const params = new URLSearchParams(location.search);",
+    "explanation": {
+      "en": "Parsing location.search with URLSearchParams is browser JavaScript.",
+      "ar": "تحليل location.search عبر URLSearchParams من جافاسكربت المتصفح."
+    }
+  },
+  {
+    "id": 275,
+    "correctLanguage": "JavaScript",
+    "difficulty": "hard",
+    "codeSnippet": "const results = await Promise.allSettled(promises);",
+    "explanation": {
+      "en": "Promise.allSettled is a JavaScript promise combinator.",
+      "ar": "Promise.allSettled مُجمِّع وعود في جافاسكربت."
+    }
+  },
+  {
+    "id": 276,
+    "correctLanguage": "C++",
+    "difficulty": "medium",
+    "codeSnippet": "auto [lo, hi] = std::minmax(a, b);",
+    "explanation": {
+      "en": "Structured bindings with std::minmax are C++17.",
+      "ar": "الربط البنيوي مع std::minmax من ++C17."
+    }
+  },
+  {
+    "id": 277,
+    "correctLanguage": "C++",
+    "difficulty": "hard",
+    "codeSnippet": "std::optional<int> result = find(key);",
+    "explanation": {
+      "en": "std::optional for a maybe-absent value is C++17.",
+      "ar": "std::optional لقيمة قد تكون غائبة من ++C17."
+    }
+  },
+  {
+    "id": 278,
+    "correctLanguage": "Java",
+    "difficulty": "medium",
+    "codeSnippet": "Stream.of(1, 2, 3).forEach(System.out::println);",
+    "explanation": {
+      "en": "Stream.of with the System.out::println method reference is Java.",
+      "ar": "Stream.of مع مرجع الدالة System.out::println من جافا."
+    }
+  },
+  {
+    "id": 279,
+    "correctLanguage": "Java",
+    "difficulty": "hard",
+    "codeSnippet": "Thread.ofVirtual().start(() -> task());",
+    "explanation": {
+      "en": "Thread.ofVirtual() launches a virtual thread (Java 21).",
+      "ar": "Thread.ofVirtual() يطلق خيطاً افتراضياً (جافا 21)."
+    }
+  },
+  {
+    "id": 280,
+    "correctLanguage": "Rust",
+    "difficulty": "medium",
+    "codeSnippet": "let evens: i32 = (1..=100).filter(|n| n % 2 == 0).sum();",
+    "explanation": {
+      "en": "An iterator chain with filter and a |n| closure is Rust.",
+      "ar": "سلسلة مكرّرات مع filter وإغلاق |n| من رست."
+    }
+  },
+  {
+    "id": 281,
+    "correctLanguage": "Rust",
+    "difficulty": "hard",
+    "codeSnippet": "let shared = Arc::new(Mutex::new(0));",
+    "explanation": {
+      "en": "Arc::new(Mutex::new(...)) for shared mutable state is Rust.",
+      "ar": "Arc::new(Mutex::new(...)) للحالة المشتركة القابلة للتعديل من رست."
+    }
+  },
+  {
+    "id": 282,
+    "correctLanguage": "Go",
+    "difficulty": "medium",
+    "codeSnippet": "data, err := os.ReadFile(\"config.yaml\")",
+    "explanation": {
+      "en": "The data, err := pattern with os.ReadFile is Go.",
+      "ar": "نمط data, err := مع os.ReadFile من Go."
+    }
+  },
+  {
+    "id": 283,
+    "correctLanguage": "Go",
+    "difficulty": "hard",
+    "codeSnippet": "start := time.Now()\nelapsed := time.Since(start)",
+    "explanation": {
+      "en": "time.Now() with time.Since to measure elapsed time is Go.",
+      "ar": "time.Now() مع time.Since لقياس الزمن المنقضي من Go."
+    }
   }
 ]
