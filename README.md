@@ -32,9 +32,15 @@ layout), switchable anytime.
 
 Arabic (RTL):
 
-| Home (AR) | Gameplay (AR) | Results (AR) |
-| --- | --- | --- |
-| ![Home AR](screenshots/11-modeselect-ar.png) | ![Game AR](screenshots/6-game-ar.png) | ![Results AR](screenshots/7-results-ar.png) |
+![Home AR](screenshots/11-modeselect-ar.png)
+
+| Languages mode (AR) | Cybersecurity mode (AR) |
+| --- | --- |
+| ![Game AR](screenshots/6-game-ar.png) | ![Cyber AR](screenshots/10-cyber-game-ar.png) |
+
+| Results (AR) | About |
+| --- | --- |
+| ![Results AR](screenshots/7-results-ar.png) | ![About](screenshots/12-about.png) |
 
 ---
 
@@ -164,6 +170,7 @@ prog-game2/
    ├─ smoke-multiplayer.js      # multiplayer UI + client smoke test
    ├─ smoke-all.js              # All (mixed) mode (10 checks)
    ├─ capture.js                # render screenshots of each screen
+   ├─ capture-mp.js             # multiplayer lobby / reveal / results screenshots
    └─ reset-state.js            # clear persisted local state
 ```
 
@@ -241,6 +248,10 @@ With Supabase configured:
 5. A **live player list** shows names and running scores during the game.
 6. When the round ends, a **room scoreboard** ranks all players.
 7. Only the admin can **start**, **end**, or **kick** players (lobby only).
+
+| Host lobby | Answer reveal | Room results |
+| --- | --- | --- |
+| ![Multiplayer lobby](screenshots/mp-lobby-host.png) | ![Answer reveal](screenshots/mp-reveal.png) | ![Room results](screenshots/mp-results.png) |
 
 ---
 
