@@ -19,7 +19,7 @@ ipcMain.handle('questions:get', async (_e, mode) => {
   }
   return (await readBank(FILES[mode] || FILES.languages)).map((q) => Object.assign({}, q, { bank: mode }));
 });
-ipcMain.handle('app:version', () => '3.0.0');
+ipcMain.handle('app:version', () => '3.0.1');
 
 const MOCK = `
   window.SUPABASE_CONFIG = { url: 'https://t.supabase.co', anonKey: 'k' };

@@ -24,7 +24,7 @@ ipcMain.handle('questions:get', async (_e, mode) => {
   }
   return (await readBank(FILES[mode] || FILES.languages)).map((q) => Object.assign({}, q, { bank: mode }));
 });
-ipcMain.handle('app:version', () => '3.0.0');
+ipcMain.handle('app:version', () => '3.0.1');
 
 // A unified, table-aware Supabase mock injected into the page. Reads its data
 // from sessionStorage so the harness can flip room phase between snapshots.
