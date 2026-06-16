@@ -2108,5 +2108,305 @@
       "en": "json.Marshal with multiple return values is Go.",
       "ar": "json.Marshal مع إرجاع متعدد من Go."
     }
+  },
+  {
+    "id": 212,
+    "correctLanguage": "Go",
+    "difficulty": "hard",
+    "codeSnippet": "ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)\ndefer cancel()",
+    "explanation": {
+      "en": "context.WithTimeout with defer cancel() is Go.",
+      "ar": "context.WithTimeout مع defer cancel() من Go."
+    }
+  },
+  {
+    "id": 213,
+    "correctLanguage": "Python",
+    "difficulty": "easy",
+    "codeSnippet": "for i, item in enumerate(items, start=1):\n    print(i, item)",
+    "explanation": {
+      "en": "enumerate(..., start=1) with a for-in loop is Python.",
+      "ar": "enumerate(..., start=1) مع حلقة for-in من بايثون."
+    }
+  },
+  {
+    "id": 214,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "if (n := len(data)) > 0:\n    process(data)",
+    "explanation": {
+      "en": "The walrus operator := inside an if is Python 3.8+.",
+      "ar": "معامل البطريق := داخل if من بايثون 3.8+."
+    }
+  },
+  {
+    "id": 215,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "@lru_cache(maxsize=128)\ndef fib(n):\n    return n if n < 2 else fib(n-1) + fib(n-2)",
+    "explanation": {
+      "en": "The @lru_cache decorator is from Python's functools.",
+      "ar": "الموسوم @lru_cache من functools في بايثون."
+    }
+  },
+  {
+    "id": 216,
+    "correctLanguage": "Python",
+    "difficulty": "hard",
+    "codeSnippet": "raise ValueError(\"invalid\") from original",
+    "explanation": {
+      "en": "raise ... from for exception chaining is Python.",
+      "ar": "raise ... from لربط الاستثناءات من بايثون."
+    }
+  },
+  {
+    "id": 217,
+    "correctLanguage": "JavaScript",
+    "difficulty": "easy",
+    "codeSnippet": "const clone = structuredClone(obj);",
+    "explanation": {
+      "en": "structuredClone() is a modern JavaScript API.",
+      "ar": "structuredClone() واجهة جافاسكربت حديثة."
+    }
+  },
+  {
+    "id": 218,
+    "correctLanguage": "JavaScript",
+    "difficulty": "medium",
+    "codeSnippet": "for (const [key, val] of Object.entries(map)) {\n  console.log(key, val);\n}",
+    "explanation": {
+      "en": "Object.entries with for...of destructuring is JavaScript.",
+      "ar": "Object.entries مع for...of وتفكيك من جافاسكربت."
+    }
+  },
+  {
+    "id": 219,
+    "correctLanguage": "JavaScript",
+    "difficulty": "hard",
+    "codeSnippet": "const cache = new WeakMap();",
+    "explanation": {
+      "en": "WeakMap is a JavaScript built-in collection type.",
+      "ar": "WeakMap نوع مجموعة مدمج في جافاسكربت."
+    }
+  },
+  {
+    "id": 220,
+    "correctLanguage": "C++",
+    "difficulty": "easy",
+    "codeSnippet": "int* p = nullptr;",
+    "explanation": {
+      "en": "nullptr is C++'s null pointer literal.",
+      "ar": "nullptr حرفي المؤشر الفارغ في ++C."
+    }
+  },
+  {
+    "id": 221,
+    "correctLanguage": "C++",
+    "difficulty": "medium",
+    "codeSnippet": "std::optional<int> maybe = std::nullopt;",
+    "explanation": {
+      "en": "std::optional with std::nullopt is C++17.",
+      "ar": "std::optional مع std::nullopt من ++C17."
+    }
+  },
+  {
+    "id": 222,
+    "correctLanguage": "C++",
+    "difficulty": "hard",
+    "codeSnippet": "[[nodiscard]] int compute();",
+    "explanation": {
+      "en": "The [[nodiscard]] attribute is C++17.",
+      "ar": "السمة [[nodiscard]] من ++C17."
+    }
+  },
+  {
+    "id": 223,
+    "correctLanguage": "Java",
+    "difficulty": "easy",
+    "codeSnippet": "record User(String name, int age) {}",
+    "explanation": {
+      "en": "The record keyword for compact data classes is Java 16+.",
+      "ar": "الكلمة record لفئات البيانات المدمجة من جافا 16+."
+    }
+  },
+  {
+    "id": 224,
+    "correctLanguage": "Java",
+    "difficulty": "medium",
+    "codeSnippet": "switch (day) {\n    case MONDAY -> System.out.println(\"Mon\");\n}",
+    "explanation": {
+      "en": "Arrow labels in switch (case X ->) are Java 14+.",
+      "ar": "تسميات السهم في switch (case X ->) من جافا 14+."
+    }
+  },
+  {
+    "id": 225,
+    "correctLanguage": "Java",
+    "difficulty": "hard",
+    "codeSnippet": "String text = Files.readString(Path.of(\"data.txt\"));",
+    "explanation": {
+      "en": "Files.readString with Path.of is Java 11+.",
+      "ar": "Files.readString مع Path.of من جافا 11+."
+    }
+  },
+  {
+    "id": 226,
+    "correctLanguage": "Rust",
+    "difficulty": "easy",
+    "codeSnippet": "let msg = format!(\"count = {}\", n);",
+    "explanation": {
+      "en": "The format! macro with {} placeholders is Rust.",
+      "ar": "ماكرو format! مع المنوبات {} من رست."
+    }
+  },
+  {
+    "id": 227,
+    "correctLanguage": "Rust",
+    "difficulty": "medium",
+    "codeSnippet": "let doubled: Vec<i32> = items.iter().map(|x| x * 2).collect();",
+    "explanation": {
+      "en": "iter().map(|x| ...).collect() with Vec<i32> is Rust.",
+      "ar": "iter().map(|x| ...).collect() مع Vec<i32> من رست."
+    }
+  },
+  {
+    "id": 228,
+    "correctLanguage": "Rust",
+    "difficulty": "hard",
+    "codeSnippet": "#[tokio::main]\nasync fn main() {}",
+    "explanation": {
+      "en": "The #[tokio::main] attribute for async entry points is Rust.",
+      "ar": "السمة #[tokio::main] لنقطة دخول غير متزامنة من رست."
+    }
+  },
+  {
+    "id": 229,
+    "correctLanguage": "Go",
+    "difficulty": "easy",
+    "codeSnippet": "var b strings.Builder\nb.WriteString(\"hello\")",
+    "explanation": {
+      "en": "strings.Builder with WriteString is Go.",
+      "ar": "strings.Builder مع WriteString من Go."
+    }
+  },
+  {
+    "id": 230,
+    "correctLanguage": "Go",
+    "difficulty": "medium",
+    "codeSnippet": "if errors.Is(err, io.EOF) {\n    return nil\n}",
+    "explanation": {
+      "en": "errors.Is for error comparison is Go.",
+      "ar": "errors.Is لمقارنة الأخطاء من Go."
+    }
+  },
+  {
+    "id": 231,
+    "correctLanguage": "Go",
+    "difficulty": "hard",
+    "codeSnippet": "var once sync.Once\nonce.Do(initialize)",
+    "explanation": {
+      "en": "sync.Once with Do for one-time initialization is Go.",
+      "ar": "sync.Once مع Do للتهيئة لمرة واحدة من Go."
+    }
+  },
+  {
+    "id": 232,
+    "correctLanguage": "Python",
+    "difficulty": "easy",
+    "codeSnippet": "from pathlib import Path\ntext = Path(\"data.txt\").read_text()",
+    "explanation": {
+      "en": "pathlib.Path with read_text() is Python.",
+      "ar": "pathlib.Path مع read_text() من بايثون."
+    }
+  },
+  {
+    "id": 233,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "for key, value in zip(keys, values):\n    print(key, value)",
+    "explanation": {
+      "en": "zip() in a for loop with tuple unpacking is Python.",
+      "ar": "zip() في حلقة for مع تفكيك زوجي من بايثون."
+    }
+  },
+  {
+    "id": 234,
+    "correctLanguage": "Python",
+    "difficulty": "hard",
+    "codeSnippet": "async for event in queue:\n    await handle(event)",
+    "explanation": {
+      "en": "async for with await is Python's async iteration syntax.",
+      "ar": "async for مع await صيغة التكرار غير المتزامن في بايثون."
+    }
+  },
+  {
+    "id": 235,
+    "correctLanguage": "JavaScript",
+    "difficulty": "easy",
+    "codeSnippet": "queueMicrotask(() => tick());",
+    "explanation": {
+      "en": "queueMicrotask() is a JavaScript scheduling API.",
+      "ar": "queueMicrotask() واجهة جدولة في جافاسكربت."
+    }
+  },
+  {
+    "id": 236,
+    "correctLanguage": "JavaScript",
+    "difficulty": "medium",
+    "codeSnippet": "const moduleUrl = import.meta.url;",
+    "explanation": {
+      "en": "import.meta.url is ES module metadata in JavaScript.",
+      "ar": "import.meta.url بيانات وحدات ES في جافاسكربت."
+    }
+  },
+  {
+    "id": 237,
+    "correctLanguage": "JavaScript",
+    "difficulty": "hard",
+    "codeSnippet": "const proxy = new Proxy(target, {\n  get(obj, key) { return obj[key]; }\n});",
+    "explanation": {
+      "en": "new Proxy with a get trap is JavaScript.",
+      "ar": "new Proxy مع فخ get من جافاسكربت."
+    }
+  },
+  {
+    "id": 238,
+    "correctLanguage": "C++",
+    "difficulty": "easy",
+    "codeSnippet": "std::array<int, 3> nums = {1, 2, 3};",
+    "explanation": {
+      "en": "std::array with a fixed size is C++.",
+      "ar": "std::array بحجم ثابت من ++C."
+    }
+  },
+  {
+    "id": 239,
+    "correctLanguage": "C++",
+    "difficulty": "medium",
+    "codeSnippet": "std::string_view name = \"hello\";",
+    "explanation": {
+      "en": "std::string_view is a C++17 string view type.",
+      "ar": "std::string_view نوع عرض سلسلة من ++C17."
+    }
+  },
+  {
+    "id": 240,
+    "correctLanguage": "C++",
+    "difficulty": "hard",
+    "codeSnippet": "template <std::integral T>\nT square(T x) { return x * x; }",
+    "explanation": {
+      "en": "A constrained template with std::integral is C++20.",
+      "ar": "قالب مقيّد بـ std::integral من ++C20."
+    }
+  },
+  {
+    "id": 241,
+    "correctLanguage": "Java",
+    "difficulty": "easy",
+    "codeSnippet": "String joined = String.join(\", \", parts);",
+    "explanation": {
+      "en": "String.join as a static method is Java.",
+      "ar": "String.join كتابع ثابت من جافا."
+    }
   }
 ]
