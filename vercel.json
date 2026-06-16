@@ -1,0 +1,5 @@
+{
+  "buildCommand": "pnpm run build:web",
+  "outputDirectory": "dist-web",
+  "framework": null
+}

@@ -2408,5 +2408,305 @@
       "en": "String.join as a static method is Java.",
       "ar": "String.join كتابع ثابت من جافا."
     }
+  },
+  {
+    "id": 242,
+    "correctLanguage": "Python",
+    "difficulty": "easy",
+    "codeSnippet": "label = \"even\" if n % 2 == 0 else \"odd\"",
+    "explanation": {
+      "en": "The \"value if condition else value\" ternary order is unique to Python.",
+      "ar": "ترتيب الشرط \"القيمة if الشرط else القيمة\" خاص ببايثون."
+    }
+  },
+  {
+    "id": 243,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "print(\", \".join(map(str, nums)))",
+    "explanation": {
+      "en": "str.join with map() and the print() function are idiomatic Python.",
+      "ar": "استخدام str.join مع map() ودالة print() نمط بايثوني أصيل."
+    }
+  },
+  {
+    "id": 244,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "pairs = {k: v for k, v in items}",
+    "explanation": {
+      "en": "A dict comprehension with {key: value for ...} is a Python feature.",
+      "ar": "إنشاء قاموس عبر {key: value for ...} من مميزات بايثون."
+    }
+  },
+  {
+    "id": 245,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "match status:\n    case 200 | 201:\n        ok()",
+    "explanation": {
+      "en": "Structural pattern matching with match/case arrived in Python 3.10.",
+      "ar": "مطابقة الأنماط match/case أُضيفت في بايثون 3.10."
+    }
+  },
+  {
+    "id": 246,
+    "correctLanguage": "Python",
+    "difficulty": "hard",
+    "codeSnippet": "@dataclass(frozen=True)\nclass Point:\n    x: int\n    y: int",
+    "explanation": {
+      "en": "The @dataclass decorator with type-annotated fields is Python.",
+      "ar": "الديكوريتر @dataclass مع حقول موصوفة بالأنواع من بايثون."
+    }
+  },
+  {
+    "id": 247,
+    "correctLanguage": "JavaScript",
+    "difficulty": "easy",
+    "codeSnippet": "const { x, y } = point;",
+    "explanation": {
+      "en": "Object destructuring with const is everyday JavaScript syntax.",
+      "ar": "تفكيك الكائن مع const من صيغ جافاسكربت اليومية."
+    }
+  },
+  {
+    "id": 248,
+    "correctLanguage": "JavaScript",
+    "difficulty": "medium",
+    "codeSnippet": "const value = arr?.[0] ?? \"none\";",
+    "explanation": {
+      "en": "Optional chaining ?.[ ] combined with ?? is JavaScript.",
+      "ar": "السلسلة الاختيارية ?.[ ] مع المعامل ?? من جافاسكربت."
+    }
+  },
+  {
+    "id": 249,
+    "correctLanguage": "JavaScript",
+    "difficulty": "easy",
+    "codeSnippet": "setTimeout(() => console.log(\"done\"), 1000);",
+    "explanation": {
+      "en": "setTimeout with an arrow callback is core JavaScript.",
+      "ar": "setTimeout مع دالة سهمية من أساسيات جافاسكربت."
+    }
+  },
+  {
+    "id": 250,
+    "correctLanguage": "JavaScript",
+    "difficulty": "medium",
+    "codeSnippet": "for (const [k, v] of Object.entries(obj)) {\n  console.log(k, v);\n}",
+    "explanation": {
+      "en": "Object.entries with for...of destructuring is JavaScript.",
+      "ar": "Object.entries مع for...of وتفكيك القيم من جافاسكربت."
+    }
+  },
+  {
+    "id": 251,
+    "correctLanguage": "JavaScript",
+    "difficulty": "hard",
+    "codeSnippet": "function* range(n) {\n  for (let i = 0; i < n; i++) yield i;\n}",
+    "explanation": {
+      "en": "function* with yield defines a generator in JavaScript.",
+      "ar": "function* مع yield تُعرّف مولّداً (generator) في جافاسكربت."
+    }
+  },
+  {
+    "id": 252,
+    "correctLanguage": "C++",
+    "difficulty": "easy",
+    "codeSnippet": "std::cout << \"x = \" << x << \"\\n\";",
+    "explanation": {
+      "en": "Stream insertion with std::cout << is classic C++.",
+      "ar": "الإخراج عبر std::cout << من سمات ++C الكلاسيكية."
+    }
+  },
+  {
+    "id": 253,
+    "correctLanguage": "C++",
+    "difficulty": "medium",
+    "codeSnippet": "auto ptr = std::make_unique<int>(42);",
+    "explanation": {
+      "en": "std::make_unique returns a smart pointer, a modern C++ feature.",
+      "ar": "std::make_unique تُرجع مؤشراً ذكياً، وهي ميزة في ++C الحديثة."
+    }
+  },
+  {
+    "id": 254,
+    "correctLanguage": "C++",
+    "difficulty": "medium",
+    "codeSnippet": "for (const auto& item : items) {\n    process(item);\n}",
+    "explanation": {
+      "en": "A range-based for over const auto& is distinctive C++.",
+      "ar": "حلقة for النطاقية على const auto& مميزة لـ ++C."
+    }
+  },
+  {
+    "id": 255,
+    "correctLanguage": "C++",
+    "difficulty": "hard",
+    "codeSnippet": "std::sort(v.begin(), v.end(),\n    [](int a, int b) { return a > b; });",
+    "explanation": {
+      "en": "std::sort with begin()/end() iterators and a lambda is C++.",
+      "ar": "std::sort مع مكرّرات begin()/end() ودالة لمدا من ++C."
+    }
+  },
+  {
+    "id": 256,
+    "correctLanguage": "C++",
+    "difficulty": "medium",
+    "codeSnippet": "std::unordered_map<std::string, int> freq;",
+    "explanation": {
+      "en": "The std::unordered_map template with the std:: prefix is C++.",
+      "ar": "القالب std::unordered_map مع البادئة std:: من ++C."
+    }
+  },
+  {
+    "id": 257,
+    "correctLanguage": "Java",
+    "difficulty": "easy",
+    "codeSnippet": "var sb = new StringBuilder();\nsb.append(\"hi\");",
+    "explanation": {
+      "en": "StringBuilder with append() and var is typical Java.",
+      "ar": "StringBuilder مع append() والكلمة var من نمط جافا المعتاد."
+    }
+  },
+  {
+    "id": 258,
+    "correctLanguage": "Java",
+    "difficulty": "medium",
+    "codeSnippet": "List<String> names = new ArrayList<>();",
+    "explanation": {
+      "en": "Generic List with the diamond operator new ArrayList<>() is Java.",
+      "ar": "قائمة List عامة مع المعامل الماسي new ArrayList<>() من جافا."
+    }
+  },
+  {
+    "id": 259,
+    "correctLanguage": "Java",
+    "difficulty": "medium",
+    "codeSnippet": "int total = nums.stream().mapToInt(Integer::intValue).sum();",
+    "explanation": {
+      "en": "Stream pipelines with method references Integer::intValue are Java.",
+      "ar": "سلاسل Stream مع مراجع الدوال Integer::intValue من جافا."
+    }
+  },
+  {
+    "id": 260,
+    "correctLanguage": "Java",
+    "difficulty": "hard",
+    "codeSnippet": "public record Point(int x, int y) {}",
+    "explanation": {
+      "en": "The record keyword for immutable data classes is modern Java.",
+      "ar": "الكلمة record لأصناف البيانات الثابتة من جافا الحديثة."
+    }
+  },
+  {
+    "id": 261,
+    "correctLanguage": "Java",
+    "difficulty": "medium",
+    "codeSnippet": "Map<String, Integer> counts = new HashMap<>();",
+    "explanation": {
+      "en": "A generic Map backed by new HashMap<>() is standard Java.",
+      "ar": "خريطة Map عامة مدعومة بـ new HashMap<>() من جافا القياسية."
+    }
+  },
+  {
+    "id": 262,
+    "correctLanguage": "Rust",
+    "difficulty": "easy",
+    "codeSnippet": "let mut total = 0;\ntotal += 1;",
+    "explanation": {
+      "en": "Declaring a mutable binding with let mut is core Rust.",
+      "ar": "تعريف متغير قابل للتعديل عبر let mut من أساسيات رست."
+    }
+  },
+  {
+    "id": 263,
+    "correctLanguage": "Rust",
+    "difficulty": "medium",
+    "codeSnippet": "let nums: Vec<i32> = (1..=5).collect();",
+    "explanation": {
+      "en": "An inclusive range (1..=5) collected into Vec<i32> is Rust.",
+      "ar": "نطاق شامل (1..=5) يُجمَع في Vec<i32> من رست."
+    }
+  },
+  {
+    "id": 264,
+    "correctLanguage": "Rust",
+    "difficulty": "medium",
+    "codeSnippet": "match result {\n    Ok(v) => v,\n    Err(_) => 0,\n}",
+    "explanation": {
+      "en": "Matching on Ok/Err variants of Result is idiomatic Rust.",
+      "ar": "المطابقة على المتغيّرين Ok/Err من نوع Result نمط رست أصيل."
+    }
+  },
+  {
+    "id": 265,
+    "correctLanguage": "Rust",
+    "difficulty": "hard",
+    "codeSnippet": "impl Iterator for Counter {\n    type Item = u32;\n    fn next(&mut self) -> Option<u32> { None }\n}",
+    "explanation": {
+      "en": "impl Trait for Type with an associated type is Rust.",
+      "ar": "impl Trait for Type مع نوع مرتبط (associated type) من رست."
+    }
+  },
+  {
+    "id": 266,
+    "correctLanguage": "Rust",
+    "difficulty": "medium",
+    "codeSnippet": "let name = String::from(\"rust\");\nlet len = name.len();",
+    "explanation": {
+      "en": "String::from and the let bindings without semicolon-free returns are Rust.",
+      "ar": "استخدام String::from مع تعريفات let من سمات رست."
+    }
+  },
+  {
+    "id": 267,
+    "correctLanguage": "Go",
+    "difficulty": "easy",
+    "codeSnippet": "fmt.Printf(\"x = %d\\n\", x)",
+    "explanation": {
+      "en": "fmt.Printf with %d verbs and no trailing semicolon is Go.",
+      "ar": "fmt.Printf مع الرموز %d وبدون فاصلة منقوطة من Go."
+    }
+  },
+  {
+    "id": 268,
+    "correctLanguage": "Go",
+    "difficulty": "medium",
+    "codeSnippet": "switch v := x.(type) {\ncase int:\n    fmt.Println(v)\n}",
+    "explanation": {
+      "en": "A type switch using x.(type) is a Go-specific construct.",
+      "ar": "مبدّل الأنواع عبر x.(type) تركيب خاص بلغة Go."
+    }
+  },
+  {
+    "id": 269,
+    "correctLanguage": "Go",
+    "difficulty": "medium",
+    "codeSnippet": "for i, v := range items {\n    fmt.Println(i, v)\n}",
+    "explanation": {
+      "en": "The i, v := range form with := is distinctive Go.",
+      "ar": "صيغة i, v := range مع := مميزة للغة Go."
+    }
+  },
+  {
+    "id": 270,
+    "correctLanguage": "Go",
+    "difficulty": "hard",
+    "codeSnippet": "func divide(a, b int) (int, error) {\n    return a / b, nil\n}",
+    "explanation": {
+      "en": "Multiple return values including error and the nil zero value are Go.",
+      "ar": "إرجاع قيم متعددة منها error مع القيمة nil من سمات Go."
+    }
+  },
+  {
+    "id": 271,
+    "correctLanguage": "Go",
+    "difficulty": "medium",
+    "codeSnippet": "m := map[string]int{\"a\": 1, \"b\": 2}",
+    "explanation": {
+      "en": "Map literals written as map[string]int{...} are Go syntax.",
+      "ar": "تعريف الخرائط بصيغة map[string]int{...} من Go."
+    }
   }
 ]

@@ -19,7 +19,7 @@ ipcMain.handle('questions:get', async (_e, mode) => {
   if (mode === 'all') return (await Promise.all(Object.values(FILES).map(readBank))).flat();
   return readBank(FILES[mode] || FILES.languages);
 });
-ipcMain.handle('app:version', () => '2.4.0');
+ipcMain.handle('app:version', () => '3.0.0');
 
 app.whenReady().then(async () => {
   fs.mkdirSync(OUT, { recursive: true });

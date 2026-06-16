@@ -3,21 +3,39 @@ node_modules/
 
 # Build output
 dist/
+dist-web/
+release/
 out/
 
 # Logs
 *.log
 npm-debug.log*
 pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Local Supabase credentials (use supabase-config.example.js as a template)
 src/supabase-config.js
 
+# Environment variables (Vite / Vercel build)
+.env
+.env.*
+!.env.example
+
+# Vercel
+.vercel
+
+# Electron Builder
+electron-builder.env
+
 # OS / editor
 .DS_Store
 Thumbs.db
+Desktop.ini
 .vscode/
 .idea/
+*.swp
+*~
 
 # Claude Code local session data
 .claude/

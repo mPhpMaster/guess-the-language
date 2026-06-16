@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; connect-src 'self' https://*.supabase.co;" />
+        content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co;" />
   <title>Guess the Language</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -65,6 +65,10 @@
 
         <div class="home-actions">
           <button class="btn btn-primary" id="btn-start" data-i18n="start">▶  Start</button>
+          <div class="home-actions-row">
+            <button class="btn btn-ghost" id="btn-host" data-i18n="hostRoom">🏠  Host Room</button>
+            <button class="btn btn-ghost" id="btn-join" data-i18n="joinRoom">🔗  Join Room</button>
+          </div>
           <div class="home-actions-row">
             <button class="btn btn-ghost" id="btn-friends" data-i18n="friends">👥  Friends &amp; Scores</button>
             <button class="btn btn-ghost" id="btn-settings" data-i18n="settings">⚙  Settings</button>
@@ -131,8 +135,106 @@
       </div>
     </section>
 
+    <!-- ============ LOBBY SCREEN ============ -->
+    <section id="screen-lobby" class="screen">
+      <div class="lobby-card">
+        <div class="lang-switch">
+          <button data-setlang="en">EN</button>
+          <button data-setlang="ar">ع</button>
+        </div>
+        <p class="lobby-label" data-i18n="roomCode">Room code</p>
+        <div class="lobby-code-row">
+          <div class="lobby-code" id="lobby-code">----</div>
+          <button class="btn btn-ghost btn-sm" id="btn-copy-code" data-i18n="copyCode">Copy</button>
+        </div>
+        <p class="lobby-mode" id="lobby-mode"></p>
+
+        <!-- Host-only game settings (the owner can change all of it) -->
+        <div class="lobby-settings hidden" id="lobby-settings">
+          <h4 class="lobby-settings-title" data-i18n="lobbySettings">Game settings</h4>
+          <label class="setting-row">
+            <span data-i18n="changeMode">Modes</span>
+            <select id="lobby-mode-select">
+              <option value="languages" data-i18n="modeLanguages">Programming Languages</option>
+              <option value="cybersecurity" data-i18n="modeCyber">Cybersecurity</option>
+              <option value="devops" data-i18n="modeDevops">DevOps</option>
+              <option value="network" data-i18n="modeNetwork">Networking</option>
+              <option value="all" data-i18n="modeAll">All (Mixed)</option>
+            </select>
+          </label>
+          <label class="setting-row">
+            <span data-i18n="settingQuestions">Questions per round</span>
+            <select id="lobby-questions">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+            </select>
+          </label>
+          <label class="setting-row">
+            <span data-i18n="settingDifficulty">Difficulty</span>
+            <select id="lobby-difficulty">
+              <option value="all" data-i18n="diffAll">All</option>
+              <option value="easy" data-i18n="diffEasy">Easy</option>
+              <option value="medium" data-i18n="diffMedium">Medium</option>
+              <option value="hard" data-i18n="diffHard">Hard</option>
+            </select>
+          </label>
+          <label class="setting-row">
+            <span data-i18n="settingTimer">Time per question</span>
+            <select id="lobby-timer">
+              <option value="auto" data-i18n="timerAuto">Auto (by difficulty)</option>
+              <option value="5">5s</option>
+              <option value="10">10s</option>
+              <option value="15">15s</option>
+              <option value="20">20s</option>
+              <option value="30">30s</option>
+              <option value="45">45s</option>
+              <option value="60">60s</option>
+            </select>
+          </label>
+          <label class="setting-row">
+            <span data-i18n="settingSound">Sound effects</span>
+            <input type="checkbox" id="lobby-sound" />
+          </label>
+        </div>
+
+        <h3 class="lobby-players-title" data-i18n="playersTitle">Players</h3>
+        <div class="mp-player-list" id="lobby-players"></div>
+
+        <p class="lobby-wait hidden" id="lobby-wait" data-i18n="waitingHost">Waiting for host…</p>
+
+        <div class="lobby-admin-actions hidden" id="lobby-admin">
+          <button class="btn btn-primary" id="btn-lobby-start" data-i18n="startGame">▶  Start Game</button>
+          <button class="btn btn-ghost" id="btn-lobby-end" data-i18n="endRoom">End Room</button>
+        </div>
+
+        <button class="btn btn-ghost lobby-leave" id="btn-lobby-leave" data-i18n="leaveRoom">Leave</button>
+      </div>
+    </section>
+
+    <!-- Join room modal -->
+    <div id="join-modal" class="modal hidden">
+      <div class="modal-card">
+        <h3 data-i18n="joinRoom">Join Room</h3>
+        <label class="setting-row">
+          <span data-i18n="roomCode">Room code</span>
+          <input type="text" id="join-code" maxlength="4" placeholder="A3K9" dir="ltr" />
+        </label>
+        <div class="modal-actions">
+          <button class="btn btn-primary" id="btn-join-confirm" data-i18n="joinConfirm">Join</button>
+          <button class="btn btn-ghost" id="btn-join-cancel" data-i18n="close">Close</button>
+        </div>
+        <p class="modal-error hidden" id="join-error"></p>
+      </div>
+    </div>
+
     <!-- ============ GAME SCREEN ============ -->
     <section id="screen-game" class="screen">
+      <div class="mp-game-strip hidden" id="mp-game-strip">
+        <span class="mp-room-code-pill" id="mp-room-code"></span>
+        <div class="mp-player-list mp-player-list-compact" id="mp-game-players"></div>
+      </div>
       <div class="game-topbar">
         <div class="topbar-left">
           <div class="score-pill"><span data-i18n="score">Score:</span> <span id="game-score">0</span></div>
@@ -169,6 +271,8 @@
 
       <div id="question-text" class="question-text" dir="auto"></div>
 
+      <div id="mp-status" class="mp-status hidden"></div>
+
       <div class="options-grid" id="options-grid" dir="ltr"><!-- option buttons injected --></div>
     </section>
 
@@ -193,6 +297,9 @@
   </main>
 
   <script src="supabase-config.js"></script>
+  <script src="vendor/supabase.js"></script>
+  <script src="web-shim.js"></script>
+  <script src="multiplayer.js"></script>
   <script src="renderer.js"></script>
 </body>
 </html>

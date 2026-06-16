@@ -65,6 +65,8 @@ body::before {
 .win-logo { color: var(--neon); font-size: 14px; }
 .titlebar-title { font-size: 13px; color: #cdddf0; letter-spacing: .2px; }
 .titlebar-controls { display: flex; -webkit-app-region: no-drag; }
+html.platform-web .titlebar { -webkit-app-region: auto; }
+html.platform-web .titlebar-controls { display: none; }
 .tb-btn {
   width: 44px; height: var(--tb-h);
   background: transparent; border: none; color: #c7d6e8;
@@ -306,6 +308,7 @@ body::before {
 .lb-row.is-you .lb-avatar { border-color: var(--neon); box-shadow: 0 0 16px #2ec5ff88; }
 .lb-row.is-you .lb-bar-fill { outline: 2px solid var(--neon); outline-offset: -2px; }
 .lb-tag { font-size: 11px; color: var(--neon); font-weight: 700; }
+.lb-mp-tag { font-size: 12px; cursor: default; }
 
 .results-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
@@ -421,3 +424,119 @@ body::before {
   transition: background .15s, border-color .2s, transform .12s;
 }
 .about-link:hover { background: #ffffff1a; border-color: #2ec5ff66; transform: translateY(-2px); }
+
+/* ===================== Multiplayer lobby / players ===================== */
+.lobby-card {
+  position: relative;
+  width: min(560px, 94%);
+  text-align: center;
+  padding: 28px 30px 32px;
+  background: linear-gradient(180deg, #0d213aee, #0a1828ee);
+  border: 1px solid #ffffff14;
+  border-radius: 22px;
+  box-shadow: 0 30px 80px #00000066;
+}
+.lobby-label { color: var(--muted); font-size: 14px; margin-bottom: 6px; }
+.lobby-code-row { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 8px; }
+.lobby-code {
+  font-size: 42px; font-weight: 800; letter-spacing: 0.35em; color: var(--neon);
+  font-family: ui-monospace, Consolas, monospace;
+}
+.lobby-mode { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+.lobby-players-title { font-size: 16px; margin: 0 0 10px; color: #dbe8f8; }
+.lobby-wait { color: var(--muted); margin: 16px 0; }
+.lobby-admin-actions { display: flex; gap: 10px; justify-content: center; margin: 18px 0 8px; flex-wrap: wrap; }
+.lobby-leave { margin-top: 12px; }
+.mp-player-list { display: flex; flex-direction: column; gap: 8px; text-align: start; max-height: 240px; overflow-y: auto; }
+.mp-player-row {
+  display: flex; align-items: center; gap: 10px;
+  background: #0e2238; border: 1px solid #ffffff12; border-radius: 12px; padding: 10px 12px;
+}
+.mp-player-row.is-you { border-color: #2ec5ff55; }
+.mp-player-avatar {
+  font-size: 18px; width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; background: #0e2238;
+}
+.mp-player-name { flex: 1; font-weight: 600; }
+.mp-player-score { color: var(--neon); font-weight: 700; font-size: 14px; }
+.mp-host-badge {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  background: #2ec5ff22; color: var(--neon); padding: 2px 8px; border-radius: 999px;
+}
+.mp-kick-btn {
+  background: #3a1320; border: 1px solid #ff547055; color: #ff9fb1;
+  width: 28px; height: 28px; border-radius: 8px; cursor: pointer; font-size: 16px; line-height: 1;
+}
+.mp-game-strip {
+  display: flex; align-items: center; gap: 12px; width: min(1000px, 96%);
+  margin-bottom: 4px; flex-wrap: wrap;
+}
+.mp-room-code-pill {
+  background: #0e2238cc; border: 1px solid #2ec5ff44; border-radius: 999px;
+  padding: 6px 14px; font-weight: 700; font-size: 13px; color: var(--neon);
+  font-family: ui-monospace, Consolas, monospace;
+}
+.mp-player-list-compact { flex: 1; flex-direction: row; flex-wrap: wrap; max-height: none; gap: 6px; }
+.mp-player-list-compact .mp-player-row { padding: 6px 10px; font-size: 13px; }
+.mp-player-list-compact .mp-player-avatar { font-size: 14px; width: 24px; height: 24px; }
+.modal {
+  position: fixed; inset: 0; background: #000000aa; display: flex;
+  align-items: center; justify-content: center; z-index: 100;
+}
+.modal.hidden { display: none; }
+.modal-card {
+  width: min(400px, 92%); padding: 24px;
+  background: linear-gradient(180deg, #0d213a, #0a1828);
+  border: 1px solid #ffffff18; border-radius: 18px;
+}
+.modal-card h3 { margin: 0 0 16px; text-align: center; }
+.modal-actions { display: flex; gap: 10px; justify-content: center; margin-top: 16px; }
+.modal-error { color: var(--bad); font-size: 13px; text-align: center; margin-top: 10px; }
+.modal-error.hidden { display: none; }
+#join-code { text-transform: uppercase; letter-spacing: 0.2em; font-weight: 700; text-align: center; }
+.btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+
+/* ===================== Host lobby settings ===================== */
+.lobby-settings {
+  text-align: start; margin: 4px 0 18px; padding: 4px 14px 10px;
+  background: #0a1828; border: 1px solid #ffffff12; border-radius: 14px;
+}
+.lobby-settings-title {
+  font-size: 12px; color: var(--muted); text-transform: uppercase;
+  letter-spacing: 0.08em; margin: 10px 2px 2px;
+}
+.lobby-settings .setting-row { font-size: 14px; }
+.lobby-settings select {
+  background: #0a1828; color: var(--text); border: 1px solid #ffffff22;
+  border-radius: 8px; padding: 6px 10px; max-width: 60%;
+}
+
+/* ===================== Waiting-for-opponents banner ===================== */
+.mp-status {
+  width: min(1000px, 96%); text-align: center; font-weight: 700; font-size: 15px;
+  color: var(--neon); background: #0e2238cc; border: 1px solid #2ec5ff33;
+  border-radius: 999px; padding: 8px 16px;
+  animation: mpPulse 1.4s ease-in-out infinite;
+}
+@keyframes mpPulse { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+
+/* Locked-in choice (selected, awaiting the synchronized reveal) */
+.lang-btn.mp-selected, .opt-btn.mp-selected {
+  border-color: var(--neon); box-shadow: 0 0 0 2px var(--neon), 0 0 22px #2ec5ff55;
+}
+
+/* Each player's pick shown on the options at reveal time */
+.mp-answer-chips {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin-top: 9px;
+}
+.mp-answer-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: #0e2238; border-radius: 999px; padding: 2px 8px 2px 4px; max-width: 100%;
+}
+.mp-chip-ic { font-size: 13px; line-height: 1; }
+.mp-chip-nm {
+  font-size: 11px; font-weight: 700; line-height: 1;
+  max-width: 78px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+.hidden { display: none !important; }

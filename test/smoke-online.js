@@ -42,8 +42,8 @@ app.whenReady().then(async () => {
       const make = (status, body) => ({ ok: status >= 200 && status < 300, status, json: async () => body, text: async () => JSON.stringify(body) });
       if ((opts.method || 'GET') === 'POST') return make(201, [{ id: 1001, player: 'Me', score: 1234 }]);
       return make(200, [
-        { id: 1, player: 'Alice', score: 5000 },
-        { id: 2, player: 'Bob', score: 4000 },
+        { id: 1, player: 'Alice', score: 5000, multiplayer: true },
+        { id: 2, player: 'Bob', score: 4000, multiplayer: false },
         { id: 1001, player: 'Me', score: 1234 }
       ]);
     };
@@ -85,6 +85,11 @@ app.whenReady().then(async () => {
     const getCall = await run("JSON.stringify(window.__calls.find(c => c.method === 'GET') || null)");
     const get = JSON.parse(getCall);
     check('GET orders by score desc', get && /order=score\.desc/.test(get.url), get && get.url);
+    check('GET selects the multiplayer flag', get && /select=[^&]*multiplayer/.test(get.url), get && get.url);
+
+    // Multiplayer-flagged rows get the 👥 sign; single-player rows do not.
+    const mpTags = await run("document.querySelectorAll('.lb-mp-tag').length");
+    check('multiplayer rows show the multiplayer sign', mpTags === 1, `tags=${mpTags}`);
   } catch (err) {
     check('no exceptions during online run', false, String(err));
   }

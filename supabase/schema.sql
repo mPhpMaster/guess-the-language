@@ -4,15 +4,17 @@
 -- ===========================================================================
 
 create table if not exists public.scores (
-  id         bigint generated always as identity primary key,
-  player     text not null check (char_length(player) between 1 and 24),
-  score      integer not null check (score >= 0),
-  mode       text not null default 'languages',
-  created_at timestamptz not null default now()
+  id          bigint generated always as identity primary key,
+  player      text not null check (char_length(player) between 1 and 24),
+  score       integer not null check (score >= 0),
+  mode        text not null default 'languages',
+  multiplayer boolean not null default false,
+  created_at  timestamptz not null default now()
 );
 
--- If upgrading an existing table, add the per-mode column:
+-- If upgrading an existing table, add the per-mode + multiplayer columns:
 alter table public.scores add column if not exists mode text not null default 'languages';
+alter table public.scores add column if not exists multiplayer boolean not null default false;
 
 -- Index to make per-mode "top scores" queries fast.
 create index if not exists scores_mode_score_idx on public.scores (mode, score desc);
@@ -35,3 +37,5 @@ create policy "public can insert scores"
 -- leaderboard this is fine. To harden against cheating, move score submission
 -- behind an Edge Function / your own backend that validates the run, and
 -- remove the public insert policy above.
+
+-- Multiplayer rooms: run supabase/schema-multiplayer.sql in the same SQL editor.

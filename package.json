@@ -1,18 +1,22 @@
 {
     "name": "guess-the-language",
-    "version": "2.4.1",
-    "description": "IT quiz game for Windows.",
+    "version": "3.0.0",
+    "description": "IT quiz game for Windows and web.",
     "main": "src/main.js",
     "author": "mPhpMaster",
     "license": "MIT",
     "scripts": {
         "start": "electron .",
         "dist": "electron-builder --win",
-        "pack": "electron-builder --dir"
+        "pack": "electron-builder --dir",
+        "dev:web": "node scripts/ensure-supabase-config.js && vite",
+        "build:web": "node scripts/ensure-supabase-config.js && vite build && node scripts/copy-web-assets.js && node scripts/generate-supabase-config.js",
+        "preview:web": "vite preview"
     },
     "devDependencies": {
         "electron": "^39.8.5",
-        "electron-builder": "^25.1.8"
+        "electron-builder": "^25.1.8",
+        "vite": "^6.3.5"
     },
     "build": {
         "appId": "com.mphpmaster.guessthelanguage",
@@ -34,5 +38,8 @@
             "allowToChangeInstallationDirectory": true,
             "createDesktopShortcut": true
         }
+    },
+    "dependencies": {
+        "@supabase/supabase-js": "^2.108.2"
     }
 }

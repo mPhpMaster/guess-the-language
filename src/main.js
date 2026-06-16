@@ -64,16 +64,28 @@ const QUESTION_FILES = {
   devops: 'questions-devops.json',
   network: 'questions-network.json'
 };
+const BANK_KEYS = Object.keys(QUESTION_FILES);
+
 async function readBank(fileName) {
   const raw = await fs.promises.readFile(path.join(__dirname, 'data', fileName), 'utf-8');
   return JSON.parse(raw);
 }
+
+function tagBank(questions, bank) {
+  return questions.map((q) => Object.assign({}, q, { bank }));
+}
+
 ipcMain.handle('questions:get', async (_event, mode) => {
   if (mode === 'all') {
-    const banks = await Promise.all(Object.values(QUESTION_FILES).map(readBank));
+    const entries = Object.entries(QUESTION_FILES);
+    const banks = await Promise.all(
+      entries.map(async ([bank, file]) => tagBank(await readBank(file), bank))
+    );
     return banks.flat();
   }
-  return readBank(QUESTION_FILES[mode] || QUESTION_FILES.languages);
+  const bank = BANK_KEYS.includes(mode) ? mode : 'languages';
+  const qs = await readBank(QUESTION_FILES[bank] || QUESTION_FILES.languages);
+  return tagBank(qs, bank);
 });
 
 app.whenReady().then(() => {
