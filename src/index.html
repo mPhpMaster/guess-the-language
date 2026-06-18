@@ -66,10 +66,13 @@
 
         <div class="home-actions">
           <button class="btn btn-primary" id="btn-start" data-i18n="start">▶  Start</button>
-          <div class="home-actions-row">
+          <div class="home-actions-row home-mp-actions">
             <button class="btn btn-ghost" id="btn-host" data-i18n="hostRoom">🏠  Host Room</button>
             <button class="btn btn-ghost" id="btn-join" data-i18n="joinRoom">🔗  Join Room</button>
           </div>
+          <p class="discord-mp-note hidden" id="discord-mp-note" data-i18n="discordAutoMp">
+            Multiplayer is automatic here — everyone in this voice channel shares the same room.
+          </p>
           <div class="home-actions-row">
             <button class="btn btn-ghost" id="btn-friends" data-i18n="friends">👥  Friends &amp; Scores</button>
             <button class="btn btn-ghost" id="btn-settings" data-i18n="settings">⚙  Settings</button>
@@ -148,7 +151,7 @@
           <button data-setlang="en">EN</button>
           <button data-setlang="ar">ع</button>
         </div>
-        <p class="lobby-label" data-i18n="roomCode">Room code</p>
+        <p class="lobby-label" id="lobby-label" data-i18n="roomCode">Room code</p>
         <div class="lobby-code-row">
           <div class="lobby-code" id="lobby-code">----</div>
           <button class="btn btn-ghost btn-sm" id="btn-copy-code" data-i18n="copyCode">Copy</button>

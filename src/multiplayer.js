@@ -295,6 +295,23 @@
     return result;
   }
 
+  async function joinDiscordRoom(instanceId, mode, settings, name, discordUserId) {
+    const result = await rpc('join_discord_room', {
+      p_instance_id: instanceId,
+      p_mode: mode,
+      p_settings: settings,
+      p_player_name: name,
+      p_discord_user_id: discordUserId
+    });
+    mp.roomId = result.roomId;
+    mp.playerId = result.playerId;
+    mp.code = result.code;
+    mp.isAdmin = !!result.isHost;
+    saveSession();
+    await subscribe();
+    return result;
+  }
+
   async function startRoom(roundRefs, answerKeys) {
     if (!mp.isAdmin) throw new Error('Admin access required');
     const updated = await rpc('start_room', {
@@ -466,6 +483,7 @@
     getRoomLeaderboard,
     hostRoom,
     joinRoom,
+    joinDiscordRoom,
     startRoom,
     submitAnswer,
     endRoom,

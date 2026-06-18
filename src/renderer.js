@@ -129,6 +129,10 @@ const I18N = {
         },
         hostRoom: '🏠  Host Room',
         joinRoom: '🔗  Join Room',
+        discordVoiceRoom: 'Voice channel',
+        discordVoiceRoomHint: 'Everyone in this call',
+        discordAutoMp: 'Multiplayer is automatic here — everyone in this voice channel shares the same room.',
+        discordJoining: 'Joining voice channel room…',
         roomCode: 'Room code',
         copyCode: 'Copy',
         playersTitle: 'Players',
@@ -215,6 +219,10 @@ const I18N = {
         },
         hostRoom: '🏠  إنشاء غرفة',
         joinRoom: '🔗  الانضمام لغرفة',
+        discordVoiceRoom: 'قناة الصوت',
+        discordVoiceRoomHint: 'الجميع في هذه المكالمة',
+        discordAutoMp: 'اللعب الجماعي تلقائي هنا — الجميع في قناة الصوت يشاركون نفس الغرفة.',
+        discordJoining: 'جارٍ الانضمام لغرفة قناة الصوت…',
         roomCode: 'رمز الغرفة',
         copyCode: 'نسخ',
         playersTitle: 'اللاعبون',
@@ -1260,6 +1268,11 @@ function mpOnline() {
 
 function refreshMultiplayerButtons() {
     const on = mpOnline();
+    const discord = isDiscordActivity();
+    const mpRow = document.querySelector('.home-mp-actions');
+    if (mpRow) mpRow.classList.toggle('hidden', discord);
+    const discordNote = $('#discord-mp-note');
+    if (discordNote) discordNote.classList.toggle('hidden', !discord);
     $('#btn-host').disabled = !on;
     $('#btn-join').disabled = !on;
     if (!on) {
@@ -1347,7 +1360,10 @@ function syncMpHudFromPlayers() {
 }
 
 function renderLobby(room, players) {
-    $('#lobby-code').textContent = room ?.code || '----';
+    const discord = isDiscordActivity();
+    const label = $('#lobby-label');
+    if (label) label.textContent = discord ? t('discordVoiceRoom') : t('roomCode');
+    $('#lobby-code').textContent = discord ? t('discordVoiceRoomHint') : (room?.code || '----');
     renderLobbySettings(room);
     renderMpPlayerList('#lobby-players', players, {
         compact: false,
@@ -1357,7 +1373,7 @@ function renderLobby(room, players) {
     const isAdmin = window.GTL_MULTIPLAYER.state.isAdmin;
     $('#lobby-wait').classList.toggle('hidden', isAdmin);
     $('#lobby-admin').classList.toggle('hidden', !isAdmin);
-    $('#btn-copy-code').classList.toggle('hidden', !isAdmin);
+    $('#btn-copy-code').classList.toggle('hidden', !isAdmin || discord);
 
     const canStart = isAdmin && players.length >= 2 && room ?.status === 'lobby';
     $('#btn-lobby-start').disabled = !canStart;
@@ -1718,6 +1734,41 @@ async function loadAllBanks() {
     }
 }
 
+async function autoJoinDiscordVoiceRoom() {
+    if (!isDiscordActivity() || !mpOnline()) return false;
+
+    const instanceId = window.DISCORD_ACTIVITY.instanceId;
+    const userId = window.DISCORD_ACTIVITY.user?.id;
+    if (!instanceId || !userId) return false;
+
+    const note = $('#discord-mp-note');
+    if (note) {
+        note.textContent = t('discordJoining');
+        note.classList.remove('hidden');
+    }
+
+    try {
+        await loadAllBanks();
+        await window.GTL_MULTIPLAYER.joinDiscordRoom(
+            instanceId,
+            state.mode,
+            getSettings(),
+            getPlayerName(),
+            userId
+        );
+        state.multiplayer = true;
+        state.viewOnly = false;
+        state.mpSyncKey = '';
+        renderLobby(window.GTL_MULTIPLAYER.state.room, window.GTL_MULTIPLAYER.state.players);
+        showScreen('lobby');
+        return true;
+    } catch (err) {
+        console.error('Discord voice room join failed:', err);
+        if (note) note.textContent = err.message || String(err);
+        return false;
+    }
+}
+
 async function hostRoomFlow() {
     if (!mpOnline()) return;
     saveSettingsFromUI();
@@ -1990,8 +2041,14 @@ async function boot() {
     const savedMode = localStorage.getItem('gtl_mode');
     if (savedMode && MODES[savedMode]) state.mode = savedMode;
     applyLanguage();
-    applySettingsToUI(); // keep the settings DOM in sync with stored prefs
+    applySettingsToUI();
     refreshMultiplayerButtons();
+
+    if (isDiscordActivity()) {
+        const joined = await autoJoinDiscordVoiceRoom();
+        if (joined) return;
+    }
+
     showScreen('home');
     selectMode(state.mode);
 }

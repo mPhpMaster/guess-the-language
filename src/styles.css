@@ -102,6 +102,21 @@ html.platform-discord .popover { width: min(380px, 94%); padding: 18px; }
 html.platform-discord .corner-btn { width: 30px; height: 30px; font-size: 14px; }
 html.platform-discord .lang-switch button { padding: 4px 8px; font-size: 12px; }
 
+html.platform-discord .home-mp-actions { display: none; }
+.discord-mp-note {
+  width: min(460px, 90%);
+  margin: 0 auto;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted);
+  text-align: center;
+}
+html.platform-discord .lobby-code {
+  font-size: 15px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
 .tb-btn {
   width: 44px; height: var(--tb-h);
   background: transparent; border: none; color: #c7d6e8;

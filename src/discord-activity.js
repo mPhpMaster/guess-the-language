@@ -48,13 +48,22 @@ async function setupDiscordActivity() {
 
   document.documentElement.classList.add('platform-discord');
 
-  return { sdk: discordSdk, auth };
+  return {
+    sdk: discordSdk,
+    auth,
+    instanceId: discordSdk.instanceId,
+    channelId: discordSdk.channelId,
+    guildId: discordSdk.guildId
+  };
 }
 
 window.DISCORD_ACTIVITY = {
   ready: null,
   get user() {
     return window.DISCORD_ACTIVITY._session?.auth?.user ?? null;
+  },
+  get instanceId() {
+    return window.DISCORD_ACTIVITY._session?.instanceId ?? null;
   },
   get active() {
     return Boolean(window.DISCORD_ACTIVITY._session);
