@@ -552,6 +552,10 @@ function saveSettingsFromUI() {
 
 // Player name used on the leaderboard. Defaults to "User".
 function getPlayerName() {
+    const discordUser = window.DISCORD_ACTIVITY?.user;
+    if (discordUser?.username) {
+        return String(discordUser.username).trim().slice(0, 24);
+    }
     const s = getSettings();
     if (s.name && s.name.trim()) return s.name.trim().slice(0, 24);
     return 'User';
@@ -1934,7 +1938,14 @@ async function selectMode(mode) {
 // ============================================================
 //  Boot
 // ============================================================
-function boot() {
+async function boot() {
+    if (window.DISCORD_ACTIVITY?.ready) {
+        try {
+            await window.DISCORD_ACTIVITY.ready;
+        } catch (err) {
+            console.warn('Discord Activity init:', err);
+        }
+    }
     bindEvents();
     if (window.GTL_MULTIPLAYER) {
         window.GTL_MULTIPLAYER.onUpdate = handleMultiplayerUpdate;

@@ -17,6 +17,9 @@ yarn-error.log*
 # Local Supabase credentials (use supabase-config.example.js as a template)
 src/supabase-config.js
 
+# Local Discord client ID (use discord-config.example.js as a template)
+src/discord-config.js
+
 # Environment variables (Vite / Vercel build)
 .env
 .env.*

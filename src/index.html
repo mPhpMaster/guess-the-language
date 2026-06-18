@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co;" />
+        content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data: https://cdn.discordapp.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://discord.com https://*.discord.com;" />
   <title>Guess the Language</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="discord-config.js"></script>
 </head>
 <body>
   <!-- ===== Custom title bar (kept LTR like native window chrome) ===== -->
@@ -296,6 +297,7 @@
 
   </main>
 
+  <script type="module" src="discord-activity.js"></script>
   <script src="supabase-config.js"></script>
   <script src="vendor/supabase.js"></script>
   <script src="web-shim.js"></script>

@@ -67,6 +67,7 @@ body::before {
 .titlebar-controls { display: flex; -webkit-app-region: no-drag; }
 html.platform-web .titlebar { -webkit-app-region: auto; }
 html.platform-web .titlebar-controls { display: none; }
+html.platform-discord .titlebar { display: none; }
 .tb-btn {
   width: 44px; height: var(--tb-h);
   background: transparent; border: none; color: #c7d6e8;

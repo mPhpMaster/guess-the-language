@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -17,6 +17,7 @@ const STATIC_FILES = new Set([
   'renderer.js',
   'multiplayer.js',
   'supabase-config.js',
+  'discord-config.js',
   'web-shim.js'
 ]);
 
@@ -27,6 +28,75 @@ function isStaticAsset(rel) {
 function contentType(rel) {
   if (rel.endsWith('.json')) return 'application/json';
   return 'application/javascript';
+}
+
+function readJsonBody(req) {
+  return new Promise((resolve, reject) => {
+    let body = '';
+    req.on('data', (chunk) => {
+      body += chunk;
+    });
+    req.on('end', () => {
+      try {
+        resolve(body ? JSON.parse(body) : {});
+      } catch (err) {
+        reject(err);
+      }
+    });
+    req.on('error', reject);
+  });
+}
+
+function discordTokenDevPlugin(env) {
+  return {
+    name: 'discord-token-dev',
+    configureServer(server) {
+      server.middlewares.use('/api/token', async (req, res, next) => {
+        if (req.method !== 'POST') return next();
+
+        const clientId = env.VITE_DISCORD_CLIENT_ID || env.DISCORD_CLIENT_ID;
+        const clientSecret = env.DISCORD_CLIENT_SECRET;
+
+        if (!clientId || !clientSecret) {
+          res.statusCode = 500;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ error: 'Discord OAuth is not configured' }));
+          return;
+        }
+
+        try {
+          const { code } = await readJsonBody(req);
+          if (!code) {
+            res.statusCode = 400;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ error: 'Missing authorization code' }));
+            return;
+          }
+
+          const tokenRes = await fetch('https://discord.com/api/oauth2/token', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({
+              client_id: clientId,
+              client_secret: clientSecret,
+              grant_type: 'authorization_code',
+              code
+            })
+          });
+
+          const data = await tokenRes.json();
+          res.statusCode = tokenRes.status;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify(tokenRes.ok ? { access_token: data.access_token } : data));
+        } catch (err) {
+          console.error('Discord token dev proxy error:', err);
+          res.statusCode = 500;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ error: 'Token exchange failed' }));
+        }
+      });
+    }
+  };
 }
 
 function staticAssetPlugin() {
@@ -53,12 +123,16 @@ function staticAssetPlugin() {
   };
 }
 
-export default defineConfig({
-  root: 'src',
-  base: '/',
-  build: {
-    outDir: '../dist-web',
-    emptyOutDir: true
-  },
-  plugins: [staticAssetPlugin()]
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, path.join(__dirname), '');
+
+  return {
+    root: 'src',
+    base: '/',
+    build: {
+      outDir: '../dist-web',
+      emptyOutDir: true
+    },
+    plugins: [staticAssetPlugin(), discordTokenDevPlugin(env)]
+  };
 });
