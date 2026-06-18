@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Policy — Guess the Language</title>
+  <style>
+    :root { --bg: #07111e; --text: #eaf2ff; --muted: #9fb4cc; --accent: #2ec5ff; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      padding: 32px 20px 48px;
+    }
+    main { max-width: 720px; margin: 0 auto; }
+    h1 { font-size: 1.75rem; margin-bottom: 0.25rem; }
+    .updated { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.75rem; }
+    h2 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; color: var(--accent); }
+    p, li { margin-bottom: 0.75rem; color: #d4e4f7; }
+    ul { padding-left: 1.25rem; }
+    a { color: var(--accent); }
+    .back { display: inline-block; margin-bottom: 1.5rem; font-size: 0.95rem; }
+    table { width: 100%; border-collapse: collapse; margin: 0.75rem 0 1rem; font-size: 0.95rem; }
+    th, td { border: 1px solid #ffffff22; padding: 8px 10px; text-align: left; }
+    th { background: #0d1f33; color: var(--accent); }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="/">← Back to game</a>
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: June 18, 2026</p>
+
+    <p>
+      This Privacy Policy explains how <strong>Guess the Language</strong> (“we”, “the Service”)
+      handles information when you play on the web, inside Discord, or via the desktop app.
+    </p>
+
+    <h2>1. Summary</h2>
+    <p>
+      We collect only what is needed to run the game and optional leaderboards. We do not sell
+      your personal data. We do not run advertising trackers in the game.
+    </p>
+
+    <h2>2. Information we collect</h2>
+    <table>
+      <thead>
+        <tr><th>Data</th><th>When</th><th>Purpose</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Display name</td>
+          <td>Leaderboard / multiplayer</td>
+          <td>Show your name on scores and in rooms</td>
+        </tr>
+        <tr>
+          <td>Quiz score &amp; mode</td>
+          <td>When you submit to the global leaderboard</td>
+          <td>Public leaderboard ranking</td>
+        </tr>
+        <tr>
+          <td>Game settings</td>
+          <td>Stored in your browser or app</td>
+          <td>Language, sound, difficulty preferences</td>
+        </tr>
+        <tr>
+          <td>Discord user ID &amp; username</td>
+          <td>Discord Activity only</td>
+          <td>Authenticate the Activity and set your display name</td>
+        </tr>
+        <tr>
+          <td>Server / hosting logs</td>
+          <td>When you use the website or API</td>
+          <td>Security and reliability (e.g. Vercel)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>3. Discord Activity</h2>
+    <p>
+      When you launch the game inside Discord, we use Discord’s Embedded App SDK to authenticate
+      you. We request the <code>identify</code> scope to read your Discord user ID and username
+      (or global display name). OAuth tokens are exchanged on our server and are not stored
+      long-term after your session. Discord’s own privacy policy applies to data Discord processes:
+      <a href="https://discord.com/privacy" rel="noopener noreferrer">discord.com/privacy</a>.
+    </p>
+
+    <h2>4. Supabase (leaderboards)</h2>
+    <p>
+      Optional global leaderboards are hosted on Supabase. When enabled, we store your chosen
+      display name, score, game mode, and timestamp. Leaderboard entries are publicly readable.
+      We do not store email addresses or passwords in the game database.
+    </p>
+
+    <h2>5. Local storage</h2>
+    <p>
+      The web and Discord versions may save preferences (language, high scores, settings) in your
+      browser’s <code>localStorage</code>. The desktop app stores similar data locally on your
+      device. You can clear this data by clearing site data or reinstalling the app.
+    </p>
+
+    <h2>6. Third-party services</h2>
+    <ul>
+      <li><strong>Vercel</strong> — hosts the web app and Discord token API</li>
+      <li><strong>Supabase</strong> — optional leaderboard database</li>
+      <li><strong>Discord</strong> — Activity platform and authentication</li>
+    </ul>
+    <p>
+      Each provider processes data according to its own privacy policy. We only share the minimum
+      data required for those services to function.
+    </p>
+
+    <h2>7. Children</h2>
+    <p>
+      The Service is not directed at children under 13. We do not knowingly collect personal
+      information from children. If you believe a child has provided data, contact us and we
+      will take steps to remove it.
+    </p>
+
+    <h2>8. Your choices</h2>
+    <ul>
+      <li>Play without submitting scores to the global leaderboard</li>
+      <li>Choose a custom display name on the web (not in Discord Activity, where Discord provides your name)</li>
+      <li>Clear browser storage to remove local preferences</li>
+    </ul>
+
+    <h2>9. Security</h2>
+    <p>
+      We use HTTPS for all web traffic. Discord client secrets are kept server-side only. No
+      method of transmission over the Internet is 100% secure; we cannot guarantee absolute
+      security.
+    </p>
+
+    <h2>10. Changes</h2>
+    <p>
+      We may update this policy. The “Last updated” date at the top will change when we do.
+      Material changes may also be noted in the project repository.
+    </p>
+
+    <h2>11. Contact</h2>
+    <p>
+      Privacy questions:
+      <a href="https://github.com/mPhpMaster/guess-the-language" rel="noopener noreferrer">GitHub</a>
+      or
+      <a href="https://discord.gg/BRgVPum" rel="noopener noreferrer">Discord</a>.
+    </p>
+  </main>
+</body>
+</html>

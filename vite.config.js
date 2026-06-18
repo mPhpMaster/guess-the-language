@@ -128,6 +128,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     root: 'src',
+    publicDir: path.join(__dirname, 'public'),
     base: '/',
     build: {
       outDir: '../dist-web',

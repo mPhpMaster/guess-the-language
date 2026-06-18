@@ -462,7 +462,11 @@ html.platform-discord .lang-switch button { padding: 4px 8px; font-size: 12px; }
 .about-desc { text-align: center; color: var(--muted); font-size: 13px; line-height: 1.6; margin-bottom: 10px; }
 .about-count { text-align: center; font-size: 14px; margin-bottom: 14px; }
 .about-count strong { color: var(--neon); }
-.about-links { display: flex; gap: 10px; justify-content: center; margin-bottom: 16px; flex-wrap: wrap; }
+.about-links { display: flex; gap: 10px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap; }
+.about-legal { text-align: center; font-size: 12px; margin-bottom: 14px; }
+.about-legal-link { color: var(--muted); text-decoration: none; }
+.about-legal-link:hover { color: var(--neon); text-decoration: underline; }
+.about-legal-sep { color: #ffffff33; margin: 0 6px; }
 .about-link {
   background: #ffffff0d; border: 1px solid #ffffff1f; color: #d8e6f6;
   font-size: 14px; font-weight: 600; padding: 9px 14px; border-radius: 10px; cursor: pointer;
