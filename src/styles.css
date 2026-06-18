@@ -68,6 +68,40 @@ body::before {
 html.platform-web .titlebar { -webkit-app-region: auto; }
 html.platform-web .titlebar-controls { display: none; }
 html.platform-discord .titlebar { display: none; }
+
+/* Discord Activity iframe — compact layout, scrollable content */
+html.platform-discord body { overflow: auto; }
+html.platform-discord #app { height: 100vh; }
+html.platform-discord .screen {
+  padding: 10px 14px;
+  justify-content: flex-start;
+  overflow-y: auto;
+}
+html.platform-discord .home-card {
+  width: min(720px, 100%);
+  padding: 14px 16px 18px;
+  margin: auto 0;
+}
+html.platform-discord .home-title { font-size: 26px; margin: 2px 0; }
+html.platform-discord .home-sub { font-size: 13px; margin-bottom: 14px; }
+html.platform-discord .mode-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+html.platform-discord .mode-card { padding: 14px 10px; border-radius: 14px; }
+html.platform-discord .mode-card-all { grid-column: 1 / -1; max-width: 320px; justify-self: center; width: 100%; }
+html.platform-discord .mode-icon { font-size: 32px; margin-bottom: 6px; }
+html.platform-discord .mode-name { font-size: 14px; margin-bottom: 4px; }
+html.platform-discord .mode-desc { font-size: 11px; line-height: 1.35; }
+html.platform-discord .home-card .mode-grid { margin-bottom: 14px; }
+html.platform-discord .home-actions #btn-start,
+html.platform-discord .home-actions-row { width: min(400px, 100%); }
+html.platform-discord .btn { padding: 11px 16px; font-size: 14px; }
+html.platform-discord .menu-highscore { margin-top: 14px; font-size: 13px; }
+html.platform-discord .popover { width: min(380px, 94%); padding: 18px; }
+html.platform-discord .corner-btn { width: 30px; height: 30px; font-size: 14px; }
+html.platform-discord .lang-switch button { padding: 4px 8px; font-size: 12px; }
+
 .tb-btn {
   width: 44px; height: var(--tb-h);
   background: transparent; border: none; color: #c7d6e8;
@@ -165,8 +199,18 @@ html.platform-discord .titlebar { display: none; }
   padding: 10px 0; border-bottom: 1px solid #ffffff10; font-size: 15px;
 }
 .setting-row select,
-.setting-row input[type="text"] { background: #0a1828; color: var(--text); border: 1px solid #ffffff22; border-radius: 8px; padding: 6px 10px; }
-.setting-row input[type="text"] { width: 150px; text-align: left; direction: ltr; }
+.setting-row input[type="text"] { background: #0a1828; color: var(--text); border: 1px solid #ffffff22; border-radius: 8px; padding: 8px 10px; }
+.setting-row input[type="text"] { width: min(180px, 45vw); text-align: left; direction: ltr; }
+.setting-row input[type="text"].discord-locked,
+.setting-row input[type="text"]:disabled {
+  opacity: 0.9;
+  cursor: not-allowed;
+  color: var(--neon);
+  border-color: #2ec5ff44;
+  background: #0a1828cc;
+}
+.setting-row input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--neon); cursor: pointer; }
+.setting-row select { min-width: 120px; cursor: pointer; }
 .popover .btn { width: 100%; margin-top: 16px; }
 .hidden { display: none !important; }
 

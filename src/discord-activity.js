@@ -51,17 +51,8 @@ async function setupDiscordActivity() {
   return { sdk: discordSdk, auth };
 }
 
-const ready = (async () => {
-  try {
-    return await setupDiscordActivity();
-  } catch (err) {
-    console.warn('Discord Activity setup skipped:', err.message);
-    return null;
-  }
-})();
-
 window.DISCORD_ACTIVITY = {
-  ready,
+  ready: null,
   get user() {
     return window.DISCORD_ACTIVITY._session?.auth?.user ?? null;
   },
@@ -71,6 +62,14 @@ window.DISCORD_ACTIVITY = {
   _session: null
 };
 
-ready.then((session) => {
-  window.DISCORD_ACTIVITY._session = session;
-});
+window.DISCORD_ACTIVITY.ready = (async () => {
+  try {
+    const session = await setupDiscordActivity();
+    window.DISCORD_ACTIVITY._session = session;
+    return session;
+  } catch (err) {
+    console.warn('Discord Activity setup skipped:', err.message);
+    window.DISCORD_ACTIVITY._session = null;
+    return null;
+  }
+})();

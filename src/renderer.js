@@ -83,6 +83,7 @@ const I18N = {
         settingsTitle: 'Settings',
         settingLanguage: 'Language',
         settingName: 'Your leaderboard name',
+        settingNameDiscord: 'Your name (from Discord)',
         settingQuestions: 'Questions per round',
         settingSound: 'Sound effects',
         settingDifficulty: 'Difficulty',
@@ -168,6 +169,7 @@ const I18N = {
         settingsTitle: 'الإعدادات',
         settingLanguage: 'اللغة',
         settingName: 'اسمك في لوحة الصدارة',
+        settingNameDiscord: 'اسمك (من Discord)',
         settingQuestions: 'عدد الأسئلة في الجولة',
         settingSound: 'المؤثرات الصوتية',
         settingDifficulty: 'الصعوبة',
@@ -346,6 +348,7 @@ function applyLanguage() {
     const dEl = document.querySelector('#code-difficulty');
     if (dEl && dEl.dataset.diff) dEl.textContent = diffLabel(dEl.dataset.diff);
     renderHome();
+    syncDiscordNameField();
 }
 
 // Highlight the active mode card and show its best score on the home page.
@@ -532,18 +535,52 @@ function getSettings() {
     return Object.assign({}, defaultSettings, store.settings);
 }
 
+function isDiscordActivity() {
+    return Boolean(window.DISCORD_ACTIVITY?.active);
+}
+
+function getDiscordDisplayName() {
+    const user = window.DISCORD_ACTIVITY?.user;
+    if (!user) return null;
+    const name = user.global_name || user.username;
+    return name ? String(name).trim().slice(0, 24) : null;
+}
+
+function syncDiscordNameField() {
+    const nameInput = $('#set-name');
+    const nameLabel = $('#set-name-label');
+    if (!nameInput || !nameLabel) return;
+
+    if (isDiscordActivity()) {
+        nameInput.value = getDiscordDisplayName() || 'User';
+        nameInput.disabled = true;
+        nameInput.classList.add('discord-locked');
+        nameLabel.textContent = t('settingNameDiscord');
+    } else {
+        nameInput.disabled = false;
+        nameInput.classList.remove('discord-locked');
+        nameLabel.setAttribute('data-i18n', 'settingName');
+        nameLabel.textContent = t('settingName');
+    }
+}
+
 function applySettingsToUI() {
     const s = getSettings();
     $('#set-language').value = getLang();
-    $('#set-name').value = s.name || '';
+    if (!isDiscordActivity()) {
+        $('#set-name').value = s.name || '';
+    }
     $('#set-questions').value = String(s.questions);
     $('#set-sound').checked = !!s.sound;
     $('#set-difficulty').value = s.difficulty;
+    syncDiscordNameField();
 }
 
 function saveSettingsFromUI() {
     store.settings = {
-        name: $('#set-name').value.trim().slice(0, 24),
+        name: isDiscordActivity()
+            ? (getSettings().name || '')
+            : $('#set-name').value.trim().slice(0, 24),
         questions: Number($('#set-questions').value),
         sound: $('#set-sound').checked,
         difficulty: $('#set-difficulty').value
@@ -552,9 +589,8 @@ function saveSettingsFromUI() {
 
 // Player name used on the leaderboard. Defaults to "User".
 function getPlayerName() {
-    const discordUser = window.DISCORD_ACTIVITY?.user;
-    if (discordUser?.username) {
-        return String(discordUser.username).trim().slice(0, 24);
+    if (isDiscordActivity()) {
+        return getDiscordDisplayName() || 'User';
     }
     const s = getSettings();
     if (s.name && s.name.trim()) return s.name.trim().slice(0, 24);
