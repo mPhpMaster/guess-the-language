@@ -2,11 +2,12 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data: https://cdn.discordapp.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://discord.com https://*.discord.com;" />
+        content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; img-src 'self' data: https://cdn.discordapp.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://discord.com https://*.discord.com;" />
   <title>Guess the Language</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="discord-config.js"></script>
+  <script defer src="discord-config.js"></script>
 </head>
 <body>
   <!-- ===== Custom title bar (kept LTR like native window chrome) ===== -->
@@ -26,7 +27,6 @@
 
     <!-- ============ HOME SCREEN (mode + actions in one page) ============ -->
     <section id="screen-home" class="screen active">
-      <div class="home-card">
         <button class="corner-btn about-btn" id="btn-about" title="About">&#9432;</button>
         <div class="lang-switch">
           <button data-setlang="en">EN</button>
@@ -87,7 +87,6 @@
         <div class="menu-highscore">
           <span data-i18n="bestScore">Best score:</span> <strong id="menu-highscore-val">0</strong>
         </div>
-      </div>
 
       <!-- Settings popover -->
       <div id="settings-panel" class="popover hidden">
@@ -173,6 +172,7 @@
               <option value="cybersecurity" data-i18n="modeCyber">Cybersecurity</option>
               <option value="devops" data-i18n="modeDevops">DevOps</option>
               <option value="network" data-i18n="modeNetwork">Networking</option>
+              <option value="gamedev" data-i18n="modeGamedev">Game Dev</option>
               <option value="all" data-i18n="modeAll">All (Mixed)</option>
             </select>
           </label>
@@ -233,8 +233,9 @@
         <h3 data-i18n="joinRoom">Join Room</h3>
         <label class="setting-row">
           <span data-i18n="roomCode">Room code</span>
-          <input type="text" id="join-code" maxlength="4" placeholder="A3K9" dir="ltr" />
+          <input type="text" id="join-code" maxlength="4" placeholder="A3K9" dir="ltr" autocomplete="off" inputmode="text" />
         </label>
+        <p class="modal-hint">Paste a 4-letter code or type it manually.</p>
         <div class="modal-actions">
           <button class="btn btn-primary" id="btn-join-confirm" data-i18n="joinConfirm">Join</button>
           <button class="btn btn-ghost" id="btn-join-cancel" data-i18n="close">Close</button>
@@ -311,10 +312,10 @@
   </main>
 
   <script type="module" src="discord-activity.js"></script>
-  <script src="supabase-config.js"></script>
-  <script src="vendor/supabase.js"></script>
-  <script src="web-shim.js"></script>
-  <script src="multiplayer.js"></script>
-  <script src="renderer.js"></script>
+  <script defer src="supabase-config.js"></script>
+  <script defer src="vendor/supabase.js"></script>
+  <script defer src="web-shim.js"></script>
+  <script defer src="multiplayer.js"></script>
+  <script defer src="renderer.js"></script>
 </body>
 </html>

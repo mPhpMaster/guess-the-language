@@ -166,5 +166,131 @@
       "en": "showHUD commonly displays the in-game interface elements such as health and score.",
       "ar": "تُستخدم showHUD عادةً لإظهار عناصر الواجهة داخل اللعبة مثل الصحة والنتيجة."
     }
+  },
+  {
+    "id": 9,
+    "category": "input",
+    "difficulty": "easy",
+    "codeSnippet": "if (input.isPressed('Space')) jump();",
+    "question": {
+      "en": "What does this code check?",
+      "ar": "ما الذي يتحقق منه هذا الكود؟"
+    },
+    "options": [
+      "Whether the player pressed jump",
+      "Whether the game is saved",
+      "Whether the enemy is near",
+      "Whether the menu is open"
+    ],
+    "answer": "Whether the player pressed jump",
+    "explanation": {
+      "en": "This checks for a Space key press before calling the jump action.",
+      "ar": "يتحقق هذا مما إذا كان مفتاح المسافة مضغوطًا قبل استدعاء القفز."
+    }
+  },
+  {
+    "id": 10,
+    "category": "physics",
+    "difficulty": "hard",
+    "codeSnippet": "velocity.y += gravity * deltaTime;",
+    "question": {
+      "en": "What physics concept is applied here?",
+      "ar": "ما هو مفهوم الفيزياء المطبق هنا؟"
+    },
+    "options": [
+      "Gravity acceleration",
+      "Friction",
+      "Collision detection",
+      "Sound attenuation"
+    ],
+    "answer": "Gravity acceleration",
+    "explanation": {
+      "en": "Adding gravity times delta time changes vertical velocity over time.",
+      "ar": "إضافة الجاذبية مضروبة في الوقت تغير السرعة الرأسية مع مرور الوقت."
+    }
+  },
+  {
+    "id": 11,
+    "category": "animation",
+    "difficulty": "medium",
+    "codeSnippet": "sprite.playAnimation('run');",
+    "question": {
+      "en": "What effect does this have?",
+      "ar": "ما التأثير الذي يحدثه هذا؟"
+    },
+    "options": [
+      "Play the running animation",
+      "Stop all movement",
+      "Save player progress",
+      "Spawn a new level"
+    ],
+    "answer": "Play the running animation",
+    "explanation": {
+      "en": "The sprite is instructed to start the run animation sequence.",
+      "ar": "يُطلب من sprite بدء تسلسل رسوميات الجري."
+    }
+  },
+  {
+    "id": 12,
+    "category": "collision",
+    "difficulty": "hard",
+    "codeSnippet": "if (player.bounds.intersects(enemy.bounds)) onHit(enemy);",
+    "question": {
+      "en": "What is this condition testing for?",
+      "ar": "ما الذي يختبره هذا الشرط؟"
+    },
+    "options": [
+      "Player and enemy colliding",
+      "Player winning the game",
+      "Enemy dropping loot",
+      "Level completed"
+    ],
+    "answer": "Player and enemy colliding",
+    "explanation": {
+      "en": "The code checks whether the player and enemy hitboxes overlap.",
+      "ar": "يتحقق الكود مما إذا كانت صناديق الاصطدام للاعب والعدو تتداخل."
+    }
+  },
+  {
+    "id": 13,
+    "category": "gameplay",
+    "difficulty": "medium",
+    "codeSnippet": "spawnEnemy('orc', x, y);",
+    "question": {
+      "en": "What is the likely purpose of this call?",
+      "ar": "ما هو الغرض المحتمل من هذا الاستدعاء؟"
+    },
+    "options": [
+      "Create a new enemy",
+      "Remove an enemy",
+      "Fade the background",
+      "Play a sound effect"
+    ],
+    "answer": "Create a new enemy",
+    "explanation": {
+      "en": "spawnEnemy usually creates an enemy instance at the given position.",
+      "ar": "عادةً ما ينشئ spawnEnemy مثيلاً للعدو في الموضع المحدد."
+    }
+  },
+  {
+    "id": 14,
+    "category": "save",
+    "difficulty": "medium",
+    "codeSnippet": "saveGame({ level, score, player });",
+    "question": {
+      "en": "What does this function likely do?",
+      "ar": "ما الذي تفعله هذه الدالة على الأرجح؟"
+    },
+    "options": [
+      "Persist current progress",
+      "Load the next level",
+      "Reset the game",
+      "Increase difficulty"
+    ],
+    "answer": "Persist current progress",
+    "explanation": {
+      "en": "Saving game state stores progress such as level and score.",
+      "ar": "يخزن حفظ حالة اللعبة التقدم مثل المستوى والنقاط."
+    }
   }
 ]

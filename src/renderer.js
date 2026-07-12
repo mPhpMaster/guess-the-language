@@ -384,7 +384,7 @@ function applyLanguage() {
 // Highlight the active mode card and show its best score on the home page.
 function renderHome() {
     document.querySelectorAll('#mode-grid .mode-card').forEach((c) => {
-        c.classList.toggle('active', c.dataset.mode === state.mode);
+        c.classList.toggle('selected', c.dataset.mode === state.mode);
     });
     refreshMenu();
     refreshMultiplayerButtons();
@@ -419,7 +419,7 @@ const defaultSettings = {
 
 // ---------- Game state ----------
 const state = {
-    mode: 'languages',
+    mode: 'all',
     allQuestions: [],
     round: [],
     index: 0,
@@ -647,6 +647,7 @@ function openSettingsPanel() {
 }
 
 async function ensureValidPlayerName() {
+    const previousName = getSettings().name ? getSettings().name.trim().toLowerCase() : '';
     saveSettingsFromUI();
     if (isDiscordActivity()) {
         return { valid: true, name: getPlayerName() };
@@ -659,13 +660,9 @@ async function ensureValidPlayerName() {
     }
 
     const lower = candidate.toLowerCase();
-    const hasLocalDuplicate = FRIENDS.some((p) => String(p.name || '').toLowerCase() === lower);
-    if (hasLocalDuplicate) {
-        openSettingsPanel();
-        return { valid: false, name: '', message: t('nameTaken') };
-    }
+    const isReturningName = lower && previousName && lower === previousName;
 
-    if (supabaseConfigured()) {
+    if (supabaseConfigured() && !isReturningName) {
         try {
             const top = await fetchTopScores(100);
             const hasOnlineDuplicate = (top || []).some((r) => String(r.player || '').trim().toLowerCase() === lower);
@@ -884,10 +881,9 @@ function resolveCurrentQuestion(chosen, timedOut = false) {
     if (state.answered) return;
     state.answered = true;
     clearTimer();
-
     const cur = state.current;
     const correct = chosen === cur.answer;
-    const buttons = document.querySelectorAll('#options-grid button');
+    const buttons = Array.from(document.querySelectorAll('#options-grid button'));
     buttons.forEach((b) => {
         b.disabled = true;
         b.classList.remove('selected');
@@ -1404,6 +1400,7 @@ function modeLabel(mode) {
         cybersecurity: 'modeCyber',
         devops: 'modeDevops',
         network: 'modeNetwork',
+        gamedev: 'modeGamedev',
         all: 'modeAll'
     };
     return t(map[mode] || 'modeLanguages');
