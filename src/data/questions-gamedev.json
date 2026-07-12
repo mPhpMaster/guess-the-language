@@ -1,0 +1,170 @@
+[
+  {
+    "id": 1,
+    "category": "gameplay",
+    "difficulty": "easy",
+    "codeSnippet": "player.position += velocity;",
+    "question": {
+      "en": "What does this line likely do in a game loop?",
+      "ar": "ما الذي يفعله هذا السطر على الأرجح في حلقة اللعبة؟"
+    },
+    "options": [
+      "Move the player object",
+      "Render a sprite",
+      "Load a texture",
+      "Pause the game"
+    ],
+    "answer": "Move the player object",
+    "explanation": {
+      "en": "Updating a player's position is a common movement step in a game loop.",
+      "ar": "تحديث موضع اللاعب هو خطوة حركة شائعة في حلقة اللعبة."
+    }
+  },
+  {
+    "id": 2,
+    "category": "physics",
+    "difficulty": "easy",
+    "codeSnippet": "if (player.isGrounded) jump();",
+    "question": {
+      "en": "What does this condition check?",
+      "ar": "ما الذي يتحقق منه هذا الشرط؟"
+    },
+    "options": [
+      "Whether the player is on the ground",
+      "Whether the player has a key",
+      "Whether the game is over",
+      "Whether the camera is zoomed"
+    ],
+    "answer": "Whether the player is on the ground",
+    "explanation": {
+      "en": "The isGrounded flag commonly represents whether the player can jump.",
+      "ar": "غالباً ما يمثل العلم isGrounded ما إذا كان اللاعب على الأرض ويمكنه القفز."
+    }
+  },
+  {
+    "id": 3,
+    "category": "rendering",
+    "difficulty": "medium",
+    "codeSnippet": "renderSprite(sprite, x, y);",
+    "question": {
+      "en": "What is the purpose of this call?",
+      "ar": "ما الغرض من هذا الاستدعاء؟"
+    },
+    "options": [
+      "Draw a sprite on screen",
+      "Play an animation",
+      "Save a save-file",
+      "Change the game difficulty"
+    ],
+    "answer": "Draw a sprite on screen",
+    "explanation": {
+      "en": "Rendering a sprite draws the visual object to the current frame.",
+      "ar": "إن رسم sprite يرسم الكائن البصري على الإطار الحالي."
+    }
+  },
+  {
+    "id": 4,
+    "category": "assets",
+    "difficulty": "easy",
+    "codeSnippet": "loadTexture('player.png');",
+    "question": {
+      "en": "What does this function likely do?",
+      "ar": "ما الذي يفعله هذا الدالة على الأرجح؟"
+    },
+    "options": [
+      "Load an image asset",
+      "Create a sound effect",
+      "Open a menu",
+      "Start networking"
+    ],
+    "answer": "Load an image asset",
+    "explanation": {
+      "en": "Loading a texture usually means loading an image asset used by the game.",
+      "ar": "غالباً ما يعني تحميل texture تحميل ملف صورة يستخدمه اللعب."
+    }
+  },
+  {
+    "id": 5,
+    "category": "state",
+    "difficulty": "medium",
+    "codeSnippet": "score += 100;",
+    "question": {
+      "en": "What does this statement update?",
+      "ar": "ما الذي يُحدّث هذا البيان؟"
+    },
+    "options": [
+      "The player's score",
+      "The player's health",
+      "The level timer",
+      "The camera angle"
+    ],
+    "answer": "The player's score",
+    "explanation": {
+      "en": "Increasing a variable named score is typically used to reward the player.",
+      "ar": "زيادة متغير باسم score تُستخدم عادةً لمكافأة اللاعب."
+    }
+  },
+  {
+    "id": 6,
+    "category": "systems",
+    "difficulty": "medium",
+    "codeSnippet": "audio.play('jump');",
+    "question": {
+      "en": "What is the most likely purpose of this call?",
+      "ar": "ما هو الغرض الأكثر احتمالاً من هذا الاستدعاء؟"
+    },
+    "options": [
+      "Play a jump sound effect",
+      "Pause the soundtrack",
+      "Load a new level",
+      "Save game progress"
+    ],
+    "answer": "Play a jump sound effect",
+    "explanation": {
+      "en": "The audio system is being asked to play a sound named jump.",
+      "ar": "يُطلب من نظام الصوت تشغيل صوت باسم jump."
+    }
+  },
+  {
+    "id": 7,
+    "category": "logic",
+    "difficulty": "hard",
+    "codeSnippet": "if (enemy.health <= 0) destroy(enemy);",
+    "question": {
+      "en": "What happens when this condition is true?",
+      "ar": "ماذا يحدث عندما يكون هذا الشرط صحيحاً؟"
+    },
+    "options": [
+      "The enemy is removed",
+      "The enemy becomes stronger",
+      "The enemy respawns immediately",
+      "The enemy is invincible"
+    ],
+    "answer": "The enemy is removed",
+    "explanation": {
+      "en": "If health is zero or less, the enemy object is typically destroyed.",
+      "ar": "إذا كانت الصحة صفر أو أقل، يتم عادةً تدمير كائن العدو."
+    }
+  },
+  {
+    "id": 8,
+    "category": "ui",
+    "difficulty": "easy",
+    "codeSnippet": "showHUD();",
+    "question": {
+      "en": "What does this call likely do?",
+      "ar": "ما الذي يفعله هذا الاستدعاء على الأرجح؟"
+    },
+    "options": [
+      "Display the heads-up display",
+      "Hide the player model",
+      "Save the game",
+      "Change the level theme"
+    ],
+    "answer": "Display the heads-up display",
+    "explanation": {
+      "en": "showHUD commonly displays the in-game interface elements such as health and score.",
+      "ar": "تُستخدم showHUD عادةً لإظهار عناصر الواجهة داخل اللعبة مثل الصحة والنتيجة."
+    }
+  }
+]

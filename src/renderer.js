@@ -119,8 +119,10 @@ const I18N = {
         modeDevopsDesc: 'Docker, Kubernetes, CI/CD, Git, IaC & cloud',
         modeNetwork: 'Networking',
         modeNetworkDesc: 'OSI, TCP/IP, DNS, routing & protocols',
+        modeGamedev: 'Game Dev',
+        modeGamedevDesc: 'Game loops, physics, rendering, assets and UI systems',
         modeAll: 'All (Mixed)',
-        modeAllDesc: 'Everything: all four banks together',
+        modeAllDesc: 'Everything: all five banks together',
         changeMode: 'Modes',
         diff: {
             easy: 'Easy',
@@ -154,7 +156,10 @@ const I18N = {
         lobbySettings: 'Game settings',
         settingTimer: 'Time per question',
         timerAuto: 'Auto (by difficulty)',
-        multiplayerScore: 'Multiplayer score'
+        multiplayerScore: 'Multiplayer score',
+        nameRequired: 'Please enter your name before starting the game.',
+        nameTaken: 'That name is already taken on the leaderboard. Please choose another one.',
+        leaderboardFor: 'Leaderboard for'
     },
     ar: {
         appTitle: 'خمّن اللغة',
@@ -209,8 +214,10 @@ const I18N = {
         modeDevopsDesc: 'Docker وKubernetes وCI/CD وGit والسحابة',
         modeNetwork: 'الشبكات',
         modeNetworkDesc: 'OSI وTCP/IP وDNS والتوجيه والبروتوكولات',
+        modeGamedev: 'تطوير الألعاب',
+        modeGamedevDesc: 'حلقات الألعاب والفيزياء والرسوم والمحتوى والواجهات',
         modeAll: 'الكل (مدمج)',
-        modeAllDesc: 'كل شيء: البنوك الأربعة معاً',
+        modeAllDesc: 'كل شيء: البنوك الخمسة معاً',
         changeMode: 'الأنماط',
         diff: {
             easy: 'سهل',
@@ -244,7 +251,10 @@ const I18N = {
         lobbySettings: 'إعدادات اللعبة',
         settingTimer: 'مدة كل سؤال',
         timerAuto: 'تلقائي (حسب الصعوبة)',
-        multiplayerScore: 'نتيجة جماعية'
+        multiplayerScore: 'نتيجة جماعية',
+        nameRequired: 'يرجى إدخال اسمك قبل بدء اللعبة.',
+        nameTaken: 'هذا الاسم مستخدم بالفعل في لوحة الصدارة. يرجى اختيار اسم آخر.',
+        leaderboardFor: 'لوحة الصدارة لـ'
     }
 };
 
@@ -298,6 +308,18 @@ const MODES = {
             ar: 'OSI وTCP/IP وDNS والتوجيه والتقسيم والبروتوكولات'
         }
     },
+    gamedev: {
+        key: 'gamedev',
+        icon: '🎮',
+        title: {
+            en: ['Game', 'Dev Quiz'],
+            ar: ['اختبار', 'تطوير الألعاب']
+        },
+        desc: {
+            en: 'Game loops, physics, rendering, assets and UI systems',
+            ar: 'حلقات الألعاب والفيزياء والرسوم والمحتوى والواجهات'
+        }
+    },
     all: {
         key: 'all',
         icon: '🎲',
@@ -306,8 +328,8 @@ const MODES = {
             ar: ['الكل', 'اختبار شامل']
         },
         desc: {
-            en: 'Everything mixed: all four banks together',
-            ar: 'كل شيء مدمج: البنوك الأربعة معاً'
+            en: 'Everything mixed: all five banks together',
+            ar: 'كل شيء مدمج: البنوك الخمسة معاً'
         }
     }
 };
@@ -582,6 +604,7 @@ function applySettingsToUI() {
     $('#set-sound').checked = !!s.sound;
     $('#set-difficulty').value = s.difficulty;
     syncDiscordNameField();
+    updateStartButtonState();
 }
 
 function saveSettingsFromUI() {
@@ -593,6 +616,15 @@ function saveSettingsFromUI() {
         sound: $('#set-sound').checked,
         difficulty: $('#set-difficulty').value
     };
+    updateStartButtonState();
+}
+
+function getPlayerNameInputValue() {
+    if (isDiscordActivity()) {
+        return getDiscordDisplayName() || '';
+    }
+    const raw = $('#set-name')?.value ?? getSettings().name ?? '';
+    return String(raw).trim().slice(0, 24);
 }
 
 // Player name used on the leaderboard. Defaults to "User".
@@ -600,9 +632,61 @@ function getPlayerName() {
     if (isDiscordActivity()) {
         return getDiscordDisplayName() || 'User';
     }
-    const s = getSettings();
-    if (s.name && s.name.trim()) return s.name.trim().slice(0, 24);
-    return 'User';
+    const name = getPlayerNameInputValue();
+    return name || 'User';
+}
+
+function openSettingsPanel() {
+    $('#settings-panel').classList.remove('hidden');
+    $('#about-panel').classList.add('hidden');
+    const nameInput = $('#set-name');
+    if (nameInput) {
+        nameInput.focus();
+        nameInput.select();
+    }
+}
+
+async function ensureValidPlayerName() {
+    saveSettingsFromUI();
+    if (isDiscordActivity()) {
+        return { valid: true, name: getPlayerName() };
+    }
+
+    const candidate = getPlayerNameInputValue();
+    if (!candidate) {
+        openSettingsPanel();
+        return { valid: false, name: '', message: t('nameRequired') };
+    }
+
+    const lower = candidate.toLowerCase();
+    const hasLocalDuplicate = FRIENDS.some((p) => String(p.name || '').toLowerCase() === lower);
+    if (hasLocalDuplicate) {
+        openSettingsPanel();
+        return { valid: false, name: '', message: t('nameTaken') };
+    }
+
+    if (supabaseConfigured()) {
+        try {
+            const top = await fetchTopScores(100);
+            const hasOnlineDuplicate = (top || []).some((r) => String(r.player || '').trim().toLowerCase() === lower);
+            if (hasOnlineDuplicate) {
+                openSettingsPanel();
+                return { valid: false, name: '', message: t('nameTaken') };
+            }
+        } catch (e) {
+            console.warn('Unable to verify leaderboard name availability:', e);
+        }
+    }
+
+    return { valid: true, name: candidate };
+}
+
+function updateStartButtonState() {
+    const startBtn = $('#btn-start');
+    if (!startBtn) return;
+    const hasQuestions = Array.isArray(state.allQuestions) && state.allQuestions.length > 0;
+    const canStart = hasQuestions && (isDiscordActivity() || !!getPlayerNameInputValue());
+    startBtn.disabled = !canStart;
 }
 
 // ============================================================
@@ -647,13 +731,20 @@ function buildRound() {
 // ============================================================
 //  Game flow
 // ============================================================
-function startGame() {
+async function startGame() {
+    const nameCheck = await ensureValidPlayerName();
+    if (!nameCheck.valid) {
+        alert(nameCheck.message || t('nameRequired'));
+        return;
+    }
+
     buildRound();
     state.index = 0;
     state.score = 0;
     state.correct = 0;
     state.streak = 0;
     state.viewOnly = false;
+    state.selectedAnswer = null;
     updateScore();
     updateCorrect();
     updateStreakPill();
@@ -706,6 +797,7 @@ function nextQuestion() {
         state.advanceTimer = null;
     }
     state.answered = false;
+    state.selectedAnswer = null;
     if (state.index >= state.round.length) {
         endGame();
         return;
@@ -773,7 +865,22 @@ function renderOptions(cur, disabled) {
     });
 }
 
+function clearSelectedOption() {
+    document.querySelectorAll('#options-grid button').forEach((b) => {
+        b.classList.remove('selected');
+    });
+}
+
 function onAnswer(chosen, btn) {
+    if (state.answered) return;
+    state.selectedAnswer = chosen;
+    clearSelectedOption();
+    if (btn) {
+        btn.classList.add('selected');
+    }
+}
+
+function resolveCurrentQuestion(chosen, timedOut = false) {
     if (state.answered) return;
     state.answered = true;
     clearTimer();
@@ -783,6 +890,7 @@ function onAnswer(chosen, btn) {
     const buttons = document.querySelectorAll('#options-grid button');
     buttons.forEach((b) => {
         b.disabled = true;
+        b.classList.remove('selected');
     });
     buttons.forEach((b) => {
         if (b.dataset.answer === cur.answer) b.classList.add('correct');
@@ -799,8 +907,11 @@ function onAnswer(chosen, btn) {
         showToast(`${t('correct')} +${gained}${state.streak >= 3 ? '  ' + t('streakBonus') : ''}  —  ${cur.explanation[getLang()]}`, 'good');
     } else {
         state.streak = 0;
-        if (btn) {
-            btn.classList.add('wrong', 'shake');
+        if (chosen) {
+            const selectedBtn = Array.from(buttons).find((b) => b.dataset.answer === chosen);
+            if (selectedBtn) {
+                selectedBtn.classList.add('wrong', 'shake');
+            }
         }
         sfx.wrong();
         showToast(`${t('wrong')} ${cur.answer}.  ${cur.explanation[getLang()]}`, 'bad');
@@ -888,19 +999,14 @@ function startTimerFromServer() {
 
 function onTimeout() {
     if (state.answered) return;
-    state.answered = true;
     const cur = state.current;
     state.streak = 0;
-    document.querySelectorAll('#options-grid button').forEach((b) => {
-        b.disabled = true;
-        if (b.dataset.answer === cur.answer) b.classList.add('correct');
-    });
-    sfx.wrong();
-    showToast(`${t('timeUp')} ${cur.answer}.  ${cur.explanation[getLang()]}`, 'bad');
+    resolveCurrentQuestion(state.selectedAnswer, true);
+    if (!state.multiplayer) {
+        sfx.wrong();
+        showToast(`${t('timeUp')} ${cur.answer}.  ${cur.explanation[getLang()]}`, 'bad');
+    }
     updateStreakPill();
-    if (state.multiplayer) return;
-    state.index += 1;
-    state.advanceTimer = setTimeout(nextQuestion, 1900);
 }
 
 function onTimeoutMultiplayer() {
@@ -1027,7 +1133,7 @@ async function endGame() {
     $('#btn-replay').classList.remove('hidden');
     $('#btn-replay').textContent = t('replay');
     $('#btn-menu').textContent = t('backMenu');
-    $('.results-sub').textContent = t('comparison');
+    $('.results-sub').textContent = `${t('leaderboardFor')} ${currentModeLabel()}`;
 
     if (!viewOnly) {
         countUp($('#final-score'), state.score, 900);
@@ -1183,6 +1289,13 @@ async function buildResultsLeaderboard() {
     }]));
 }
 
+function currentModeLabel() {
+    const mode = MODES[state.mode] || MODES.languages;
+    const lang = getLang();
+    const title = mode.title?.[lang] || mode.title?.en || [];
+    return Array.isArray(title) ? title.join(' ') : String(title || mode.key || '');
+}
+
 function renderLeaderboard(list) {
     const sorted = list.slice().sort((a, b) => b.score - a.score);
     let display = sorted.slice(0, 10);
@@ -1197,11 +1310,12 @@ function renderLeaderboard(list) {
     lb.innerHTML = '';
     display.forEach((p, i) => {
         const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-other';
+        const placementBadge = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '';
         const row = document.createElement('div');
         row.className = `lb-row ${rankClass}${p.you ? ' is-you' : ''}`;
         const label = document.createElement('div');
         label.className = 'lb-bar-fill';
-        label.textContent = `${p.name} — ${p.score} pts`;
+        label.textContent = `${p.name}${placementBadge ? ` ${placementBadge}` : ''} — ${p.score} pts`;
         if (p.multiplayer) {
             const mpTag = document.createElement('span');
             mpTag.className = 'lb-mp-tag';
@@ -1877,7 +1991,7 @@ function bindEvents() {
     });
 
     // home actions
-    $('#btn-start').addEventListener('click', startGame);
+    $('#btn-start').addEventListener('click', () => startGame());
     $('#btn-host').addEventListener('click', hostRoomFlow);
     $('#btn-join').addEventListener('click', openJoinModal);
     $('#btn-join-confirm').addEventListener('click', confirmJoinRoom);
@@ -1923,6 +2037,7 @@ function bindEvents() {
         $('#settings-panel').classList.add('hidden');
         applyLanguage();
     });
+    $('#set-name').addEventListener('input', () => updateStartButtonState());
 
     // about
     $('#btn-about').addEventListener('click', () => {
@@ -1931,7 +2046,15 @@ function bindEvents() {
     });
     $('#about-close').addEventListener('click', () => $('#about-panel').classList.add('hidden'));
     document.querySelectorAll('.about-link').forEach((b) => {
-        b.addEventListener('click', () => window.appWindow ?.openExternal(b.dataset.url));
+        b.addEventListener('click', (event) => {
+            event.preventDefault();
+            const url = b.dataset.url;
+            if (window.appWindow ?.openExternal) {
+                window.appWindow.openExternal(url);
+            } else if (typeof url === 'string' && url) {
+                window.open(url, '_blank', 'noopener,noreferrer');
+            }
+        });
     });
 
     // game — end the quiz early
@@ -2014,7 +2137,7 @@ async function selectMode(mode) {
         state.allQuestions = [];
     }
     if (state.allQuestions.length) {
-        startBtn.disabled = false;
+        updateStartButtonState();
         startBtn.setAttribute('data-i18n', 'start'); // let language switches keep it in sync
         startBtn.textContent = t('start');
     } else {

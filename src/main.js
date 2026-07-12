@@ -62,7 +62,8 @@ const QUESTION_FILES = {
   languages: 'questions.json',
   cybersecurity: 'questions-cyber.json',
   devops: 'questions-devops.json',
-  network: 'questions-network.json'
+  network: 'questions-network.json',
+  gamedev: 'questions-gamedev.json'
 };
 const BANK_KEYS = Object.keys(QUESTION_FILES);
 

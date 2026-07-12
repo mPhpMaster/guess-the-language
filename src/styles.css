@@ -488,6 +488,11 @@ html.platform-discord .lobby-code {
   transition: background .15s, border-color .2s, transform .12s;
 }
 .about-link:hover { background: #ffffff1a; border-color: #2ec5ff66; transform: translateY(-2px); }
+.opt-btn.selected, .lang-btn.selected {
+  border-color: var(--neon);
+  box-shadow: inset 0 0 0 2px rgba(46, 197, 255, 0.25), 0 0 0 1px rgba(46, 197, 255, 0.15);
+  transform: translateY(-1px);
+}
 
 /* ===================== Multiplayer lobby / players ===================== */
 .lobby-card {
