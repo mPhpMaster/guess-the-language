@@ -147,7 +147,9 @@ const I18N = {
         discordJoining: 'Joining voice channel room…',
         discordMpUnavailable: "Multiplayer couldn't connect — you can still play solo below.",
         createRoom: '🏠  Create Room',
-        discordCreateHint: 'No shared room yet — create one to play with your voice channel.',
+        backToLobby: '🔙  Back to Lobby',
+        discordCreateHint: 'Enter your voice channel’s shared room lobby.',
+        returnLobbyFailed: 'Could not reach the room — try again.',
         challengeSent: '✅ Challenge sent!',
         challengeFailed: 'Could not open the share dialog.',
         loginDiscord: '💬  Login with Discord',
@@ -253,7 +255,9 @@ const I18N = {
         discordJoining: 'جارٍ الانضمام لغرفة قناة الصوت…',
         discordMpUnavailable: 'تعذّر الاتصال باللعب الجماعي — يمكنك اللعب منفرداً بالأسفل.',
         createRoom: '🏠  إنشاء غرفة',
-        discordCreateHint: 'لا توجد غرفة مشتركة بعد — أنشئ غرفة للّعب مع قناة الصوت.',
+        backToLobby: '🔙  العودة إلى اللوبي',
+        discordCreateHint: 'ادخل إلى لوبي الغرفة المشتركة لقناتك الصوتية.',
+        returnLobbyFailed: 'تعذّر الوصول إلى الغرفة — حاول مرة أخرى.',
         challengeSent: '✅ تم إرسال التحدي!',
         challengeFailed: 'تعذّر فتح نافذة المشاركة.',
         loginDiscord: '💬  تسجيل الدخول عبر Discord',
@@ -2112,7 +2116,7 @@ function renderMpResults() {
     $('.results-correct').classList.remove('hidden');
     $('#btn-challenge').classList.add('hidden');
     $('#btn-replay').classList.remove('hidden');
-    $('#btn-replay').textContent = t('replay'); // "Play again" -> back to lobby
+    $('#btn-replay').textContent = t('backToLobby'); // -> room lobby (stays in room)
     $('#btn-menu').textContent = t('leaveRoom'); // "Leave" -> main menu
 
     const me = players.find((p) => p.id === mpState.playerId);
@@ -2281,6 +2285,39 @@ async function autoJoinDiscordVoiceRoom() {
     }
 }
 
+// Discord "Back to Lobby": (re)join the voice-channel's shared room and land in
+// its lobby. Works even after a game ended and the player was sent Home — the
+// room is keyed to the voice-channel instance, so it can always be re-entered.
+async function enterDiscordLobby() {
+    if (!isDiscordActivity() || !mpOnline()) return;
+    const btn = $('#btn-discord-host');
+    if (btn) btn.disabled = true;
+    try {
+        const ok = await autoJoinDiscordVoiceRoom();
+        if (!ok) {
+            const note = $('#discord-mp-note');
+            if (note) {
+                note.textContent = t('returnLobbyFailed');
+                note.classList.remove('hidden');
+            }
+            return;
+        }
+        // Rejoined a finished room as host → reset it to the lobby so a new round
+        // can start; guests will follow via the realtime 'lobby' update.
+        const mp = window.GTL_MULTIPLAYER;
+        if (mp.state.isAdmin && mp.state.room && mp.state.room.status === 'finished') {
+            try {
+                await mp.restartRoom();
+                renderLobby(mp.state.room, mp.state.players);
+            } catch (e) {
+                console.error('restart on return-to-lobby:', e);
+            }
+        }
+    } finally {
+        if (btn) btn.disabled = false;
+    }
+}
+
 async function hostRoomFlow() {
     if (!mpOnline()) return;
     if (!requireNameToInteract()) return;
@@ -2393,7 +2430,7 @@ function bindEvents() {
     // home actions
     $('#btn-start').addEventListener('click', () => startGame());
     $('#btn-host').addEventListener('click', hostRoomFlow);
-    $('#btn-discord-host').addEventListener('click', hostRoomFlow);
+    $('#btn-discord-host').addEventListener('click', enterDiscordLobby);
     $('#btn-join').addEventListener('click', openJoinModal);
     $('#btn-join-confirm').addEventListener('click', confirmJoinRoom);
     $('#btn-join-cancel').addEventListener('click', closeJoinModal);
