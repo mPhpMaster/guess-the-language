@@ -21,6 +21,10 @@ ipcMain.handle('questions:get', async (_e, mode) => {
 const checks = [];
 const check = (name, cond, detail) => checks.push({ name, pass: !!cond, detail });
 
+
+// __ISOLATED_USERDATA__: pristine localStorage per run (no cross-test leakage)
+try { app.setPath("userData", require("path").join(require("os").tmpdir(), "gtl-test-"+Date.now()+"-"+Math.floor(Math.random()*1e9))); } catch (e) {}
+
 app.whenReady().then(async () => {
   const win = new BrowserWindow({
     show: false,
@@ -33,6 +37,7 @@ app.whenReady().then(async () => {
     await win.loadFile(path.join(SRC, 'index.html'));
     await sleep(300);
     await run("window.SUPABASE_CONFIG = { url: '', anonKey: '' }; 'ok'"); // force offline mock
+    await run("window.__GTL_QTIME=1; var n=document.querySelector('#set-name'); n.value='Tester'; n.dispatchEvent(new Event('input')); 'ok'");
     try {
       const count = await run(`window.gameAPI.getQuestions('${mode}').then(a => a.length)`);
       check(`${mode} bank loads`, count >= 20, `count=${count}`);
@@ -51,7 +56,7 @@ app.whenReady().then(async () => {
       check(`${mode}: a prompt/question is shown`, prompt.trim().length > 0);
 
       await run("document.querySelectorAll('#options-grid .opt-btn')[0].click(); 'ok'");
-      await sleep(120);
+      await sleep(1400); // pick = select; resolution happens when the (fast) timer ends
       const marked = await run("document.querySelectorAll('#options-grid .opt-btn.correct').length");
       check(`${mode}: correct option highlighted`, marked === 1, `marked=${marked}`);
     } catch (err) {

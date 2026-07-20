@@ -13,11 +13,14 @@ function discordProxyPrefix() {
 
 async function setupDiscordActivity() {
   if (!clientId) {
+    console.info('[discord] no clientId configured — running as a plain web app');
     return null;
   }
 
+  console.info('[discord] initialising SDK…');
   const discordSdk = new DiscordSDK(clientId);
   await discordSdk.ready();
+  console.info('[discord] SDK ready; authorizing…');
 
   const { code } = await discordSdk.commands.authorize({
     client_id: clientId,
@@ -26,26 +29,45 @@ async function setupDiscordActivity() {
     prompt: 'none',
     scope: ['identify', 'applications.commands']
   });
+  console.info('[discord] authorized; exchanging token via', discordProxyPrefix() + '/api/token');
 
   const prefix = discordProxyPrefix();
-  const tokenRes = await fetch(`${prefix}/api/token`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ code })
-  });
+  // Bound the token exchange so a request that never returns can't hang the
+  // whole Activity init (it would otherwise leave the app unresponsive).
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 6000);
+  let tokenRes;
+  try {
+    tokenRes = await fetch(`${prefix}/api/token`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code }),
+      signal: controller.signal
+    });
+  } catch (err) {
+    throw new Error(
+      err.name === 'AbortError'
+        ? 'Token exchange timed out — is /api/token deployed and reachable through the Discord proxy?'
+        : `Token exchange request failed: ${err.message}`
+    );
+  } finally {
+    clearTimeout(timer);
+  }
 
   if (!tokenRes.ok) {
     const err = await tokenRes.json().catch(() => ({}));
-    throw new Error(err.error_description || err.error || 'Token exchange failed');
+    throw new Error(err.error_description || err.error || `Token exchange failed (${tokenRes.status})`);
   }
 
   const { access_token } = await tokenRes.json();
+  console.info('[discord] token ok; authenticating…');
   const auth = await discordSdk.commands.authenticate({ access_token });
 
   if (!auth) {
     throw new Error('Discord authenticate command failed');
   }
 
+  console.info('[discord] activity ready ✓');
   document.documentElement.classList.add('platform-discord');
 
   return {

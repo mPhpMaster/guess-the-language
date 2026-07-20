@@ -22,6 +22,10 @@ ipcMain.handle('questions:get', async (_e, mode) => {
 const checks = [];
 const check = (name, cond, detail) => checks.push({ name, pass: !!cond, detail });
 
+
+// __ISOLATED_USERDATA__: pristine localStorage per run (no cross-test leakage)
+try { app.setPath("userData", require("path").join(require("os").tmpdir(), "gtl-test-"+Date.now()+"-"+Math.floor(Math.random()*1e9))); } catch (e) {}
+
 app.whenReady().then(async () => {
   const win = new BrowserWindow({
     show: false,
@@ -33,7 +37,8 @@ app.whenReady().then(async () => {
   await win.loadFile(path.join(SRC, 'index.html'));
   await sleep(300);
   await run("window.SUPABASE_CONFIG = { url: '', anonKey: '' }; 'ok'");
-  await run("localStorage.setItem('gtl_settings', JSON.stringify({questions:15, sound:false, difficulty:'all', name:''})); 'ok'");
+  await run("localStorage.setItem('gtl_settings', JSON.stringify({questions:15, sound:false, difficulty:'all', name:'Tester'})); 'ok'");
+  await run("window.__GTL_QTIME=1; var n=document.querySelector('#set-name'); n.value='Tester'; n.dispatchEvent(new Event('input')); 'ok'");
 
   try {
     await run("document.querySelector('.mode-card[data-mode=\"cybersecurity\"]').click(); 'ok'");
@@ -56,7 +61,7 @@ app.whenReady().then(async () => {
         if (idx >= 0) positions.push(idx);
       }
       await run("document.querySelectorAll('#options-grid button')[0].click(); 'ok'");
-      await sleep(2000);
+      await sleep(3200); // fast timer (1s) -> resolve -> 1.9s auto-advance
     }
 
     check('sampled several questions', positions.length >= 8, `n=${positions.length}`);

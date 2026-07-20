@@ -22,6 +22,10 @@ ipcMain.handle('questions:get', async (_e, mode) => {
 const checks = [];
 const check = (name, cond, detail) => checks.push({ name, pass: !!cond, detail });
 
+
+// __ISOLATED_USERDATA__: pristine localStorage per run (no cross-test leakage)
+try { app.setPath("userData", require("path").join(require("os").tmpdir(), "gtl-test-"+Date.now()+"-"+Math.floor(Math.random()*1e9))); } catch (e) {}
+
 app.whenReady().then(async () => {
   const win = new BrowserWindow({
     show: false,
@@ -34,11 +38,12 @@ app.whenReady().then(async () => {
   await sleep(300);
   await run("window.SUPABASE_CONFIG = { url: '', anonKey: '' }; 'ok'"); // force offline mock
   // Set a known round size (don't depend on leftover localStorage from other tests).
-  await run("localStorage.setItem('gtl_settings', JSON.stringify({questions:10, sound:false, difficulty:'all', name:''})); 'ok'");
+  await run("localStorage.setItem('gtl_settings', JSON.stringify({questions:10, sound:false, difficulty:'all', name:'Tester'})); 'ok'");
+  await run("window.__GTL_QTIME=1; var n=document.querySelector('#set-name'); n.value='Tester'; n.dispatchEvent(new Event('input')); 'ok'");
 
   try {
     const cardCount = await run("document.querySelectorAll('.mode-card').length");
-    check('mode picker offers five modes', cardCount === 5, `cards=${cardCount}`);
+    check('mode picker offers all modes', cardCount === 6, `cards=${cardCount}`);
 
     const merged = await run("window.gameAPI.getQuestions('all').then(a => ({ total: a.length, langs: a.filter(q => q.correctLanguage).length, choice: a.filter(q => Array.isArray(q.options)).length }))");
     check('merged bank is large', merged.total >= 300, `total=${merged.total}`);
@@ -52,7 +57,7 @@ app.whenReady().then(async () => {
       if (await run("!document.querySelector('#btn-start').disabled")) break;
       await sleep(100);
     }
-    const activeMode = await run("(document.querySelector('.mode-card.active')||{}).dataset?.mode");
+    const activeMode = await run("(document.querySelector('.mode-card.selected')||{}).dataset?.mode");
     check('All card is highlighted as active', activeMode === 'all', activeMode);
 
     await run("document.querySelector('#btn-start').click(); 'ok'");
@@ -73,7 +78,7 @@ app.whenReady().then(async () => {
       if (!isCyber && !isLang) validEachStep = false;
       styles.add(isCyber ? 'cyber' : 'languages');
       await run("document.querySelectorAll('#options-grid button')[0].click(); 'ok'");
-      await sleep(2000); // wait past the auto-advance
+      await sleep(3200); // fast timer (1s) -> resolve -> 1.9s auto-advance
     }
     check('every question in the mixed round had a valid style', validEachStep, [...styles].join(','));
     const advanced = await run("parseInt(document.querySelector('#q-current').textContent, 10)");

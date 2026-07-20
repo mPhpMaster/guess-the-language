@@ -96,6 +96,7 @@ const I18N = {
         question: 'Question',
         finalScore: 'Final Score:',
         comparison: 'Friends Comparison',
+        globalLeaderboard: '🏆 Global Leaderboard',
         challenge: '🔗  Challenge a friend',
         replay: '🔄  Play again',
         backMenu: '🏠  Main menu',
@@ -191,6 +192,7 @@ const I18N = {
         question: 'سؤال',
         finalScore: 'النتيجة النهائية:',
         comparison: 'مقارنة الأصدقاء',
+        globalLeaderboard: '🏆 لوحة الصدارة العالمية',
         challenge: '🔗  تحدَّ صديقاً',
         replay: '🔄  إعادة اللعب',
         backMenu: '🏠  القائمة الرئيسية',
@@ -608,11 +610,14 @@ function applySettingsToUI() {
 }
 
 function saveSettingsFromUI() {
+    // Guard against an empty / non-option #set-questions value writing a
+    // 0-question round: fall back to the current or default question count.
+    const q = Number($('#set-questions').value);
     store.settings = {
         name: isDiscordActivity()
             ? (getSettings().name || '')
             : $('#set-name').value.trim().slice(0, 24),
-        questions: Number($('#set-questions').value),
+        questions: q > 0 ? q : (getSettings().questions || defaultSettings.questions),
         sound: $('#set-sound').checked,
         difficulty: $('#set-difficulty').value
     };
@@ -680,10 +685,22 @@ async function ensureValidPlayerName() {
 
 function updateStartButtonState() {
     const startBtn = $('#btn-start');
-    if (!startBtn) return;
-    const hasQuestions = Array.isArray(state.allQuestions) && state.allQuestions.length > 0;
-    const canStart = hasQuestions && (isDiscordActivity() || !!getPlayerNameInputValue());
-    startBtn.disabled = !canStart;
+    if (startBtn) {
+        const hasQuestions = Array.isArray(state.allQuestions) && state.allQuestions.length > 0;
+        const canStart = hasQuestions && (isDiscordActivity() || !!getPlayerNameInputValue());
+        startBtn.disabled = !canStart;
+    }
+    // Host / Join require a name too (and an online connection).
+    refreshMultiplayerButtons();
+}
+
+// The player must have a name before they can start/host/join anything. Returns
+// false (and opens the settings panel) when the name is still missing.
+function requireNameToInteract() {
+    if (isDiscordActivity() || getPlayerNameInputValue()) return true;
+    openSettingsPanel();
+    alert(t('nameRequired'));
+    return false;
 }
 
 // ============================================================
@@ -832,7 +849,11 @@ function nextQuestion() {
 
     hideToast();
     renderOptions(cur, false);
-    state.questionTime = timeForDifficulty(cur.difficulty);
+    // window.__GTL_QTIME is a headless-test seam to shorten the countdown; it is
+    // undefined in normal play, so real games always use the per-difficulty time.
+    state.questionTime = (typeof window.__GTL_QTIME === 'number' && window.__GTL_QTIME > 0)
+        ? window.__GTL_QTIME
+        : timeForDifficulty(cur.difficulty);
     startTimer(state.questionTime);
 }
 
@@ -920,22 +941,23 @@ function resolveCurrentQuestion(chosen, timedOut = false) {
 }
 
 function onAnswerMultiplayer(chosen, btn) {
-    if (state.answered) return;
+    // Accept picks only while the question is open. The player MAY change their
+    // answer as many times as they like before the timer runs out.
+    const room = window.GTL_MULTIPLAYER.state.room;
+    if (!room || room.phase !== 'question') return;
     state.answered = true;
     state.mpChosen = chosen;
     const timeLeft = state.timeLeft;
 
-    // Lock the choice but do NOT reveal correctness yet: the timer keeps running
-    // and everyone sees the answers together at the synchronized reveal (which
-    // fires early once every player has answered).
+    // Highlight the current choice but keep every option clickable so it can be
+    // changed. Correctness and the score stay hidden until the reveal, and the
+    // score itself is not awarded until the question's time is up.
     document.querySelectorAll('#options-grid button').forEach((b) => {
-        b.disabled = true;
+        b.classList.toggle('mp-selected', b.dataset.answer === chosen);
     });
-    if (btn) btn.classList.add('mp-selected');
     showMpWaiting();
 
     window.GTL_MULTIPLAYER.submitAnswer(chosen, timeLeft)
-        .then(() => syncMpHudFromPlayers())
         .catch((e) => console.error('submit_answer:', e));
 
     state.mpAnsweredIndex = state.index;
@@ -985,8 +1007,15 @@ function startTimerFromServer() {
         updateTimerDisplay();
         setRing(left / total);
         if (room.phase === 'question') maybeCountdownBeep(left);
-        if (left <= 0 && room.phase === 'question' && !state.answered) {
-            onTimeoutMultiplayer();
+        if (left <= 0 && room.phase === 'question') {
+            if (!state.answered) {
+                onTimeoutMultiplayer();
+            } else {
+                // Time is up — lock in the current pick (no more changes).
+                document.querySelectorAll('#options-grid button').forEach((b) => {
+                    b.disabled = true;
+                });
+            }
         }
     }
     tick();
@@ -1262,6 +1291,7 @@ async function buildResultsLeaderboard() {
                 });
             }
 
+            $('.results-sub').textContent = t('globalLeaderboard');
             renderLeaderboard(list);
             note.className = 'lb-note online';
             note.textContent = t('lbOnline');
@@ -1277,6 +1307,7 @@ async function buildResultsLeaderboard() {
     }
 
     // Offline / fallback: mock friends + the player.
+    $('.results-sub').textContent = t('comparison');
     renderLeaderboard(FRIENDS.concat([{
         name: playerName,
         avatar: '🧑‍💻',
@@ -1383,11 +1414,15 @@ function refreshMultiplayerButtons() {
     if (mpRow) mpRow.classList.toggle('hidden', discord);
     const discordNote = $('#discord-mp-note');
     if (discordNote) discordNote.classList.toggle('hidden', !discord);
-    $('#btn-host').disabled = !on;
-    $('#btn-join').disabled = !on;
-    if (!on) {
-        $('#btn-host').title = t('mpNeedOnline');
-        $('#btn-join').title = t('mpNeedOnline');
+    // Hosting or joining needs both an online connection AND a name.
+    const hasName = discord || !!getPlayerNameInputValue();
+    const enable = on && hasName;
+    $('#btn-host').disabled = !enable;
+    $('#btn-join').disabled = !enable;
+    if (!enable) {
+        const msg = !hasName ? t('nameRequired') : t('mpNeedOnline');
+        $('#btn-host').title = msg;
+        $('#btn-join').title = msg;
     } else {
         $('#btn-host').removeAttribute('title');
         $('#btn-join').removeAttribute('title');
@@ -1882,6 +1917,7 @@ async function autoJoinDiscordVoiceRoom() {
 
 async function hostRoomFlow() {
     if (!mpOnline()) return;
+    if (!requireNameToInteract()) return;
     saveSettingsFromUI();
     const name = getPlayerName();
     try {
@@ -1899,6 +1935,7 @@ async function hostRoomFlow() {
 
 function openJoinModal() {
     if (!mpOnline()) return;
+    if (!requireNameToInteract()) return;
     saveSettingsFromUI();
     $('#join-code').value = '';
     $('#join-error').classList.add('hidden');
@@ -2146,13 +2183,10 @@ async function selectMode(mode) {
 //  Boot
 // ============================================================
 async function boot() {
-    if (window.DISCORD_ACTIVITY?.ready) {
-        try {
-            await window.DISCORD_ACTIVITY.ready;
-        } catch (err) {
-            console.warn('Discord Activity init:', err);
-        }
-    }
+    // Wire up the UI FIRST so the app is always interactive. The Discord Activity
+    // handshake (SDK ready / OAuth / token fetch) has no internal timeout, so if
+    // it stalls we must NOT let it block bindEvents — otherwise the page renders
+    // but every control is dead ("it does nothing").
     bindEvents();
     if (window.GTL_MULTIPLAYER) {
         window.GTL_MULTIPLAYER.onUpdate = handleMultiplayerUpdate;
@@ -2161,6 +2195,20 @@ async function boot() {
     const savedMode = localStorage.getItem('gtl_mode');
     if (savedMode && MODES[savedMode]) state.mode = savedMode;
     applyLanguage();
+
+    // Give the Discord Activity a bounded window to finish initialising; fall
+    // through to the normal app if it stalls so the UI is never frozen.
+    if (window.DISCORD_ACTIVITY?.ready) {
+        try {
+            await Promise.race([
+                window.DISCORD_ACTIVITY.ready,
+                new Promise((resolve) => setTimeout(resolve, 8000))
+            ]);
+        } catch (err) {
+            console.warn('Discord Activity init:', err);
+        }
+    }
+
     applySettingsToUI();
     refreshMultiplayerButtons();
 

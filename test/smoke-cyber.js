@@ -17,6 +17,10 @@ ipcMain.handle('questions:get', async (_e, mode) => {
 const checks = [];
 const check = (name, cond, detail) => checks.push({ name, pass: !!cond, detail });
 
+
+// __ISOLATED_USERDATA__: pristine localStorage per run (no cross-test leakage)
+try { app.setPath("userData", require("path").join(require("os").tmpdir(), "gtl-test-"+Date.now()+"-"+Math.floor(Math.random()*1e9))); } catch (e) {}
+
 app.whenReady().then(async () => {
   const win = new BrowserWindow({
     show: false,
@@ -28,6 +32,7 @@ app.whenReady().then(async () => {
   await win.loadFile(path.join(SRC, 'index.html'));
   await sleep(300);
   await run("window.SUPABASE_CONFIG = { url: '', anonKey: '' }; 'ok'"); // force offline mock
+  await run("window.__GTL_QTIME=1; var n=document.querySelector('#set-name'); n.value='Tester'; n.dispatchEvent(new Event('input')); 'ok'");
 
   try {
     const cyberCount = await run("window.gameAPI.getQuestions('cybersecurity').then(a => a.length)");
@@ -42,7 +47,7 @@ app.whenReady().then(async () => {
     }
     const homeActive = await run("document.querySelector('#screen-home').classList.contains('active')");
     check('home stays active after picking cyber mode', homeActive);
-    const activeMode = await run("(document.querySelector('.mode-card.active')||{}).dataset?.mode");
+    const activeMode = await run("(document.querySelector('.mode-card.selected')||{}).dataset?.mode");
     check('cyber card is highlighted as active', activeMode === 'cybersecurity', activeMode);
 
     // Start a cyber game.
@@ -59,7 +64,7 @@ app.whenReady().then(async () => {
 
     // Answer (mechanics: one correct highlighted, all locked, toast shown).
     await run("document.querySelectorAll('#options-grid .opt-btn')[0].click(); 'ok'");
-    await sleep(120);
+    await sleep(1400); // pick = select; resolution happens when the (fast) timer ends
     const correctMarked = await run("document.querySelectorAll('#options-grid .opt-btn.correct').length");
     check('correct option highlighted', correctMarked === 1, `marked=${correctMarked}`);
     const allDisabled = await run("[...document.querySelectorAll('#options-grid .opt-btn')].every(b => b.disabled)");

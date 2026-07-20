@@ -18,6 +18,10 @@ ipcMain.handle('questions:get', async () => {
 const checks = [];
 const check = (name, cond, detail) => checks.push({ name, pass: !!cond, detail });
 
+
+// __ISOLATED_USERDATA__: pristine localStorage per run (no cross-test leakage)
+try { app.setPath("userData", require("path").join(require("os").tmpdir(), "gtl-test-"+Date.now()+"-"+Math.floor(Math.random()*1e9))); } catch (e) {}
+
 app.whenReady().then(async () => {
   const win = new BrowserWindow({
     show: false,
@@ -29,9 +33,11 @@ app.whenReady().then(async () => {
   // Use a single-question round so finishing it triggers the leaderboard submit.
   await win.loadFile(path.join(SRC, 'index.html'));
   await sleep(200);
-  await run("localStorage.setItem('gtl_settings', JSON.stringify({questions:1, sound:false, difficulty:'all', name:''})); 'ok'");
+  await run("localStorage.setItem('gtl_settings', JSON.stringify({questions:1, sound:false, difficulty:'all', name:'Tester'})); 'ok'");
   await win.loadFile(path.join(SRC, 'index.html'));
   await sleep(300);
+  // A name is now required to start; make sure the input carries it.
+  await run("window.__GTL_QTIME=1; var n=document.querySelector('#set-name'); n.value='Tester'; n.dispatchEvent(new Event('input')); 'ok'");
 
   // Configure Supabase + stub fetch with canned responses (after the final load).
   await run(`
@@ -62,7 +68,7 @@ app.whenReady().then(async () => {
     const snippet = await run("document.querySelector('#code-snippet').textContent");
     const answer = await run(`window.gameAPI.getQuestions('languages').then(qs => { const q = qs.find(x => x.codeSnippet === ${JSON.stringify(snippet)}); return q ? q.correctLanguage : null; })`);
     await run(`(() => { const b = [...document.querySelectorAll('#options-grid button')].find(x => x.dataset.answer === ${JSON.stringify(answer)}); if (b) b.click(); return 'ok'; })()`);
-    await sleep(2300); // 1900ms auto-advance -> endGame -> submit + fetch
+    await sleep(3400); // fast timer (1s) -> resolve -> 1.9s auto-advance -> endGame -> submit + fetch
 
     const noteClass = await run("document.querySelector('#lb-note').className");
     check('leaderboard note shows online state', /online/.test(noteClass), noteClass);

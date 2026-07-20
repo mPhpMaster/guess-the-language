@@ -305,6 +305,14 @@ begin
     raise exception 'Game already started';
   end if;
 
+  -- No two concurrent players in the same room may share a name.
+  if exists (
+    select 1 from public.room_players
+    where room_id = v_room.id and lower(trim(name)) = lower(trim(p_name))
+  ) then
+    raise exception 'Name already taken in this room';
+  end if;
+
   select count(*) into v_slot from public.room_players where room_id = v_room.id;
 
   insert into public.room_players (room_id, name, is_host, color, icon)
@@ -368,6 +376,49 @@ begin
 end;
 $$;
 
+-- Apply score / correct / streak for every stored answer of one question.
+-- Called EXACTLY once, at the question -> reveal transition, so that scores do
+-- not change until the question's time is up. Serialised by the room row lock
+-- held by whichever RPC performs the transition.
+create or replace function public._settle_question(p_room_id uuid, p_index int)
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  correct_answer text;
+  a record;
+  new_streak int;
+  pts int;
+begin
+  correct_answer := public._answer_for_index(p_room_id, p_index);
+  for a in
+    select ra.player_id, ra.answer, ra.time_left, rp.streak as cur_streak
+    from public.room_answers ra
+    join public.room_players rp on rp.id = ra.player_id
+    where ra.room_id = p_room_id and ra.question_index = p_index
+    order by ra.submitted_at
+  loop
+    if a.answer is not null and trim(a.answer) = trim(correct_answer) then
+      new_streak := a.cur_streak + 1;
+      pts := public._score_points(greatest(a.time_left, 0), new_streak);
+      update public.room_players
+      set score = score + pts, correct = correct + 1, streak = new_streak
+      where id = a.player_id;
+      update public.room_answers
+      set points = pts, is_correct = true
+      where room_id = p_room_id and player_id = a.player_id and question_index = p_index;
+    else
+      update public.room_players set streak = 0 where id = a.player_id;
+      update public.room_answers
+      set points = 0, is_correct = false
+      where room_id = p_room_id and player_id = a.player_id and question_index = p_index;
+    end if;
+  end loop;
+end;
+$$;
+
 create or replace function public.submit_answer(
   p_room_id uuid,
   p_player_id uuid,
@@ -383,67 +434,56 @@ declare
   r public.rooms;
   correct_answer text;
   is_ok boolean;
-  new_streak int;
-  pts int;
-  player public.room_players;
   active_players int;
   answered_count int;
+  everyone boolean;
 begin
   select * into r from public.rooms where id = p_room_id for update;
   if not found then raise exception 'Room not found'; end if;
   if r.status <> 'playing' then raise exception 'Game not in progress'; end if;
   if r.phase <> 'question' then raise exception 'Not accepting answers'; end if;
 
-  select * into player from public.room_players
-  where id = p_player_id and room_id = p_room_id for update;
-  if not found then raise exception 'Player not in room'; end if;
-
-  if exists (
-    select 1 from public.room_answers
-    where room_id = p_room_id and player_id = p_player_id and question_index = r.question_index
+  if not exists (
+    select 1 from public.room_players where id = p_player_id and room_id = p_room_id
   ) then
-    return jsonb_build_object('alreadyAnswered', true);
+    raise exception 'Player not in room';
   end if;
 
   correct_answer := public._answer_for_index(p_room_id, r.question_index);
   is_ok := trim(p_answer) = trim(correct_answer);
 
-  if is_ok then
-    new_streak := player.streak + 1;
-    pts := public._score_points(greatest(p_time_left, 0), new_streak);
-    update public.room_players
-    set score = score + pts,
-        correct = correct + 1,
-        streak = new_streak
-    where id = p_player_id;
-  else
-    pts := 0;
-    update public.room_players set streak = 0 where id = p_player_id;
-  end if;
-
+  -- Store (or replace) the pick. A player may change their answer as many times
+  -- as they like while the question is open; the score is NOT touched here — it
+  -- is applied for everyone at the reveal (see _settle_question).
   insert into public.room_answers (room_id, player_id, question_index, answer, time_left, points, is_correct)
-  values (p_room_id, p_player_id, r.question_index, p_answer, greatest(p_time_left, 0), pts, is_ok);
+  values (p_room_id, p_player_id, r.question_index, p_answer, greatest(p_time_left, 0), 0, is_ok)
+  on conflict (room_id, player_id, question_index) do update
+    set answer = excluded.answer,
+        time_left = excluded.time_left,
+        is_correct = excluded.is_correct,
+        submitted_at = now();
 
-  -- Everyone has now answered this question: jump straight to the 2s reveal
-  -- (no need to wait out the clock). The room row lock above serialises the
-  -- last two submissions so this fires exactly once.
+  -- Everyone has now answered: settle scores and jump to the 2s reveal.
   select count(*) into active_players from public.room_players where room_id = p_room_id;
   select count(*) into answered_count
   from public.room_answers
   where room_id = p_room_id and question_index = r.question_index;
+  everyone := active_players > 0 and answered_count >= active_players;
 
-  if active_players > 0 and answered_count >= active_players then
+  if everyone then
     update public.rooms
     set phase = 'reveal',
         question_ends_at = now() + interval '2 seconds'
     where id = p_room_id and phase = 'question';
+    if found then
+      perform public._settle_question(p_room_id, r.question_index);
+    end if;
   end if;
 
   return jsonb_build_object(
     'isCorrect', is_ok,
-    'points', pts,
     'correctAnswer', correct_answer,
-    'everyoneAnswered', (active_players > 0 and answered_count >= active_players)
+    'everyoneAnswered', everyone
   );
 end;
 $$;
@@ -478,6 +518,7 @@ begin
     set phase = 'reveal',
         question_ends_at = now() + interval '2 seconds'
     where id = p_room_id;
+    perform public._settle_question(p_room_id, r.question_index);
     select * into r from public.rooms where id = p_room_id;
     return to_jsonb(r);
   end if;
@@ -486,11 +527,13 @@ begin
     return to_jsonb(r);
   end if;
 
+  -- The clock ran out during the question: settle scores now and reveal.
   if r.phase = 'question' then
     update public.rooms
     set phase = 'reveal',
         question_ends_at = now() + interval '2 seconds'
     where id = p_room_id;
+    perform public._settle_question(p_room_id, r.question_index);
     select * into r from public.rooms where id = p_room_id;
     return to_jsonb(r);
   end if;

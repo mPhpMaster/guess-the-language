@@ -21,6 +21,10 @@ function check(name, cond, detail) {
   checks.push({ name, pass: !!cond, detail });
 }
 
+
+// __ISOLATED_USERDATA__: pristine localStorage per run (no cross-test leakage)
+try { app.setPath("userData", require("path").join(require("os").tmpdir(), "gtl-test-"+Date.now()+"-"+Math.floor(Math.random()*1e9))); } catch (e) {}
+
 app.whenReady().then(async () => {
   const win = new BrowserWindow({
     show: false,
@@ -43,6 +47,8 @@ app.whenReady().then(async () => {
   await sleep(400); // let boot() finish loading questions
   // Force the offline mock leaderboard (don't touch a real Supabase if configured).
   await run("window.SUPABASE_CONFIG = { url: '', anonKey: '' }; 'ok'");
+  // A name is required before the player can start; enter one like a real user.
+  await run("window.__GTL_QTIME=1; var n=document.querySelector('#set-name'); n.value='Tester'; n.dispatchEvent(new Event('input')); 'ok'");
 
   try {
     // 0. Home (mode + actions) shown first; pick the languages mode
@@ -81,7 +87,7 @@ app.whenReady().then(async () => {
 
     // 3. Answer the question
     await run("document.querySelectorAll('.lang-btn')[0].click(); 'ok'");
-    await sleep(100);
+    await sleep(1400); // pick = select; resolution happens when the (fast) timer ends
     const correctMarked = await run("document.querySelectorAll('.lang-btn.correct').length");
     check('correct answer highlighted', correctMarked === 1, `marked=${correctMarked}`);
     const allDisabled = await run("Array.from(document.querySelectorAll('.lang-btn')).every(b => b.disabled)");

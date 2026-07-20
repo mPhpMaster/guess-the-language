@@ -17,6 +17,10 @@ ipcMain.handle('questions:get', async () => {
 const checks = [];
 const check = (name, cond, detail) => checks.push({ name, pass: !!cond, detail });
 
+
+// __ISOLATED_USERDATA__: pristine localStorage per run (no cross-test leakage)
+try { app.setPath("userData", require("path").join(require("os").tmpdir(), "gtl-test-"+Date.now()+"-"+Math.floor(Math.random()*1e9))); } catch (e) {}
+
 app.whenReady().then(async () => {
   const win = new BrowserWindow({
     show: false,
@@ -30,6 +34,10 @@ app.whenReady().then(async () => {
   await run("localStorage.removeItem('gtl_lang'); 'ok'");
   await win.webContents.reload();
   await sleep(400);
+  // Force the offline path (no real Supabase name-dup network call on start).
+  await run("window.SUPABASE_CONFIG = { url: '', anonKey: '' }; 'ok'");
+  // A name is required before the game can start.
+  await run("var n=document.querySelector('#set-name'); n.value='Tester'; n.dispatchEvent(new Event('input')); 'ok'");
 
   try {
     // Home default language (English), then select the languages mode.
@@ -61,7 +69,7 @@ app.whenReady().then(async () => {
 
     // Difficulty badge localized inside a game.
     await run("document.querySelector('#btn-start').click(); 'ok'");
-    await sleep(150);
+    await sleep(400); // startGame is async (name check) before the question renders
     const badge = await run("document.querySelector('#code-difficulty').textContent");
     check('difficulty badge localized', /سهل|متوسط|صعب/.test(badge), badge);
 
