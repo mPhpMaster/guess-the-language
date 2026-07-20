@@ -85,7 +85,7 @@
           <button class="mode-card mode-card-algo" data-mode="algorithms">
             <div class="mode-icon">🧩</div>
             <div class="mode-name" data-i18n="modeAlgo">Problem Solving</div>
-            <div class="mode-desc" data-i18n="modeAlgoDesc">Algorithms, data structures, Big-O &amp; LeetCode patterns</div>
+            <div class="mode-desc" data-i18n="modeAlgoDesc">Fill in the blank: algorithms, data structures &amp; Big-O</div>
           </button>
           <button class="mode-card mode-card-all" data-mode="all">
             <div class="mode-icon">&#127922;</div>
@@ -327,6 +327,14 @@
       <div id="mp-status" class="mp-status hidden"></div>
 
       <div class="options-grid" id="options-grid" dir="ltr"><!-- option buttons injected --></div>
+
+      <!-- Fill-in-the-blank / code-completion answer (Problem Solving mode) -->
+      <form class="fill-form hidden" id="fill-form" dir="ltr" autocomplete="off">
+        <input type="text" id="fill-input" class="fill-input" dir="ltr"
+               autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+               aria-label="Your answer" />
+        <button type="submit" class="btn btn-primary fill-submit" id="fill-submit" data-i18n="fillSubmit">Submit</button>
+      </form>
     </section>
 
     <!-- ============ RESULTS SCREEN ============ -->

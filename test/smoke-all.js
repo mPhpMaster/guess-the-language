@@ -46,11 +46,12 @@ app.whenReady().then(async () => {
     const cardCount = await run("document.querySelectorAll('.mode-card').length");
     check('mode picker offers all modes', cardCount === 7, `cards=${cardCount}`);
 
-    const merged = await run("window.gameAPI.getQuestions('all').then(a => ({ total: a.length, langs: a.filter(q => q.correctLanguage).length, choice: a.filter(q => Array.isArray(q.options)).length }))");
+    const merged = await run("window.gameAPI.getQuestions('all').then(a => ({ total: a.length, langs: a.filter(q => q.correctLanguage).length, choice: a.filter(q => Array.isArray(q.options)).length, fill: a.filter(q => !q.correctLanguage && !Array.isArray(q.options) && q.answer != null).length }))");
     check('merged bank is large', merged.total >= 300, `total=${merged.total}`);
     check('merged bank has language questions', merged.langs > 0, `langs=${merged.langs}`);
     check('merged bank has multiple-choice questions', merged.choice > 0, `choice=${merged.choice}`);
-    check('merged total = langs + choice', merged.total === merged.langs + merged.choice);
+    check('merged bank has fill-in questions', merged.fill > 0, `fill=${merged.fill}`);
+    check('merged total = langs + choice + fill', merged.total === merged.langs + merged.choice + merged.fill);
 
     // Play the mixed mode.
     await run("document.querySelector('.mode-card[data-mode=\"all\"]').click(); 'ok'");
@@ -64,21 +65,24 @@ app.whenReady().then(async () => {
     await run("document.querySelector('#btn-start').click(); 'ok'");
     await sleep(200);
     check('game screen active', await run("document.querySelector('#screen-game').classList.contains('active')"));
-    const optCount = await run("document.querySelectorAll('#options-grid button').length");
-    check('question renders options', optCount >= 4, `opts=${optCount}`);
+    // First question renders a valid answer UI: options for choice, input for fill.
+    const firstOk = await run("(()=>{const s=(state.current||{}).style; if(s==='fill') return !document.querySelector('#fill-form').classList.contains('hidden'); return document.querySelectorAll('#options-grid button').length>=4;})()");
+    check('question renders an answer UI', firstOk);
 
-    // Advance through several questions; each renders with a valid option style.
-    // (That a single round mixes types is guaranteed by the merged-bank checks
-    // above plus per-type rendering in smoke-main / smoke-cyber — asserting both
-    // appear in one *random* round would be flaky.)
+    // Advance through several questions; each renders with a valid style
+    // (languages / cyber / fill) and is answerable. The "All" bank now mixes all
+    // three, so answer each according to its style.
     const styles = new Set();
     let validEachStep = true;
     for (let i = 0; i < 6; i++) {
-      const cls = await run("document.querySelector('#options-grid').className");
-      const isCyber = /cyber/.test(cls), isLang = /languages/.test(cls);
-      if (!isCyber && !isLang) validEachStep = false;
-      styles.add(isCyber ? 'cyber' : 'languages');
-      await run("document.querySelectorAll('#options-grid button')[0].click(); 'ok'");
+      const style = await run("(state.current||{}).style");
+      if (style !== 'cyber' && style !== 'languages' && style !== 'fill') validEachStep = false;
+      styles.add(style);
+      if (style === 'fill') {
+        await run("(()=>{const inp=document.querySelector('#fill-input'); inp.value=String(state.current.answer); document.querySelector('#fill-form').dispatchEvent(new Event('submit',{cancelable:true}));})(); 'ok'");
+      } else {
+        await run("document.querySelectorAll('#options-grid button')[0].click(); 'ok'");
+      }
       await sleep(3200); // fast timer (1s) -> resolve -> 1.9s auto-advance
     }
     check('every question in the mixed round had a valid style', validEachStep, [...styles].join(','));

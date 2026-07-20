@@ -172,6 +172,9 @@ html.platform-discord .opt-badge { width: 30px; height: 30px; font-size: 14px; }
 html.platform-discord .opt-text { font-size: 12.5px; }
 html.platform-discord .lang-btn { padding: 9px 10px; flex-direction: row; gap: 8px; }
 html.platform-discord .lang-icon { width: 34px; height: 34px; font-size: 18px; }
+html.platform-discord .fill-form { margin: 0 auto; gap: 8px; flex-shrink: 0; }
+html.platform-discord .fill-input { font-size: 14px; padding: 10px 12px; }
+html.platform-discord .fill-submit { padding: 10px 16px; font-size: 13px; }
 
 /* ---------- Lobby / results ---------- */
 html.platform-discord #screen-lobby { padding: 12px 16px var(--discord-safe-bottom); justify-content: flex-start; }
@@ -600,6 +603,36 @@ html.platform-discord .lobby-code {
 .toast.show { opacity: 1; }
 .toast.good { background: #103a2a; color: #8ef0bd; border: 1px solid #25d07d55; }
 .toast.bad  { background: #3a1320; color: #ff9fb1; border: 1px solid #ff547055; }
+
+/* Fill-in-the-blank answer (Problem Solving mode) */
+.fill-form {
+  width: min(1180px, 100%);
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+  align-items: stretch;
+}
+.fill-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  background: #0a1726;
+  border: 2px solid #ffffff22;
+  border-radius: 14px;
+  color: var(--text);
+  font-family: "Cascadia Code", "Consolas", "Courier New", monospace;
+  font-size: 18px;
+  padding: 14px 18px;
+  transition: border-color .2s, box-shadow .2s;
+}
+.fill-input::placeholder { color: #6b8098; }
+.fill-input:focus { outline: none; border-color: var(--neon); box-shadow: 0 0 0 3px #2ec5ff33; }
+.fill-input:disabled { opacity: .95; cursor: default; }
+.fill-input.fill-correct { border-color: var(--good); box-shadow: 0 0 0 3px #25d07d55, 0 0 26px #25d07d55; color: #b7f7d2; }
+.fill-input.fill-wrong { border-color: var(--bad); box-shadow: 0 0 0 3px #ff547055, 0 0 26px #ff547055; color: #ffc2cd; }
+.fill-submit { flex: 0 0 auto; padding: 14px 26px; font-size: 16px; }
+@media (max-width: 720px) {
+  .fill-form { flex-direction: column; }
+}
 
 /* Timer ring */
 .timer-ring { position: relative; width: clamp(120px, 15vw, 150px); height: clamp(120px, 15vw, 150px); flex-shrink: 0; align-self: center; }

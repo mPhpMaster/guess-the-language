@@ -13,10 +13,15 @@ if (!Array.isArray(questions) || questions.length < 8) {
   process.exit(1);
 }
 
+// Fill-in-the-blank format: a code snippet with a ____ blank, a typed answer,
+// and bilingual question + explanation. No options (it is not multiple choice).
 const invalid = questions.find(
-  (q) => !q.id || !q.question || !q.question.en || !q.question.ar ||
-    !Array.isArray(q.options) || q.options.length < 2 || !q.answer ||
-    !q.options.includes(q.answer) || !q.explanation || !q.explanation.en || !q.explanation.ar
+  (q) => !q.id ||
+    typeof q.codeSnippet !== 'string' || !q.codeSnippet.includes('____') ||
+    !q.question || !q.question.en || !q.question.ar ||
+    typeof q.answer !== 'string' || !q.answer.trim() ||
+    (q.accept && !Array.isArray(q.accept)) ||
+    !q.explanation || !q.explanation.en || !q.explanation.ar
 );
 if (invalid) {
   console.error('Invalid question entry:', invalid.id || 'unknown');
@@ -29,4 +34,4 @@ if (new Set(ids).size !== ids.length) {
   process.exit(1);
 }
 
-console.log(`Problem-solving bank loaded with ${questions.length} questions`);
+console.log(`Problem-solving (fill-in) bank loaded with ${questions.length} questions`);

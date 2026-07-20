@@ -124,6 +124,9 @@ const I18N = {
         appTitle: 'Guess the Language',
         homeSub: 'Pick a mode and beat the timer',
         langPrompt: 'Which language is this?',
+        fillSubmit: 'Submit',
+        fillPlaceholder: 'Type the missing code…',
+        fillPrompt: 'Fill in the blank (____)',
         endQuiz: 'End',
         correctLabel: 'Correct:',
         aboutTitle: 'About',
@@ -177,7 +180,7 @@ const I18N = {
         modeGamedev: 'Game Dev',
         modeGamedevDesc: 'Game loops, physics, rendering, assets and UI systems',
         modeAlgo: 'Problem Solving',
-        modeAlgoDesc: 'Algorithms, data structures, Big-O & LeetCode patterns',
+        modeAlgoDesc: 'Fill in the blank: algorithms, data structures & Big-O',
         modeAll: 'All (Mixed)',
         modeAllDesc: 'Everything: all six banks together',
         changeMode: 'Modes',
@@ -237,6 +240,9 @@ const I18N = {
         appTitle: 'خمّن اللغة',
         homeSub: 'اختر نمطاً وتغلّب على المؤقّت',
         langPrompt: 'ما هذه اللغة؟',
+        fillSubmit: 'إرسال',
+        fillPlaceholder: 'اكتب الكود الناقص…',
+        fillPrompt: 'املأ الفراغ (____)',
         endQuiz: 'إنهاء',
         correctLabel: 'الإجابات الصحيحة:',
         aboutTitle: 'حول التطبيق',
@@ -290,7 +296,7 @@ const I18N = {
         modeGamedev: 'تطوير الألعاب',
         modeGamedevDesc: 'حلقات الألعاب والفيزياء والرسوم والمحتوى والواجهات',
         modeAlgo: 'حل المشكلات',
-        modeAlgoDesc: 'الخوارزميات وهياكل البيانات وتعقيد الوقت وأنماط LeetCode',
+        modeAlgoDesc: 'املأ الفراغ: الخوارزميات وهياكل البيانات وتعقيد الوقت',
         modeAll: 'الكل (مدمج)',
         modeAllDesc: 'كل شيء: البنوك الستة معاً',
         changeMode: 'الأنماط',
@@ -418,8 +424,8 @@ const MODES = {
             ar: ['اختبار', 'حل المشكلات']
         },
         desc: {
-            en: 'Algorithms, data structures, Big-O & LeetCode patterns',
-            ar: 'الخوارزميات وهياكل البيانات وتعقيد الوقت وأنماط LeetCode'
+            en: 'Fill in the blank: algorithms, data structures & Big-O',
+            ar: 'املأ الفراغ: الخوارزميات وهياكل البيانات وتعقيد الوقت'
         }
     },
     all: {
@@ -1092,12 +1098,40 @@ async function startGame() {
     nextQuestion();
 }
 
+// Normalise a typed fill-in answer so grading ignores case and spacing.
+function normFill(s) {
+    return String(s == null ? '' : s).trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+// Grade a fill-in-the-blank answer. Single-player also accepts the question's
+// `accept` variants; multiplayer uses canonical-only so it matches the server.
+function isFillCorrect(cur, typed, canonicalOnly) {
+    const n = normFill(typed);
+    if (!n) return false;
+    if (n === normFill(cur.answer)) return true;
+    if (canonicalOnly) return false;
+    return (cur.accept || []).some((a) => normFill(a) === n);
+}
+
 // Turn a raw question into a uniform shape for rendering. The type is detected
-// per-question (by its fields) so the "All" mode can mix both kinds in a round.
+// per-question (by its fields) so the "All" mode can mix all kinds in a round:
+//   languages -> pick a language button; cyber -> multiple choice;
+//   fill -> type the missing code (a ____ blank + a typed answer).
 function normalizeQuestion(q, opts) {
     const optionSeed = opts && opts.optionSeed != null ? opts.optionSeed : null;
-    const isCyber = Array.isArray(q.options) && q.answer != null;
-    if (isCyber) {
+    if (q.correctLanguage) {
+        return {
+            style: 'languages',
+            panelText: q.codeSnippet,
+            panelIsCode: true,
+            questionText: t('langPrompt'),
+            options: buildLanguageOptions(q.correctLanguage, optionSeed),
+            answer: q.correctLanguage,
+            difficulty: q.difficulty,
+            explanation: q.explanation
+        };
+    }
+    if (Array.isArray(q.options) && q.answer != null) {
         const hasCmd = !!(q.codeSnippet && q.codeSnippet.trim().length);
         return {
             style: 'cyber',
@@ -1112,13 +1146,14 @@ function normalizeQuestion(q, opts) {
             explanation: q.explanation
         };
     }
+    // Fill-in-the-blank / code completion.
     return {
-        style: 'languages',
-        panelText: q.codeSnippet,
+        style: 'fill',
+        panelText: q.codeSnippet || '',
         panelIsCode: true,
-        questionText: t('langPrompt'),
-        options: buildLanguageOptions(q.correctLanguage, optionSeed),
-        answer: q.correctLanguage,
+        questionText: q.question ? q.question[getLang()] : t('fillPrompt'),
+        answer: q.answer,
+        accept: Array.isArray(q.accept) ? q.accept : [],
         difficulty: q.difficulty,
         explanation: q.explanation
     };
@@ -1168,13 +1203,43 @@ function nextQuestion() {
     }
 
     hideToast();
-    renderOptions(cur, false);
+    renderQuestionUI(cur, false);
     // window.__GTL_QTIME is a headless-test seam to shorten the countdown; it is
     // undefined in normal play, so real games always use the per-difficulty time.
     state.questionTime = (typeof window.__GTL_QTIME === 'number' && window.__GTL_QTIME > 0)
         ? window.__GTL_QTIME
         : timeForDifficulty(cur.difficulty);
     startTimer(state.questionTime);
+}
+
+// Render the answer UI for a question: option buttons for languages/cyber, or a
+// typed input for fill-in-the-blank. Keeps the two mutually exclusive.
+function renderQuestionUI(cur, disabled) {
+    const grid = $('#options-grid');
+    const fill = $('#fill-form');
+    if (cur.style === 'fill') {
+        grid.innerHTML = '';
+        grid.classList.add('hidden');
+        setupFillForm(disabled);
+        fill.classList.remove('hidden');
+    } else {
+        fill.classList.add('hidden');
+        renderOptions(cur, disabled);
+        grid.classList.remove('hidden');
+    }
+}
+
+function setupFillForm(disabled) {
+    const input = $('#fill-input');
+    const submit = $('#fill-submit');
+    if (input) {
+        input.value = '';
+        input.disabled = !!disabled;
+        input.classList.remove('fill-correct', 'fill-wrong');
+        input.placeholder = t('fillPlaceholder');
+    }
+    if (submit) submit.disabled = !!disabled;
+    if (!disabled && input) setTimeout(() => { try { input.focus(); } catch (e) {} }, 40);
 }
 
 function renderOptions(cur, disabled) {
@@ -1236,20 +1301,63 @@ function onAnswer(chosen, btn) {
     }
 }
 
+// Submit a typed fill-in-the-blank answer. Single-player grades and reveals
+// immediately; multiplayer submits and waits for the shared reveal.
+function submitFill() {
+    if (!state.current || state.current.style !== 'fill') return;
+    if (state.answered) return;
+    const input = $('#fill-input');
+    const typed = input ? input.value : '';
+    if (state.multiplayer) {
+        if (state.spectator) return;
+        const room = window.GTL_MULTIPLAYER.state.room;
+        if (!room || room.phase !== 'question') return;
+        state.answered = true;
+        state.mpChosen = typed;
+        if (input) input.disabled = true;
+        const submit = $('#fill-submit');
+        if (submit) submit.disabled = true;
+        showMpWaiting();
+        window.GTL_MULTIPLAYER.submitAnswer(normFill(typed), state.timeLeft)
+            .catch((e) => console.error('submit_answer:', e));
+        state.mpAnsweredIndex = state.index;
+    } else {
+        state.selectedAnswer = typed;
+        resolveCurrentQuestion(typed, false);
+    }
+}
+
 function resolveCurrentQuestion(chosen, timedOut = false) {
     if (state.answered) return;
     state.answered = true;
     clearTimer();
     const cur = state.current;
-    const correct = chosen === cur.answer;
-    const buttons = Array.from(document.querySelectorAll('#options-grid button'));
-    buttons.forEach((b) => {
-        b.disabled = true;
-        b.classList.remove('selected');
-    });
-    buttons.forEach((b) => {
-        if (b.dataset.answer === cur.answer) b.classList.add('correct');
-    });
+    const isFill = cur.style === 'fill';
+    const correct = isFill ? isFillCorrect(cur, chosen) : (chosen === cur.answer);
+
+    if (isFill) {
+        const input = $('#fill-input');
+        const submit = $('#fill-submit');
+        if (input) {
+            input.disabled = true;
+            input.classList.remove('fill-correct', 'fill-wrong');
+            input.classList.add(correct ? 'fill-correct' : 'fill-wrong');
+        }
+        if (submit) submit.disabled = true;
+    } else {
+        const buttons = Array.from(document.querySelectorAll('#options-grid button'));
+        buttons.forEach((b) => {
+            b.disabled = true;
+            b.classList.remove('selected');
+        });
+        buttons.forEach((b) => {
+            if (b.dataset.answer === cur.answer) b.classList.add('correct');
+        });
+        if (!correct && chosen) {
+            const selectedBtn = buttons.find((b) => b.dataset.answer === chosen);
+            if (selectedBtn) selectedBtn.classList.add('wrong', 'shake');
+        }
+    }
 
     if (correct) {
         state.streak += 1;
@@ -1262,12 +1370,6 @@ function resolveCurrentQuestion(chosen, timedOut = false) {
         showToast(`${t('correct')} +${gained}${state.streak >= 3 ? '  ' + t('streakBonus') : ''}  —  ${cur.explanation[getLang()]}`, 'good');
     } else {
         state.streak = 0;
-        if (chosen) {
-            const selectedBtn = Array.from(buttons).find((b) => b.dataset.answer === chosen);
-            if (selectedBtn) {
-                selectedBtn.classList.add('wrong', 'shake');
-            }
-        }
         sfx.wrong();
         showToast(`${t('wrong')} ${cur.answer}.  ${cur.explanation[getLang()]}`, 'bad');
     }
@@ -1365,11 +1467,18 @@ function startTimerFromServer() {
 function onTimeout() {
     if (state.answered) return;
     const cur = state.current;
-    const hadPick = !!state.selectedAnswer;
+    // For fill-in questions the "pick" is whatever was typed (even if not
+    // submitted); for choice questions it's the selected option.
+    let pick = state.selectedAnswer;
+    if (cur && cur.style === 'fill') {
+        const input = $('#fill-input');
+        pick = input ? input.value : '';
+    }
+    const hadPick = cur && cur.style === 'fill' ? !!normFill(pick) : !!state.selectedAnswer;
     // resolveCurrentQuestion already shows the correct/wrong feedback (and
     // handles the streak + score) for whatever the player picked. Only when
     // NOTHING was picked do we replace it with the red "time's up" message.
-    resolveCurrentQuestion(state.selectedAnswer, true);
+    resolveCurrentQuestion(pick, true);
     if (!hadPick && !state.multiplayer) {
         showToast(`${t('timeUp')} ${cur.answer}.  ${cur.explanation[getLang()]}`, 'bad');
     }
@@ -1379,13 +1488,26 @@ function onTimeout() {
 function onTimeoutMultiplayer() {
     if (state.answered) return;
     state.answered = true;
-    state.mpChosen = '';
+    // For a fill question, submit whatever was typed (even if not clicked) so it
+    // still counts; otherwise no pick was made.
+    if (state.current && state.current.style === 'fill') {
+        const input = $('#fill-input');
+        state.mpChosen = input ? input.value : '';
+        if (input) input.disabled = true;
+        const submit = $('#fill-submit');
+        if (submit) submit.disabled = true;
+    } else {
+        state.mpChosen = '';
+    }
     document.querySelectorAll('#options-grid button').forEach((b) => {
         b.disabled = true;
     });
     // The shared deadline has passed; the reveal follows almost immediately.
     showMpWaiting();
-    window.GTL_MULTIPLAYER.submitAnswer('', 0)
+    // A fill answer typed-but-not-submitted still counts on timeout.
+    const finalAnswer = state.current && state.current.style === 'fill'
+        ? normFill(state.mpChosen) : '';
+    window.GTL_MULTIPLAYER.submitAnswer(finalAnswer, 0)
         .then(() => syncMpHudFromPlayers())
         .catch((e) => console.error('timeout submit:', e));
     state.mpAnsweredIndex = state.index;
@@ -2157,8 +2279,8 @@ function showMultiplayerQuestion(room) {
     }
 
     hideToast();
-    // Spectators (joined mid-game) watch the round with the options locked.
-    renderOptions(cur, state.spectator);
+    // Spectators (joined mid-game) watch the round with the answer UI locked.
+    renderQuestionUI(cur, state.spectator);
     if (state.spectator) {
         document.querySelectorAll('#options-grid button').forEach((b) => { b.disabled = true; });
         showSpectatorBanner();
@@ -2188,6 +2310,35 @@ async function showMultiplayerReveal(room) {
     const cur = state.current;
     const ans = cur.answer;
     const chosen = state.mpChosen;
+
+    // Fill-in-the-blank reveal: mark the typed input, show the answer. Grading is
+    // canonical-only to match the server's scoring.
+    if (cur.style === 'fill') {
+        const input = $('#fill-input');
+        const submit = $('#fill-submit');
+        const ok = !state.spectator && isFillCorrect(cur, chosen, true);
+        if (input) {
+            input.disabled = true;
+            input.classList.remove('fill-correct', 'fill-wrong');
+            if (!state.spectator) input.classList.add(ok ? 'fill-correct' : 'fill-wrong');
+        }
+        if (submit) submit.disabled = true;
+        if (state.spectator) {
+            showToast(`${ans}  —  ${cur.explanation[getLang()]}`, 'good');
+        } else if (ok) {
+            sfx.correct();
+            showToast(`${t('correct')}  —  ${cur.explanation[getLang()]}`, 'good');
+        } else if (normFill(chosen)) {
+            sfx.wrong();
+            showToast(`${t('wrong')} ${ans}.  ${cur.explanation[getLang()]}`, 'bad');
+        } else {
+            sfx.wrong();
+            showToast(`${t('timeUp')} ${ans}.  ${cur.explanation[getLang()]}`, 'bad');
+        }
+        state.answered = true;
+        return;
+    }
+
     const buttons = Array.from(document.querySelectorAll('#options-grid button'));
 
     // Reset every option to a clean slate so only THIS question's answer (and the
@@ -2689,6 +2840,12 @@ function bindEvents() {
 
     // game — end the quiz early
     $('#btn-end').addEventListener('click', endQuiz);
+
+    // fill-in-the-blank answer (submit button + Enter both submit the form)
+    $('#fill-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        submitFill();
+    });
 
     // results
     $('#btn-challenge').addEventListener('click', challengeFriend);

@@ -22,8 +22,10 @@ leaderboard** (Supabase). The entire UI is available in **English and Arabic**
   (OSPF/BGP), ports and protocols.
 - **🎮 Game Dev** — game loops, physics, rendering, ECS, pathfinding, netcode,
   assets and UI systems.
-- **🧩 Problem Solving** — algorithms, data structures, Big-O complexity, and
-  LeetCode-style patterns (two pointers, sliding window, BFS/DFS, DP…).
+- **🧩 Problem Solving** — **fill-in-the-blank code completion**: type the
+  missing token in a snippet. Covers algorithms, data structures, Big-O and
+  LeetCode-style patterns (two pointers, sliding window, BFS/DFS, DP…). Grading
+  ignores case and spacing.
 - **🎲 All (Mixed)** — all six banks shuffled together; each question renders
   with its own answer style.
 
@@ -184,7 +186,7 @@ prog-game2/
 │     ├─ questions-devops.json   # devops bank (51 questions)
 │     ├─ questions-network.json  # networking bank (49 questions)
 │     ├─ questions-gamedev.json  # game-dev bank (34 questions)
-│     └─ questions-algo.json     # problem-solving bank (42 questions)
+│     └─ questions-algo.json     # problem-solving fill-in bank (34 questions)
 └─ test/
    ├─ smoke-main.js             # languages mode end-to-end (14 checks)
    ├─ smoke-cyber.js            # cybersecurity mode (12 checks)
@@ -194,7 +196,8 @@ prog-game2/
    ├─ smoke-multiplayer.js      # multiplayer UI + client smoke test (26 checks)
    ├─ smoke-all.js              # All (mixed) mode (10 checks)
    ├─ smoke-gamedev.js          # game-dev bank sanity check
-   ├─ smoke-algo.js             # problem-solving bank sanity check
+   ├─ smoke-algo.js             # problem-solving fill-in bank sanity check
+   ├─ smoke-fill.js             # fill-in-the-blank mode play (16 checks)
    ├─ smoke-shuffle.js          # option-shuffle fairness (3 checks)
    ├─ capture.js                # render screenshots of each screen
    ├─ capture-mp.js             # multiplayer lobby / reveal / results screenshots
@@ -216,10 +219,9 @@ languages and three difficulty levels:
 }
 ```
 
-**Cybersecurity / DevOps / Networking / Game Dev / Problem Solving** —
-`questions-cyber.json` (92), `questions-devops.json` (51),
-`questions-network.json` (49), `questions-gamedev.json` (34) and
-`questions-algo.json` (42) are multiple-choice banks. Each entry has its own
+**Cybersecurity / DevOps / Networking / Game Dev** — `questions-cyber.json`
+(92), `questions-devops.json` (51), `questions-network.json` (49) and
+`questions-gamedev.json` (34) are multiple-choice banks. Each entry has its own
 options:
 
 ```json
@@ -231,6 +233,23 @@ options:
   "question": { "en": "What scan does -sS perform?", "ar": "..." },
   "options": ["TCP SYN (stealth) scan", "UDP scan", "TCP connect scan", "Ping sweep"],
   "answer": "TCP SYN (stealth) scan",
+  "explanation": { "en": "...", "ar": "..." }
+}
+```
+
+**Problem Solving** — `questions-algo.json` (34) is a **fill-in-the-blank** bank:
+a `codeSnippet` with a `____` blank, a typed `answer` (with optional `accept`
+variants), and a bilingual `question` + `explanation` — no `options`:
+
+```json
+{
+  "id": 1,
+  "category": "python",
+  "difficulty": "easy",
+  "codeSnippet": "____ greet(name):\n    return \"Hi \" + name",
+  "question": { "en": "Fill the Python keyword that defines a function.", "ar": "..." },
+  "answer": "def",
+  "accept": ["def"],
   "explanation": { "en": "...", "ar": "..." }
 }
 ```

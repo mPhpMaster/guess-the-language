@@ -81,6 +81,12 @@
     return d === 'hard' ? 12 : d === 'medium' ? 14 : 15;
   }
 
+  // Must match renderer.js normFill() exactly so fill-in answer keys and the
+  // client's submitted answers normalise identically for the server's match.
+  function normFillKey(s) {
+    return String(s == null ? '' : s).trim().toLowerCase().replace(/\s+/g, ' ');
+  }
+
   function buildRoundForRoom(allQuestions, settings) {
     let pool = allQuestions.slice();
     if (settings.mode && settings.mode !== 'all') {
@@ -108,7 +114,10 @@
       roundRefs.push({ bank, id: q.id, optionSeed, duration });
 
       const isCyber = Array.isArray(q.options) && q.answer != null;
-      const answer = isCyber ? q.answer : q.correctLanguage;
+      const isFill = !isCyber && q.answer != null && !q.correctLanguage;
+      // Fill-in answers are normalised (trim/lowercase/collapse spaces) so the
+      // server's exact-match scoring lines up with the client's normalised submit.
+      const answer = isFill ? normFillKey(q.answer) : (isCyber ? q.answer : q.correctLanguage);
       answerKeys.push({ index, answer });
     });
 
