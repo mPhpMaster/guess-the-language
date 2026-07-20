@@ -90,6 +90,15 @@ window.DISCORD_ACTIVITY = {
   get active() {
     return Boolean(window.DISCORD_ACTIVITY._session);
   },
+  // Open an external link from inside the Activity iframe. Plain window.open is
+  // blocked by Discord's sandbox, so route it through the SDK command.
+  openExternal(url) {
+    const sdk = window.DISCORD_ACTIVITY._session?.sdk;
+    if (sdk?.commands?.openExternalLink) {
+      return sdk.commands.openExternalLink({ url });
+    }
+    return null;
+  },
   _session: null
 };
 

@@ -37,6 +37,15 @@ const LANGUAGES = [{
     }
 ];
 
+// Badge colours for multiple-choice options (A/B/C/D), so the other quiz types
+// get the same card-with-icon look as the programming-language buttons.
+const OPTION_COLORS = [
+    'linear-gradient(135deg,#5fd0ff,#2b7fd8)',
+    'linear-gradient(135deg,#19f0c4,#12a988)',
+    'linear-gradient(135deg,#ffd874,#e0a83c)',
+    'linear-gradient(135deg,#ff7a9c,#d8436c)'
+];
+
 // ---------- Mock friends for the comparison screen ----------
 const FRIENDS = [{
         name: 'Ahmed',
@@ -862,7 +871,7 @@ function renderOptions(cur, disabled) {
     grid.innerHTML = '';
     grid.classList.toggle('cyber', cur.style === 'cyber');
     grid.classList.toggle('languages', cur.style === 'languages');
-    cur.options.forEach((opt) => {
+    cur.options.forEach((opt, index) => {
         const btn = document.createElement('button');
         btn.dataset.answer = opt.label;
         btn.disabled = !!disabled;
@@ -872,8 +881,18 @@ function renderOptions(cur, disabled) {
                 `<span class="lang-icon" style="background:${opt.color}">${opt.glyph}</span>` +
                 `<span class="lang-name">${opt.label}</span>`;
         } else {
+            // Give multiple-choice options the same card-with-icon look as the
+            // language buttons: a lettered A/B/C/D badge plus the answer text.
             btn.className = 'opt-btn';
-            btn.textContent = opt.label;
+            const badge = document.createElement('span');
+            badge.className = 'opt-badge';
+            badge.style.background = OPTION_COLORS[index % OPTION_COLORS.length];
+            badge.textContent = String.fromCharCode(65 + index);
+            const text = document.createElement('span');
+            text.className = 'opt-text';
+            text.textContent = opt.label;
+            btn.appendChild(badge);
+            btn.appendChild(text);
         }
         btn.addEventListener('click', () => {
             if (state.multiplayer) onAnswerMultiplayer(opt.label, btn);
@@ -895,6 +914,14 @@ function onAnswer(chosen, btn) {
     clearSelectedOption();
     if (btn) {
         btn.classList.add('selected');
+    }
+    // Once a choice is locked in, don't make the player wait out a long timer:
+    // if more than 2s remain, fast-forward the countdown to 2s (the answer stays
+    // changeable during that window, then resolves).
+    if (state.timeLeft > 2) {
+        state.timeLeft = 2;
+        updateTimerDisplay();
+        setRing(state.timeLeft / state.questionTime);
     }
 }
 
@@ -2082,12 +2109,7 @@ function bindEvents() {
     document.querySelectorAll('.about-link').forEach((b) => {
         b.addEventListener('click', (event) => {
             event.preventDefault();
-            const url = b.dataset.url;
-            if (window.appWindow ?.openExternal) {
-                window.appWindow.openExternal(url);
-            } else if (typeof url === 'string' && url) {
-                window.open(url, '_blank', 'noopener,noreferrer');
-            }
+            openExternalUrl(b.dataset.url);
         });
     });
 
@@ -2152,6 +2174,31 @@ async function openAbout() {
         if (v) $('#about-version').textContent = 'v' + v;
     } catch {
         /* ignore */ }
+}
+
+// Open an external URL the right way for the current platform: through the
+// Discord SDK inside an Activity (plain window.open is sandboxed there), a new
+// browser tab on the web, or the OS browser via Electron's shell.
+function openExternalUrl(url) {
+    if (!url || typeof url !== 'string') return;
+    const da = window.DISCORD_ACTIVITY;
+    if (da?.active && typeof da.openExternal === 'function') {
+        try {
+            Promise.resolve(da.openExternal(url)).catch((e) => console.warn('openExternalLink:', e));
+        } catch (e) {
+            console.warn('openExternalLink:', e);
+        }
+        return;
+    }
+    if (document.documentElement.classList.contains('platform-web')) {
+        window.open(url, '_blank', 'noopener');
+        return;
+    }
+    if (window.appWindow?.openExternal) {
+        window.appWindow.openExternal(url);
+        return;
+    }
+    window.open(url, '_blank', 'noopener');
 }
 
 // Select a mode in place: highlight it, load its bank, enable Start. Stays home.
