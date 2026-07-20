@@ -146,6 +146,7 @@ const I18N = {
         discordAutoMp: 'Multiplayer is automatic here — everyone in this voice channel shares the same room.',
         discordJoining: 'Joining voice channel room…',
         loginDiscord: '💬  Login with Discord',
+        loginDiscordToPlay: 'Sign in with Discord to play',
         logoutDiscord: '🚪  Log out',
         discordLinkedAs: 'Signed in as',
         discordLoginFailed: 'Discord login failed. Please try again.',
@@ -246,6 +247,7 @@ const I18N = {
         discordAutoMp: 'اللعب الجماعي تلقائي هنا — الجميع في قناة الصوت يشاركون نفس الغرفة.',
         discordJoining: 'جارٍ الانضمام لغرفة قناة الصوت…',
         loginDiscord: '💬  تسجيل الدخول عبر Discord',
+        loginDiscordToPlay: 'سجّل الدخول عبر Discord للّعب',
         logoutDiscord: '🚪  تسجيل الخروج',
         discordLinkedAs: 'مسجّل الدخول باسم',
         discordLoginFailed: 'فشل تسجيل الدخول عبر Discord. حاول مرة أخرى.',
@@ -636,6 +638,18 @@ function isDiscordLinked() {
     return isDiscordActivity() || !!getLinkedDiscordUser();
 }
 
+// On the plain web build a Discord sign-in is required before playing (inside an
+// Activity you're already signed in; Electron can't do the OAuth redirect).
+function requiresDiscordLogin() {
+    return document.documentElement.classList.contains('platform-web') && !isDiscordActivity();
+}
+
+// Can the player start a game right now?
+function canPlay() {
+    if (requiresDiscordLogin()) return isDiscordLinked();
+    return isDiscordActivity() || !!getPlayerNameInputValue();
+}
+
 // A unified Discord profile { id, name, avatar } from either the Activity SDK
 // or a web "Login with Discord".
 function getDiscordProfile() {
@@ -653,13 +667,48 @@ function discordAvatarUrl(user) {
     return null;
 }
 
-// Show the signed-in Discord user's avatar + name on the home screen.
+// Show the signed-in Discord user's avatar + name on the home screen, or a
+// "Sign in with Discord to play" call-to-action when sign-in is required.
 function updateHomeProfile() {
     const el = $('#home-profile');
+    const profile = getDiscordProfile();
+    if (el) {
+        if (profile && profile.name) {
+            const img = $('#home-profile-avatar');
+            const url = discordAvatarUrl(profile);
+            if (img) {
+                if (url) {
+                    img.src = url;
+                    img.classList.remove('hidden');
+                } else {
+                    img.classList.add('hidden');
+                }
+            }
+            const nameEl = $('#home-profile-name');
+            if (nameEl) nameEl.textContent = profile.name;
+            el.classList.remove('hidden');
+        } else {
+            el.classList.add('hidden');
+        }
+    }
+    const cta = $('#home-login-cta');
+    if (cta) cta.classList.toggle('hidden', !(requiresDiscordLogin() && !isDiscordLinked()));
+}
+
+// Web login only: unlink the Discord account so the name is editable again.
+function discordLogout() {
+    localStorage.removeItem('gtl_discord_user');
+    applySettingsToUI();
+    updateHomeProfile();
+}
+
+// Show the player's real Discord avatar + name in the in-game HUD.
+function updateInGameProfile() {
+    const el = $('#game-player');
     if (!el) return;
     const profile = getDiscordProfile();
     if (profile && profile.name) {
-        const img = $('#home-profile-avatar');
+        const img = $('#game-player-avatar');
         const url = discordAvatarUrl(profile);
         if (img) {
             if (url) {
@@ -669,19 +718,12 @@ function updateHomeProfile() {
                 img.classList.add('hidden');
             }
         }
-        const nameEl = $('#home-profile-name');
+        const nameEl = $('#game-player-name');
         if (nameEl) nameEl.textContent = profile.name;
         el.classList.remove('hidden');
     } else {
         el.classList.add('hidden');
     }
-}
-
-// Web login only: unlink the Discord account so the name is editable again.
-function discordLogout() {
-    localStorage.removeItem('gtl_discord_user');
-    applySettingsToUI();
-    updateHomeProfile();
 }
 
 // The "Login with Discord" button is only useful on the plain web build: the
@@ -826,7 +868,7 @@ function openSettingsPanel() {
 async function ensureValidPlayerName() {
     const previousName = getSettings().name ? getSettings().name.trim().toLowerCase() : '';
     saveSettingsFromUI();
-    if (isDiscordActivity()) {
+    if (isDiscordLinked()) {
         return { valid: true, name: getPlayerName() };
     }
 
@@ -859,17 +901,20 @@ function updateStartButtonState() {
     const startBtn = $('#btn-start');
     if (startBtn) {
         const hasQuestions = Array.isArray(state.allQuestions) && state.allQuestions.length > 0;
-        const canStart = hasQuestions && (isDiscordActivity() || !!getPlayerNameInputValue());
-        startBtn.disabled = !canStart;
+        startBtn.disabled = !(hasQuestions && canPlay());
     }
-    // Host / Join require a name too (and an online connection).
+    // Host / Join follow the same gate.
     refreshMultiplayerButtons();
 }
 
-// The player must have a name before they can start/host/join anything. Returns
-// false (and opens the settings panel) when the name is still missing.
+// Gate before starting/hosting/joining. On the web build that means signing in
+// with Discord (we kick off the flow); elsewhere it means having a name.
 function requireNameToInteract() {
-    if (isDiscordActivity() || getPlayerNameInputValue()) return true;
+    if (canPlay()) return true;
+    if (requiresDiscordLogin()) {
+        startDiscordLogin();
+        return false;
+    }
     openSettingsPanel();
     alert(t('nameRequired'));
     return false;
@@ -918,6 +963,9 @@ function buildRound() {
 //  Game flow
 // ============================================================
 async function startGame() {
+    // On the web build you must sign in with Discord first (this kicks off the
+    // flow); the button is also disabled, so this is mostly a safety net.
+    if (!requireNameToInteract()) return;
     const nameCheck = await ensureValidPlayerName();
     if (!nameCheck.valid) {
         alert(nameCheck.message || t('nameRequired'));
@@ -936,6 +984,7 @@ async function startGame() {
     updateStreakPill();
     $('#q-total').textContent = String(state.round.length);
     $('#correct-total').textContent = String(state.round.length);
+    updateInGameProfile();
     showScreen('game');
     nextQuestion();
 }
@@ -1468,14 +1517,17 @@ async function buildResultsLeaderboard() {
                 you: false
             }));
             if (state.score > 0) {
+                const myAvatar = discordAvatarUrl(getDiscordProfile()) || avatarFor(playerName);
                 // Flag the player's row (by inserted id, else by name+score heuristic).
                 let mine = me ? list.find((p) => p.id === me.id) : null;
                 if (!mine) mine = list.find((p) => !p.you && p.name === playerName && p.score === state.score);
-                if (mine) mine.you = true;
-                else list.push({
+                if (mine) {
+                    mine.you = true;
+                    mine.avatar = myAvatar;
+                } else list.push({
                     id: -1,
                     name: playerName,
-                    avatar: avatarFor(playerName),
+                    avatar: myAvatar,
                     score: state.score,
                     you: true
                 });
@@ -1500,7 +1552,7 @@ async function buildResultsLeaderboard() {
     $('.results-sub').textContent = t('comparison');
     renderLeaderboard(FRIENDS.concat([{
         name: playerName,
-        avatar: '🧑‍💻',
+        avatar: discordAvatarUrl(getDiscordProfile()) || '🧑‍💻',
         score: state.score,
         you: true
     }]));
@@ -1554,7 +1606,17 @@ function renderLeaderboard(list) {
         wrap.appendChild(label);
         const avatar = document.createElement('div');
         avatar.className = 'lb-avatar';
-        avatar.textContent = p.avatar;
+        // A real Discord avatar URL renders as an image; anything else is emoji.
+        if (typeof p.avatar === 'string' && /^https?:\/\//.test(p.avatar)) {
+            const img = document.createElement('img');
+            img.className = 'lb-avatar-img';
+            img.src = p.avatar;
+            img.alt = '';
+            img.referrerPolicy = 'no-referrer';
+            avatar.appendChild(img);
+        } else {
+            avatar.textContent = p.avatar;
+        }
         if (p.color) {
             avatar.style.background = p.color + '22';
             avatar.style.borderColor = p.color;
@@ -1604,13 +1666,16 @@ function refreshMultiplayerButtons() {
     if (mpRow) mpRow.classList.toggle('hidden', discord);
     const discordNote = $('#discord-mp-note');
     if (discordNote) discordNote.classList.toggle('hidden', !discord);
-    // Hosting or joining needs both an online connection AND a name.
-    const hasName = discord || !!getPlayerNameInputValue();
-    const enable = on && hasName;
+    // Hosting or joining needs an online connection plus a playable identity
+    // (a name, or a Discord sign-in where that's required).
+    const ready = canPlay();
+    const enable = on && ready;
     $('#btn-host').disabled = !enable;
     $('#btn-join').disabled = !enable;
     if (!enable) {
-        const msg = !hasName ? t('nameRequired') : t('mpNeedOnline');
+        const msg = !ready
+            ? (requiresDiscordLogin() ? t('loginDiscordToPlay') : t('nameRequired'))
+            : t('mpNeedOnline');
         $('#btn-host').title = msg;
         $('#btn-join').title = msg;
     } else {
@@ -1760,6 +1825,7 @@ function showMpGameChrome(room) {
     $('#mp-game-strip').classList.remove('hidden');
     $('#mp-room-code').textContent = room.code;
     $('#btn-end').classList.toggle('hidden', !window.GTL_MULTIPLAYER.state.isAdmin);
+    updateInGameProfile();
     renderMpPlayerList('#mp-game-players', window.GTL_MULTIPLAYER.state.players, {
         compact: true,
         showKick: false
@@ -2264,6 +2330,7 @@ function bindEvents() {
     $('#set-name').addEventListener('input', () => updateStartButtonState());
     $('#btn-discord-login')?.addEventListener('click', startDiscordLogin);
     $('#btn-discord-logout')?.addEventListener('click', discordLogout);
+    $('#home-login-cta')?.addEventListener('click', startDiscordLogin);
 
     // about
     $('#btn-about').addEventListener('click', () => {

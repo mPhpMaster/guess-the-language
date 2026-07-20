@@ -40,6 +40,9 @@
           <img class="home-profile-avatar" id="home-profile-avatar" alt="" referrerpolicy="no-referrer" />
           <span class="home-profile-name" id="home-profile-name"></span>
         </div>
+        <button class="btn btn-discord home-login-cta hidden" id="home-login-cta" data-i18n="loginDiscord">
+          &#128172;  Login with Discord
+        </button>
 
         <div class="mode-grid" id="mode-grid">
           <button class="mode-card" data-mode="languages">
@@ -264,6 +267,10 @@
       </div>
       <div class="game-topbar">
         <div class="topbar-left">
+          <div class="game-player hidden" id="game-player">
+            <img class="game-player-avatar" id="game-player-avatar" alt="" referrerpolicy="no-referrer" />
+            <span class="game-player-name" id="game-player-name"></span>
+          </div>
           <div class="score-pill"><span data-i18n="score">Score:</span> <span id="game-score">0</span></div>
           <div class="correct-pill">✓ <span id="correct-count">0</span>/<span id="correct-total">10</span></div>
           <div class="streak-pill hidden" id="streak-pill">🔥 <span id="streak-count">0</span> &nbsp;×1.5</div>
