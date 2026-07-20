@@ -2340,10 +2340,12 @@ function bindEvents() {
         openAbout();
     });
     $('#about-close').addEventListener('click', () => $('#about-panel').classList.add('hidden'));
-    document.querySelectorAll('.about-link').forEach((b) => {
+    document.querySelectorAll('.about-link, .about-legal-link').forEach((b) => {
         b.addEventListener('click', (event) => {
             event.preventDefault();
-            openExternalUrl(b.dataset.url);
+            // Buttons carry data-url; the legal <a> links carry an href (already
+            // resolved to an absolute URL by the browser).
+            openExternalUrl(b.dataset.url || b.href);
         });
     });
 
@@ -2416,23 +2418,33 @@ async function openAbout() {
 function openExternalUrl(url) {
     if (!url || typeof url !== 'string') return;
     const da = window.DISCORD_ACTIVITY;
+    // Discord Activity: external links must go through the SDK (window.open is
+    // sandboxed inside the iframe).
     if (da?.active && typeof da.openExternal === 'function') {
         try {
-            Promise.resolve(da.openExternal(url)).catch((e) => console.warn('openExternalLink:', e));
+            const r = da.openExternal(url);
+            if (r && typeof r.then === 'function') r.catch((e) => console.warn('openExternalLink:', e));
         } catch (e) {
             console.warn('openExternalLink:', e);
         }
         return;
     }
-    if (document.documentElement.classList.contains('platform-web')) {
-        window.open(url, '_blank', 'noopener');
-        return;
-    }
-    if (window.appWindow?.openExternal) {
+    // Electron desktop: hand off to the OS browser.
+    const isWeb = document.documentElement.classList.contains('platform-web');
+    if (!isWeb && window.appWindow && typeof window.appWindow.openExternal === 'function') {
         window.appWindow.openExternal(url);
         return;
     }
-    window.open(url, '_blank', 'noopener');
+    // Web: a synthetic <a target="_blank"> click opens a real tab — unlike
+    // window.open(...) with a features string, it isn't treated as a popup and
+    // so isn't blocked.
+    const a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
 }
 
 // Select a mode in place: highlight it, load its bank, enable Start. Stays home.
