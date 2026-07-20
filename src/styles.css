@@ -282,6 +282,15 @@ html.platform-discord .lobby-code {
   margin-top: 4px;
 }
 .btn-discord:hover { background: #4752c4; border-color: #4752c4; box-shadow: 0 10px 30px #5865f255; }
+.btn-discord-logout {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 122, 156, 0.4);
+  color: #ffb3c4;
+  width: 100%;
+  justify-content: center;
+  margin-top: 4px;
+}
+.btn-discord-logout:hover { background: rgba(255, 122, 156, 0.14); border-color: rgba(255, 122, 156, 0.65); }
 .discord-login-status {
   margin: 6px 0 2px;
   font-size: 12px;
@@ -289,6 +298,28 @@ html.platform-discord .lobby-code {
   color: var(--neon-2);
   text-align: center;
 }
+
+/* Signed-in Discord user chip on the home screen */
+.home-profile {
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+  gap: 10px;
+  margin: -4px 0 20px;
+  padding: 5px 16px 5px 6px;
+  background: #ffffff0f;
+  border: 1px solid #ffffff22;
+  border-radius: 999px;
+}
+.home-profile-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #0e2238;
+  border: 1px solid #ffffff22;
+}
+.home-profile-name { font-weight: 700; font-size: 14px; color: var(--text); }
 
 /* ===================== Menu screen ===================== */
 .menu-card {

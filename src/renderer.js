@@ -146,6 +146,7 @@ const I18N = {
         discordAutoMp: 'Multiplayer is automatic here — everyone in this voice channel shares the same room.',
         discordJoining: 'Joining voice channel room…',
         loginDiscord: '💬  Login with Discord',
+        logoutDiscord: '🚪  Log out',
         discordLinkedAs: 'Signed in as',
         discordLoginFailed: 'Discord login failed. Please try again.',
         roomCode: 'Room code',
@@ -245,6 +246,7 @@ const I18N = {
         discordAutoMp: 'اللعب الجماعي تلقائي هنا — الجميع في قناة الصوت يشاركون نفس الغرفة.',
         discordJoining: 'جارٍ الانضمام لغرفة قناة الصوت…',
         loginDiscord: '💬  تسجيل الدخول عبر Discord',
+        logoutDiscord: '🚪  تسجيل الخروج',
         discordLinkedAs: 'مسجّل الدخول باسم',
         discordLoginFailed: 'فشل تسجيل الدخول عبر Discord. حاول مرة أخرى.',
         roomCode: 'رمز الغرفة',
@@ -606,8 +608,11 @@ function syncDiscordNameField() {
     const nameLabel = $('#set-name-label');
     if (!nameInput || !nameLabel) return;
 
-    if (isDiscordActivity()) {
-        nameInput.value = getDiscordDisplayName() || 'User';
+    // Lock the name field whenever the player is signed in through Discord —
+    // either an Activity (SDK) or a web "Login with Discord".
+    const profile = getDiscordProfile();
+    if (profile) {
+        if (profile.name) nameInput.value = profile.name;
         nameInput.disabled = true;
         nameInput.classList.add('discord-locked');
         nameLabel.textContent = t('settingNameDiscord');
@@ -627,21 +632,75 @@ function getLinkedDiscordUser() {
     }
 }
 
+function isDiscordLinked() {
+    return isDiscordActivity() || !!getLinkedDiscordUser();
+}
+
+// A unified Discord profile { id, name, avatar } from either the Activity SDK
+// or a web "Login with Discord".
+function getDiscordProfile() {
+    if (isDiscordActivity()) {
+        const u = window.DISCORD_ACTIVITY.user;
+        if (u) return { id: u.id, name: sanitizeName(u.global_name || u.username || ''), avatar: u.avatar || null };
+    }
+    return getLinkedDiscordUser();
+}
+
+function discordAvatarUrl(user) {
+    if (user && user.id && user.avatar) {
+        return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=64`;
+    }
+    return null;
+}
+
+// Show the signed-in Discord user's avatar + name on the home screen.
+function updateHomeProfile() {
+    const el = $('#home-profile');
+    if (!el) return;
+    const profile = getDiscordProfile();
+    if (profile && profile.name) {
+        const img = $('#home-profile-avatar');
+        const url = discordAvatarUrl(profile);
+        if (img) {
+            if (url) {
+                img.src = url;
+                img.classList.remove('hidden');
+            } else {
+                img.classList.add('hidden');
+            }
+        }
+        const nameEl = $('#home-profile-name');
+        if (nameEl) nameEl.textContent = profile.name;
+        el.classList.remove('hidden');
+    } else {
+        el.classList.add('hidden');
+    }
+}
+
+// Web login only: unlink the Discord account so the name is editable again.
+function discordLogout() {
+    localStorage.removeItem('gtl_discord_user');
+    applySettingsToUI();
+    updateHomeProfile();
+}
+
 // The "Login with Discord" button is only useful on the plain web build: the
 // Electron file:// origin can't be an OAuth redirect target, and inside a
 // Discord Activity the name is already filled from the SDK.
 function updateDiscordLoginButton() {
-    const btn = $('#btn-discord-login');
-    if (!btn) return;
+    const loginBtn = $('#btn-discord-login');
+    const logoutBtn = $('#btn-discord-logout');
+    const status = $('#discord-login-status');
     const web = document.documentElement.classList.contains('platform-web');
     const configured = !!(window.DISCORD_CONFIG && window.DISCORD_CONFIG.clientId);
-    const show = web && configured && !isDiscordActivity();
-    btn.classList.toggle('hidden', !show);
-
-    const status = $('#discord-login-status');
+    const area = web && configured && !isDiscordActivity();
     const linked = getLinkedDiscordUser();
+
+    // Signed out -> show Login; signed in -> show Logout instead.
+    if (loginBtn) loginBtn.classList.toggle('hidden', !(area && !linked));
+    if (logoutBtn) logoutBtn.classList.toggle('hidden', !(area && linked));
     if (status) {
-        if (show && linked && linked.name) {
+        if (area && linked && linked.name) {
             status.textContent = `${t('discordLinkedAs')} ${linked.name}`;
             status.classList.remove('hidden');
         } else {
@@ -718,6 +777,7 @@ function applySettingsToUI() {
     $('#set-difficulty').value = s.difficulty;
     syncDiscordNameField();
     updateDiscordLoginButton();
+    updateHomeProfile();
     updateStartButtonState();
 }
 
@@ -726,7 +786,7 @@ function saveSettingsFromUI() {
     // 0-question round: fall back to the current or default question count.
     const q = Number($('#set-questions').value);
     store.settings = {
-        name: isDiscordActivity()
+        name: isDiscordLinked()
             ? (getSettings().name || '')
             : sanitizeName($('#set-name').value),
         questions: q > 0 ? q : (getSettings().questions || defaultSettings.questions),
@@ -2203,6 +2263,7 @@ function bindEvents() {
     });
     $('#set-name').addEventListener('input', () => updateStartButtonState());
     $('#btn-discord-login')?.addEventListener('click', startDiscordLogin);
+    $('#btn-discord-logout')?.addEventListener('click', discordLogout);
 
     // about
     $('#btn-about').addEventListener('click', () => {
