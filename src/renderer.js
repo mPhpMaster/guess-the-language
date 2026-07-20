@@ -1266,10 +1266,12 @@ function startTimerFromServer() {
 function onTimeout() {
     if (state.answered) return;
     const cur = state.current;
-    state.streak = 0;
+    const hadPick = !!state.selectedAnswer;
+    // resolveCurrentQuestion already shows the correct/wrong feedback (and
+    // handles the streak + score) for whatever the player picked. Only when
+    // NOTHING was picked do we replace it with the red "time's up" message.
     resolveCurrentQuestion(state.selectedAnswer, true);
-    if (!state.multiplayer) {
-        sfx.wrong();
+    if (!hadPick && !state.multiplayer) {
         showToast(`${t('timeUp')} ${cur.answer}.  ${cur.explanation[getLang()]}`, 'bad');
     }
     updateStreakPill();
