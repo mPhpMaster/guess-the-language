@@ -522,6 +522,7 @@ const defaultSettings = {
     questions: 10,
     sound: true,
     difficulty: 'all',
+    timer: 'auto',
     name: ''
 };
 
@@ -905,6 +906,7 @@ function applySettingsToUI() {
     $('#set-questions').value = String(s.questions);
     $('#set-sound').checked = !!s.sound;
     $('#set-difficulty').value = s.difficulty;
+    $('#set-timer').value = String(s.timer || 'auto');
     syncDiscordNameField();
     updateDiscordLoginButton();
     updateHomeProfile();
@@ -915,13 +917,15 @@ function saveSettingsFromUI() {
     // Guard against an empty / non-option #set-questions value writing a
     // 0-question round: fall back to the current or default question count.
     const q = Number($('#set-questions').value);
+    const timerRaw = $('#set-timer') ? $('#set-timer').value : 'auto';
     store.settings = {
         name: isDiscordLinked()
             ? (getSettings().name || '')
             : sanitizeName($('#set-name').value),
         questions: q > 0 ? q : (getSettings().questions || defaultSettings.questions),
         sound: $('#set-sound').checked,
-        difficulty: $('#set-difficulty').value
+        difficulty: $('#set-difficulty').value,
+        timer: timerRaw === 'auto' ? 'auto' : (Number(timerRaw) || 'auto')
     };
     updateStartButtonState();
 }
@@ -1055,6 +1059,19 @@ function scoreAnswer(timeLeft, streakAfter) {
 
 function timeForDifficulty(d) {
     return d === 'hard' ? 12 : d === 'medium' ? 14 : 15;
+}
+
+// Seconds for a single-player question: the headless-test seam wins, then the
+// player's "Time per question" setting (a fixed value or "auto"), else the
+// per-difficulty default.
+function resolvedQuestionTime(difficulty) {
+    if (typeof window.__GTL_QTIME === 'number' && window.__GTL_QTIME > 0) return window.__GTL_QTIME;
+    const t = getSettings().timer;
+    if (t && t !== 'auto') {
+        const n = Number(t);
+        if (n > 0) return n;
+    }
+    return timeForDifficulty(difficulty);
 }
 
 function buildRoundFromPool(pool, settings) {
@@ -1204,11 +1221,7 @@ function nextQuestion() {
 
     hideToast();
     renderQuestionUI(cur, false);
-    // window.__GTL_QTIME is a headless-test seam to shorten the countdown; it is
-    // undefined in normal play, so real games always use the per-difficulty time.
-    state.questionTime = (typeof window.__GTL_QTIME === 'number' && window.__GTL_QTIME > 0)
-        ? window.__GTL_QTIME
-        : timeForDifficulty(cur.difficulty);
+    state.questionTime = resolvedQuestionTime(cur.difficulty);
     startTimer(state.questionTime);
 }
 
