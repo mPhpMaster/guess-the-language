@@ -11,7 +11,8 @@ const fs = require('fs');
 const SRC = path.join(__dirname, '..', 'src');
 const FILES = {
   languages: 'questions.json', cybersecurity: 'questions-cyber.json',
-  devops: 'questions-devops.json', network: 'questions-network.json'
+  devops: 'questions-devops.json', network: 'questions-network.json',
+  gamedev: 'questions-gamedev.json', algorithms: 'questions-algo.json'
 };
 const read = async (f) => JSON.parse(await fs.promises.readFile(path.join(SRC, 'data', f), 'utf-8'));
 ipcMain.handle('questions:get', async (_e, mode) => {
@@ -43,7 +44,7 @@ app.whenReady().then(async () => {
 
   try {
     const cardCount = await run("document.querySelectorAll('.mode-card').length");
-    check('mode picker offers all modes', cardCount === 6, `cards=${cardCount}`);
+    check('mode picker offers all modes', cardCount === 7, `cards=${cardCount}`);
 
     const merged = await run("window.gameAPI.getQuestions('all').then(a => ({ total: a.length, langs: a.filter(q => q.correctLanguage).length, choice: a.filter(q => Array.isArray(q.options)).length }))");
     check('merged bank is large', merged.total >= 300, `total=${merged.total}`);

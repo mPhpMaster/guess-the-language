@@ -15,6 +15,7 @@ All items below are implemented (kept here as a changelog of requests).
 - [x] Discord Activity: auto voice-channel rooms, solo start, spectators, challenge links
 - [x] Login with Discord
 - [x] Installable PWA / mobile app
+- [x] "Problem Solving" mode — algorithms, data structures, Big-O & LeetCode patterns
 
 ## Open ideas
 

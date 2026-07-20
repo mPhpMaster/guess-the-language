@@ -4,12 +4,12 @@
 
 An interactive quiz game for **Windows** (Electron), the **web** (also an
 installable **PWA / mobile app**), and **Discord** (as an embedded Activity).
-From a single home page you pick one of six quiz modes and race the timer — with
+From a single home page you pick one of seven quiz modes and race the timer — with
 scoring, streaks, a correct/total counter, and a per-mode **live global
 leaderboard** (Supabase). The entire UI is available in **English and Arabic**
 (with full RTL layout), switchable anytime.
 
-### Six game modes
+### Seven game modes
 - **💻 Programming Languages** — a code snippet appears; guess the language.
   15-language pool (Python, JavaScript, TypeScript, C, C++, C#, Java, Kotlin,
   Swift, Rust, Go, Ruby, PHP, SQL, Bash); each question shows the correct answer
@@ -22,7 +22,9 @@ leaderboard** (Supabase). The entire UI is available in **English and Arabic**
   (OSPF/BGP), ports and protocols.
 - **🎮 Game Dev** — game loops, physics, rendering, ECS, pathfinding, netcode,
   assets and UI systems.
-- **🎲 All (Mixed)** — all five banks shuffled together; each question renders
+- **🧩 Problem Solving** — algorithms, data structures, Big-O complexity, and
+  LeetCode-style patterns (two pointers, sliding window, BFS/DFS, DP…).
+- **🎲 All (Mixed)** — all six banks shuffled together; each question renders
   with its own answer style.
 
 ![Home](screenshots/8-modeselect.png)
@@ -181,7 +183,8 @@ prog-game2/
 │     ├─ questions-cyber.json    # cybersecurity bank (92 questions)
 │     ├─ questions-devops.json   # devops bank (51 questions)
 │     ├─ questions-network.json  # networking bank (49 questions)
-│     └─ questions-gamedev.json  # game-dev bank (34 questions)
+│     ├─ questions-gamedev.json  # game-dev bank (34 questions)
+│     └─ questions-algo.json     # problem-solving bank (42 questions)
 └─ test/
    ├─ smoke-main.js             # languages mode end-to-end (14 checks)
    ├─ smoke-cyber.js            # cybersecurity mode (12 checks)
@@ -191,6 +194,7 @@ prog-game2/
    ├─ smoke-multiplayer.js      # multiplayer UI + client smoke test (26 checks)
    ├─ smoke-all.js              # All (mixed) mode (10 checks)
    ├─ smoke-gamedev.js          # game-dev bank sanity check
+   ├─ smoke-algo.js             # problem-solving bank sanity check
    ├─ smoke-shuffle.js          # option-shuffle fairness (3 checks)
    ├─ capture.js                # render screenshots of each screen
    ├─ capture-mp.js             # multiplayer lobby / reveal / results screenshots
@@ -212,9 +216,10 @@ languages and three difficulty levels:
 }
 ```
 
-**Cybersecurity / DevOps / Networking / Game Dev** — `questions-cyber.json`
-(92), `questions-devops.json` (51), `questions-network.json` (49) and
-`questions-gamedev.json` (34) are multiple-choice banks. Each entry has its own
+**Cybersecurity / DevOps / Networking / Game Dev / Problem Solving** —
+`questions-cyber.json` (92), `questions-devops.json` (51),
+`questions-network.json` (49), `questions-gamedev.json` (34) and
+`questions-algo.json` (42) are multiple-choice banks. Each entry has its own
 options:
 
 ```json
