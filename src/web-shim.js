@@ -57,4 +57,14 @@
   };
 
   document.documentElement.classList.add('platform-web');
+
+  // Register the service worker so the web build is an installable PWA (mobile
+  // app) that also works offline. Skip file:// (Electron) and iframes (the
+  // Discord Activity), where a SW is unwanted.
+  const inIframe = window.top !== window.self;
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http') && !inIframe) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
+  }
 })();

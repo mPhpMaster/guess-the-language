@@ -16,14 +16,39 @@ const LANGUAGES = [{
         color: 'linear-gradient(135deg,#f7df1e,#e0c500)'
     },
     {
+        name: 'TypeScript',
+        glyph: 'TS',
+        color: 'linear-gradient(135deg,#4b8bf5,#2f6fdc)'
+    },
+    {
         name: 'C++',
         glyph: 'C++',
         color: 'linear-gradient(135deg,#6aa9e0,#2b69b3)'
     },
     {
+        name: 'C',
+        glyph: 'C',
+        color: 'linear-gradient(135deg,#8aa4bf,#4a6f8f)'
+    },
+    {
+        name: 'C#',
+        glyph: 'C#',
+        color: 'linear-gradient(135deg,#b07adf,#68217a)'
+    },
+    {
         name: 'Java',
         glyph: '☕',
         color: 'linear-gradient(135deg,#f89820,#c8442b)'
+    },
+    {
+        name: 'Kotlin',
+        glyph: 'Kt',
+        color: 'linear-gradient(135deg,#c08cf5,#7f52ff)'
+    },
+    {
+        name: 'Swift',
+        glyph: '🐦',
+        color: 'linear-gradient(135deg,#ff8f5e,#f05138)'
     },
     {
         name: 'Rust',
@@ -34,6 +59,26 @@ const LANGUAGES = [{
         name: 'Go',
         glyph: '🐹',
         color: 'linear-gradient(135deg,#7fd5ea,#00add8)'
+    },
+    {
+        name: 'Ruby',
+        glyph: '💎',
+        color: 'linear-gradient(135deg,#e06b6b,#cc342d)'
+    },
+    {
+        name: 'PHP',
+        glyph: '🐘',
+        color: 'linear-gradient(135deg,#8a93c8,#4F5B93)'
+    },
+    {
+        name: 'SQL',
+        glyph: '🗄️',
+        color: 'linear-gradient(135deg,#5fc9d0,#2f8f96)'
+    },
+    {
+        name: 'Bash',
+        glyph: '🐚',
+        color: 'linear-gradient(135deg,#8fd48f,#4e9a4e)'
     }
 ];
 
@@ -960,6 +1005,27 @@ function shuffleOptions(arr, optionSeed) {
     return shuffle(arr);
 }
 
+// Number of language choices shown per question. The pool (LANGUAGES) is larger,
+// so each question shows the correct language plus a rotating set of distractors.
+const LANG_OPTION_COUNT = 6;
+
+// Pick the on-screen language options for a question: the correct language plus
+// (LANG_OPTION_COUNT-1) distractors from the pool, then shuffle. optionSeed keeps
+// the selection identical for every player in a multiplayer round.
+function buildLanguageOptions(correctName, optionSeed) {
+    const correct =
+        LANGUAGES.find((l) => l.name === correctName) ||
+        { name: correctName, glyph: '?', color: 'linear-gradient(135deg,#8aa4bf,#4a6f8f)' };
+    const others = LANGUAGES.filter((l) => l.name !== correct.name);
+    const distractors = shuffleOptions(others, optionSeed).slice(0, LANG_OPTION_COUNT - 1);
+    const seed2 = optionSeed != null ? ((optionSeed ^ 0x9e3779b9) >>> 0) : null;
+    return shuffleOptions([correct, ...distractors], seed2).map((l) => ({
+        label: l.name,
+        glyph: l.glyph,
+        color: l.color
+    }));
+}
+
 function scoreAnswer(timeLeft, streakAfter) {
     const multiplier = streakAfter >= 3 ? 1.5 : 1;
     return Math.round((100 + 10 * Math.max(0, timeLeft)) * multiplier);
@@ -1035,11 +1101,7 @@ function normalizeQuestion(q, opts) {
         panelText: q.codeSnippet,
         panelIsCode: true,
         questionText: t('langPrompt'),
-        options: LANGUAGES.map((l) => ({
-            label: l.name,
-            glyph: l.glyph,
-            color: l.color
-        })),
+        options: buildLanguageOptions(q.correctLanguage, optionSeed),
         answer: q.correctLanguage,
         difficulty: q.difficulty,
         explanation: q.explanation

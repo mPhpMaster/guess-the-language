@@ -2828,5 +2828,505 @@
       "en": "time.Now() with time.Since to measure elapsed time is Go.",
       "ar": "time.Now() مع time.Since لقياس الزمن المنقضي من Go."
     }
+  },
+  {
+    "id": 284,
+    "correctLanguage": "TypeScript",
+    "difficulty": "easy",
+    "codeSnippet": "let count: number = 0;",
+    "explanation": {
+      "en": "The `: number` type annotation on a variable is TypeScript.",
+      "ar": "التعليق النوعي `: number` على المتغير مميّز في TypeScript."
+    }
+  },
+  {
+    "id": 285,
+    "correctLanguage": "TypeScript",
+    "difficulty": "medium",
+    "codeSnippet": "interface User {\n  name: string;\n  age: number;\n}",
+    "explanation": {
+      "en": "Declaring an `interface` with typed fields is TypeScript.",
+      "ar": "تعريف `interface` بحقول ذات أنواع مميّز في TypeScript."
+    }
+  },
+  {
+    "id": 286,
+    "correctLanguage": "TypeScript",
+    "difficulty": "medium",
+    "codeSnippet": "function greet(name: string): void {\n  console.log(name);\n}",
+    "explanation": {
+      "en": "Typed parameters and a `: void` return type are TypeScript.",
+      "ar": "المعاملات ذات الأنواع ونوع الإرجاع `: void` من سمات TypeScript."
+    }
+  },
+  {
+    "id": 287,
+    "correctLanguage": "TypeScript",
+    "difficulty": "hard",
+    "codeSnippet": "type ID = string | number;",
+    "explanation": {
+      "en": "A `type` alias with a union (`string | number`) is TypeScript.",
+      "ar": "اسم مستعار `type` مع اتحاد (`string | number`) مميّز في TypeScript."
+    }
+  },
+  {
+    "id": 288,
+    "correctLanguage": "TypeScript",
+    "difficulty": "medium",
+    "codeSnippet": "const el = input as HTMLInputElement;",
+    "explanation": {
+      "en": "The `as` type assertion is TypeScript syntax.",
+      "ar": "تأكيد النوع باستخدام `as` من صياغة TypeScript."
+    }
+  },
+  {
+    "id": 289,
+    "correctLanguage": "C",
+    "difficulty": "easy",
+    "codeSnippet": "#include <stdio.h>\nint main(void) {\n  printf(\"Hello\\n\");\n  return 0;\n}",
+    "explanation": {
+      "en": "`#include <stdio.h>` with `printf` and `int main(void)` is classic C.",
+      "ar": "`#include <stdio.h>` مع `printf` و`int main(void)` من سمات لغة C الكلاسيكية."
+    }
+  },
+  {
+    "id": 290,
+    "correctLanguage": "C",
+    "difficulty": "medium",
+    "codeSnippet": "int *p = malloc(sizeof(int) * n);",
+    "explanation": {
+      "en": "`malloc` returning a raw `int *` pointer is C memory management.",
+      "ar": "استخدام `malloc` لإرجاع مؤشّر `int *` خام من إدارة الذاكرة في C."
+    }
+  },
+  {
+    "id": 291,
+    "correctLanguage": "C",
+    "difficulty": "medium",
+    "codeSnippet": "char name[50];\nscanf(\"%s\", name);",
+    "explanation": {
+      "en": "`scanf` reading into a fixed char array is C.",
+      "ar": "قراءة `scanf` إلى مصفوفة أحرف ثابتة من سمات C."
+    }
+  },
+  {
+    "id": 292,
+    "correctLanguage": "C",
+    "difficulty": "hard",
+    "codeSnippet": "typedef struct {\n  int x;\n  int y;\n} Point;",
+    "explanation": {
+      "en": "A `typedef struct { ... } Name;` defines a type in C.",
+      "ar": "`typedef struct { ... } Name;` يعرّف نوعاً في C."
+    }
+  },
+  {
+    "id": 293,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "Console.WriteLine(\"Hello\");",
+    "explanation": {
+      "en": "`Console.WriteLine` is the C# console output method.",
+      "ar": "`Console.WriteLine` هي دالة الإخراج للطرفية في C#."
+    }
+  },
+  {
+    "id": 294,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "public class Program {\n  static void Main(string[] args) { }\n}",
+    "explanation": {
+      "en": "`static void Main(string[] args)` is the C# entry point.",
+      "ar": "`static void Main(string[] args)` هي نقطة الدخول في C#."
+    }
+  },
+  {
+    "id": 295,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "Console.WriteLine($\"Value: {x}\");",
+    "explanation": {
+      "en": "String interpolation with `$\"...\"` is C#.",
+      "ar": "الاستيفاء النصّي بصيغة `$\"...\"` من سمات C#."
+    }
+  },
+  {
+    "id": 296,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "var list = new List<int>();\nforeach (var n in list) { }",
+    "explanation": {
+      "en": "`List<int>` plus `foreach (var ...)` is idiomatic C#.",
+      "ar": "`List<int>` مع `foreach (var ...)` من الصياغة المعتادة في C#."
+    }
+  },
+  {
+    "id": 297,
+    "correctLanguage": "Kotlin",
+    "difficulty": "easy",
+    "codeSnippet": "fun main() {\n  println(\"Hello\")\n}",
+    "explanation": {
+      "en": "`fun main()` with `println` is Kotlin.",
+      "ar": "`fun main()` مع `println` من سمات Kotlin."
+    }
+  },
+  {
+    "id": 298,
+    "correctLanguage": "Kotlin",
+    "difficulty": "medium",
+    "codeSnippet": "val name: String = \"Kotlin\"",
+    "explanation": {
+      "en": "An immutable `val` with a `: String` type is Kotlin.",
+      "ar": "المتغير الثابت `val` مع النوع `: String` من سمات Kotlin."
+    }
+  },
+  {
+    "id": 299,
+    "correctLanguage": "Kotlin",
+    "difficulty": "medium",
+    "codeSnippet": "fun add(a: Int, b: Int): Int = a + b",
+    "explanation": {
+      "en": "A single-expression `fun ... : Int = ...` is Kotlin.",
+      "ar": "دالة بتعبير واحد `fun ... : Int = ...` من سمات Kotlin."
+    }
+  },
+  {
+    "id": 300,
+    "correctLanguage": "Kotlin",
+    "difficulty": "hard",
+    "codeSnippet": "data class User(val name: String, val age: Int)",
+    "explanation": {
+      "en": "A `data class` is a Kotlin feature.",
+      "ar": "`data class` ميزة خاصة بلغة Kotlin."
+    }
+  },
+  {
+    "id": 301,
+    "correctLanguage": "Swift",
+    "difficulty": "easy",
+    "codeSnippet": "let name = \"Swift\"\nprint(name)",
+    "explanation": {
+      "en": "`let` binding with `print()` is Swift.",
+      "ar": "الربط بـ `let` مع `print()` من سمات Swift."
+    }
+  },
+  {
+    "id": 302,
+    "correctLanguage": "Swift",
+    "difficulty": "medium",
+    "codeSnippet": "func greet(name: String) -> String {\n  return \"Hi \\(name)\"\n}",
+    "explanation": {
+      "en": "`func ... -> String` with `\\(...)` interpolation is Swift.",
+      "ar": "`func ... -> String` مع الاستيفاء `\\(...)` من سمات Swift."
+    }
+  },
+  {
+    "id": 303,
+    "correctLanguage": "Swift",
+    "difficulty": "hard",
+    "codeSnippet": "guard let value = maybe else {\n  return\n}",
+    "explanation": {
+      "en": "The `guard let ... else` unwrap is Swift.",
+      "ar": "فكّ الاختيار `guard let ... else` من سمات Swift."
+    }
+  },
+  {
+    "id": 304,
+    "correctLanguage": "Swift",
+    "difficulty": "medium",
+    "codeSnippet": "var numbers: [Int] = [1, 2, 3]",
+    "explanation": {
+      "en": "An array typed as `[Int]` is Swift syntax.",
+      "ar": "المصفوفة ذات النوع `[Int]` من صياغة Swift."
+    }
+  },
+  {
+    "id": 305,
+    "correctLanguage": "Ruby",
+    "difficulty": "easy",
+    "codeSnippet": "puts \"Hello, World!\"",
+    "explanation": {
+      "en": "`puts` for output is Ruby.",
+      "ar": "`puts` للإخراج من سمات Ruby."
+    }
+  },
+  {
+    "id": 306,
+    "correctLanguage": "Ruby",
+    "difficulty": "medium",
+    "codeSnippet": "def greet(name)\n  puts \"Hi #{name}\"\nend",
+    "explanation": {
+      "en": "`def ... end` with `#{}` interpolation is Ruby.",
+      "ar": "`def ... end` مع الاستيفاء `#{}` من سمات Ruby."
+    }
+  },
+  {
+    "id": 307,
+    "correctLanguage": "Ruby",
+    "difficulty": "medium",
+    "codeSnippet": "3.times { |i| puts i }",
+    "explanation": {
+      "en": "`3.times { |i| ... }` block iteration is Ruby.",
+      "ar": "التكرار `3.times { |i| ... }` من سمات Ruby."
+    }
+  },
+  {
+    "id": 308,
+    "correctLanguage": "Ruby",
+    "difficulty": "hard",
+    "codeSnippet": "arr.each do |x|\n  puts x\nend",
+    "explanation": {
+      "en": "`each do |x| ... end` is a Ruby block.",
+      "ar": "`each do |x| ... end` كتلة (block) في Ruby."
+    }
+  },
+  {
+    "id": 309,
+    "correctLanguage": "PHP",
+    "difficulty": "easy",
+    "codeSnippet": "<?php echo \"Hello\"; ?>",
+    "explanation": {
+      "en": "The `<?php ... ?>` tag is PHP.",
+      "ar": "الوسم `<?php ... ?>` من سمات PHP."
+    }
+  },
+  {
+    "id": 310,
+    "correctLanguage": "PHP",
+    "difficulty": "medium",
+    "codeSnippet": "$name = \"World\";\necho \"Hello $name\";",
+    "explanation": {
+      "en": "`$` variables with `echo` interpolation is PHP.",
+      "ar": "متغيّرات `$` مع الاستيفاء عبر `echo` من سمات PHP."
+    }
+  },
+  {
+    "id": 311,
+    "correctLanguage": "PHP",
+    "difficulty": "medium",
+    "codeSnippet": "foreach ($items as $item) {\n  echo $item;\n}",
+    "explanation": {
+      "en": "`foreach ($x as $y)` with `$` variables is PHP.",
+      "ar": "`foreach ($x as $y)` مع متغيّرات `$` من سمات PHP."
+    }
+  },
+  {
+    "id": 312,
+    "correctLanguage": "PHP",
+    "difficulty": "hard",
+    "codeSnippet": "function greet($name) {\n  return \"Hi $name\";\n}",
+    "explanation": {
+      "en": "A `function` with `$`-prefixed parameters is PHP.",
+      "ar": "دالة `function` بمعاملات مسبوقة بـ `$` من سمات PHP."
+    }
+  },
+  {
+    "id": 313,
+    "correctLanguage": "SQL",
+    "difficulty": "easy",
+    "codeSnippet": "SELECT * FROM users WHERE age > 18;",
+    "explanation": {
+      "en": "`SELECT ... FROM ... WHERE` is SQL.",
+      "ar": "`SELECT ... FROM ... WHERE` من لغة SQL."
+    }
+  },
+  {
+    "id": 314,
+    "correctLanguage": "SQL",
+    "difficulty": "medium",
+    "codeSnippet": "INSERT INTO users (name) VALUES ('Ann');",
+    "explanation": {
+      "en": "`INSERT INTO ... VALUES` is SQL.",
+      "ar": "`INSERT INTO ... VALUES` من لغة SQL."
+    }
+  },
+  {
+    "id": 315,
+    "correctLanguage": "SQL",
+    "difficulty": "medium",
+    "codeSnippet": "UPDATE users SET active = 1 WHERE id = 5;",
+    "explanation": {
+      "en": "`UPDATE ... SET ... WHERE` is SQL.",
+      "ar": "`UPDATE ... SET ... WHERE` من لغة SQL."
+    }
+  },
+  {
+    "id": 316,
+    "correctLanguage": "SQL",
+    "difficulty": "hard",
+    "codeSnippet": "SELECT name, COUNT(*)\nFROM orders\nGROUP BY name;",
+    "explanation": {
+      "en": "`GROUP BY` with an aggregate like `COUNT(*)` is SQL.",
+      "ar": "`GROUP BY` مع دالة تجميع مثل `COUNT(*)` من لغة SQL."
+    }
+  },
+  {
+    "id": 317,
+    "correctLanguage": "SQL",
+    "difficulty": "easy",
+    "codeSnippet": "CREATE TABLE users (\n  id INT PRIMARY KEY\n);",
+    "explanation": {
+      "en": "`CREATE TABLE ... PRIMARY KEY` is SQL DDL.",
+      "ar": "`CREATE TABLE ... PRIMARY KEY` من أوامر تعريف البيانات في SQL."
+    }
+  },
+  {
+    "id": 318,
+    "correctLanguage": "Bash",
+    "difficulty": "easy",
+    "codeSnippet": "#!/bin/bash\necho \"Hello\"",
+    "explanation": {
+      "en": "The `#!/bin/bash` shebang marks a Bash script.",
+      "ar": "السطر `#!/bin/bash` يميّز سكربت Bash."
+    }
+  },
+  {
+    "id": 319,
+    "correctLanguage": "Bash",
+    "difficulty": "medium",
+    "codeSnippet": "for i in 1 2 3; do\n  echo $i\ndone",
+    "explanation": {
+      "en": "`for ... in ...; do ... done` is Bash looping.",
+      "ar": "`for ... in ...; do ... done` حلقة تكرار في Bash."
+    }
+  },
+  {
+    "id": 320,
+    "correctLanguage": "Bash",
+    "difficulty": "medium",
+    "codeSnippet": "if [ -f file.txt ]; then\n  echo \"exists\"\nfi",
+    "explanation": {
+      "en": "`if [ -f ... ]; then ... fi` is a Bash test.",
+      "ar": "`if [ -f ... ]; then ... fi` اختبار في Bash."
+    }
+  },
+  {
+    "id": 321,
+    "correctLanguage": "Bash",
+    "difficulty": "hard",
+    "codeSnippet": "ls -la | grep \".txt\"",
+    "explanation": {
+      "en": "Piping `ls` into `grep` is a Bash command line.",
+      "ar": "تمرير مخرجات `ls` إلى `grep` من سطر أوامر Bash."
+    }
+  },
+  {
+    "id": 322,
+    "correctLanguage": "Go",
+    "difficulty": "easy",
+    "codeSnippet": "package main\nimport \"fmt\"\nfunc main() {\n  fmt.Println(\"Hi\")\n}",
+    "explanation": {
+      "en": "`package main` with `fmt.Println` is Go.",
+      "ar": "`package main` مع `fmt.Println` من سمات Go."
+    }
+  },
+  {
+    "id": 323,
+    "correctLanguage": "Rust",
+    "difficulty": "medium",
+    "codeSnippet": "fn main() {\n  println!(\"Hello\");\n}",
+    "explanation": {
+      "en": "The `println!` macro (with `!`) is Rust.",
+      "ar": "الماكرو `println!` (بعلامة `!`) من سمات Rust."
+    }
+  },
+  {
+    "id": 324,
+    "correctLanguage": "Python",
+    "difficulty": "easy",
+    "codeSnippet": "def greet(name):\n    return f\"Hi {name}\"",
+    "explanation": {
+      "en": "An f-string with `def ...:` indentation is Python.",
+      "ar": "سلسلة f-string مع `def ...:` والمسافات البادئة من سمات Python."
+    }
+  },
+  {
+    "id": 325,
+    "correctLanguage": "JavaScript",
+    "difficulty": "medium",
+    "codeSnippet": "const doubled = [1, 2, 3].map(x => x * 2);",
+    "explanation": {
+      "en": "An arrow function `x => ...` on an array is JavaScript.",
+      "ar": "الدالة السهمية `x => ...` على مصفوفة من سمات JavaScript."
+    }
+  },
+  {
+    "id": 326,
+    "correctLanguage": "Java",
+    "difficulty": "easy",
+    "codeSnippet": "System.out.println(\"Hello\");",
+    "explanation": {
+      "en": "`System.out.println` is Java output.",
+      "ar": "`System.out.println` للإخراج في Java."
+    }
+  },
+  {
+    "id": 327,
+    "correctLanguage": "C++",
+    "difficulty": "medium",
+    "codeSnippet": "#include <iostream>\nint main() {\n  std::cout << \"Hi\";\n}",
+    "explanation": {
+      "en": "`std::cout <<` with `<iostream>` is C++.",
+      "ar": "`std::cout <<` مع `<iostream>` من سمات C++."
+    }
+  },
+  {
+    "id": 328,
+    "correctLanguage": "Rust",
+    "difficulty": "hard",
+    "codeSnippet": "let mut v: Vec<i32> = Vec::new();",
+    "explanation": {
+      "en": "`let mut` with `Vec<i32>` and `Vec::new()` is Rust.",
+      "ar": "`let mut` مع `Vec<i32>` و`Vec::new()` من سمات Rust."
+    }
+  },
+  {
+    "id": 329,
+    "correctLanguage": "Go",
+    "difficulty": "medium",
+    "codeSnippet": "ch := make(chan int)\ngo worker(ch)",
+    "explanation": {
+      "en": "`make(chan int)` and `go` for a goroutine are Go.",
+      "ar": "`make(chan int)` و`go` لتشغيل goroutine من سمات Go."
+    }
+  },
+  {
+    "id": 330,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "squares = [x*x for x in range(10)]",
+    "explanation": {
+      "en": "A list comprehension `[... for ... in ...]` is Python.",
+      "ar": "الفهم القائمي `[... for ... in ...]` من سمات Python."
+    }
+  },
+  {
+    "id": 331,
+    "correctLanguage": "TypeScript",
+    "difficulty": "hard",
+    "codeSnippet": "function identity<T>(value: T): T {\n  return value;\n}",
+    "explanation": {
+      "en": "A generic `<T>` typed function is TypeScript.",
+      "ar": "الدالة العامة ذات النوع `<T>` من سمات TypeScript."
+    }
+  },
+  {
+    "id": 332,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "var result = numbers.Where(n => n > 0).ToList();",
+    "explanation": {
+      "en": "LINQ `.Where(...).ToList()` is C#.",
+      "ar": "LINQ عبر `.Where(...).ToList()` من سمات C#."
+    }
+  },
+  {
+    "id": 333,
+    "correctLanguage": "Kotlin",
+    "difficulty": "medium",
+    "codeSnippet": "val doubled = list.map { it * 2 }",
+    "explanation": {
+      "en": "A lambda using the implicit `it` parameter is Kotlin.",
+      "ar": "دالة لامدا باستخدام المعامل الضمني `it` من سمات Kotlin."
+    }
   }
 ]
