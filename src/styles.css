@@ -273,6 +273,22 @@ html.platform-discord .lobby-code {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.24);
 }
+.btn-discord {
+  background: #5865f2;
+  border: 1px solid #5865f2;
+  color: #fff;
+  width: 100%;
+  justify-content: center;
+  margin-top: 4px;
+}
+.btn-discord:hover { background: #4752c4; border-color: #4752c4; box-shadow: 0 10px 30px #5865f255; }
+.discord-login-status {
+  margin: 6px 0 2px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--neon-2);
+  text-align: center;
+}
 
 /* ===================== Menu screen ===================== */
 .menu-card {

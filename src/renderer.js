@@ -145,6 +145,9 @@ const I18N = {
         discordVoiceRoomHint: 'Everyone in this call',
         discordAutoMp: 'Multiplayer is automatic here — everyone in this voice channel shares the same room.',
         discordJoining: 'Joining voice channel room…',
+        loginDiscord: '💬  Login with Discord',
+        discordLinkedAs: 'Signed in as',
+        discordLoginFailed: 'Discord login failed. Please try again.',
         roomCode: 'Room code',
         copyCode: 'Copy',
         playersTitle: 'Players',
@@ -241,6 +244,9 @@ const I18N = {
         discordVoiceRoomHint: 'الجميع في هذه المكالمة',
         discordAutoMp: 'اللعب الجماعي تلقائي هنا — الجميع في قناة الصوت يشاركون نفس الغرفة.',
         discordJoining: 'جارٍ الانضمام لغرفة قناة الصوت…',
+        loginDiscord: '💬  تسجيل الدخول عبر Discord',
+        discordLinkedAs: 'مسجّل الدخول باسم',
+        discordLoginFailed: 'فشل تسجيل الدخول عبر Discord. حاول مرة أخرى.',
         roomCode: 'رمز الغرفة',
         copyCode: 'نسخ',
         playersTitle: 'اللاعبون',
@@ -605,6 +611,94 @@ function syncDiscordNameField() {
     }
 }
 
+function getLinkedDiscordUser() {
+    try {
+        return JSON.parse(localStorage.getItem('gtl_discord_user')) || null;
+    } catch {
+        return null;
+    }
+}
+
+// The "Login with Discord" button is only useful on the plain web build: the
+// Electron file:// origin can't be an OAuth redirect target, and inside a
+// Discord Activity the name is already filled from the SDK.
+function updateDiscordLoginButton() {
+    const btn = $('#btn-discord-login');
+    if (!btn) return;
+    const web = document.documentElement.classList.contains('platform-web');
+    const configured = !!(window.DISCORD_CONFIG && window.DISCORD_CONFIG.clientId);
+    const show = web && configured && !isDiscordActivity();
+    btn.classList.toggle('hidden', !show);
+
+    const status = $('#discord-login-status');
+    const linked = getLinkedDiscordUser();
+    if (status) {
+        if (show && linked && linked.name) {
+            status.textContent = `${t('discordLinkedAs')} ${linked.name}`;
+            status.classList.remove('hidden');
+        } else {
+            status.classList.add('hidden');
+        }
+    }
+}
+
+// Kick off the Discord OAuth2 authorization-code flow (a full-page redirect).
+function startDiscordLogin() {
+    const clientId = window.DISCORD_CONFIG && window.DISCORD_CONFIG.clientId;
+    if (!clientId) return;
+    const redirectUri = location.origin + location.pathname;
+    const state = `${Math.random().toString(36).slice(2)}${Date.now().toString(36)}`;
+    sessionStorage.setItem('gtl_discord_oauth_state', state);
+    location.href = 'https://discord.com/api/oauth2/authorize'
+        + `?client_id=${encodeURIComponent(clientId)}`
+        + `&redirect_uri=${encodeURIComponent(redirectUri)}`
+        + '&response_type=code&scope=identify'
+        + `&state=${encodeURIComponent(state)}`;
+}
+
+// On boot, complete a login if we've just been redirected back with a ?code.
+async function handleDiscordOAuthReturn() {
+    const params = new URLSearchParams(location.search);
+    const code = params.get('code');
+    if (!code) return false;
+
+    const savedState = sessionStorage.getItem('gtl_discord_oauth_state');
+    sessionStorage.removeItem('gtl_discord_oauth_state');
+    // Strip the OAuth params from the address bar no matter what happens next.
+    const cleanUrl = location.origin + location.pathname;
+    try {
+        window.history.replaceState({}, document.title, cleanUrl);
+    } catch (e) {
+        /* ignore */
+    }
+
+    if (!savedState || savedState !== params.get('state')) {
+        console.warn('Discord OAuth state mismatch — ignoring callback');
+        return false;
+    }
+
+    try {
+        const res = await fetch('/api/discord-login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code, redirect_uri: cleanUrl })
+        });
+        if (!res.ok) throw new Error(`login failed (${res.status})`);
+        const user = await res.json();
+        const name = String(user.global_name || user.username || '').trim().slice(0, 24);
+        if (!name) throw new Error('missing username');
+        const cur = getSettings();
+        cur.name = name;
+        store.settings = cur;
+        localStorage.setItem('gtl_discord_user', JSON.stringify({ id: user.id, name, avatar: user.avatar || null }));
+        return true;
+    } catch (e) {
+        console.error('Discord login:', e);
+        alert(t('discordLoginFailed'));
+        return false;
+    }
+}
+
 function applySettingsToUI() {
     const s = getSettings();
     $('#set-language').value = getLang();
@@ -615,6 +709,7 @@ function applySettingsToUI() {
     $('#set-sound').checked = !!s.sound;
     $('#set-difficulty').value = s.difficulty;
     syncDiscordNameField();
+    updateDiscordLoginButton();
     updateStartButtonState();
 }
 
@@ -2099,6 +2194,7 @@ function bindEvents() {
         applyLanguage();
     });
     $('#set-name').addEventListener('input', () => updateStartButtonState());
+    $('#btn-discord-login')?.addEventListener('click', startDiscordLogin);
 
     // about
     $('#btn-about').addEventListener('click', () => {
@@ -2255,6 +2351,10 @@ async function boot() {
             console.warn('Discord Activity init:', err);
         }
     }
+
+    // Complete a "Login with Discord" if we were just redirected back with a code
+    // (sets the leaderboard name before the settings UI is populated).
+    await handleDiscordOAuthReturn();
 
     applySettingsToUI();
     refreshMultiplayerButtons();
