@@ -292,5 +292,425 @@
       "en": "Saving game state stores progress such as level and score.",
       "ar": "يخزن حفظ حالة اللعبة التقدم مثل المستوى والنقاط."
     }
+  },
+  {
+    "id": 15,
+    "category": "architecture",
+    "difficulty": "medium",
+    "codeSnippet": "world.addComponent(entity, new Velocity(2, 0));",
+    "question": {
+      "en": "Which architecture does this pattern suggest?",
+      "ar": "أي بنية برمجية يوحي بها هذا النمط؟"
+    },
+    "options": [
+      "Entity-Component-System",
+      "Singleton pattern",
+      "Observer pattern",
+      "Model-View-Controller"
+    ],
+    "answer": "Entity-Component-System",
+    "explanation": {
+      "en": "Attaching components to entities inside a world is the core idea of ECS.",
+      "ar": "إرفاق المكوّنات بالكيانات داخل العالم هو الفكرة الأساسية لنمط ECS."
+    }
+  },
+  {
+    "id": 16,
+    "category": "timing",
+    "difficulty": "medium",
+    "codeSnippet": "position += speed * deltaTime;",
+    "question": {
+      "en": "Why multiply movement by deltaTime?",
+      "ar": "لماذا نضرب الحركة في deltaTime؟"
+    },
+    "options": [
+      "To make movement frame-rate independent",
+      "To double the speed",
+      "To pause the game",
+      "To detect collisions"
+    ],
+    "answer": "To make movement frame-rate independent",
+    "explanation": {
+      "en": "Scaling by delta time keeps motion consistent regardless of frame rate.",
+      "ar": "الضرب في زمن الإطار يجعل الحركة ثابتة بغضّ النظر عن معدّل الإطارات."
+    }
+  },
+  {
+    "id": 17,
+    "category": "math",
+    "difficulty": "medium",
+    "codeSnippet": "x = lerp(a, b, 0.5);",
+    "question": {
+      "en": "What value does this return?",
+      "ar": "ما القيمة التي يعيدها هذا؟"
+    },
+    "options": [
+      "The midpoint between a and b",
+      "The larger of a and b",
+      "A random value",
+      "The distance from a to b"
+    ],
+    "answer": "The midpoint between a and b",
+    "explanation": {
+      "en": "Linear interpolation at t=0.5 returns the value halfway between a and b.",
+      "ar": "الاستيفاء الخطي عند t=0.5 يعيد القيمة الواقعة في منتصف المسافة بين a و b."
+    }
+  },
+  {
+    "id": 18,
+    "category": "pathfinding",
+    "difficulty": "hard",
+    "codeSnippet": "path = aStar(start, goal, grid);",
+    "question": {
+      "en": "What is this algorithm used for?",
+      "ar": "لأي غرض تُستخدم هذه الخوارزمية؟"
+    },
+    "options": [
+      "Finding the shortest path",
+      "Rendering shadows",
+      "Compressing textures",
+      "Playing audio"
+    ],
+    "answer": "Finding the shortest path",
+    "explanation": {
+      "en": "A* searches a graph for the lowest-cost path from start to goal.",
+      "ar": "تبحث A* في الرسم البياني عن أقلّ مسار تكلفةً من البداية إلى الهدف."
+    }
+  },
+  {
+    "id": 19,
+    "category": "optimization",
+    "difficulty": "hard",
+    "codeSnippet": "bullet = bulletPool.get();",
+    "question": {
+      "en": "What technique is being used here?",
+      "ar": "ما التقنية المستخدمة هنا؟"
+    },
+    "options": [
+      "Object pooling",
+      "Garbage collection",
+      "Ray casting",
+      "Frustum culling"
+    ],
+    "answer": "Object pooling",
+    "explanation": {
+      "en": "Reusing objects from a pool avoids costly allocations during gameplay.",
+      "ar": "إعادة استخدام الكائنات من تجمّع تتجنّب عمليات التخصيص المكلفة أثناء اللعب."
+    }
+  },
+  {
+    "id": 20,
+    "category": "rendering",
+    "difficulty": "medium",
+    "codeSnippet": "if (!camera.frustum.contains(obj)) continue;",
+    "question": {
+      "en": "What optimization does this perform?",
+      "ar": "ما التحسين الذي يقوم به هذا؟"
+    },
+    "options": [
+      "Frustum culling",
+      "Texture filtering",
+      "Level streaming",
+      "Audio mixing"
+    ],
+    "answer": "Frustum culling",
+    "explanation": {
+      "en": "Skipping objects outside the camera frustum avoids rendering what isn't visible.",
+      "ar": "تخطّي الكائنات خارج مجال رؤية الكاميرا يتجنّب رسم ما لا يُرى."
+    }
+  },
+  {
+    "id": 21,
+    "category": "input",
+    "difficulty": "medium",
+    "codeSnippet": "if (input.wasPressedThisFrame('Fire')) shoot();",
+    "question": {
+      "en": "What does wasPressedThisFrame detect?",
+      "ar": "ما الذي يكتشفه wasPressedThisFrame؟"
+    },
+    "options": [
+      "A key pressed on this specific frame",
+      "A key held every frame",
+      "A key that was never pressed",
+      "Mouse movement"
+    ],
+    "answer": "A key pressed on this specific frame",
+    "explanation": {
+      "en": "It fires once on the frame the key goes down, avoiding repeats while it is held.",
+      "ar": "يُطلق مرة واحدة في الإطار الذي يُضغط فيه المفتاح، متجنّبًا التكرار أثناء الاستمرار بالضغط."
+    }
+  },
+  {
+    "id": 22,
+    "category": "physics",
+    "difficulty": "hard",
+    "codeSnippet": "rigidbody.applyImpulse(direction * force);",
+    "question": {
+      "en": "What does applying an impulse do?",
+      "ar": "ماذا يفعل تطبيق الدفعة (impulse)؟"
+    },
+    "options": [
+      "Instantly changes velocity",
+      "Slowly rotates the object",
+      "Loads a level",
+      "Plays a sound"
+    ],
+    "answer": "Instantly changes velocity",
+    "explanation": {
+      "en": "An impulse applies an immediate change in momentum, altering velocity at once.",
+      "ar": "الدفعة تطبّق تغيّرًا فوريًا في الزخم، فتُغيّر السرعة على الفور."
+    }
+  },
+  {
+    "id": 23,
+    "category": "collision",
+    "difficulty": "medium",
+    "codeSnippet": "if (aabbOverlap(a, b)) resolve(a, b);",
+    "question": {
+      "en": "What does AABB stand for?",
+      "ar": "ماذا يعني الاختصار AABB؟"
+    },
+    "options": [
+      "Axis-Aligned Bounding Box",
+      "Average Absolute Bit Buffer",
+      "Anti-Aliased Back Buffer",
+      "Ambient Audio Base Band"
+    ],
+    "answer": "Axis-Aligned Bounding Box",
+    "explanation": {
+      "en": "AABB collision uses rectangles aligned to the axes for fast overlap tests.",
+      "ar": "اصطدام AABB يستخدم مستطيلات محاذية للمحاور لاختبارات تداخل سريعة."
+    }
+  },
+  {
+    "id": 24,
+    "category": "state",
+    "difficulty": "medium",
+    "codeSnippet": "enemy.state = 'chase';",
+    "question": {
+      "en": "Which pattern manages behavior like this?",
+      "ar": "أي نمط يدير سلوكًا كهذا؟"
+    },
+    "options": [
+      "Finite state machine",
+      "Dependency injection",
+      "Data binding",
+      "Lazy loading"
+    ],
+    "answer": "Finite state machine",
+    "explanation": {
+      "en": "Switching between named states like patrol and chase is a finite state machine.",
+      "ar": "التبديل بين حالات مُسمّاة مثل الدورية والمطاردة هو آلة حالات منتهية."
+    }
+  },
+  {
+    "id": 25,
+    "category": "timing",
+    "difficulty": "hard",
+    "codeSnippet": "while (accumulator >= FIXED_DT) { step(FIXED_DT); accumulator -= FIXED_DT; }",
+    "question": {
+      "en": "What does this loop implement?",
+      "ar": "ماذا تنفّذ هذه الحلقة؟"
+    },
+    "options": [
+      "A fixed physics timestep",
+      "A rendering pass",
+      "A save routine",
+      "A texture upload"
+    ],
+    "answer": "A fixed physics timestep",
+    "explanation": {
+      "en": "Accumulating time and stepping in fixed increments keeps physics deterministic.",
+      "ar": "تجميع الوقت والتقدّم بخطوات ثابتة يجعل الفيزياء حتمية ومتّسقة."
+    }
+  },
+  {
+    "id": 26,
+    "category": "rendering",
+    "difficulty": "medium",
+    "codeSnippet": "spriteBatch.draw(all);",
+    "question": {
+      "en": "Why draw many sprites in a single batch?",
+      "ar": "لماذا نرسم عدّة sprites في دفعة واحدة؟"
+    },
+    "options": [
+      "To reduce draw calls",
+      "To increase memory use",
+      "To disable the GPU",
+      "To slow down rendering"
+    ],
+    "answer": "To reduce draw calls",
+    "explanation": {
+      "en": "Batching sends geometry together, cutting expensive draw calls to the GPU.",
+      "ar": "التجميع يرسل الأشكال معًا، ما يقلّل استدعاءات الرسم المكلفة إلى المعالج الرسومي."
+    }
+  },
+  {
+    "id": 27,
+    "category": "audio",
+    "difficulty": "easy",
+    "codeSnippet": "music.play({ loop: true });",
+    "question": {
+      "en": "What does loop: true cause?",
+      "ar": "ماذا يسبّب loop: true؟"
+    },
+    "options": [
+      "The track repeats continuously",
+      "The track plays once",
+      "The volume drops",
+      "The track plays in reverse"
+    ],
+    "answer": "The track repeats continuously",
+    "explanation": {
+      "en": "Enabling loop restarts the track automatically when it ends.",
+      "ar": "تفعيل التكرار يعيد تشغيل المقطع تلقائيًا عند انتهائه."
+    }
+  },
+  {
+    "id": 28,
+    "category": "math",
+    "difficulty": "hard",
+    "codeSnippet": "transform.rotation = Quaternion.Euler(0, 90, 0);",
+    "question": {
+      "en": "What are quaternions commonly used for?",
+      "ar": "لأي شيء تُستخدم الـ quaternions عادةً؟"
+    },
+    "options": [
+      "Representing 3D rotations",
+      "Storing textures",
+      "Streaming audio",
+      "Compressing meshes"
+    ],
+    "answer": "Representing 3D rotations",
+    "explanation": {
+      "en": "Quaternions represent rotations without the gimbal lock of Euler angles.",
+      "ar": "تمثّل الـ quaternions الدورانات دون مشكلة انغلاق المحاور التي تصيب زوايا أويلر."
+    }
+  },
+  {
+    "id": 29,
+    "category": "scene",
+    "difficulty": "medium",
+    "codeSnippet": "sword.setParent(hand);",
+    "question": {
+      "en": "What is the effect of parenting the sword to the hand?",
+      "ar": "ما تأثير جعل السيف تابعًا لليد؟"
+    },
+    "options": [
+      "It follows the hand's transform",
+      "It becomes invisible",
+      "It doubles in size",
+      "It is destroyed"
+    ],
+    "answer": "It follows the hand's transform",
+    "explanation": {
+      "en": "A child inherits its parent's position, rotation and scale in the scene graph.",
+      "ar": "يرث الابن موضع أبيه ودورانه وحجمه في الرسم البياني للمشهد."
+    }
+  },
+  {
+    "id": 30,
+    "category": "effects",
+    "difficulty": "medium",
+    "codeSnippet": "emitter.emit(50);",
+    "question": {
+      "en": "What does this call most likely create?",
+      "ar": "ما الذي ينشئه هذا الاستدعاء على الأرجح؟"
+    },
+    "options": [
+      "A burst of particles",
+      "A new level",
+      "A save file",
+      "A network packet"
+    ],
+    "answer": "A burst of particles",
+    "explanation": {
+      "en": "A particle emitter spawns many small particles for effects like sparks or smoke.",
+      "ar": "باعث الجسيمات يولّد جسيمات صغيرة كثيرة لتأثيرات مثل الشرر أو الدخان."
+    }
+  },
+  {
+    "id": 31,
+    "category": "netcode",
+    "difficulty": "hard",
+    "codeSnippet": "applyInputLocally(input); sendToServer(input);",
+    "question": {
+      "en": "What networking technique is this?",
+      "ar": "ما تقنية الشبكات هذه؟"
+    },
+    "options": [
+      "Client-side prediction",
+      "Texture streaming",
+      "Level of detail",
+      "Occlusion culling"
+    ],
+    "answer": "Client-side prediction",
+    "explanation": {
+      "en": "Applying input locally before the server confirms hides latency from the player.",
+      "ar": "تطبيق الإدخال محليًا قبل تأكيد الخادم يخفي زمن التأخير عن اللاعب."
+    }
+  },
+  {
+    "id": 32,
+    "category": "assets",
+    "difficulty": "medium",
+    "codeSnippet": "tilemap.setTile(3, 5, 'grass');",
+    "question": {
+      "en": "What kind of level does a tilemap build?",
+      "ar": "أي نوع من المراحل تبنيه خريطة البلاط (tilemap)؟"
+    },
+    "options": [
+      "A grid of tiles",
+      "A ray-traced scene",
+      "A physics rope",
+      "A dialogue tree"
+    ],
+    "answer": "A grid of tiles",
+    "explanation": {
+      "en": "Tilemaps build 2D levels from a grid of reusable tile images.",
+      "ar": "خرائط البلاط تبني مراحل ثنائية الأبعاد من شبكة من صور البلاط القابلة لإعادة الاستخدام."
+    }
+  },
+  {
+    "id": 33,
+    "category": "timing",
+    "difficulty": "medium",
+    "codeSnippet": "yield return new WaitForSeconds(2);",
+    "question": {
+      "en": "What does this line do in a coroutine?",
+      "ar": "ماذا يفعل هذا السطر داخل coroutine؟"
+    },
+    "options": [
+      "Pauses execution for 2 seconds",
+      "Ends the game",
+      "Loads a texture",
+      "Doubles the frame rate"
+    ],
+    "answer": "Pauses execution for 2 seconds",
+    "explanation": {
+      "en": "The coroutine suspends and resumes after the given delay.",
+      "ar": "يُعلّق الـ coroutine تنفيذه ثم يستأنف بعد التأخير المحدّد."
+    }
+  },
+  {
+    "id": 34,
+    "category": "rendering",
+    "difficulty": "easy",
+    "codeSnippet": "settings.vsync = true;",
+    "question": {
+      "en": "What does enabling VSync help prevent?",
+      "ar": "ما الذي يساعد تفعيل VSync على منعه؟"
+    },
+    "options": [
+      "Screen tearing",
+      "Memory leaks",
+      "Save corruption",
+      "Network lag"
+    ],
+    "answer": "Screen tearing",
+    "explanation": {
+      "en": "VSync synchronizes the frame-buffer swap with the display refresh to avoid tearing.",
+      "ar": "يزامن VSync تبديل مخزن الإطار مع تحديث الشاشة لتفادي تمزّق الصورة."
+    }
   }
 ]
