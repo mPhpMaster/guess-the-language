@@ -582,6 +582,14 @@ function getSettings() {
     return Object.assign({}, defaultSettings, store.settings);
 }
 
+// Normalise a display name: collapse runs of whitespace to one space, trim, and
+// cap at 24 code points — so names padded with spaces (or ending in an emoji)
+// aren't chopped mid-character and still fit the leaderboard's 24-char limit.
+function sanitizeName(raw) {
+    const collapsed = String(raw || '').replace(/\s+/g, ' ').trim();
+    return Array.from(collapsed).slice(0, 24).join('');
+}
+
 function isDiscordActivity() {
     return Boolean(window.DISCORD_ACTIVITY?.active);
 }
@@ -590,7 +598,7 @@ function getDiscordDisplayName() {
     const user = window.DISCORD_ACTIVITY?.user;
     if (!user) return null;
     const name = user.global_name || user.username;
-    return name ? String(name).trim().slice(0, 24) : null;
+    return name ? sanitizeName(name) : null;
 }
 
 function syncDiscordNameField() {
@@ -685,7 +693,7 @@ async function handleDiscordOAuthReturn() {
         });
         if (!res.ok) throw new Error(`login failed (${res.status})`);
         const user = await res.json();
-        const name = String(user.global_name || user.username || '').trim().slice(0, 24);
+        const name = sanitizeName(user.global_name || user.username || '');
         if (!name) throw new Error('missing username');
         const cur = getSettings();
         cur.name = name;
@@ -720,7 +728,7 @@ function saveSettingsFromUI() {
     store.settings = {
         name: isDiscordActivity()
             ? (getSettings().name || '')
-            : $('#set-name').value.trim().slice(0, 24),
+            : sanitizeName($('#set-name').value),
         questions: q > 0 ? q : (getSettings().questions || defaultSettings.questions),
         sound: $('#set-sound').checked,
         difficulty: $('#set-difficulty').value
