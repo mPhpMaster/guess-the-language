@@ -146,6 +146,10 @@ const I18N = {
         discordAutoMp: 'Multiplayer is automatic here — everyone in this voice channel shares the same room.',
         discordJoining: 'Joining voice channel room…',
         discordMpUnavailable: "Multiplayer couldn't connect — you can still play solo below.",
+        createRoom: '🏠  Create Room',
+        discordCreateHint: 'No shared room yet — create one to play with your voice channel.',
+        challengeSent: '✅ Challenge sent!',
+        challengeFailed: 'Could not open the share dialog.',
         loginDiscord: '💬  Login with Discord',
         loginDiscordToPlay: 'Sign in with Discord to play',
         logoutDiscord: '🚪  Log out',
@@ -248,6 +252,10 @@ const I18N = {
         discordAutoMp: 'اللعب الجماعي تلقائي هنا — الجميع في قناة الصوت يشاركون نفس الغرفة.',
         discordJoining: 'جارٍ الانضمام لغرفة قناة الصوت…',
         discordMpUnavailable: 'تعذّر الاتصال باللعب الجماعي — يمكنك اللعب منفرداً بالأسفل.',
+        createRoom: '🏠  إنشاء غرفة',
+        discordCreateHint: 'لا توجد غرفة مشتركة بعد — أنشئ غرفة للّعب مع قناة الصوت.',
+        challengeSent: '✅ تم إرسال التحدي!',
+        challengeFailed: 'تعذّر فتح نافذة المشاركة.',
         loginDiscord: '💬  تسجيل الدخول عبر Discord',
         loginDiscordToPlay: 'سجّل الدخول عبر Discord للّعب',
         logoutDiscord: '🚪  تسجيل الخروج',
@@ -1639,7 +1647,86 @@ function renderLeaderboard(list) {
     });
 }
 
+// Encode the current mode + settings + score into a compact custom_id (max 64
+// chars) that rides along a Discord challenge deep link. Example:
+// "m=gamedev&d=hard&q=10&s=570".
+function buildChallengePayload() {
+    return [
+        `m=${state.mode}`,
+        `d=${getSettings().difficulty}`,
+        `q=${getSettings().questions}`,
+        `s=${Math.max(0, state.score | 0)}`
+    ].join('&');
+}
+
+// Parse a challenge custom_id back into { mode, difficulty, questions, score }.
+// Returns null when the string carries no usable challenge.
+function parseChallengePayload(raw) {
+    if (!raw || typeof raw !== 'string') return null;
+    const out = {};
+    raw.split('&').forEach((kv) => {
+        const [k, v] = kv.split('=');
+        if (k && v != null) out[k] = v;
+    });
+    const mode = MODES[out.m] ? out.m : null;
+    const questions = [5, 10, 15, 20].includes(Number(out.q)) ? Number(out.q) : null;
+    const difficulty = ['all', 'easy', 'medium', 'hard'].includes(out.d) ? out.d : null;
+    const score = Number.isFinite(Number(out.s)) ? Math.max(0, Number(out.s) | 0) : null;
+    if (!mode && score == null) return null;
+    return { mode, questions, difficulty, score };
+}
+
+// A challenged friend launches with these preset — mirror the challenger's mode
+// and settings and remember the score to beat.
+function applyChallengeSettings(info) {
+    if (info.mode) {
+        state.mode = info.mode;
+        localStorage.setItem('gtl_mode', info.mode);
+    }
+    const cur = getSettings();
+    if (info.difficulty) cur.difficulty = info.difficulty;
+    if (info.questions) cur.questions = info.questions;
+    store.settings = cur;
+    state.challengeTarget = info.score;
+}
+
+function challengeBannerText(info) {
+    const modeName = modeLabel(info.mode || state.mode);
+    const score = info.score != null ? info.score : 0;
+    return getLang() === 'ar'
+        ? `🎯 لقد تم تحدّيك! تجاوز ${score} نقطة في وضع «${modeName}».`
+        : `🎯 You've been challenged! Beat ${score} points in ${modeName} mode.`;
+}
+
+function showChallengeBanner(info) {
+    const el = $('#challenge-banner');
+    if (!el || !info) return;
+    el.textContent = challengeBannerText(info);
+    el.classList.remove('hidden');
+}
+
 function challengeFriend() {
+    const da = window.DISCORD_ACTIVITY;
+    // Inside a Discord Activity, open the native share sheet so the player can
+    // DM the challenge (with their score + settings) straight to a friend.
+    if (isDiscordActivity() && da && typeof da.shareLink === 'function') {
+        const p = da.shareLink(challengeText(state.score), buildChallengePayload());
+        if (p && typeof p.then === 'function') {
+            p.then(
+                (res) => {
+                    if (res && (res.didSendMessage || res.didCopyLink)) {
+                        flashButton('#btn-challenge', t('challengeSent'));
+                    }
+                },
+                (err) => {
+                    console.error('shareLink failed:', err);
+                    flashButton('#btn-challenge', t('challengeFailed'));
+                }
+            );
+            return;
+        }
+    }
+    // Web / Electron fallback: copy a shareable challenge line to the clipboard.
     const text = challengeText(state.score);
     navigator.clipboard ?.writeText(text).then(
         () => flashButton('#btn-challenge', t('challengeCopied')),
@@ -1668,8 +1755,27 @@ function refreshMultiplayerButtons() {
     const discord = isDiscordActivity();
     const mpRow = document.querySelector('.home-mp-actions');
     if (mpRow) mpRow.classList.toggle('hidden', discord);
+
+    // In a Discord Activity the Host/Join row is hidden; instead offer a single
+    // "Create Room" button (with a matching hint) as a fallback for when a room
+    // wasn't created automatically. We only render the home screen in Discord
+    // when auto-join didn't already drop us into a shared room, so surfacing the
+    // button here is exactly the "not auto-created" case.
     const discordNote = $('#discord-mp-note');
-    if (discordNote) discordNote.classList.toggle('hidden', !discord);
+    const discordHost = $('#btn-discord-host');
+    if (discord) {
+        if (discordNote) {
+            discordNote.textContent = on ? t('discordCreateHint') : t('discordMpUnavailable');
+            discordNote.classList.remove('hidden');
+        }
+        if (discordHost) {
+            discordHost.classList.toggle('hidden', !on);
+            discordHost.disabled = !(on && canPlay());
+        }
+    } else {
+        if (discordNote) discordNote.classList.add('hidden');
+        if (discordHost) discordHost.classList.add('hidden');
+    }
     // Hosting or joining needs an online connection plus a playable identity
     // (a name, or a Discord sign-in where that's required).
     const ready = canPlay();
@@ -2287,6 +2393,7 @@ function bindEvents() {
     // home actions
     $('#btn-start').addEventListener('click', () => startGame());
     $('#btn-host').addEventListener('click', hostRoomFlow);
+    $('#btn-discord-host').addEventListener('click', hostRoomFlow);
     $('#btn-join').addEventListener('click', openJoinModal);
     $('#btn-join-confirm').addEventListener('click', confirmJoinRoom);
     $('#btn-join-cancel').addEventListener('click', closeJoinModal);
@@ -2508,16 +2615,26 @@ async function boot() {
     // (sets the leaderboard name before the settings UI is populated).
     await handleDiscordOAuthReturn();
 
+    // A friend who launched from a "Challenge a friend" DM arrives with the
+    // challenger's mode + settings + score encoded in the Activity custom_id.
+    // Preload those and land on the home screen (with a "beat my score" banner)
+    // instead of auto-joining the voice room.
+    const challengeInfo = isDiscordActivity()
+        ? parseChallengePayload(window.DISCORD_ACTIVITY.customId)
+        : null;
+    if (challengeInfo) applyChallengeSettings(challengeInfo);
+
     applySettingsToUI();
     refreshMultiplayerButtons();
 
-    if (isDiscordActivity()) {
+    if (isDiscordActivity() && !challengeInfo) {
         const joined = await autoJoinDiscordVoiceRoom();
         if (joined) return;
     }
 
     showScreen('home');
     selectMode(state.mode);
+    if (challengeInfo) showChallengeBanner(challengeInfo);
 }
 
 boot();

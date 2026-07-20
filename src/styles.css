@@ -72,41 +72,117 @@ html.platform-web .titlebar { -webkit-app-region: auto; }
 html.platform-web .titlebar-controls { display: none; }
 html.platform-discord .titlebar { display: none; }
 
-/* Discord Activity iframe — compact layout that fits the embed. The base home
-   rules use #ID selectors, so these overrides are ID-qualified to win the
-   cascade (otherwise the full-size layout leaks through and overflows). */
-html.platform-discord body { overflow: auto; }
-html.platform-discord #app { height: 100vh; }
+/* Discord Activity iframe — compact layout that fits the embed with NO page
+   scroll (every screen is sized to 100vh and lays its content out to fit). The
+   base rules use #ID selectors, so these overrides are ID-qualified to win the
+   cascade. --discord-safe-bottom reserves room for Discord's floating
+   voice-control bar so the last row is never hidden behind it. */
+:root { --discord-safe-bottom: 84px; }
+html.platform-discord,
+html.platform-discord body { overflow: hidden; height: 100vh; }
+html.platform-discord #app { height: 100vh; overflow: hidden; }
+
+/* ---------- Home ---------- */
 html.platform-discord #screen-home {
-  height: auto;
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 0;
   justify-content: flex-start;
   overflow-y: auto;
-  padding: 14px 16px 22px;
+  padding: 12px 16px var(--discord-safe-bottom);
 }
-html.platform-discord .home-title { font-size: 22px; margin: 0 0 2px; }
-html.platform-discord .home-sub { font-size: 12px; margin-bottom: 10px; }
+html.platform-discord .home-title { font-size: 20px; margin: 0 0 2px; }
+html.platform-discord .home-sub { font-size: 11px; margin-bottom: 8px; }
+html.platform-discord .home-profile { margin: -2px 0 8px; }
 html.platform-discord #mode-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  max-width: 720px;
+  gap: 8px;
+  max-width: 640px;
 }
-html.platform-discord #screen-home .mode-card { min-height: 78px; padding: 12px 10px; border-radius: 14px; }
-html.platform-discord .mode-card-all { grid-column: 1 / -1; max-width: 300px; justify-self: center; width: 100%; }
-html.platform-discord .mode-icon { font-size: 26px; margin-bottom: 4px; }
-html.platform-discord .mode-name { font-size: 13px; margin-bottom: 0; }
+/* Keep all six cards in two rows of three (no full-width "All" row) so the
+   whole grid fits above the fold. */
+html.platform-discord #screen-home .mode-card { height: auto; min-height: 58px; padding: 9px 8px; border-radius: 12px; }
+html.platform-discord .mode-card-all { grid-column: auto; max-width: none; justify-self: auto; width: auto; }
+html.platform-discord .mode-icon { font-size: 22px; margin-bottom: 2px; }
+html.platform-discord .mode-name { font-size: 12px; margin-bottom: 0; }
 html.platform-discord .mode-desc { display: none; }
-html.platform-discord #screen-home .home-actions { margin-top: 12px; gap: 10px; max-width: 380px; }
+html.platform-discord #screen-home .home-actions { margin-top: 10px; gap: 8px; max-width: 380px; }
 html.platform-discord .home-actions #btn-start,
-html.platform-discord .home-actions-row { width: min(380px, 100%); }
-html.platform-discord .btn { padding: 10px 16px; font-size: 14px; }
-html.platform-discord .menu-highscore { margin-top: 10px; font-size: 12px; }
-html.platform-discord .popover { width: min(380px, 94%); padding: 18px; }
+html.platform-discord .home-actions-row,
+html.platform-discord #btn-discord-host { width: min(380px, 100%); }
+html.platform-discord .home-actions #btn-start { height: 46px; font-size: 16px; }
+html.platform-discord .btn { padding: 9px 16px; font-size: 13px; }
+html.platform-discord .menu-highscore { margin-top: 8px; font-size: 11px; }
+html.platform-discord .popover {
+  width: min(380px, 94%);
+  padding: 16px;
+  max-height: calc(100vh - var(--discord-safe-bottom) - 16px);
+  overflow-y: auto;
+}
 html.platform-discord .corner-btn { width: 30px; height: 30px; font-size: 14px; }
 html.platform-discord .lang-switch button { padding: 4px 8px; font-size: 12px; }
-html.platform-discord .home-profile { margin: -2px 0 12px; }
-
 html.platform-discord .home-mp-actions { display: none; }
+html.platform-discord .discord-mp-note { font-size: 12px; margin-top: 2px; }
+
+/* ---------- Game ---------- */
+html.platform-discord #screen-game {
+  height: 100vh;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 10px 14px var(--discord-safe-bottom);
+  overflow: hidden;
+}
+html.platform-discord .game-topbar { gap: 6px; }
+html.platform-discord .score-pill,
+html.platform-discord .progress-pill,
+html.platform-discord .streak-pill,
+html.platform-discord .correct-pill { padding: 6px 12px; font-size: 12px; }
+html.platform-discord .end-btn { padding: 6px 12px; font-size: 12px; }
+/* The body flexes to fill leftover height; the code panel scrolls internally
+   if the snippet is long, so the options row below is always fully visible. */
+html.platform-discord .game-body { flex: 1 1 auto; min-height: 0; gap: 12px; align-items: stretch; }
+html.platform-discord .code-wrap { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; }
+html.platform-discord .code-panel { min-height: 0; flex: 1 1 auto; padding: 12px 14px; font-size: 13px; }
+html.platform-discord .timer-ring { width: 74px; height: 74px; align-self: flex-start; }
+html.platform-discord .timer-num { font-size: 24px; }
+html.platform-discord .question-text { font-size: 14px; margin: 0; }
+html.platform-discord .mp-game-strip { padding: 5px 10px; }
+/* Options sit in a fixed 2-row block above the safe area. Languages mode has 6
+   answers, so give it 3 columns (2 rows); the 4-answer modes use 2 columns
+   (also 2 rows). */
+html.platform-discord .options-grid {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 0 auto;
+  flex-shrink: 0;
+}
+html.platform-discord .options-grid.cyber {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin: 0 auto;
+  flex-shrink: 0;
+}
+html.platform-discord button.opt-btn {
+  min-height: 0;
+  padding: 9px 10px;
+  flex-direction: row;
+  gap: 8px;
+  border-radius: 12px;
+}
+html.platform-discord .opt-badge { width: 30px; height: 30px; font-size: 14px; }
+html.platform-discord .opt-text { font-size: 12.5px; }
+html.platform-discord .lang-btn { padding: 9px 10px; flex-direction: row; gap: 8px; }
+html.platform-discord .lang-icon { width: 34px; height: 34px; font-size: 18px; }
+
+/* ---------- Lobby / results ---------- */
+html.platform-discord #screen-lobby { padding: 12px 16px var(--discord-safe-bottom); justify-content: flex-start; }
+html.platform-discord .lobby-card,
+html.platform-discord .results-card { max-height: calc(100vh - var(--discord-safe-bottom) - 8px); overflow-y: auto; }
+html.platform-discord .lobby-code {
+  font-size: 15px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
 .discord-mp-note {
   width: min(460px, 90%);
   margin: 0 auto;
@@ -115,10 +191,22 @@ html.platform-discord .home-mp-actions { display: none; }
   color: var(--muted);
   text-align: center;
 }
-html.platform-discord .lobby-code {
-  font-size: 15px;
-  letter-spacing: 0;
-  text-transform: none;
+
+/* "You've been challenged" banner shown to a friend who launched via a
+   challenge deep link. */
+.challenge-banner {
+  width: min(560px, 94%);
+  margin: 4px auto 10px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  color: #ffe9a8;
+  background: linear-gradient(135deg, #2a1f08, #1a2a3a);
+  border: 1px solid #ffd87455;
+  box-shadow: 0 0 24px #ffd87422;
 }
 
 .tb-btn {

@@ -36,6 +36,8 @@
         <h1 class="home-title"><span class="neon" data-i18n="appTitle">Guess the Language</span></h1>
         <p class="home-sub" data-i18n="homeSub">Pick a mode and beat the timer</p>
 
+        <div class="challenge-banner hidden" id="challenge-banner"></div>
+
         <div class="home-profile hidden" id="home-profile">
           <img class="home-profile-avatar" id="home-profile-avatar" alt="" referrerpolicy="no-referrer" />
           <span class="home-profile-name" id="home-profile-name"></span>
@@ -86,6 +88,7 @@
           <p class="discord-mp-note hidden" id="discord-mp-note" data-i18n="discordAutoMp">
             Multiplayer is automatic here — everyone in this voice channel shares the same room.
           </p>
+          <button class="btn btn-primary hidden" id="btn-discord-host" data-i18n="createRoom">🏠  Create Room</button>
           <div class="home-actions-row">
             <button class="btn btn-ghost" id="btn-friends" data-i18n="friends">👥  Friends &amp; Scores</button>
             <button class="btn btn-ghost" id="btn-settings" data-i18n="settings">⚙  Settings</button>

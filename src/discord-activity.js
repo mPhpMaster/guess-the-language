@@ -114,6 +114,24 @@ window.DISCORD_ACTIVITY = {
     }
     return null;
   },
+  // Open Discord's native "share" sheet so the player can send a challenge
+  // straight to a friend's DM (or a channel). `payload` is embedded in the deep
+  // link as custom_id; when the friend launches the Activity from that message
+  // it arrives back as `customId` below. Returns the SDK response ({ success,
+  // didSendMessage, ... }) or null if the command isn't available.
+  shareLink(message, payload) {
+    const sdk = window.DISCORD_ACTIVITY._session?.sdk;
+    if (sdk?.commands?.shareLink) {
+      const args = { message: String(message).slice(0, 1000) };
+      if (payload) args.custom_id = String(payload).slice(0, 64);
+      return sdk.commands.shareLink(args);
+    }
+    return null;
+  },
+  // custom_id carried in by a challenge deep link (null when launched normally).
+  get customId() {
+    return window.DISCORD_ACTIVITY._session?.sdk?.customId ?? null;
+  },
   _session: null
 };
 
