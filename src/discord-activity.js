@@ -1,4 +1,4 @@
-import { DiscordSDK } from '@discord/embedded-app-sdk';
+import { DiscordSDK, patchUrlMappings } from '@discord/embedded-app-sdk';
 
 const clientId =
   import.meta.env.VITE_DISCORD_CLIENT_ID || window.DISCORD_CONFIG?.clientId;
@@ -21,6 +21,21 @@ async function setupDiscordActivity() {
   const discordSdk = new DiscordSDK(clientId);
   await discordSdk.ready();
   console.info('[discord] SDK ready; authorizing…');
+
+  // Route Supabase (REST + realtime WebSocket) through the Activity proxy —
+  // external hosts are otherwise blocked by Discord's iframe sandbox
+  // ("TypeError: Failed to fetch"). Requires a matching URL Mapping in the
+  // Discord Developer Portal: prefix "/supabase" -> the Supabase host.
+  try {
+    const supaUrl = window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.url;
+    if (supaUrl) {
+      const supaHost = new URL(supaUrl).host;
+      patchUrlMappings([{ prefix: '/supabase', target: supaHost }]);
+      console.info('[discord] proxying Supabase via /supabase ->', supaHost);
+    }
+  } catch (e) {
+    console.warn('[discord] Supabase proxy mapping failed:', e);
+  }
 
   const { code } = await discordSdk.commands.authorize({
     client_id: clientId,

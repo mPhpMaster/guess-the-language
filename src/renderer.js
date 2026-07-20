@@ -145,6 +145,7 @@ const I18N = {
         discordVoiceRoomHint: 'Everyone in this call',
         discordAutoMp: 'Multiplayer is automatic here — everyone in this voice channel shares the same room.',
         discordJoining: 'Joining voice channel room…',
+        discordMpUnavailable: "Multiplayer couldn't connect — you can still play solo below.",
         loginDiscord: '💬  Login with Discord',
         loginDiscordToPlay: 'Sign in with Discord to play',
         logoutDiscord: '🚪  Log out',
@@ -246,6 +247,7 @@ const I18N = {
         discordVoiceRoomHint: 'الجميع في هذه المكالمة',
         discordAutoMp: 'اللعب الجماعي تلقائي هنا — الجميع في قناة الصوت يشاركون نفس الغرفة.',
         discordJoining: 'جارٍ الانضمام لغرفة قناة الصوت…',
+        discordMpUnavailable: 'تعذّر الاتصال باللعب الجماعي — يمكنك اللعب منفرداً بالأسفل.',
         loginDiscord: '💬  تسجيل الدخول عبر Discord',
         loginDiscordToPlay: 'سجّل الدخول عبر Discord للّعب',
         logoutDiscord: '🚪  تسجيل الخروج',
@@ -2166,7 +2168,7 @@ async function autoJoinDiscordVoiceRoom() {
         return true;
     } catch (err) {
         console.error('Discord voice room join failed:', err);
-        if (note) note.textContent = err.message || String(err);
+        if (note) note.textContent = t('discordMpUnavailable');
         return false;
     }
 }
