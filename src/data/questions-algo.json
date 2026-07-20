@@ -1,0 +1,850 @@
+[
+  {
+    "id": 1,
+    "category": "complexity",
+    "difficulty": "easy",
+    "codeSnippet": "for i in range(n):\n    for j in range(n):\n        print(i, j)",
+    "question": {
+      "en": "What is the time complexity of this code?",
+      "ar": "ما تعقيد الوقت لهذا الكود؟"
+    },
+    "options": [
+      "O(n²)",
+      "O(n)",
+      "O(log n)",
+      "O(1)"
+    ],
+    "answer": "O(n²)",
+    "explanation": {
+      "en": "Two nested loops that each run n times give n × n = O(n²).",
+      "ar": "حلقتان متداخلتان تعملان n مرة لكل منهما تعطيان n × n = O(n²)."
+    }
+  },
+  {
+    "id": 2,
+    "category": "complexity",
+    "difficulty": "easy",
+    "codeSnippet": "while n > 1:\n    n = n // 2",
+    "question": {
+      "en": "What is the time complexity?",
+      "ar": "ما تعقيد الوقت؟"
+    },
+    "options": [
+      "O(log n)",
+      "O(n)",
+      "O(n²)",
+      "O(1)"
+    ],
+    "answer": "O(log n)",
+    "explanation": {
+      "en": "Halving n each step runs about log₂(n) times → O(log n).",
+      "ar": "تنصيف n في كل خطوة يعمل نحو log₂(n) مرة → O(log n)."
+    }
+  },
+  {
+    "id": 3,
+    "category": "complexity",
+    "difficulty": "easy",
+    "question": {
+      "en": "What is the time complexity of binary search on a sorted array?",
+      "ar": "ما تعقيد الوقت للبحث الثنائي في مصفوفة مرتّبة؟"
+    },
+    "options": [
+      "O(log n)",
+      "O(n)",
+      "O(n log n)",
+      "O(1)"
+    ],
+    "answer": "O(log n)",
+    "explanation": {
+      "en": "Binary search halves the search range each step → O(log n).",
+      "ar": "يقسم البحث الثنائي المجال إلى النصف في كل خطوة → O(log n)."
+    }
+  },
+  {
+    "id": 4,
+    "category": "complexity",
+    "difficulty": "easy",
+    "question": {
+      "en": "Average time to look up a value by key in a hash map?",
+      "ar": "متوسط زمن البحث عن قيمة بمفتاح في خريطة تجزئة (hash map)؟"
+    },
+    "options": [
+      "O(1)",
+      "O(log n)",
+      "O(n)",
+      "O(n²)"
+    ],
+    "answer": "O(1)",
+    "explanation": {
+      "en": "Hash maps give average O(1) lookups by key.",
+      "ar": "خرائط التجزئة توفّر بحثاً بمتوسط O(1) عبر المفتاح."
+    }
+  },
+  {
+    "id": 5,
+    "category": "complexity",
+    "difficulty": "easy",
+    "question": {
+      "en": "Time to find an item in an UNSORTED array of n elements?",
+      "ar": "زمن إيجاد عنصر في مصفوفة غير مرتّبة من n عنصر؟"
+    },
+    "options": [
+      "O(n)",
+      "O(log n)",
+      "O(1)",
+      "O(n log n)"
+    ],
+    "answer": "O(n)",
+    "explanation": {
+      "en": "Without order you may scan every element → O(n) linear search.",
+      "ar": "بدون ترتيب قد تفحص كل عنصر → بحث خطي O(n)."
+    }
+  },
+  {
+    "id": 6,
+    "category": "complexity",
+    "difficulty": "medium",
+    "question": {
+      "en": "Time complexity of merge sort?",
+      "ar": "ما تعقيد الوقت لخوارزمية الدمج (merge sort)؟"
+    },
+    "options": [
+      "O(n log n)",
+      "O(n²)",
+      "O(n)",
+      "O(log n)"
+    ],
+    "answer": "O(n log n)",
+    "explanation": {
+      "en": "Merge sort splits (log n levels) and merges (n work) → O(n log n).",
+      "ar": "يقسم merge sort (log n مستوى) ويدمج (عمل n) → O(n log n)."
+    }
+  },
+  {
+    "id": 7,
+    "category": "complexity",
+    "difficulty": "medium",
+    "question": {
+      "en": "Worst-case time complexity of bubble sort?",
+      "ar": "أسوأ تعقيد زمني لخوارزمية الفقاعات (bubble sort)؟"
+    },
+    "options": [
+      "O(n²)",
+      "O(n log n)",
+      "O(n)",
+      "O(log n)"
+    ],
+    "answer": "O(n²)",
+    "explanation": {
+      "en": "Bubble sort compares adjacent pairs across n passes → O(n²).",
+      "ar": "تقارن الفقاعات الأزواج المتجاورة عبر n تمريرة → O(n²)."
+    }
+  },
+  {
+    "id": 8,
+    "category": "complexity",
+    "difficulty": "medium",
+    "codeSnippet": "def fact(n):\n    if n <= 1: return 1\n    return n * fact(n - 1)",
+    "question": {
+      "en": "What is the space complexity of this recursion?",
+      "ar": "ما تعقيد الذاكرة لهذا الاستدعاء التكراري؟"
+    },
+    "options": [
+      "O(n)",
+      "O(1)",
+      "O(log n)",
+      "O(n²)"
+    ],
+    "answer": "O(n)",
+    "explanation": {
+      "en": "The call stack holds n frames until the base case → O(n) space.",
+      "ar": "يحتفظ مكدّس الاستدعاء بـ n إطاراً حتى الحالة الأساسية → ذاكرة O(n)."
+    }
+  },
+  {
+    "id": 9,
+    "category": "complexity",
+    "difficulty": "hard",
+    "codeSnippet": "def fib(n):\n    if n < 2: return n\n    return fib(n-1) + fib(n-2)",
+    "question": {
+      "en": "Time complexity of this naive Fibonacci?",
+      "ar": "ما تعقيد الوقت لهذا الحساب الساذج لفيبوناتشي؟"
+    },
+    "options": [
+      "O(2^n)",
+      "O(n)",
+      "O(n²)",
+      "O(log n)"
+    ],
+    "answer": "O(2^n)",
+    "explanation": {
+      "en": "Each call spawns two more, forming an exponential tree → O(2^n).",
+      "ar": "كل استدعاء يولّد استدعاءين، مكوّناً شجرة أسية → O(2^n)."
+    }
+  },
+  {
+    "id": 10,
+    "category": "complexity",
+    "difficulty": "medium",
+    "question": {
+      "en": "Worst-case time complexity of quicksort?",
+      "ar": "أسوأ تعقيد زمني للترتيب السريع (quicksort)؟"
+    },
+    "options": [
+      "O(n²)",
+      "O(n log n)",
+      "O(n)",
+      "O(log n)"
+    ],
+    "answer": "O(n²)",
+    "explanation": {
+      "en": "A bad pivot (e.g. already sorted) degrades quicksort to O(n²).",
+      "ar": "محور سيّئ (كأن تكون مرتّبة مسبقاً) يهبط بالترتيب السريع إلى O(n²)."
+    }
+  },
+  {
+    "id": 11,
+    "category": "data-structures",
+    "difficulty": "easy",
+    "question": {
+      "en": "Which data structure follows Last-In-First-Out (LIFO)?",
+      "ar": "أي هيكل بيانات يتبع مبدأ آخر داخل أول خارج (LIFO)؟"
+    },
+    "options": [
+      "Stack",
+      "Queue",
+      "Heap",
+      "Hash map"
+    ],
+    "answer": "Stack",
+    "explanation": {
+      "en": "A stack pushes/pops from one end → LIFO.",
+      "ar": "المكدّس يُدخِل ويُخرِج من طرف واحد → LIFO."
+    }
+  },
+  {
+    "id": 12,
+    "category": "data-structures",
+    "difficulty": "easy",
+    "question": {
+      "en": "Which data structure follows First-In-First-Out (FIFO)?",
+      "ar": "أي هيكل بيانات يتبع مبدأ أول داخل أول خارج (FIFO)؟"
+    },
+    "options": [
+      "Queue",
+      "Stack",
+      "Tree",
+      "Graph"
+    ],
+    "answer": "Queue",
+    "explanation": {
+      "en": "A queue enqueues at the back and dequeues at the front → FIFO.",
+      "ar": "الطابور يُدخِل من الخلف ويُخرِج من الأمام → FIFO."
+    }
+  },
+  {
+    "id": 13,
+    "category": "data-structures",
+    "difficulty": "easy",
+    "question": {
+      "en": "Which structure gives average O(1) insert and lookup by key?",
+      "ar": "أي هيكل يوفّر إدخالاً وبحثاً بمتوسط O(1) عبر المفتاح؟"
+    },
+    "options": [
+      "Hash table",
+      "Sorted array",
+      "Linked list",
+      "Binary heap"
+    ],
+    "answer": "Hash table",
+    "explanation": {
+      "en": "Hash tables map keys to buckets for average O(1) operations.",
+      "ar": "تربط جداول التجزئة المفاتيح بسلال لعمليات بمتوسط O(1)."
+    }
+  },
+  {
+    "id": 14,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "question": {
+      "en": "Which structure efficiently returns the smallest element each time?",
+      "ar": "أي هيكل يعيد أصغر عنصر بكفاءة في كل مرة؟"
+    },
+    "options": [
+      "Min-heap (priority queue)",
+      "Stack",
+      "Hash set",
+      "Queue"
+    ],
+    "answer": "Min-heap (priority queue)",
+    "explanation": {
+      "en": "A min-heap keeps the minimum at the root with O(log n) updates.",
+      "ar": "يحتفظ min-heap بالأصغر في الجذر مع تحديثات O(log n)."
+    }
+  },
+  {
+    "id": 15,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "question": {
+      "en": "To detect duplicates in an array in O(n), use a…",
+      "ar": "لاكتشاف التكرارات في مصفوفة بزمن O(n)، استخدم…"
+    },
+    "options": [
+      "Hash set",
+      "Nested loop",
+      "Sorted array",
+      "Stack"
+    ],
+    "answer": "Hash set",
+    "explanation": {
+      "en": "Track seen values in a hash set for O(n) duplicate detection.",
+      "ar": "تتبّع القيم المرئية في مجموعة تجزئة لاكتشاف التكرار بزمن O(n)."
+    }
+  },
+  {
+    "id": 16,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "question": {
+      "en": "BFS (breadth-first search) is typically implemented with a…",
+      "ar": "يُنفَّذ البحث بالعرض (BFS) عادةً باستخدام…"
+    },
+    "options": [
+      "Queue",
+      "Stack",
+      "Heap",
+      "Hash map"
+    ],
+    "answer": "Queue",
+    "explanation": {
+      "en": "BFS explores level by level using a FIFO queue.",
+      "ar": "يستكشف BFS مستوى بمستوى باستخدام طابور FIFO."
+    }
+  },
+  {
+    "id": 17,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "question": {
+      "en": "Iterative DFS (depth-first search) uses a…",
+      "ar": "البحث بالعمق التكراري (DFS) يستخدم…"
+    },
+    "options": [
+      "Stack",
+      "Queue",
+      "Priority queue",
+      "Deque only"
+    ],
+    "answer": "Stack",
+    "explanation": {
+      "en": "DFS goes deep first, backed by a LIFO stack (or recursion).",
+      "ar": "يتعمّق DFS أولاً مدعوماً بمكدّس LIFO (أو التكرار الذاتي)."
+    }
+  },
+  {
+    "id": 18,
+    "category": "data-structures",
+    "difficulty": "easy",
+    "question": {
+      "en": "Best structure for an \"undo\" feature?",
+      "ar": "أفضل هيكل لميزة «تراجع» (undo)؟"
+    },
+    "options": [
+      "Stack",
+      "Queue",
+      "Heap",
+      "Graph"
+    ],
+    "answer": "Stack",
+    "explanation": {
+      "en": "Undo reverses the most recent action first → a stack.",
+      "ar": "يتراجع «undo» عن أحدث إجراء أولاً → مكدّس."
+    }
+  },
+  {
+    "id": 19,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "question": {
+      "en": "Random access to element i is O(1) in which structure?",
+      "ar": "الوصول العشوائي للعنصر i بزمن O(1) في أي هيكل؟"
+    },
+    "options": [
+      "Array",
+      "Singly linked list",
+      "Binary tree",
+      "Hash set"
+    ],
+    "answer": "Array",
+    "explanation": {
+      "en": "Arrays compute an address from the index → O(1) random access.",
+      "ar": "تحسب المصفوفات العنوان من الفهرس → وصول عشوائي O(1)."
+    }
+  },
+  {
+    "id": 20,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "question": {
+      "en": "Inserting a node at the head of a singly linked list is…",
+      "ar": "إدراج عقدة في رأس قائمة مترابطة أحادية هو…"
+    },
+    "options": [
+      "O(1)",
+      "O(n)",
+      "O(log n)",
+      "O(n²)"
+    ],
+    "answer": "O(1)",
+    "explanation": {
+      "en": "Point the new node to the old head and move head → O(1).",
+      "ar": "وجّه العقدة الجديدة إلى الرأس القديم وحرّك الرأس → O(1)."
+    }
+  },
+  {
+    "id": 21,
+    "category": "patterns",
+    "difficulty": "medium",
+    "question": {
+      "en": "Find two numbers that sum to a target in a SORTED array, optimally:",
+      "ar": "إيجاد رقمين مجموعهما هدف معيّن في مصفوفة مرتّبة، بأفضل طريقة:"
+    },
+    "options": [
+      "Two pointers",
+      "Brute force pairs",
+      "Sort again",
+      "Recursion"
+    ],
+    "answer": "Two pointers",
+    "explanation": {
+      "en": "Move two pointers inward based on the sum → O(n).",
+      "ar": "حرّك مؤشّرين للداخل بناءً على المجموع → O(n)."
+    }
+  },
+  {
+    "id": 22,
+    "category": "patterns",
+    "difficulty": "medium",
+    "question": {
+      "en": "Longest substring without repeating characters is solved with…",
+      "ar": "أطول سلسلة فرعية دون أحرف مكرّرة تُحلّ بـ…"
+    },
+    "options": [
+      "Sliding window",
+      "Binary search",
+      "Backtracking",
+      "Union-find"
+    ],
+    "answer": "Sliding window",
+    "explanation": {
+      "en": "A sliding window grows/shrinks to keep the substring valid.",
+      "ar": "نافذة منزلقة تتوسّع/تتقلّص للحفاظ على صحّة السلسلة الفرعية."
+    }
+  },
+  {
+    "id": 23,
+    "category": "patterns",
+    "difficulty": "medium",
+    "question": {
+      "en": "Shortest path in an UNWEIGHTED graph is found with…",
+      "ar": "أقصر مسار في رسم بياني غير موزون يُوجد بـ…"
+    },
+    "options": [
+      "BFS",
+      "DFS",
+      "Dijkstra",
+      "Bubble sort"
+    ],
+    "answer": "BFS",
+    "explanation": {
+      "en": "BFS reaches nodes in increasing distance → shortest unweighted path.",
+      "ar": "يصل BFS إلى العقد بمسافة متزايدة → أقصر مسار غير موزون."
+    }
+  },
+  {
+    "id": 24,
+    "category": "patterns",
+    "difficulty": "hard",
+    "question": {
+      "en": "Generating all permutations of a set typically uses…",
+      "ar": "توليد كل تباديل مجموعة يستخدم عادةً…"
+    },
+    "options": [
+      "Backtracking",
+      "Greedy",
+      "Binary search",
+      "Hashing"
+    ],
+    "answer": "Backtracking",
+    "explanation": {
+      "en": "Backtracking builds candidates and undoes choices to explore all options.",
+      "ar": "يبني التراجع (backtracking) المرشّحين ويتراجع عن الخيارات لاستكشاف كل الاحتمالات."
+    }
+  },
+  {
+    "id": 25,
+    "category": "patterns",
+    "difficulty": "hard",
+    "question": {
+      "en": "Minimum coins to make an amount (coin change) is best solved with…",
+      "ar": "أقل عدد عملات لتكوين مبلغ (coin change) يُحلّ أفضل بـ…"
+    },
+    "options": [
+      "Dynamic programming",
+      "Greedy always",
+      "DFS only",
+      "Two pointers"
+    ],
+    "answer": "Dynamic programming",
+    "explanation": {
+      "en": "Overlapping subproblems + optimal substructure → DP (greedy can fail).",
+      "ar": "مسائل فرعية متداخلة + بنية مثلى جزئية → برمجة ديناميكية (قد يفشل الجشع)."
+    }
+  },
+  {
+    "id": 26,
+    "category": "patterns",
+    "difficulty": "medium",
+    "question": {
+      "en": "First step to merge overlapping intervals is to…",
+      "ar": "الخطوة الأولى لدمج الفترات المتداخلة هي…"
+    },
+    "options": [
+      "Sort by start time",
+      "Reverse the list",
+      "Hash the intervals",
+      "Build a heap"
+    ],
+    "answer": "Sort by start time",
+    "explanation": {
+      "en": "Sorting by start lets you merge in a single linear pass.",
+      "ar": "الترتيب حسب البداية يتيح الدمج في تمريرة خطية واحدة."
+    }
+  },
+  {
+    "id": 27,
+    "category": "patterns",
+    "difficulty": "hard",
+    "question": {
+      "en": "Detecting a cycle in a linked list in O(1) space uses…",
+      "ar": "اكتشاف حلقة في قائمة مترابطة بذاكرة O(1) يستخدم…"
+    },
+    "options": [
+      "Floyd's fast & slow pointers",
+      "A hash set",
+      "Reversing the list",
+      "Sorting"
+    ],
+    "answer": "Floyd's fast & slow pointers",
+    "explanation": {
+      "en": "Two pointers at different speeds meet inside a cycle, using O(1) space.",
+      "ar": "مؤشّران بسرعتين مختلفتين يلتقيان داخل الحلقة، بذاكرة O(1)."
+    }
+  },
+  {
+    "id": 28,
+    "category": "patterns",
+    "difficulty": "medium",
+    "question": {
+      "en": "The Kth largest element is found efficiently with a…",
+      "ar": "العنصر الأكبر رقم K يُوجد بكفاءة باستخدام…"
+    },
+    "options": [
+      "Heap",
+      "Full sort only",
+      "Queue",
+      "Stack"
+    ],
+    "answer": "Heap",
+    "explanation": {
+      "en": "A size-K heap tracks the top elements in O(n log k).",
+      "ar": "كومة بحجم K تتتبّع العناصر الأعلى بزمن O(n log k)."
+    }
+  },
+  {
+    "id": 29,
+    "category": "patterns",
+    "difficulty": "easy",
+    "question": {
+      "en": "Binary search requires the input array to be…",
+      "ar": "يتطلّب البحث الثنائي أن تكون مصفوفة الإدخال…"
+    },
+    "options": [
+      "Sorted",
+      "Reversed",
+      "Unique",
+      "A power of two"
+    ],
+    "answer": "Sorted",
+    "explanation": {
+      "en": "Binary search relies on order to discard half each step.",
+      "ar": "يعتمد البحث الثنائي على الترتيب لاستبعاد النصف في كل خطوة."
+    }
+  },
+  {
+    "id": 30,
+    "category": "leetcode",
+    "difficulty": "medium",
+    "question": {
+      "en": "Optimal time complexity for the \"Two Sum\" problem?",
+      "ar": "أفضل تعقيد زمني لمسألة «Two Sum»؟"
+    },
+    "options": [
+      "O(n) with a hash map",
+      "O(n²) brute force",
+      "O(n log n)",
+      "O(1)"
+    ],
+    "answer": "O(n) with a hash map",
+    "explanation": {
+      "en": "Store complements in a hash map for a single O(n) pass.",
+      "ar": "خزّن المتمّمات في خريطة تجزئة لتمريرة واحدة بزمن O(n)."
+    }
+  },
+  {
+    "id": 31,
+    "category": "leetcode",
+    "difficulty": "easy",
+    "question": {
+      "en": "\"Valid Parentheses\" is checked using a…",
+      "ar": "يُتحقَّق من «الأقواس الصحيحة» باستخدام…"
+    },
+    "options": [
+      "Stack",
+      "Queue",
+      "Hash map",
+      "Heap"
+    ],
+    "answer": "Stack",
+    "explanation": {
+      "en": "Push openers, pop and match on closers → a stack.",
+      "ar": "ادفع الأقواس المفتوحة، واسحب وطابِق عند المغلقة → مكدّس."
+    }
+  },
+  {
+    "id": 32,
+    "category": "leetcode",
+    "difficulty": "medium",
+    "codeSnippet": "a = [1, 2, 3, 4]\nprint(a[::-1])",
+    "question": {
+      "en": "What does this print (Python)?",
+      "ar": "ماذا يطبع هذا (بايثون)؟"
+    },
+    "options": [
+      "[4, 3, 2, 1]",
+      "[1, 2, 3, 4]",
+      "[1, 3]",
+      "Error"
+    ],
+    "answer": "[4, 3, 2, 1]",
+    "explanation": {
+      "en": "a[::-1] returns the list reversed.",
+      "ar": "a[::-1] يعيد القائمة معكوسة."
+    }
+  },
+  {
+    "id": 33,
+    "category": "leetcode",
+    "difficulty": "medium",
+    "codeSnippet": "def rec(n):\n    if n == 0: return 0\n    return n + rec(n - 1)",
+    "question": {
+      "en": "What does rec(n) compute?",
+      "ar": "ماذا يحسب rec(n)؟"
+    },
+    "options": [
+      "The sum 1 + 2 + … + n",
+      "n factorial",
+      "The nth Fibonacci",
+      "Always 0"
+    ],
+    "answer": "The sum 1 + 2 + … + n",
+    "explanation": {
+      "en": "It adds n to the sum of everything below it → 1+2+…+n.",
+      "ar": "يجمع n إلى مجموع ما دونه → 1+2+…+n."
+    }
+  },
+  {
+    "id": 34,
+    "category": "leetcode",
+    "difficulty": "hard",
+    "question": {
+      "en": "Memoization improves naive Fibonacci from O(2^n) to…",
+      "ar": "التخزين المؤقّت (memoization) يحسّن فيبوناتشي الساذج من O(2^n) إلى…"
+    },
+    "options": [
+      "O(n)",
+      "O(log n)",
+      "O(1)",
+      "O(n²)"
+    ],
+    "answer": "O(n)",
+    "explanation": {
+      "en": "Caching each fib(k) once makes the work linear → O(n).",
+      "ar": "تخزين كل fib(k) مرة يجعل العمل خطياً → O(n)."
+    }
+  },
+  {
+    "id": 35,
+    "category": "leetcode",
+    "difficulty": "medium",
+    "question": {
+      "en": "Reversing a singly linked list iteratively uses how much extra space?",
+      "ar": "عكس قائمة مترابطة أحادية تكرارياً يستخدم كم من الذاكرة الإضافية؟"
+    },
+    "options": [
+      "O(1)",
+      "O(n)",
+      "O(log n)",
+      "O(n²)"
+    ],
+    "answer": "O(1)",
+    "explanation": {
+      "en": "Re-point pointers in place with a few variables → O(1).",
+      "ar": "إعادة توجيه المؤشّرات في مكانها ببضعة متغيّرات → O(1)."
+    }
+  },
+  {
+    "id": 36,
+    "category": "leetcode",
+    "difficulty": "medium",
+    "question": {
+      "en": "Which sorting algorithm is stable and runs in O(n log n)?",
+      "ar": "أي خوارزمية ترتيب مستقرّة وتعمل بزمن O(n log n)؟"
+    },
+    "options": [
+      "Merge sort",
+      "Quicksort",
+      "Selection sort",
+      "Bubble sort"
+    ],
+    "answer": "Merge sort",
+    "explanation": {
+      "en": "Merge sort is stable and guarantees O(n log n).",
+      "ar": "ترتيب الدمج مستقرّ ويضمن O(n log n)."
+    }
+  },
+  {
+    "id": 37,
+    "category": "recursion",
+    "difficulty": "easy",
+    "question": {
+      "en": "What must every correct recursion have to terminate?",
+      "ar": "ما الذي يجب أن يتوفّر في كل تكرار ذاتي صحيح لكي ينتهي؟"
+    },
+    "options": [
+      "A base case",
+      "A global variable",
+      "A while loop",
+      "A hash map"
+    ],
+    "answer": "A base case",
+    "explanation": {
+      "en": "A base case stops the recursion; without it, infinite recursion.",
+      "ar": "الحالة الأساسية توقف التكرار؛ بدونها يحدث تكرار لا نهائي."
+    }
+  },
+  {
+    "id": 38,
+    "category": "bit-manipulation",
+    "difficulty": "hard",
+    "codeSnippet": "x = x & (x - 1)",
+    "question": {
+      "en": "What does x & (x - 1) do?",
+      "ar": "ماذا تفعل x & (x - 1)؟"
+    },
+    "options": [
+      "Clears the lowest set bit",
+      "Sets all bits",
+      "Doubles x",
+      "Reverses the bits"
+    ],
+    "answer": "Clears the lowest set bit",
+    "explanation": {
+      "en": "It turns off the rightmost 1 bit — a classic bit trick.",
+      "ar": "تُطفئ أقصى بت مضبوط إلى اليمين — حيلة بتّية كلاسيكية."
+    }
+  },
+  {
+    "id": 39,
+    "category": "data-structures",
+    "difficulty": "hard",
+    "question": {
+      "en": "Building a binary heap from an unsorted array takes…",
+      "ar": "بناء كومة ثنائية من مصفوفة غير مرتّبة يستغرق…"
+    },
+    "options": [
+      "O(n)",
+      "O(n log n)",
+      "O(log n)",
+      "O(n²)"
+    ],
+    "answer": "O(n)",
+    "explanation": {
+      "en": "Bottom-up heapify builds a heap in linear O(n) time.",
+      "ar": "بناء الكومة من الأسفل للأعلى (heapify) يتم بزمن خطي O(n)."
+    }
+  },
+  {
+    "id": 40,
+    "category": "patterns",
+    "difficulty": "medium",
+    "question": {
+      "en": "A fixed-size sliding window over n elements runs in…",
+      "ar": "نافذة منزلقة بحجم ثابت على n عنصر تعمل بزمن…"
+    },
+    "options": [
+      "O(n)",
+      "O(n²)",
+      "O(log n)",
+      "O(n log n)"
+    ],
+    "answer": "O(n)",
+    "explanation": {
+      "en": "Each element enters and leaves the window once → O(n).",
+      "ar": "كل عنصر يدخل النافذة ويخرج منها مرة واحدة → O(n)."
+    }
+  },
+  {
+    "id": 41,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "question": {
+      "en": "A common way to resolve hash collisions is…",
+      "ar": "من الطرق الشائعة لحلّ تصادمات التجزئة…"
+    },
+    "options": [
+      "Separate chaining",
+      "Binary search",
+      "Recursion",
+      "Sorting the keys"
+    ],
+    "answer": "Separate chaining",
+    "explanation": {
+      "en": "Separate chaining stores colliding keys in a per-bucket list.",
+      "ar": "التسلسل المنفصل يخزّن المفاتيح المتصادمة في قائمة لكل سلّة."
+    }
+  },
+  {
+    "id": 42,
+    "category": "complexity",
+    "difficulty": "medium",
+    "codeSnippet": "total = 0\nfor i in range(n):\n    for j in range(i, n):\n        total += 1",
+    "question": {
+      "en": "What is the time complexity?",
+      "ar": "ما تعقيد الوقت؟"
+    },
+    "options": [
+      "O(n²)",
+      "O(n)",
+      "O(n log n)",
+      "O(log n)"
+    ],
+    "answer": "O(n²)",
+    "explanation": {
+      "en": "The inner loop runs n+(n-1)+…+1 ≈ n²/2 times → O(n²).",
+      "ar": "الحلقة الداخلية تعمل n+(n-1)+…+1 ≈ n²/2 مرة → O(n²)."
+    }
+  }
+]

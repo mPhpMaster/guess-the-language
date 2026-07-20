@@ -176,8 +176,10 @@ const I18N = {
         modeNetworkDesc: 'OSI, TCP/IP, DNS, routing & protocols',
         modeGamedev: 'Game Dev',
         modeGamedevDesc: 'Game loops, physics, rendering, assets and UI systems',
+        modeAlgo: 'Problem Solving',
+        modeAlgoDesc: 'Algorithms, data structures, Big-O & LeetCode patterns',
         modeAll: 'All (Mixed)',
-        modeAllDesc: 'Everything: all five banks together',
+        modeAllDesc: 'Everything: all six banks together',
         changeMode: 'Modes',
         diff: {
             easy: 'Easy',
@@ -287,8 +289,10 @@ const I18N = {
         modeNetworkDesc: 'OSI وTCP/IP وDNS والتوجيه والبروتوكولات',
         modeGamedev: 'تطوير الألعاب',
         modeGamedevDesc: 'حلقات الألعاب والفيزياء والرسوم والمحتوى والواجهات',
+        modeAlgo: 'حل المشكلات',
+        modeAlgoDesc: 'الخوارزميات وهياكل البيانات وتعقيد الوقت وأنماط LeetCode',
         modeAll: 'الكل (مدمج)',
-        modeAllDesc: 'كل شيء: البنوك الخمسة معاً',
+        modeAllDesc: 'كل شيء: البنوك الستة معاً',
         changeMode: 'الأنماط',
         diff: {
             easy: 'سهل',
@@ -406,6 +410,18 @@ const MODES = {
             ar: 'حلقات الألعاب والفيزياء والرسوم والمحتوى والواجهات'
         }
     },
+    algorithms: {
+        key: 'algorithms',
+        icon: '🧩',
+        title: {
+            en: ['Problem', 'Solving Quiz'],
+            ar: ['اختبار', 'حل المشكلات']
+        },
+        desc: {
+            en: 'Algorithms, data structures, Big-O & LeetCode patterns',
+            ar: 'الخوارزميات وهياكل البيانات وتعقيد الوقت وأنماط LeetCode'
+        }
+    },
     all: {
         key: 'all',
         icon: '🎲',
@@ -414,8 +430,8 @@ const MODES = {
             ar: ['الكل', 'اختبار شامل']
         },
         desc: {
-            en: 'Everything mixed: all five banks together',
-            ar: 'كل شيء مدمج: البنوك الخمسة معاً'
+            en: 'Everything mixed: all six banks together',
+            ar: 'كل شيء مدمج: البنوك الستة معاً'
         }
     }
 };
@@ -1937,6 +1953,7 @@ function modeLabel(mode) {
         devops: 'modeDevops',
         network: 'modeNetwork',
         gamedev: 'modeGamedev',
+        algorithms: 'modeAlgo',
         all: 'modeAll'
     };
     return t(map[mode] || 'modeLanguages');

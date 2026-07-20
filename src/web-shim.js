@@ -11,7 +11,8 @@
     cybersecurity: 'questions-cyber.json',
     devops: 'questions-devops.json',
     network: 'questions-network.json',
-    gamedev: 'questions-gamedev.json'
+    gamedev: 'questions-gamedev.json',
+    algorithms: 'questions-algo.json'
   };
   const BANK_KEYS = Object.keys(QUESTION_FILES);
 

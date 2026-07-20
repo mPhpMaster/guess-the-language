@@ -869,6 +869,7 @@ button.opt-btn {
 .mode-card-devops:hover { border-color: rgba(177, 140, 255, 0.28); }
 .mode-card-network:hover { border-color: rgba(95, 208, 255, 0.28); }
 .mode-card-gamedev:hover { border-color: rgba(255, 64, 129, 0.28); }
+.mode-card-algo:hover { border-color: rgba(46, 197, 255, 0.28); }
 .mode-card-all:hover { border-color: rgba(255, 216, 116, 0.28); }
 .mode-icon { font-size: 48px; margin-bottom: 14px; }
 .mode-name { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
