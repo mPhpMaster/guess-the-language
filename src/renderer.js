@@ -166,6 +166,7 @@ const I18N = {
         endGame: 'End Game',
         leaveRoom: 'Leave',
         joinConfirm: 'Join',
+        joining: 'Joining…',
         adminBadge: 'Host',
         kickPlayer: 'Remove',
         roomResults: 'Room Results',
@@ -173,6 +174,8 @@ const I18N = {
         mpJoinFail: 'Could not join room',
         mpHostFail: 'Could not create room',
         codeCopied: '✅ Code copied!',
+        challengeLinkCopied: '🔗 Link copied!',
+        spectating: '👁  Spectating — the game is in progress',
         mpKicked: 'You were removed from the room',
         waitingOpponents: '⏳ Waiting for opponents…',
         lobbySettings: 'Game settings',
@@ -274,6 +277,7 @@ const I18N = {
         endGame: 'إنهاء اللعبة',
         leaveRoom: 'مغادرة',
         joinConfirm: 'انضم',
+        joining: 'جارٍ الانضمام…',
         adminBadge: 'مضيف',
         kickPlayer: 'إزالة',
         roomResults: 'نتائج الغرفة',
@@ -281,6 +285,8 @@ const I18N = {
         mpJoinFail: 'تعذّر الانضمام للغرفة',
         mpHostFail: 'تعذّر إنشاء الغرفة',
         codeCopied: '✅ تم نسخ الرمز!',
+        challengeLinkCopied: '🔗 تم نسخ الرابط!',
+        spectating: '👁  وضع المشاهدة — اللعبة جارية',
         mpKicked: 'تمت إزالتك من الغرفة',
         waitingOpponents: '⏳ بانتظار الخصوم…',
         lobbySettings: 'إعدادات اللعبة',
@@ -473,7 +479,8 @@ const state = {
     mpSyncKey: '',
     mpRound: null,
     mpChosen: null,
-    mpResultsShown: false
+    mpResultsShown: false,
+    spectator: false
 };
 
 // ---------- DOM helpers ----------
@@ -1194,6 +1201,8 @@ function resolveCurrentQuestion(chosen, timedOut = false) {
 }
 
 function onAnswerMultiplayer(chosen, btn) {
+    // Spectators watch only — their picks never count.
+    if (state.spectator) return;
     // Accept picks only while the question is open. The player MAY change their
     // answer as many times as they like before the timer runs out.
     const room = window.GTL_MULTIPLAYER.state.room;
@@ -1410,6 +1419,7 @@ async function endGame() {
     $('.final-score').classList.toggle('hidden', viewOnly);
     $('.results-correct').classList.toggle('hidden', viewOnly);
     $('#btn-challenge').classList.toggle('hidden', viewOnly);
+    $('#challenge-link').classList.add('hidden');
     $('#btn-replay').classList.remove('hidden');
     $('#btn-replay').textContent = t('replay');
     $('#btn-menu').textContent = t('backMenu');
@@ -1680,6 +1690,17 @@ function parseChallengePayload(raw) {
     return { mode, questions, difficulty, score };
 }
 
+// Read a challenge off the web URL (?challenge=<payload>) — the link a shared
+// "Challenge a friend" produces on the plain web build.
+function getChallengeFromUrl() {
+    try {
+        const p = new URLSearchParams(location.search).get('challenge');
+        return p ? parseChallengePayload(decodeURIComponent(p)) : null;
+    } catch {
+        return null;
+    }
+}
+
 // A challenged friend launches with these preset — mirror the challenger's mode
 // and settings and remember the score to beat.
 function applyChallengeSettings(info) {
@@ -1709,13 +1730,45 @@ function showChallengeBanner(info) {
     el.classList.remove('hidden');
 }
 
+// Public web address of the game. On the plain web build that's the current
+// origin; inside Discord/Electron the origin is a proxy/file, so fall back to
+// the deployed site so the shared link is always playable in a browser.
+const GAME_PUBLIC_URL = 'https://guess-the-language-chi.vercel.app/';
+function gameShareBaseUrl() {
+    if (document.documentElement.classList.contains('platform-web')) {
+        return (location.origin + location.pathname).replace(/index\.html?$/i, '');
+    }
+    return GAME_PUBLIC_URL;
+}
+
+// A shareable link that opens the game preloaded with this challenge (same mode
+// & settings, plus the score to beat).
+function buildChallengeUrl() {
+    const base = gameShareBaseUrl().replace(/\/+$/, '/');
+    return `${base}?challenge=${encodeURIComponent(buildChallengePayload())}`;
+}
+
+// Reveal the challenge link on the results screen as selectable text so the
+// player can grab it even if the clipboard copy is blocked.
+function showChallengeLink(url) {
+    const el = $('#challenge-link');
+    if (!el) return;
+    el.value = url;
+    el.classList.remove('hidden');
+    el.focus();
+    el.select();
+}
+
 function challengeFriend() {
+    const url = buildChallengeUrl();
     const da = window.DISCORD_ACTIVITY;
     // Inside a Discord Activity, open the native share sheet so the player can
-    // DM the challenge (with their score + settings) straight to a friend.
+    // DM the challenge (score + settings + link) straight to a friend.
     if (isDiscordActivity() && da && typeof da.shareLink === 'function') {
-        const p = da.shareLink(challengeText(state.score), buildChallengePayload());
+        const msg = `${challengeText(state.score)}\n${url}`;
+        const p = da.shareLink(msg, buildChallengePayload());
         if (p && typeof p.then === 'function') {
+            showChallengeLink(url);
             p.then(
                 (res) => {
                     if (res && (res.didSendMessage || res.didCopyLink)) {
@@ -1730,11 +1783,11 @@ function challengeFriend() {
             return;
         }
     }
-    // Web / Electron fallback: copy a shareable challenge line to the clipboard.
-    const text = challengeText(state.score);
-    navigator.clipboard ?.writeText(text).then(
-        () => flashButton('#btn-challenge', t('challengeCopied')),
-        () => flashButton('#btn-challenge', String(state.score))
+    // Web / Electron: copy the link to the clipboard and show it on screen.
+    showChallengeLink(url);
+    navigator.clipboard ?.writeText(url).then(
+        () => flashButton('#btn-challenge', t('challengeLinkCopied')),
+        () => {}
     );
 }
 
@@ -1752,6 +1805,15 @@ function flashButton(sel, msg) {
 // ============================================================
 function mpOnline() {
     return window.GTL_MULTIPLAYER && window.GTL_MULTIPLAYER.configured();
+}
+
+// True when the local player joined a room mid-game (server-flagged spectator):
+// they watch the round but can't answer, and their score doesn't count.
+function amSpectator() {
+    const mp = window.GTL_MULTIPLAYER && window.GTL_MULTIPLAYER.state;
+    if (!mp) return false;
+    const me = mp.players.find((p) => p.id === mp.playerId);
+    return !!(me && me.spectator);
 }
 
 function refreshMultiplayerButtons() {
@@ -1890,7 +1952,11 @@ function renderLobby(room, players) {
     $('#lobby-admin').classList.toggle('hidden', !isAdmin);
     $('#btn-copy-code').classList.toggle('hidden', !isAdmin || discord);
 
-    const canStart = isAdmin && players.length >= 2 && room ?.status === 'lobby';
+    // Inside Discord a lone player may start a solo round; code rooms still want
+    // at least two players before the host can start.
+    const activeCount = players.filter((p) => !p.spectator).length;
+    const minPlayers = isDiscordActivity() ? 1 : 2;
+    const canStart = isAdmin && activeCount >= minPlayers && room ?.status === 'lobby';
     $('#btn-lobby-start').disabled = !canStart;
 }
 
@@ -2004,10 +2070,22 @@ function showMultiplayerQuestion(room) {
     }
 
     hideToast();
-    renderOptions(cur, false);
+    // Spectators (joined mid-game) watch the round with the options locked.
+    renderOptions(cur, state.spectator);
+    if (state.spectator) {
+        document.querySelectorAll('#options-grid button').forEach((b) => { b.disabled = true; });
+        showSpectatorBanner();
+    }
     state.questionTime = ref.duration || timeForDifficulty(cur.difficulty);
     syncMpHudFromPlayers();
     startTimerFromServer();
+}
+
+function showSpectatorBanner() {
+    const el = $('#mp-status');
+    if (!el) return;
+    el.textContent = t('spectating');
+    el.classList.remove('hidden');
 }
 
 async function showMultiplayerReveal(room) {
@@ -2040,7 +2118,11 @@ async function showMultiplayerReveal(room) {
     }
 
     // Local result feedback (the key-gated caller runs this once per reveal).
-    if (chosen && chosen === ans) {
+    if (state.spectator) {
+        // A watcher just sees the correct answer, no pass/fail sound.
+        showToast(`${ans}  —  ${cur.explanation[getLang()]}`, 'good');
+        state.answered = true;
+    } else if (chosen && chosen === ans) {
         sfx.correct();
         showToast(`${t('correct')}  —  ${cur.explanation[getLang()]}`, 'good');
     } else if (chosen) {
@@ -2175,10 +2257,12 @@ function handleMultiplayerUpdate(room, players) {
     if (!room) return;
 
     if (room.status === 'lobby') {
-        // Fresh lobby, or back from a finished game via "Play again".
+        // Fresh lobby, or back from a finished game via "Play again". Everyone in
+        // the lobby is a full player again (spectator flags were cleared server-side).
         state.multiplayer = true;
         state.mpSyncKey = '';
         state.mpResultsShown = false;
+        state.spectator = false;
         clearTimer();
         hideMpStatus();
         hideMpGameChrome();
@@ -2212,6 +2296,7 @@ function handleMultiplayerUpdate(room, players) {
     if (room.status === 'playing') {
         state.multiplayer = true;
         state.mpResultsShown = false;
+        state.spectator = amSpectator();
         const key = `${room.question_index}|${room.phase}`;
         if (key !== state.mpSyncKey) {
             state.mpSyncKey = key;
@@ -2275,8 +2360,16 @@ async function autoJoinDiscordVoiceRoom() {
         state.multiplayer = true;
         state.viewOnly = false;
         state.mpSyncKey = '';
-        renderLobby(window.GTL_MULTIPLAYER.state.room, window.GTL_MULTIPLAYER.state.players);
-        showScreen('lobby');
+        const mp = window.GTL_MULTIPLAYER.state;
+        state.spectator = amSpectator();
+        // Joined a game already in progress → spectate: let the realtime sync
+        // render the live question rather than forcing the (wrong) lobby view.
+        if (mp.room && mp.room.status === 'playing') {
+            handleMultiplayerUpdate(mp.room, mp.players);
+        } else {
+            renderLobby(mp.room, mp.players);
+            showScreen('lobby');
+        }
         return true;
     } catch (err) {
         console.error('Discord voice room join failed:', err);
@@ -2356,17 +2449,29 @@ async function confirmJoinRoom() {
         $('#join-error').classList.remove('hidden');
         return;
     }
+    const btn = $('#btn-join-confirm');
+    const prevLabel = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = t('joining'); }
+    $('#join-error').classList.add('hidden');
     try {
         await loadAllBanks();
         await window.GTL_MULTIPLAYER.joinRoom(code, getPlayerName());
         closeJoinModal();
         state.multiplayer = true;
         state.viewOnly = false;
-        showScreen('lobby');
-        renderLobby(window.GTL_MULTIPLAYER.state.room, window.GTL_MULTIPLAYER.state.players);
+        state.spectator = amSpectator();
+        const mp = window.GTL_MULTIPLAYER.state;
+        if (mp.room && mp.room.status === 'playing') {
+            handleMultiplayerUpdate(mp.room, mp.players);
+        } else {
+            showScreen('lobby');
+            renderLobby(mp.room, mp.players);
+        }
     } catch (e) {
         $('#join-error').textContent = t('mpJoinFail') + ': ' + e.message;
         $('#join-error').classList.remove('hidden');
+    } finally {
+        if (btn) { btn.disabled = false; btn.textContent = prevLabel || t('joinConfirm'); }
     }
 }
 
@@ -2652,13 +2757,13 @@ async function boot() {
     // (sets the leaderboard name before the settings UI is populated).
     await handleDiscordOAuthReturn();
 
-    // A friend who launched from a "Challenge a friend" DM arrives with the
-    // challenger's mode + settings + score encoded in the Activity custom_id.
-    // Preload those and land on the home screen (with a "beat my score" banner)
-    // instead of auto-joining the voice room.
-    const challengeInfo = isDiscordActivity()
-        ? parseChallengePayload(window.DISCORD_ACTIVITY.customId)
-        : null;
+    // A friend who launched from a "Challenge a friend" DM/link arrives with the
+    // challenger's mode + settings + score — in Discord via the Activity
+    // custom_id, on the web via a ?challenge= URL param. Preload those and land on
+    // the home screen (with a "beat my score" banner) instead of auto-joining.
+    const challengeInfo =
+        (isDiscordActivity() ? parseChallengePayload(window.DISCORD_ACTIVITY.customId) : null)
+        || getChallengeFromUrl();
     if (challengeInfo) applyChallengeSettings(challengeInfo);
 
     applySettingsToUI();

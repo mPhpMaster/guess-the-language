@@ -30,8 +30,13 @@ create table if not exists public.room_players (
   correct    int not null default 0 check (correct >= 0),
   streak     int not null default 0 check (streak >= 0),
   is_host    boolean not null default false,
+  spectator  boolean not null default false,
   joined_at  timestamptz not null default now()
 );
+
+-- Players who joined a room mid-game watch only (see join_discord_room).
+alter table public.room_players
+  add column if not exists spectator boolean not null default false;
 
 create index if not exists room_players_room_id_idx on public.room_players (room_id);
 
@@ -350,9 +355,14 @@ begin
     raise exception 'Room is not in lobby';
   end if;
 
+  -- Everyone present when the round starts plays it (clears any spectator flags
+  -- left over from a previous round).
+  update public.room_players set spectator = false where room_id = p_room_id;
+
+  -- A single player may start a solo round (e.g. alone in a Discord voice call).
   select count(*) into player_count from public.room_players where room_id = p_room_id;
-  if player_count < 2 then
-    raise exception 'Need at least 2 players';
+  if player_count < 1 then
+    raise exception 'Need at least 1 player';
   end if;
 
   if p_round_refs is null or jsonb_array_length(p_round_refs) < 1 then
@@ -464,7 +474,9 @@ begin
         submitted_at = now();
 
   -- Everyone has now answered: settle scores and jump to the 2s reveal.
-  select count(*) into active_players from public.room_players where room_id = p_room_id;
+  select count(*) into active_players
+  from public.room_players
+  where room_id = p_room_id and coalesce(spectator, false) = false;
   select count(*) into answered_count
   from public.room_answers
   where room_id = p_room_id and question_index = r.question_index;
@@ -507,7 +519,9 @@ begin
   end if;
 
   select jsonb_array_length(round_refs) into total_questions from public.rooms where id = p_room_id;
-  select count(*) into active_players from public.room_players where room_id = p_room_id;
+  select count(*) into active_players
+  from public.room_players
+  where room_id = p_room_id and coalesce(spectator, false) = false;
   select count(*) into answered_count
   from public.room_answers
   where room_id = p_room_id and question_index = r.question_index;

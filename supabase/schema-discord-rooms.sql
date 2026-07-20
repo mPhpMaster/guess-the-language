@@ -9,6 +9,10 @@ alter table public.rooms
 alter table public.room_players
   add column if not exists discord_user_id text;
 
+-- Late joiners (game already in progress) watch as spectators.
+alter table public.room_players
+  add column if not exists spectator boolean not null default false;
+
 create unique index if not exists rooms_discord_instance_id_uidx
   on public.rooms (discord_instance_id)
   where discord_instance_id is not null;
@@ -40,6 +44,7 @@ declare
   v_attempts int := 0;
   v_instance text;
   v_discord_id text;
+  v_spectator boolean;
 begin
   v_instance := trim(p_instance_id);
   v_discord_id := trim(p_discord_user_id);
@@ -73,19 +78,20 @@ begin
         'playerId', v_player_id,
         'isHost', (v_room.host_player_id = v_player_id),
         'created', false,
-        'rejoined', true
+        'rejoined', true,
+        'spectator', (v_room.status = 'playing')
       );
     end if;
 
-    if v_room.status = 'playing' then
-      raise exception 'Game already started';
-    end if;
+    -- A game already in progress can still be joined — as a spectator, who
+    -- watches the round but can't answer and doesn't count toward it.
+    v_spectator := (v_room.status = 'playing');
 
     select count(*) into v_slot from public.room_players where room_id = v_room.id;
 
-    insert into public.room_players (room_id, name, is_host, color, icon, discord_user_id)
+    insert into public.room_players (room_id, name, is_host, color, icon, discord_user_id, spectator)
     values (v_room.id, trim(p_player_name), false,
-            public._player_color(v_slot), public._player_icon(v_slot), v_discord_id)
+            public._player_color(v_slot), public._player_icon(v_slot), v_discord_id, v_spectator)
     returning id into v_player_id;
 
     return jsonb_build_object(
@@ -94,7 +100,8 @@ begin
       'playerId', v_player_id,
       'isHost', false,
       'created', false,
-      'rejoined', false
+      'rejoined', false,
+      'spectator', v_spectator
     );
   end if;
 
@@ -124,7 +131,8 @@ begin
     'playerId', v_player_id,
     'isHost', true,
     'created', true,
-    'rejoined', false
+    'rejoined', false,
+    'spectator', false
   );
 end;
 $$;

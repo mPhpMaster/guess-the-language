@@ -808,6 +808,20 @@ button.opt-btn {
 .lb-mp-tag { font-size: 12px; cursor: default; }
 
 .results-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.challenge-link {
+  flex: 1 1 100%;
+  width: 100%;
+  order: 1;
+  background: #0a1726;
+  border: 1px solid #2ec5ff55;
+  border-radius: 10px;
+  color: #cfe8ff;
+  font-size: 13px;
+  padding: 9px 12px;
+  text-align: center;
+  font-family: "Cascadia Code", "Consolas", monospace;
+}
+.challenge-link:focus { outline: none; border-color: var(--neon); box-shadow: 0 0 0 2px #2ec5ff44; }
 
 /* ===================== Mode select screen ===================== */
 .modeselect-card { position: relative; width: min(960px, 100%); max-width: 960px; text-align: center; padding: 28px; }
