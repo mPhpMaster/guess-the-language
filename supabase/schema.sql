@@ -9,12 +9,15 @@ create table if not exists public.scores (
   score       integer not null check (score >= 0),
   mode        text not null default 'languages',
   multiplayer boolean not null default false,
+  avatar      text,
   created_at  timestamptz not null default now()
 );
 
--- If upgrading an existing table, add the per-mode + multiplayer columns:
+-- If upgrading an existing table, add the per-mode + multiplayer + avatar columns:
 alter table public.scores add column if not exists mode text not null default 'languages';
 alter table public.scores add column if not exists multiplayer boolean not null default false;
+-- Profile photo URL (e.g. Discord avatar) shown on the leaderboard; nullable.
+alter table public.scores add column if not exists avatar text;
 
 -- Index to make per-mode "top scores" queries fast.
 create index if not exists scores_mode_score_idx on public.scores (mode, score desc);

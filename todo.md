@@ -1,8 +1,23 @@
-Add gamedev questions
-don't allow the player start interacting before entring the name.
-if there is another player with the same name that the player picked at this moment then don't allow it.
-if the player pick an answer then he want's to pick another one before the time ends then it's allowed.
-when the player pick an answer then do not change the score until the times up.
-when pressing on github/discord/linkedin in about page it should open the links.
-when showing the leaderboard you should add in the main title it's leaderboard for what?
-when the player is top 3 in the leaderboard then show a sign beside his name with which placement is he on
+# TODO
+
+All items below are implemented (kept here as a changelog of requests).
+
+- [x] Add game-dev questions
+- [x] Don't allow the player to start interacting before entering the name
+- [x] Block picking a name already taken by another player at that moment
+- [x] Allow changing the picked answer before the time ends
+- [x] Don't change the score until the time is up
+- [x] Open the GitHub / Discord / LinkedIn links from the About page
+- [x] Leaderboard title says which mode it's for
+- [x] Show a placement sign beside top-3 names on the leaderboard
+- [x] Show explicit place numbers on every leaderboard row
+- [x] Show each user's profile photo on the leaderboard (generated fallback)
+- [x] Discord Activity: auto voice-channel rooms, solo start, spectators, challenge links
+- [x] Login with Discord
+- [x] Installable PWA / mobile app
+
+## Open ideas
+
+- [ ] Real friends system (add / follow) instead of a global board only
+- [ ] Server-validated score submission (anti-cheat) via Edge Function
+- [ ] Native mobile (Android / iOS) build

@@ -1537,7 +1537,8 @@ function submitScore(player, score, mode = state.mode, multiplayer = false) {
             player,
             score,
             mode,
-            multiplayer
+            multiplayer,
+            avatar: discordAvatarUrl(getDiscordProfile()) || null
         }])
     }).then((rows) => (Array.isArray(rows) ? rows[0] : null));
 }
@@ -1556,7 +1557,7 @@ function submitMpScores(rows) {
 }
 
 function fetchTopScores(limit = 10) {
-    return sbFetch(`scores?select=id,player,score,multiplayer&mode=eq.${state.mode}&order=score.desc&limit=${limit}`);
+    return sbFetch(`scores?select=id,player,score,multiplayer,avatar&mode=eq.${state.mode}&order=score.desc&limit=${limit}`);
 }
 
 const AVATARS = ['🧑🏽', '👩🏼', '🧑🏻', '👩🏻‍🦰', '🧔🏽', '👨🏾', '👩🏽‍🦱', '🧑🏼‍🎤', '👨🏻‍💻', '👩🏾‍💻'];
@@ -1599,7 +1600,9 @@ async function buildResultsLeaderboard() {
             const list = (top || []).map((r) => ({
                 id: r.id,
                 name: r.player,
-                avatar: avatarFor(r.player),
+                // Prefer the player's real profile photo; fall back to a
+                // generated avatar when none was stored.
+                avatar: r.avatar || avatarFor(r.player),
                 score: r.score,
                 multiplayer: !!r.multiplayer,
                 you: false
@@ -1670,6 +1673,11 @@ function renderLeaderboard(list) {
         const placementBadge = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '';
         const row = document.createElement('div');
         row.className = `lb-row ${rankClass}${p.you ? ' is-you' : ''}`;
+        // Place number (1, 2, 3, …) shown at the start of every row.
+        const rank = document.createElement('div');
+        rank.className = 'lb-rank';
+        rank.textContent = String(i + 1);
+        row.appendChild(rank);
         const label = document.createElement('div');
         label.className = 'lb-bar-fill';
         label.textContent = `${p.name}${placementBadge ? ` ${placementBadge}` : ''} — ${p.score} pts`;

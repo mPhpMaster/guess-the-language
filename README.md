@@ -2,22 +2,27 @@
 
 **English** · [العربية](README.ar.md)
 
-An interactive quiz game for **Windows** (Electron) and the **web**. From a single
-home page you pick one of five quiz modes and race the timer — with scoring,
-streaks, a correct/total counter, and a per-mode **live global leaderboard**
-(Supabase). The entire UI is available in **English and Arabic** (with full RTL
-layout), switchable anytime.
+An interactive quiz game for **Windows** (Electron), the **web** (also an
+installable **PWA / mobile app**), and **Discord** (as an embedded Activity).
+From a single home page you pick one of six quiz modes and race the timer — with
+scoring, streaks, a correct/total counter, and a per-mode **live global
+leaderboard** (Supabase). The entire UI is available in **English and Arabic**
+(with full RTL layout), switchable anytime.
 
-### Five game modes
-- **💻 Programming Languages** — a code snippet appears; guess the language
-  (Python, JavaScript, C++, Java, Rust, Go).
+### Six game modes
+- **💻 Programming Languages** — a code snippet appears; guess the language.
+  15-language pool (Python, JavaScript, TypeScript, C, C++, C#, Java, Kotlin,
+  Swift, Rust, Go, Ruby, PHP, SQL, Bash); each question shows the correct answer
+  plus rotating distractors.
 - **🛡️ Cybersecurity** — tools, malware, Nmap (and its flags), Metasploit,
   pentest tools (Wireshark, Burp, sqlmap, John, Hydra…), ports and concepts.
 - **♾️ DevOps** — Docker, Kubernetes, CI/CD, Git, Terraform/Ansible, cloud (AWS)
   and monitoring (Prometheus/Grafana).
 - **🌐 Networking** — OSI model, TCP/IP, DNS/DHCP, IP & subnetting, routing
   (OSPF/BGP), ports and protocols.
-- **🎲 All (Mixed)** — all four banks shuffled together; each question renders
+- **🎮 Game Dev** — game loops, physics, rendering, ECS, pathfinding, netcode,
+  assets and UI systems.
+- **🎲 All (Mixed)** — all five banks shuffled together; each question renders
   with its own answer style.
 
 ![Home](screenshots/8-modeselect.png)
@@ -82,14 +87,22 @@ pnpm run dist     # produces an NSIS installer in dist/
 pnpm run pack
 ```
 
-The output is written to `dist/` (e.g. `Guess The Language Setup 3.0.1.exe`).
+The output is written to `dist/` (e.g. `Guess The Language Setup 3.1.0.exe`).
+On the dev machine, build to `release/` to avoid a `dist/` file lock:
+`pnpm exec electron-builder --win -c.directories.output=release`.
 
-### Web (static site)
+### Web (static site) + PWA / mobile app
 
 ```powershell
 pnpm run build:web    # output in dist-web/
 pnpm run preview:web  # smoke-test the production build locally
 ```
+
+The web build is an installable **PWA**: a web app manifest, a service worker
+(cached offline shell), and app icons live in `public/`. On a phone, open the
+deployed site and **Add to Home Screen** to run it standalone as a mobile app.
+The service worker is registered only on the web — never in Electron or the
+Discord iframe.
 
 ### Deploy to Vercel
 
@@ -142,33 +155,43 @@ prog-game2/
 ├─ vite.config.js               # web dev/build (root = src/)
 ├─ vercel.json                  # Vercel static deploy
 ├─ pnpm-workspace.yaml          # allows Electron's build script under pnpm
+├─ public/                      # web static assets copied to the site root
+│  ├─ manifest.webmanifest      # PWA manifest (installable mobile app)
+│  ├─ sw.js                     # service worker (offline shell)
+│  ├─ icon-192.png / icon-512.png # PWA icons
+│  ├─ privacy.html / terms.html # legal pages
 ├─ supabase/
-│  ├─ schema.sql                # leaderboard table + RLS policies
-│  └─ schema-multiplayer.sql    # rooms, players, RPCs, Realtime
+│  ├─ schema.sql                # leaderboard table (scores + avatar) + RLS
+│  ├─ schema-multiplayer.sql    # rooms, players, RPCs, Realtime
+│  └─ schema-discord-rooms.sql  # Discord voice-channel rooms (by instanceId)
 ├─ src/
 │  ├─ main.js                   # Electron main process (window + IPC)
 │  ├─ preload.js                # secure bridge (window controls + question load)
-│  ├─ index.html                # the three screens (home / game / results)
+│  ├─ index.html                # the screens (home / lobby / game / results)
 │  ├─ styles.css                # dark + neon theme
 │  ├─ renderer.js               # game logic, modes, timer, scoring, leaderboard
-│  ├─ web-shim.js               # browser gameAPI/appWindow (no-op in Electron)
+│  ├─ web-shim.js               # browser gameAPI/appWindow + SW registration
 │  ├─ multiplayer.js            # Supabase Realtime rooms (host/join/sync)
+│  ├─ discord-activity.js       # Discord Embedded App SDK bootstrap
 │  ├─ vendor/supabase.js          # bundled @supabase/supabase-js (UMD)
 │  ├─ supabase-config.js         # Supabase creds (local, git-ignored)
-│  ├─ supabase-config.example.js # config template
+│  ├─ discord-config.js          # Discord client id (local, git-ignored)
 │  └─ data/
-│     ├─ questions.json          # languages bank (211 questions)
-│     ├─ questions-cyber.json    # cybersecurity bank (79 questions)
-│     ├─ questions-devops.json   # devops bank (38 questions)
-│     └─ questions-network.json  # networking bank (37 questions)
+│     ├─ questions.json          # languages bank (333 questions, 15 languages)
+│     ├─ questions-cyber.json    # cybersecurity bank (92 questions)
+│     ├─ questions-devops.json   # devops bank (51 questions)
+│     ├─ questions-network.json  # networking bank (49 questions)
+│     └─ questions-gamedev.json  # game-dev bank (34 questions)
 └─ test/
    ├─ smoke-main.js             # languages mode end-to-end (14 checks)
    ├─ smoke-cyber.js            # cybersecurity mode (12 checks)
    ├─ smoke-newmodes.js         # devops + networking modes (10 checks)
    ├─ smoke-i18n.js             # language switch / RTL (9 checks)
-   ├─ smoke-online.js           # Supabase online-path test (8 checks)
-   ├─ smoke-multiplayer.js      # multiplayer UI + client smoke test
+   ├─ smoke-online.js           # Supabase online-path test (10 checks)
+   ├─ smoke-multiplayer.js      # multiplayer UI + client smoke test (26 checks)
    ├─ smoke-all.js              # All (mixed) mode (10 checks)
+   ├─ smoke-gamedev.js          # game-dev bank sanity check
+   ├─ smoke-shuffle.js          # option-shuffle fairness (3 checks)
    ├─ capture.js                # render screenshots of each screen
    ├─ capture-mp.js             # multiplayer lobby / reveal / results screenshots
    └─ reset-state.js            # clear persisted local state
@@ -176,7 +199,7 @@ prog-game2/
 
 ## Questions databases
 
-**Languages** — `src/data/questions.json` holds **211 questions** across 6
+**Languages** — `src/data/questions.json` holds **333 questions** across 15
 languages and three difficulty levels:
 
 ```json
@@ -189,9 +212,10 @@ languages and three difficulty levels:
 }
 ```
 
-**Cybersecurity / DevOps / Networking** — `questions-cyber.json` (79),
-`questions-devops.json` (38) and `questions-network.json` (37) are
-multiple-choice banks. Each entry has its own options:
+**Cybersecurity / DevOps / Networking / Game Dev** — `questions-cyber.json`
+(92), `questions-devops.json` (51), `questions-network.json` (49) and
+`questions-gamedev.json` (34) are multiple-choice banks. Each entry has its own
+options:
 
 ```json
 {
@@ -241,13 +265,19 @@ With Supabase configured:
 1. Pick a mode on the home page, then **Host Room** — you get a **4-character
    code** to share.
 2. Friends tap **Join Room**, enter the code, and wait in the lobby.
-3. The **host (admin)** starts when at least two players are present. No one
-   can join after the game starts.
-4. Everyone sees the same question at the same time; correct answers earn
-   points (same formula as solo play).
-5. A **live player list** shows names and running scores during the game.
-6. When the round ends, a **room scoreboard** ranks all players.
-7. Only the admin can **start**, **end**, or **kick** players (lobby only).
+3. The **host (admin)** starts the round. Everyone sees the same question at the
+   same time; correct answers earn points (same formula as solo play).
+4. A **live player list** shows names and running scores during the game.
+5. When the round ends, a **room scoreboard** ranks all players, and **Back to
+   Lobby** keeps the room for another round.
+6. Only the admin can **start**, **end**, or **kick** players (lobby only).
+
+**Inside Discord** the game runs as an embedded **Activity**: everyone in the
+same voice channel automatically shares one room (keyed by the voice-channel
+instance), a lone player can start a **solo round**, and someone who joins after
+the round started joins as a **spectator**. **Challenge a friend** shares a link
+(or a Discord DM) that opens the game with the same mode/settings and your score
+to beat.
 
 | Host lobby | Answer reveal | Room results |
 | --- | --- | --- |
@@ -277,11 +307,14 @@ pnpm exec electron test/smoke-multiplayer.js  # multiplayer smoke (UI + helpers)
 
 ## Roadmap
 
-- ✅ Global leaderboard via Supabase
-- ✅ Multiplayer rooms (host/join, synced quiz, room scoreboard)
-- ⏳ Login (Email / Google / Guest)
+- ✅ Global leaderboard via Supabase (with place numbers + profile photos)
+- ✅ Multiplayer rooms (host/join, synced quiz, room scoreboard, spectators)
+- ✅ Discord Activity (auto voice-channel rooms, solo start, challenge links)
+- ✅ Login with Discord
+- ✅ Installable PWA / mobile app
 - ⏳ Real friends system (add / follow) instead of a global board only
 - ⏳ Server-validated score submission (anti-cheat) via Edge Function
+- ⏳ Native mobile (Android/iOS) build
 
 ## License
 
