@@ -3328,5 +3328,325 @@
       "en": "A lambda using the implicit `it` parameter is Kotlin.",
       "ar": "دالة لامدا باستخدام المعامل الضمني `it` من سمات Kotlin."
     }
+  },
+  {
+    "id": 334,
+    "correctLanguage": "Python",
+    "difficulty": "easy",
+    "codeSnippet": "squares = [x**2 for x in range(10)]",
+    "explanation": {
+      "en": "A list comprehension with the ** power operator is Python.",
+      "ar": "قائمة استيعابية مع معامل الأس ** من سمات بايثون."
+    }
+  },
+  {
+    "id": 335,
+    "correctLanguage": "Python",
+    "difficulty": "easy",
+    "codeSnippet": "with open('file.txt') as f:\n    data = f.read()",
+    "explanation": {
+      "en": "The with/as context manager is Python syntax.",
+      "ar": "مدير السياق with/as من صياغة بايثون."
+    }
+  },
+  {
+    "id": 336,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "nums = {k: v for k, v in items}",
+    "explanation": {
+      "en": "A dict comprehension using {k: v ...} is Python.",
+      "ar": "استيعاب قاموس بصيغة {k: v ...} من بايثون."
+    }
+  },
+  {
+    "id": 337,
+    "correctLanguage": "JavaScript",
+    "difficulty": "easy",
+    "codeSnippet": "document.querySelector('.btn').addEventListener('click', () => {});",
+    "explanation": {
+      "en": "querySelector with addEventListener is browser JavaScript.",
+      "ar": "querySelector مع addEventListener من جافاسكربت في المتصفح."
+    }
+  },
+  {
+    "id": 338,
+    "correctLanguage": "JavaScript",
+    "difficulty": "medium",
+    "codeSnippet": "const nums = arr.filter(n => n > 0).map(n => n * 2);",
+    "explanation": {
+      "en": "Chained filter/map with untyped arrow functions is JavaScript.",
+      "ar": "سلسلة filter/map بدوال سهمية بلا أنواع من جافاسكربت."
+    }
+  },
+  {
+    "id": 339,
+    "correctLanguage": "JavaScript",
+    "difficulty": "easy",
+    "codeSnippet": "const p = new Promise((resolve) => resolve(42));",
+    "explanation": {
+      "en": "A Promise built with an untyped executor is JavaScript.",
+      "ar": "وعد Promise بمنفّذ بلا أنواع من جافاسكربت."
+    }
+  },
+  {
+    "id": 340,
+    "correctLanguage": "TypeScript",
+    "difficulty": "easy",
+    "codeSnippet": "function greet(name: string): void {}",
+    "explanation": {
+      "en": "Parameter and return type annotations mark TypeScript.",
+      "ar": "التعليقات النوعية للمعاملات وقيمة الإرجاع تميّز TypeScript."
+    }
+  },
+  {
+    "id": 341,
+    "correctLanguage": "TypeScript",
+    "difficulty": "medium",
+    "codeSnippet": "interface User { id: number; name: string; }",
+    "explanation": {
+      "en": "An interface with typed fields is TypeScript.",
+      "ar": "واجهة interface بحقول مكتوبة الأنواع من TypeScript."
+    }
+  },
+  {
+    "id": 342,
+    "correctLanguage": "C++",
+    "difficulty": "easy",
+    "codeSnippet": "std::vector<int> v = {1, 2, 3};",
+    "explanation": {
+      "en": "std::vector with brace initialization is C++.",
+      "ar": "std::vector مع تهيئة بالأقواس المعقوفة من C++."
+    }
+  },
+  {
+    "id": 343,
+    "correctLanguage": "C++",
+    "difficulty": "easy",
+    "codeSnippet": "cout << \"Hello\" << endl;",
+    "explanation": {
+      "en": "Streaming with cout and endl is C++.",
+      "ar": "الإخراج بـ cout و endl من C++."
+    }
+  },
+  {
+    "id": 344,
+    "correctLanguage": "C",
+    "difficulty": "easy",
+    "codeSnippet": "printf(\"%d\\n\", x);",
+    "explanation": {
+      "en": "printf with a format specifier and no iostream is C.",
+      "ar": "printf مع محدد تنسيق دون iostream من لغة C."
+    }
+  },
+  {
+    "id": 345,
+    "correctLanguage": "C",
+    "difficulty": "medium",
+    "codeSnippet": "struct Node { int data; struct Node *next; };",
+    "explanation": {
+      "en": "A struct with a self-referential pointer typedef style is C.",
+      "ar": "بنية struct بمؤشر ذاتي المرجع من لغة C."
+    }
+  },
+  {
+    "id": 346,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "Console.WriteLine($\"Hello {name}\");",
+    "explanation": {
+      "en": "Console.WriteLine with $ interpolation is C#.",
+      "ar": "Console.WriteLine مع استيفاء $ من C#."
+    }
+  },
+  {
+    "id": 347,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "var list = new List<int>();",
+    "explanation": {
+      "en": "var with new List<int>() is C#.",
+      "ar": "var مع new List<int>() من C#."
+    }
+  },
+  {
+    "id": 348,
+    "correctLanguage": "Java",
+    "difficulty": "easy",
+    "codeSnippet": "System.out.println(\"Hello\");",
+    "explanation": {
+      "en": "System.out.println is the classic Java print.",
+      "ar": "System.out.println هي طباعة جافا التقليدية."
+    }
+  },
+  {
+    "id": 349,
+    "correctLanguage": "Java",
+    "difficulty": "medium",
+    "codeSnippet": "List<String> names = new ArrayList<>();",
+    "explanation": {
+      "en": "ArrayList with the diamond operator is Java.",
+      "ar": "ArrayList مع مُعامل الألماس من جافا."
+    }
+  },
+  {
+    "id": 350,
+    "correctLanguage": "Kotlin",
+    "difficulty": "easy",
+    "codeSnippet": "fun main() {\n    println(\"Hi\")\n}",
+    "explanation": {
+      "en": "fun to declare a function plus println is Kotlin.",
+      "ar": "fun لتعريف دالة مع println من Kotlin."
+    }
+  },
+  {
+    "id": 351,
+    "correctLanguage": "Kotlin",
+    "difficulty": "medium",
+    "codeSnippet": "val list = listOf(1, 2, 3)",
+    "explanation": {
+      "en": "val with listOf(...) is Kotlin.",
+      "ar": "val مع listOf(...) من Kotlin."
+    }
+  },
+  {
+    "id": 352,
+    "correctLanguage": "Swift",
+    "difficulty": "easy",
+    "codeSnippet": "let name = \"Swift\"\nprint(\"Hi, \\(name)\")",
+    "explanation": {
+      "en": "String interpolation with \\(...) is Swift.",
+      "ar": "استيفاء النص بـ \\(...) من Swift."
+    }
+  },
+  {
+    "id": 353,
+    "correctLanguage": "Swift",
+    "difficulty": "medium",
+    "codeSnippet": "guard let x = value else { return }",
+    "explanation": {
+      "en": "The guard let ... else pattern is Swift.",
+      "ar": "نمط guard let ... else من Swift."
+    }
+  },
+  {
+    "id": 354,
+    "correctLanguage": "Rust",
+    "difficulty": "easy",
+    "codeSnippet": "let mut v: Vec<i32> = Vec::new();",
+    "explanation": {
+      "en": "let mut with Vec<i32> is Rust.",
+      "ar": "let mut مع Vec<i32> من Rust."
+    }
+  },
+  {
+    "id": 355,
+    "correctLanguage": "Rust",
+    "difficulty": "easy",
+    "codeSnippet": "println!(\"{}\", x);",
+    "explanation": {
+      "en": "The println! macro with {} is Rust.",
+      "ar": "ماكرو println! مع {} من Rust."
+    }
+  },
+  {
+    "id": 356,
+    "correctLanguage": "Go",
+    "difficulty": "easy",
+    "codeSnippet": "func main() {\n    fmt.Println(\"Hello\")\n}",
+    "explanation": {
+      "en": "func main with fmt.Println is Go.",
+      "ar": "func main مع fmt.Println من Go."
+    }
+  },
+  {
+    "id": 357,
+    "correctLanguage": "Go",
+    "difficulty": "medium",
+    "codeSnippet": "ch := make(chan int)",
+    "explanation": {
+      "en": "make(chan int) with := creates a Go channel.",
+      "ar": "make(chan int) مع := ينشئ قناة في Go."
+    }
+  },
+  {
+    "id": 358,
+    "correctLanguage": "Ruby",
+    "difficulty": "easy",
+    "codeSnippet": "puts \"Hello\".upcase",
+    "explanation": {
+      "en": "puts with a chained .upcase is Ruby.",
+      "ar": "puts مع .upcase المتسلسلة من Ruby."
+    }
+  },
+  {
+    "id": 359,
+    "correctLanguage": "Ruby",
+    "difficulty": "medium",
+    "codeSnippet": "[1, 2, 3].each { |n| puts n }",
+    "explanation": {
+      "en": ".each with a { |n| ... } block is Ruby.",
+      "ar": ".each مع كتلة { |n| ... } من Ruby."
+    }
+  },
+  {
+    "id": 360,
+    "correctLanguage": "PHP",
+    "difficulty": "easy",
+    "codeSnippet": "echo \"Total: \" . $count;",
+    "explanation": {
+      "en": "echo with $ variables and . concatenation is PHP.",
+      "ar": "echo مع متغيرات $ ودمج بـ . من PHP."
+    }
+  },
+  {
+    "id": 361,
+    "correctLanguage": "PHP",
+    "difficulty": "medium",
+    "codeSnippet": "$doubled = array_map(fn($x) => $x * 2, $nums);",
+    "explanation": {
+      "en": "array_map with an fn() arrow function is PHP.",
+      "ar": "array_map مع دالة سهمية fn() من PHP."
+    }
+  },
+  {
+    "id": 362,
+    "correctLanguage": "SQL",
+    "difficulty": "easy",
+    "codeSnippet": "SELECT name FROM users WHERE age > 18;",
+    "explanation": {
+      "en": "A SELECT ... FROM ... WHERE statement is SQL.",
+      "ar": "عبارة SELECT ... FROM ... WHERE من SQL."
+    }
+  },
+  {
+    "id": 363,
+    "correctLanguage": "SQL",
+    "difficulty": "medium",
+    "codeSnippet": "INSERT INTO logs (msg) VALUES ('ok');",
+    "explanation": {
+      "en": "INSERT INTO ... VALUES is SQL.",
+      "ar": "INSERT INTO ... VALUES من SQL."
+    }
+  },
+  {
+    "id": 364,
+    "correctLanguage": "Bash",
+    "difficulty": "easy",
+    "codeSnippet": "for f in *.txt; do echo \"$f\"; done",
+    "explanation": {
+      "en": "A for ... in *.txt; do ... done loop is Bash.",
+      "ar": "حلقة for ... in *.txt; do ... done من Bash."
+    }
+  },
+  {
+    "id": 365,
+    "correctLanguage": "Bash",
+    "difficulty": "medium",
+    "codeSnippet": "if [ -f \"$file\" ]; then echo ok; fi",
+    "explanation": {
+      "en": "The [ -f ... ] file test is Bash.",
+      "ar": "اختبار الملف [ -f ... ] من Bash."
+    }
   }
 ]

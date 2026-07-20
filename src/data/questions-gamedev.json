@@ -712,5 +712,341 @@
       "en": "VSync synchronizes the frame-buffer swap with the display refresh to avoid tearing.",
       "ar": "يزامن VSync تبديل مخزن الإطار مع تحديث الشاشة لتفادي تمزّق الصورة."
     }
+  },
+  {
+    "id": 35,
+    "category": "physics",
+    "difficulty": "easy",
+    "codeSnippet": "velocity += gravity * dt;",
+    "question": {
+      "en": "What does this line apply over time?",
+      "ar": "ماذا يطبّق هذا السطر عبر الزمن؟"
+    },
+    "options": [
+      "Gravity to the velocity",
+      "A texture to a mesh",
+      "Input to the camera",
+      "Audio to a channel"
+    ],
+    "answer": "Gravity to the velocity",
+    "explanation": {
+      "en": "Accumulating gravity * dt integrates acceleration.",
+      "ar": "تجميع gravity * dt يكامل التسارع في السرعة."
+    }
+  },
+  {
+    "id": 36,
+    "category": "rendering",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a draw call?",
+      "ar": "ما نداء الرسم (draw call)؟"
+    },
+    "options": [
+      "A command telling the GPU to render geometry",
+      "A physics collision test",
+      "A file load request",
+      "An audio trigger"
+    ],
+    "answer": "A command telling the GPU to render geometry",
+    "explanation": {
+      "en": "Each draw call submits geometry to the GPU.",
+      "ar": "كل نداء رسم يرسل هندسة إلى وحدة الرسوميات."
+    }
+  },
+  {
+    "id": 37,
+    "category": "math",
+    "difficulty": "easy",
+    "codeSnippet": "float d = Vector2.Distance(a, b);",
+    "question": {
+      "en": "What does this compute?",
+      "ar": "ماذا يحسب هذا؟"
+    },
+    "options": [
+      "The distance between two points",
+      "The dot product",
+      "A random number",
+      "The frame rate"
+    ],
+    "answer": "The distance between two points",
+    "explanation": {
+      "en": "Vector2.Distance returns the length of a-b.",
+      "ar": "Vector2.Distance تعيد طول المتجه a-b."
+    }
+  },
+  {
+    "id": 38,
+    "category": "animation",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a keyframe in animation?",
+      "ar": "ما الإطار المفتاحي في التحريك؟"
+    },
+    "options": [
+      "A defined pose at a specific time",
+      "A compressed texture",
+      "A collision event",
+      "A shader uniform"
+    ],
+    "answer": "A defined pose at a specific time",
+    "explanation": {
+      "en": "Keyframes mark poses the engine interpolates between.",
+      "ar": "الإطارات المفتاحية تحدّد أوضاعًا يُستوفى بينها."
+    }
+  },
+  {
+    "id": 39,
+    "category": "input",
+    "difficulty": "easy",
+    "codeSnippet": "if (Input.GetKeyDown(KeyCode.Space))",
+    "question": {
+      "en": "What does GetKeyDown detect?",
+      "ar": "ماذا يكتشف GetKeyDown؟"
+    },
+    "options": [
+      "A key pressed on this frame",
+      "A key held every frame",
+      "A mouse move",
+      "A gamepad unplug"
+    ],
+    "answer": "A key pressed on this frame",
+    "explanation": {
+      "en": "GetKeyDown is true only on the press frame.",
+      "ar": "GetKeyDown صحيح فقط في إطار الضغط."
+    }
+  },
+  {
+    "id": 40,
+    "category": "optimization",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is object pooling?",
+      "ar": "ما تجميع الكائنات (object pooling)؟"
+    },
+    "options": [
+      "Reusing objects instead of constantly creating them",
+      "Merging meshes into one",
+      "Compressing audio",
+      "Baking lightmaps"
+    ],
+    "answer": "Reusing objects instead of constantly creating them",
+    "explanation": {
+      "en": "Pooling avoids costly instantiate/destroy churn.",
+      "ar": "يتجنّب التجميع تكلفة الإنشاء والحذف المتكررين."
+    }
+  },
+  {
+    "id": 41,
+    "category": "collision",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is an AABB?",
+      "ar": "ما الـ AABB؟"
+    },
+    "options": [
+      "An axis-aligned bounding box",
+      "A pathfinding node",
+      "An animation blend",
+      "A shader pass"
+    ],
+    "answer": "An axis-aligned bounding box",
+    "explanation": {
+      "en": "AABBs give fast, simple collision bounds.",
+      "ar": "توفّر AABB حدود تصادم سريعة وبسيطة."
+    }
+  },
+  {
+    "id": 42,
+    "category": "gameplay",
+    "difficulty": "easy",
+    "codeSnippet": "health -= damage;",
+    "question": {
+      "en": "What does this line do?",
+      "ar": "ماذا يفعل هذا السطر؟"
+    },
+    "options": [
+      "Reduce health by the damage amount",
+      "Heal the player",
+      "Respawn the enemy",
+      "Pause the game"
+    ],
+    "answer": "Reduce health by the damage amount",
+    "explanation": {
+      "en": "It subtracts incoming damage from health.",
+      "ar": "يطرح الضرر الوارد من الصحة."
+    }
+  },
+  {
+    "id": 43,
+    "category": "state",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "A finite state machine (FSM) controls what?",
+      "ar": "ماذا تتحكم آلة الحالات المنتهية (FSM)؟"
+    },
+    "options": [
+      "Behavior via discrete states and transitions",
+      "Texture streaming",
+      "Network packets",
+      "Audio mixing"
+    ],
+    "answer": "Behavior via discrete states and transitions",
+    "explanation": {
+      "en": "FSMs model entity behavior as states and transitions.",
+      "ar": "تمثّل FSM سلوك الكيان كحالات وانتقالات."
+    }
+  },
+  {
+    "id": 44,
+    "category": "rendering",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a shader?",
+      "ar": "ما المظلِّل (shader)؟"
+    },
+    "options": [
+      "A program that runs on the GPU",
+      "A physics solver",
+      "A save-file format",
+      "An input device"
+    ],
+    "answer": "A program that runs on the GPU",
+    "explanation": {
+      "en": "Shaders compute pixels/vertices on the GPU.",
+      "ar": "تحسب المظلِّلات البكسلات والرؤوس على وحدة الرسوميات."
+    }
+  },
+  {
+    "id": 45,
+    "category": "timing",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does deltaTime represent?",
+      "ar": "ماذا يمثّل deltaTime؟"
+    },
+    "options": [
+      "Time elapsed since the last frame",
+      "Total play time",
+      "Frames per second",
+      "Physics tick rate"
+    ],
+    "answer": "Time elapsed since the last frame",
+    "explanation": {
+      "en": "deltaTime scales movement to be frame-rate independent.",
+      "ar": "يجعل deltaTime الحركة مستقلة عن معدل الإطارات."
+    }
+  },
+  {
+    "id": 46,
+    "category": "math",
+    "difficulty": "medium",
+    "codeSnippet": "float y = Mathf.Lerp(a, b, t);",
+    "question": {
+      "en": "What does Lerp do?",
+      "ar": "ماذا يفعل Lerp؟"
+    },
+    "options": [
+      "Linearly interpolate between a and b",
+      "Return the larger value",
+      "Clamp t to 1",
+      "Round to an int"
+    ],
+    "answer": "Linearly interpolate between a and b",
+    "explanation": {
+      "en": "Lerp blends a→b as t goes 0→1.",
+      "ar": "يمزج Lerp من a إلى b مع تغيّر t من 0 إلى 1."
+    }
+  },
+  {
+    "id": 47,
+    "category": "pathfinding",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What guides the A* search algorithm?",
+      "ar": "ما الذي يوجّه خوارزمية البحث *A؟"
+    },
+    "options": [
+      "A heuristic estimate of remaining cost",
+      "A random walk",
+      "The frame rate",
+      "The texture size"
+    ],
+    "answer": "A heuristic estimate of remaining cost",
+    "explanation": {
+      "en": "A* uses a heuristic to prioritize promising paths.",
+      "ar": "يستخدم *A تقديرًا إرشاديًا لتفضيل المسارات الواعدة."
+    }
+  },
+  {
+    "id": 48,
+    "category": "netcode",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is client-side prediction?",
+      "ar": "ما التنبؤ من جهة العميل؟"
+    },
+    "options": [
+      "Simulating locally before the server confirms",
+      "Encrypting all packets",
+      "Rendering at low resolution",
+      "Batching draw calls"
+    ],
+    "answer": "Simulating locally before the server confirms",
+    "explanation": {
+      "en": "Prediction hides latency until the server reconciles.",
+      "ar": "يخفي التنبؤ زمن الوصول حتى يوفّق الخادم."
+    }
+  },
+  {
+    "id": 49,
+    "category": "scene",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a prefab?",
+      "ar": "ما القالب الجاهز (prefab)؟"
+    },
+    "options": [
+      "A reusable, pre-configured game object",
+      "A compiled shader",
+      "A physics material",
+      "A save slot"
+    ],
+    "answer": "A reusable, pre-configured game object",
+    "explanation": {
+      "en": "Prefabs let you reuse configured objects.",
+      "ar": "تتيح القوالب الجاهزة إعادة استخدام كائنات مهيّأة."
+    }
+  },
+  {
+    "id": 50,
+    "category": "audio",
+    "difficulty": "easy",
+    "codeSnippet": "PlaySound(jumpSfx);",
+    "question": {
+      "en": "What does this line most likely do?",
+      "ar": "ماذا يفعل هذا السطر على الأرجح؟"
+    },
+    "options": [
+      "Play a sound effect",
+      "Load a texture",
+      "Spawn an enemy",
+      "Save the game"
+    ],
+    "answer": "Play a sound effect",
+    "explanation": {
+      "en": "It triggers playback of the jump sound.",
+      "ar": "يشغّل صوت القفز."
+    }
   }
 ]

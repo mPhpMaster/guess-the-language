@@ -611,5 +611,365 @@
       "en": "if n < 2 returns n for the base cases 0 and 1.",
       "ar": "if n < 2 تعيد n لحالتي الأساس 0 و1."
     }
+  },
+  {
+    "id": 35,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "nums = [1, 2, 3]\nprint(____(nums))",
+    "question": {
+      "en": "Fill the built-in that returns how many items are in a list.",
+      "ar": "أكمل الدالة المدمجة التي تعيد عدد عناصر القائمة."
+    },
+    "answer": "len",
+    "accept": [
+      "len"
+    ],
+    "explanation": {
+      "en": "len() returns the number of items in a sequence.",
+      "ar": "len() تعيد عدد عناصر التسلسل."
+    }
+  },
+  {
+    "id": 36,
+    "category": "strings",
+    "difficulty": "easy",
+    "codeSnippet": "s = \"hello\"\nprint(s.____())  # HELLO",
+    "question": {
+      "en": "Fill the string method that returns an uppercase copy.",
+      "ar": "أكمل دالة النص التي تعيد نسخة بأحرف كبيرة."
+    },
+    "answer": "upper",
+    "accept": [
+      "upper"
+    ],
+    "explanation": {
+      "en": "str.upper() returns an uppercased copy of the string.",
+      "ar": "str.upper() تعيد نسخة من النص بأحرف كبيرة."
+    }
+  },
+  {
+    "id": 37,
+    "category": "data-structures",
+    "difficulty": "easy",
+    "codeSnippet": "stack = []\nstack.____(5)  # push",
+    "question": {
+      "en": "Fill the list method that adds an item to the end (push).",
+      "ar": "أكمل دالة القائمة التي تضيف عنصرًا في النهاية."
+    },
+    "answer": "append",
+    "accept": [
+      "append"
+    ],
+    "explanation": {
+      "en": "list.append(x) adds x to the end — a stack push.",
+      "ar": "list.append(x) تضيف x في النهاية، أي دفع للمكدس."
+    }
+  },
+  {
+    "id": 38,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "codeSnippet": "d = {}\nvalue = d.____(\"k\", 0)",
+    "question": {
+      "en": "Fill the dict method that returns a default when the key is missing.",
+      "ar": "أكمل دالة القاموس التي تعيد قيمة افتراضية عند غياب المفتاح."
+    },
+    "answer": "get",
+    "accept": [
+      "get"
+    ],
+    "explanation": {
+      "en": "dict.get(k, default) avoids a KeyError by returning default.",
+      "ar": "dict.get(k, default) تتجنب KeyError بإعادة القيمة الافتراضية."
+    }
+  },
+  {
+    "id": 39,
+    "category": "algorithms",
+    "difficulty": "medium",
+    "codeSnippet": "lo, hi = 0, len(a) - 1\nmid = (lo + hi) ____ 2",
+    "question": {
+      "en": "Fill the operator for integer (floor) division of the midpoint.",
+      "ar": "أكمل معامل القسمة الصحيحة لإيجاد المنتصف."
+    },
+    "answer": "//",
+    "accept": [
+      "//"
+    ],
+    "explanation": {
+      "en": "// is floor division, keeping mid an integer index.",
+      "ar": "// قسمة صحيحة تُبقي mid فهرسًا صحيحًا."
+    }
+  },
+  {
+    "id": 40,
+    "category": "recursion",
+    "difficulty": "easy",
+    "codeSnippet": "def fact(n):\n    if n == 0:\n        return 1\n    return n ____ fact(n - 1)",
+    "question": {
+      "en": "Fill the operator that multiplies n by the recursive result.",
+      "ar": "أكمل المعامل الذي يضرب n بالنتيجة العَودية."
+    },
+    "answer": "*",
+    "accept": [
+      "*"
+    ],
+    "explanation": {
+      "en": "Factorial multiplies n by fact(n-1).",
+      "ar": "المضروب يضرب n في fact(n-1)."
+    }
+  },
+  {
+    "id": 41,
+    "category": "complexity",
+    "difficulty": "easy",
+    "codeSnippet": "# Binary search runs in O(____ n) time",
+    "question": {
+      "en": "Fill the function name in the binary-search time complexity.",
+      "ar": "أكمل اسم الدالة في تعقيد البحث الثنائي الزمني."
+    },
+    "answer": "log",
+    "accept": [
+      "log"
+    ],
+    "explanation": {
+      "en": "Binary search halves the range each step: O(log n).",
+      "ar": "البحث الثنائي ينصّف المجال كل خطوة: O(log n)."
+    }
+  },
+  {
+    "id": 42,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "for i in ____(5):\n    print(i)",
+    "question": {
+      "en": "Fill the built-in that yields 0..4 in a for loop.",
+      "ar": "أكمل الدالة المدمجة التي تولّد 0..4 في الحلقة."
+    },
+    "answer": "range",
+    "accept": [
+      "range"
+    ],
+    "explanation": {
+      "en": "range(5) yields 0,1,2,3,4.",
+      "ar": "range(5) تولّد 0 و1 و2 و3 و4."
+    }
+  },
+  {
+    "id": 43,
+    "category": "algorithms",
+    "difficulty": "easy",
+    "codeSnippet": "arr = [3, 1, 2]\narr.____()  # [1, 2, 3]",
+    "question": {
+      "en": "Fill the list method that sorts in place ascending.",
+      "ar": "أكمل دالة القائمة التي تفرز مكانيًا تصاعديًا."
+    },
+    "answer": "sort",
+    "accept": [
+      "sort"
+    ],
+    "explanation": {
+      "en": "list.sort() sorts the list in place.",
+      "ar": "list.sort() تفرز القائمة في مكانها."
+    }
+  },
+  {
+    "id": 44,
+    "category": "patterns",
+    "difficulty": "easy",
+    "codeSnippet": "seen = ____()\nseen.add(x)",
+    "question": {
+      "en": "Fill the type that stores unique items with add().",
+      "ar": "أكمل النوع الذي يخزّن عناصر فريدة مع add()."
+    },
+    "answer": "set",
+    "accept": [
+      "set"
+    ],
+    "explanation": {
+      "en": "set() creates an empty set supporting add().",
+      "ar": "set() تنشئ مجموعة فارغة تدعم add()."
+    }
+  },
+  {
+    "id": 45,
+    "category": "graphs",
+    "difficulty": "medium",
+    "codeSnippet": "from collections import deque\nq = ____()",
+    "question": {
+      "en": "Fill the double-ended queue used for BFS.",
+      "ar": "أكمل الطابور ثنائي الطرف المستخدم في BFS."
+    },
+    "answer": "deque",
+    "accept": [
+      "deque"
+    ],
+    "explanation": {
+      "en": "deque gives O(1) pops from both ends for BFS.",
+      "ar": "deque توفّر إزالة بزمن O(1) من الطرفين لـ BFS."
+    }
+  },
+  {
+    "id": 46,
+    "category": "math",
+    "difficulty": "easy",
+    "codeSnippet": "import math\nprint(math.____(16))  # 4.0",
+    "question": {
+      "en": "Fill the math function that returns the square root.",
+      "ar": "أكمل دالة الرياضيات التي تعيد الجذر التربيعي."
+    },
+    "answer": "sqrt",
+    "accept": [
+      "sqrt"
+    ],
+    "explanation": {
+      "en": "math.sqrt(16) returns 4.0.",
+      "ar": "math.sqrt(16) تعيد 4.0."
+    }
+  },
+  {
+    "id": 47,
+    "category": "bit-manipulation",
+    "difficulty": "medium",
+    "codeSnippet": "# true when n is even\nif n ____ 1 == 0:",
+    "question": {
+      "en": "Fill the bitwise operator that isolates the lowest bit.",
+      "ar": "أكمل المعامل الثنائي الذي يعزل أدنى بِت."
+    },
+    "answer": "&",
+    "accept": [
+      "&"
+    ],
+    "explanation": {
+      "en": "n & 1 == 0 tests the low bit to detect even numbers.",
+      "ar": "n & 1 == 0 تفحص أدنى بِت لكشف الأعداد الزوجية."
+    }
+  },
+  {
+    "id": 48,
+    "category": "dynamic-programming",
+    "difficulty": "medium",
+    "codeSnippet": "if n in ____:\n    return memo[n]",
+    "question": {
+      "en": "Fill the cache name checked before recomputing.",
+      "ar": "أكمل اسم الذاكرة المؤقتة المفحوصة قبل إعادة الحساب."
+    },
+    "answer": "memo",
+    "accept": [
+      "memo"
+    ],
+    "explanation": {
+      "en": "Memoization returns the cached result if present.",
+      "ar": "الحفظ المؤقت يعيد النتيجة المخزنة إن وُجدت."
+    }
+  },
+  {
+    "id": 49,
+    "category": "strings",
+    "difficulty": "medium",
+    "codeSnippet": "words = sentence.____(\" \")",
+    "question": {
+      "en": "Fill the string method that breaks text on spaces.",
+      "ar": "أكمل دالة النص التي تقسّم النص عند المسافات."
+    },
+    "answer": "split",
+    "accept": [
+      "split"
+    ],
+    "explanation": {
+      "en": "str.split(' ') returns a list of words.",
+      "ar": "str.split(' ') تعيد قائمة بالكلمات."
+    }
+  },
+  {
+    "id": 50,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "codeSnippet": "q = deque([1, 2, 3])\nq.____()  # removes 1",
+    "question": {
+      "en": "Fill the deque method that removes from the left.",
+      "ar": "أكمل دالة deque التي تزيل من اليسار."
+    },
+    "answer": "popleft",
+    "accept": [
+      "popleft"
+    ],
+    "explanation": {
+      "en": "deque.popleft() removes and returns the leftmost item.",
+      "ar": "deque.popleft() تزيل وتعيد العنصر الأيسر."
+    }
+  },
+  {
+    "id": 51,
+    "category": "algorithms",
+    "difficulty": "medium",
+    "codeSnippet": "arr[i], arr[j] = arr[j], ____",
+    "question": {
+      "en": "Fill the expression that completes an in-place swap.",
+      "ar": "أكمل التعبير الذي يُتمّ التبديل المكاني."
+    },
+    "answer": "arr[i]",
+    "accept": [
+      "arr[i]"
+    ],
+    "explanation": {
+      "en": "Tuple assignment swaps two elements without a temp.",
+      "ar": "الإسناد الطرفي يبدّل عنصرين دون متغير مؤقت."
+    }
+  },
+  {
+    "id": 52,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "rev = lst[::____]",
+    "question": {
+      "en": "Fill the step that reverses a list via slicing.",
+      "ar": "أكمل الخطوة التي تعكس القائمة عبر التقطيع."
+    },
+    "answer": "-1",
+    "accept": [
+      "-1"
+    ],
+    "explanation": {
+      "en": "lst[::-1] returns the list reversed.",
+      "ar": "lst[::-1] تعيد القائمة معكوسة."
+    }
+  },
+  {
+    "id": 53,
+    "category": "recursion",
+    "difficulty": "medium",
+    "codeSnippet": "def fib(n):\n    if n < 2:\n        return n\n    return fib(n - 1) ____ fib(n - 2)",
+    "question": {
+      "en": "Fill the operator combining the two recursive Fibonacci calls.",
+      "ar": "أكمل المعامل الذي يجمع نداءي فيبوناتشي العَوديين."
+    },
+    "answer": "+",
+    "accept": [
+      "+"
+    ],
+    "explanation": {
+      "en": "Fibonacci sums the two previous terms.",
+      "ar": "فيبوناتشي يجمع الحدّين السابقين."
+    }
+  },
+  {
+    "id": 54,
+    "category": "complexity",
+    "difficulty": "easy",
+    "codeSnippet": "# Array index access is O(____)",
+    "question": {
+      "en": "Fill the complexity of accessing an array element by index.",
+      "ar": "أكمل تعقيد الوصول لعنصر مصفوفة بالفهرس."
+    },
+    "answer": "1",
+    "accept": [
+      "1"
+    ],
+    "explanation": {
+      "en": "Indexed access is constant time, O(1).",
+      "ar": "الوصول بالفهرس زمن ثابت O(1)."
+    }
   }
 ]

@@ -181,12 +181,12 @@ prog-game2/
 │  ├─ supabase-config.js         # Supabase creds (local, git-ignored)
 │  ├─ discord-config.js          # Discord client id (local, git-ignored)
 │  └─ data/
-│     ├─ questions.json          # languages bank (333 questions, 15 languages)
-│     ├─ questions-cyber.json    # cybersecurity bank (92 questions)
-│     ├─ questions-devops.json   # devops bank (51 questions)
-│     ├─ questions-network.json  # networking bank (49 questions)
-│     ├─ questions-gamedev.json  # game-dev bank (34 questions)
-│     └─ questions-algo.json     # problem-solving fill-in bank (34 questions)
+│     ├─ questions.json          # languages bank (365 questions, 15 languages)
+│     ├─ questions-cyber.json    # cybersecurity bank (110 questions)
+│     ├─ questions-devops.json   # devops bank (68 questions)
+│     ├─ questions-network.json  # networking bank (67 questions)
+│     ├─ questions-gamedev.json  # game-dev bank (50 questions)
+│     └─ questions-algo.json     # problem-solving fill-in bank (54 questions)
 └─ test/
    ├─ smoke-main.js             # languages mode end-to-end (14 checks)
    ├─ smoke-cyber.js            # cybersecurity mode (12 checks)
@@ -206,7 +206,7 @@ prog-game2/
 
 ## Questions databases
 
-**Languages** — `src/data/questions.json` holds **333 questions** across 15
+**Languages** — `src/data/questions.json` holds **365 questions** across 15
 languages and three difficulty levels:
 
 ```json

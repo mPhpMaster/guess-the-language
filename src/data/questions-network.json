@@ -1027,5 +1027,383 @@
       "en": "NAT lets many devices with private IPs share one public IP for internet access.",
       "ar": "يتيح NAT لأجهزة كثيرة بعناوين خاصة مشاركة عنوان عام واحد للوصول إلى الإنترنت."
     }
+  },
+  {
+    "id": 50,
+    "category": "protocols",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which port does HTTP use by default?",
+      "ar": "أي منفذ يستخدمه HTTP افتراضيًا؟"
+    },
+    "options": [
+      "80",
+      "443",
+      "22",
+      "25"
+    ],
+    "answer": "80",
+    "explanation": {
+      "en": "HTTP runs on TCP port 80 by default.",
+      "ar": "يعمل HTTP على المنفذ 80 افتراضيًا."
+    }
+  },
+  {
+    "id": 51,
+    "category": "protocols",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which port does SSH use by default?",
+      "ar": "أي منفذ يستخدمه SSH افتراضيًا؟"
+    },
+    "options": [
+      "22",
+      "23",
+      "21",
+      "80"
+    ],
+    "answer": "22",
+    "explanation": {
+      "en": "SSH listens on TCP port 22.",
+      "ar": "يستمع SSH على المنفذ 22."
+    }
+  },
+  {
+    "id": 52,
+    "category": "dns",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a DNS A record map?",
+      "ar": "ماذا يربط سجل DNS من نوع A؟"
+    },
+    "options": [
+      "A hostname to an IPv4 address",
+      "A domain to an alias",
+      "An IP to a name",
+      "A mail server"
+    ],
+    "answer": "A hostname to an IPv4 address",
+    "explanation": {
+      "en": "An A record resolves a name to an IPv4 address.",
+      "ar": "يحوّل سجل A الاسم إلى عنوان IPv4."
+    }
+  },
+  {
+    "id": 53,
+    "category": "dns",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a CNAME record?",
+      "ar": "ما سجل CNAME؟"
+    },
+    "options": [
+      "An alias pointing to another domain name",
+      "A mail exchange record",
+      "A reverse lookup",
+      "A name server record"
+    ],
+    "answer": "An alias pointing to another domain name",
+    "explanation": {
+      "en": "CNAME aliases one hostname to another.",
+      "ar": "يجعل CNAME اسمًا مستعارًا لاسم آخر."
+    }
+  },
+  {
+    "id": 54,
+    "category": "tcp",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "The TCP connection setup uses what?",
+      "ar": "ما الذي يستخدمه إنشاء اتصال TCP؟"
+    },
+    "options": [
+      "A three-way handshake (SYN, SYN-ACK, ACK)",
+      "A two-way handshake",
+      "No handshake",
+      "A four-way handshake"
+    ],
+    "answer": "A three-way handshake (SYN, SYN-ACK, ACK)",
+    "explanation": {
+      "en": "TCP opens with SYN, SYN-ACK, then ACK.",
+      "ar": "يبدأ TCP بـ SYN ثم SYN-ACK ثم ACK."
+    }
+  },
+  {
+    "id": 55,
+    "category": "tcp",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Compared with TCP, UDP is best described as?",
+      "ar": "مقارنةً بـ TCP، كيف يوصف UDP؟"
+    },
+    "options": [
+      "Connectionless and faster with no delivery guarantee",
+      "Connection-oriented and reliable",
+      "Encrypted by default",
+      "Only for local networks"
+    ],
+    "answer": "Connectionless and faster with no delivery guarantee",
+    "explanation": {
+      "en": "UDP skips handshakes and acknowledgements.",
+      "ar": "يتخطى UDP المصافحة والإقرارات."
+    }
+  },
+  {
+    "id": 56,
+    "category": "ip",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "How many bits are in an IPv4 address?",
+      "ar": "كم عدد البتات في عنوان IPv4؟"
+    },
+    "options": [
+      "32",
+      "64",
+      "128",
+      "16"
+    ],
+    "answer": "32",
+    "explanation": {
+      "en": "IPv4 addresses are 32 bits (four octets).",
+      "ar": "عناوين IPv4 من 32 بت (أربعة ثمانيات)."
+    }
+  },
+  {
+    "id": 57,
+    "category": "ip",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "How many bits are in an IPv6 address?",
+      "ar": "كم عدد البتات في عنوان IPv6؟"
+    },
+    "options": [
+      "128",
+      "64",
+      "32",
+      "256"
+    ],
+    "answer": "128",
+    "explanation": {
+      "en": "IPv6 addresses are 128 bits long.",
+      "ar": "طول عناوين IPv6 هو 128 بت."
+    }
+  },
+  {
+    "id": 58,
+    "category": "ip",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "How many usable host addresses are in a /24 subnet?",
+      "ar": "كم عدد عناوين المضيفين القابلة للاستخدام في شبكة /24؟"
+    },
+    "options": [
+      "254",
+      "256",
+      "255",
+      "512"
+    ],
+    "answer": "254",
+    "explanation": {
+      "en": "A /24 has 256 addresses minus network and broadcast.",
+      "ar": "تحوي /24 عدد 256 عنوانًا ناقص الشبكة والبث."
+    }
+  },
+  {
+    "id": 59,
+    "category": "routing",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a default gateway?",
+      "ar": "ما البوابة الافتراضية؟"
+    },
+    "options": [
+      "The router used to reach non-local networks",
+      "A DNS resolver",
+      "A DHCP server",
+      "A firewall rule"
+    ],
+    "answer": "The router used to reach non-local networks",
+    "explanation": {
+      "en": "Traffic to other subnets goes via the default gateway.",
+      "ar": "تُرسَل حركة الشبكات الأخرى عبر البوابة الافتراضية."
+    }
+  },
+  {
+    "id": 60,
+    "category": "protocols",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does DHCP do?",
+      "ar": "ماذا يفعل DHCP؟"
+    },
+    "options": [
+      "Automatically assigns IP addresses to hosts",
+      "Resolves names to IPs",
+      "Encrypts web traffic",
+      "Routes between networks"
+    ],
+    "answer": "Automatically assigns IP addresses to hosts",
+    "explanation": {
+      "en": "DHCP leases IP configuration to clients.",
+      "ar": "يمنح DHCP إعدادات IP للعملاء."
+    }
+  },
+  {
+    "id": 61,
+    "category": "protocols",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does ARP resolve?",
+      "ar": "ماذا يحلّ بروتوكول ARP؟"
+    },
+    "options": [
+      "An IP address to a MAC address",
+      "A name to an IP",
+      "A port to a service",
+      "A route to a gateway"
+    ],
+    "answer": "An IP address to a MAC address",
+    "explanation": {
+      "en": "ARP maps IPv4 addresses to hardware MACs.",
+      "ar": "يربط ARP عناوين IPv4 بعناوين MAC العتادية."
+    }
+  },
+  {
+    "id": 62,
+    "category": "osi",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "At which OSI layer does a router primarily operate?",
+      "ar": "في أي طبقة OSI يعمل الموجّه أساسًا؟"
+    },
+    "options": [
+      "Layer 3 (Network)",
+      "Layer 2 (Data Link)",
+      "Layer 4 (Transport)",
+      "Layer 7 (Application)"
+    ],
+    "answer": "Layer 3 (Network)",
+    "explanation": {
+      "en": "Routers forward packets using Layer 3 IP addresses.",
+      "ar": "توجّه الموجّهات الحزم باستخدام عناوين IP في الطبقة 3."
+    }
+  },
+  {
+    "id": 63,
+    "category": "osi",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "At which OSI layer does a switch primarily operate?",
+      "ar": "في أي طبقة OSI يعمل المبدّل أساسًا؟"
+    },
+    "options": [
+      "Layer 2 (Data Link)",
+      "Layer 1 (Physical)",
+      "Layer 3 (Network)",
+      "Layer 4 (Transport)"
+    ],
+    "answer": "Layer 2 (Data Link)",
+    "explanation": {
+      "en": "Switches forward frames using MAC addresses.",
+      "ar": "تمرّر المبدّلات الإطارات باستخدام عناوين MAC."
+    }
+  },
+  {
+    "id": 64,
+    "category": "protocols",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which protocol does ping use?",
+      "ar": "أي بروتوكول يستخدمه ping؟"
+    },
+    "options": [
+      "ICMP",
+      "TCP",
+      "UDP",
+      "ARP"
+    ],
+    "answer": "ICMP",
+    "explanation": {
+      "en": "ping sends ICMP echo requests and replies.",
+      "ar": "يرسل ping طلبات وردود ICMP echo."
+    }
+  },
+  {
+    "id": 65,
+    "category": "dns",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which port does DNS use by default?",
+      "ar": "أي منفذ يستخدمه DNS افتراضيًا؟"
+    },
+    "options": [
+      "53",
+      "80",
+      "443",
+      "25"
+    ],
+    "answer": "53",
+    "explanation": {
+      "en": "DNS uses port 53 (UDP, and TCP for large replies).",
+      "ar": "يستخدم DNS المنفذ 53 (UDP وTCP للردود الكبيرة)."
+    }
+  },
+  {
+    "id": 66,
+    "category": "tcp",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a port number identify?",
+      "ar": "ماذا يحدّد رقم المنفذ؟"
+    },
+    "options": [
+      "A specific service or process on a host",
+      "A physical network cable",
+      "A subnet range",
+      "A MAC address"
+    ],
+    "answer": "A specific service or process on a host",
+    "explanation": {
+      "en": "Ports let one host run many networked services.",
+      "ar": "تتيح المنافذ لمضيف واحد تشغيل خدمات شبكية عديدة."
+    }
+  },
+  {
+    "id": 67,
+    "category": "protocols",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which port does SMTP use by default?",
+      "ar": "أي منفذ يستخدمه SMTP افتراضيًا؟"
+    },
+    "options": [
+      "25",
+      "110",
+      "143",
+      "443"
+    ],
+    "answer": "25",
+    "explanation": {
+      "en": "SMTP transfers mail over TCP port 25.",
+      "ar": "ينقل SMTP البريد عبر المنفذ 25."
+    }
   }
 ]

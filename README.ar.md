@@ -97,10 +97,12 @@ prog-game2/
 │  ├─ supabase-config.js         # بيانات Supabase (محلي، غير مُتتبَّع بـ git)
 │  ├─ supabase-config.example.js # قالب الإعداد
 │  └─ data/
-│     ├─ questions.json          # بنك اللغات (211 سؤالاً)
-│     ├─ questions-cyber.json    # بنك الأمن السيبراني (79 سؤالاً)
-│     ├─ questions-devops.json   # بنك DevOps (38 سؤالاً)
-│     └─ questions-network.json  # بنك الشبكات (37 سؤالاً)
+│     ├─ questions.json          # بنك اللغات (365 سؤالاً، 15 لغة)
+│     ├─ questions-cyber.json    # بنك الأمن السيبراني (110 أسئلة)
+│     ├─ questions-devops.json   # بنك DevOps (68 سؤالاً)
+│     ├─ questions-network.json  # بنك الشبكات (67 سؤالاً)
+│     ├─ questions-gamedev.json  # بنك تطوير الألعاب (50 سؤالاً)
+│     └─ questions-algo.json     # بنك حل المشكلات (ملء الفراغ) (54 سؤالاً)
 └─ test/
    ├─ smoke-main.js             # نمط اللغات (14 فحصاً)
    ├─ smoke-cyber.js            # نمط الأمن السيبراني (12 فحصاً)
@@ -112,7 +114,7 @@ prog-game2/
 
 ## قواعد بيانات الأسئلة
 
-**اللغات** — يحوي `src/data/questions.json` **211 سؤالاً** على 6 لغات وثلاث مستويات صعوبة:
+**اللغات** — يحوي `src/data/questions.json` **365 سؤالاً** على 15 لغة وثلاث مستويات صعوبة:
 
 ```json
 {
@@ -124,8 +126,8 @@ prog-game2/
 }
 ```
 
-**الأمن السيبراني** — يحوي `src/data/questions-cyber.json` **79 سؤالاً** (تصنيفات:
-nmap، malware، metasploit، tools، concepts)، ولكل سؤال خياراته الخاصة:
+**الأمن السيبراني** — يحوي `src/data/questions-cyber.json` **110 أسئلة** (تصنيفات:
+nmap، malware، metasploit، tools، concepts، web)، ولكل سؤال خياراته الخاصة:
 
 ```json
 {

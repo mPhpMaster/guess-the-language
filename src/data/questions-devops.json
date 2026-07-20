@@ -1069,5 +1069,362 @@
       "en": "Serverless means the provider manages the servers; you just deploy code that runs on demand.",
       "ar": "يعني serverless أن المزوّد يدير الخوادم، وأنت تنشر شيفرة تعمل عند الطلب."
     }
+  },
+  {
+    "id": 52,
+    "category": "docker",
+    "difficulty": "easy",
+    "codeSnippet": "docker ps",
+    "question": {
+      "en": "What does this command show?",
+      "ar": "ماذا يعرض هذا الأمر؟"
+    },
+    "options": [
+      "Running containers",
+      "Downloaded images",
+      "Docker networks",
+      "Build history"
+    ],
+    "answer": "Running containers",
+    "explanation": {
+      "en": "docker ps lists currently running containers.",
+      "ar": "docker ps يسرد الحاويات العاملة حاليًا."
+    }
+  },
+  {
+    "id": 53,
+    "category": "docker",
+    "difficulty": "medium",
+    "codeSnippet": "docker exec -it web bash",
+    "question": {
+      "en": "What does this command do?",
+      "ar": "ماذا يفعل هذا الأمر؟"
+    },
+    "options": [
+      "Open a shell inside a running container",
+      "Build a new image",
+      "Start a stopped image",
+      "Copy files out of a container"
+    ],
+    "answer": "Open a shell inside a running container",
+    "explanation": {
+      "en": "exec -it runs an interactive shell in the container.",
+      "ar": "exec -it يشغّل صدفة تفاعلية داخل الحاوية."
+    }
+  },
+  {
+    "id": 54,
+    "category": "kubernetes",
+    "difficulty": "easy",
+    "codeSnippet": "kubectl get pods",
+    "question": {
+      "en": "What does this command list?",
+      "ar": "ماذا يسرد هذا الأمر؟"
+    },
+    "options": [
+      "Pods in the current namespace",
+      "Cluster nodes",
+      "Container images",
+      "Helm charts"
+    ],
+    "answer": "Pods in the current namespace",
+    "explanation": {
+      "en": "kubectl get pods lists pods in the active namespace.",
+      "ar": "kubectl get pods يسرد البودات في مجال الأسماء الحالي."
+    }
+  },
+  {
+    "id": 55,
+    "category": "kubernetes",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a Pod in Kubernetes?",
+      "ar": "ما البود (Pod) في Kubernetes؟"
+    },
+    "options": [
+      "The smallest deployable unit (one or more containers)",
+      "A physical server",
+      "A load balancer",
+      "A storage volume"
+    ],
+    "answer": "The smallest deployable unit (one or more containers)",
+    "explanation": {
+      "en": "A Pod wraps one or more tightly-coupled containers.",
+      "ar": "البود يغلّف حاوية أو أكثر مترابطة."
+    }
+  },
+  {
+    "id": 56,
+    "category": "kubernetes",
+    "difficulty": "medium",
+    "codeSnippet": "kubectl scale deployment web --replicas=3",
+    "question": {
+      "en": "What does this command do?",
+      "ar": "ماذا يفعل هذا الأمر؟"
+    },
+    "options": [
+      "Set the deployment to 3 replicas",
+      "Delete 3 pods",
+      "Create 3 services",
+      "Roll back 3 versions"
+    ],
+    "answer": "Set the deployment to 3 replicas",
+    "explanation": {
+      "en": "It changes the desired replica count to 3.",
+      "ar": "يغيّر عدد النسخ المطلوب إلى 3."
+    }
+  },
+  {
+    "id": 57,
+    "category": "cicd",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does Continuous Integration (CI) mean?",
+      "ar": "ماذا يعني التكامل المستمر (CI)؟"
+    },
+    "options": [
+      "Frequently merging and testing code changes",
+      "Deploying only once a year",
+      "Manual server setup",
+      "Writing documentation"
+    ],
+    "answer": "Frequently merging and testing code changes",
+    "explanation": {
+      "en": "CI merges and automatically tests changes often.",
+      "ar": "يدمج CI التغييرات ويختبرها آليًا بشكل متكرر."
+    }
+  },
+  {
+    "id": 58,
+    "category": "cicd",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "In a pipeline, what is a rollback?",
+      "ar": "في خط الأنابيب، ما الاسترجاع (rollback)؟"
+    },
+    "options": [
+      "Reverting to a previous working version",
+      "Deleting the repository",
+      "Skipping the tests",
+      "Merging two branches"
+    ],
+    "answer": "Reverting to a previous working version",
+    "explanation": {
+      "en": "A rollback restores the last known-good release.",
+      "ar": "يعيد الاسترجاع آخر إصدار سليم معروف."
+    }
+  },
+  {
+    "id": 59,
+    "category": "iac",
+    "difficulty": "easy",
+    "codeSnippet": "terraform apply",
+    "question": {
+      "en": "What does terraform apply do?",
+      "ar": "ماذا يفعل terraform apply؟"
+    },
+    "options": [
+      "Make real changes to match the desired state",
+      "Only show a plan",
+      "Delete the state file",
+      "Format the code"
+    ],
+    "answer": "Make real changes to match the desired state",
+    "explanation": {
+      "en": "apply provisions infra to reach the declared state.",
+      "ar": "apply ينفّذ التغييرات للوصول إلى الحالة المعلنة."
+    }
+  },
+  {
+    "id": 60,
+    "category": "iac",
+    "difficulty": "medium",
+    "codeSnippet": "terraform plan",
+    "question": {
+      "en": "What does terraform plan do?",
+      "ar": "ماذا يفعل terraform plan؟"
+    },
+    "options": [
+      "Preview changes without applying them",
+      "Apply changes immediately",
+      "Destroy all resources",
+      "Import existing resources"
+    ],
+    "answer": "Preview changes without applying them",
+    "explanation": {
+      "en": "plan shows a dry-run diff of proposed changes.",
+      "ar": "plan يعرض معاينة للتغييرات المقترحة دون تنفيذها."
+    }
+  },
+  {
+    "id": 61,
+    "category": "cloud",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a load balancer do?",
+      "ar": "ماذا يفعل موازن الحِمل؟"
+    },
+    "options": [
+      "Distribute traffic across multiple servers",
+      "Store backups",
+      "Encrypt disks",
+      "Compile code"
+    ],
+    "answer": "Distribute traffic across multiple servers",
+    "explanation": {
+      "en": "It spreads requests to avoid overloading one server.",
+      "ar": "يوزّع الطلبات لتجنّب إرهاق خادم واحد."
+    }
+  },
+  {
+    "id": 62,
+    "category": "docker",
+    "difficulty": "medium",
+    "codeSnippet": "docker compose up -d",
+    "question": {
+      "en": "What does the -d flag do here?",
+      "ar": "ماذا يفعل الخيار d- هنا؟"
+    },
+    "options": [
+      "Run the services in the background (detached)",
+      "Delete the containers",
+      "Rebuild images",
+      "Show logs"
+    ],
+    "answer": "Run the services in the background (detached)",
+    "explanation": {
+      "en": "-d starts services detached from the terminal.",
+      "ar": "d- يشغّل الخدمات منفصلة عن الطرفية."
+    }
+  },
+  {
+    "id": 63,
+    "category": "kubernetes",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a Kubernetes Service provide?",
+      "ar": "ماذا توفّر خدمة (Service) في Kubernetes؟"
+    },
+    "options": [
+      "A stable network endpoint for a set of pods",
+      "Persistent disk storage",
+      "A container image registry",
+      "A CI pipeline"
+    ],
+    "answer": "A stable network endpoint for a set of pods",
+    "explanation": {
+      "en": "A Service gives pods a stable IP/DNS name.",
+      "ar": "تمنح الخدمة البودات عنوانًا/اسمًا ثابتًا."
+    }
+  },
+  {
+    "id": 64,
+    "category": "cloud",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is autoscaling?",
+      "ar": "ما التوسيع التلقائي (autoscaling)؟"
+    },
+    "options": [
+      "Adjusting resources automatically based on load",
+      "Manually adding servers weekly",
+      "Turning off logging",
+      "Caching static files"
+    ],
+    "answer": "Adjusting resources automatically based on load",
+    "explanation": {
+      "en": "Autoscaling adds/removes capacity as demand shifts.",
+      "ar": "يضيف/يزيل السعة تلقائيًا حسب الطلب."
+    }
+  },
+  {
+    "id": 65,
+    "category": "iac",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does \"idempotent\" mean for IaC?",
+      "ar": "ماذا يعني \"متماثل النتيجة\" في البنية ككود؟"
+    },
+    "options": [
+      "Applying repeatedly yields the same end state",
+      "It runs faster each time",
+      "It needs no state file",
+      "It only works once"
+    ],
+    "answer": "Applying repeatedly yields the same end state",
+    "explanation": {
+      "en": "Idempotent runs converge to the same result.",
+      "ar": "التطبيق المتكرر يصل إلى النتيجة ذاتها."
+    }
+  },
+  {
+    "id": 66,
+    "category": "docker",
+    "difficulty": "easy",
+    "codeSnippet": "FROM node:20-alpine",
+    "question": {
+      "en": "What does a Dockerfile FROM line set?",
+      "ar": "ماذا يحدّد سطر FROM في Dockerfile؟"
+    },
+    "options": [
+      "The base image",
+      "The exposed port",
+      "The startup command",
+      "The working directory"
+    ],
+    "answer": "The base image",
+    "explanation": {
+      "en": "FROM defines the base image to build on.",
+      "ar": "FROM يحدّد الصورة الأساس التي نبني عليها."
+    }
+  },
+  {
+    "id": 67,
+    "category": "kubernetes",
+    "difficulty": "medium",
+    "codeSnippet": "kubectl logs mypod",
+    "question": {
+      "en": "What does this command show?",
+      "ar": "ماذا يعرض هذا الأمر؟"
+    },
+    "options": [
+      "A pod's container logs",
+      "The node's CPU usage",
+      "The cluster events",
+      "The pod's YAML"
+    ],
+    "answer": "A pod's container logs",
+    "explanation": {
+      "en": "kubectl logs streams a pod container's stdout.",
+      "ar": "kubectl logs يعرض مخرجات حاوية البود."
+    }
+  },
+  {
+    "id": 68,
+    "category": "cloud",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a CDN primarily do?",
+      "ar": "ماذا تفعل شبكة توصيل المحتوى (CDN) أساسًا؟"
+    },
+    "options": [
+      "Serve cached content from edge locations",
+      "Run databases",
+      "Compile applications",
+      "Manage DNS zones only"
+    ],
+    "answer": "Serve cached content from edge locations",
+    "explanation": {
+      "en": "A CDN caches content near users to cut latency.",
+      "ar": "تخزّن CDN المحتوى قرب المستخدمين لتقليل الكمون."
+    }
   }
 ]

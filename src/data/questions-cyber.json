@@ -1930,5 +1930,383 @@
       "en": "John tries each word in rockyou.txt against the hashes to recover passwords.",
       "ar": "تجرّب John كل كلمة في rockyou.txt ضد التجزئات لاستعادة كلمات المرور."
     }
+  },
+  {
+    "id": 93,
+    "category": "concepts",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What do the three letters in the CIA triad stand for?",
+      "ar": "ماذا تعني الأحرف الثلاثة في ثالوث CIA؟"
+    },
+    "options": [
+      "Confidentiality, Integrity, Availability",
+      "Control, Identity, Access",
+      "Cipher, Integrity, Auth",
+      "Confidentiality, Identity, Audit"
+    ],
+    "answer": "Confidentiality, Integrity, Availability",
+    "explanation": {
+      "en": "The CIA triad is the core model of information security.",
+      "ar": "ثالوث CIA هو النموذج الأساسي لأمن المعلومات."
+    }
+  },
+  {
+    "id": 94,
+    "category": "web",
+    "difficulty": "easy",
+    "codeSnippet": "' OR '1'='1",
+    "question": {
+      "en": "This input in a login form is a classic example of which attack?",
+      "ar": "هذا الإدخال في نموذج تسجيل الدخول مثال كلاسيكي لأي هجوم؟"
+    },
+    "options": [
+      "SQL injection",
+      "Cross-site scripting",
+      "Buffer overflow",
+      "Phishing"
+    ],
+    "answer": "SQL injection",
+    "explanation": {
+      "en": "It manipulates the SQL query to always evaluate true.",
+      "ar": "يتلاعب باستعلام SQL ليصبح صحيحًا دائمًا."
+    }
+  },
+  {
+    "id": 95,
+    "category": "web",
+    "difficulty": "medium",
+    "codeSnippet": "<script>alert(1)</script>",
+    "question": {
+      "en": "Storing this in a comment field to run in the browsers of other users is which attack?",
+      "ar": "تخزين هذا في حقل تعليق ليُنفَّذ في متصفحات آخرين هو أي هجوم؟"
+    },
+    "options": [
+      "Cross-site scripting (XSS)",
+      "SQL injection",
+      "CSRF",
+      "Clickjacking"
+    ],
+    "answer": "Cross-site scripting (XSS)",
+    "explanation": {
+      "en": "Stored XSS injects script that runs for other visitors.",
+      "ar": "XSS المخزّن يحقن سكربتًا يعمل لدى زوار آخرين."
+    }
+  },
+  {
+    "id": 96,
+    "category": "tools",
+    "difficulty": "easy",
+    "codeSnippet": "hashcat -m 0 hash.txt words.txt",
+    "question": {
+      "en": "The -m 0 mode tells hashcat the hashes are which type?",
+      "ar": "الوضع m 0- يخبر hashcat أن التجزئات من أي نوع؟"
+    },
+    "options": [
+      "MD5",
+      "SHA-256",
+      "bcrypt",
+      "NTLM"
+    ],
+    "answer": "MD5",
+    "explanation": {
+      "en": "Mode 0 in hashcat targets raw MD5 hashes.",
+      "ar": "الوضع 0 في hashcat يستهدف تجزئات MD5 الخام."
+    }
+  },
+  {
+    "id": 97,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Adding a random salt to passwords before hashing mainly defeats what?",
+      "ar": "إضافة ملح عشوائي لكلمات المرور قبل التجزئة يُبطل ماذا أساسًا؟"
+    },
+    "options": [
+      "Precomputed rainbow-table attacks",
+      "Man-in-the-middle",
+      "Phishing",
+      "DDoS"
+    ],
+    "answer": "Precomputed rainbow-table attacks",
+    "explanation": {
+      "en": "Unique salts make precomputed hash tables useless.",
+      "ar": "الأملاح الفريدة تجعل جداول التجزئة المحسوبة مسبقًا عديمة الفائدة."
+    }
+  },
+  {
+    "id": 98,
+    "category": "nmap",
+    "difficulty": "medium",
+    "codeSnippet": "nmap -p- 10.0.0.1",
+    "question": {
+      "en": "What does the -p- flag scan?",
+      "ar": "ماذا يفحص الخيار p-؟"
+    },
+    "options": [
+      "All 65535 TCP ports",
+      "Only the top 100 ports",
+      "UDP ports only",
+      "The default 1000 ports"
+    ],
+    "answer": "All 65535 TCP ports",
+    "explanation": {
+      "en": "-p- expands the scan to every TCP port.",
+      "ar": "p- يوسّع الفحص ليشمل كل منافذ TCP."
+    }
+  },
+  {
+    "id": 99,
+    "category": "metasploit",
+    "difficulty": "easy",
+    "codeSnippet": "set RHOSTS 10.0.0.5",
+    "question": {
+      "en": "In Metasploit, what does RHOSTS specify?",
+      "ar": "في Metasploit ماذا يحدّد RHOSTS؟"
+    },
+    "options": [
+      "The target host(s)",
+      "The local listener IP",
+      "The payload",
+      "The exploit name"
+    ],
+    "answer": "The target host(s)",
+    "explanation": {
+      "en": "RHOSTS sets the remote target address(es).",
+      "ar": "RHOSTS يضبط عنوان الهدف البعيد."
+    }
+  },
+  {
+    "id": 100,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "hydra -l admin -P pass.txt ssh://10.0.0.1",
+    "question": {
+      "en": "What is this command doing?",
+      "ar": "ماذا يفعل هذا الأمر؟"
+    },
+    "options": [
+      "Brute-forcing an SSH login",
+      "Scanning open ports",
+      "Sniffing traffic",
+      "Encrypting a file"
+    ],
+    "answer": "Brute-forcing an SSH login",
+    "explanation": {
+      "en": "Hydra tries each password against the SSH service.",
+      "ar": "تجرّب Hydra كل كلمة مرور ضد خدمة SSH."
+    }
+  },
+  {
+    "id": 101,
+    "category": "concepts",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What best describes phishing?",
+      "ar": "ما الوصف الأدق للتصيّد الاحتيالي؟"
+    },
+    "options": [
+      "Tricking users into revealing credentials",
+      "Overloading a server",
+      "Cracking a hash",
+      "Scanning a network"
+    ],
+    "answer": "Tricking users into revealing credentials",
+    "explanation": {
+      "en": "Phishing uses deception to steal sensitive info.",
+      "ar": "التصيّد يستخدم الخداع لسرقة معلومات حساسة."
+    }
+  },
+  {
+    "id": 102,
+    "category": "web",
+    "difficulty": "medium",
+    "codeSnippet": "GET /files?name=../../etc/passwd",
+    "question": {
+      "en": "This request is attempting which attack?",
+      "ar": "هذا الطلب يحاول أي هجوم؟"
+    },
+    "options": [
+      "Path (directory) traversal",
+      "SQL injection",
+      "XSS",
+      "Session hijacking"
+    ],
+    "answer": "Path (directory) traversal",
+    "explanation": {
+      "en": "../ sequences escape the intended directory.",
+      "ar": "تسلسلات ../ تتجاوز المجلد المقصود."
+    }
+  },
+  {
+    "id": 103,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Symmetric encryption is defined by what property?",
+      "ar": "ما الخاصية التي تُعرّف التشفير المتماثل؟"
+    },
+    "options": [
+      "The same key encrypts and decrypts",
+      "A public/private key pair",
+      "It is one-way",
+      "It needs no key"
+    ],
+    "answer": "The same key encrypts and decrypts",
+    "explanation": {
+      "en": "Symmetric ciphers share one secret key.",
+      "ar": "الشيفرات المتماثلة تتشارك مفتاحًا سريًا واحدًا."
+    }
+  },
+  {
+    "id": 104,
+    "category": "tools",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Wireshark is primarily used to do what?",
+      "ar": "لأي غرض يُستخدم Wireshark أساسًا؟"
+    },
+    "options": [
+      "Capture and analyze network packets",
+      "Crack passwords",
+      "Exploit services",
+      "Fuzz web apps"
+    ],
+    "answer": "Capture and analyze network packets",
+    "explanation": {
+      "en": "Wireshark is a packet capture and analysis tool.",
+      "ar": "Wireshark أداة لالتقاط وتحليل الحزم."
+    }
+  },
+  {
+    "id": 105,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a zero-day vulnerability?",
+      "ar": "ما ثغرة اليوم صفر؟"
+    },
+    "options": [
+      "A flaw with no available patch yet",
+      "A patched old bug",
+      "A weak password",
+      "A phishing email"
+    ],
+    "answer": "A flaw with no available patch yet",
+    "explanation": {
+      "en": "Zero-days are unknown to the vendor and unpatched.",
+      "ar": "ثغرات اليوم صفر مجهولة للمزوّد وبلا رقعة."
+    }
+  },
+  {
+    "id": 106,
+    "category": "malware",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does ransomware typically do?",
+      "ar": "ماذا تفعل برامج الفدية عادةً؟"
+    },
+    "options": [
+      "Encrypt files and demand payment",
+      "Log keystrokes silently",
+      "Mine cryptocurrency",
+      "Spread via USB only"
+    ],
+    "answer": "Encrypt files and demand payment",
+    "explanation": {
+      "en": "Ransomware encrypts data and extorts a ransom.",
+      "ar": "تشفّر برامج الفدية البيانات وتبتزّ فدية."
+    }
+  },
+  {
+    "id": 107,
+    "category": "concepts",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does two-factor authentication add?",
+      "ar": "ماذا تضيف المصادقة الثنائية؟"
+    },
+    "options": [
+      "A second, independent verification factor",
+      "A stronger password",
+      "A firewall rule",
+      "An antivirus scan"
+    ],
+    "answer": "A second, independent verification factor",
+    "explanation": {
+      "en": "2FA requires something you have in addition to a password.",
+      "ar": "تتطلب 2FA شيئًا تملكه إضافة لكلمة المرور."
+    }
+  },
+  {
+    "id": 108,
+    "category": "web",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which port does HTTPS use by default?",
+      "ar": "أي منفذ يستخدمه HTTPS افتراضيًا؟"
+    },
+    "options": [
+      "443",
+      "80",
+      "22",
+      "8080"
+    ],
+    "answer": "443",
+    "explanation": {
+      "en": "HTTPS runs over TLS on TCP port 443.",
+      "ar": "يعمل HTTPS عبر TLS على المنفذ 443."
+    }
+  },
+  {
+    "id": 109,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "openssl req -new -x509 -days 365 -key key.pem",
+    "question": {
+      "en": "What does this openssl command create?",
+      "ar": "ماذا ينشئ أمر openssl هذا؟"
+    },
+    "options": [
+      "A self-signed certificate",
+      "A password hash",
+      "An SSH key",
+      "A firewall rule"
+    ],
+    "answer": "A self-signed certificate",
+    "explanation": {
+      "en": "-x509 produces a self-signed X.509 certificate.",
+      "ar": "x509- ينتج شهادة X.509 موقّعة ذاتيًا."
+    }
+  },
+  {
+    "id": 110,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Unlike encryption, hashing is primarily used for what?",
+      "ar": "بخلاف التشفير، لأي غرض تُستخدم التجزئة أساسًا؟"
+    },
+    "options": [
+      "One-way integrity verification",
+      "Reversible data hiding",
+      "Key exchange",
+      "Traffic tunneling"
+    ],
+    "answer": "One-way integrity verification",
+    "explanation": {
+      "en": "Hashes are one-way and verify data integrity.",
+      "ar": "التجزئات أحادية الاتجاه وتتحقق من سلامة البيانات."
+    }
   }
 ]
