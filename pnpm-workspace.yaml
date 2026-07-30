@@ -1,6 +1,9 @@
 allowBuilds:
   electron: true
   electron-builder: true
+  # We only build the NSIS target (see package.json build.win), so the
+  # Squirrel.Windows installer's postinstall is not needed.
+  electron-winstaller: false
   esbuild: true
 onlyBuiltDependencies:
   - electron
