@@ -43,7 +43,10 @@ app.whenReady().then(async () => {
     await win.loadFile(path.join(SRC, 'index.html'));
     await sleep(150);
     if (lang) await run(`localStorage.setItem('gtl_lang', '${lang}'); 'ok'`);
-    if (settings) await run(`localStorage.setItem('gtl_settings', '${JSON.stringify(settings)}'); 'ok'`);
+    if (settings) {
+      settings = Object.assign({}, settings, { name: settings.name || 'Capture' });
+      await run(`localStorage.setItem('gtl_settings', '${JSON.stringify(settings)}'); 'ok'`);
+    }
     if (lang || settings) { await win.loadFile(path.join(SRC, 'index.html')); await sleep(450); }
     else await sleep(300);
     // Use the offline mock leaderboard for screenshots (don't write to real Supabase).
@@ -79,6 +82,13 @@ app.whenReady().then(async () => {
   await sleep(250);
   await snap('8-modeselect.png');
 
+  // Settings dialog — keep the full header and actions inside the viewport.
+  await run("document.querySelector('#btn-settings').click(); 'ok'");
+  await sleep(450);
+  await snap('19-settings.png');
+  await run("document.querySelector('#set-close').click(); 'ok'");
+  await sleep(150);
+
   // About dialog
   await run("document.querySelector('#btn-about').click(); 'ok'");
   await sleep(450);
@@ -92,11 +102,12 @@ app.whenReady().then(async () => {
   await sleep(500);
   await snap('2-game.png');
   await run("document.querySelectorAll('#options-grid button')[2].click(); 'ok'");
-  await sleep(400);
+  await run("state.timeLeft=0; onTimeout(); 'ok'");
+  await sleep(200);
   await snap('3-answered.png');
 
   // languages results with a real score (single-question round)
-  await reload('en', { questions: 1, sound: false, difficulty: 'all', name: '' });
+  await reload('en', { questions: 1, sound: false, difficulty: 'all', feedbackDelay: 2, name: '' });
   await pickMode('languages');
   await run("document.querySelector('#btn-start').click(); 'ok'");
   await sleep(300);
@@ -120,7 +131,7 @@ app.whenReady().then(async () => {
   await snap('6-game-ar.png');
 
   // Arabic languages results with a real score
-  await reload('ar', { questions: 1, sound: false, difficulty: 'all', name: '' });
+  await reload('ar', { questions: 1, sound: false, difficulty: 'all', feedbackDelay: 2, name: '' });
   await pickMode('languages');
   await run("document.querySelector('#btn-start').click(); 'ok'");
   await sleep(300);
@@ -134,6 +145,29 @@ app.whenReady().then(async () => {
   await run("document.querySelector('#btn-start').click(); 'ok'");
   await sleep(500);
   await snap('10-cyber-game-ar.png');
+
+  // ---- Compact mobile states ----
+  win.setContentSize(390, 844);
+  await reload('en', { questions: 10, sound: false, difficulty: 'all', feedbackDelay: 4, name: 'Capture' });
+  await snap('13-mobile-home.png');
+  await pickMode('languages');
+  await run("document.querySelector('#btn-start').click(); 'ok'");
+  await sleep(350);
+  await snap('14-mobile-game.png');
+  await run("document.querySelector('#btn-end-confirm') && openDialog(document.querySelector('#end-dialog')); 'ok'");
+  await sleep(150);
+  await snap('15-mobile-end-dialog.png');
+  await run("closeDialog(document.querySelector('#end-dialog')); endQuiz(); 'ok'");
+  await sleep(250);
+  await snap('16-mobile-results.png');
+
+  await reload('ar', { questions: 10, sound: false, difficulty: 'all', feedbackDelay: 4, name: 'Capture' });
+  await snap('17-mobile-home-ar.png');
+
+  // Report dialog state (data is mocked; no report is sent during capture).
+  await run("openReportDialog({id:1,name:'Example player',score:100}); 'ok'");
+  await sleep(150);
+  await snap('18-report-dialog-ar.png');
   } catch (err) {
     console.error('capture failed:', err);
   }

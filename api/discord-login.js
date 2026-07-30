@@ -1,5 +1,7 @@
 'use strict';
 
+const { signSession } = require('./_session');
+
 /**
  * "Login with Discord" for the WEB build (standard OAuth2 authorization-code
  * flow, distinct from the Embedded App SDK flow used inside a Discord Activity).
@@ -62,7 +64,8 @@ module.exports = async function handler(req, res) {
       id: user.id,
       username: user.username,
       global_name: user.global_name,
-      avatar: user.avatar
+      avatar: user.avatar,
+      session_token: signSession(user.id)
     });
   } catch (err) {
     console.error('Discord login error:', err);

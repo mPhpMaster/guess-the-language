@@ -1,5 +1,7 @@
 'use strict';
 
+const { signSession } = require('./_session');
+
 /**
  * Exchange a Discord OAuth2 authorization code for an access token.
  * Called by the Embedded App SDK client during Activity authentication.
@@ -45,7 +47,25 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    return res.status(200).json({ access_token: data.access_token });
+    // The profile lookup only exists to mint the optional session token. It must
+    // stay best-effort: a hiccup here used to return 502, which aborted the whole
+    // Activity handshake and left the game unplayable inside Discord.
+    let sessionToken = null;
+    try {
+      const userRes = await fetch('https://discord.com/api/users/@me', {
+        headers: { Authorization: `Bearer ${data.access_token}` }
+      });
+      const user = await userRes.json();
+      if (userRes.ok && user.id) sessionToken = signSession(user.id);
+      else console.warn('Discord profile fetch failed; continuing without a session token');
+    } catch (err) {
+      console.warn('Discord profile fetch error; continuing without a session token:', err.message);
+    }
+
+    return res.status(200).json({
+      access_token: data.access_token,
+      session_token: sessionToken
+    });
   } catch (err) {
     console.error('Discord token exchange error:', err);
     return res.status(500).json({ error: 'Token exchange failed' });

@@ -134,16 +134,23 @@ const I18N = {
         aboutQuestions: 'Questions:',
         close: 'Close',
         start: '▶  Start',
-        friends: '👥  Friends & Scores',
+        friends: '🏆  Global Leaderboard',
         settings: '⚙  Settings',
         bestScore: 'Best score:',
         settingsTitle: 'Settings',
+        settingsDescription: 'Adjust your quiz preferences.',
         settingLanguage: 'Language',
         settingName: 'Your leaderboard name',
         settingNameDiscord: 'Your name (from Discord)',
+        discordNameNote: 'Your public name and avatar come from Discord.',
         settingQuestions: 'Questions per round',
         settingSound: 'Sound effects',
         settingDifficulty: 'Difficulty',
+        settingFeedbackDelay: 'Answer review time',
+        feedback2: '2 seconds',
+        feedback4: '4 seconds',
+        feedback6: '6 seconds',
+        feedbackManual: 'Manual',
         diffAll: 'All',
         diffEasy: 'Easy',
         diffMedium: 'Medium',
@@ -152,11 +159,29 @@ const I18N = {
         score: 'Score:',
         question: 'Question',
         finalScore: 'Final Score:',
-        comparison: 'Friends Comparison',
+        comparison: 'Global Leaderboard',
         globalLeaderboard: '🏆 Global Leaderboard',
         challenge: '🔗  Challenge a friend',
         replay: '🔄  Play again',
         backMenu: '🏠  Main menu',
+        webAuthHint: 'Sign in with Discord to save your identity and play on the global leaderboard.',
+        retry: 'Retry',
+        nextQuestion: 'Next question',
+        gameTitle: 'Quiz in progress',
+        lobbyTitle: 'Multiplayer lobby',
+        joinHint: 'Paste a 4-letter code or type it manually.',
+        endConfirmTitle: 'End this quiz?',
+        endConfirmDesc: 'Your current progress will be shown in the results.',
+        continueQuiz: 'Keep playing',
+        statAccuracy: 'Accuracy',
+        statStreak: 'Best streak',
+        statAverage: 'Average response',
+        statFastest: 'Fastest correct',
+        reviewAnswers: 'Review incorrect answers',
+        noIncorrect: 'No incorrect answers to review.',
+        yourAnswer: 'Your answer',
+        correctAnswer: 'Correct answer',
+        personalRank: 'Your global rank',
         you: '(YOU)',
         lbLoading: 'Loading leaderboard…',
         lbOnline: '🌐 Global leaderboard (Supabase)',
@@ -207,6 +232,20 @@ const I18N = {
         logoutDiscord: '🚪  Log out',
         discordLinkedAs: 'Signed in as',
         discordLoginFailed: 'Discord login failed. Please try again.',
+        unsafeName: 'That name is not allowed. Please choose a different name.',
+        hiddenPlayer: 'Hidden player',
+        report: 'Report',
+        reportTitle: 'Report leaderboard entry',
+        reportDesc: 'Tell us why this entry should be reviewed.',
+        reportReason: 'Reason',
+        reportOffensive: 'Offensive name',
+        reportImpersonation: 'Impersonation',
+        reportSpam: 'Spam or other',
+        reportDetails: 'Details (optional)',
+        reportSubmit: 'Submit report',
+        reportSuccess: 'Thanks. This entry was sent for review.',
+        reportDuplicate: 'You have already reported this entry.',
+        reportFailed: 'The report could not be sent. Please try again.',
         roomCode: 'Room code',
         copyCode: 'Copy',
         playersTitle: 'Players',
@@ -234,7 +273,30 @@ const I18N = {
         multiplayerScore: 'Multiplayer score',
         nameRequired: 'Please enter your name before starting the game.',
         nameTaken: 'That name is already taken on the leaderboard. Please choose another one.',
-        leaderboardFor: 'Leaderboard for'
+        leaderboardFor: 'Leaderboard for',
+        settingPresence: 'Show my game on Discord',
+        playerCardTitle: 'Player details',
+        playerCardHint: 'Live progress in this room.',
+        playerCardMode: 'Game mode',
+        playerCardRound: 'Round',
+        playerCardScore: 'Score',
+        playerCardCorrect: 'Correct',
+        playerCardStreak: 'Streak',
+        playerCardStatus: 'Status',
+        statusPlaying: '🎮 Playing',
+        statusSpectating: '👁 Spectating',
+        statusLobby: '⏳ In the lobby',
+        statusFinished: '🏁 Finished',
+        inviteToRoom: '➕  Invite to this room',
+        inviteFailed: 'Could not open the invite dialog',
+        openPlayerCard: 'View progress',
+        joinRequestFailed: 'Could not join that room',
+        presenceLobby: 'In the lobby',
+        presenceResults: 'Viewing results',
+        presenceMenu: 'In the menu',
+        presenceSolo: 'Solo round',
+        presenceRoom: 'Multiplayer room',
+        presenceSpectating: 'Spectating'
     },
     ar: {
         appTitle: 'خمّن اللغة',
@@ -250,16 +312,23 @@ const I18N = {
         aboutQuestions: 'عدد الأسئلة:',
         close: 'إغلاق',
         start: '▶  ابدأ اللعب',
-        friends: '👥  الأصدقاء والنتائج',
+        friends: '🏆  لوحة الصدارة العالمية',
         settings: '⚙  الإعدادات',
         bestScore: 'أفضل نتيجة:',
         settingsTitle: 'الإعدادات',
+        settingsDescription: 'اضبط تفضيلات الاختبار.',
         settingLanguage: 'اللغة',
         settingName: 'اسمك في لوحة الصدارة',
         settingNameDiscord: 'اسمك (من Discord)',
+        discordNameNote: 'يأتي اسمك العام وصورتك من Discord.',
         settingQuestions: 'عدد الأسئلة في الجولة',
         settingSound: 'المؤثرات الصوتية',
         settingDifficulty: 'الصعوبة',
+        settingFeedbackDelay: 'مدة مراجعة الإجابة',
+        feedback2: 'ثانيتان',
+        feedback4: '4 ثوانٍ',
+        feedback6: '6 ثوانٍ',
+        feedbackManual: 'يدوي',
         diffAll: 'الكل',
         diffEasy: 'سهل',
         diffMedium: 'متوسط',
@@ -268,11 +337,29 @@ const I18N = {
         score: 'النقاط:',
         question: 'سؤال',
         finalScore: 'النتيجة النهائية:',
-        comparison: 'مقارنة الأصدقاء',
+        comparison: 'لوحة الصدارة العالمية',
         globalLeaderboard: '🏆 لوحة الصدارة العالمية',
         challenge: '🔗  تحدَّ صديقاً',
         replay: '🔄  إعادة اللعب',
         backMenu: '🏠  القائمة الرئيسية',
+        webAuthHint: 'سجّل الدخول عبر Discord لحفظ هويتك واللعب في لوحة الصدارة العالمية.',
+        retry: 'إعادة المحاولة',
+        nextQuestion: 'السؤال التالي',
+        gameTitle: 'الاختبار جارٍ',
+        lobbyTitle: 'ردهة اللعب الجماعي',
+        joinHint: 'الصق رمزاً من 4 أحرف أو اكتبه يدوياً.',
+        endConfirmTitle: 'إنهاء هذا الاختبار؟',
+        endConfirmDesc: 'سيظهر تقدمك الحالي في صفحة النتائج.',
+        continueQuiz: 'متابعة اللعب',
+        statAccuracy: 'الدقة',
+        statStreak: 'أفضل سلسلة',
+        statAverage: 'متوسط الاستجابة',
+        statFastest: 'أسرع إجابة صحيحة',
+        reviewAnswers: 'مراجعة الإجابات الخاطئة',
+        noIncorrect: 'لا توجد إجابات خاطئة للمراجعة.',
+        yourAnswer: 'إجابتك',
+        correctAnswer: 'الإجابة الصحيحة',
+        personalRank: 'ترتيبك العالمي',
         you: '(أنت)',
         lbLoading: 'جارٍ تحميل لوحة الصدارة…',
         lbOnline: '🌐 لوحة الصدارة العالمية (Supabase)',
@@ -323,6 +410,20 @@ const I18N = {
         logoutDiscord: '🚪  تسجيل الخروج',
         discordLinkedAs: 'مسجّل الدخول باسم',
         discordLoginFailed: 'فشل تسجيل الدخول عبر Discord. حاول مرة أخرى.',
+        unsafeName: 'هذا الاسم غير مسموح. اختر اسماً مختلفاً.',
+        hiddenPlayer: 'لاعب مخفي',
+        report: 'إبلاغ',
+        reportTitle: 'الإبلاغ عن نتيجة',
+        reportDesc: 'أخبرنا بسبب ضرورة مراجعة هذه النتيجة.',
+        reportReason: 'السبب',
+        reportOffensive: 'اسم مسيء',
+        reportImpersonation: 'انتحال شخصية',
+        reportSpam: 'إزعاج أو سبب آخر',
+        reportDetails: 'التفاصيل (اختياري)',
+        reportSubmit: 'إرسال البلاغ',
+        reportSuccess: 'شكراً. تم إرسال النتيجة للمراجعة.',
+        reportDuplicate: 'لقد أبلغت عن هذه النتيجة مسبقاً.',
+        reportFailed: 'تعذّر إرسال البلاغ. حاول مرة أخرى.',
         roomCode: 'رمز الغرفة',
         copyCode: 'نسخ',
         playersTitle: 'اللاعبون',
@@ -350,7 +451,30 @@ const I18N = {
         multiplayerScore: 'نتيجة جماعية',
         nameRequired: 'يرجى إدخال اسمك قبل بدء اللعبة.',
         nameTaken: 'هذا الاسم مستخدم بالفعل في لوحة الصدارة. يرجى اختيار اسم آخر.',
-        leaderboardFor: 'لوحة الصدارة لـ'
+        leaderboardFor: 'لوحة الصدارة لـ',
+        settingPresence: 'إظهار لعبتي على ديسكورد',
+        playerCardTitle: 'تفاصيل اللاعب',
+        playerCardHint: 'تقدّمه المباشر في هذه الغرفة.',
+        playerCardMode: 'نوع اللعبة',
+        playerCardRound: 'الجولة',
+        playerCardScore: 'النتيجة',
+        playerCardCorrect: 'الإجابات الصحيحة',
+        playerCardStreak: 'التتابع',
+        playerCardStatus: 'الحالة',
+        statusPlaying: '🎮 يلعب',
+        statusSpectating: '👁 يشاهد',
+        statusLobby: '⏳ في غرفة الانتظار',
+        statusFinished: '🏁 انتهى',
+        inviteToRoom: '➕  دعوة إلى هذه الغرفة',
+        inviteFailed: 'تعذّر فتح نافذة الدعوة',
+        openPlayerCard: 'عرض التقدّم',
+        joinRequestFailed: 'تعذّر الانضمام إلى تلك الغرفة',
+        presenceLobby: 'في غرفة الانتظار',
+        presenceResults: 'يستعرض النتائج',
+        presenceMenu: 'في القائمة',
+        presenceSolo: 'جولة فردية',
+        presenceRoom: 'غرفة جماعية',
+        presenceSpectating: 'وضع المشاهدة'
     }
 };
 
@@ -492,7 +616,9 @@ function applyLanguage() {
 // Highlight the active mode card and show its best score on the home page.
 function renderHome() {
     document.querySelectorAll('#mode-grid .mode-card').forEach((c) => {
-        c.classList.toggle('selected', c.dataset.mode === state.mode);
+        const selected = c.dataset.mode === state.mode;
+        c.classList.toggle('selected', selected);
+        c.setAttribute('aria-pressed', String(selected));
     });
     refreshMenu();
     refreshMultiplayerButtons();
@@ -523,7 +649,10 @@ const defaultSettings = {
     sound: true,
     difficulty: 'all',
     timer: 'auto',
-    name: ''
+    feedbackDelay: 4,
+    name: '',
+    // Publish mode / round / score to this player's Discord profile card.
+    discordPresence: true
 };
 
 // ---------- Game state ----------
@@ -535,6 +664,9 @@ const state = {
     score: 0,
     correct: 0,
     streak: 0,
+    bestStreak: 0,
+    roundHistory: [],
+    questionStartedAt: 0,
     timeLeft: 0,
     questionTime: 15,
     timerId: null,
@@ -561,8 +693,41 @@ const screens = {
 };
 
 function showScreen(name) {
-    Object.values(screens).forEach((s) => s.classList.remove('active'));
-    screens[name].classList.add('active');
+    Object.entries(screens).forEach(([key, screen]) => {
+        const active = key === name;
+        screen.classList.toggle('active', active);
+        screen.hidden = !active;
+        screen.inert = !active;
+        screen.setAttribute('aria-hidden', String(!active));
+    });
+    const heading = screens[name].querySelector('.screen-heading, h1, h2');
+    if (heading) requestAnimationFrame(() => heading.focus({ preventScroll: true }));
+    // Every screen change is a presence change (menu / lobby / round / results).
+    pushPresence();
+}
+
+function announce(message) {
+    const live = $('#app-live-region');
+    if (!live || !message) return;
+    live.textContent = '';
+    requestAnimationFrame(() => { live.textContent = message; });
+}
+
+const dialogReturnFocus = new WeakMap();
+function openDialog(dialog, initialFocus) {
+    if (!dialog || dialog.open) return;
+    dialogReturnFocus.set(dialog, document.activeElement);
+    dialog.showModal();
+    requestAnimationFrame(() => {
+        const target = initialFocus || dialog.querySelector('[autofocus], input, select, button');
+        target?.focus();
+    });
+}
+
+function closeDialog(dialog, returnFocus = true) {
+    if (!dialog?.open) return;
+    dialog.close();
+    if (returnFocus) dialogReturnFocus.get(dialog)?.focus?.();
 }
 
 // ============================================================
@@ -683,6 +848,35 @@ function sanitizeName(raw) {
     return Array.from(collapsed).slice(0, 24).join('');
 }
 
+const BLOCKED_NAME_PATTERNS = [
+    /fuck|fuk|shit|bitch|cunt|nigg|whore|porn|sex/,
+    /نيك|كس|قحبة|شرموط|زب/
+];
+
+const NAME_CONFUSABLES = {
+    '0': 'o', '4': 'a', '3': 'e', '@': 'a',
+    'ᶠ': 'f', 'ᶸ': 'u', 'ᶜ': 'c', 'ᵏ': 'k', 'ᵧ': 'y', 'ₒ': 'o', 'ᵤ': 'u',
+    'ˢ': 's', 'ʰ': 'h', 'ⁱ': 'i', 'ᵗ': 't', 'ᵇ': 'b', 'ⁿ': 'n', 'ᵍ': 'g',
+    'ʷ': 'w', 'ʳ': 'r', 'ᵖ': 'p', 'ᵉ': 'e', 'ˣ': 'x', 'ᴜ': 'u', 'γ': 'y'
+};
+
+function normalizedNameForSafety(raw) {
+    return sanitizeName(raw).normalize('NFKD').toLowerCase()
+        .replace(/[043@ᶠᶸᶜᵏᵧₒᵤˢʰⁱᵗᵇⁿᵍʷʳᵖᵉˣᴜγ]/g, (c) => NAME_CONFUSABLES[c] || c)
+        .replace(/[\u200B-\u200D\uFEFF\s_.\-]+/g, '')
+        .replace(/[^a-z0-9\u0600-\u06ff]/g, '');
+}
+
+function isSafePlayerName(raw) {
+    const normalized = normalizedNameForSafety(raw);
+    return !!normalized && !BLOCKED_NAME_PATTERNS.some((pattern) => pattern.test(normalized));
+}
+
+function safeDisplayName(raw) {
+    const name = sanitizeName(raw);
+    return isSafePlayerName(name) ? name : t('hiddenPlayer');
+}
+
 function isDiscordActivity() {
     return Boolean(window.DISCORD_ACTIVITY?.active);
 }
@@ -727,10 +921,30 @@ function isDiscordLinked() {
     return isDiscordActivity() || !!getLinkedDiscordUser();
 }
 
+// Running inside a Discord Activity iframe, whether or not the SDK handshake
+// succeeded. Checked from the URL directly (not just the flag set by
+// discord-activity.js) so it holds no matter which script ran first.
+function isDiscordEmbedded() {
+    if (window.DISCORD_ACTIVITY?.embedded) return true;
+    if (document.documentElement.classList.contains('platform-discord')) return true;
+    try {
+        if (location.pathname.startsWith('/.proxy')) return true;
+        const params = new URLSearchParams(location.search);
+        return params.has('frame_id') || params.has('instance_id');
+    } catch {
+        return false;
+    }
+}
+
 // On the plain web build a Discord sign-in is required before playing (inside an
 // Activity you're already signed in; Electron can't do the OAuth redirect).
+// Never gate inside a Discord iframe: the sign-in is a top-level OAuth redirect,
+// which Discord's sandbox blocks — gating there would leave the player stuck on
+// a "Sign in to play" button that can never succeed.
 function requiresDiscordLogin() {
-    return document.documentElement.classList.contains('platform-web') && !isDiscordActivity();
+    return document.documentElement.classList.contains('platform-web')
+        && !isDiscordActivity()
+        && !isDiscordEmbedded();
 }
 
 // Can the player start a game right now?
@@ -747,6 +961,17 @@ function getDiscordProfile() {
         if (u) return { id: u.id, name: sanitizeName(u.global_name || u.username || ''), avatar: u.avatar || null };
     }
     return getLinkedDiscordUser();
+}
+
+function getAppSessionToken() {
+    return isDiscordActivity()
+        ? (window.DISCORD_ACTIVITY?.sessionToken || null)
+        : (getLinkedDiscordUser()?.sessionToken || null);
+}
+
+function appApiPrefix() {
+    if (location.pathname.startsWith('/.proxy') || new URLSearchParams(location.search).has('frame_id')) return '/.proxy';
+    return '';
 }
 
 function discordAvatarUrl(user) {
@@ -774,14 +999,16 @@ function updateHomeProfile() {
                 }
             }
             const nameEl = $('#home-profile-name');
-            if (nameEl) nameEl.textContent = profile.name;
+            if (nameEl) nameEl.textContent = safeDisplayName(profile.name);
             el.classList.remove('hidden');
         } else {
             el.classList.add('hidden');
         }
     }
+    const signedOutWeb = requiresDiscordLogin() && !isDiscordLinked();
     const cta = $('#home-login-cta');
-    if (cta) cta.classList.toggle('hidden', !(requiresDiscordLogin() && !isDiscordLinked()));
+    if (cta) cta.classList.add('hidden');
+    $('#web-auth-hint')?.classList.toggle('hidden', !signedOutWeb);
 }
 
 // Web login only: unlink the Discord account so the name is editable again.
@@ -824,7 +1051,8 @@ function updateDiscordLoginButton() {
     const status = $('#discord-login-status');
     const web = document.documentElement.classList.contains('platform-web');
     const configured = !!(window.DISCORD_CONFIG && window.DISCORD_CONFIG.clientId);
-    const area = web && configured && !isDiscordActivity();
+    // Also hidden inside a Discord iframe: the OAuth redirect can't run there.
+    const area = web && configured && !isDiscordActivity() && !isDiscordEmbedded();
     const linked = getLinkedDiscordUser();
 
     // Signed out -> show Login; signed in -> show Logout instead.
@@ -847,6 +1075,8 @@ function startDiscordLogin() {
     const redirectUri = location.origin + location.pathname;
     const state = `${Math.random().toString(36).slice(2)}${Date.now().toString(36)}`;
     sessionStorage.setItem('gtl_discord_oauth_state', state);
+    sessionStorage.setItem('gtl_discord_return_search', location.search || '');
+    $('#auth-error')?.classList.add('hidden');
     location.href = 'https://discord.com/api/oauth2/authorize'
         + `?client_id=${encodeURIComponent(clientId)}`
         + `&redirect_uri=${encodeURIComponent(redirectUri)}`
@@ -864,14 +1094,17 @@ async function handleDiscordOAuthReturn() {
     sessionStorage.removeItem('gtl_discord_oauth_state');
     // Strip the OAuth params from the address bar no matter what happens next.
     const cleanUrl = location.origin + location.pathname;
+    const returnSearch = sessionStorage.getItem('gtl_discord_return_search') || '';
+    sessionStorage.removeItem('gtl_discord_return_search');
     try {
-        window.history.replaceState({}, document.title, cleanUrl);
+        window.history.replaceState({}, document.title, cleanUrl + returnSearch);
     } catch (e) {
         /* ignore */
     }
 
     if (!savedState || savedState !== params.get('state')) {
         console.warn('Discord OAuth state mismatch — ignoring callback');
+        showAuthError(t('discordLoginFailed'));
         return false;
     }
 
@@ -888,13 +1121,26 @@ async function handleDiscordOAuthReturn() {
         const cur = getSettings();
         cur.name = name;
         store.settings = cur;
-        localStorage.setItem('gtl_discord_user', JSON.stringify({ id: user.id, name, avatar: user.avatar || null }));
+        localStorage.setItem('gtl_discord_user', JSON.stringify({
+            id: user.id,
+            name,
+            avatar: user.avatar || null,
+            sessionToken: user.session_token || null
+        }));
         return true;
     } catch (e) {
         console.error('Discord login:', e);
-        alert(t('discordLoginFailed'));
+        showAuthError(t('discordLoginFailed'));
         return false;
     }
+}
+
+function showAuthError(message) {
+    const box = $('#auth-error');
+    const text = $('#auth-error-text');
+    if (text) text.textContent = message;
+    box?.classList.remove('hidden');
+    announce(message);
 }
 
 function applySettingsToUI() {
@@ -907,6 +1153,17 @@ function applySettingsToUI() {
     $('#set-sound').checked = !!s.sound;
     $('#set-difficulty').value = s.difficulty;
     $('#set-timer').value = String(s.timer || 'auto');
+    $('#set-feedback-delay').value = String(s.feedbackDelay ?? 4);
+    const presenceRow = $('#setting-presence-row');
+    if (presenceRow) {
+        // Only meaningful inside Discord with the rich-presence scope granted.
+        presenceRow.classList.toggle('hidden', !canPublishPresence());
+        $('#set-presence').checked = s.discordPresence !== false;
+    }
+    const webIdentity = requiresDiscordLogin();
+    $('#setting-name-row')?.classList.toggle('hidden', webIdentity);
+    $('#discord-name-note')?.classList.toggle('hidden', !webIdentity);
+    $('#settings-error')?.classList.add('hidden');
     syncDiscordNameField();
     updateDiscordLoginButton();
     updateHomeProfile();
@@ -918,6 +1175,7 @@ function saveSettingsFromUI() {
     // 0-question round: fall back to the current or default question count.
     const q = Number($('#set-questions').value);
     const timerRaw = $('#set-timer') ? $('#set-timer').value : 'auto';
+    const feedbackRaw = $('#set-feedback-delay')?.value || '4';
     store.settings = {
         name: isDiscordLinked()
             ? (getSettings().name || '')
@@ -925,9 +1183,14 @@ function saveSettingsFromUI() {
         questions: q > 0 ? q : (getSettings().questions || defaultSettings.questions),
         sound: $('#set-sound').checked,
         difficulty: $('#set-difficulty').value,
-        timer: timerRaw === 'auto' ? 'auto' : (Number(timerRaw) || 'auto')
+        timer: timerRaw === 'auto' ? 'auto' : (Number(timerRaw) || 'auto'),
+        feedbackDelay: feedbackRaw === 'manual' ? 'manual' : ([2, 4, 6].includes(Number(feedbackRaw)) ? Number(feedbackRaw) : 4),
+        discordPresence: $('#set-presence') ? $('#set-presence').checked : (getSettings().discordPresence !== false)
     };
     updateStartButtonState();
+    // Turning the toggle off must take the card down immediately, not at the next
+    // question.
+    pushPresence();
 }
 
 function getPlayerNameInputValue() {
@@ -940,21 +1203,20 @@ function getPlayerNameInputValue() {
 
 // Player name used on the leaderboard. Defaults to "User".
 function getPlayerName() {
-    if (isDiscordActivity()) {
-        return getDiscordDisplayName() || 'User';
+    const profile = getDiscordProfile();
+    if (profile?.name) {
+        return isSafePlayerName(profile.name) ? sanitizeName(profile.name) : `Player ${String(profile.id || '').slice(-4) || 'User'}`;
     }
     const name = getPlayerNameInputValue();
     return name || 'User';
 }
 
 function openSettingsPanel() {
-    $('#settings-panel').classList.remove('hidden');
-    $('#about-panel').classList.add('hidden');
+    closeDialog($('#about-panel'), false);
+    applySettingsToUI();
     const nameInput = $('#set-name');
-    if (nameInput) {
-        nameInput.focus();
-        nameInput.select();
-    }
+    openDialog($('#settings-panel'), nameInput && !nameInput.disabled ? nameInput : $('#set-language'));
+    if (nameInput && !nameInput.disabled) nameInput.select();
 }
 
 async function ensureValidPlayerName() {
@@ -970,11 +1232,30 @@ async function ensureValidPlayerName() {
         return { valid: false, name: '', message: t('nameRequired') };
     }
 
+    if (!isSafePlayerName(candidate)) {
+        openSettingsPanel();
+        $('#set-name')?.setAttribute('aria-invalid', 'true');
+        const error = $('#settings-error');
+        if (error) {
+            error.textContent = t('unsafeName');
+            error.classList.remove('hidden');
+        }
+        return { valid: false, name: '', message: t('unsafeName') };
+    }
+
     const lower = candidate.toLowerCase();
     const isReturningName = lower && previousName && lower === previousName;
 
     if (supabaseConfigured() && !isReturningName) {
         try {
+            const safety = await sbFetch('rpc/is_safe_player_name', {
+                method: 'POST',
+                body: JSON.stringify({ p_name: candidate })
+            });
+            if (safety !== true) {
+                openSettingsPanel();
+                return { valid: false, name: '', message: t('unsafeName') };
+            }
             const top = await fetchTopScores(100);
             const hasOnlineDuplicate = (top || []).some((r) => String(r.player || '').trim().toLowerCase() === lower);
             if (hasOnlineDuplicate) {
@@ -993,7 +1274,11 @@ function updateStartButtonState() {
     const startBtn = $('#btn-start');
     if (startBtn) {
         const hasQuestions = Array.isArray(state.allQuestions) && state.allQuestions.length > 0;
-        startBtn.disabled = !(hasQuestions && canPlay());
+        const needsLogin = requiresDiscordLogin() && !isDiscordLinked();
+        startBtn.disabled = needsLogin ? false : !(hasQuestions && canPlay());
+        startBtn.dataset.authAction = needsLogin ? 'true' : 'false';
+        startBtn.setAttribute('data-i18n', needsLogin ? 'loginDiscordToPlay' : 'start');
+        startBtn.textContent = t(needsLogin ? 'loginDiscordToPlay' : 'start');
     }
     // Host / Join follow the same gate.
     refreshMultiplayerButtons();
@@ -1008,7 +1293,12 @@ function requireNameToInteract() {
         return false;
     }
     openSettingsPanel();
-    alert(t('nameRequired'));
+    const error = $('#settings-error');
+    if (error) {
+        error.textContent = t('nameRequired');
+        error.classList.remove('hidden');
+    }
+    announce(t('nameRequired'));
     return false;
 }
 
@@ -1074,11 +1364,42 @@ function resolvedQuestionTime(difficulty) {
     return timeForDifficulty(difficulty);
 }
 
+// Deal `count` questions round-robin across the banks present in the pool, so a
+// mixed round can't be swallowed by the biggest bank. Drawing uniformly used to
+// mean ~45% of 10-question "All" rounds contained no Problem Solving question at
+// all, because `languages` alone is over half the pool. One pass gives every bank
+// a slot before any bank repeats; the bank order and the final order are shuffled
+// so the rotation isn't visible to the player.
+function sampleAcrossBanks(pool, count, shuffleFn) {
+    const byBank = new Map();
+    pool.forEach((q) => {
+        const bank = q.bank || 'languages';
+        if (!byBank.has(bank)) byBank.set(bank, []);
+        byBank.get(bank).push(q);
+    });
+    // Single-bank pool (any specific mode): nothing to balance.
+    if (byBank.size < 2) return shuffleFn(pool).slice(0, count);
+
+    const queues = shuffleFn(Array.from(byBank.values())).map((qs) => shuffleFn(qs));
+    const picked = [];
+    for (let depth = 0; picked.length < count; depth++) {
+        let dealt = false;
+        for (const queue of queues) {
+            if (depth >= queue.length) continue;
+            picked.push(queue[depth]);
+            dealt = true;
+            if (picked.length === count) break;
+        }
+        if (!dealt) break; // every bank exhausted
+    }
+    return shuffleFn(picked);
+}
+
 function buildRoundFromPool(pool, settings) {
     let filtered = pool;
     if (settings.difficulty !== 'all') filtered = pool.filter((q) => q.difficulty === settings.difficulty);
     if (filtered.length === 0) filtered = pool;
-    return shuffle(filtered).slice(0, Math.min(settings.questions, filtered.length));
+    return sampleAcrossBanks(filtered, Math.min(settings.questions, filtered.length), shuffle);
 }
 
 function buildRound() {
@@ -1094,7 +1415,7 @@ async function startGame() {
     if (!requireNameToInteract()) return;
     const nameCheck = await ensureValidPlayerName();
     if (!nameCheck.valid) {
-        alert(nameCheck.message || t('nameRequired'));
+        announce(nameCheck.message || t('nameRequired'));
         return;
     }
 
@@ -1103,6 +1424,8 @@ async function startGame() {
     state.score = 0;
     state.correct = 0;
     state.streak = 0;
+    state.bestStreak = 0;
+    state.roundHistory = [];
     state.viewOnly = false;
     state.selectedAnswer = null;
     updateScore();
@@ -1112,6 +1435,7 @@ async function startGame() {
     $('#correct-total').textContent = String(state.round.length);
     updateInGameProfile();
     showScreen('game');
+    markPresenceRoundStart();
     nextQuestion();
 }
 
@@ -1138,6 +1462,8 @@ function normalizeQuestion(q, opts) {
     const optionSeed = opts && opts.optionSeed != null ? opts.optionSeed : null;
     if (q.correctLanguage) {
         return {
+            id: q.id,
+            bank: q.bank || 'languages',
             style: 'languages',
             panelText: q.codeSnippet,
             panelIsCode: true,
@@ -1151,6 +1477,8 @@ function normalizeQuestion(q, opts) {
     if (Array.isArray(q.options) && q.answer != null) {
         const hasCmd = !!(q.codeSnippet && q.codeSnippet.trim().length);
         return {
+            id: q.id,
+            bank: q.bank || state.mode,
             style: 'cyber',
             panelText: hasCmd ? q.codeSnippet : q.question[getLang()],
             panelIsCode: hasCmd,
@@ -1165,6 +1493,8 @@ function normalizeQuestion(q, opts) {
     }
     // Fill-in-the-blank / code completion.
     return {
+        id: q.id,
+        bank: q.bank || 'algorithms',
         style: 'fill',
         panelText: q.codeSnippet || '',
         panelIsCode: true,
@@ -1222,7 +1552,9 @@ function nextQuestion() {
     hideToast();
     renderQuestionUI(cur, false);
     state.questionTime = resolvedQuestionTime(cur.difficulty);
+    state.questionStartedAt = Date.now();
     startTimer(state.questionTime);
+    pushPresence();
 }
 
 // Render the answer UI for a question: option buttons for languages/cyber, or a
@@ -1372,10 +1704,12 @@ function resolveCurrentQuestion(chosen, timedOut = false) {
         }
     }
 
+    let gained = 0;
     if (correct) {
         state.streak += 1;
+        state.bestStreak = Math.max(state.bestStreak, state.streak);
         state.correct += 1;
-        const gained = scoreAnswer(state.timeLeft, state.streak);
+        gained = scoreAnswer(state.timeLeft, state.streak);
         state.score += gained;
         sfx.correct();
         updateScore(true);
@@ -1387,10 +1721,49 @@ function resolveCurrentQuestion(chosen, timedOut = false) {
         showToast(`${t('wrong')} ${cur.answer}.  ${cur.explanation[getLang()]}`, 'bad');
     }
 
+    recordRoundAnswer(cur, chosen, correct, gained, timedOut);
     updateStreakPill();
     if (state.multiplayer) return;
     state.index += 1;
-    state.advanceTimer = setTimeout(nextQuestion, 1900);
+    scheduleFeedbackAdvance();
+}
+
+function recordRoundAnswer(cur, chosen, correct, points, timedOut) {
+    const elapsed = Math.max(0, Date.now() - (state.questionStartedAt || Date.now()));
+    state.roundHistory.push({
+        questionIndex: state.index,
+        id: cur.id,
+        bank: cur.bank,
+        style: cur.style,
+        prompt: cur.questionText || cur.panelText,
+        panelText: cur.panelText,
+        selectedAnswer: chosen || '',
+        correctAnswer: cur.answer,
+        correct: !!correct,
+        timedOut: !!timedOut,
+        responseTimeMs: Math.min(elapsed, state.questionTime * 1000),
+        points: Number(points) || 0,
+        explanation: cur.explanation || {}
+    });
+}
+
+function scheduleFeedbackAdvance() {
+    const panel = $('#feedback-panel');
+    const next = $('#btn-next');
+    panel?.classList.remove('hidden');
+    next?.classList.remove('hidden');
+    requestAnimationFrame(() => next?.focus());
+    const setting = getSettings().feedbackDelay;
+    if (setting === 'manual') return;
+    const seconds = [2, 4, 6].includes(Number(setting)) ? Number(setting) : 4;
+    const delay = typeof window.__GTL_FEEDBACK_MS === 'number' ? window.__GTL_FEEDBACK_MS : seconds * 1000;
+    state.advanceTimer = setTimeout(advanceAfterFeedback, delay);
+}
+
+function advanceAfterFeedback() {
+    if (state.advanceTimer) clearTimeout(state.advanceTimer);
+    state.advanceTimer = null;
+    nextQuestion();
 }
 
 function onAnswerMultiplayer(chosen, btn) {
@@ -1577,6 +1950,8 @@ function updateScore(pulse) {
             }
         );
     }
+    // The score is half of what the Discord card advertises.
+    pushPresence();
 }
 
 function updateCorrect() {
@@ -1594,13 +1969,18 @@ function updateStreakPill() {
 }
 
 function showToast(text, kind) {
-    const t = $('#answer-toast');
-    t.textContent = text;
-    t.className = `toast show ${kind}`;
+    const toast = $('#answer-toast');
+    toast.textContent = text;
+    toast.className = `toast show ${kind}`;
+    $('#feedback-panel')?.classList.remove('hidden');
+    $('#btn-next')?.classList.toggle('hidden', state.multiplayer);
+    announce(text);
 }
 
 function hideToast() {
     $('#answer-toast').className = 'toast';
+    $('#feedback-panel')?.classList.add('hidden');
+    $('#btn-next')?.classList.add('hidden');
 }
 
 // Multiplayer "Waiting for opponents…" banner (shown after you lock an answer
@@ -1637,13 +2017,65 @@ async function endGame() {
     $('#btn-replay').textContent = t('replay');
     $('#btn-menu').textContent = t('backMenu');
     $('.results-sub').textContent = `${t('leaderboardFor')} ${currentModeLabel()}`;
+    $('#result-stats').classList.toggle('hidden', viewOnly);
+    $('#answer-review').classList.toggle('hidden', viewOnly);
+    $('#personal-result').classList.add('hidden');
 
     if (!viewOnly) {
         countUp($('#final-score'), state.score, 900);
         $('#results-correct').textContent = String(state.correct);
         $('#results-total').textContent = String(state.round.length);
+        renderRoundSummary();
     }
     await buildResultsLeaderboard();
+}
+
+function formatSeconds(ms) {
+    if (!Number.isFinite(ms)) return '—';
+    return `${(ms / 1000).toFixed(1)}s`;
+}
+
+function renderRoundSummary() {
+    const history = state.roundHistory || [];
+    const total = state.round.length || history.length;
+    const answered = history.filter((item) => item.selectedAnswer).length;
+    const average = history.length
+        ? history.reduce((sum, item) => sum + item.responseTimeMs, 0) / history.length
+        : NaN;
+    const correctTimes = history.filter((item) => item.correct).map((item) => item.responseTimeMs);
+    $('#stat-accuracy').textContent = total ? `${Math.round((state.correct / total) * 100)}%` : '0%';
+    $('#stat-streak').textContent = String(state.bestStreak || 0);
+    $('#stat-average').textContent = answered ? formatSeconds(average) : '—';
+    $('#stat-fastest').textContent = correctTimes.length ? formatSeconds(Math.min(...correctTimes)) : '—';
+    renderAnswerReview(history);
+}
+
+function renderAnswerReview(history) {
+    const list = $('#answer-review-list');
+    list.innerHTML = '';
+    const incorrect = history.filter((item) => !item.correct);
+    if (!incorrect.length) {
+        const empty = document.createElement('p');
+        empty.className = 'review-empty';
+        empty.textContent = t('noIncorrect');
+        list.appendChild(empty);
+        return;
+    }
+    incorrect.forEach((item, index) => {
+        const article = document.createElement('article');
+        article.className = 'review-item';
+        const title = document.createElement('h4');
+        title.textContent = `${index + 1}. ${item.prompt || item.panelText}`;
+        const code = document.createElement('pre');
+        code.textContent = item.panelText || item.prompt || '';
+        const answers = document.createElement('p');
+        answers.textContent = `${t('yourAnswer')}: ${item.selectedAnswer || '—'} · ${t('correctAnswer')}: ${item.correctAnswer}`;
+        const explanation = document.createElement('p');
+        explanation.className = 'review-explanation';
+        explanation.textContent = item.explanation?.[getLang()] || item.explanation?.en || '';
+        article.append(title, code, answers, explanation);
+        list.appendChild(article);
+    });
 }
 
 function countUp(el, target, durationMs) {
@@ -1685,7 +2117,7 @@ function submitScore(player, score, mode = state.mode, multiplayer = false) {
             Prefer: 'return=representation'
         },
         body: JSON.stringify([{
-            player,
+            player: safeDisplayName(player),
             score,
             mode,
             multiplayer,
@@ -1703,12 +2135,30 @@ function submitMpScores(rows) {
         headers: {
             Prefer: 'return=minimal'
         },
-        body: JSON.stringify(rows)
+        body: JSON.stringify(rows.map((row) => ({ ...row, player: safeDisplayName(row.player) })))
     });
 }
 
 function fetchTopScores(limit = 10) {
     return sbFetch(`scores?select=id,player,score,multiplayer,avatar&mode=eq.${state.mode}&order=score.desc&limit=${limit}`);
+}
+
+async function fetchPersonalRank(score) {
+    if (!supabaseConfigured() || score <= 0) return null;
+    const c = window.SUPABASE_CONFIG;
+    const url = `${c.url}/rest/v1/scores?select=id&mode=eq.${encodeURIComponent(state.mode)}&score=gt.${score}`;
+    const res = await fetch(url, {
+        method: 'HEAD',
+        headers: {
+            apikey: c.anonKey,
+            Authorization: `Bearer ${c.anonKey}`,
+            Prefer: 'count=exact'
+        }
+    });
+    if (!res.ok) return null;
+    const range = res.headers.get('content-range') || '';
+    const count = Number(range.split('/')[1]);
+    return Number.isFinite(count) ? count + 1 : null;
 }
 
 const AVATARS = ['🧑🏽', '👩🏼', '🧑🏻', '👩🏻‍🦰', '🧔🏽', '👨🏾', '👩🏽‍🦱', '🧑🏼‍🎤', '👨🏻‍💻', '👩🏾‍💻'];
@@ -1747,15 +2197,19 @@ async function buildResultsLeaderboard() {
         try {
             // Only submit a real score; viewing scores (score 0) must not write a row.
             const me = state.score > 0 ? await submitScore(playerName, state.score) : null;
-            const top = await fetchTopScores(10);
-            const list = (top || []).map((r) => ({
+            const [top, personalRank] = await Promise.all([
+                fetchTopScores(10),
+                state.score > 0 ? fetchPersonalRank(state.score) : Promise.resolve(null)
+            ]);
+            const list = (top || []).map((r, index) => ({
                 id: r.id,
-                name: r.player,
+                name: safeDisplayName(r.player),
                 // Prefer the player's real profile photo; fall back to a
                 // generated avatar when none was stored.
                 avatar: r.avatar || avatarFor(r.player),
                 score: r.score,
                 multiplayer: !!r.multiplayer,
+                rank: index + 1,
                 you: false
             }));
             if (state.score > 0) {
@@ -1771,8 +2225,15 @@ async function buildResultsLeaderboard() {
                     name: playerName,
                     avatar: myAvatar,
                     score: state.score,
+                    rank: personalRank,
                     you: true
                 });
+            }
+
+            if (state.score > 0) {
+                const personal = $('#personal-result');
+                personal.textContent = `${t('personalRank')}: ${personalRank ? `#${personalRank}` : '—'} · ${state.score} pts`;
+                personal.classList.remove('hidden');
             }
 
             $('.results-sub').textContent = t('globalLeaderboard');
@@ -1827,11 +2288,12 @@ function renderLeaderboard(list) {
         // Place number (1, 2, 3, …) shown at the start of every row.
         const rank = document.createElement('div');
         rank.className = 'lb-rank';
-        rank.textContent = String(i + 1);
+        rank.textContent = String(p.rank || i + 1);
         row.appendChild(rank);
         const label = document.createElement('div');
         label.className = 'lb-bar-fill';
-        label.textContent = `${p.name}${placementBadge ? ` ${placementBadge}` : ''} — ${p.score} pts`;
+        const displayName = safeDisplayName(p.name);
+        label.textContent = `${displayName}${placementBadge ? ` ${placementBadge}` : ''} — ${p.score} pts`;
         if (p.multiplayer) {
             const mpTag = document.createElement('span');
             mpTag.className = 'lb-mp-tag';
@@ -1870,6 +2332,16 @@ function renderLeaderboard(list) {
         }
         row.appendChild(avatar);
         row.appendChild(wrap);
+        row.setAttribute('role', 'listitem');
+        row.setAttribute('aria-label', `${t('personalRank')} ${p.rank || i + 1}, ${displayName}, ${p.score} points${p.multiplayer ? `, ${t('multiplayerScore')}` : ''}`);
+        if (supabaseConfigured() && !p.you && Number(p.id) > 0 && getAppSessionToken()) {
+            const report = document.createElement('button');
+            report.className = 'lb-report text-btn';
+            report.type = 'button';
+            report.textContent = t('report');
+            report.addEventListener('click', () => openReportDialog(p));
+            row.appendChild(report);
+        }
         lb.appendChild(row);
 
         // Animate width. A 30% baseline keeps every bar wide enough for its label.
@@ -1880,6 +2352,56 @@ function renderLeaderboard(list) {
             }, 60 + i * 120);
         });
     });
+}
+
+let reportTarget = null;
+
+function openReportDialog(player) {
+    reportTarget = player;
+    $('#report-reason').value = 'offensive_name';
+    $('#report-details').value = '';
+    $('#report-error').classList.add('hidden');
+    openDialog($('#report-dialog'), $('#report-reason'));
+}
+
+async function submitLeaderboardReport() {
+    const profile = getDiscordProfile();
+    const token = getAppSessionToken();
+    if (!reportTarget?.id || !profile?.id || !token || !supabaseConfigured()) return;
+    const reason = $('#report-reason').value;
+    const details = $('#report-details').value.trim().slice(0, 250);
+    const allowed = ['offensive_name', 'impersonation', 'spam_other'];
+    if (!allowed.includes(reason)) return;
+    const button = $('#report-submit');
+    button.disabled = true;
+    $('#report-error').classList.add('hidden');
+    try {
+        const response = await fetch(`${appApiPrefix()}/api/report`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                score_id: reportTarget.id,
+                reason,
+                details: details || null
+            })
+        });
+        if (!response.ok) throw new Error(`Report ${response.status}: ${await response.text()}`);
+        closeDialog($('#report-dialog'));
+        $('#lb-note').textContent = t('reportSuccess');
+        announce(t('reportSuccess'));
+    } catch (error) {
+        const duplicate = /409|23505|duplicate/i.test(String(error));
+        const message = duplicate ? t('reportDuplicate') : t('reportFailed');
+        const box = $('#report-error');
+        box.textContent = message;
+        box.classList.remove('hidden');
+        announce(message);
+    } finally {
+        button.disabled = false;
+    }
 }
 
 // Encode the current mode + settings + score into a compact custom_id (max 64
@@ -2022,6 +2544,289 @@ function flashButton(sel, msg) {
 }
 
 // ============================================================
+//  Discord rich presence + player card
+// ============================================================
+// Two views onto the same facts — "which round, what score, which mode, and can
+// I join?":
+//   * Discord's profile card, published with setActivity() (details / state /
+//     party size / join secret). This is what a member sees after clicking the
+//     player in Discord.
+//   * The in-app player card, opened by clicking a row in the lobby / in-game
+//     player list.
+
+// The "of N" in Discord's party badge must match the Activity's real capacity:
+// Developer Portal -> Activities -> Settings -> "Maximum Participants", set to 12
+// to match the 12-slot colour/icon palette the server assigns players from
+// (_player_color / _player_icon in schema-multiplayer.sql) — past 12 players start
+// sharing an identity, so that is the game's real ceiling. Changing it in the
+// portal means changing it here, or overriding in discord-config.js. Note this
+// caps the Activity only — a code-joined web room can exceed it, which is why the
+// badge grows to fit the actual player count below.
+const MP_PARTY_MAX = Number(window.DISCORD_CONFIG?.maxParticipants) || 12;
+
+// Rich Presence art asset key (Developer Portal -> Rich Presence -> Art Assets).
+// Gives the profile card the game's image instead of just the app icon; an
+// unknown key simply renders no image, so a stale value is harmless.
+const PRESENCE_IMAGE = window.DISCORD_CONFIG?.presenceImage || '8-modeselect';
+
+// Wall-clock start of the current round, so Discord can show an elapsed timer.
+// Must stay stable while the round runs — a moving value would defeat the
+// payload de-duplication in discord-activity.js.
+let presenceStartedAt = 0;
+
+function canPublishPresence() {
+    return Boolean(window.DISCORD_ACTIVITY?.canSetActivity);
+}
+
+function presenceEnabled() {
+    return canPublishPresence() && getSettings().discordPresence !== false;
+}
+
+// Room-wide question counter. `rooms.question_index` is 0-based and shared by
+// everyone in the room, so this is the round every player is on.
+function mpRoundInfo() {
+    const room = window.GTL_MULTIPLAYER?.state?.room || null;
+    const total = (room?.round_refs || []).length;
+    if (!room || !total) return { room, total, current: 0 };
+    return { room, total, current: Math.min((room.question_index || 0) + 1, total) };
+}
+
+function presenceScoreLine(score) {
+    return `${t('playerCardScore')} ${score}`;
+}
+
+// The payload behind the profile card, or null to publish nothing.
+function buildPresenceActivity() {
+    if (!presenceEnabled()) return null;
+
+    const onGame = screens.game.classList.contains('active');
+    const onResults = screens.results.classList.contains('active');
+    const activity = { type: 0, instance: true };
+    if (presenceStartedAt) activity.timestamps = { start: Math.floor(presenceStartedAt / 1000) };
+    // Hover text on the card image names the mode the player is on.
+    const shownMode = modeLabel(
+        (state.multiplayer && window.GTL_MULTIPLAYER.state.room?.mode) || state.mode
+    );
+    if (PRESENCE_IMAGE) {
+        activity.assets = { large_image: PRESENCE_IMAGE, large_text: shownMode };
+    }
+
+    if (state.multiplayer) {
+        const mp = window.GTL_MULTIPLAYER.state;
+        const room = mp.room;
+        const players = mp.players || [];
+        const active = players.filter((p) => !p.spectator).length;
+        const { total, current } = mpRoundInfo();
+
+        activity.details = `${shownMode} • ${t('presenceRoom')}`;
+        if (room?.status === 'finished' || onResults) {
+            activity.state = `${t('presenceResults')} • ${presenceScoreLine(state.score)}`;
+        } else if (room?.status === 'playing' && onGame && total) {
+            activity.state = state.spectator
+                ? `${t('presenceSpectating')} • ${t('playerCardRound')} ${current}/${total}`
+                : `${t('playerCardRound')} ${current}/${total} • ${presenceScoreLine(state.score)}`;
+        } else {
+            activity.state = t('presenceLobby');
+        }
+
+        // `party` is what makes Discord render the "(2 of 12)" badge; the id must be
+        // identical for everyone in the room so the badge counts the group rather
+        // than each player separately. `secrets.join` is what adds "Ask to Join".
+        if (room?.id) {
+            activity.party = {
+                id: `gtl-room-${room.id}`,
+                size: [Math.max(active, 1), Math.max(active, MP_PARTY_MAX)]
+            };
+            if (room.code) activity.secrets = { join: `room:${room.code}` };
+        }
+        return activity;
+    }
+
+    activity.details = `${shownMode} • ${t('presenceSolo')}`;
+    if (onResults) {
+        activity.state = `${t('presenceResults')} • ${presenceScoreLine(state.score)}`;
+    } else if (onGame) {
+        const total = state.round.length;
+        activity.state = total
+            ? `${t('playerCardRound')} ${Math.min(state.index + 1, total)}/${total} • ${presenceScoreLine(state.score)}`
+            : presenceScoreLine(state.score);
+    } else {
+        activity.state = t('presenceMenu');
+    }
+    // A solo player has no room to hand out, so no join secret — but others in the
+    // voice channel can still launch into the Activity, so keep the party badge.
+    const instanceId = window.DISCORD_ACTIVITY?.instanceId;
+    if (instanceId) activity.party = { id: `gtl-solo-${instanceId}`, size: [1, MP_PARTY_MAX] };
+    return activity;
+}
+
+// Refresh the profile card. Safe (and cheap) to call on every state change —
+// discord-activity.js coalesces these to respect Discord's rate limit.
+function pushPresence() {
+    if (!canPublishPresence()) return;
+    const activity = buildPresenceActivity();
+    if (activity) window.DISCORD_ACTIVITY.setActivity(activity);
+    else window.DISCORD_ACTIVITY.clearActivity();
+}
+
+function markPresenceRoundStart() {
+    presenceStartedAt = Date.now();
+    pushPresence();
+}
+
+// A member pressed "Ask to Join" on someone's profile card: Discord launches the
+// Activity for them and hands over the secret we published. If the voice-channel
+// auto-join already landed them in that room there is nothing to do; otherwise
+// join it by code.
+async function handleDiscordActivityJoin(secret) {
+    const match = /^room:([A-Za-z0-9]{4})$/.exec(String(secret || ''));
+    if (!match) return;
+    const code = match[1].toUpperCase();
+    const mp = window.GTL_MULTIPLAYER?.state;
+    if (mp?.room?.code === code) return;
+    if (!mpOnline()) return;
+
+    try {
+        await loadAllBanks();
+        await window.GTL_MULTIPLAYER.joinRoom(code, getPlayerName());
+        state.multiplayer = true;
+        state.viewOnly = false;
+        state.mpSyncKey = '';
+        const joined = window.GTL_MULTIPLAYER.state;
+        renderLobby(joined.room, joined.players);
+        showScreen('lobby');
+        pushPresence();
+    } catch (err) {
+        // Rooms already in progress reject a join-by-code; the player is normally
+        // in via the voice instance anyway, so just tell them.
+        console.error('Ask-to-Join failed:', err);
+        announce(err.message || t('joinRequestFailed'));
+    }
+}
+
+// ---------- In-app player card ----------
+
+// room_players.id of the player whose card is open, so live score/round updates
+// can refresh it in place.
+let playerCardId = null;
+
+// The freshest row for a player id — list row closures outlive a re-render.
+function currentPlayerRow(playerId) {
+    return (window.GTL_MULTIPLAYER?.state?.players || []).find((p) => p.id === playerId) || null;
+}
+
+// Status of one room_players row, as a localized label.
+function playerStatusLabel(player, room) {
+    if (room?.status === 'finished') return t('statusFinished');
+    if (player.spectator) return t('statusSpectating');
+    if (room?.status === 'playing') return t('statusPlaying');
+    return t('statusLobby');
+}
+
+function setPlayerCardRow(sel, value) {
+    const el = $(sel);
+    if (el) el.textContent = value;
+}
+
+// Clicking a row in #lobby-players / #mp-game-players lands here.
+function openPlayerCard(player) {
+    const dlg = $('#player-card');
+    if (!dlg || !player) return;
+    const mp = window.GTL_MULTIPLAYER.state;
+    const room = mp.room || null;
+    const { total, current } = mpRoundInfo();
+    const vis = mpVisualOf(player);
+    const isYou = player.id === mp.playerId;
+
+    // Prefer the player's real Discord avatar when they're a connected participant
+    // of this Activity; otherwise use the emoji identity the server assigned.
+    const participant = window.DISCORD_ACTIVITY?.participant?.(player.discord_user_id) || null;
+    const avatarUrl = participant ? discordAvatarUrl(participant) : null;
+    const img = $('#player-card-avatar-img');
+    const emoji = $('#player-card-avatar');
+    if (avatarUrl) {
+        img.src = avatarUrl;
+        img.classList.remove('hidden');
+        emoji.classList.add('hidden');
+    } else {
+        img.removeAttribute('src');
+        img.classList.add('hidden');
+        emoji.classList.remove('hidden');
+        emoji.textContent = vis.icon;
+        emoji.style.background = vis.color + '22';
+        emoji.style.boxShadow = 'inset 0 0 0 2px ' + vis.color;
+    }
+
+    setPlayerCardRow('#player-card-name', safeDisplayName(player.name) + (isYou ? ` ${t('you')}` : ''));
+    $('#player-card-host').classList.toggle('hidden', !player.is_host);
+    setPlayerCardRow('#player-card-mode', modeLabel(room?.mode || state.mode));
+    // No round to report before the game starts, and a spectator isn't in one.
+    const noRound = !total || room?.status === 'lobby';
+    setPlayerCardRow('#player-card-round', noRound ? '—' : `${room?.status === 'finished' ? total : current} / ${total}`);
+    setPlayerCardRow('#player-card-score', String(player.score ?? 0));
+    setPlayerCardRow('#player-card-correct', String(player.correct ?? 0));
+    setPlayerCardRow('#player-card-streak', String(player.streak ?? 0));
+    setPlayerCardRow('#player-card-status', playerStatusLabel(player, room));
+
+    // "Ability to join": inside Discord, Discord's own invite sheet pulls people
+    // into this Activity's voice channel — and the voice-channel auto-join drops
+    // them straight into this room. On the web, share the room code instead.
+    const invite = $('#btn-player-card-invite');
+    if (invite) {
+        const canInvite = isDiscordActivity() || !!room?.code;
+        invite.classList.toggle('hidden', !canInvite);
+        invite.textContent = isDiscordActivity() ? t('inviteToRoom') : t('copyCode');
+    }
+    $('#player-card-error')?.classList.add('hidden');
+
+    playerCardId = player.id;
+    // No-ops when the card is already open, so refreshes don't steal focus.
+    openDialog(dlg, $('#btn-player-card-close'));
+}
+
+// Keep an open card in step with the realtime room feed.
+function refreshPlayerCard() {
+    if (!playerCardId) return;
+    const row = currentPlayerRow(playerCardId);
+    if (!row) {
+        closePlayerCard();
+        return;
+    }
+    openPlayerCard(row);
+}
+
+function closePlayerCard() {
+    playerCardId = null;
+    const dlg = $('#player-card');
+    if (dlg?.open) closeDialog(dlg);
+}
+
+// Invite others into the room this card belongs to.
+async function invitePlayersToRoom() {
+    const room = window.GTL_MULTIPLAYER.state.room;
+    if (isDiscordActivity()) {
+        try {
+            await window.DISCORD_ACTIVITY.openInviteDialog();
+            return;
+        } catch (err) {
+            console.error('openInviteDialog failed:', err);
+            const box = $('#player-card-error');
+            if (box) {
+                box.textContent = t('inviteFailed');
+                box.classList.remove('hidden');
+            }
+            return;
+        }
+    }
+    if (room?.code) {
+        navigator.clipboard?.writeText(room.code).then(
+            () => flashButton('#btn-player-card-invite', t('codeCopied')),
+            () => {}
+        );
+    }
+}
+
+// ============================================================
 //  Multiplayer UI
 // ============================================================
 function mpOnline() {
@@ -2066,10 +2871,15 @@ function refreshMultiplayerButtons() {
     // Hosting or joining needs an online connection plus a playable identity
     // (a name, or a Discord sign-in where that's required).
     const ready = canPlay();
-    const enable = on && ready;
+    const authLocked = requiresDiscordLogin() && !isDiscordLinked();
+    const enable = on && (ready || authLocked);
     $('#btn-host').disabled = !enable;
     $('#btn-join').disabled = !enable;
-    if (!enable) {
+    $('#btn-host').classList.toggle('auth-locked', authLocked);
+    $('#btn-join').classList.toggle('auth-locked', authLocked);
+    $('#btn-host').textContent = authLocked ? `🔒 ${t('hostRoom').replace(/^\S+\s*/, '')}` : t('hostRoom');
+    $('#btn-join').textContent = authLocked ? `🔒 ${t('joinRoom').replace(/^\S+\s*/, '')}` : t('joinRoom');
+    if (!enable || authLocked) {
         const msg = !ready
             ? (requiresDiscordLogin() ? t('loginDiscordToPlay') : t('nameRequired'))
             : t('mpNeedOnline');
@@ -2112,7 +2922,7 @@ function renderMpPlayerList(containerSel, players, {
         av.style.boxShadow = 'inset 0 0 0 2px ' + vis.color;
         const name = document.createElement('div');
         name.className = 'mp-player-name';
-        name.textContent = p.name + (p.id === mp.playerId ? ` ${t('you')}` : '');
+        name.textContent = safeDisplayName(p.name) + (p.id === mp.playerId ? ` ${t('you')}` : '');
         row.appendChild(av);
         row.appendChild(name);
         if (p.is_host) {
@@ -2130,15 +2940,28 @@ function renderMpPlayerList(containerSel, players, {
             kick.className = 'mp-kick-btn';
             kick.title = t('kickPlayer');
             kick.textContent = '×';
-            kick.addEventListener('click', () => {
+            kick.addEventListener('click', (ev) => {
+                // The row itself opens the player card — don't do both.
+                ev.stopPropagation();
                 window.GTL_MULTIPLAYER.kickPlayer(p.id).catch((e) => console.error(e));
             });
             row.appendChild(kick);
         }
         if (compact) {
-            name.textContent = p.name;
-            row.title = `${p.name}: ${p.score}`;
+            name.textContent = safeDisplayName(p.name);
         }
+
+        // Clicking a player opens their card: round, score, mode and how to invite.
+        row.classList.add('is-clickable');
+        row.setAttribute('role', 'button');
+        row.tabIndex = 0;
+        row.title = `${safeDisplayName(p.name)} — ${t('openPlayerCard')}`;
+        row.addEventListener('click', () => openPlayerCard(currentPlayerRow(p.id) || p));
+        row.addEventListener('keydown', (ev) => {
+            if (ev.key !== 'Enter' && ev.key !== ' ') return;
+            ev.preventDefault();
+            openPlayerCard(currentPlayerRow(p.id) || p);
+        });
         el.appendChild(row);
     });
 }
@@ -2149,6 +2972,7 @@ function syncMpHudFromPlayers() {
     state.score = me.score;
     state.correct = me.correct;
     state.streak = me.streak;
+    state.bestStreak = Math.max(state.bestStreak || 0, state.streak || 0);
     updateScore();
     updateCorrect();
     updateStreakPill();
@@ -2214,12 +3038,13 @@ function pushLobbySettings() {
     const settings = {
         questions: Number($('#lobby-questions').value),
         difficulty: $('#lobby-difficulty').value,
-        timer: timerVal === 'auto' ? 'auto' : Number(timerVal)
+        timer: timerVal === 'auto' ? 'auto' : Number(timerVal),
+        feedbackDelay: getSettings().feedbackDelay
     };
     window.GTL_MULTIPLAYER.updateRoomSettings(mode, settings)
         .catch((e) => {
             console.error(e);
-            alert(e.message);
+            announce(e.message);
         });
 }
 
@@ -2299,6 +3124,7 @@ function showMultiplayerQuestion(room) {
         showSpectatorBanner();
     }
     state.questionTime = ref.duration || timeForDifficulty(cur.difficulty);
+    state.questionStartedAt = Date.now();
     syncMpHudFromPlayers();
     startTimerFromServer();
 }
@@ -2348,6 +3174,9 @@ async function showMultiplayerReveal(room) {
             sfx.wrong();
             showToast(`${t('timeUp')} ${ans}.  ${cur.explanation[getLang()]}`, 'bad');
         }
+        if (!state.spectator && !state.roundHistory.some((item) => item.questionIndex === state.index)) {
+            recordRoundAnswer(cur, chosen, ok, 0, !normFill(chosen));
+        }
         state.answered = true;
         return;
     }
@@ -2382,6 +3211,9 @@ async function showMultiplayerReveal(room) {
     } else {
         sfx.wrong();
         showToast(`${t('timeUp')} ${ans}.  ${cur.explanation[getLang()]}`, 'bad');
+    }
+    if (!state.spectator && !state.roundHistory.some((item) => item.questionIndex === state.index)) {
+        recordRoundAnswer(cur, chosen, chosen === ans, 0, !chosen);
     }
     state.answered = true;
 
@@ -2447,6 +3279,9 @@ function renderMpResults() {
 
     $('.final-score').classList.remove('hidden');
     $('.results-correct').classList.remove('hidden');
+    $('#result-stats').classList.remove('hidden');
+    $('#answer-review').classList.remove('hidden');
+    $('#personal-result').classList.add('hidden');
     $('#btn-challenge').classList.add('hidden');
     $('#btn-replay').classList.remove('hidden');
     $('#btn-replay').textContent = t('backToLobby'); // -> room lobby (stays in room)
@@ -2459,6 +3294,10 @@ function renderMpResults() {
         (state.mpRound && state.mpRound.length) ||
         (mpState.room && mpState.room.round_refs && mpState.room.round_refs.length) || 0
     );
+    state.correct = me ? me.correct : 0;
+    state.score = me ? me.score : 0;
+    state.round = new Array(Number($('#results-total').textContent) || state.roundHistory.length);
+    renderRoundSummary();
     $('.results-sub').textContent = t('roomResults');
     renderLeaderboard(window.GTL_MULTIPLAYER.getRoomLeaderboard(avatarFor));
     $('#lb-note').className = 'lb-note';
@@ -2496,7 +3335,7 @@ function mpPlayAgain() {
     if (mpState.isAdmin) {
         window.GTL_MULTIPLAYER.restartRoom().catch((e) => {
             console.error(e);
-            alert(e.message);
+            announce(e.message);
         });
     } else {
         renderLobby(mpState.room, mpState.players);
@@ -2514,11 +3353,16 @@ function handleMultiplayerUpdate(room, players) {
         state.mpSyncKey = '';
         state.mpResultsShown = false;
         state.spectator = false;
+        state.roundHistory = [];
+        state.bestStreak = 0;
         clearTimer();
         hideMpStatus();
         hideMpGameChrome();
         renderLobby(room, players);
         if (!screens.lobby.classList.contains('active')) showScreen('lobby');
+        presenceStartedAt = 0;
+        pushPresence();
+        refreshPlayerCard();
         return;
     }
 
@@ -2541,6 +3385,8 @@ function handleMultiplayerUpdate(room, players) {
             // Already on the scoreboard — just refresh standings without re-animating.
             renderLeaderboard(window.GTL_MULTIPLAYER.getRoomLeaderboard(avatarFor));
         }
+        pushPresence();
+        refreshPlayerCard();
         return;
     }
 
@@ -2558,8 +3404,13 @@ function handleMultiplayerUpdate(room, players) {
             } else if (room.phase === 'reveal') {
                 showMultiplayerReveal(room);
             }
+            // Stamp the round start once, on the first question of the round, so the
+            // Discord card shows a stable elapsed timer.
+            if (!presenceStartedAt || room.question_index === 0) presenceStartedAt = Date.now();
         }
         syncMpHudFromPlayers();
+        pushPresence();
+        refreshPlayerCard();
     }
 }
 
@@ -2572,8 +3423,13 @@ function returnHome() {
     clearTimer();
     hideMpStatus();
     hideMpGameChrome();
+    closePlayerCard();
+    // Drop the round's elapsed timer BEFORE the screen change, so the presence
+    // push that showScreen() triggers already describes a player in the menu.
+    presenceStartedAt = 0;
     showScreen('home');
     selectMode(state.mode);
+    pushPresence();
 }
 
 // Multiplayer rounds can use any bank (the host picks the mode), so always load
@@ -2676,7 +3532,7 @@ async function hostRoomFlow() {
         renderLobby(window.GTL_MULTIPLAYER.state.room, window.GTL_MULTIPLAYER.state.players);
     } catch (e) {
         console.error(e);
-        alert(t('mpHostFail') + ': ' + e.message);
+        showAuthError(t('mpHostFail') + ': ' + e.message);
     }
 }
 
@@ -2686,11 +3542,11 @@ function openJoinModal() {
     saveSettingsFromUI();
     $('#join-code').value = '';
     $('#join-error').classList.add('hidden');
-    $('#join-modal').classList.remove('hidden');
+    openDialog($('#join-modal'), $('#join-code'));
 }
 
 function closeJoinModal() {
-    $('#join-modal').classList.add('hidden');
+    closeDialog($('#join-modal'));
 }
 
 async function confirmJoinRoom() {
@@ -2737,7 +3593,7 @@ async function lobbyStartGame() {
         await window.GTL_MULTIPLAYER.startRoom(built.roundRefs, built.answerKeys);
     } catch (e) {
         console.error(e);
-        alert(e.message);
+        announce(e.message);
     }
 }
 
@@ -2747,7 +3603,7 @@ async function leaveMultiplayer() {
 }
 
 function onMpKicked() {
-    alert(t('mpKicked'));
+    announce(t('mpKicked'));
     window.GTL_MULTIPLAYER.teardown();
     returnHome();
 }
@@ -2765,7 +3621,6 @@ function bindEvents() {
     document.querySelectorAll('.lang-switch button').forEach((b) => {
         b.addEventListener('click', () => setLang(b.dataset.setlang));
     });
-    $('#set-language').addEventListener('change', () => setLang($('#set-language').value));
 
     // Leave the room if the player closes the window, refreshes, or navigates
     // away — a keepalive beacon still flushes while the renderer is unloading.
@@ -2821,27 +3676,29 @@ function bindEvents() {
     });
     $('#btn-lobby-leave').addEventListener('click', leaveMultiplayer);
     $('#btn-friends').addEventListener('click', viewLeaderboard);
-    $('#btn-settings').addEventListener('click', () => {
-        $('#about-panel').classList.add('hidden');
-        applySettingsToUI();
-        $('#settings-panel').classList.toggle('hidden');
-    });
+    $('#btn-settings').addEventListener('click', openSettingsPanel);
     $('#set-close').addEventListener('click', () => {
         saveSettingsFromUI();
-        $('#settings-panel').classList.add('hidden');
-        applyLanguage();
+        const selectedLanguage = $('#set-language').value;
+        closeDialog($('#settings-panel'));
+        setLang(selectedLanguage);
     });
-    $('#set-name').addEventListener('input', () => updateStartButtonState());
+    $('#set-name').addEventListener('input', () => {
+        $('#set-name').removeAttribute('aria-invalid');
+        $('#settings-error').classList.add('hidden');
+        updateStartButtonState();
+    });
     $('#btn-discord-login')?.addEventListener('click', startDiscordLogin);
     $('#btn-discord-logout')?.addEventListener('click', discordLogout);
     $('#home-login-cta')?.addEventListener('click', startDiscordLogin);
+    $('#auth-retry')?.addEventListener('click', startDiscordLogin);
 
     // about
     $('#btn-about').addEventListener('click', () => {
-        $('#settings-panel').classList.add('hidden');
+        closeDialog($('#settings-panel'), false);
         openAbout();
     });
-    $('#about-close').addEventListener('click', () => $('#about-panel').classList.add('hidden'));
+    $('#about-close').addEventListener('click', () => closeDialog($('#about-panel')));
     document.querySelectorAll('.about-link, .about-legal-link').forEach((b) => {
         b.addEventListener('click', (event) => {
             event.preventDefault();
@@ -2852,12 +3709,59 @@ function bindEvents() {
     });
 
     // game — end the quiz early
-    $('#btn-end').addEventListener('click', endQuiz);
+    $('#btn-end').addEventListener('click', () => openDialog($('#end-dialog'), $('#btn-end-cancel')));
+    $('#btn-end-confirm').addEventListener('click', () => {
+        closeDialog($('#end-dialog'));
+        endQuiz();
+    });
+    $('#btn-end-cancel').addEventListener('click', () => closeDialog($('#end-dialog')));
+    $('#btn-next').addEventListener('click', advanceAfterFeedback);
 
     // fill-in-the-blank answer (submit button + Enter both submit the form)
     $('#fill-form').addEventListener('submit', (e) => {
         e.preventDefault();
         submitFill();
+    });
+
+    $('#report-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (e.submitter?.value === 'cancel') closeDialog($('#report-dialog'));
+        else submitLeaderboardReport();
+    });
+
+    // Player card (opened by clicking a row in the lobby / in-game player list).
+    $('#btn-player-card-close')?.addEventListener('click', () => closeDialog($('#player-card')));
+    $('#btn-player-card-invite')?.addEventListener('click', invitePlayersToRoom);
+    // Covers every close path (button, Esc, backdrop) so live refreshes stop.
+    $('#player-card')?.addEventListener('close', () => { playerCardId = null; });
+
+    // "Show my game on Discord" — apply the moment it's toggled rather than on save.
+    $('#set-presence')?.addEventListener('change', () => {
+        const cur = store.settings;
+        cur.discordPresence = $('#set-presence').checked;
+        store.settings = cur;
+        pushPresence();
+    });
+
+    // A member pressed "Ask to Join" on this game's Discord profile card.
+    window.addEventListener('discord-activity-join', (e) => {
+        handleDiscordActivityJoin(e.detail?.secret);
+    });
+    // Connected-participant list changed → an open card may gain a real avatar.
+    window.addEventListener('discord-participants', () => refreshPlayerCard());
+
+    [$('#settings-panel'), $('#about-panel'), $('#join-modal'), $('#end-dialog'), $('#report-dialog'), $('#player-card')].forEach((dialog) => {
+        if (!dialog) return;
+        dialog.addEventListener('cancel', (e) => {
+            e.preventDefault();
+            if (dialog === $('#settings-panel')) applySettingsToUI();
+            closeDialog(dialog);
+        });
+        dialog.addEventListener('click', (e) => {
+            if (e.target !== dialog) return;
+            if (dialog === $('#settings-panel')) applySettingsToUI();
+            closeDialog(dialog);
+        });
     });
 
     // results
@@ -2906,7 +3810,7 @@ function viewLeaderboard() {
 async function openAbout() {
     const panel = $('#about-panel');
     $('#about-count').textContent = '…';
-    panel.classList.remove('hidden');
+    openDialog(panel, $('#about-close'));
     try {
         const all = await window.gameAPI.getQuestions('all');
         $('#about-count').textContent = String(all.length);
@@ -2973,9 +3877,9 @@ async function selectMode(mode) {
     }
     if (state.allQuestions.length) {
         updateStartButtonState();
-        startBtn.setAttribute('data-i18n', 'start'); // let language switches keep it in sync
-        startBtn.textContent = t('start');
     } else {
+        startBtn.removeAttribute('data-i18n');
+        startBtn.disabled = true;
         startBtn.textContent = t('loadFail');
     }
 }

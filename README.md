@@ -116,6 +116,8 @@ Discord iframe.
 3. Add environment variables (Project Settings → Environment Variables):
    - `VITE_SUPABASE_URL` — your Supabase project URL
    - `VITE_SUPABASE_ANON_KEY` — public anon key
+   - `SUPABASE_SERVICE_ROLE_KEY` — server-only key used by `/api/report`
+   - `APP_SESSION_SECRET` — server-only session-signing secret
 4. Deploy. If the vars are left empty, the game still runs with a local mock
    leaderboard (same as desktop without Supabase).
 
@@ -129,19 +131,25 @@ Discord iframe.
 ## How to play
 
 Everything starts on one **home page**: pick a mode card, then **Start**, view
-the **leaderboard** (Friends & Scores), open **Settings**, or read **About** — all
+the **Global Leaderboard**, open **Settings**, or read **About** — all
 without leaving the page.
 
-1. Tap a mode card to select it, then **Start**.
-2. A snippet/question appears with a circular countdown (12–15s by difficulty).
-3. Pick the correct answer from the buttons — or press the number keys. The HUD
+1. On the public web build, sign in with Discord. Electron uses the local player
+   name from Settings; Discord Activities use the current Discord identity.
+2. Tap a mode card to select it, then **Start**.
+3. A snippet/question appears with a circular countdown (12–15s by difficulty).
+4. Pick the correct answer from the buttons — or press the number keys. The HUD
    shows your score and a **correct/total** counter; you can **End** the quiz
    early to jump to the results.
-4. The results screen shows your score, how many you got right, and the
-   leaderboard. Your name defaults to **User** (change it in Settings).
+5. Review the explanation, press **Next**, or let the configured review timer
+   advance. Results include accuracy, response times, best streak, incorrect
+   answers, personal rank, and the global leaderboard.
 
 Switch between **English and Arabic** anytime via the EN / ع toggle (also under
 Settings). The choice is persisted, and Arabic flips the UI to RTL.
+
+Public names are checked in the client and by Supabase. Existing unsafe names
+are masked, and signed-in Discord users can report an entry for review.
 
 ### Scoring
 - Correct answer: **+100**
@@ -165,7 +173,7 @@ prog-game2/
 │  ├─ icon-192.png / icon-512.png # PWA icons
 │  ├─ privacy.html / terms.html # legal pages
 ├─ supabase/
-│  ├─ schema.sql                # leaderboard table (scores + avatar) + RLS
+│  ├─ schema.sql                # leaderboard safety, reports, scores + RLS
 │  ├─ schema-multiplayer.sql    # rooms, players, RPCs, Realtime
 │  └─ schema-discord-rooms.sql  # Discord voice-channel rooms (by instanceId)
 ├─ src/
@@ -265,7 +273,8 @@ leaderboard **and multiplayer rooms**:
 
 1. Create a free project at [supabase.com](https://supabase.com).
 2. In the **SQL Editor**, run [`supabase/schema.sql`](supabase/schema.sql)
-   (creates the `scores` table with public read/insert RLS policies).
+   (creates or upgrades scores, name safety, reports, and RLS policies). Existing
+   projects should rerun this idempotent file to install the moderation changes.
 3. Run [`supabase/schema-multiplayer.sql`](supabase/schema-multiplayer.sql)
    in the same editor (rooms, players, RPCs, Realtime).
 4. Copy `src/supabase-config.example.js` to `src/supabase-config.js`.
@@ -280,7 +289,8 @@ leaderboard **and multiplayer rooms**:
 > cheating, move score submission behind an Edge Function that validates the run
 > (see the comment in `schema.sql`).
 
-Your leaderboard name is set in the **Settings** screen.
+Electron leaderboard names are set in **Settings**. Public web and Discord
+Activity builds use the authenticated Discord name and avatar.
 
 ### Multiplayer rooms
 
@@ -302,6 +312,30 @@ instance), a lone player can start a **solo round**, and someone who joins after
 the round started joins as a **spectator**. **Challenge a friend** shares a link
 (or a Discord DM) that opens the game with the same mode/settings and your score
 to beat.
+
+### Seeing what a player is up to
+
+Click a player and you get their **round, score and game mode** — in two places:
+
+- **In Discord.** The game publishes [Rich Presence]
+  (https://docs.discord.com/developers/rich-presence/using-with-the-embedded-app-sdk)
+  with `setActivity()`, so clicking a member in Discord shows a card with the
+  game mode, `Round 5/10 • Score 500`, the party badge (`2 of 12`) and an **Ask
+  to Join** button. Presence follows the player's chosen language (EN / AR) and
+  can be switched off with **Show my game on Discord** in Settings.
+  This needs the `rpc.activities.write` scope; if Discord refuses it the Activity
+  still loads normally, just without the card.
+  Two portal-side values are mirrored in `src/discord-config.js` — keep them in
+  sync: `maxParticipants` must match **Activities → Settings → Maximum
+  Participants** (set to 12, matching the 12-slot player colour/icon palette in
+  `schema-multiplayer.sql`; an *empty* field there means Discord's default of 5,
+  not unlimited), and `presenceImage` is a key from **Rich Presence → Art Assets**
+  used as the card's image.
+- **In the game.** Clicking a row in the lobby or in-game player list opens a
+  **player card** with that player's mode, round, score, correct answers, streak
+  and status (playing / spectating / in the lobby), plus **Invite to this room** —
+  Discord's native invite sheet for the Activity's voice channel, which drops the
+  invitee straight into the same room.
 
 | Host lobby | Answer reveal | Room results |
 | --- | --- | --- |
@@ -325,8 +359,11 @@ to beat.
 
 ```powershell
 pnpm exec electron test/smoke-main.js      # offline end-to-end (13 checks)
-pnpm exec electron test/smoke-online.js    # Supabase online path (8 checks)
+pnpm exec electron test/smoke-online.js    # Supabase online path (10 checks)
 pnpm exec electron test/smoke-multiplayer.js  # multiplayer smoke (UI + helpers)
+pnpm exec electron test/smoke-presence.js  # Discord presence + player card (53 checks)
+pnpm exec electron scripts/make-discord-cover.js  # re-render the invite banner PNG
+pnpm run test:ux                           # responsive/accessibility + report API
 ```
 
 ## Roadmap
@@ -334,6 +371,7 @@ pnpm exec electron test/smoke-multiplayer.js  # multiplayer smoke (UI + helpers)
 - ✅ Global leaderboard via Supabase (with place numbers + profile photos)
 - ✅ Multiplayer rooms (host/join, synced quiz, room scoreboard, spectators)
 - ✅ Discord Activity (auto voice-channel rooms, solo start, challenge links)
+- ✅ Discord Rich Presence (round / score / mode + Ask to Join) and player cards
 - ✅ Login with Discord
 - ✅ Installable PWA / mobile app
 - ⏳ Real friends system (add / follow) instead of a global board only

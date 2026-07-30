@@ -1,7 +1,14 @@
-import { DiscordSDK, patchUrlMappings } from '@discord/embedded-app-sdk';
+import { DiscordSDK, Events, patchUrlMappings } from '@discord/embedded-app-sdk';
 
 const clientId =
   import.meta.env.VITE_DISCORD_CLIENT_ID || window.DISCORD_CONFIG?.clientId;
+
+// `rpc.activities.write` is what lets us call setActivity() — it's the scope
+// behind the "Playing … / Round 3 of 10 / Ask to Join" card on a member's
+// Discord profile. It is requested as an extra on top of the scopes the game
+// actually needs to run, so a rejection must never break the handshake.
+const BASE_SCOPES = ['identify', 'applications.commands'];
+const PRESENCE_SCOPE = 'rpc.activities.write';
 
 /** Discord proxies API calls through /.proxy when URL mapping is configured. */
 function discordProxyPrefix() {
@@ -9,6 +16,106 @@ function discordProxyPrefix() {
   const params = new URLSearchParams(window.location.search);
   if (params.has('frame_id')) return '/.proxy';
   return '';
+}
+
+/**
+ * True when the page is running inside a Discord Activity iframe — decided from
+ * the URL alone, so it stays true even if the SDK handshake later fails. The app
+ * needs this to know it must NOT fall back to the plain-web login flow: a
+ * top-level OAuth redirect can't work inside Discord's sandboxed iframe, so
+ * treating a failed handshake as "signed-out web user" makes the game unplayable.
+ */
+function inDiscordEmbed() {
+  if (window.location.pathname.startsWith('/.proxy')) return true;
+  const params = new URLSearchParams(window.location.search);
+  return params.has('frame_id') || params.has('instance_id');
+}
+
+/** Users currently connected to this Activity instance (for real avatars). */
+let participants = [];
+
+// ---------------------------------------------------------------------------
+//  Rich presence
+// ---------------------------------------------------------------------------
+// Discord rate-limits SET_ACTIVITY, and the game wants to update on every
+// question, answer and score change — far more often than that allows. So every
+// push is coalesced: at most one command per PRESENCE_MIN_INTERVAL_MS, and the
+// most recent payload is always the one that eventually lands (a trailing flush,
+// not a drop). Identical consecutive payloads are skipped entirely.
+const PRESENCE_MIN_INTERVAL_MS = 5000;
+let presenceLastSentAt = 0;
+let presenceLastPayload = '';
+let presencePending;
+let presencePendingSet = false;
+let presenceTimer = null;
+
+function presenceSdk() {
+  const session = window.DISCORD_ACTIVITY?._session;
+  if (!session || !session.presence) return null;
+  return session.sdk?.commands?.setActivity ? session.sdk : null;
+}
+
+async function flushPresence() {
+  presenceTimer = null;
+  const sdk = presenceSdk();
+  if (!sdk || !presencePendingSet) return;
+
+  const activity = presencePending;
+  presencePendingSet = false;
+  presencePending = undefined;
+
+  const key = JSON.stringify(activity ?? null);
+  if (key === presenceLastPayload) return;
+  presenceLastPayload = key;
+  presenceLastSentAt = Date.now();
+  try {
+    await sdk.commands.setActivity({ activity: activity ?? null });
+  } catch (e) {
+    // A rejected update must not break gameplay; allow the next one to retry.
+    presenceLastPayload = '';
+    console.warn('[discord] setActivity failed:', e.message);
+  }
+}
+
+function queuePresence(activity) {
+  if (!presenceSdk()) return;
+  presencePending = activity;
+  presencePendingSet = true;
+  if (presenceTimer) return;
+  const wait = Math.max(0, PRESENCE_MIN_INTERVAL_MS - (Date.now() - presenceLastSentAt));
+  if (wait === 0) {
+    flushPresence();
+    return;
+  }
+  presenceTimer = setTimeout(flushPresence, wait);
+}
+
+/**
+ * Ask for the rich-presence scope, but degrade gracefully: if the app isn't
+ * allowed to write presence, authorize again with only the scopes the game needs
+ * so the Activity still loads (just without the profile card). Returns the OAuth
+ * code plus whether presence ended up granted.
+ */
+async function authorizeWithPresence(discordSdk) {
+  const args = {
+    client_id: clientId,
+    response_type: 'code',
+    state: '',
+    prompt: 'none'
+  };
+  try {
+    const res = await discordSdk.commands.authorize({
+      ...args,
+      scope: [...BASE_SCOPES, PRESENCE_SCOPE]
+    });
+    return { ...res, presence: true };
+  } catch (err) {
+    console.warn(
+      `[discord] authorize with ${PRESENCE_SCOPE} was rejected (${err.message}) — retrying without rich presence`
+    );
+    const res = await discordSdk.commands.authorize({ ...args, scope: BASE_SCOPES });
+    return { ...res, presence: false };
+  }
 }
 
 async function setupDiscordActivity() {
@@ -37,13 +144,7 @@ async function setupDiscordActivity() {
     console.warn('[discord] Supabase proxy mapping failed:', e);
   }
 
-  const { code } = await discordSdk.commands.authorize({
-    client_id: clientId,
-    response_type: 'code',
-    state: '',
-    prompt: 'none',
-    scope: ['identify', 'applications.commands']
-  });
+  const { code, presence } = await authorizeWithPresence(discordSdk);
   console.info('[discord] authorized; exchanging token via', discordProxyPrefix() + '/api/token');
 
   const prefix = discordProxyPrefix();
@@ -74,7 +175,7 @@ async function setupDiscordActivity() {
     throw new Error(err.error_description || err.error || `Token exchange failed (${tokenRes.status})`);
   }
 
-  const { access_token } = await tokenRes.json();
+  const { access_token, session_token } = await tokenRes.json();
   console.info('[discord] token ok; authenticating…');
   const auth = await discordSdk.commands.authenticate({ access_token });
 
@@ -82,20 +183,68 @@ async function setupDiscordActivity() {
     throw new Error('Discord authenticate command failed');
   }
 
-  console.info('[discord] activity ready ✓');
+  // Someone pressed "Ask to Join" on our profile card: Discord hands their client
+  // the join secret we published in setActivity(). Fired in the *joining* user's
+  // iframe, so the app can route them into the exact room instead of the default
+  // voice-channel one. Subscribing may be refused without the presence scope —
+  // never fatal.
+  await subscribeQuietly(discordSdk, Events.ACTIVITY_JOIN, (data) => {
+    console.info('[discord] ACTIVITY_JOIN', data?.secret ? '(secret received)' : '(no secret)');
+    dispatch('discord-activity-join', { secret: data?.secret || null });
+  });
+
+  // Keeps the in-app player card able to show real Discord avatars for everyone
+  // currently in the Activity.
+  await subscribeQuietly(discordSdk, Events.ACTIVITY_INSTANCE_PARTICIPANTS_UPDATE, (data) => {
+    participants = Array.isArray(data?.participants) ? data.participants : [];
+    dispatch('discord-participants', { participants });
+  });
+  try {
+    const res = await discordSdk.commands.getActivityInstanceConnectedParticipants();
+    participants = Array.isArray(res?.participants) ? res.participants : [];
+  } catch (e) {
+    console.warn('[discord] could not read connected participants:', e.message);
+  }
+
+  console.info('[discord] activity ready ✓', presence ? '(rich presence on)' : '(no rich presence)');
   document.documentElement.classList.add('platform-discord');
 
   return {
     sdk: discordSdk,
     auth,
+    presence,
+    sessionToken: session_token || null,
     instanceId: discordSdk.instanceId,
     channelId: discordSdk.channelId,
     guildId: discordSdk.guildId
   };
 }
 
+/** subscribe() that logs and swallows failures instead of aborting init. */
+async function subscribeQuietly(discordSdk, event, handler) {
+  try {
+    await discordSdk.subscribe(event, handler);
+    return true;
+  } catch (e) {
+    console.warn(`[discord] subscribe(${event}) failed:`, e.message);
+    return false;
+  }
+}
+
+function dispatch(name, detail) {
+  window.dispatchEvent(new CustomEvent(name, { detail }));
+}
+
+// Mark the embed context up front, before any await that could fail. The
+// fit-to-embed layout and the "never show the web login gate here" rule must
+// apply inside Discord even when the handshake below never completes.
+if (inDiscordEmbed()) document.documentElement.classList.add('platform-discord');
+
 window.DISCORD_ACTIVITY = {
   ready: null,
+  // Are we inside a Discord Activity iframe at all? (Independent of `active`,
+  // which only turns true once the SDK handshake succeeds.)
+  embedded: inDiscordEmbed(),
   get user() {
     return window.DISCORD_ACTIVITY._session?.auth?.user ?? null;
   },
@@ -104,6 +253,9 @@ window.DISCORD_ACTIVITY = {
   },
   get active() {
     return Boolean(window.DISCORD_ACTIVITY._session);
+  },
+  get sessionToken() {
+    return window.DISCORD_ACTIVITY._session?.sessionToken ?? null;
   },
   // Open an external link from inside the Activity iframe. Plain window.open is
   // blocked by Discord's sandbox, so route it through the SDK command.
@@ -132,6 +284,46 @@ window.DISCORD_ACTIVITY = {
   get customId() {
     return window.DISCORD_ACTIVITY._session?.sdk?.customId ?? null;
   },
+
+  // True when setActivity() is usable — the handshake succeeded AND the app was
+  // granted rpc.activities.write. Callers use this to hide presence-only UI.
+  get canSetActivity() {
+    return Boolean(presenceSdk());
+  },
+
+  // Publish (or refresh) this player's Discord rich presence: the card other
+  // members see when they click the player. Coalesced to respect Discord's
+  // SET_ACTIVITY rate limit, so callers may fire it as often as they like.
+  setActivity(activity) {
+    queuePresence(activity);
+  },
+
+  // Wipe the presence card (back on the home screen, or presence turned off).
+  clearActivity() {
+    queuePresence(null);
+  },
+
+  // Discord's native invite sheet for the Activity's voice channel — the reliable
+  // way to pull someone into this exact room.
+  openInviteDialog() {
+    const sdk = window.DISCORD_ACTIVITY._session?.sdk;
+    if (sdk?.commands?.openInviteDialog) return sdk.commands.openInviteDialog();
+    return null;
+  },
+
+  // Users connected to this Activity instance, kept fresh by the
+  // ACTIVITY_INSTANCE_PARTICIPANTS_UPDATE subscription.
+  get participants() {
+    return participants;
+  },
+
+  // Look up a connected participant by Discord user id (for real avatars in the
+  // in-app player card).
+  participant(userId) {
+    if (!userId) return null;
+    return participants.find((p) => p.id === String(userId)) || null;
+  },
+
   _session: null
 };
 

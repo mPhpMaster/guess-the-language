@@ -447,11 +447,16 @@ declare
   active_players int;
   answered_count int;
   everyone boolean;
+  reveal_seconds int;
 begin
   select * into r from public.rooms where id = p_room_id for update;
   if not found then raise exception 'Room not found'; end if;
   if r.status <> 'playing' then raise exception 'Game not in progress'; end if;
   if r.phase <> 'question' then raise exception 'Not accepting answers'; end if;
+  reveal_seconds := case
+    when r.settings->>'feedbackDelay' in ('2', '4', '6') then (r.settings->>'feedbackDelay')::int
+    else 4
+  end;
 
   if not exists (
     select 1 from public.room_players where id = p_player_id and room_id = p_room_id
@@ -473,7 +478,7 @@ begin
         is_correct = excluded.is_correct,
         submitted_at = now();
 
-  -- Everyone has now answered: settle scores and jump to the 2s reveal.
+  -- Everyone has now answered: settle scores and use the host's review delay.
   select count(*) into active_players
   from public.room_players
   where room_id = p_room_id and coalesce(spectator, false) = false;
@@ -485,7 +490,7 @@ begin
   if everyone then
     update public.rooms
     set phase = 'reveal',
-        question_ends_at = now() + interval '2 seconds'
+        question_ends_at = now() + make_interval(secs => reveal_seconds)
     where id = p_room_id and phase = 'question';
     if found then
       perform public._settle_question(p_room_id, r.question_index);
@@ -511,12 +516,17 @@ declare
   total_questions int;
   active_players int;
   answered_count int;
+  reveal_seconds int;
 begin
   select * into r from public.rooms where id = p_room_id for update;
   if not found then raise exception 'Room not found'; end if;
   if r.status <> 'playing' then
     return to_jsonb(r);
   end if;
+  reveal_seconds := case
+    when r.settings->>'feedbackDelay' in ('2', '4', '6') then (r.settings->>'feedbackDelay')::int
+    else 4
+  end;
 
   select jsonb_array_length(round_refs) into total_questions from public.rooms where id = p_room_id;
   select count(*) into active_players
@@ -530,7 +540,7 @@ begin
   if r.phase = 'question' and active_players > 0 and answered_count >= active_players then
     update public.rooms
     set phase = 'reveal',
-        question_ends_at = now() + interval '2 seconds'
+        question_ends_at = now() + make_interval(secs => reveal_seconds)
     where id = p_room_id;
     perform public._settle_question(p_room_id, r.question_index);
     select * into r from public.rooms where id = p_room_id;
@@ -545,7 +555,7 @@ begin
   if r.phase = 'question' then
     update public.rooms
     set phase = 'reveal',
-        question_ends_at = now() + interval '2 seconds'
+        question_ends_at = now() + make_interval(secs => reveal_seconds)
     where id = p_room_id;
     perform public._settle_question(p_room_id, r.question_index);
     select * into r from public.rooms where id = p_room_id;

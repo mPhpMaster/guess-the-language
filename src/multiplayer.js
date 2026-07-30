@@ -87,6 +87,34 @@
     return String(s == null ? '' : s).trim().toLowerCase().replace(/\s+/g, ' ');
   }
 
+  // Same fair-across-banks deal as the single-player round builder (see
+  // sampleAcrossBanks in renderer.js): one slot per bank before any bank repeats,
+  // so an "All" room isn't dominated by `languages` (over half the pool).
+  function sampleAcrossBanks(pool, count, seed) {
+    const byBank = new Map();
+    pool.forEach((q) => {
+      const bank = q.bank || 'languages';
+      if (!byBank.has(bank)) byBank.set(bank, []);
+      byBank.get(bank).push(q);
+    });
+    if (byBank.size < 2) return seededShuffle(pool, seed).slice(0, count);
+
+    const queues = seededShuffle(Array.from(byBank.values()), seed)
+      .map((qs, i) => seededShuffle(qs, (seed ^ ((i + 1) * 0x9e3779b9)) >>> 0));
+    const picked = [];
+    for (let depth = 0; picked.length < count; depth++) {
+      let dealt = false;
+      for (const queue of queues) {
+        if (depth >= queue.length) continue;
+        picked.push(queue[depth]);
+        dealt = true;
+        if (picked.length === count) break;
+      }
+      if (!dealt) break;
+    }
+    return seededShuffle(picked, (seed ^ 0x85ebca6b) >>> 0);
+  }
+
   function buildRoundForRoom(allQuestions, settings) {
     let pool = allQuestions.slice();
     if (settings.mode && settings.mode !== 'all') {
@@ -99,9 +127,9 @@
     }
     if (pool.length === 0) pool = allQuestions.slice();
 
-    const shuffled = seededShuffle(pool, Date.now() & 0xffffffff);
-    const count = Math.min(settings.questions, shuffled.length);
-    const round = shuffled.slice(0, count);
+    const seed = (Date.now() & 0xffffffff) || 1;
+    const count = Math.min(settings.questions, pool.length);
+    const round = sampleAcrossBanks(pool, count, seed);
 
     const roundRefs = [];
     const answerKeys = [];

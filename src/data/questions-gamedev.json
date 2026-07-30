@@ -1048,5 +1048,488 @@
       "en": "It triggers playback of the jump sound.",
       "ar": "يشغّل صوت القفز."
     }
+  },
+  {
+    "id": 51,
+    "category": "gameplay",
+    "difficulty": "easy",
+    "codeSnippet": "if (Input.GetKeyDown(KeyCode.Space)) Jump();",
+    "question": {
+      "en": "What does this line do?",
+      "ar": "ماذا يفعل هذا السطر؟"
+    },
+    "options": [
+      "Jumps when the Space key is pressed",
+      "Jumps continuously while Space is held",
+      "Binds Space to the pause menu",
+      "Disables jumping"
+    ],
+    "answer": "Jumps when the Space key is pressed",
+    "explanation": {
+      "en": "GetKeyDown fires once on the frame the key goes down.",
+      "ar": "تُستدعى GetKeyDown مرة واحدة في الإطار الذي يُضغط فيه المفتاح."
+    }
+  },
+  {
+    "id": 52,
+    "category": "physics",
+    "difficulty": "easy",
+    "codeSnippet": "velocity.y += gravity * deltaTime;",
+    "question": {
+      "en": "What is this line doing?",
+      "ar": "ماذا يفعل هذا السطر؟"
+    },
+    "options": [
+      "Applying gravity to vertical velocity",
+      "Setting the jump height",
+      "Clamping the fall speed",
+      "Detecting a ground collision"
+    ],
+    "answer": "Applying gravity to vertical velocity",
+    "explanation": {
+      "en": "Acceleration is integrated into velocity each frame.",
+      "ar": "يُدمج التسارع في السرعة كل إطار."
+    }
+  },
+  {
+    "id": 53,
+    "category": "physics",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why multiply movement by deltaTime?",
+      "ar": "لماذا نضرب الحركة في deltaTime؟"
+    },
+    "options": [
+      "To make motion frame-rate independent",
+      "To make the game run faster",
+      "To reduce memory use",
+      "To smooth out textures"
+    ],
+    "answer": "To make motion frame-rate independent",
+    "explanation": {
+      "en": "Scaling by elapsed time keeps speed equal on fast and slow machines.",
+      "ar": "القياس بالزمن المنقضي يوحّد السرعة على الأجهزة السريعة والبطيئة."
+    }
+  },
+  {
+    "id": 54,
+    "category": "rendering",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does culling do?",
+      "ar": "ماذا يفعل الاستبعاد (culling)؟"
+    },
+    "options": [
+      "Skips rendering objects that cannot be seen",
+      "Reduces texture resolution",
+      "Merges meshes into one",
+      "Limits the frame rate"
+    ],
+    "answer": "Skips rendering objects that cannot be seen",
+    "explanation": {
+      "en": "Off-screen and occluded geometry costs nothing if never submitted.",
+      "ar": "الأجسام خارج الشاشة أو المحجوبة لا تكلّف شيئًا إن لم تُرسل."
+    }
+  },
+  {
+    "id": 55,
+    "category": "rendering",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why pack sprites into a single atlas?",
+      "ar": "لماذا نجمع الرسوم في أطلس واحد؟"
+    },
+    "options": [
+      "To cut draw calls by sharing one texture",
+      "To make the sprites look sharper",
+      "To compress the audio",
+      "To simplify collision maths"
+    ],
+    "answer": "To cut draw calls by sharing one texture",
+    "explanation": {
+      "en": "One bound texture lets many sprites render in a single batch.",
+      "ar": "ربط نسيج واحد يسمح برسم رسوم كثيرة في دفعة واحدة."
+    }
+  },
+  {
+    "id": 56,
+    "category": "assets",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why compress textures for a shipped game?",
+      "ar": "لماذا نضغط الأنسجة في لعبة منشورة؟"
+    },
+    "options": [
+      "To cut memory use and bandwidth",
+      "To increase the polygon count",
+      "To improve physics accuracy",
+      "To shorten the credits"
+    ],
+    "answer": "To cut memory use and bandwidth",
+    "explanation": {
+      "en": "Compressed formats stay compressed in VRAM, not just on disk.",
+      "ar": "تبقى الصيغ المضغوطة مضغوطة في ذاكرة الرسوميات وليس على القرص فقط."
+    }
+  },
+  {
+    "id": 57,
+    "category": "state",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a finite state machine used for in games?",
+      "ar": "لماذا تُستخدم آلة الحالات المنتهية في الألعاب؟"
+    },
+    "options": [
+      "Modelling discrete behaviour states and their transitions",
+      "Storing the save file",
+      "Compressing animations",
+      "Balancing the difficulty curve"
+    ],
+    "answer": "Modelling discrete behaviour states and their transitions",
+    "explanation": {
+      "en": "Idle, patrol, chase and attack become explicit, testable states.",
+      "ar": "تصبح حالات السكون والدوريّة والمطاردة والهجوم صريحة وقابلة للاختبار."
+    }
+  },
+  {
+    "id": 58,
+    "category": "systems",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does an entity-component-system separate?",
+      "ar": "ماذا يفصل نظام الكيان-المكوّن (ECS)؟"
+    },
+    "options": [
+      "Data in components from behaviour in systems",
+      "Rendering from audio",
+      "Input from the network layer",
+      "Art assets from code"
+    ],
+    "answer": "Data in components from behaviour in systems",
+    "explanation": {
+      "en": "Composition over inheritance, with cache-friendly data layout.",
+      "ar": "التركيب بدل الوراثة، مع تخطيط بيانات ملائم للذاكرة المؤقتة."
+    }
+  },
+  {
+    "id": 59,
+    "category": "logic",
+    "difficulty": "easy",
+    "codeSnippet": "health = Mathf.Clamp(health, 0, 100);",
+    "question": {
+      "en": "What does this guarantee?",
+      "ar": "ماذا يضمن هذا؟"
+    },
+    "options": [
+      "Health stays within 0 to 100",
+      "Health decreases every frame",
+      "Health resets to 100",
+      "Health can go negative"
+    ],
+    "answer": "Health stays within 0 to 100",
+    "explanation": {
+      "en": "Clamp returns the value limited to the given range.",
+      "ar": "تُرجع Clamp القيمة محصورة داخل المدى المعطى."
+    }
+  },
+  {
+    "id": 60,
+    "category": "ui",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a HUD in a game?",
+      "ar": "ما هي واجهة العرض الأمامية (HUD) في اللعبة؟"
+    },
+    "options": [
+      "An on-screen overlay showing status information",
+      "The main menu scene",
+      "A camera shake effect",
+      "The pause behaviour"
+    ],
+    "answer": "An on-screen overlay showing status information",
+    "explanation": {
+      "en": "Health, ammo and score are drawn over the world without blocking it.",
+      "ar": "تُرسم الصحة والذخيرة والنتيجة فوق العالم دون حجبه."
+    }
+  },
+  {
+    "id": 61,
+    "category": "input",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What problem does input buffering solve?",
+      "ar": "أي مشكلة يحلّها تخزين المدخلات مؤقتًا؟"
+    },
+    "options": [
+      "A press made slightly too early still registers",
+      "Two players sharing one keyboard",
+      "Controller battery drain",
+      "Slow texture loading"
+    ],
+    "answer": "A press made slightly too early still registers",
+    "explanation": {
+      "en": "The input is remembered for a few frames so the action still fires.",
+      "ar": "يُحفظ الإدخال لبضعة إطارات ليُنفَّذ الإجراء رغم توقيته المبكر."
+    }
+  },
+  {
+    "id": 62,
+    "category": "animation",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does interpolating between keyframes produce?",
+      "ar": "ماذا يُنتج الاستيفاء بين الإطارات المفتاحية؟"
+    },
+    "options": [
+      "Smooth in-between motion",
+      "Sharper textures",
+      "Fewer draw calls",
+      "Deterministic physics"
+    ],
+    "answer": "Smooth in-between motion",
+    "explanation": {
+      "en": "The engine generates the frames between the authored poses.",
+      "ar": "يولّد المحرّك الإطارات بين الأوضاع المرسومة."
+    }
+  },
+  {
+    "id": 63,
+    "category": "collision",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a bounding box used for?",
+      "ar": "لماذا يُستخدم الصندوق المحيط؟"
+    },
+    "options": [
+      "A cheap first-pass collision test",
+      "Storing the object's texture",
+      "Lighting the scene",
+      "Playing positional audio"
+    ],
+    "answer": "A cheap first-pass collision test",
+    "explanation": {
+      "en": "Only pairs whose boxes overlap need the expensive exact check.",
+      "ar": "الأزواج المتقاطعة صناديقها فقط تحتاج الاختبار الدقيق المكلف."
+    }
+  },
+  {
+    "id": 64,
+    "category": "collision",
+    "difficulty": "medium",
+    "codeSnippet": "if (Vector2.Distance(a, b) < radius) Hit();",
+    "question": {
+      "en": "What kind of check is this?",
+      "ar": "أي نوع من الفحص هذا؟"
+    },
+    "options": [
+      "A circular proximity check",
+      "An axis-aligned box overlap",
+      "A raycast against geometry",
+      "A pixel-perfect test"
+    ],
+    "answer": "A circular proximity check",
+    "explanation": {
+      "en": "Comparing distance to a radius is a circle/sphere test.",
+      "ar": "مقارنة المسافة بنصف القطر اختبار دائرة أو كرة."
+    }
+  },
+  {
+    "id": 65,
+    "category": "save",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is serialization in a save system?",
+      "ar": "ما التسلسل في نظام الحفظ؟"
+    },
+    "options": [
+      "Converting game state into a storable format",
+      "Compressing the game textures",
+      "Sorting the inventory",
+      "Encrypting network traffic"
+    ],
+    "answer": "Converting game state into a storable format",
+    "explanation": {
+      "en": "The in-memory objects become bytes that can be written and reloaded.",
+      "ar": "تتحول الكائنات في الذاكرة إلى بايتات يمكن كتابتها وإعادة تحميلها."
+    }
+  },
+  {
+    "id": 66,
+    "category": "architecture",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does the observer pattern help avoid?",
+      "ar": "ماذا يساعد نمط المراقب على تجنّبه؟"
+    },
+    "options": [
+      "Tight coupling between the emitter and its listeners",
+      "Memory fragmentation",
+      "Floating-point error",
+      "Texture popping"
+    ],
+    "answer": "Tight coupling between the emitter and its listeners",
+    "explanation": {
+      "en": "The subject broadcasts an event without knowing who is listening.",
+      "ar": "يبثّ المصدر الحدث دون معرفة من يستمع إليه."
+    }
+  },
+  {
+    "id": 67,
+    "category": "timing",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why run physics on a fixed timestep?",
+      "ar": "لماذا نشغّل الفيزياء بخطوة زمنية ثابتة؟"
+    },
+    "options": [
+      "To keep simulation results deterministic",
+      "To raise the frame rate",
+      "To reduce texture memory",
+      "To simplify the UI code"
+    ],
+    "answer": "To keep simulation results deterministic",
+    "explanation": {
+      "en": "Variable steps make the same inputs produce different outcomes.",
+      "ar": "الخطوات المتغيرة تجعل المدخلات ذاتها تنتج نتائج مختلفة."
+    }
+  },
+  {
+    "id": 68,
+    "category": "math",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does normalizing a vector do?",
+      "ar": "ماذا يفعل تطبيع المتجه؟"
+    },
+    "options": [
+      "Keeps its direction and sets its length to 1",
+      "Sets it to zero",
+      "Reverses its direction",
+      "Rounds its components"
+    ],
+    "answer": "Keeps its direction and sets its length to 1",
+    "explanation": {
+      "en": "A unit vector expresses pure direction, which is what movement wants.",
+      "ar": "متجه الوحدة يعبّر عن الاتجاه فقط، وهو المطلوب للحركة."
+    }
+  },
+  {
+    "id": 69,
+    "category": "math",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "For two unit vectors, what is the dot product?",
+      "ar": "لمتجهي وحدة، ما حاصل الضرب النقطي؟"
+    },
+    "options": [
+      "The cosine of the angle between them",
+      "The area they span",
+      "Their combined length",
+      "A vector perpendicular to both"
+    ],
+    "answer": "The cosine of the angle between them",
+    "explanation": {
+      "en": "That makes it a cheap \"is it in front of me?\" test.",
+      "ar": "ما يجعله اختبارًا رخيصًا للسؤال: هل هو أمامي؟"
+    }
+  },
+  {
+    "id": 70,
+    "category": "pathfinding",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does A* add over Dijkstra's algorithm?",
+      "ar": "ماذا يضيف A* على خوارزمية ديكسترا؟"
+    },
+    "options": [
+      "A heuristic estimate of the remaining distance",
+      "Support for negative weights",
+      "Guaranteed constant-time search",
+      "The ability to ignore obstacles"
+    ],
+    "answer": "A heuristic estimate of the remaining distance",
+    "explanation": {
+      "en": "The heuristic steers the search toward the goal, visiting fewer nodes.",
+      "ar": "يوجّه التقدير التقريبي البحث نحو الهدف فيزور عقدًا أقل."
+    }
+  },
+  {
+    "id": 71,
+    "category": "optimization",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is object pooling for?",
+      "ar": "لماذا يُستخدم تجميع الكائنات (pooling)؟"
+    },
+    "options": [
+      "Reusing objects instead of allocating new ones",
+      "Storing objects on disk",
+      "Merging meshes at build time",
+      "Sorting objects by depth"
+    ],
+    "answer": "Reusing objects instead of allocating new ones",
+    "explanation": {
+      "en": "Recycling bullets and particles avoids per-frame allocation and GC spikes.",
+      "ar": "إعادة تدوير الرصاص والجزيئات يمنع التخصيص المتكرر وقفزات جمع المهملات."
+    }
+  },
+  {
+    "id": 72,
+    "category": "scene",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a scene graph?",
+      "ar": "ما هو مخطط المشهد (scene graph)؟"
+    },
+    "options": [
+      "A hierarchy of objects and their transforms",
+      "A graph of frame times",
+      "The list of loaded textures",
+      "The audio mixing routing"
+    ],
+    "answer": "A hierarchy of objects and their transforms",
+    "explanation": {
+      "en": "A child's transform is relative to its parent's.",
+      "ar": "تحويل الابن نسبي إلى تحويل أبيه."
+    }
+  },
+  {
+    "id": 73,
+    "category": "netcode",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does client-side prediction hide?",
+      "ar": "ماذا يخفي التوقّع من جهة العميل؟"
+    },
+    "options": [
+      "Network latency",
+      "Texture loading time",
+      "Physics inaccuracy",
+      "Shader compilation"
+    ],
+    "answer": "Network latency",
+    "explanation": {
+      "en": "The client simulates the move immediately and reconciles with the server later.",
+      "ar": "يحاكي العميل الحركة فورًا ثم يوفّقها مع الخادم لاحقًا."
+    }
   }
 ]

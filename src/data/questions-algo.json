@@ -971,5 +971,554 @@
       "en": "Indexed access is constant time, O(1).",
       "ar": "الوصول بالفهرس زمن ثابت O(1)."
     }
+  },
+  {
+    "id": 55,
+    "category": "complexity",
+    "difficulty": "easy",
+    "codeSnippet": "# Binary search on a sorted array is O(log ____)",
+    "question": {
+      "en": "Fill in the complexity of binary search.",
+      "ar": "أكمل تعقيد البحث الثنائي."
+    },
+    "answer": "n",
+    "accept": [
+      "n"
+    ],
+    "explanation": {
+      "en": "Each step halves the range, giving O(log n).",
+      "ar": "كل خطوة تنصّف المدى فينتج O(log n)."
+    }
+  },
+  {
+    "id": 56,
+    "category": "complexity",
+    "difficulty": "medium",
+    "codeSnippet": "# Merge sort worst case is O(n log ____)",
+    "question": {
+      "en": "Fill in merge sort's worst-case complexity.",
+      "ar": "أكمل تعقيد الفرز بالدمج في أسوأ حالة."
+    },
+    "answer": "n",
+    "accept": [
+      "n"
+    ],
+    "explanation": {
+      "en": "Merge sort always splits and merges: O(n log n).",
+      "ar": "يقسم الفرز بالدمج ويدمج دائمًا: O(n log n)."
+    }
+  },
+  {
+    "id": 57,
+    "category": "complexity",
+    "difficulty": "easy",
+    "codeSnippet": "# Average hash-table lookup is O(____)",
+    "question": {
+      "en": "Fill in the average lookup cost of a hash table.",
+      "ar": "أكمل تكلفة البحث المتوسطة في جدول التجزئة."
+    },
+    "answer": "1",
+    "accept": [
+      "1"
+    ],
+    "explanation": {
+      "en": "Hashing goes straight to a bucket: constant on average.",
+      "ar": "تصل التجزئة إلى السلة مباشرة: ثابت في المتوسط."
+    }
+  },
+  {
+    "id": 58,
+    "category": "complexity",
+    "difficulty": "medium",
+    "codeSnippet": "# Appending to a dynamic array is amortized O(____)",
+    "question": {
+      "en": "Fill in the amortized cost of an append.",
+      "ar": "أكمل التكلفة المُستهلَكة لعملية الإضافة."
+    },
+    "answer": "1",
+    "accept": [
+      "1"
+    ],
+    "explanation": {
+      "en": "Occasional doubling spreads out to constant time per append.",
+      "ar": "المضاعفة العارضة توزّع الكلفة لتصبح ثابتة لكل إضافة."
+    }
+  },
+  {
+    "id": 59,
+    "category": "data-structures",
+    "difficulty": "easy",
+    "codeSnippet": "# A ____ is a first-in, first-out collection",
+    "question": {
+      "en": "Fill in the FIFO data structure.",
+      "ar": "أكمل اسم بنية البيانات التي تعمل بنظام أول داخل أول خارج."
+    },
+    "answer": "queue",
+    "accept": [
+      "queue"
+    ],
+    "explanation": {
+      "en": "A queue removes items in the order they arrived.",
+      "ar": "يُخرج الطابور العناصر بترتيب وصولها."
+    }
+  },
+  {
+    "id": 60,
+    "category": "data-structures",
+    "difficulty": "easy",
+    "codeSnippet": "# A ____ is a last-in, first-out collection",
+    "question": {
+      "en": "Fill in the LIFO data structure.",
+      "ar": "أكمل اسم بنية البيانات التي تعمل بنظام آخر داخل أول خارج."
+    },
+    "answer": "stack",
+    "accept": [
+      "stack"
+    ],
+    "explanation": {
+      "en": "A stack pushes and pops from the same end.",
+      "ar": "تُدفع العناصر وتُسحب من الطرف نفسه في المكدس."
+    }
+  },
+  {
+    "id": 61,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "codeSnippet": "# A binary ____ tree keeps left < node < right",
+    "question": {
+      "en": "Fill in the tree name.",
+      "ar": "أكمل اسم الشجرة."
+    },
+    "answer": "search",
+    "accept": [
+      "search"
+    ],
+    "explanation": {
+      "en": "That ordering is what makes lookups logarithmic.",
+      "ar": "هذا الترتيب هو ما يجعل البحث لوغاريتميًا."
+    }
+  },
+  {
+    "id": 62,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "codeSnippet": "# A hash ____ maps keys to values via a hash function",
+    "question": {
+      "en": "Fill in the structure name.",
+      "ar": "أكمل اسم البنية."
+    },
+    "answer": "table",
+    "accept": [
+      "table",
+      "map"
+    ],
+    "explanation": {
+      "en": "A hash table (or hash map) indexes by hashed key.",
+      "ar": "يفهرس جدول التجزئة بالمفتاح المجزّأ."
+    }
+  },
+  {
+    "id": 63,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "nums.____()  # reverse the list in place",
+    "question": {
+      "en": "Fill in the in-place list method.",
+      "ar": "أكمل دالة القائمة التي تعكسها في مكانها."
+    },
+    "answer": "reverse",
+    "accept": [
+      "reverse"
+    ],
+    "explanation": {
+      "en": "list.reverse() mutates the list and returns None.",
+      "ar": "تعدّل list.reverse() القائمة وتُرجع None."
+    }
+  },
+  {
+    "id": 64,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "words.sort(key=____)  # sort by word length",
+    "question": {
+      "en": "Fill in the key function.",
+      "ar": "أكمل دالة المفتاح."
+    },
+    "answer": "len",
+    "accept": [
+      "len"
+    ],
+    "explanation": {
+      "en": "Passing len as the key sorts by each item's length.",
+      "ar": "تمرير len كمفتاح يرتّب حسب طول كل عنصر."
+    }
+  },
+  {
+    "id": 65,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "list(____(str, [1, 2, 3]))  # -> ['1', '2', '3']",
+    "question": {
+      "en": "Fill in the built-in that applies a function to every item.",
+      "ar": "أكمل الدالة المدمجة التي تطبّق دالة على كل عنصر."
+    },
+    "answer": "map",
+    "accept": [
+      "map"
+    ],
+    "explanation": {
+      "en": "map applies the function lazily to each element.",
+      "ar": "تطبّق map الدالة على كل عنصر بشكل مؤجّل."
+    }
+  },
+  {
+    "id": 66,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "from collections import ____  # dict with automatic defaults",
+    "question": {
+      "en": "Fill in the collections class.",
+      "ar": "أكمل اسم الصنف من collections."
+    },
+    "answer": "defaultdict",
+    "accept": [
+      "defaultdict"
+    ],
+    "explanation": {
+      "en": "defaultdict builds a missing value instead of raising KeyError.",
+      "ar": "تبني defaultdict القيمة المفقودة بدل إطلاق KeyError."
+    }
+  },
+  {
+    "id": 67,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "count = d.____(key, 0)  # read with a fallback",
+    "question": {
+      "en": "Fill in the dict method that returns a default.",
+      "ar": "أكمل دالة القاموس التي تُرجع قيمة افتراضية."
+    },
+    "answer": "get",
+    "accept": [
+      "get"
+    ],
+    "explanation": {
+      "en": "dict.get returns the default instead of raising KeyError.",
+      "ar": "تُرجع dict.get القيمة الافتراضية بدل إطلاق KeyError."
+    }
+  },
+  {
+    "id": 68,
+    "category": "strings",
+    "difficulty": "easy",
+    "codeSnippet": "reversed_text = s[::____]  # reverse a string",
+    "question": {
+      "en": "Fill in the slice step that reverses a string.",
+      "ar": "أكمل خطوة التقطيع التي تعكس النص."
+    },
+    "answer": "-1",
+    "accept": [
+      "-1"
+    ],
+    "explanation": {
+      "en": "A step of -1 walks the sequence backwards.",
+      "ar": "الخطوة -1 تمرّ على التسلسل بالعكس."
+    }
+  },
+  {
+    "id": 69,
+    "category": "strings",
+    "difficulty": "easy",
+    "codeSnippet": "parts = 'a-b-c'.____('-')  # -> ['a', 'b', 'c']",
+    "question": {
+      "en": "Fill in the string method.",
+      "ar": "أكمل دالة النص."
+    },
+    "answer": "split",
+    "accept": [
+      "split"
+    ],
+    "explanation": {
+      "en": "split cuts the string on each separator.",
+      "ar": "تقطع split النص عند كل فاصل."
+    }
+  },
+  {
+    "id": 70,
+    "category": "strings",
+    "difficulty": "easy",
+    "codeSnippet": "line = '-'.____(['a', 'b'])  # -> 'a-b'",
+    "question": {
+      "en": "Fill in the method that joins a list into a string.",
+      "ar": "أكمل الدالة التي تدمج قائمة في نص."
+    },
+    "answer": "join",
+    "accept": [
+      "join"
+    ],
+    "explanation": {
+      "en": "The separator string joins the iterable's items.",
+      "ar": "يدمج نص الفاصل عناصر المُتكرِّر."
+    }
+  },
+  {
+    "id": 71,
+    "category": "strings",
+    "difficulty": "easy",
+    "codeSnippet": "# A word that reads the same both ways is a ____",
+    "question": {
+      "en": "Fill in the term.",
+      "ar": "أكمل المصطلح."
+    },
+    "answer": "palindrome",
+    "accept": [
+      "palindrome"
+    ],
+    "explanation": {
+      "en": "Reversing a palindrome gives the same string back.",
+      "ar": "عكس المتناظر يعطي النص نفسه."
+    }
+  },
+  {
+    "id": 72,
+    "category": "recursion",
+    "difficulty": "easy",
+    "codeSnippet": "def fact(n):\n    return 1 if n <= 1 else n * fact(n - ____)",
+    "question": {
+      "en": "Fill in the recursive step.",
+      "ar": "أكمل خطوة الاستدعاء الذاتي."
+    },
+    "answer": "1",
+    "accept": [
+      "1"
+    ],
+    "explanation": {
+      "en": "Each call shrinks n by one until the base case.",
+      "ar": "كل استدعاء ينقص n بواحد حتى الحالة الأساسية."
+    }
+  },
+  {
+    "id": 73,
+    "category": "recursion",
+    "difficulty": "easy",
+    "codeSnippet": "# The base ____ is what stops a recursive function",
+    "question": {
+      "en": "Fill in the term.",
+      "ar": "أكمل المصطلح."
+    },
+    "answer": "case",
+    "accept": [
+      "case"
+    ],
+    "explanation": {
+      "en": "Without a base case the recursion never terminates.",
+      "ar": "بدون حالة أساسية لا تتوقف العَودية أبدًا."
+    }
+  },
+  {
+    "id": 74,
+    "category": "algorithms",
+    "difficulty": "easy",
+    "codeSnippet": "# ____ search requires the input to be sorted",
+    "question": {
+      "en": "Fill in the search name.",
+      "ar": "أكمل اسم البحث."
+    },
+    "answer": "binary",
+    "accept": [
+      "binary"
+    ],
+    "explanation": {
+      "en": "Halving only works if the data is ordered.",
+      "ar": "التنصيف يعمل فقط إذا كانت البيانات مرتّبة."
+    }
+  },
+  {
+    "id": 75,
+    "category": "algorithms",
+    "difficulty": "medium",
+    "codeSnippet": "# ____ sort repeatedly picks the smallest remaining element",
+    "question": {
+      "en": "Fill in the sort name.",
+      "ar": "أكمل اسم الفرز."
+    },
+    "answer": "selection",
+    "accept": [
+      "selection"
+    ],
+    "explanation": {
+      "en": "Selection sort scans for the minimum each pass.",
+      "ar": "يبحث فرز الاختيار عن الأصغر في كل مرور."
+    }
+  },
+  {
+    "id": 76,
+    "category": "algorithms",
+    "difficulty": "medium",
+    "codeSnippet": "# Two pointers on a sorted array find a pair in O(____)",
+    "question": {
+      "en": "Fill in the complexity.",
+      "ar": "أكمل التعقيد."
+    },
+    "answer": "n",
+    "accept": [
+      "n"
+    ],
+    "explanation": {
+      "en": "Each pointer moves at most n steps in total.",
+      "ar": "يتحرك كل مؤشر n خطوة كحد أقصى إجمالًا."
+    }
+  },
+  {
+    "id": 77,
+    "category": "graphs",
+    "difficulty": "medium",
+    "codeSnippet": "# ____ explores a graph level by level using a queue",
+    "question": {
+      "en": "Fill in the traversal (abbreviation is fine).",
+      "ar": "أكمل اسم الاجتياز (الاختصار مقبول)."
+    },
+    "answer": "BFS",
+    "accept": [
+      "bfs",
+      "breadth-first search",
+      "breadth first search"
+    ],
+    "explanation": {
+      "en": "Breadth-first search visits all neighbours before going deeper.",
+      "ar": "يزور البحث بالعرض كل الجيران قبل التعمّق."
+    }
+  },
+  {
+    "id": 78,
+    "category": "graphs",
+    "difficulty": "medium",
+    "codeSnippet": "# ____ goes as deep as possible before backtracking",
+    "question": {
+      "en": "Fill in the traversal (abbreviation is fine).",
+      "ar": "أكمل اسم الاجتياز (الاختصار مقبول)."
+    },
+    "answer": "DFS",
+    "accept": [
+      "dfs",
+      "depth-first search",
+      "depth first search"
+    ],
+    "explanation": {
+      "en": "Depth-first search uses a stack or recursion.",
+      "ar": "يستخدم البحث بالعمق مكدسًا أو العَودية."
+    }
+  },
+  {
+    "id": 79,
+    "category": "graphs",
+    "difficulty": "hard",
+    "codeSnippet": "# ____'s algorithm finds shortest paths with non-negative weights",
+    "question": {
+      "en": "Fill in the algorithm's name.",
+      "ar": "أكمل اسم الخوارزمية."
+    },
+    "answer": "Dijkstra",
+    "accept": [
+      "dijkstra",
+      "dijkstras",
+      "dijkstra's"
+    ],
+    "explanation": {
+      "en": "Dijkstra greedily expands the closest unvisited node.",
+      "ar": "توسّع ديكسترا بجَشَع أقرب عقدة غير مزارة."
+    }
+  },
+  {
+    "id": 80,
+    "category": "dynamic-programming",
+    "difficulty": "medium",
+    "codeSnippet": "# Caching subproblem results is called ____",
+    "question": {
+      "en": "Fill in the technique.",
+      "ar": "أكمل اسم الأسلوب."
+    },
+    "answer": "memoization",
+    "accept": [
+      "memoization",
+      "memoisation"
+    ],
+    "explanation": {
+      "en": "Memoization trades memory for avoided recomputation.",
+      "ar": "تستبدل الحفظ المؤقت الذاكرة بتجنّب إعادة الحساب."
+    }
+  },
+  {
+    "id": 81,
+    "category": "bit-manipulation",
+    "difficulty": "medium",
+    "codeSnippet": "x & (x - ____)  # clears the lowest set bit",
+    "question": {
+      "en": "Fill in the constant.",
+      "ar": "أكمل الثابت."
+    },
+    "answer": "1",
+    "accept": [
+      "1"
+    ],
+    "explanation": {
+      "en": "x & (x-1) removes the rightmost 1 bit.",
+      "ar": "تحذف x & (x-1) أقصى بت يميني بقيمة واحد."
+    }
+  },
+  {
+    "id": 82,
+    "category": "bit-manipulation",
+    "difficulty": "medium",
+    "codeSnippet": "doubled = n ____ 1  # multiply by two with a shift",
+    "question": {
+      "en": "Fill in the operator.",
+      "ar": "أكمل المُعامل."
+    },
+    "answer": "<<",
+    "accept": [
+      "<<"
+    ],
+    "explanation": {
+      "en": "A left shift by one doubles an integer.",
+      "ar": "الإزاحة لليسار بواحد تضاعف العدد الصحيح."
+    }
+  },
+  {
+    "id": 83,
+    "category": "math",
+    "difficulty": "hard",
+    "codeSnippet": "# Euclid: gcd(a, b) == gcd(b, a ____ b)",
+    "question": {
+      "en": "Fill in the operator.",
+      "ar": "أكمل المُعامل."
+    },
+    "answer": "%",
+    "accept": [
+      "%",
+      "mod"
+    ],
+    "explanation": {
+      "en": "The remainder shrinks the pair until b is zero.",
+      "ar": "يقلّص الباقي الزوج حتى يصبح b صفرًا."
+    }
+  },
+  {
+    "id": 84,
+    "category": "patterns",
+    "difficulty": "easy",
+    "codeSnippet": "# The ____ pattern allows only one instance of a class",
+    "question": {
+      "en": "Fill in the pattern name.",
+      "ar": "أكمل اسم النمط."
+    },
+    "answer": "singleton",
+    "accept": [
+      "singleton"
+    ],
+    "explanation": {
+      "en": "A singleton exposes one shared instance globally.",
+      "ar": "يوفّر النمط المفرد نسخة مشتركة واحدة عالميًا."
+    }
   }
 ]

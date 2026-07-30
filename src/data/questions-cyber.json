@@ -2308,5 +2308,467 @@
       "en": "Hashes are one-way and verify data integrity.",
       "ar": "التجزئات أحادية الاتجاه وتتحقق من سلامة البيانات."
     }
+  },
+  {
+    "id": 111,
+    "category": "nmap",
+    "difficulty": "easy",
+    "codeSnippet": "nmap -sV 10.0.0.5",
+    "question": {
+      "en": "What does the -sV flag add to this scan?",
+      "ar": "ماذا تضيف الراية -sV إلى هذا الفحص؟"
+    },
+    "options": [
+      "Service and version detection",
+      "A ping sweep only",
+      "An OS-only scan",
+      "UDP port scanning"
+    ],
+    "answer": "Service and version detection",
+    "explanation": {
+      "en": "-sV probes open ports to identify the service and its version.",
+      "ar": "تستكشف -sV المنافذ المفتوحة لتحديد الخدمة وإصدارها."
+    }
+  },
+  {
+    "id": 112,
+    "category": "nmap",
+    "difficulty": "medium",
+    "codeSnippet": "nmap -p- 10.0.0.5",
+    "question": {
+      "en": "How many TCP ports does -p- scan?",
+      "ar": "كم منفذ TCP يفحصه الخيار -p-؟"
+    },
+    "options": [
+      "All 65535 ports",
+      "The top 1000 ports",
+      "Only port 80",
+      "Only privileged ports"
+    ],
+    "answer": "All 65535 ports",
+    "explanation": {
+      "en": "-p- is shorthand for the full 1-65535 TCP range.",
+      "ar": "الخيار -p- اختصار للمدى الكامل 1-65535 من منافذ TCP."
+    }
+  },
+  {
+    "id": 113,
+    "category": "nmap",
+    "difficulty": "medium",
+    "codeSnippet": "nmap -sn 192.168.1.0/24",
+    "question": {
+      "en": "What is this command doing?",
+      "ar": "ماذا يفعل هذا الأمر؟"
+    },
+    "options": [
+      "Discovering live hosts without scanning ports",
+      "Scanning every port on every host",
+      "Fingerprinting operating systems",
+      "Brute-forcing SSH logins"
+    ],
+    "answer": "Discovering live hosts without scanning ports",
+    "explanation": {
+      "en": "-sn is a host-discovery (ping) sweep with the port scan disabled.",
+      "ar": "الخيار -sn مسح لاكتشاف المضيفين مع تعطيل فحص المنافذ."
+    }
+  },
+  {
+    "id": 114,
+    "category": "nmap",
+    "difficulty": "medium",
+    "codeSnippet": "nmap -O 10.0.0.5",
+    "question": {
+      "en": "What does -O attempt?",
+      "ar": "ماذا يحاول الخيار -O؟"
+    },
+    "options": [
+      "Operating system fingerprinting",
+      "Opening a reverse shell",
+      "Writing output to a file",
+      "Scanning only open ports"
+    ],
+    "answer": "Operating system fingerprinting",
+    "explanation": {
+      "en": "-O guesses the OS from TCP/IP stack behaviour.",
+      "ar": "يخمّن -O نظام التشغيل من سلوك حزمة TCP/IP."
+    }
+  },
+  {
+    "id": 115,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "hydra -l admin -P rockyou.txt ssh://10.0.0.5",
+    "question": {
+      "en": "What is this command doing?",
+      "ar": "ماذا يفعل هذا الأمر؟"
+    },
+    "options": [
+      "Brute-forcing SSH credentials from a wordlist",
+      "Encrypting an SSH key",
+      "Capturing network packets",
+      "Scanning for open ports"
+    ],
+    "answer": "Brute-forcing SSH credentials from a wordlist",
+    "explanation": {
+      "en": "hydra tries each password in the list against the SSH service.",
+      "ar": "يجرّب hydra كل كلمة مرور في القائمة على خدمة SSH."
+    }
+  },
+  {
+    "id": 116,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "john --wordlist=rockyou.txt hashes.txt",
+    "question": {
+      "en": "What does John the Ripper do here?",
+      "ar": "ماذا يفعل John the Ripper هنا؟"
+    },
+    "options": [
+      "Cracks password hashes offline",
+      "Sniffs credentials off the wire",
+      "Exploits a remote service",
+      "Generates a TLS certificate"
+    ],
+    "answer": "Cracks password hashes offline",
+    "explanation": {
+      "en": "It hashes each candidate word and compares it to the stored hashes.",
+      "ar": "يجزّئ كل كلمة مرشّحة ويقارنها بالتجزئات المخزّنة."
+    }
+  },
+  {
+    "id": 117,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "tcpdump -i eth0 port 80 -w capture.pcap",
+    "question": {
+      "en": "What is captured here?",
+      "ar": "ما الذي يُلتقط هنا؟"
+    },
+    "options": [
+      "Port 80 traffic on eth0, saved to a file",
+      "All traffic on every interface",
+      "Only outgoing DNS queries",
+      "Kernel log messages"
+    ],
+    "answer": "Port 80 traffic on eth0, saved to a file",
+    "explanation": {
+      "en": "-i picks the interface, the filter limits it to port 80, -w writes a pcap.",
+      "ar": "يحدّد -i الواجهة، والمُرشِّح يقصره على المنفذ 80، و-w يكتب ملف pcap."
+    }
+  },
+  {
+    "id": 118,
+    "category": "tools",
+    "difficulty": "hard",
+    "codeSnippet": "openssl s_client -connect example.com:443",
+    "question": {
+      "en": "What does this command inspect?",
+      "ar": "ماذا يفحص هذا الأمر؟"
+    },
+    "options": [
+      "The TLS handshake and certificate chain",
+      "Open UDP ports",
+      "The server's password policy",
+      "DNS zone records"
+    ],
+    "answer": "The TLS handshake and certificate chain",
+    "explanation": {
+      "en": "s_client opens a TLS connection and prints the negotiated certificate chain.",
+      "ar": "يفتح s_client اتصال TLS ويطبع سلسلة الشهادات المتفاوض عليها."
+    }
+  },
+  {
+    "id": 119,
+    "category": "web",
+    "difficulty": "easy",
+    "codeSnippet": "' OR '1'='1' --",
+    "question": {
+      "en": "Which attack does this payload represent?",
+      "ar": "أي هجوم يمثّله هذا الحمل؟"
+    },
+    "options": [
+      "SQL injection",
+      "Cross-site scripting",
+      "Path traversal",
+      "CSRF"
+    ],
+    "answer": "SQL injection",
+    "explanation": {
+      "en": "It closes the quote and appends an always-true condition to the query.",
+      "ar": "يغلق علامة التنصيص ويضيف شرطًا صحيحًا دائمًا إلى الاستعلام."
+    }
+  },
+  {
+    "id": 120,
+    "category": "web",
+    "difficulty": "easy",
+    "codeSnippet": "<script>alert(1)</script>",
+    "question": {
+      "en": "Which vulnerability does this test for?",
+      "ar": "عن أي ثغرة يختبر هذا؟"
+    },
+    "options": [
+      "Cross-site scripting (XSS)",
+      "SQL injection",
+      "Buffer overflow",
+      "DNS spoofing"
+    ],
+    "answer": "Cross-site scripting (XSS)",
+    "explanation": {
+      "en": "Unescaped output lets attacker script run in the victim's browser.",
+      "ar": "الإخراج غير المُهرَّب يسمح بتشغيل سكربت المهاجم في متصفح الضحية."
+    }
+  },
+  {
+    "id": 121,
+    "category": "web",
+    "difficulty": "medium",
+    "codeSnippet": "GET /download?file=../../etc/passwd",
+    "question": {
+      "en": "Which attack is this?",
+      "ar": "ما هذا الهجوم؟"
+    },
+    "options": [
+      "Path traversal",
+      "Open redirect",
+      "Clickjacking",
+      "Session fixation"
+    ],
+    "answer": "Path traversal",
+    "explanation": {
+      "en": "../ sequences escape the intended directory to read arbitrary files.",
+      "ar": "تتيح تسلسلات ../ الخروج من المجلد المقصود لقراءة ملفات عشوائية."
+    }
+  },
+  {
+    "id": 122,
+    "category": "web",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which response header forces browsers to use HTTPS only?",
+      "ar": "أي ترويسة استجابة تُلزم المتصفح باستخدام HTTPS فقط؟"
+    },
+    "options": [
+      "Strict-Transport-Security",
+      "X-Frame-Options",
+      "Content-Encoding",
+      "Accept-Language"
+    ],
+    "answer": "Strict-Transport-Security",
+    "explanation": {
+      "en": "HSTS tells the browser to refuse plaintext HTTP for the domain.",
+      "ar": "تخبر HSTS المتصفح برفض HTTP غير المشفّر لهذا النطاق."
+    }
+  },
+  {
+    "id": 123,
+    "category": "web",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a CSRF attack abuse?",
+      "ar": "ما الذي يستغله هجوم CSRF؟"
+    },
+    "options": [
+      "The victim's already-authenticated session",
+      "A weak hashing algorithm",
+      "An open TCP port",
+      "A missing database index"
+    ],
+    "answer": "The victim's already-authenticated session",
+    "explanation": {
+      "en": "The browser attaches the victim's cookies to the attacker's forged request.",
+      "ar": "يُرفق المتصفح كوكيز الضحية بالطلب المزيّف الذي أعدّه المهاجم."
+    }
+  },
+  {
+    "id": 124,
+    "category": "concepts",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is the principle of least privilege?",
+      "ar": "ما مبدأ الحد الأدنى من الصلاحيات؟"
+    },
+    "options": [
+      "Grant only the access a task requires",
+      "Give admins access to everything",
+      "Encrypt every file on disk",
+      "Rotate passwords every day"
+    ],
+    "answer": "Grant only the access a task requires",
+    "explanation": {
+      "en": "Least privilege limits the damage a compromised account can do.",
+      "ar": "يحدّ المبدأ من الضرر الذي يسببه حساب مُخترق."
+    }
+  },
+  {
+    "id": 125,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which of these is asymmetric encryption?",
+      "ar": "أي من هذه تشفير غير متماثل؟"
+    },
+    "options": [
+      "RSA",
+      "AES",
+      "SHA-256",
+      "HMAC"
+    ],
+    "answer": "RSA",
+    "explanation": {
+      "en": "RSA uses a public/private key pair; AES is symmetric and SHA-256 is a hash.",
+      "ar": "يستخدم RSA زوج مفاتيح عام وخاص، أما AES متماثل وSHA-256 دالة تجزئة."
+    }
+  },
+  {
+    "id": 126,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does salting a password hash prevent?",
+      "ar": "ماذا يمنع إضافة مِلح لتجزئة كلمة المرور؟"
+    },
+    "options": [
+      "Precomputed rainbow-table lookups",
+      "Brute-force attempts entirely",
+      "Network eavesdropping",
+      "SQL injection"
+    ],
+    "answer": "Precomputed rainbow-table lookups",
+    "explanation": {
+      "en": "A unique salt per user makes precomputed hash tables useless.",
+      "ar": "المِلح الفريد لكل مستخدم يجعل جداول التجزئة المحسوبة مسبقًا بلا فائدة."
+    }
+  },
+  {
+    "id": 127,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is privilege escalation?",
+      "ar": "ما تصعيد الصلاحيات؟"
+    },
+    "options": [
+      "Gaining permissions beyond those granted",
+      "Resetting a forgotten password",
+      "Encrypting traffic end to end",
+      "Load balancing between servers"
+    ],
+    "answer": "Gaining permissions beyond those granted",
+    "explanation": {
+      "en": "An attacker moves from a limited account to an administrative one.",
+      "ar": "ينتقل المهاجم من حساب محدود إلى حساب إداري."
+    }
+  },
+  {
+    "id": 128,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a web application firewall do?",
+      "ar": "ماذا يفعل جدار حماية تطبيقات الويب؟"
+    },
+    "options": [
+      "Inspects and filters malicious HTTP requests",
+      "Encrypts the database at rest",
+      "Assigns IP addresses to clients",
+      "Compiles application code"
+    ],
+    "answer": "Inspects and filters malicious HTTP requests",
+    "explanation": {
+      "en": "A WAF sits in front of the app and blocks known attack patterns.",
+      "ar": "يقف WAF أمام التطبيق ويحجب أنماط الهجوم المعروفة."
+    }
+  },
+  {
+    "id": 129,
+    "category": "malware",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What defines ransomware?",
+      "ar": "ما الذي يُعرِّف برامج الفدية؟"
+    },
+    "options": [
+      "It encrypts data and demands payment",
+      "It silently mines cryptocurrency",
+      "It only spreads over USB drives",
+      "It replaces the login screen"
+    ],
+    "answer": "It encrypts data and demands payment",
+    "explanation": {
+      "en": "Ransomware denies access to your own files until a ransom is paid.",
+      "ar": "تمنع برامج الفدية الوصول إلى ملفاتك حتى تُدفع الفدية."
+    }
+  },
+  {
+    "id": 130,
+    "category": "malware",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a rootkit's main goal?",
+      "ar": "ما الهدف الرئيسي للـ rootkit؟"
+    },
+    "options": [
+      "Hide its presence while keeping privileged access",
+      "Encrypt user documents",
+      "Flood a target with traffic",
+      "Harvest email addresses only"
+    ],
+    "answer": "Hide its presence while keeping privileged access",
+    "explanation": {
+      "en": "Rootkits tamper with the OS so tools no longer report them.",
+      "ar": "تتلاعب الـ rootkits بنظام التشغيل حتى لا تُظهرها الأدوات."
+    }
+  },
+  {
+    "id": 131,
+    "category": "metasploit",
+    "difficulty": "medium",
+    "codeSnippet": "use exploit/windows/smb/ms17_010_eternalblue",
+    "question": {
+      "en": "What does this line do in msfconsole?",
+      "ar": "ماذا يفعل هذا السطر في msfconsole؟"
+    },
+    "options": [
+      "Selects an SMB exploit module",
+      "Starts a packet capture",
+      "Scans a subnet for hosts",
+      "Generates a wordlist"
+    ],
+    "answer": "Selects an SMB exploit module",
+    "explanation": {
+      "en": "`use` loads a module so its options can be configured and run.",
+      "ar": "يحمّل `use` وحدة لتهيئة خياراتها وتشغيلها."
+    }
+  },
+  {
+    "id": 132,
+    "category": "metasploit",
+    "difficulty": "medium",
+    "codeSnippet": "set LHOST 10.0.0.2",
+    "question": {
+      "en": "What is LHOST?",
+      "ar": "ما هو LHOST؟"
+    },
+    "options": [
+      "The attacker address the payload connects back to",
+      "The victim's IP address",
+      "The exploit's target port",
+      "The name of the payload file"
+    ],
+    "answer": "The attacker address the payload connects back to",
+    "explanation": {
+      "en": "LHOST is the local listener address for a reverse connection.",
+      "ar": "LHOST هو عنوان المستقبل المحلي للاتصال العكسي."
+    }
   }
 ]

@@ -38,7 +38,7 @@ app.whenReady().then(async () => {
   await sleep(300);
   await run("window.SUPABASE_CONFIG = { url: '', anonKey: '' }; 'ok'");
   await run("localStorage.setItem('gtl_settings', JSON.stringify({questions:15, sound:false, difficulty:'all', name:'Tester'})); 'ok'");
-  await run("window.__GTL_QTIME=1; var n=document.querySelector('#set-name'); n.value='Tester'; n.dispatchEvent(new Event('input')); 'ok'");
+  await run("window.__GTL_QTIME=1; window.__GTL_FEEDBACK_MS=100; var n=document.querySelector('#set-name'); n.value='Tester'; n.dispatchEvent(new Event('input')); 'ok'");
 
   try {
     await run("document.querySelector('.mode-card[data-mode=\"cybersecurity\"]').click(); 'ok'");

@@ -3648,5 +3648,185 @@
       "en": "The [ -f ... ] file test is Bash.",
       "ar": "اختبار الملف [ -f ... ] من Bash."
     }
+  },
+  {
+    "id": 366,
+    "correctLanguage": "TypeScript",
+    "difficulty": "hard",
+    "codeSnippet": "const config = data as Record<string, unknown>;",
+    "explanation": {
+      "en": "The `as` cast with the Record utility type is TypeScript.",
+      "ar": "التحويل بـ `as` مع النوع المساعد Record من TypeScript."
+    }
+  },
+  {
+    "id": 367,
+    "correctLanguage": "C",
+    "difficulty": "medium",
+    "codeSnippet": "char *buf = malloc(64 * sizeof(char));",
+    "explanation": {
+      "en": "malloc assigned without a cast compiles in C, not C++.",
+      "ar": "إسناد malloc بدون تحويل نوع صحيح في C وليس C++."
+    }
+  },
+  {
+    "id": 368,
+    "correctLanguage": "C",
+    "difficulty": "medium",
+    "codeSnippet": "struct Node {\n    int value;\n    struct Node *next;\n};",
+    "explanation": {
+      "en": "Repeating the `struct` keyword inside the definition is C.",
+      "ar": "تكرار الكلمة `struct` داخل التعريف من سمات C."
+    }
+  },
+  {
+    "id": 369,
+    "correctLanguage": "C",
+    "difficulty": "hard",
+    "codeSnippet": "void swap(int *a, int *b) {\n    int t = *a; *a = *b; *b = t;\n}",
+    "explanation": {
+      "en": "Explicit pointer parameters with no references is C.",
+      "ar": "معاملات مؤشرات صريحة بدون مراجع تدل على C."
+    }
+  },
+  {
+    "id": 370,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "var items = new List<string> { \"a\", \"b\" };",
+    "explanation": {
+      "en": "`var` plus a collection initializer on List<T> is C#.",
+      "ar": "`var` مع مُهيِّئ مجموعة على List<T> من C#."
+    }
+  },
+  {
+    "id": 371,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "public async Task<int> LoadAsync() => await FetchAsync();",
+    "explanation": {
+      "en": "Task<int> with an expression-bodied member is C#.",
+      "ar": "Task<int> مع عضو بجسم تعبيري من C#."
+    }
+  },
+  {
+    "id": 372,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "public int Count { get; private set; }",
+    "explanation": {
+      "en": "An auto-property with accessors is C# syntax.",
+      "ar": "خاصية تلقائية مع مُوصِّلات من صياغة C#."
+    }
+  },
+  {
+    "id": 373,
+    "correctLanguage": "Kotlin",
+    "difficulty": "medium",
+    "codeSnippet": "val names = listOf(\"ali\", \"sara\")",
+    "explanation": {
+      "en": "`val` with listOf() is Kotlin.",
+      "ar": "`val` مع listOf() من Kotlin."
+    }
+  },
+  {
+    "id": 374,
+    "correctLanguage": "Kotlin",
+    "difficulty": "medium",
+    "codeSnippet": "data class Point(val x: Int, val y: Int)",
+    "explanation": {
+      "en": "`data class` exists only in Kotlin here.",
+      "ar": "`data class` موجودة في Kotlin فقط هنا."
+    }
+  },
+  {
+    "id": 375,
+    "correctLanguage": "Swift",
+    "difficulty": "easy",
+    "codeSnippet": "let greeting = \"Hello, \\(name)!\"",
+    "explanation": {
+      "en": "String interpolation with \\( ) is Swift.",
+      "ar": "تضمين النص باستخدام \\( ) من Swift."
+    }
+  },
+  {
+    "id": 376,
+    "correctLanguage": "Ruby",
+    "difficulty": "medium",
+    "codeSnippet": "def greet(name)\n  \"Hi #{name}\"\nend",
+    "explanation": {
+      "en": "def ... end with #{} interpolation is Ruby.",
+      "ar": "def ... end مع التضمين #{} من Ruby."
+    }
+  },
+  {
+    "id": 377,
+    "correctLanguage": "PHP",
+    "difficulty": "medium",
+    "codeSnippet": "foreach ($items as $key => $value) {\n    echo $key;\n}",
+    "explanation": {
+      "en": "foreach ($a as $k => $v) is PHP syntax.",
+      "ar": "الصياغة foreach ($a as $k => $v) من PHP."
+    }
+  },
+  {
+    "id": 378,
+    "correctLanguage": "SQL",
+    "difficulty": "easy",
+    "codeSnippet": "SELECT name FROM users WHERE age > 18 ORDER BY name;",
+    "explanation": {
+      "en": "SELECT ... FROM ... WHERE is SQL.",
+      "ar": "SELECT ... FROM ... WHERE من SQL."
+    }
+  },
+  {
+    "id": 379,
+    "correctLanguage": "SQL",
+    "difficulty": "medium",
+    "codeSnippet": "SELECT u.name, o.total\nFROM users u\nINNER JOIN orders o ON o.user_id = u.id;",
+    "explanation": {
+      "en": "An INNER JOIN with table aliases is SQL.",
+      "ar": "INNER JOIN مع أسماء مستعارة للجداول من SQL."
+    }
+  },
+  {
+    "id": 380,
+    "correctLanguage": "SQL",
+    "difficulty": "medium",
+    "codeSnippet": "SELECT department, COUNT(*)\nFROM staff\nGROUP BY department\nHAVING COUNT(*) > 5;",
+    "explanation": {
+      "en": "GROUP BY with HAVING is SQL.",
+      "ar": "GROUP BY مع HAVING من SQL."
+    }
+  },
+  {
+    "id": 381,
+    "correctLanguage": "Bash",
+    "difficulty": "easy",
+    "codeSnippet": "for f in *.txt; do\n  mv \"$f\" \"${f%.txt}.md\"\ndone",
+    "explanation": {
+      "en": "for ... do ... done with ${var%pattern} is Bash.",
+      "ar": "for ... do ... done مع ${var%pattern} من Bash."
+    }
+  },
+  {
+    "id": 382,
+    "correctLanguage": "Bash",
+    "difficulty": "medium",
+    "codeSnippet": "if [[ -z \"$1\" ]]; then\n  echo \"usage: $0 <file>\"\n  exit 1\nfi",
+    "explanation": {
+      "en": "The [[ ... ]] test and $0/$1 positionals are Bash.",
+      "ar": "الاختبار [[ ... ]] والوسائط $0/$1 من Bash."
+    }
+  },
+  {
+    "id": 383,
+    "correctLanguage": "Bash",
+    "difficulty": "medium",
+    "codeSnippet": "count=$(grep -rc \"TODO\" . | wc -l)",
+    "explanation": {
+      "en": "Command substitution $( ) piping into wc is Bash.",
+      "ar": "استبدال الأوامر $( ) مع التمرير إلى wc من Bash."
+    }
   }
 ]

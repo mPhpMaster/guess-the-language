@@ -3,7 +3,13 @@
    Dark navy + neon, matching the provided mockups.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("assets/fonts/PlusJakartaSans-wght.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+}
 
 :root {
   --bg-0: #07111e;
@@ -31,13 +37,15 @@
 
 html, body {
   min-height: 100%;
-  font-family: "Segoe UI", "Tahoma", system-ui, sans-serif;
+  font-family: "Plus Jakarta Sans", "Segoe UI", "Tahoma", system-ui, sans-serif;
   color: var(--text);
   background: radial-gradient(circle at top, rgba(48, 150, 255, 0.16), transparent 28%),
               linear-gradient(180deg, #07111e 0%, #091b30 45%, #081823 100%);
   overflow: hidden;
-  user-select: none;
 }
+
+button, .titlebar, .timer-ring { user-select: none; }
+pre, code, input, textarea, .challenge-link, .lobby-code, .toast, .review-item { user-select: text; }
 
 /* Animated abstract background */
 body::before {
@@ -1126,6 +1134,34 @@ html, body { min-height: 100%; overflow: hidden; }
 .mp-player-list-compact { flex: 1; flex-direction: row; flex-wrap: wrap; max-height: none; gap: 6px; }
 .mp-player-list-compact .mp-player-row { padding: 6px 10px; font-size: 13px; }
 .mp-player-list-compact .mp-player-avatar { font-size: 14px; width: 24px; height: 24px; }
+
+/* Player rows open the player card (round / score / mode / invite). */
+.mp-player-row.is-clickable { cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+.mp-player-row.is-clickable:hover { background: #122b45; border-color: #2ec5ff44; }
+.mp-player-row.is-clickable:focus-visible { outline: 2px solid var(--neon); outline-offset: 2px; }
+
+.player-card-head { display: flex; align-items: center; gap: 12px; margin: 4px 0 14px; }
+.player-card-avatar {
+  font-size: 22px; width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; background: #0e2238;
+}
+.player-card-avatar-img {
+  width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+  box-shadow: inset 0 0 0 2px #2ec5ff55;
+}
+.player-card-name { flex: 1; font-weight: 700; font-size: 17px; text-align: start; }
+.player-card-stats { display: flex; flex-direction: column; gap: 8px; margin: 0; }
+.player-card-stat {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: #0e2238; border: 1px solid #ffffff12; border-radius: 10px; padding: 9px 12px;
+}
+.player-card-stat dt { color: var(--muted); font-size: 13px; margin: 0; }
+.player-card-stat dd { margin: 0; font-weight: 700; font-size: 14px; color: var(--neon); }
+/* Short viewports (a Discord mobile embed, a small window): bound the card and
+   scroll only the stats, so the name and the Invite / Close actions stay on
+   screen instead of being pushed past the bottom edge. */
+#player-card .modal-card { max-height: min(92vh, 660px); }
+#player-card .player-card-stats { overflow-y: auto; min-height: 0; }
 .modal {
   backdrop-filter: blur(12px);
   background-color: rgba(2, 6, 23, 0.85);
@@ -1305,93 +1341,222 @@ html, body { min-height: 100%; overflow: hidden; }
 
 .hidden { display: none !important; }
 
-/* ===================== Mobile Optimization (≤768px) ===================== */
+/* ===================== UX modernization ===================== */
+[hidden], dialog:not([open]) { display: none !important; }
+.screen[aria-hidden="true"] { display: none !important; }
+#screen-home { min-height: 0; height: 100%; overflow-y: auto; }
+.home-title:focus, .screen-heading:focus { outline: none; }
+.mode-card-all { grid-column: 1 / -1; width: min(320px, 100%); justify-self: center; }
+
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+:where(button, a, input, select, textarea, summary):focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px #2ec5ff88 !important;
+}
+
+dialog.popover,
+dialog.modal {
+  color: var(--text);
+  margin: auto;
+  max-height: min(calc(100dvh - 32px), 760px);
+  overflow-y: auto;
+}
+dialog.popover {
+  position: fixed;
+  inset: 0;
+  top: 0;
+  left: 0;
+  transform: none;
+  width: min(94vw, 460px);
+  height: max-content;
+}
+dialog.popover[open] { display: block; }
+dialog.modal {
+  position: fixed;
+  inset: 0;
+  width: min(94vw, 460px);
+  height: max-content;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+dialog.modal[open] { display: block; }
+dialog.modal .modal-card { width: 100%; max-width: 100%; }
+dialog::backdrop { background: rgba(2, 8, 18, 0.78); backdrop-filter: blur(5px); }
+.dialog-description, .discord-name-note, .auth-hint { color: var(--muted); font-size: 13px; line-height: 1.5; }
+.setting-row > span { flex: 0 1 auto; }
+.auth-hint { max-width: 540px; margin: 0 auto 12px; }
+.auth-error { display: flex; align-items: center; gap: 10px; color: #ffafbd; margin: 0 auto 10px; }
+.text-btn { border: 0; background: transparent; color: var(--neon); cursor: pointer; font: inherit; text-decoration: underline; }
+.report-details-label { display: grid; gap: 8px; margin-top: 14px; text-align: start; }
+.report-details-label textarea {
+  resize: vertical; background: #0a1828; color: var(--text); border: 1px solid #ffffff22;
+  border-radius: 10px; padding: 10px; font: inherit;
+}
+
+.mode-card { position: relative; }
+.mode-card.selected::after {
+  content: "✓";
+  position: absolute;
+  top: 10px;
+  inset-inline-end: 10px;
+  display: grid;
+  place-items: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  color: #06131f;
+  background: var(--neon);
+  font-weight: 900;
+}
+.auth-locked { border-color: #5865f277 !important; }
+
+.feedback-panel {
+  position: absolute;
+  inset-inline: 14px;
+  bottom: 12px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.feedback-panel .toast { position: static; flex: 1; margin: 0; opacity: 1; }
+.feedback-panel #btn-next { flex: 0 0 auto; white-space: nowrap; }
+
+.result-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 16px 0;
+}
+.result-stats > div, .personal-result {
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+  border: 1px solid #ffffff14;
+  border-radius: 12px;
+  background: #0a1828aa;
+}
+.result-stats strong { color: var(--neon); font-size: 20px; }
+.result-stats span { color: var(--muted); font-size: 12px; }
+.personal-result { color: var(--gold-1); margin-bottom: 12px; }
+.answer-review { margin-top: 18px; text-align: start; border-top: 1px solid #ffffff18; padding-top: 14px; }
+.answer-review summary { cursor: pointer; color: var(--neon); font-weight: 700; }
+.review-item { margin-top: 12px; padding: 14px; border-radius: 12px; background: #081625; border: 1px solid #ffffff12; }
+.review-item h4 { margin-bottom: 8px; }
+.review-item pre { overflow-x: auto; padding: 10px; background: #050d17; border-radius: 8px; white-space: pre-wrap; }
+.review-item p { margin-top: 8px; color: var(--muted); }
+.review-explanation { color: #c8e8f8 !important; }
+.lb-row { position: relative; }
+.lb-bar-fill { width: 30%; color: #07111e; }
+.lb-report { flex: 0 0 auto; padding: 7px; font-size: 12px; }
+
 @media (max-width: 768px) {
-  :root {
-    font-size: 12px !important;
-    --accent-blue: #3b82f6;
-    --bg-dark: #0b1120;
-    --card-bg: rgba(30, 41, 59, 0.7);
+  html, body { height: 100%; overflow: hidden !important; }
+  #app { height: calc(100dvh - var(--tb-h)); min-height: 0; overflow: hidden; }
+  .screen.active { overflow-y: auto; overscroll-behavior: contain; justify-content: flex-start; }
+
+  #screen-home {
+    min-height: 0;
+    height: 100%;
+    overflow-y: auto;
+    justify-content: flex-start;
+    padding: 54px 12px calc(94px + env(safe-area-inset-bottom));
   }
-
-  /* 2. Global Viewport Constraints */
-  body {
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
-    background-color: var(--bg-dark) !important;
-    overflow: hidden !important;
+  .home-title { display: block !important; font-size: clamp(24px, 8vw, 32px); margin-bottom: 4px; }
+  .home-sub { margin-bottom: 12px; font-size: 13px; }
+  #screen-home .mode-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    max-width: 640px;
   }
-
-  /* 3. Game Screen Flex-Layout Fix */
-  #screen-game {
-    display: flex !important;
-    flex-direction: column !important;
-    height: 100vh !important;
-    padding: 10px !important;
-    box-sizing: border-box !important;
+  #screen-home .mode-card {
+    height: auto;
+    min-height: 112px;
+    padding: 14px 10px;
+    border-radius: 16px;
+    justify-content: center;
   }
-
-  .game-body {
-    flex: 1 !important;
-    min-height: 0 !important;
-    overflow: hidden !important;
-    margin-bottom: 10px !important;
+  #screen-home .mode-card-all { grid-column: 1 / -1; width: min(50%, 180px); }
+  #screen-home .mode-icon { font-size: 30px; margin-bottom: 5px; }
+  #screen-home .mode-name { font-size: 14px; margin-bottom: 3px; }
+  #screen-home .mode-desc {
+    font-size: 11px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
-
-  /* 4. Options Grid & Button Fixes */
-  div#options-grid {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 12px !important;
-    height: auto !important;
-    padding-bottom: 10px !important;
+  #screen-home .home-actions { margin-top: 14px; gap: 8px; }
+  #screen-home .home-actions-row { gap: 8px; }
+  #screen-home #btn-start {
+    position: fixed;
+    z-index: 1100;
+    inset-inline: 12px;
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    width: auto;
+    max-width: none;
+    height: 58px;
+    box-shadow: 0 12px 35px #00152dcc, 0 0 0 1px #ffffff22;
   }
+  .menu-highscore { margin-top: 8px; }
 
+  #screen-game { height: 100%; padding: 10px 10px calc(14px + env(safe-area-inset-bottom)); gap: 10px; }
+  .game-topbar { gap: 8px; }
+  .topbar-left, .topbar-right { gap: 6px; flex-wrap: wrap; justify-content: center; }
+  .score-pill, .progress-pill, .streak-pill, .correct-pill, .end-btn { padding: 7px 10px; font-size: 12px; }
+  .game-body { flex: 0 0 auto; min-height: 0; margin: 0; gap: 8px; flex-direction: column; align-items: stretch; }
+  .code-wrap { flex: 0 0 auto; min-width: 0; width: 100%; }
+  .code-panel { min-height: 145px; max-height: 34vh; padding: 14px; font-size: 13px; }
+  .timer-ring { width: 76px; height: 76px; position: relative; align-self: center; margin-top: -4px; }
+  .timer-num { font-size: 24px; }
+  .question-text { font-size: 13px; }
+  div#options-grid, div#options-grid.cyber { grid-template-columns: 1fr 1fr; gap: 8px; padding-bottom: 4px; }
+  button.opt-btn, .lang-btn { min-height: 84px; padding: 10px 8px; gap: 5px; border-radius: 13px; }
+  .lang-icon, .opt-badge { width: 36px; height: 36px; font-size: 16px; }
+  .feedback-panel { position: static; flex-direction: column; align-items: stretch; margin-top: 8px; }
+  .result-stats { grid-template-columns: 1fr 1fr; }
+  .results-card { padding: 18px 12px; max-height: none; overflow: visible; }
+  .final-score { font-size: clamp(30px, 10vw, 40px); }
+  .trophy { font-size: 40px; }
+  .modal .setting-row { gap: 8px; }
+  .modal .setting-row > span { flex: 0 0 auto; }
+  .lb-row { gap: 7px; }
+  .lb-report { width: 100%; text-align: end; }
+}
 
+@media (max-width: 380px) {
+  #screen-home .mode-grid { grid-template-columns: 1fr; }
+  #screen-home .mode-card { min-height: 92px; }
+  #screen-home .mode-card-all { width: 100%; }
+}
 
-  /* 5. Selected State - High Intensity */
-  button.opt-btn.selected {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
-    border-color: #60a5fa !important;
-    transform: scale(1.05) translateY(-2px) !important;
-    box-shadow: 0 0 25px rgba(59, 130, 246, 0.6) !important;
-    font-weight: 800 !important;
-    z-index: 10 !important;
-    animation: selectPulse 2s infinite !important;
+@media (max-height: 620px) and (min-width: 769px) {
+  .screen.active { justify-content: flex-start; overflow-y: auto; }
+  #screen-home { height: auto; min-height: 100%; overflow-y: auto; }
+  #screen-home .mode-card { min-height: 92px; }
+}
+
+html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
   }
-
-  @keyframes selectPulse {
-    0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
-    70% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
-  }
-
-  /* Feedback State Overrides */
-  button.correct {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.6) !important;
-    transform: scale(1.05) !important;
-  }
-
-  button.wrong {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
-    animation: shake 0.3s ease-in-out !important;
-  }
-
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-  }
-
-  /* 6. Home Screen Specifics */
-  .home-sub {
-    display: block !important;
-    font-size: 1.1rem !important;
-    text-align: center !important;
-    color: rgba(255, 255, 255, 0.6) !important;
-  }
-
-  .home-title, .mode-card p {
-    display: none !important;
-  }
+  .btn:hover, .mode-card:hover, .selected, .correct, .wrong { transform: none !important; }
 }

@@ -37,7 +37,7 @@ app.whenReady().then(async () => {
   await win.loadFile(path.join(SRC, 'index.html'));
   await sleep(300);
   // A name is now required to start; make sure the input carries it.
-  await run("window.__GTL_QTIME=1; var n=document.querySelector('#set-name'); n.value='Tester'; n.dispatchEvent(new Event('input')); 'ok'");
+  await run("window.__GTL_QTIME=1; window.__GTL_FEEDBACK_MS=100; var n=document.querySelector('#set-name'); n.value='Tester'; n.dispatchEvent(new Event('input')); 'ok'");
 
   // Configure Supabase + stub fetch with canned responses (after the final load).
   await run(`
@@ -45,7 +45,14 @@ app.whenReady().then(async () => {
     window.__calls = [];
     window.fetch = async (url, opts = {}) => {
       window.__calls.push({ url, method: opts.method || 'GET', headers: opts.headers || {}, body: opts.body });
-      const make = (status, body) => ({ ok: status >= 200 && status < 300, status, json: async () => body, text: async () => JSON.stringify(body) });
+      const make = (status, body, contentRange = null) => ({
+        ok: status >= 200 && status < 300,
+        status,
+        headers: { get: (name) => name.toLowerCase() === 'content-range' ? contentRange : null },
+        json: async () => body,
+        text: async () => JSON.stringify(body)
+      });
+      if ((opts.method || 'GET') === 'HEAD') return make(200, null, '0-0/2');
       if ((opts.method || 'GET') === 'POST') return make(201, [{ id: 1001, player: 'Me', score: 1234 }]);
       return make(200, [
         { id: 1, player: 'Alice', score: 5000, multiplayer: true },

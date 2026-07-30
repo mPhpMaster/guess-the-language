@@ -6,6 +6,7 @@
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; worker-src 'self'; manifest-src 'self'; img-src 'self' data: https://cdn.discordapp.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://discord.com https://*.discord.com;" />
   <title>Guess the Language</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css" />
 
   <!-- PWA / installable mobile app -->
@@ -43,7 +44,7 @@
           <button data-setlang="ar">ع</button>
         </div>
 
-        <h1 class="home-title"><span class="neon" data-i18n="appTitle">Guess the Language</span></h1>
+        <h1 class="home-title" tabindex="-1"><span class="neon" data-i18n="appTitle">Guess the Language</span></h1>
         <p class="home-sub" data-i18n="homeSub">Pick a mode and beat the timer</p>
 
         <div class="challenge-banner hidden" id="challenge-banner"></div>
@@ -55,39 +56,46 @@
         <button class="btn btn-discord home-login-cta hidden" id="home-login-cta" data-i18n="loginDiscord">
           &#128172;  Login with Discord
         </button>
+        <p class="auth-hint hidden" id="web-auth-hint" data-i18n="webAuthHint">
+          Sign in with Discord to save your identity and play on the global leaderboard.
+        </p>
+        <div class="auth-error hidden" id="auth-error" role="alert">
+          <span id="auth-error-text"></span>
+          <button class="text-btn" id="auth-retry" data-i18n="retry">Retry</button>
+        </div>
 
-        <div class="mode-grid" id="mode-grid">
-          <button class="mode-card" data-mode="languages">
+        <div class="mode-grid" id="mode-grid" role="group" aria-label="Game mode">
+          <button class="mode-card" data-mode="languages" aria-pressed="false">
             <div class="mode-icon">&#128187;</div>
             <div class="mode-name" data-i18n="modeLanguages">Programming Languages</div>
             <div class="mode-desc" data-i18n="modeLanguagesDesc">Guess the language from a code snippet</div>
           </button>
-          <button class="mode-card mode-card-cyber" data-mode="cybersecurity">
+          <button class="mode-card mode-card-cyber" data-mode="cybersecurity" aria-pressed="false">
             <div class="mode-icon">&#128737;&#65039;</div>
             <div class="mode-name" data-i18n="modeCyber">Cybersecurity</div>
             <div class="mode-desc" data-i18n="modeCyberDesc">Tools, malware, Nmap, Metasploit &amp; more</div>
           </button>
-          <button class="mode-card mode-card-devops" data-mode="devops">
+          <button class="mode-card mode-card-devops" data-mode="devops" aria-pressed="false">
             <div class="mode-icon">&#9854;&#65039;</div>
             <div class="mode-name" data-i18n="modeDevops">DevOps</div>
             <div class="mode-desc" data-i18n="modeDevopsDesc">Docker, Kubernetes, CI/CD, Git, IaC &amp; cloud</div>
           </button>
-          <button class="mode-card mode-card-network" data-mode="network">
+          <button class="mode-card mode-card-network" data-mode="network" aria-pressed="false">
             <div class="mode-icon">&#127760;</div>
             <div class="mode-name" data-i18n="modeNetwork">Networking</div>
             <div class="mode-desc" data-i18n="modeNetworkDesc">OSI, TCP/IP, DNS, routing &amp; protocols</div>
           </button>
-          <button class="mode-card mode-card-gamedev" data-mode="gamedev">
+          <button class="mode-card mode-card-gamedev" data-mode="gamedev" aria-pressed="false">
             <div class="mode-icon">🎮</div>
             <div class="mode-name" data-i18n="modeGamedev">Game Dev</div>
             <div class="mode-desc" data-i18n="modeGamedevDesc">Game loops, physics, rendering, assets and UI systems</div>
           </button>
-          <button class="mode-card mode-card-algo" data-mode="algorithms">
+          <button class="mode-card mode-card-algo" data-mode="algorithms" aria-pressed="false">
             <div class="mode-icon">🧩</div>
             <div class="mode-name" data-i18n="modeAlgo">Problem Solving</div>
             <div class="mode-desc" data-i18n="modeAlgoDesc">Fill in the blank: algorithms, data structures &amp; Big-O</div>
           </button>
-          <button class="mode-card mode-card-all" data-mode="all">
+          <button class="mode-card mode-card-all" data-mode="all" aria-pressed="false">
             <div class="mode-icon">&#127922;</div>
             <div class="mode-name" data-i18n="modeAll">All (Mixed)</div>
             <div class="mode-desc" data-i18n="modeAllDesc">Everything: all six banks together</div>
@@ -115,8 +123,9 @@
         </div>
 
       <!-- Settings popover -->
-      <div id="settings-panel" class="popover hidden">
-        <h3 data-i18n="settingsTitle">Settings</h3>
+      <dialog id="settings-panel" class="popover" aria-labelledby="settings-title" aria-describedby="settings-description">
+        <h3 id="settings-title" data-i18n="settingsTitle">Settings</h3>
+        <p class="dialog-description" id="settings-description" data-i18n="settingsDescription">Adjust your quiz preferences.</p>
         <label class="setting-row">
           <span data-i18n="settingLanguage">Language</span>
           <select id="set-language">
@@ -124,7 +133,7 @@
             <option value="ar">العربية</option>
           </select>
         </label>
-        <label class="setting-row">
+        <label class="setting-row" id="setting-name-row">
           <span id="set-name-label" data-i18n="settingName">Your leaderboard name</span>
           <input type="text" id="set-name" maxlength="24" placeholder="User" autocomplete="off" />
         </label>
@@ -135,6 +144,8 @@
           &#128682;  Log out
         </button>
         <p class="discord-login-status hidden" id="discord-login-status"></p>
+        <p class="discord-name-note hidden" id="discord-name-note" data-i18n="discordNameNote">Your public name and avatar come from Discord.</p>
+        <p class="modal-error hidden" id="settings-error" role="alert"></p>
         <label class="setting-row">
           <span data-i18n="settingQuestions">Questions per round</span>
           <select id="set-questions">
@@ -147,6 +158,10 @@
         <label class="setting-row">
           <span data-i18n="settingSound">Sound effects</span>
           <input type="checkbox" id="set-sound" checked />
+        </label>
+        <label class="setting-row hidden" id="setting-presence-row">
+          <span data-i18n="settingPresence">Show my game on Discord</span>
+          <input type="checkbox" id="set-presence" checked />
         </label>
         <label class="setting-row">
           <span data-i18n="settingDifficulty">Difficulty</span>
@@ -170,12 +185,21 @@
             <option value="60">60s</option>
           </select>
         </label>
+        <label class="setting-row">
+          <span data-i18n="settingFeedbackDelay">Answer review time</span>
+          <select id="set-feedback-delay">
+            <option value="2" data-i18n="feedback2">2 seconds</option>
+            <option value="4" data-i18n="feedback4">4 seconds</option>
+            <option value="6" data-i18n="feedback6">6 seconds</option>
+            <option value="manual" data-i18n="feedbackManual">Manual</option>
+          </select>
+        </label>
         <button class="btn btn-primary btn-sm" id="set-close" data-i18n="save">Save &amp; Close</button>
-      </div>
+      </dialog>
 
       <!-- About popover -->
-      <div id="about-panel" class="popover hidden">
-        <h3 data-i18n="aboutTitle">About</h3>
+      <dialog id="about-panel" class="popover" aria-labelledby="about-title">
+        <h3 id="about-title" data-i18n="aboutTitle">About</h3>
         <div class="about-logo">&#127918;</div>
         <p class="about-app"><span data-i18n="appTitle">Guess the Language</span> <span id="about-version"></span></p>
         <p class="about-desc" data-i18n="aboutDesc">A bilingual (EN / AR) IT quiz game: languages, cybersecurity, DevOps & networking.</p>
@@ -191,12 +215,13 @@
           <a class="about-legal-link" href="/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
         </div>
         <button class="btn btn-primary btn-sm" id="about-close" data-i18n="close">Close</button>
-      </div>
+      </dialog>
     </section>
 
     <!-- ============ LOBBY SCREEN ============ -->
     <section id="screen-lobby" class="screen">
       <div class="lobby-card">
+        <h2 class="sr-only screen-heading" tabindex="-1" data-i18n="lobbyTitle">Multiplayer lobby</h2>
         <div class="lang-switch">
           <button data-setlang="en">EN</button>
           <button data-setlang="ar">ع</button>
@@ -275,24 +300,106 @@
     </section>
 
     <!-- Join room modal -->
-    <div id="join-modal" class="modal hidden">
+    <dialog id="join-modal" class="modal" aria-labelledby="join-title" aria-describedby="join-hint">
       <div class="modal-card">
-        <h3 data-i18n="joinRoom">Join Room</h3>
+        <h3 id="join-title" data-i18n="joinRoom">Join Room</h3>
         <label class="setting-row">
           <span data-i18n="roomCode">Room code</span>
           <input type="text" id="join-code" maxlength="4" placeholder="A3K9" dir="ltr" autocomplete="off" inputmode="text" />
         </label>
-        <p class="modal-hint">Paste a 4-letter code or type it manually.</p>
+        <p class="modal-hint" id="join-hint" data-i18n="joinHint">Paste a 4-letter code or type it manually.</p>
         <div class="modal-actions">
           <button class="btn btn-primary" id="btn-join-confirm" data-i18n="joinConfirm">Join</button>
           <button class="btn btn-ghost" id="btn-join-cancel" data-i18n="close">Close</button>
         </div>
         <p class="modal-error hidden" id="join-error"></p>
       </div>
-    </div>
+    </dialog>
+
+    <dialog id="end-dialog" class="modal" aria-labelledby="end-dialog-title" aria-describedby="end-dialog-desc">
+      <div class="modal-card">
+        <h3 id="end-dialog-title" data-i18n="endConfirmTitle">End this quiz?</h3>
+        <p class="modal-hint" id="end-dialog-desc" data-i18n="endConfirmDesc">Your current progress will be shown in the results.</p>
+        <div class="modal-actions">
+          <button class="btn btn-primary" id="btn-end-confirm" data-i18n="endQuiz">End</button>
+          <button class="btn btn-ghost" id="btn-end-cancel" data-i18n="continueQuiz">Keep playing</button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog id="report-dialog" class="modal" aria-labelledby="report-title" aria-describedby="report-desc">
+      <form class="modal-card" id="report-form" method="dialog">
+        <h3 id="report-title" data-i18n="reportTitle">Report leaderboard entry</h3>
+        <p class="modal-hint" id="report-desc" data-i18n="reportDesc">Tell us why this entry should be reviewed.</p>
+        <label class="setting-row">
+          <span data-i18n="reportReason">Reason</span>
+          <select id="report-reason" required>
+            <option value="offensive_name" data-i18n="reportOffensive">Offensive name</option>
+            <option value="impersonation" data-i18n="reportImpersonation">Impersonation</option>
+            <option value="spam_other" data-i18n="reportSpam">Spam or other</option>
+          </select>
+        </label>
+        <label class="report-details-label">
+          <span data-i18n="reportDetails">Details (optional)</span>
+          <textarea id="report-details" maxlength="250" rows="4"></textarea>
+        </label>
+        <p class="modal-error hidden" id="report-error" role="alert"></p>
+        <div class="modal-actions">
+          <button class="btn btn-primary" id="report-submit" value="submit" data-i18n="reportSubmit">Submit report</button>
+          <button class="btn btn-ghost" id="report-cancel" value="cancel" data-i18n="close">Close</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- Player card: click a player in the lobby / in-game list to see their
+         round, score, mode and status, and to invite others into the room. -->
+    <dialog id="player-card" class="modal" aria-labelledby="player-card-title" aria-describedby="player-card-hint">
+      <div class="modal-card">
+        <h3 id="player-card-title" data-i18n="playerCardTitle">Player details</h3>
+        <p class="modal-hint" id="player-card-hint" data-i18n="playerCardHint">Live progress in this room.</p>
+        <div class="player-card-head">
+          <div class="player-card-avatar" id="player-card-avatar" aria-hidden="true"></div>
+          <img class="player-card-avatar-img hidden" id="player-card-avatar-img" alt="" referrerpolicy="no-referrer" />
+          <div class="player-card-name" id="player-card-name"></div>
+          <span class="mp-host-badge hidden" id="player-card-host" data-i18n="adminBadge">Host</span>
+        </div>
+        <dl class="player-card-stats">
+          <div class="player-card-stat">
+            <dt data-i18n="playerCardMode">Game mode</dt>
+            <dd id="player-card-mode"></dd>
+          </div>
+          <div class="player-card-stat">
+            <dt data-i18n="playerCardRound">Round</dt>
+            <dd id="player-card-round"></dd>
+          </div>
+          <div class="player-card-stat">
+            <dt data-i18n="playerCardScore">Score</dt>
+            <dd id="player-card-score"></dd>
+          </div>
+          <div class="player-card-stat">
+            <dt data-i18n="playerCardCorrect">Correct</dt>
+            <dd id="player-card-correct"></dd>
+          </div>
+          <div class="player-card-stat">
+            <dt data-i18n="playerCardStreak">Streak</dt>
+            <dd id="player-card-streak"></dd>
+          </div>
+          <div class="player-card-stat">
+            <dt data-i18n="playerCardStatus">Status</dt>
+            <dd id="player-card-status"></dd>
+          </div>
+        </dl>
+        <p class="modal-error hidden" id="player-card-error" role="alert"></p>
+        <div class="modal-actions">
+          <button class="btn btn-primary" id="btn-player-card-invite" data-i18n="inviteToRoom">&#10133;  Invite to this room</button>
+          <button class="btn btn-ghost" id="btn-player-card-close" data-i18n="close">Close</button>
+        </div>
+      </div>
+    </dialog>
 
     <!-- ============ GAME SCREEN ============ -->
     <section id="screen-game" class="screen">
+      <h2 class="sr-only screen-heading" tabindex="-1" data-i18n="gameTitle">Quiz in progress</h2>
       <div class="mp-game-strip hidden" id="mp-game-strip">
         <span class="mp-room-code-pill" id="mp-room-code"></span>
         <div class="mp-player-list mp-player-list-compact" id="mp-game-players"></div>
@@ -323,10 +430,13 @@
             <span class="code-difficulty" id="code-difficulty">easy</span>
           </div>
           <pre class="code-panel" dir="ltr"><code id="code-snippet"></code></pre>
-          <div class="toast" id="answer-toast"></div>
+          <div class="feedback-panel hidden" id="feedback-panel">
+            <div class="toast" id="answer-toast" role="status" aria-live="polite"></div>
+            <button class="btn btn-primary btn-sm" id="btn-next" data-i18n="nextQuestion">Next question</button>
+          </div>
         </div>
 
-        <div class="timer-ring" id="timer-ring">
+        <div class="timer-ring" id="timer-ring" role="timer" aria-label="Time remaining">
           <svg viewBox="0 0 120 120">
             <circle class="ring-bg" cx="60" cy="60" r="52" />
             <circle class="ring-fg" id="ring-fg" cx="60" cy="60" r="52" />
@@ -354,11 +464,23 @@
     <section id="screen-results" class="screen">
       <div class="results-card">
         <div class="trophy">&#127942;</div>
-        <h2 class="final-score"><span data-i18n="finalScore">Final Score:</span> <span id="final-score">0</span></h2>
+        <h2 class="final-score screen-heading" tabindex="-1"><span data-i18n="finalScore">Final Score:</span> <span id="final-score">0</span></h2>
         <p class="results-correct"><span data-i18n="correctLabel">Correct:</span> <span id="results-correct">0</span>/<span id="results-total">0</span></p>
+        <div class="result-stats" id="result-stats" aria-label="Round statistics">
+          <div><strong id="stat-accuracy">0%</strong><span data-i18n="statAccuracy">Accuracy</span></div>
+          <div><strong id="stat-streak">0</strong><span data-i18n="statStreak">Best streak</span></div>
+          <div><strong id="stat-average">—</strong><span data-i18n="statAverage">Average response</span></div>
+          <div><strong id="stat-fastest">—</strong><span data-i18n="statFastest">Fastest correct</span></div>
+        </div>
+        <div class="personal-result hidden" id="personal-result"></div>
         <p class="results-sub" data-i18n="comparison">Friends Comparison</p>
-        <div class="lb-note" id="lb-note"></div>
-        <div class="leaderboard" id="leaderboard"><!-- rows injected --></div>
+        <div class="lb-note" id="lb-note" role="status" aria-live="polite"></div>
+        <div class="leaderboard" id="leaderboard" role="list"><!-- rows injected --></div>
+
+        <details class="answer-review" id="answer-review">
+          <summary data-i18n="reviewAnswers">Review incorrect answers</summary>
+          <div id="answer-review-list"></div>
+        </details>
 
         <div class="results-buttons">
           <button class="btn btn-primary" id="btn-challenge" data-i18n="challenge">🔗  Challenge a friend</button>
@@ -370,6 +492,8 @@
     </section>
 
   </main>
+
+  <div class="sr-only" id="app-live-region" role="status" aria-live="polite" aria-atomic="true"></div>
 
   <script type="module" src="discord-activity.js"></script>
   <script defer src="supabase-config.js"></script>

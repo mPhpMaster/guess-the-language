@@ -28,7 +28,7 @@ app.whenReady().then(async () => {
   await win.loadFile(path.join(SRC, 'index.html'));
   await sleep(350);
   await run("window.SUPABASE_CONFIG = { url: '', anonKey: '' }; 'ok'");
-  await run("window.__GTL_QTIME=60; var n=document.querySelector('#set-name'); n.value='Tester'; n.dispatchEvent(new Event('input')); 'ok'");
+  await run("window.__GTL_QTIME=60; window.__GTL_FEEDBACK_MS=1000; var n=document.querySelector('#set-name'); n.value='Tester'; n.dispatchEvent(new Event('input')); 'ok'");
   await run("localStorage.setItem('gtl_settings', JSON.stringify({questions:10, sound:false, difficulty:'all', name:'Tester'})); 'ok'");
 
   try {

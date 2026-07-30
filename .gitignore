@@ -9,6 +9,7 @@ out/
 
 # Logs
 *.log
+.playwright-cli/
 npm-debug.log*
 pnpm-debug.log*
 yarn-debug.log*

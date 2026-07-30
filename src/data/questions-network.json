@@ -1405,5 +1405,467 @@
       "en": "SMTP transfers mail over TCP port 25.",
       "ar": "ينقل SMTP البريد عبر المنفذ 25."
     }
+  },
+  {
+    "id": 68,
+    "category": "osi",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "At which OSI layer does a router operate?",
+      "ar": "في أي طبقة من OSI يعمل الموجّه؟"
+    },
+    "options": [
+      "Layer 3 (Network)",
+      "Layer 2 (Data Link)",
+      "Layer 4 (Transport)",
+      "Layer 7 (Application)"
+    ],
+    "answer": "Layer 3 (Network)",
+    "explanation": {
+      "en": "Routers forward packets using layer-3 IP addresses.",
+      "ar": "تمرّر الموجّهات الحزم باستخدام عناوين IP في الطبقة الثالثة."
+    }
+  },
+  {
+    "id": 69,
+    "category": "osi",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which OSI layer do MAC addresses belong to?",
+      "ar": "إلى أي طبقة من OSI تنتمي عناوين MAC؟"
+    },
+    "options": [
+      "Layer 2 (Data Link)",
+      "Layer 1 (Physical)",
+      "Layer 3 (Network)",
+      "Layer 5 (Session)"
+    ],
+    "answer": "Layer 2 (Data Link)",
+    "explanation": {
+      "en": "MAC addressing is how switches identify hosts on a local segment.",
+      "ar": "عنونة MAC هي كيف تُعرِّف المبدّلات المضيفين في المقطع المحلي."
+    }
+  },
+  {
+    "id": 70,
+    "category": "osi",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which OSI layer deals with cabling and voltages?",
+      "ar": "أي طبقة من OSI تتعامل مع الأسلاك والفولتية؟"
+    },
+    "options": [
+      "Layer 1 (Physical)",
+      "Layer 2 (Data Link)",
+      "Layer 4 (Transport)",
+      "Layer 6 (Presentation)"
+    ],
+    "answer": "Layer 1 (Physical)",
+    "explanation": {
+      "en": "The physical layer covers the medium and its electrical signalling.",
+      "ar": "تغطي الطبقة الفيزيائية الوسط والإشارات الكهربائية."
+    }
+  },
+  {
+    "id": 71,
+    "category": "osi",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which layer does TLS sit directly above?",
+      "ar": "فوق أي طبقة يقع TLS مباشرة؟"
+    },
+    "options": [
+      "Layer 4 (Transport)",
+      "Layer 2 (Data Link)",
+      "Layer 1 (Physical)",
+      "Layer 3 (Network)"
+    ],
+    "answer": "Layer 4 (Transport)",
+    "explanation": {
+      "en": "TLS wraps a reliable transport stream, normally TCP.",
+      "ar": "يغلّف TLS تدفق نقل موثوقًا، عادةً TCP."
+    }
+  },
+  {
+    "id": 72,
+    "category": "tcp",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which sequence forms the TCP three-way handshake?",
+      "ar": "أي تسلسل يشكّل مصافحة TCP الثلاثية؟"
+    },
+    "options": [
+      "SYN, SYN-ACK, ACK",
+      "ACK, SYN, FIN",
+      "SYN, FIN, ACK",
+      "PSH, ACK, RST"
+    ],
+    "answer": "SYN, SYN-ACK, ACK",
+    "explanation": {
+      "en": "The client offers, the server answers, the client confirms.",
+      "ar": "يبدأ العميل، ويجيب الخادم، ثم يؤكّد العميل."
+    }
+  },
+  {
+    "id": 73,
+    "category": "tcp",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does TCP provide that UDP does not?",
+      "ar": "ما الذي يوفّره TCP ولا يوفّره UDP؟"
+    },
+    "options": [
+      "Ordered, reliable delivery",
+      "Lower latency",
+      "Broadcast support",
+      "Smaller headers"
+    ],
+    "answer": "Ordered, reliable delivery",
+    "explanation": {
+      "en": "TCP retransmits losses and reorders segments; UDP does neither.",
+      "ar": "يعيد TCP إرسال المفقود ويرتّب المقاطع، وUDP لا يفعل ذلك."
+    }
+  },
+  {
+    "id": 74,
+    "category": "tcp",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is the TCP receive window used for?",
+      "ar": "لماذا تُستخدم نافذة الاستقبال في TCP؟"
+    },
+    "options": [
+      "Flow control",
+      "Encryption",
+      "Routing decisions",
+      "Name resolution"
+    ],
+    "answer": "Flow control",
+    "explanation": {
+      "en": "The window tells the sender how much unacknowledged data it may have in flight.",
+      "ar": "تخبر النافذة المُرسِل بحجم البيانات غير المؤكَّدة المسموح بها."
+    }
+  },
+  {
+    "id": 75,
+    "category": "tcp",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which protocol suits live video calls better?",
+      "ar": "أي بروتوكول أنسب لمكالمات الفيديو الحيّة؟"
+    },
+    "options": [
+      "UDP",
+      "TCP",
+      "FTP",
+      "SMTP"
+    ],
+    "answer": "UDP",
+    "explanation": {
+      "en": "Dropping a late frame beats waiting for a retransmission.",
+      "ar": "إسقاط إطار متأخر أفضل من انتظار إعادة الإرسال."
+    }
+  },
+  {
+    "id": 76,
+    "category": "ip",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "How many usable host addresses does a /24 provide?",
+      "ar": "كم عنوان مضيف قابل للاستخدام يوفّره /24؟"
+    },
+    "options": [
+      "254",
+      "256",
+      "255",
+      "128"
+    ],
+    "answer": "254",
+    "explanation": {
+      "en": "256 addresses minus the network and broadcast address.",
+      "ar": "256 عنوانًا ناقص عنوان الشبكة وعنوان البث."
+    }
+  },
+  {
+    "id": 77,
+    "category": "ip",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is 255.255.255.0 in CIDR notation?",
+      "ar": "ما مكافئ 255.255.255.0 بصيغة CIDR؟"
+    },
+    "options": [
+      "/24",
+      "/16",
+      "/25",
+      "/32"
+    ],
+    "answer": "/24",
+    "explanation": {
+      "en": "Twenty-four leading one bits make up the mask.",
+      "ar": "أربع وعشرون بتًا أولى بقيمة واحد تشكّل القناع."
+    }
+  },
+  {
+    "id": 78,
+    "category": "ip",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which range is reserved for private addressing?",
+      "ar": "أي مدى محجوز للعنونة الخاصة؟"
+    },
+    "options": [
+      "10.0.0.0/8",
+      "9.0.0.0/8",
+      "11.0.0.0/8",
+      "100.0.0.0/8"
+    ],
+    "answer": "10.0.0.0/8",
+    "explanation": {
+      "en": "RFC 1918 reserves 10/8, 172.16/12 and 192.168/16.",
+      "ar": "يحجز RFC 1918 المدَيات 10/8 و172.16/12 و192.168/16."
+    }
+  },
+  {
+    "id": 79,
+    "category": "dns",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which DNS record maps a name to an IPv4 address?",
+      "ar": "أي سجل DNS يربط اسمًا بعنوان IPv4؟"
+    },
+    "options": [
+      "A",
+      "AAAA",
+      "CNAME",
+      "TXT"
+    ],
+    "answer": "A",
+    "explanation": {
+      "en": "An A record holds an IPv4 address; AAAA holds IPv6.",
+      "ar": "يحمل سجل A عنوان IPv4، وAAAA يحمل IPv6."
+    }
+  },
+  {
+    "id": 80,
+    "category": "dns",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which DNS record points one name at another name?",
+      "ar": "أي سجل DNS يوجّه اسمًا إلى اسم آخر؟"
+    },
+    "options": [
+      "CNAME",
+      "A",
+      "MX",
+      "NS"
+    ],
+    "answer": "CNAME",
+    "explanation": {
+      "en": "A CNAME is an alias that resolves through to its target.",
+      "ar": "سجل CNAME اسم مستعار يُحلّ عبر هدفه."
+    }
+  },
+  {
+    "id": 81,
+    "category": "dns",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which DNS record directs email for a domain?",
+      "ar": "أي سجل DNS يوجّه البريد لنطاق؟"
+    },
+    "options": [
+      "MX",
+      "A",
+      "SRV",
+      "PTR"
+    ],
+    "answer": "MX",
+    "explanation": {
+      "en": "MX records name the mail exchangers and their priorities.",
+      "ar": "تسمّي سجلات MX خوادم البريد وأولوياتها."
+    }
+  },
+  {
+    "id": 82,
+    "category": "dns",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a DNS record's TTL control?",
+      "ar": "ماذا يتحكم فيه TTL في سجل DNS؟"
+    },
+    "options": [
+      "How long resolvers may cache the answer",
+      "How many queries per second are allowed",
+      "Which resolver must be used",
+      "How long the domain stays registered"
+    ],
+    "answer": "How long resolvers may cache the answer",
+    "explanation": {
+      "en": "A low TTL speeds up changes at the cost of more lookups.",
+      "ar": "قيمة TTL منخفضة تسرّع التغييرات مقابل استعلامات أكثر."
+    }
+  },
+  {
+    "id": 83,
+    "category": "protocols",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which port does HTTPS use by default?",
+      "ar": "أي منفذ يستخدمه HTTPS افتراضيًا؟"
+    },
+    "options": [
+      "443",
+      "80",
+      "8080",
+      "22"
+    ],
+    "answer": "443",
+    "explanation": {
+      "en": "HTTP over TLS listens on TCP 443.",
+      "ar": "يستمع HTTP عبر TLS على منفذ TCP 443."
+    }
+  },
+  {
+    "id": 84,
+    "category": "protocols",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which protocol hands out IP addresses automatically?",
+      "ar": "أي بروتوكول يوزّع عناوين IP تلقائيًا؟"
+    },
+    "options": [
+      "DHCP",
+      "DNS",
+      "ARP",
+      "ICMP"
+    ],
+    "answer": "DHCP",
+    "explanation": {
+      "en": "A DHCP server leases addresses and options to clients.",
+      "ar": "يمنح خادم DHCP العناوين والخيارات للعملاء بالإيجار."
+    }
+  },
+  {
+    "id": 85,
+    "category": "protocols",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which protocol resolves an IP address to a MAC address?",
+      "ar": "أي بروتوكول يحوّل عنوان IP إلى عنوان MAC؟"
+    },
+    "options": [
+      "ARP",
+      "DNS",
+      "DHCP",
+      "NAT"
+    ],
+    "answer": "ARP",
+    "explanation": {
+      "en": "ARP asks the local segment who owns a given IP.",
+      "ar": "يسأل ARP المقطع المحلي عن مالك عنوان IP معيّن."
+    }
+  },
+  {
+    "id": 86,
+    "category": "routing",
+    "difficulty": "medium",
+    "codeSnippet": "ip route add 10.0.0.0/24 via 192.168.1.1",
+    "question": {
+      "en": "What does this command do?",
+      "ar": "ماذا يفعل هذا الأمر؟"
+    },
+    "options": [
+      "Adds a static route through a gateway",
+      "Assigns an IP to an interface",
+      "Deletes the default route",
+      "Enables packet forwarding"
+    ],
+    "answer": "Adds a static route through a gateway",
+    "explanation": {
+      "en": "Traffic for 10.0.0.0/24 is sent to the next hop 192.168.1.1.",
+      "ar": "تُرسل حزم 10.0.0.0/24 إلى القفزة التالية 192.168.1.1."
+    }
+  },
+  {
+    "id": 87,
+    "category": "routing",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a default gateway for?",
+      "ar": "لماذا توجد البوابة الافتراضية؟"
+    },
+    "options": [
+      "Forwarding traffic to networks not in the routing table",
+      "Blocking untrusted traffic",
+      "Assigning local IP addresses",
+      "Caching DNS answers"
+    ],
+    "answer": "Forwarding traffic to networks not in the routing table",
+    "explanation": {
+      "en": "It is the route of last resort for unknown destinations.",
+      "ar": "هي مسار الملاذ الأخير للمقاصد غير المعروفة."
+    }
+  },
+  {
+    "id": 88,
+    "category": "routing",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does the IP TTL field prevent?",
+      "ar": "ماذا يمنع حقل TTL في IP؟"
+    },
+    "options": [
+      "Packets looping forever",
+      "Packets being fragmented",
+      "Packets arriving out of order",
+      "Packets being duplicated"
+    ],
+    "answer": "Packets looping forever",
+    "explanation": {
+      "en": "Each hop decrements TTL and drops the packet at zero.",
+      "ar": "تُنقص كل قفزة قيمة TTL وتُسقط الحزمة عند الصفر."
+    }
+  },
+  {
+    "id": 89,
+    "category": "routing",
+    "difficulty": "medium",
+    "codeSnippet": "traceroute example.com",
+    "question": {
+      "en": "What does this show?",
+      "ar": "ماذا يعرض هذا؟"
+    },
+    "options": [
+      "The hops a packet passes through to the destination",
+      "The DNS records of the domain",
+      "The open ports on the host",
+      "The TLS certificate chain"
+    ],
+    "answer": "The hops a packet passes through to the destination",
+    "explanation": {
+      "en": "It maps the path by eliciting a reply from each router along it.",
+      "ar": "يرسم المسار عبر انتزاع رد من كل موجّه على الطريق."
+    }
   }
 ]
