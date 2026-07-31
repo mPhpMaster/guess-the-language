@@ -103,15 +103,26 @@ async function authorizeWithPresence(discordSdk) {
     state: '',
     prompt: 'none'
   };
+
+  // Fetching the user must NEVER hinge on the rich-presence scope. `identify`
+  // and `applications.commands` are auto-granted for Activities and return
+  // instantly, but `rpc.activities.write` needs explicit consent — and a
+  // prompt:'none' authorize for a not-yet-consented scope can *hang* (not just
+  // reject) in some Discord clients. Without a bound that stalls the whole
+  // handshake and the user is never fetched. So race the presence attempt
+  // against a short timeout, and on timeout OR rejection fall back to the
+  // auto-granted scopes, which always succeed.
   try {
-    const res = await discordSdk.commands.authorize({
-      ...args,
-      scope: [...BASE_SCOPES, PRESENCE_SCOPE]
-    });
+    const res = await Promise.race([
+      discordSdk.commands.authorize({ ...args, scope: [...BASE_SCOPES, PRESENCE_SCOPE] }),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('presence authorize timed out')), 3000)
+      )
+    ]);
     return { ...res, presence: true };
   } catch (err) {
     console.warn(
-      `[discord] authorize with ${PRESENCE_SCOPE} was rejected (${err.message}) — retrying without rich presence`
+      `[discord] authorize with ${PRESENCE_SCOPE} unavailable (${err.message}) — continuing without rich presence`
     );
     const res = await discordSdk.commands.authorize({ ...args, scope: BASE_SCOPES });
     return { ...res, presence: false };
