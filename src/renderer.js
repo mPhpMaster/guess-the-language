@@ -289,6 +289,7 @@ const I18N = {
         statusFinished: '🏁 Finished',
         inviteToRoom: '➕  Invite to this room',
         inviteFailed: 'Could not open the invite dialog',
+        inviteShareCode: 'Room code copied — share it so friends can join.',
         openPlayerCard: 'View progress',
         joinRequestFailed: 'Could not join that room',
         presenceLobby: 'In the lobby',
@@ -467,6 +468,7 @@ const I18N = {
         statusFinished: '🏁 انتهى',
         inviteToRoom: '➕  دعوة إلى هذه الغرفة',
         inviteFailed: 'تعذّر فتح نافذة الدعوة',
+        inviteShareCode: 'تم نسخ رمز الغرفة — شاركه عشان أصحابك يدخلون.',
         openPlayerCard: 'عرض التقدّم',
         joinRequestFailed: 'تعذّر الانضمام إلى تلك الغرفة',
         presenceLobby: 'في غرفة الانتظار',
@@ -2826,6 +2828,35 @@ async function invitePlayersToRoom() {
     }
 }
 
+// Lobby "Invite to this room" button — available to every player, not just the
+// host. Inside Discord it opens the native Activity invite sheet (pulls people
+// into this voice channel's room); a server's AutoMod can't block it because it
+// isn't a text message or a discord.gg link. On the web it copies the room code.
+async function inviteFromLobby() {
+    const room = window.GTL_MULTIPLAYER.state.room;
+    const note = $('#lobby-invite-note');
+    const showNote = (msg) => {
+        if (!note) return;
+        note.textContent = msg;
+        note.classList.remove('hidden');
+    };
+    if (isDiscordActivity()) {
+        try {
+            await window.DISCORD_ACTIVITY.openInviteDialog();
+        } catch (err) {
+            console.error('openInviteDialog failed:', err);
+            showNote(t('inviteFailed'));
+        }
+        return;
+    }
+    if (room?.code) {
+        navigator.clipboard?.writeText(room.code).then(
+            () => { flashButton('#btn-lobby-invite', t('codeCopied')); showNote(t('inviteShareCode')); },
+            () => showNote(room.code)
+        );
+    }
+}
+
 // ============================================================
 //  Multiplayer UI
 // ============================================================
@@ -2997,6 +3028,16 @@ function renderLobby(room, players) {
     $('#lobby-wait').classList.toggle('hidden', isAdmin);
     $('#lobby-admin').classList.toggle('hidden', !isAdmin);
     $('#btn-copy-code').classList.toggle('hidden', !isAdmin || discord);
+
+    // "Invite to this room" — shown to everyone when there's something to invite
+    // with: the native Activity dialog in Discord, or a shareable code on the web.
+    const invite = $('#btn-lobby-invite');
+    if (invite) {
+        const canInvite = discord || !!room?.code;
+        invite.classList.toggle('hidden', !canInvite);
+        invite.textContent = discord ? t('inviteToRoom') : t('copyCode');
+    }
+    $('#lobby-invite-note')?.classList.add('hidden');
 
     // Inside Discord a lone player may start a solo round; code rooms still want
     // at least two players before the host can start.
@@ -3704,6 +3745,7 @@ function bindEvents() {
         }
     });
     $('#btn-lobby-leave').addEventListener('click', leaveMultiplayer);
+    $('#btn-lobby-invite').addEventListener('click', inviteFromLobby);
     $('#btn-friends').addEventListener('click', viewLeaderboard);
     $('#btn-settings').addEventListener('click', openSettingsPanel);
     $('#set-close').addEventListener('click', () => {

@@ -295,6 +295,12 @@
           <button class="btn btn-ghost" id="btn-lobby-end" data-i18n="endRoom">End Room</button>
         </div>
 
+        <!-- Anyone in the room can pull friends in. Inside Discord this opens the
+             native Activity invite (not a text message / discord.gg link), so a
+             server's "external invites" or word-filter AutoMod can't block it. -->
+        <button class="btn btn-primary lobby-invite hidden" id="btn-lobby-invite" data-i18n="inviteToRoom">➕  Invite to this room</button>
+        <p class="lobby-invite-note hidden" id="lobby-invite-note"></p>
+
         <button class="btn btn-ghost lobby-leave" id="btn-lobby-leave" data-i18n="leaveRoom">Leave</button>
       </div>
     </section>
