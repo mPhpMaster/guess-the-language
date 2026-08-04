@@ -3442,7 +3442,36 @@ async function loadAllBanks() {
     }
 }
 
+// Re-apply everything that depends on the Discord identity. Called when the
+// Activity handshake finishes AFTER boot's bounded wait elapsed (a cold
+// /api/token start on first launch can push it past the timeout). Without this
+// the player has to close & relaunch the Activity just to get their name read.
+function onDiscordSessionReady() {
+    if (!isDiscordActivity()) return;
+    syncDiscordNameField();
+    refreshMultiplayerButtons();
+    // If we fell through to Home solo because the identity wasn't ready in time,
+    // join the voice-channel room now — but never hijack a challenge landing.
+    const onHome = $('#screen-home') && $('#screen-home').classList.contains('active');
+    const hasChallenge = !!parseChallengePayload(window.DISCORD_ACTIVITY.customId);
+    if (onHome && !state.multiplayer && !hasChallenge) {
+        autoJoinDiscordVoiceRoom();
+    }
+}
+
 async function autoJoinDiscordVoiceRoom() {
+    if (!isDiscordActivity() || !mpOnline()) return false;
+    // Guard against a double join if boot() and the late self-heal both fire.
+    if (state.autoJoinInFlight) return false;
+    state.autoJoinInFlight = true;
+    try {
+        return await autoJoinDiscordVoiceRoomInner();
+    } finally {
+        state.autoJoinInFlight = false;
+    }
+}
+
+async function autoJoinDiscordVoiceRoomInner() {
     if (!isDiscordActivity() || !mpOnline()) return false;
 
     const instanceId = window.DISCORD_ACTIVITY.instanceId;
@@ -3903,15 +3932,28 @@ async function boot() {
 
     // Give the Discord Activity a bounded window to finish initialising; fall
     // through to the normal app if it stalls so the UI is never frozen.
+    let discordReadyInTime = false;
     if (window.DISCORD_ACTIVITY?.ready) {
         try {
             await Promise.race([
-                window.DISCORD_ACTIVITY.ready,
+                Promise.resolve(window.DISCORD_ACTIVITY.ready).then(() => { discordReadyInTime = true; }),
                 new Promise((resolve) => setTimeout(resolve, 8000))
             ]);
         } catch (err) {
             console.warn('Discord Activity init:', err);
         }
+    }
+
+    // Cold first launches (cold /api/token + OAuth) sometimes finish the handshake
+    // AFTER the bounded wait above — the identity would then be missing and the
+    // player would have to close & relaunch just to get their name read. If the
+    // handshake didn't land in time, re-apply the Discord-dependent UI (name,
+    // multiplayer buttons, room join) the moment it does. Self-heals without a
+    // relaunch.
+    if (!discordReadyInTime && window.DISCORD_ACTIVITY?.ready?.then) {
+        window.DISCORD_ACTIVITY.ready.then((session) => {
+            if (session) onDiscordSessionReady();
+        }).catch(() => {});
     }
 
     // Complete a "Login with Discord" if we were just redirected back with a code
