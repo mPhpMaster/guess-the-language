@@ -2189,6 +2189,27 @@ function mpVisualOf(player) {
     };
 }
 
+// Real Discord avatar for a room player, linking the room record to the live
+// Activity identity. Returns a CDN URL or null (→ caller falls back to the emoji
+// badge). The local player uses their own signed-in profile; everyone else is
+// matched by the discord_user_id stored on their room_players row against the
+// Activity's connected-participants list (they're all in the same voice channel).
+function mpDiscordAvatarUrl(player) {
+    const da = window.DISCORD_ACTIVITY;
+    if (!da) return null;
+    const mp = window.GTL_MULTIPLAYER && window.GTL_MULTIPLAYER.state;
+    if (mp && player.id === mp.playerId) {
+        const own = discordAvatarUrl(getDiscordProfile());
+        if (own) return own;
+    }
+    const did = player.discord_user_id;
+    if (did && typeof da.participant === 'function') {
+        const part = da.participant(did);
+        if (part && part.avatar) return discordAvatarUrl({ id: part.id, avatar: part.avatar });
+    }
+    return null;
+}
+
 async function buildResultsLeaderboard() {
     const note = $('#lb-note');
     const playerName = getPlayerName();
@@ -2948,9 +2969,24 @@ function renderMpPlayerList(containerSel, players, {
         row.className = `mp-player-row${p.id === mp.playerId ? ' is-you' : ''}`;
         const av = document.createElement('div');
         av.className = 'mp-player-avatar';
-        av.textContent = vis.icon;
-        av.style.background = vis.color + '22';
         av.style.boxShadow = 'inset 0 0 0 2px ' + vis.color;
+        const avatarUrl = mpDiscordAvatarUrl(p);
+        if (avatarUrl) {
+            const img = document.createElement('img');
+            img.className = 'mp-player-avatar-img';
+            img.alt = '';
+            img.src = avatarUrl;
+            // If the real avatar 404s, degrade to the coloured emoji badge.
+            img.addEventListener('error', () => {
+                img.remove();
+                av.textContent = vis.icon;
+                av.style.background = vis.color + '22';
+            });
+            av.appendChild(img);
+        } else {
+            av.textContent = vis.icon;
+            av.style.background = vis.color + '22';
+        }
         const name = document.createElement('div');
         name.className = 'mp-player-name';
         name.textContent = safeDisplayName(p.name) + (p.id === mp.playerId ? ` ${t('you')}` : '');
