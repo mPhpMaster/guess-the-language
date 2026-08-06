@@ -184,7 +184,8 @@ const I18N = {
         personalRank: 'Your global rank',
         you: '(YOU)',
         lbLoading: 'Loading leaderboard…',
-        lbOnline: '🌐 Global leaderboard (Supabase)',
+        bootLoading: 'Connecting…',
+        lbOnline: '🌐 Global leaderboard',
         lbOffline: '⚠ Could not reach the leaderboard — showing local results.',
         correct: 'Correct!',
         streakBonus: '(×1.5 🔥)',
@@ -259,7 +260,7 @@ const I18N = {
         adminBadge: 'Host',
         kickPlayer: 'Remove',
         roomResults: 'Room Results',
-        mpNeedOnline: 'Multiplayer requires Supabase — see README',
+        mpNeedOnline: 'Multiplayer requires an online connection — see README',
         mpJoinFail: 'Could not join room',
         mpHostFail: 'Could not create room',
         codeCopied: '✅ Code copied!',
@@ -363,7 +364,8 @@ const I18N = {
         personalRank: 'ترتيبك العالمي',
         you: '(أنت)',
         lbLoading: 'جارٍ تحميل لوحة الصدارة…',
-        lbOnline: '🌐 لوحة الصدارة العالمية (Supabase)',
+        bootLoading: 'جارٍ الاتصال…',
+        lbOnline: '🌐 لوحة الصدارة العالمية',
         lbOffline: '⚠ تعذّر الاتصال بلوحة الصدارة — عرض نتائج محلية.',
         correct: 'صحيح!',
         streakBonus: '(×1.5 🔥)',
@@ -438,7 +440,7 @@ const I18N = {
         adminBadge: 'مضيف',
         kickPlayer: 'إزالة',
         roomResults: 'نتائج الغرفة',
-        mpNeedOnline: 'اللعب الجماعي يتطلب Supabase — راجع README',
+        mpNeedOnline: 'اللعب الجماعي يتطلب اتصالاً بالإنترنت — راجع README',
         mpJoinFail: 'تعذّر الانضمام للغرفة',
         mpHostFail: 'تعذّر إنشاء الغرفة',
         codeCopied: '✅ تم نسخ الرمز!',
@@ -2141,14 +2143,28 @@ function submitMpScores(rows) {
     });
 }
 
-function fetchTopScores(limit = 10) {
-    return sbFetch(`scores?select=id,player,score,multiplayer,avatar&mode=eq.${state.mode}&order=score.desc&limit=${limit}`);
+// Which mode's leaderboard to show. Defaults to the play mode, but the leaderboard
+// screen's own mode picker can point it elsewhere without leaving the screen.
+function lbViewMode() {
+    return (state.lbViewMode && MODES[state.lbViewMode]) ? state.lbViewMode : state.mode;
+}
+
+async function fetchTopScores(limit = 10) {
+    // Pull a wide score-desc window, then keep only each player's single best row
+    // so one person can't occupy several slots (deduped by case-insensitive name).
+    const rows = await sbFetch(`scores?select=id,player,score,multiplayer,avatar&mode=eq.${encodeURIComponent(lbViewMode())}&order=score.desc&limit=200`);
+    const best = new Map();
+    for (const r of rows || []) {
+        const key = safeDisplayName(r.player).trim().toLowerCase();
+        if (!best.has(key)) best.set(key, r); // score-desc → first seen is the best
+    }
+    return Array.from(best.values()).slice(0, limit);
 }
 
 async function fetchPersonalRank(score) {
     if (!supabaseConfigured() || score <= 0) return null;
     const c = window.SUPABASE_CONFIG;
-    const url = `${c.url}/rest/v1/scores?select=id&mode=eq.${encodeURIComponent(state.mode)}&score=gt.${score}`;
+    const url = `${c.url}/rest/v1/scores?select=id&mode=eq.${encodeURIComponent(lbViewMode())}&score=gt.${score}`;
     const res = await fetch(url, {
         method: 'HEAD',
         headers: {
@@ -2259,7 +2275,7 @@ async function buildResultsLeaderboard() {
                 personal.classList.remove('hidden');
             }
 
-            $('.results-sub').textContent = t('globalLeaderboard');
+            $('.results-sub').textContent = `${t('globalLeaderboard')} · ${modeLabel(lbViewMode())}`;
             renderLeaderboard(list);
             note.className = 'lb-note online';
             note.textContent = t('lbOnline');
@@ -3532,7 +3548,9 @@ function onDiscordSessionReady() {
     const onHome = $('#screen-home') && $('#screen-home').classList.contains('active');
     const hasChallenge = !!parseChallengePayload(window.DISCORD_ACTIVITY.customId);
     if (onHome && !state.multiplayer && !hasChallenge) {
-        autoJoinDiscordVoiceRoom();
+        autoJoinDiscordVoiceRoom().finally(hideBootLoading);
+    } else {
+        hideBootLoading();
     }
 }
 
@@ -4008,6 +4026,14 @@ async function boot() {
     if (savedMode && MODES[savedMode]) state.mode = savedMode;
     applyLanguage();
 
+    // Inside Discord, show a loading veil while the handshake + auto-join run, so
+    // the player sees a spinner rather than a flash of Home before the lobby.
+    const bootInDiscord = isDiscordEmbedded();
+    if (bootInDiscord) {
+        showBootLoading();
+        setTimeout(hideBootLoading, 12000); // never let it stick if init never resolves
+    }
+
     // Give the Discord Activity a bounded window to finish initialising; fall
     // through to the normal app if it stalls so the UI is never frozen.
     let discordReadyInTime = false;
@@ -4052,12 +4078,20 @@ async function boot() {
 
     if (isDiscordActivity() && !challengeInfo) {
         const joined = await autoJoinDiscordVoiceRoom();
-        if (joined) return;
+        if (joined) { hideBootLoading(); return; }
     }
 
+    // Reveal Home. Keep the veil up only when we're still inside Discord waiting
+    // on a late handshake that will auto-join us — onDiscordSessionReady lifts it
+    // then (or the 12s safety timeout does).
+    const awaitingLateJoin = bootInDiscord && !challengeInfo && !isDiscordActivity();
+    if (!awaitingLateJoin) hideBootLoading();
     showScreen('home');
     selectMode(state.mode);
     if (challengeInfo) showChallengeBanner(challengeInfo);
 }
+
+function showBootLoading() { $('#boot-loading')?.classList.remove('hidden'); }
+function hideBootLoading() { $('#boot-loading')?.classList.add('hidden'); }
 
 boot();

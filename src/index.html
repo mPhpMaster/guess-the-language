@@ -36,6 +36,14 @@
 
   <main id="app">
 
+    <!-- Full-screen loading veil shown while a Discord Activity finishes its
+         handshake and auto-joins the voice-channel room, so the player sees a
+         spinner instead of a flash of the Home screen before the lobby opens. -->
+    <div id="boot-loading" class="boot-loading hidden" role="status" aria-live="polite">
+      <div class="boot-spinner" aria-hidden="true"></div>
+      <p class="boot-loading-text" data-i18n="bootLoading">Loading…</p>
+    </div>
+
     <!-- ============ HOME SCREEN (mode + actions in one page) ============ -->
     <section id="screen-home" class="screen active">
         <button class="corner-btn about-btn" id="btn-about" title="About">&#9432;</button>
