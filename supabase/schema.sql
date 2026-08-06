@@ -86,3 +86,53 @@ alter table public.leaderboard_reports enable row level security;
 -- remove the public insert policy above.
 
 -- Multiplayer rooms: run supabase/schema-multiplayer.sql in the same SQL editor.
+
+-- ---------------------------------------------------------------------------
+-- Player activity stats (v3.4.1): hours played, multiplayer games + wins,
+-- last activity. Written only through record_play(); read publicly for profiles.
+-- ---------------------------------------------------------------------------
+create table if not exists public.player_stats (
+  player      text primary key,
+  games       integer not null default 0,
+  mp_games    integer not null default 0,
+  wins        integer not null default 0,
+  seconds     bigint  not null default 0,
+  last_seen   timestamptz not null default now()
+);
+
+alter table public.player_stats enable row level security;
+
+drop policy if exists "public can read player_stats" on public.player_stats;
+create policy "public can read player_stats"
+  on public.player_stats for select using (true);
+
+create or replace function public.record_play(
+  p_player  text,
+  p_seconds integer,
+  p_multiplayer boolean default false,
+  p_won boolean default false
+) returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  name text := left(btrim(coalesce(p_player, '')), 32);
+  secs integer := greatest(0, least(coalesce(p_seconds, 0), 86400));
+begin
+  if name = '' then return; end if;
+  insert into public.player_stats (player, games, mp_games, wins, seconds, last_seen)
+  values (name, 1,
+    case when p_multiplayer then 1 else 0 end,
+    case when p_multiplayer and p_won then 1 else 0 end,
+    secs, now())
+  on conflict (player) do update set
+    games    = public.player_stats.games + 1,
+    mp_games = public.player_stats.mp_games + case when p_multiplayer then 1 else 0 end,
+    wins     = public.player_stats.wins + case when p_multiplayer and p_won then 1 else 0 end,
+    seconds  = public.player_stats.seconds + secs,
+    last_seen = now();
+end;
+$$;
+
+grant execute on function public.record_play(text, integer, boolean, boolean) to anon, authenticated;

@@ -289,7 +289,11 @@ const I18N = {
         statMp: 'Multiplayer',
         statTotal: 'Total score',
         statBestRank: 'Best rank',
+        statWinRate: 'Win rate',
+        statHours: 'Hours played',
         lastPlayed: 'Last played',
+        lastSeen: 'Last seen',
+        online: 'Online now',
         playerCardMode: 'Game mode',
         playerCardRound: 'Round',
         playerCardScore: 'Score',
@@ -481,7 +485,11 @@ const I18N = {
         statMp: 'اللعب الجماعي',
         statTotal: 'مجموع النقاط',
         statBestRank: 'أفضل ترتيب',
+        statWinRate: 'معدل الفوز',
+        statHours: 'ساعات اللعب',
         lastPlayed: 'آخر لعب',
+        lastSeen: 'آخر ظهور',
+        online: 'متصل الآن',
         playerCardMode: 'نوع اللعبة',
         playerCardRound: 'الجولة',
         playerCardScore: 'النتيجة',
@@ -1458,6 +1466,7 @@ async function startGame() {
     state.roundHistory = [];
     state.viewOnly = false;
     state.selectedAnswer = null;
+    state.gameStartMs = Date.now(); // for play-time tracking
     updateScore();
     updateCorrect();
     updateStreakPill();
@@ -2058,6 +2067,8 @@ async function endGame() {
         $('#results-correct').textContent = String(state.correct);
         $('#results-total').textContent = String(state.round.length);
         renderRoundSummary();
+        // Single-player round finished — log play-time + games (not a multiplayer win).
+        if (!state.multiplayer) recordPlay(false, false);
     }
     await buildResultsLeaderboard();
 }
@@ -2140,6 +2151,31 @@ async function sbFetch(pathQuery, options = {}) {
     });
     if (!res.ok) throw new Error(`Supabase ${res.status}: ${await res.text()}`);
     return res.status === 204 ? null : res.json();
+}
+
+// Record a finished game into player_stats (games, multiplayer wins, seconds
+// played, last activity). Best-effort — a failure must never affect gameplay.
+function recordPlay(multiplayer, won) {
+    if (!supabaseConfigured()) { state.gameStartMs = null; return; }
+    const seconds = state.gameStartMs ? Math.round((Date.now() - state.gameStartMs) / 1000) : 0;
+    state.gameStartMs = null;
+    const name = getPlayerName();
+    if (!name) return;
+    sbFetch('rpc/record_play', {
+        method: 'POST',
+        headers: { Prefer: 'return=minimal' },
+        body: JSON.stringify({ p_player: name, p_seconds: seconds, p_multiplayer: !!multiplayer, p_won: !!won })
+    }).catch((e) => console.warn('record_play failed:', e.message));
+}
+
+// True when the local player has the (non-spectator) top score in the room.
+function amIWinner() {
+    const mp = window.GTL_MULTIPLAYER?.state;
+    if (!mp || !Array.isArray(mp.players) || !mp.players.length) return false;
+    const me = mp.players.find((p) => p.id === mp.playerId);
+    if (!me || me.spectator) return false;
+    const top = Math.max(...mp.players.filter((p) => !p.spectator).map((p) => p.score || 0));
+    return top > 0 && me.score === top;
 }
 
 function submitScore(player, score, mode = state.mode, multiplayer = false) {
@@ -2950,22 +2986,47 @@ async function openProfileCard(entry) {
 
     if (!supabaseConfigured()) { list.innerHTML = `<p class="player-card-rankings-empty">—</p>`; return; }
     try {
-        const [stats, rows] = await Promise.all([
+        const [stats, rows, activity] = await Promise.all([
             fetchPlayerStats(entry.name),
-            fetchPlayerRankings(entry.name)
+            fetchPlayerRankings(entry.name),
+            fetchPlayerActivity(entry.name)
         ]);
         if (!dlg.open) return; // closed/reopened meanwhile
         const ranks = rows.filter((r) => r.best != null && r.rank != null).map((r) => r.rank);
         const bestRank = ranks.length ? Math.min(...ranks) : null;
-        renderProfileStats(statsBox, stats, bestRank);
+        renderProfileStats(statsBox, stats, bestRank, activity);
         renderProfileRankings(list, rows);
+
+        // Online (active in the last few minutes) or last-seen timestamp.
         const lastSeen = $('#player-card-lastseen');
-        if (lastSeen && stats.lastPlayed) {
-            lastSeen.textContent = `${t('lastPlayed')}: ${formatLastPlayed(stats.lastPlayed)}`;
+        const lastIso = (activity && activity.last_seen) || stats.lastPlayed;
+        if (lastSeen && lastIso) {
+            const online = isRecentlyActive(lastIso);
+            lastSeen.textContent = online ? `🟢 ${t('online')}` : `${t('lastSeen')}: ${formatLastPlayed(lastIso)}`;
+            lastSeen.classList.toggle('is-online', online);
             lastSeen.classList.remove('hidden');
         }
     } catch (e) {
         list.innerHTML = `<p class="player-card-rankings-empty">${t('lbOffline')}</p>`;
+    }
+}
+
+async function fetchPlayerActivity(name) {
+    const clean = safeDisplayName(name);
+    try {
+        const rows = await sbFetch(`player_stats?select=games,mp_games,wins,seconds,last_seen&player=eq.${encodeURIComponent(clean)}&limit=1`);
+        return (rows && rows[0]) || null;
+    } catch {
+        return null;
+    }
+}
+
+// "Online" proxy: active within the last 3 minutes (no true presence tracking).
+function isRecentlyActive(iso) {
+    try {
+        return (Date.now() - new Date(iso).getTime()) < 3 * 60 * 1000;
+    } catch (e) {
+        return false;
     }
 }
 
@@ -2987,15 +3048,20 @@ async function fetchPlayerStats(name) {
 
 // `bestRank` (min rank across modes) comes from the rankings fetch, so the whole
 // profile costs no extra query. `null` when the player has no ranked score.
-function renderProfileStats(box, stats, bestRank) {
+function renderProfileStats(box, stats, bestRank, activity) {
     box.innerHTML = '';
+    const mpGames = activity ? activity.mp_games : 0;
+    const wins = activity ? activity.wins : 0;
+    const winRate = mpGames > 0 ? `${Math.round((wins / mpGames) * 100)}%` : '—';
+    const hours = activity && activity.seconds ? `${(activity.seconds / 3600).toFixed(1)}h` : '0h';
     const cells = [
         { label: t('statBestRank'), value: bestRank ? `#${bestRank}` : '—', hero: true },
         { label: t('statBest'), value: fmtNum(stats.best) },
         { label: t('statGames'), value: fmtNum(stats.games) },
+        { label: t('statWinRate'), value: winRate },
+        { label: t('statHours'), value: hours },
         { label: t('statAvg'), value: fmtNum(stats.avg) },
-        { label: t('statTotal'), value: fmtNum(stats.total) },
-        { label: t('statMp'), value: fmtNum(stats.mp) }
+        { label: t('statMp'), value: fmtNum(mpGames || stats.mp) }
     ];
     cells.forEach((c) => {
         const cell = document.createElement('div');
@@ -3648,6 +3714,8 @@ function renderMpResults() {
         sfx.finish();
         state.mpResultsShown = true;
         registerMpScores();
+        // Log my play-time + a multiplayer win if I finished top of the room.
+        if (!state.spectator) recordPlay(true, amIWinner());
     }
 }
 
@@ -3735,6 +3803,7 @@ function handleMultiplayerUpdate(room, players) {
         state.multiplayer = true;
         state.mpResultsShown = false;
         state.spectator = amSpectator();
+        if (!state.gameStartMs) state.gameStartMs = Date.now(); // play-time tracking
         const key = `${room.question_index}|${room.phase}`;
         if (key !== state.mpSyncKey) {
             state.mpSyncKey = key;
