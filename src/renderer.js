@@ -3806,7 +3806,11 @@ function registerMpScores() {
         player: p.name,
         score: p.score,
         mode,
-        multiplayer: true
+        multiplayer: true,
+        // Persist each player's real Discord photo so EVERYONE sees it on the
+        // board later (not just the local player via the live render override).
+        // The host resolves it from the shared Activity participants; null → emoji.
+        avatar: mpDiscordAvatarUrl(p) || null
     }));
     submitMpScores(rows).catch((e) => console.error('register mp scores:', e));
 }
