@@ -797,3 +797,69 @@ grant execute on function public.update_room_settings(uuid, uuid, text, jsonb) t
 grant execute on function public.kick_player(uuid, uuid, uuid) to anon, authenticated;
 grant execute on function public.leave_room(uuid, uuid) to anon, authenticated;
 grant execute on function public.cleanup_rooms() to anon, authenticated;
+
+-- ===========================================================================
+-- Host migration & manual transfer (v3.10). A room always keeps a valid host:
+-- on leave the role migrates to the next player (room only closes when empty),
+-- a hostless room is auto-healed to the earliest joiner, and the host can hand
+-- the role to anyone. Mirrors migrations host_migration_and_transfer + join fix.
+-- ===========================================================================
+create or replace function public._ensure_host(p_room_id uuid)
+returns uuid language plpgsql security definer set search_path = public as $$
+declare v_host uuid; v_new uuid;
+begin
+  select host_player_id into v_host from public.rooms where id = p_room_id;
+  if v_host is not null and exists (select 1 from public.room_players where id = v_host and room_id = p_room_id) then
+    update public.room_players set is_host = (id = v_host) where room_id = p_room_id and is_host <> (id = v_host);
+    return v_host;
+  end if;
+  select id into v_new from public.room_players
+    where room_id = p_room_id and coalesce(spectator, false) = false order by joined_at asc limit 1;
+  if v_new is null then
+    select id into v_new from public.room_players where room_id = p_room_id order by joined_at asc limit 1;
+  end if;
+  if v_new is not null then
+    update public.rooms set host_player_id = v_new where id = p_room_id;
+    update public.room_players set is_host = (id = v_new) where room_id = p_room_id;
+  end if;
+  return v_new;
+end; $$;
+
+create or replace function public.claim_host(p_room_id uuid)
+returns jsonb language plpgsql security definer set search_path = public as $$
+declare v_host uuid;
+begin
+  v_host := public._ensure_host(p_room_id);
+  return jsonb_build_object('ok', true, 'hostPlayerId', v_host);
+end; $$;
+grant execute on function public.claim_host(uuid) to anon, authenticated;
+
+create or replace function public.make_host(p_room_id uuid, p_player_id uuid, p_target_player_id uuid)
+returns jsonb language plpgsql security definer set search_path = public as $$
+declare r public.rooms;
+begin
+  r := public._assert_admin(p_room_id, p_player_id);
+  if not exists (select 1 from public.room_players where id = p_target_player_id and room_id = p_room_id) then
+    raise exception 'No such player in room';
+  end if;
+  update public.rooms set host_player_id = p_target_player_id where id = p_room_id;
+  update public.room_players set is_host = (id = p_target_player_id) where room_id = p_room_id;
+  return jsonb_build_object('ok', true);
+end; $$;
+grant execute on function public.make_host(uuid, uuid, uuid) to anon, authenticated;
+
+create or replace function public.leave_room(p_room_id uuid, p_player_id uuid)
+returns jsonb language plpgsql security definer set search_path = public as $$
+declare r public.rooms; v_remaining int;
+begin
+  select * into r from public.rooms where id = p_room_id;
+  if not found then return jsonb_build_object('ok', true); end if;
+  delete from public.room_players where id = p_player_id and room_id = p_room_id;
+  select count(*) into v_remaining from public.room_players where room_id = p_room_id;
+  if v_remaining = 0 then
+    delete from public.rooms where id = p_room_id;
+    return jsonb_build_object('ok', true, 'roomClosed', true);
+  end if;
+  perform public._ensure_host(p_room_id);
+  return jsonb_build_object('ok', true);
+end; $$;

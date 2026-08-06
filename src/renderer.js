@@ -312,9 +312,14 @@ const I18N = {
         onboardTip4: 'On desktop, answer with keys 1–4. Stuck? Use a 50:50.',
         onboardGotIt: "Let's go",
         shareResult: '📸  Share result',
+        copyImage: 'Copy image',
+        download: 'Download',
+        copied: '✓ Copied — paste it into chat',
+        shareHint: 'Copy it, download it, or long-press the image to save.',
         follow: 'Follow',
         following: 'Following',
         followingTitle: 'Following',
+        makeHost: 'Make host',
         titleNovice: 'Novice',
         titleApprentice: 'Apprentice',
         titleCoder: 'Coder',
@@ -550,9 +555,14 @@ const I18N = {
         onboardTip4: 'على الكمبيوتر أجب بالأرقام ١–٤. محتار؟ استخدم 50:50.',
         onboardGotIt: 'يلا نبدأ',
         shareResult: '📸  شارك النتيجة',
+        copyImage: 'نسخ الصورة',
+        download: 'تنزيل',
+        copied: '✓ نُسخت — الصقها في المحادثة',
+        shareHint: 'انسخها أو نزّلها، أو اضغط مطوّلًا على الصورة لحفظها.',
         follow: 'متابعة',
         following: 'متابَع',
         followingTitle: 'المتابَعون',
+        makeHost: 'اجعله المضيف',
         titleNovice: 'مبتدئ',
         titleApprentice: 'متدرّب',
         titleCoder: 'مبرمج',
@@ -793,9 +803,13 @@ function dismissOnboarding() {
 // ---------- Persistent settings / high score ----------
 const store = {
     highScore(mode) {
-        return Number(localStorage.getItem(`gtl_highscore_${mode}`) || 0);
+        const v = Number(localStorage.getItem(`gtl_highscore_${mode}`) || 0);
+        // Heal any non-finite value written by the old practice ∞-timer bug.
+        if (!Number.isFinite(v)) { try { localStorage.removeItem(`gtl_highscore_${mode}`); } catch (e) {} return 0; }
+        return v;
     },
     setHighScore(mode, v) {
+        if (!Number.isFinite(Number(v))) return; // never store Infinity/NaN
         localStorage.setItem(`gtl_highscore_${mode}`, String(v));
     },
     get settings() {
@@ -1525,7 +1539,10 @@ function buildLanguageOptions(correctName, optionSeed) {
 
 function scoreAnswer(timeLeft, streakAfter) {
     const multiplier = streakAfter >= 3 ? 1.5 : 1;
-    return Math.round((100 + 10 * Math.max(0, timeLeft)) * multiplier);
+    // Guard against a non-finite timeLeft (e.g. practice mode's ∞ timer) so the
+    // score can never become Infinity.
+    const t = Number.isFinite(timeLeft) ? Math.max(0, timeLeft) : 0;
+    return Math.round((100 + 10 * t) * multiplier);
 }
 
 function timeForDifficulty(d) {
@@ -1865,9 +1882,10 @@ function nextQuestion() {
     state.questionTime = resolvedQuestionTime(cur.difficulty);
     state.questionStartedAt = Date.now();
     if (state.learn) {
-        // Practice mode: no countdown — take your time and read the explanation.
+        // Practice mode: no countdown — take your time. Keep timeLeft finite (full
+        // time) so scoring never becomes Infinity; the display just shows ∞.
         clearTimer();
-        state.timeLeft = Infinity;
+        state.timeLeft = state.questionTime;
         $('#timer-num').textContent = '∞';
         setRing(1);
     } else {
@@ -2527,14 +2545,58 @@ async function shareResultCard() {
         const blob = await new Promise((res) => canvas.toBlob(res, 'image/png'));
         if (!blob) return;
         const file = new File([blob], 'guess-the-language.png', { type: 'image/png' });
+        // Native share sheet (mobile / where allowed) — best experience when available.
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            try { await navigator.share({ files: [file], title: t('shareResult') }); return; } catch (_) { /* fall back to download */ }
+            try { await navigator.share({ files: [file], title: t('shareResult') }); return; } catch (_) { /* fall through */ }
         }
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url; a.download = file.name; a.click();
-        setTimeout(() => URL.revokeObjectURL(url), 5000);
-    } catch (e) { console.warn('share card failed:', e); }
+        // Otherwise show the card in an overlay — inside the Discord iframe a silent
+        // download is blocked, so this guarantees the player actually sees/gets it.
+        showShareOverlay(URL.createObjectURL(blob), blob);
+    } catch (e) { console.warn('share card failed:', e); if (typeof logError === 'function') logError('share card: ' + e, { source: 'shareResultCard' }); }
+}
+
+// Overlay that presents the generated result card with copy/download actions.
+function showShareOverlay(url, blob) {
+    let el = document.getElementById('share-overlay');
+    if (!el) {
+        el = document.createElement('div');
+        el.id = 'share-overlay';
+        el.className = 'share-overlay';
+        el.innerHTML =
+            '<div class="share-card-box">' +
+            '<img class="share-img" id="share-img" alt="" />' +
+            '<div class="share-actions">' +
+            '<button type="button" class="btn btn-primary btn-sm" id="share-copy"></button>' +
+            '<button type="button" class="btn btn-ghost btn-sm" id="share-dl"></button>' +
+            '<button type="button" class="btn btn-ghost btn-sm" id="share-close"></button>' +
+            '</div><p class="share-hint" id="share-hint"></p></div>';
+        document.body.appendChild(el);
+        el.addEventListener('click', (e) => { if (e.target === el) hideShareOverlay(); });
+    }
+    const hint = el.querySelector('#share-hint');
+    el.querySelector('#share-img').src = url;
+    el.querySelector('#share-copy').textContent = `📋 ${t('copyImage')}`;
+    el.querySelector('#share-dl').textContent = `⬇ ${t('download')}`;
+    el.querySelector('#share-close').textContent = t('close');
+    hint.textContent = t('shareHint');
+    el.querySelector('#share-copy').onclick = async () => {
+        try {
+            await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+            hint.textContent = t('copied');
+        } catch (e) { hint.textContent = t('shareHint'); }
+    };
+    el.querySelector('#share-dl').onclick = () => {
+        try { const a = document.createElement('a'); a.href = url; a.download = 'guess-the-language.png'; a.click(); } catch (e) {}
+    };
+    el.querySelector('#share-close').onclick = hideShareOverlay;
+    el._url = url;
+    el.classList.add('show');
+}
+function hideShareOverlay() {
+    const el = document.getElementById('share-overlay');
+    if (!el) return;
+    el.classList.remove('show');
+    if (el._url) { try { setTimeout(() => URL.revokeObjectURL(el._url), 3000); } catch (e) {} }
 }
 
 function renderAnswerReview(history) {
@@ -3556,6 +3618,17 @@ function openPlayerCard(player) {
         invite.classList.toggle('hidden', !canInvite);
         invite.textContent = isDiscordActivity() ? t('inviteToRoom') : t('copyCode');
     }
+    // Host-only: promote another (non-host, non-spectator) player to host in the lobby.
+    const mkHost = $('#btn-player-card-makehost');
+    if (mkHost) {
+        const canPromote = mp.isAdmin && !isYou && !player.is_host && !player.spectator && room?.status === 'lobby';
+        mkHost.classList.toggle('hidden', !canPromote);
+        mkHost.textContent = `👑 ${t('makeHost')}`;
+        mkHost.onclick = async () => {
+            try { await window.GTL_MULTIPLAYER.makeHost(player.id); closePlayerCard(); }
+            catch (e) { const b = $('#player-card-error'); if (b) { b.textContent = e.message || 'error'; b.classList.remove('hidden'); } }
+        };
+    }
     $('#player-card-error')?.classList.add('hidden');
 
     // Load the player's global profile (stats + per-mode rankings) once per open —
@@ -3701,6 +3774,7 @@ async function openProfileCard(entry) {
     // Profile context: hide the live-room rows + invite, show stats + rankings.
     $('#player-card-room').classList.add('hidden');
     $('#btn-player-card-invite').classList.add('hidden');
+    $('#btn-player-card-makehost')?.classList.add('hidden'); // room-only control
     $('#player-card-error').classList.add('hidden');
     $('#player-card-friends').classList.add('hidden'); // reset; shown only on your own profile
 
@@ -5234,7 +5308,7 @@ async function boot() {
     // it stalls we must NOT let it block bindEvents — otherwise the page renders
     // but every control is dead ("it does nothing").
     bindEvents();
-    applyUiScale(getUiScale()); // restore the saved interface size before first paint settles
+    applyUiScale(effectiveScale(), hasManualScale()); // manual zoom, else auto-fit the width
     if (window.GTL_MULTIPLAYER) {
         window.GTL_MULTIPLAYER.onUpdate = handleMultiplayerUpdate;
         window.GTL_MULTIPLAYER.onKicked = onMpKicked;
@@ -5316,11 +5390,35 @@ function hideBootLoading() { $('#boot-loading')?.classList.add('hidden'); }
 // zoom the whole UI. Uses Chromium's `zoom` (Electron / Discord / Chrome are all
 // Chromium), persisted across launches.
 const UI_SCALE_MIN = 0.8, UI_SCALE_MAX = 2.0, UI_SCALE_STEP = 0.1;
+// The content is laid out around this width, then scaled up to fill wider windows
+// (the Discord Activity panel is very wide, leaving the game tiny and centered).
+const AUTOFIT_REF = 900;
+function hasManualScale() { return Number.isFinite(parseFloat(localStorage.getItem('gtl_ui_scale'))); }
 function getUiScale() {
     const v = parseFloat(localStorage.getItem('gtl_ui_scale'));
     return Number.isFinite(v) ? Math.min(UI_SCALE_MAX, Math.max(UI_SCALE_MIN, v)) : 1;
 }
-function applyUiScale(scale) {
+// Auto scale-to-fill for wide viewports; never shrinks below 1 (narrow screens keep
+// their normal responsive layout). Only used when the player hasn't set a manual zoom.
+function autoFitScale() {
+    try {
+        const w = window.innerWidth || document.documentElement.clientWidth || 1000;
+        return Math.min(UI_SCALE_MAX, Math.max(1, Math.round((w / AUTOFIT_REF) * 100) / 100));
+    } catch (e) { return 1; }
+}
+function effectiveScale() { return hasManualScale() ? getUiScale() : autoFitScale(); }
+// Re-fit when the window resizes (Discord panel resize, window drag) — but only
+// while the player is on auto (no manual zoom set).
+let __autofitTimer = null;
+function applyAutoFit() {
+    if (hasManualScale()) return;
+    applyUiScale(autoFitScale(), false);
+}
+window.addEventListener('resize', () => {
+    if (__autofitTimer) clearTimeout(__autofitTimer);
+    __autofitTimer = setTimeout(applyAutoFit, 150);
+});
+function applyUiScale(scale, persist = true) {
     const s = Math.min(UI_SCALE_MAX, Math.max(UI_SCALE_MIN, Math.round(scale * 100) / 100));
     const root = document.documentElement;
     const app = document.getElementById('app');
@@ -5349,11 +5447,12 @@ function applyUiScale(scale) {
             }
         }
     }
-    localStorage.setItem('gtl_ui_scale', String(s));
+    if (persist) localStorage.setItem('gtl_ui_scale', String(s));
     const label = $('#ui-scale-value');
     if (label) label.textContent = Math.round(s * 100) + '%';
     return s;
 }
-function nudgeUiScale(delta) { applyUiScale(getUiScale() + delta); }
+// Manual +/- from Settings sets a persistent override (turns auto-fit off).
+function nudgeUiScale(delta) { applyUiScale(effectiveScale() + delta, true); }
 
 boot();

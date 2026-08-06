@@ -189,12 +189,33 @@
   }
 
   function emitUpdate() {
+    // Host can migrate at any time (someone left, was promoted, or a hostless room
+    // was healed), so recompute admin from the live room every update — not just at join.
+    mp.isAdmin = !!(mp.room && mp.playerId && mp.room.host_player_id === mp.playerId);
+    maybeClaimHost();
     mp.onUpdate?.(mp.room, mp.players, me());
+  }
+
+  // If the room has no valid host (the host left / was cleaned up), the earliest-joined
+  // present player claims it. Deterministic, so only one client actually triggers it.
+  let claimingHost = false;
+  async function maybeClaimHost() {
+    if (claimingHost || !mp.roomId || !mp.room || !mp.players || !mp.players.length) return;
+    const host = mp.room.host_player_id;
+    if (host && mp.players.some((p) => p.id === host)) return; // host present
+    const eligible = mp.players
+      .filter((p) => !p.spectator)
+      .sort((a, b) => new Date(a.joined_at || 0) - new Date(b.joined_at || 0));
+    const first = eligible[0] || mp.players[0];
+    if (!first || first.id !== mp.playerId) return; // only the earliest player claims
+    claimingHost = true;
+    try { await rpc('claim_host', { p_room_id: mp.roomId }); } catch (e) { /* realtime will retry */ }
+    finally { claimingHost = false; }
   }
 
   function syncKey(room) {
     if (!room) return '';
-    return `${room.status}|${room.question_index}|${room.phase}|${room.question_ends_at}`;
+    return `${room.status}|${room.question_index}|${room.phase}|${room.question_ends_at}|${room.host_player_id}`;
   }
 
   async function refresh() {
@@ -438,6 +459,17 @@
     await refresh();
   }
 
+  // Host hands the host role to another player in the room.
+  async function makeHost(targetPlayerId) {
+    if (!mp.isAdmin) throw new Error('Admin access required');
+    await rpc('make_host', {
+      p_room_id: mp.roomId,
+      p_player_id: mp.playerId,
+      p_target_player_id: targetPlayerId
+    });
+    await refresh();
+  }
+
   async function leaveRoom() {
     if (mp.roomId && mp.playerId) {
       try {
@@ -528,6 +560,7 @@
     updateRoomSettings,
     fetchAnswers,
     kickPlayer,
+    makeHost,
     leaveRoom,
     leaveBeacon,
     teardown,
