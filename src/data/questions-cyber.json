@@ -2770,5 +2770,215 @@
       "en": "LHOST is the local listener address for a reverse connection.",
       "ar": "LHOST هو عنوان المستقبل المحلي للاتصال العكسي."
     }
+  },
+  {
+    "id": 133,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is the principle of least privilege?",
+      "ar": "ما مبدأ الحدّ الأدنى من الصلاحيات؟"
+    },
+    "options": [
+      "Grant only the access that is needed",
+      "Give admins access to everything",
+      "Share one account across a team",
+      "Disable all logging by default"
+    ],
+    "answer": "Grant only the access that is needed",
+    "explanation": {
+      "en": "Each user or process gets the minimum rights required, limiting damage.",
+      "ar": "كل مستخدم أو عملية يأخذ أقل الصلاحيات اللازمة، فيقلّ الضرر."
+    }
+  },
+  {
+    "id": 134,
+    "category": "defense",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a firewall's default-deny rule do?",
+      "ar": "ماذا تفعل قاعدة \"المنع الافتراضي\" في الجدار الناري؟"
+    },
+    "options": [
+      "Block anything not explicitly allowed",
+      "Allow anything not explicitly blocked",
+      "Log the traffic without filtering it",
+      "Encrypt every packet it forwards on"
+    ],
+    "answer": "Block anything not explicitly allowed",
+    "explanation": {
+      "en": "A default-deny stance only permits traffic that matches an allow rule.",
+      "ar": "المنع الافتراضي يسمح فقط بحركة تطابق قاعدة سماح."
+    }
+  },
+  {
+    "id": 135,
+    "category": "attacks",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a brute-force attack?",
+      "ar": "ما هجوم القوة الغاشمة؟"
+    },
+    "options": [
+      "Trying many guesses until one works",
+      "Tricking a user with a fake email",
+      "Intercepting traffic between hosts",
+      "Overloading a server with requests"
+    ],
+    "answer": "Trying many guesses until one works",
+    "explanation": {
+      "en": "It systematically tries passwords or keys until it finds a valid one.",
+      "ar": "يجرّب كلمات المرور أو المفاتيح بشكل منهجي حتى يجد صحيحًا."
+    }
+  },
+  {
+    "id": 136,
+    "category": "crypto",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does hashing a password store?",
+      "ar": "ماذا يخزّن تجزئة كلمة المرور؟"
+    },
+    "options": [
+      "A one-way digest, not the password",
+      "The password encrypted with a key",
+      "The password in plain readable text",
+      "A shortened copy of the password"
+    ],
+    "answer": "A one-way digest, not the password",
+    "explanation": {
+      "en": "A good hash can't be reversed, so the original password isn't stored.",
+      "ar": "التجزئة الجيدة لا يمكن عكسها، فلا تُخزّن كلمة المرور الأصلية."
+    }
+  },
+  {
+    "id": 137,
+    "category": "attacks",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a supply-chain attack?",
+      "ar": "ما هجوم سلسلة التوريد؟"
+    },
+    "options": [
+      "Compromising a trusted dependency",
+      "Guessing a user's weak password",
+      "Flooding a target with junk traffic",
+      "Reading files outside the web root"
+    ],
+    "answer": "Compromising a trusted dependency",
+    "explanation": {
+      "en": "Attackers poison a library or update that many victims already trust.",
+      "ar": "يسمّم المهاجمون مكتبة أو تحديثًا يثق به كثير من الضحايا مسبقًا."
+    }
+  },
+  {
+    "id": 138,
+    "category": "auth",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does two-factor authentication protect against?",
+      "ar": "ممّ تحمي المصادقة الثنائية؟"
+    },
+    "options": [
+      "A stolen password on its own",
+      "A slow internet connection now",
+      "A corrupted local backup file",
+      "An expired TLS certificate chain"
+    ],
+    "answer": "A stolen password on its own",
+    "explanation": {
+      "en": "Even with the password, an attacker still lacks the second factor.",
+      "ar": "حتى مع كلمة المرور، يبقى المهاجم بلا العامل الثاني."
+    }
+  },
+  {
+    "id": 139,
+    "category": "attacks",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is phishing aimed at?",
+      "ar": "إلامَ يهدف التصيّد (phishing)؟"
+    },
+    "options": [
+      "Tricking people into leaking secrets",
+      "Cracking a password hash on a GPU",
+      "Scanning a subnet for live hosts",
+      "Escalating local user privileges"
+    ],
+    "answer": "Tricking people into leaking secrets",
+    "explanation": {
+      "en": "Phishing manipulates people, not machines, into revealing credentials.",
+      "ar": "يتلاعب التصيّد بالبشر لا بالأجهزة ليكشفوا بياناتهم."
+    }
+  },
+  {
+    "id": 140,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a CVE identifier?",
+      "ar": "ما معرّف CVE؟"
+    },
+    "options": [
+      "A public id for a known vulnerability",
+      "A type of antivirus scan signature",
+      "A firewall rule numbering scheme",
+      "A password-strength score value out"
+    ],
+    "answer": "A public id for a known vulnerability",
+    "explanation": {
+      "en": "CVE ids give everyone a shared reference for a specific disclosed flaw.",
+      "ar": "تمنح معرّفات CVE الجميع مرجعًا موحّدًا لثغرة مُعلَنة محددة."
+    }
+  },
+  {
+    "id": 141,
+    "category": "attacks",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is 'lateral movement'?",
+      "ar": "ما \"الحركة الجانبية\"؟"
+    },
+    "options": [
+      "Spreading to other hosts after entry",
+      "Gaining higher privileges on one host",
+      "Deleting logs to hide the activity",
+      "Encrypting files to demand a ransom"
+    ],
+    "answer": "Spreading to other hosts after entry",
+    "explanation": {
+      "en": "After a foothold, the attacker pivots across the network to more systems.",
+      "ar": "بعد موطئ القدم، ينتقل المهاجم عبر الشبكة إلى أنظمة أخرى."
+    }
+  },
+  {
+    "id": 142,
+    "category": "crypto",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does encryption primarily protect?",
+      "ar": "ماذا تحمي التعمية (encryption) أساسًا؟"
+    },
+    "options": [
+      "The confidentiality of the data",
+      "The speed of the network link",
+      "The uptime of a single server",
+      "The size of the stored database"
+    ],
+    "answer": "The confidentiality of the data",
+    "explanation": {
+      "en": "Encryption keeps data unreadable to anyone without the key.",
+      "ar": "تُبقي التعمية البيانات غير مقروءة لمن لا يملك المفتاح."
+    }
   }
 ]

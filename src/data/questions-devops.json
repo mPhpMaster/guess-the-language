@@ -1930,5 +1930,215 @@
       "en": "The cutover is instant and the old environment stays ready for rollback.",
       "ar": "التحويل فوري وتبقى البيئة القديمة جاهزة للتراجع."
     }
+  },
+  {
+    "id": 93,
+    "category": "docker",
+    "difficulty": "medium",
+    "codeSnippet": "docker volume create data",
+    "question": {
+      "en": "What does a Docker volume provide?",
+      "ar": "ماذا يوفّر مجلّد Docker (volume)؟"
+    },
+    "options": [
+      "Data that persists beyond the container",
+      "A faster CPU for the container",
+      "A private image registry mirror",
+      "An extra network for the host"
+    ],
+    "answer": "Data that persists beyond the container",
+    "explanation": {
+      "en": "Volumes store data outside the container's writable layer, so it survives removal.",
+      "ar": "تخزّن الـ volumes البيانات خارج طبقة الحاوية، فتبقى بعد حذفها."
+    }
+  },
+  {
+    "id": 94,
+    "category": "kubernetes",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a Kubernetes namespace for?",
+      "ar": "فيمَ يُستخدم namespace في Kubernetes؟"
+    },
+    "options": [
+      "Isolating groups of resources logically",
+      "Storing the container image layers",
+      "Encrypting the traffic between pods",
+      "Load-balancing across the worker nodes"
+    ],
+    "answer": "Isolating groups of resources logically",
+    "explanation": {
+      "en": "Namespaces partition a cluster so teams or environments don't collide.",
+      "ar": "تقسّم مساحات الأسماء العنقود كي لا تتصادم الفرق أو البيئات."
+    }
+  },
+  {
+    "id": 95,
+    "category": "cicd",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a build artifact?",
+      "ar": "ما ناتج البناء (artifact)؟"
+    },
+    "options": [
+      "The output produced by a build",
+      "A bug found while testing code",
+      "A step in the source control log",
+      "A rule inside the host firewall"
+    ],
+    "answer": "The output produced by a build",
+    "explanation": {
+      "en": "Artifacts are the compiled/packaged outputs a pipeline passes along or ships.",
+      "ar": "المخرجات هي الناتج المُصرَّف/المحزوم الذي ينقله الأنبوب أو يشحنه."
+    }
+  },
+  {
+    "id": 96,
+    "category": "iac",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does 'declarative' configuration mean?",
+      "ar": "ماذا يعني الإعداد \"التصريحي\"؟"
+    },
+    "options": [
+      "You describe the desired end state",
+      "You list each command in order",
+      "You run the steps by hand",
+      "You compile it to machine code"
+    ],
+    "answer": "You describe the desired end state",
+    "explanation": {
+      "en": "You state what you want; the tool figures out the steps to get there.",
+      "ar": "تصف ما تريده، والأداة تستنتج الخطوات للوصول إليه."
+    }
+  },
+  {
+    "id": 97,
+    "category": "cloud",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a container registry?",
+      "ar": "ما سجلّ الحاويات (registry)؟"
+    },
+    "options": [
+      "A store for built container images",
+      "A cluster of worker machines",
+      "A tool that writes Dockerfiles",
+      "A dashboard for server metrics"
+    ],
+    "answer": "A store for built container images",
+    "explanation": {
+      "en": "Registries host images so clusters can pull them (e.g. Docker Hub, GHCR).",
+      "ar": "تستضيف السجلات الصور ليسحبها العنقود (مثل Docker Hub وGHCR)."
+    }
+  },
+  {
+    "id": 98,
+    "category": "docker",
+    "difficulty": "easy",
+    "codeSnippet": "docker pull nginx",
+    "question": {
+      "en": "What does this command do?",
+      "ar": "ماذا يفعل هذا الأمر؟"
+    },
+    "options": [
+      "Download the nginx image locally",
+      "Start a new nginx container",
+      "Build an image named nginx",
+      "Remove the local nginx image"
+    ],
+    "answer": "Download the nginx image locally",
+    "explanation": {
+      "en": "docker pull fetches an image from a registry to the local machine.",
+      "ar": "يجلب docker pull صورة من السجل إلى الجهاز المحلي."
+    }
+  },
+  {
+    "id": 99,
+    "category": "kubernetes",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a ConfigMap store?",
+      "ar": "ماذا يخزّن ConfigMap؟"
+    },
+    "options": [
+      "Non-secret configuration for pods",
+      "Encrypted passwords and tokens",
+      "Persistent database volumes",
+      "Container image build layers"
+    ],
+    "answer": "Non-secret configuration for pods",
+    "explanation": {
+      "en": "ConfigMaps hold plain config; Secrets are for sensitive values.",
+      "ar": "يحمل ConfigMap إعدادات عادية، أما القيم الحساسة فتوضع في Secrets."
+    }
+  },
+  {
+    "id": 100,
+    "category": "cicd",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why run automated tests in a CI pipeline?",
+      "ar": "لماذا نشغّل اختبارات آلية في خط CI؟"
+    },
+    "options": [
+      "To catch breaking changes early",
+      "To deploy straight to production",
+      "To shrink the container image",
+      "To rotate the access tokens"
+    ],
+    "answer": "To catch breaking changes early",
+    "explanation": {
+      "en": "Running tests on every change surfaces regressions before they ship.",
+      "ar": "تشغيل الاختبارات عند كل تغيير يكشف الأعطال قبل شحنها."
+    }
+  },
+  {
+    "id": 101,
+    "category": "cloud",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does 'high availability' aim for?",
+      "ar": "ما هدف \"التوافر العالي\"؟"
+    },
+    "options": [
+      "Little to no service downtime",
+      "The cheapest possible hosting",
+      "The fastest single request",
+      "The smallest codebase size"
+    ],
+    "answer": "Little to no service downtime",
+    "explanation": {
+      "en": "HA designs remove single points of failure so the service stays up.",
+      "ar": "تصاميم HA تزيل نقاط الفشل الواحدة كي تبقى الخدمة عاملة."
+    }
+  },
+  {
+    "id": 102,
+    "category": "iac",
+    "difficulty": "medium",
+    "codeSnippet": "terraform destroy",
+    "question": {
+      "en": "What does this command do?",
+      "ar": "ماذا يفعل هذا الأمر؟"
+    },
+    "options": [
+      "Tear down the managed resources",
+      "Preview the pending changes",
+      "Format the configuration files",
+      "Import an existing resource"
+    ],
+    "answer": "Tear down the managed resources",
+    "explanation": {
+      "en": "terraform destroy removes every resource the state currently manages.",
+      "ar": "يزيل terraform destroy كل مورد تديره الحالة حاليًا."
+    }
   }
 ]

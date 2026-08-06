@@ -1867,5 +1867,215 @@
       "en": "It maps the path by eliciting a reply from each router along it.",
       "ar": "يرسم المسار عبر انتزاع رد من كل موجّه على الطريق."
     }
+  },
+  {
+    "id": 90,
+    "category": "osi",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "At which OSI layer does IP operate?",
+      "ar": "في أي طبقة OSI يعمل بروتوكول IP؟"
+    },
+    "options": [
+      "The network layer (layer 3)",
+      "The transport layer (layer 4)",
+      "The data-link layer (layer 2)",
+      "The session layer (layer 5)"
+    ],
+    "answer": "The network layer (layer 3)",
+    "explanation": {
+      "en": "IP handles addressing and routing at layer 3; TCP/UDP sit above at layer 4.",
+      "ar": "يتولّى IP العنونة والتوجيه في الطبقة 3، وTCP/UDP فوقه في الطبقة 4."
+    }
+  },
+  {
+    "id": 91,
+    "category": "addressing",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a subnet mask define?",
+      "ar": "ماذا يحدّد قناع الشبكة الفرعية؟"
+    },
+    "options": [
+      "Which bits are network vs host",
+      "The gateway's hardware address",
+      "The DNS server that is queried",
+      "The broadcast time interval used"
+    ],
+    "answer": "Which bits are network vs host",
+    "explanation": {
+      "en": "The mask splits an address into its network portion and its host portion.",
+      "ar": "يقسم القناع العنوان إلى جزء الشبكة وجزء المضيف."
+    }
+  },
+  {
+    "id": 92,
+    "category": "addressing",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is the purpose of a MAC address?",
+      "ar": "ما الغرض من عنوان MAC؟"
+    },
+    "options": [
+      "Identify a device on the local link",
+      "Route packets across the internet",
+      "Resolve a name to an address",
+      "Encrypt the wireless network traffic"
+    ],
+    "answer": "Identify a device on the local link",
+    "explanation": {
+      "en": "MAC addresses identify hardware on the same local network segment.",
+      "ar": "تعرّف عناوين MAC الأجهزة على نفس مقطع الشبكة المحلي."
+    }
+  },
+  {
+    "id": 93,
+    "category": "ports",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which port does HTTPS use by default?",
+      "ar": "أي منفذ يستخدمه HTTPS افتراضيًا؟"
+    },
+    "options": [
+      "443",
+      "80",
+      "22",
+      "53"
+    ],
+    "answer": "443",
+    "explanation": {
+      "en": "HTTPS defaults to TCP 443; plain HTTP uses 80.",
+      "ar": "يستخدم HTTPS المنفذ 443 افتراضيًا، وHTTP العادي 80."
+    }
+  },
+  {
+    "id": 94,
+    "category": "ports",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which port does SSH use by default?",
+      "ar": "أي منفذ يستخدمه SSH افتراضيًا؟"
+    },
+    "options": [
+      "22",
+      "21",
+      "25",
+      "110"
+    ],
+    "answer": "22",
+    "explanation": {
+      "en": "SSH listens on TCP 22 by default; 21 is FTP, 25 is SMTP.",
+      "ar": "يستمع SSH على المنفذ 22 افتراضيًا، و21 لـ FTP و25 لـ SMTP."
+    }
+  },
+  {
+    "id": 95,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "ICMP echo request/reply powers which tool?",
+      "ar": "أي أداة تعتمد على طلب/ردّ ICMP echo؟"
+    },
+    "options": [
+      "The ping utility",
+      "The DNS resolver",
+      "The DHCP client",
+      "The ARP cache"
+    ],
+    "answer": "The ping utility",
+    "explanation": {
+      "en": "ping sends ICMP echo requests and waits for echo replies.",
+      "ar": "يرسل ping طلبات ICMP echo وينتظر الردود."
+    }
+  },
+  {
+    "id": 96,
+    "category": "switching",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a switch use to forward frames?",
+      "ar": "ماذا يستخدم المحوّل لتمرير الإطارات؟"
+    },
+    "options": [
+      "A table of MAC addresses",
+      "A list of open TCP ports",
+      "A cache of DNS records",
+      "A set of firewall rules"
+    ],
+    "answer": "A table of MAC addresses",
+    "explanation": {
+      "en": "A switch learns MAC addresses per port and forwards frames accordingly.",
+      "ar": "يتعلّم المحوّل عناوين MAC لكل منفذ ويمرّر الإطارات بناءً عليها."
+    }
+  },
+  {
+    "id": 97,
+    "category": "ipv6",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What problem does IPv6 mainly solve?",
+      "ar": "أي مشكلة يحلّها IPv6 أساسًا؟"
+    },
+    "options": [
+      "The shortage of IPv4 addresses",
+      "Slow domain name resolution",
+      "Weak wireless encryption keys",
+      "High packet loss over Wi-Fi"
+    ],
+    "answer": "The shortage of IPv4 addresses",
+    "explanation": {
+      "en": "IPv6's huge address space removes the IPv4 exhaustion problem.",
+      "ar": "مساحة عناوين IPv6 الضخمة تزيل مشكلة نفاد عناوين IPv4."
+    }
+  },
+  {
+    "id": 98,
+    "category": "protocols",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does the TTL field in an IP packet limit?",
+      "ar": "ماذا يحدّ حقل TTL في حزمة IP؟"
+    },
+    "options": [
+      "How many hops before it is dropped",
+      "How long DNS caches the answer",
+      "How many bytes the packet holds",
+      "How fast the link can transmit"
+    ],
+    "answer": "How many hops before it is dropped",
+    "explanation": {
+      "en": "Each router decrements TTL; at zero the packet is discarded, stopping loops.",
+      "ar": "كل موجّه ينقص TTL، وعند الصفر تُسقط الحزمة، ما يمنع الحلقات."
+    }
+  },
+  {
+    "id": 99,
+    "category": "routing",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a router primarily do?",
+      "ar": "ماذا يفعل الموجّه أساسًا؟"
+    },
+    "options": [
+      "Forward packets between networks",
+      "Assign MAC addresses to hosts",
+      "Resolve domain names to IPs",
+      "Store website content locally"
+    ],
+    "answer": "Forward packets between networks",
+    "explanation": {
+      "en": "Routers move packets between separate networks using their routing table.",
+      "ar": "تنقل الموجّهات الحزم بين شبكات منفصلة عبر جدول التوجيه."
+    }
   }
 ]
