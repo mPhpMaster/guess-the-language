@@ -230,6 +230,12 @@ const I18N = {
         returnLobbyFailed: 'Could not reach the room — try again.',
         challengeSent: '✅ Challenge sent!',
         challengeFailed: 'Could not open the share dialog.',
+        challengeWon: '🎉 Challenge beaten!',
+        challengeLost: '💪 Challenge not beaten',
+        challengeWonSub: 'You scored {you} — the target was {target}. Send them a challenge back!',
+        challengeLostSub: 'You scored {you}, the target was {target}. So close — try again!',
+        challengeBack: '🔗  Challenge them back',
+        challengeDismiss: 'Dismiss',
         loginDiscord: '💬  Login with Discord',
         loginDiscordToPlay: 'Sign in with Discord to play',
         logoutDiscord: '🚪  Log out',
@@ -315,6 +321,9 @@ const I18N = {
         copyImage: 'Copy image',
         download: 'Download',
         copied: '✓ Copied — paste it into chat',
+        copyFailed: 'Copy blocked here — long-press / right-click the image to save it.',
+        downloadStarted: '⬇ Saved to your downloads',
+        downloadBlocked: 'Download blocked here — long-press / right-click the image to save it.',
         shareHint: 'Copy it, download it, or long-press the image to save.',
         follow: 'Follow',
         following: 'Following',
@@ -473,6 +482,12 @@ const I18N = {
         returnLobbyFailed: 'تعذّر الوصول إلى الغرفة — حاول مرة أخرى.',
         challengeSent: '✅ تم إرسال التحدي!',
         challengeFailed: 'تعذّر فتح نافذة المشاركة.',
+        challengeWon: '🎉 مبروك! كسرت التحدّي',
+        challengeLost: '💪 لم تكسر التحدّي',
+        challengeWonSub: 'حصلت على {you} نقطة والهدف كان {target}. تحدَّ صديقك بالمقابل!',
+        challengeLostSub: 'حصلت على {you} نقطة والهدف كان {target}. اقتربت — حاول مجدداً!',
+        challengeBack: '🔗  تحدَّ صديقك بالمقابل',
+        challengeDismiss: 'إغلاق',
         loginDiscord: '💬  تسجيل الدخول عبر Discord',
         loginDiscordToPlay: 'سجّل الدخول عبر Discord للّعب',
         logoutDiscord: '🚪  تسجيل الخروج',
@@ -558,6 +573,9 @@ const I18N = {
         copyImage: 'نسخ الصورة',
         download: 'تنزيل',
         copied: '✓ نُسخت — الصقها في المحادثة',
+        copyFailed: 'النسخ محجوب هنا — اضغط مطوّلًا/بزر يمين على الصورة لحفظها.',
+        downloadStarted: '⬇ تم الحفظ في التنزيلات',
+        downloadBlocked: 'التنزيل محجوب هنا — اضغط مطوّلًا/بزر يمين على الصورة لحفظها.',
         shareHint: 'انسخها أو نزّلها، أو اضغط مطوّلًا على الصورة لحفظها.',
         follow: 'متابعة',
         following: 'متابَع',
@@ -1165,11 +1183,25 @@ function appApiPrefix() {
     return '';
 }
 
-function discordAvatarUrl(user) {
+function discordAvatarUrl(user, size = 64) {
     if (user && user.id && user.avatar) {
-        return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=64`;
+        return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=${size}`;
     }
     return null;
+}
+
+// Load an image for canvas compositing (share card). crossOrigin lets us read the
+// pixels back without tainting the canvas; resolves null on any failure.
+function loadCrossOriginImage(src) {
+    return new Promise((resolve) => {
+        if (!src) { resolve(null); return; }
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.referrerPolicy = 'no-referrer';
+        img.onload = () => resolve(img);
+        img.onerror = () => resolve(null);
+        img.src = src;
+    });
 }
 
 // Show the signed-in Discord user's avatar + name on the home screen, or a
@@ -1724,6 +1756,9 @@ function beginRound() {
     $('#q-total').textContent = String(state.round.length);
     $('#correct-total').textContent = String(state.round.length);
     updateInGameProfile();
+    // The "you've been challenged" banner belongs on Home only — clear it once play
+    // starts (the win/lose verdict shows on the results screen instead).
+    $('#challenge-banner')?.classList.add('hidden');
     showScreen('game');
     markPresenceRoundStart();
     nextQuestion();
@@ -2433,6 +2468,7 @@ async function endGame() {
     if (viewOnly) $('#round-breakdown')?.classList.add('hidden');
     $('#answer-review').classList.toggle('hidden', viewOnly);
     $('#personal-result').classList.add('hidden');
+    renderChallengeVerdict(viewOnly);
 
     if (!viewOnly) {
         countUp($('#final-score'), state.score, 900);
@@ -2528,7 +2564,20 @@ async function shareResultCard() {
         ctx.fillText('GUESS THE LANGUAGE', cx, 150);
         ctx.fillStyle = '#2ec5ff'; ctx.font = `800 56px ${FONT}`;
         ctx.fillText(state.daily ? t('dailyChallenge') : currentModeLabel(), cx, 250);
-        ctx.font = '150px serif'; ctx.fillText('🏆', cx, 470);
+        // Player's Discord avatar as a circular badge (falls back to the trophy when
+        // there's no avatar or it fails to load / would taint the canvas).
+        const avImg = await loadCrossOriginImage(discordAvatarUrl(getDiscordProfile(), 256));
+        if (avImg) {
+            const r = 108, ay = 430;
+            ctx.save();
+            ctx.beginPath(); ctx.arc(cx, ay, r + 8, 0, Math.PI * 2);
+            ctx.fillStyle = '#2ec5ff'; ctx.fill();
+            ctx.beginPath(); ctx.arc(cx, ay, r, 0, Math.PI * 2); ctx.clip();
+            ctx.drawImage(avImg, cx - r, ay - r, r * 2, r * 2);
+            ctx.restore();
+        } else {
+            ctx.font = '150px serif'; ctx.fillText('🏆', cx, 470);
+        }
         ctx.fillStyle = '#eaf4ff'; ctx.font = `900 200px ${FONT}`;
         ctx.fillText(String(state.score), cx, 720);
         ctx.fillStyle = '#8ea6c0'; ctx.font = `600 44px ${FONT}`;
@@ -2581,12 +2630,30 @@ function showShareOverlay(url, blob) {
     hint.textContent = t('shareHint');
     el.querySelector('#share-copy').onclick = async () => {
         try {
+            if (!navigator.clipboard || typeof ClipboardItem === 'undefined') throw new Error('no-clipboard');
             await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
             hint.textContent = t('copied');
-        } catch (e) { hint.textContent = t('shareHint'); }
+        } catch (e) {
+            // Discord's iframe / older browsers block image copy — tell the player
+            // how to save the visible card instead of failing silently.
+            hint.textContent = t('copyFailed');
+        }
     };
     el.querySelector('#share-dl').onclick = () => {
-        try { const a = document.createElement('a'); a.href = url; a.download = 'guess-the-language.png'; a.click(); } catch (e) {}
+        try {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'guess-the-language.png';
+            a.rel = 'noopener';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            hint.textContent = t('downloadStarted');
+        } catch (e) {
+            // Sandboxed contexts (Discord) block programmatic downloads.
+            try { window.open(url, '_blank'); } catch (_) {}
+            hint.textContent = t('downloadBlocked');
+        }
     };
     el.querySelector('#share-close').onclick = hideShareOverlay;
     el._url = url;
@@ -3289,7 +3356,49 @@ function applyChallengeSettings(info) {
     if (info.difficulty) cur.difficulty = info.difficulty;
     if (info.questions) cur.questions = info.questions;
     store.settings = cur;
+    // Remember the score + mode to beat so we can grade the round afterwards and
+    // clear the challenge cleanly if the player wanders off to another mode.
+    state.challenge = { score: info.score != null ? info.score : 0, mode: info.mode || state.mode };
     state.challengeTarget = info.score;
+}
+
+function hideChallengeBanner() {
+    state.challenge = null;
+    $('#challenge-banner')?.classList.add('hidden');
+}
+
+// On the results screen, if this round was played against a friend's challenge,
+// show a "beaten / not beaten" verdict and turn the challenge button into a
+// "challenge them back" action. A no-op (and label reset) for normal rounds.
+function renderChallengeVerdict(viewOnly) {
+    const el = $('#challenge-result');
+    const btn = $('#btn-challenge');
+    const isChallenge = !viewOnly && !!state.challenge && !state.multiplayer && !state.learn
+        && !state.daily && state.mode === state.challenge.mode;
+    if (!isChallenge) {
+        el?.classList.add('hidden');
+        if (btn) btn.textContent = t('challenge');
+        return;
+    }
+    const target = Math.max(0, state.challenge.score | 0);
+    const won = state.score > target;
+    if (el) {
+        el.classList.remove('hidden');
+        el.classList.toggle('won', won);
+        el.classList.toggle('lost', !won);
+        el.innerHTML = '';
+        const h = document.createElement('div');
+        h.className = 'cr-headline';
+        h.textContent = won ? t('challengeWon') : t('challengeLost');
+        const p = document.createElement('div');
+        p.className = 'cr-sub';
+        p.textContent = (won ? t('challengeWonSub') : t('challengeLostSub'))
+            .replace('{you}', String(state.score))
+            .replace('{target}', String(target));
+        el.appendChild(h);
+        el.appendChild(p);
+    }
+    if (btn) btn.textContent = t('challengeBack');
 }
 
 function challengeBannerText(info) {
@@ -3303,7 +3412,18 @@ function challengeBannerText(info) {
 function showChallengeBanner(info) {
     const el = $('#challenge-banner');
     if (!el || !info) return;
-    el.textContent = challengeBannerText(info);
+    el.innerHTML = '';
+    const msg = document.createElement('span');
+    msg.className = 'challenge-banner-text';
+    msg.textContent = challengeBannerText(info);
+    const x = document.createElement('button');
+    x.type = 'button';
+    x.className = 'challenge-banner-x';
+    x.setAttribute('aria-label', t('challengeDismiss'));
+    x.textContent = '✕';
+    x.addEventListener('click', hideChallengeBanner);
+    el.appendChild(msg);
+    el.appendChild(x);
     el.classList.remove('hidden');
 }
 
@@ -5276,6 +5396,9 @@ function openExternalUrl(url) {
 async function selectMode(mode) {
     state.mode = MODES[mode] ? mode : 'languages';
     localStorage.setItem('gtl_mode', state.mode);
+    // Switching away from the challenged mode means the player opted out — drop the
+    // pending challenge so the banner and end-of-round verdict don't linger.
+    if (state.challenge && state.mode !== state.challenge.mode) hideChallengeBanner();
     renderHome();
 
     const startBtn = $('#btn-start');

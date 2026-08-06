@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; worker-src 'self'; manifest-src 'self'; img-src 'self' data: https://cdn.discordapp.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://discord.com https://*.discord.com;" />
+        content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; worker-src 'self'; manifest-src 'self'; img-src 'self' data: blob: https://cdn.discordapp.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://discord.com https://*.discord.com;" />
   <title>Guess the Language</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css" />
@@ -513,6 +513,7 @@
     <section id="screen-results" class="screen">
       <div class="results-card">
         <div class="trophy">&#127942;</div>
+        <div class="challenge-result hidden" id="challenge-result" role="status"></div>
         <h2 class="final-score screen-heading" tabindex="-1"><span data-i18n="finalScore">Final Score:</span> <span id="final-score">0</span></h2>
         <p class="results-correct"><span data-i18n="correctLabel">Correct:</span> <span id="results-correct">0</span>/<span id="results-total">0</span></p>
         <div class="result-stats" id="result-stats" aria-label="Round statistics">

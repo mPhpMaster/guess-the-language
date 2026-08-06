@@ -218,7 +218,48 @@ html.platform-discord .lobby-code {
   background: linear-gradient(135deg, #2a1f08, #1a2a3a);
   border: 1px solid #ffd87455;
   box-shadow: 0 0 24px #ffd87422;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
+.challenge-banner-text { flex: 1; }
+.challenge-banner-x {
+  flex: 0 0 auto;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: 1px solid #ffd87444;
+  background: #ffffff12;
+  color: #ffe9a8;
+  font-size: 13px; line-height: 1; cursor: pointer;
+  transition: background .15s;
+}
+.challenge-banner-x:hover { background: #ffffff22; }
+
+/* End-of-round verdict when the round answered a friend's challenge. */
+.challenge-result {
+  width: min(460px, 92%);
+  margin: 4px auto 14px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  text-align: center;
+  border: 1px solid transparent;
+}
+.challenge-result.won {
+  background: linear-gradient(135deg, #0c2e1e, #10233a);
+  border-color: #19f0c455;
+  box-shadow: 0 0 26px #19f0c422;
+}
+.challenge-result.lost {
+  background: linear-gradient(135deg, #2e0c18, #10233a);
+  border-color: #ff7a9c55;
+  box-shadow: 0 0 26px #ff7a9c22;
+}
+.challenge-result .cr-headline {
+  font-size: 20px; font-weight: 900; margin-bottom: 4px;
+}
+.challenge-result.won .cr-headline { color: #6ffcd8; }
+.challenge-result.lost .cr-headline { color: #ff9fb6; }
+.challenge-result .cr-sub { font-size: 13px; color: #cfe0f4; line-height: 1.5; }
 
 .tb-btn {
   width: 44px; height: var(--tb-h);
