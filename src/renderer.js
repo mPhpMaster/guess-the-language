@@ -296,6 +296,8 @@ const I18N = {
         dayStreak: 'Day streak',
         achievementsTitle: 'Achievements',
         achievementUnlocked: 'Achievement unlocked!',
+        dailyChallenge: 'Daily Challenge',
+        dailyPlayed: 'Daily · view board',
         titleNovice: 'Novice',
         titleApprentice: 'Apprentice',
         titleCoder: 'Coder',
@@ -515,6 +517,8 @@ const I18N = {
         dayStreak: 'سلسلة الأيام',
         achievementsTitle: 'الإنجازات',
         achievementUnlocked: 'إنجاز جديد!',
+        dailyChallenge: 'التحدّي اليومي',
+        dailyPlayed: 'اليومي · اعرض اللوحة',
         titleNovice: 'مبتدئ',
         titleApprentice: 'متدرّب',
         titleCoder: 'مبرمج',
@@ -704,6 +708,16 @@ function renderHome() {
     });
     refreshMenu();
     refreshMultiplayerButtons();
+    updateDailyButton();
+}
+
+// Reflect whether today's daily challenge has already been played.
+function updateDailyButton() {
+    const btn = $('#btn-daily');
+    if (!btn) return;
+    const done = isDailyDone();
+    btn.classList.toggle('is-done', done);
+    btn.textContent = done ? `🗓️  ${t('dailyPlayed')}` : `🗓️  ${t('dailyChallenge')}`;
 }
 
 // ---------- Persistent settings / high score ----------
@@ -1500,6 +1514,84 @@ function buildRound() {
     state.round = buildRoundFromPool(state.allQuestions, getSettings());
 }
 
+// ---------- Daily Challenge: the same 10 questions for everyone, every day ----------
+const DAILY_QUESTION_COUNT = 10;
+// Small deterministic PRNG so every client picks the identical daily set.
+function mulberry32(seed) {
+    return function () {
+        seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+        let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+}
+// Integer seed derived from the UTC date, so the day flips at 00:00 UTC worldwide.
+function dailySeed() {
+    const d = new Date();
+    return d.getUTCFullYear() * 10000 + (d.getUTCMonth() + 1) * 100 + d.getUTCDate();
+}
+function dailyDateKey() {
+    const d = new Date();
+    return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`;
+}
+function seededShuffle(arr, rnd) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(rnd() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+// Deterministic 10 questions from the whole pool. Sorted by a stable (bank,id) key
+// first so the selection is identical on every client that day regardless of load order.
+function buildDailyRound(pool) {
+    const stable = (pool || []).slice().sort((a, b) =>
+        String(a.bank).localeCompare(String(b.bank)) || (Number(a.id) - Number(b.id)));
+    return seededShuffle(stable, mulberry32(dailySeed())).slice(0, DAILY_QUESTION_COUNT);
+}
+
+// Local "already played today" marker (the server unique(day,player) is the real guard).
+function dailyDoneKey() { return 'gtl_daily_done_' + dailyDateKey(); }
+function isDailyDone() { try { return localStorage.getItem(dailyDoneKey()) === '1'; } catch (e) { return false; } }
+function markDailyDone() { try { localStorage.setItem(dailyDoneKey(), '1'); } catch (e) {} }
+
+async function startDailyChallenge() {
+    if (!requireNameToInteract()) return;
+    const nameCheck = await ensureValidPlayerName();
+    if (!nameCheck.valid) { announce(nameCheck.message || t('nameRequired')); return; }
+    if (!state.allQuestions || !state.allQuestions.length) {
+        try { state.allQuestions = await window.gameAPI.getQuestions('all'); } catch (e) { /* ignore */ }
+    }
+    const round = buildDailyRound(state.allQuestions);
+    if (!round.length) { announce(t('lbOffline')); return; }
+    state.round = round;
+    state.daily = true;
+    state.mode = 'all'; // mixed styles; the daily board is separate from mode boards
+    beginRound();
+}
+
+// Shared round bootstrap used by both a normal game and the daily challenge.
+function beginRound() {
+    state.index = 0;
+    state.score = 0;
+    state.correct = 0;
+    state.streak = 0;
+    state.bestStreak = 0;
+    state.roundHistory = [];
+    state.viewOnly = false;
+    state.selectedAnswer = null;
+    state.gameStartMs = Date.now();
+    updateScore();
+    updateCorrect();
+    updateStreakPill();
+    $('#q-total').textContent = String(state.round.length);
+    $('#correct-total').textContent = String(state.round.length);
+    updateInGameProfile();
+    showScreen('game');
+    markPresenceRoundStart();
+    nextQuestion();
+}
+
 // ============================================================
 //  Game flow
 // ============================================================
@@ -1514,24 +1606,8 @@ async function startGame() {
     }
 
     buildRound();
-    state.index = 0;
-    state.score = 0;
-    state.correct = 0;
-    state.streak = 0;
-    state.bestStreak = 0;
-    state.roundHistory = [];
-    state.viewOnly = false;
-    state.selectedAnswer = null;
-    state.gameStartMs = Date.now(); // for play-time tracking
-    updateScore();
-    updateCorrect();
-    updateStreakPill();
-    $('#q-total').textContent = String(state.round.length);
-    $('#correct-total').textContent = String(state.round.length);
-    updateInGameProfile();
-    showScreen('game');
-    markPresenceRoundStart();
-    nextQuestion();
+    state.daily = false;
+    beginRound();
 }
 
 // Normalise a typed fill-in answer so grading ignores case and spacing.
@@ -2363,6 +2439,27 @@ function submitScore(player, score, mode = state.mode, multiplayer = false) {
     }).then((rows) => (Array.isArray(rows) ? rows[0] : null));
 }
 
+// Daily Challenge: submit today's score to the separate daily board. The unique
+// (day,player) + resolution=ignore-duplicates means the FIRST score of the day
+// stands and replays are silently ignored (no cheating a better result).
+function submitDailyScore(player, score) {
+    return sbFetch('daily_scores', {
+        method: 'POST',
+        headers: { Prefer: 'resolution=ignore-duplicates,return=minimal' },
+        body: JSON.stringify([{
+            day: dailyDateKey(),
+            player: safeDisplayName(player),
+            score: Math.max(0, Math.round(score || 0)),
+            avatar: discordAvatarUrl(getDiscordProfile()) || null
+        }])
+    });
+}
+
+async function fetchDailyTop(limit = 20) {
+    const rows = await sbFetch(`daily_scores?select=id,player,score,avatar&day=eq.${dailyDateKey()}&order=score.desc&limit=${limit}`);
+    return rows || [];
+}
+
 // Register every player's score from a finished multiplayer room in one insert,
 // each flagged as a multiplayer result. return=minimal -> 204 (no body to parse).
 function submitMpScores(rows) {
@@ -2470,7 +2567,51 @@ function updateLbModeSwitch() {
     if (sel) sel.value = lbViewMode();
 }
 
+// The daily challenge shows its own board (today's daily_scores), not a mode board.
+async function buildDailyLeaderboard() {
+    const note = $('#lb-note');
+    const playerName = getPlayerName();
+    $('#lb-mode-switch')?.classList.add('hidden');
+    $('.results-sub').textContent = `${t('dailyChallenge')} · ${dailyDateKey()}`;
+
+    if (!supabaseConfigured()) { note.className = 'lb-note'; note.textContent = ''; return; }
+    note.className = 'lb-note';
+    note.textContent = t('lbLoading');
+    try {
+        if (state.score > 0) { await submitDailyScore(playerName, state.score); markDailyDone(); }
+        const top = await fetchDailyTop(20);
+        const list = (top || []).map((r, index) => ({
+            id: r.id, name: safeDisplayName(r.player),
+            avatar: r.avatar || avatarFor(r.player), score: r.score, rank: index + 1, you: false
+        }));
+        const myKey = safeDisplayName(playerName).trim().toLowerCase();
+        const myAvatarNow = discordAvatarUrl(getDiscordProfile());
+        for (const p of list) {
+            if (safeDisplayName(p.name).trim().toLowerCase() === myKey) {
+                p.you = true;
+                if (myAvatarNow) p.avatar = myAvatarNow;
+                break;
+            }
+        }
+        if (state.score > 0) {
+            const mine = list.find((p) => p.you);
+            const personal = $('#personal-result');
+            personal.textContent = `${t('personalRank')}: ${mine ? `#${mine.rank}` : '—'} · ${state.score} pts`;
+            personal.classList.remove('hidden');
+        }
+        renderLeaderboard(list);
+        note.className = 'lb-note online';
+        note.textContent = t('lbOnline');
+    } catch (e) {
+        console.error('Daily leaderboard error:', e);
+        note.className = 'lb-note offline';
+        note.textContent = t('lbOffline');
+    }
+}
+
 async function buildResultsLeaderboard() {
+    // Daily challenge results (played or just viewing today's board) use the daily board.
+    if (state.daily) return buildDailyLeaderboard();
     // A real round's results always show the mode just played; only the standalone
     // leaderboard view lets you repoint the board to another mode.
     if (!state.viewOnly) state.lbViewMode = state.mode;
@@ -4437,6 +4578,11 @@ function bindEvents() {
         });
     }
     $('#btn-friends').addEventListener('click', viewLeaderboard);
+    $('#btn-daily')?.addEventListener('click', () => {
+        // Already played today → just show today's board; otherwise start the challenge.
+        if (isDailyDone()) viewDailyResults();
+        else startDailyChallenge();
+    });
     $('#btn-settings').addEventListener('click', openSettingsPanel);
     $('#set-close').addEventListener('click', () => {
         saveSettingsFromUI();
@@ -4534,6 +4680,7 @@ function bindEvents() {
     $('#btn-challenge').addEventListener('click', challengeFriend);
     $('#btn-replay').addEventListener('click', () => {
         if (state.multiplayer) mpPlayAgain(); // back to the lobby
+        else if (state.daily) startDailyChallenge(); // same set; only the first score counts
         else startGame();
     });
     $('#btn-menu').addEventListener('click', () => {
@@ -4569,7 +4716,18 @@ function viewLeaderboard() {
     state.correct = 0;
     state.round = [];
     state.viewOnly = true;
+    state.daily = false; // this is the mode leaderboard, not the daily board
     state.lbViewMode = state.mode; // open the board on the current mode; switchable in place
+    endGame();
+}
+
+// Show today's daily board without replaying (used when the player already played today).
+function viewDailyResults() {
+    state.score = 0;
+    state.correct = 0;
+    state.round = [];
+    state.viewOnly = true;
+    state.daily = true;
     endGame();
 }
 

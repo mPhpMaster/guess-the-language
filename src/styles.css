@@ -367,6 +367,17 @@ html.platform-discord .lobby-code {
   background: linear-gradient(135deg, var(--neon-2), #0fa98b);
   box-shadow: 0 8px 24px #19f0c455;
 }
+/* Daily challenge: a warm, distinct call-to-action, dimmed once played today. */
+.btn-daily {
+  background: linear-gradient(135deg, #ffb03a, #ff7a3a);
+  box-shadow: 0 8px 24px #ff8a3a55, inset 0 1px 0 #ffffff55;
+  color: #2a1400; font-weight: 800;
+}
+.btn-daily:hover { box-shadow: 0 10px 30px #ffa03a88; }
+.btn-daily.is-done {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid #ffb03a55; color: #ffcf9a; box-shadow: none;
+}
 .btn-ghost {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.14);

@@ -192,3 +192,31 @@ $$;
 -- Achievement ids: rookie, dedicated, centurion, first_win, champion, perfect,
 --   flawless, streak3, streak7, marathon, level5, level10.
 -- grant execute on function public.record_progress(text,int,boolean,boolean,int,boolean) to anon, authenticated;
+
+-- ---------------------------------------------------------------------------
+-- Daily Challenge (Phase 3): the same 10 questions for everyone each UTC day
+-- (chosen deterministically client-side from a date seed — see buildDailyRound in
+-- renderer.js). One score per player per day; the first submission stands.
+-- ---------------------------------------------------------------------------
+create table if not exists public.daily_scores (
+  id bigint generated always as identity primary key,
+  day date not null,
+  player text not null check (char_length(player) >= 1 and char_length(player) <= 24),
+  score int not null check (score >= 0),
+  avatar text,
+  created_at timestamptz not null default now(),
+  unique (day, player)
+);
+create index if not exists daily_scores_day_score_idx on public.daily_scores (day, score desc);
+
+alter table public.daily_scores enable row level security;
+
+drop policy if exists daily_scores_select_all on public.daily_scores;
+create policy daily_scores_select_all on public.daily_scores for select to anon, authenticated using (true);
+
+-- First score of the day stands: the client POSTs with Prefer resolution=ignore-duplicates
+-- so a replay is a silent no-op. Inserts limited to today/yesterday (UTC) to block backfill.
+drop policy if exists daily_scores_insert_today on public.daily_scores;
+create policy daily_scores_insert_today on public.daily_scores
+  for insert to anon, authenticated
+  with check (day <= (now() at time zone 'utc')::date and day >= (now() at time zone 'utc')::date - 1);
