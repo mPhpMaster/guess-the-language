@@ -850,14 +850,24 @@ function note(freq, when = 0, dur = 0.18, peak = 0.11) {
         /* audio not available — ignore */ }
 }
 
+// Light haptic buzz on mobile, gated by the same "sound effects" preference so a
+// single toggle silences both. No-op where the Vibration API is unavailable.
+function haptic(pattern) {
+    try {
+        if (getSettings().sound && navigator.vibrate) navigator.vibrate(pattern);
+    } catch (_) { /* ignore */ }
+}
+
 const sfx = {
     correct() {
         note(659, 0, 0.16, 0.12);
         note(988, 0.10, 0.24, 0.10);
+        haptic(20);
     }, // soft rising chime
     wrong() {
         note(311, 0, 0.20, 0.10);
         note(233, 0.11, 0.30, 0.08);
+        haptic([30, 40, 30]);
     }, // soft descending
     // Countdown beep for the final seconds — pitch rises as time runs out.
     tick(secondsLeft) {
@@ -1638,6 +1648,7 @@ function renderOptions(cur, disabled) {
         if (cur.style === 'languages') {
             btn.className = 'lang-btn';
             btn.innerHTML =
+                `<span class="opt-key" aria-hidden="true">${index + 1}</span>` +
                 `<span class="lang-icon" style="background:${opt.color}">${opt.glyph}</span>` +
                 `<span class="lang-name">${opt.label}</span>`;
         } else {
@@ -1666,6 +1677,29 @@ function clearSelectedOption() {
     document.querySelectorAll('#options-grid button').forEach((b) => {
         b.classList.remove('selected');
     });
+}
+
+// Keyboard answering for choice questions: 1–4 / a–d pick the matching option.
+function onGameKeydown(e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (!$('#screen-game')?.classList.contains('active')) return;
+    const tag = (e.target && e.target.tagName) || '';
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || e.target?.isContentEditable) return;
+    const grid = $('#options-grid');
+    if (!grid || grid.classList.contains('hidden') || state.answered) return;
+
+    let idx = -1;
+    if (e.key >= '1' && e.key <= '9') idx = Number(e.key) - 1;
+    else {
+        const k = (e.key || '').toLowerCase();
+        if (k.length === 1 && k >= 'a' && k <= 'f') idx = k.charCodeAt(0) - 97;
+    }
+    if (idx < 0) return;
+    const btns = grid.querySelectorAll('button:not(:disabled)');
+    if (btns[idx]) {
+        e.preventDefault();
+        btns[idx].click();
+    }
 }
 
 function onAnswer(chosen, btn) {
@@ -1753,11 +1787,11 @@ function resolveCurrentQuestion(chosen, timedOut = false) {
         sfx.correct();
         updateScore(true);
         updateCorrect();
-        showToast(`${t('correct')} +${gained}${state.streak >= 3 ? '  ' + t('streakBonus') : ''}  —  ${cur.explanation[getLang()]}`, 'good');
+        showFeedback('good', `${t('correct')} +${gained}${state.streak >= 3 ? '  ' + t('streakBonus') : ''}`, cur.explanation[getLang()]);
     } else {
         state.streak = 0;
         sfx.wrong();
-        showToast(`${t('wrong')} ${cur.answer}.  ${cur.explanation[getLang()]}`, 'bad');
+        showFeedback('bad', `${t('wrong')} ${cur.answer}.`, cur.explanation[getLang()]);
     }
 
     recordRoundAnswer(cur, chosen, correct, gained, timedOut);
@@ -1905,7 +1939,7 @@ function onTimeout() {
     // NOTHING was picked do we replace it with the red "time's up" message.
     resolveCurrentQuestion(pick, true);
     if (!hadPick && !state.multiplayer) {
-        showToast(`${t('timeUp')} ${cur.answer}.  ${cur.explanation[getLang()]}`, 'bad');
+        showFeedback('bad', `${t('timeUp')} ${cur.answer}.`, cur.explanation[getLang()]);
     }
     updateStreakPill();
 }
@@ -2007,13 +2041,27 @@ function updateStreakPill() {
     }
 }
 
-function showToast(text, kind) {
+// Structured answer feedback: a bold result headline plus the question's
+// explanation on its own line, so the teaching text is readable at a glance
+// (and stays put for the whole review window) instead of a cramped single line.
+function showFeedback(kind, headline, explanation) {
     const toast = $('#answer-toast');
-    toast.textContent = text;
-    toast.className = `toast show ${kind}`;
+    const h = $('#fb-headline');
+    const e = $('#fb-explanation');
+    if (h) h.textContent = headline || '';
+    if (e) {
+        e.textContent = explanation || '';
+        e.classList.toggle('hidden', !explanation);
+    }
+    if (toast) toast.className = `toast show ${kind}`;
     $('#feedback-panel')?.classList.remove('hidden');
     $('#btn-next')?.classList.toggle('hidden', state.multiplayer);
-    announce(text);
+    announce(`${headline || ''}${explanation ? '. ' + explanation : ''}`);
+}
+
+// Back-compat shim for any single-line callers.
+function showToast(text, kind) {
+    showFeedback(kind, text, '');
 }
 
 function hideToast() {
@@ -3598,16 +3646,16 @@ async function showMultiplayerReveal(room) {
         }
         if (submit) submit.disabled = true;
         if (state.spectator) {
-            showToast(`${ans}  —  ${cur.explanation[getLang()]}`, 'good');
+            showFeedback('good', ans, cur.explanation[getLang()]);
         } else if (ok) {
             sfx.correct();
-            showToast(`${t('correct')}  —  ${cur.explanation[getLang()]}`, 'good');
+            showFeedback('good', t('correct'), cur.explanation[getLang()]);
         } else if (normFill(chosen)) {
             sfx.wrong();
-            showToast(`${t('wrong')} ${ans}.  ${cur.explanation[getLang()]}`, 'bad');
+            showFeedback('bad', `${t('wrong')} ${ans}.`, cur.explanation[getLang()]);
         } else {
             sfx.wrong();
-            showToast(`${t('timeUp')} ${ans}.  ${cur.explanation[getLang()]}`, 'bad');
+            showFeedback('bad', `${t('timeUp')} ${ans}.`, cur.explanation[getLang()]);
         }
         if (!state.spectator && !state.roundHistory.some((item) => item.questionIndex === state.index)) {
             recordRoundAnswer(cur, chosen, ok, 0, !normFill(chosen));
@@ -3635,17 +3683,17 @@ async function showMultiplayerReveal(room) {
     // Local result feedback (the key-gated caller runs this once per reveal).
     if (state.spectator) {
         // A watcher just sees the correct answer, no pass/fail sound.
-        showToast(`${ans}  —  ${cur.explanation[getLang()]}`, 'good');
+        showFeedback('good', ans, cur.explanation[getLang()]);
         state.answered = true;
     } else if (chosen && chosen === ans) {
         sfx.correct();
-        showToast(`${t('correct')}  —  ${cur.explanation[getLang()]}`, 'good');
+        showFeedback('good', t('correct'), cur.explanation[getLang()]);
     } else if (chosen) {
         sfx.wrong();
-        showToast(`${t('wrong')} ${ans}.  ${cur.explanation[getLang()]}`, 'bad');
+        showFeedback('bad', `${t('wrong')} ${ans}.`, cur.explanation[getLang()]);
     } else {
         sfx.wrong();
-        showToast(`${t('timeUp')} ${ans}.  ${cur.explanation[getLang()]}`, 'bad');
+        showFeedback('bad', `${t('timeUp')} ${ans}.`, cur.explanation[getLang()]);
     }
     if (!state.spectator && !state.roundHistory.some((item) => item.questionIndex === state.index)) {
         recordRoundAnswer(cur, chosen, chosen === ans, 0, !chosen);
@@ -4206,6 +4254,11 @@ function bindEvents() {
     });
     $('#btn-end-cancel').addEventListener('click', () => closeDialog($('#end-dialog')));
     $('#btn-next').addEventListener('click', advanceAfterFeedback);
+
+    // Desktop: answer with number keys (1–4) or letters (a–d) while a choice
+    // question is open. Typing into the fill-in box is never intercepted, and
+    // Enter on the focused "Next" button keeps its native behaviour.
+    document.addEventListener('keydown', onGameKeydown);
 
     // fill-in-the-blank answer (submit button + Enter both submit the form)
     $('#fill-form').addEventListener('submit', (e) => {
