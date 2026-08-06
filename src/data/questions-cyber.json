@@ -10,9 +10,9 @@
     },
     "options": [
       "TCP SYN (stealth) scan",
-      "UDP scan",
-      "TCP connect scan",
-      "Ping sweep"
+      "UDP datagram port scan",
+      "Full TCP connect scan",
+      "ICMP host ping sweep"
     ],
     "answer": "TCP SYN (stealth) scan",
     "explanation": {
@@ -31,9 +31,9 @@
     },
     "options": [
       "Service/version detection",
-      "OS detection",
-      "Vulnerability scan",
-      "Port knocking"
+      "Operating system detection",
+      "Automated vulnerability scan",
+      "Firewall port-knock probe"
     ],
     "answer": "Service/version detection",
     "explanation": {
@@ -115,9 +115,9 @@
     },
     "options": [
       "OS + version + scripts + traceroute",
-      "Anonymous scanning",
-      "ARP scan only",
-      "All UDP ports"
+      "Anonymous low-and-slow scanning",
+      "An ARP-only local network scan",
+      "A scan of all UDP ports only"
     ],
     "answer": "OS + version + scripts + traceroute",
     "explanation": {
@@ -178,9 +178,9 @@
     },
     "options": [
       "Ransomware",
-      "Worm",
-      "Rootkit",
-      "Adware"
+      "Network worm",
+      "Kernel rootkit",
+      "Bundled adware"
     ],
     "answer": "Ransomware",
     "explanation": {
@@ -325,9 +325,9 @@
     },
     "options": [
       "Logic bomb",
-      "Worm",
-      "Trojan",
-      "Rootkit"
+      "Network worm",
+      "Trojan horse",
+      "Kernel rootkit"
     ],
     "answer": "Logic bomb",
     "explanation": {
@@ -346,9 +346,9 @@
     },
     "options": [
       "Metasploit Framework",
-      "Nmap",
-      "Burp Suite",
-      "Wireshark"
+      "The Nmap port scanner",
+      "The Burp Suite proxy",
+      "The Wireshark sniffer"
     ],
     "answer": "Metasploit Framework",
     "explanation": {
@@ -367,9 +367,9 @@
     },
     "options": [
       "SMBv1 (EternalBlue)",
-      "OpenSSH",
-      "Apache HTTP",
-      "FTP"
+      "OpenSSH remote login",
+      "Apache HTTP server",
+      "An FTP file service"
     ],
     "answer": "SMBv1 (EternalBlue)",
     "explanation": {
@@ -388,9 +388,9 @@
     },
     "options": [
       "Code that runs after a successful exploit",
-      "A port scanner",
-      "A firewall rule",
-      "A hashing algorithm"
+      "A module that scans for open ports",
+      "A firewall traffic-filtering rule",
+      "A one-way password hashing method"
     ],
     "answer": "Code that runs after a successful exploit",
     "explanation": {
@@ -409,9 +409,9 @@
     },
     "options": [
       "An advanced in-memory Metasploit payload",
-      "A port scanner",
-      "A password cracker",
-      "A packet sniffer"
+      "A fast TCP/UDP network port scanner",
+      "An offline password-hash cracking tool",
+      "A live network packet sniffer tool"
     ],
     "answer": "An advanced in-memory Metasploit payload",
     "explanation": {
@@ -451,9 +451,9 @@
     },
     "options": [
       "Generating payloads / shellcode",
-      "Scanning ports",
-      "Cracking hashes",
-      "Sniffing traffic"
+      "Scanning networks for open ports",
+      "Cracking captured password hashes",
+      "Sniffing live network traffic"
     ],
     "answer": "Generating payloads / shellcode",
     "explanation": {
@@ -472,9 +472,9 @@
     },
     "options": [
       "Wireshark",
-      "Nmap",
-      "Hydra",
-      "sqlmap"
+      "Metasploit",
+      "Aircrack",
+      "Hydra"
     ],
     "answer": "Wireshark",
     "explanation": {
@@ -514,9 +514,9 @@
     },
     "options": [
       "SQL injection detection & exploitation",
-      "Wi-Fi cracking",
-      "Port scanning",
-      "Packet capture"
+      "Wireless network password cracking work",
+      "Network port scanning and host mapping",
+      "Live network packet capture and replay"
     ],
     "answer": "SQL injection detection & exploitation",
     "explanation": {
@@ -535,9 +535,9 @@
     },
     "options": [
       "Cracking password hashes offline",
-      "Scanning networks",
-      "Capturing packets",
-      "Proxying web requests"
+      "Scanning networks for live hosts",
+      "Capturing packets off the wire",
+      "Proxying and editing web requests"
     ],
     "answer": "Cracking password hashes offline",
     "explanation": {
@@ -556,9 +556,9 @@
     },
     "options": [
       "Online brute-force login attacks",
-      "Static code analysis",
-      "Packet sniffing",
-      "Disk forensics"
+      "Static application code analysis",
+      "Passive network packet sniffing",
+      "Disk imaging and forensics work"
     ],
     "answer": "Online brute-force login attacks",
     "explanation": {
@@ -598,9 +598,9 @@
     },
     "options": [
       "A GPU-accelerated password cracker",
-      "A port scanner",
-      "A web proxy",
-      "A packet sniffer"
+      "A fast multi-host port scanner tool",
+      "An intercepting web proxy service",
+      "A live network packet sniffer tool"
     ],
     "answer": "A GPU-accelerated password cracker",
     "explanation": {
@@ -640,9 +640,9 @@
     },
     "options": [
       "Capture packets from the command line",
-      "Crack hashes",
-      "Scan ports",
-      "Exploit SMB"
+      "Crack captured password hashes offline",
+      "Scan a target host for open ports",
+      "Exploit a vulnerable SMB service"
     ],
     "answer": "Capture packets from the command line",
     "explanation": {
@@ -682,9 +682,9 @@
     },
     "options": [
       "SQL injection",
-      "XSS",
-      "CSRF",
-      "SSRF"
+      "Reflected XSS",
+      "CSRF token theft",
+      "SSRF request"
     ],
     "answer": "SQL injection",
     "explanation": {
@@ -703,9 +703,9 @@
     },
     "options": [
       "Cross-Site Scripting (XSS)",
-      "SQL injection",
-      "Phishing",
-      "MITM"
+      "SQL database injection attack",
+      "Credential phishing email",
+      "Man-in-the-middle attack"
     ],
     "answer": "Cross-Site Scripting (XSS)",
     "explanation": {
@@ -745,9 +745,9 @@
     },
     "options": [
       "Man-in-the-Middle (MITM)",
-      "Brute force",
-      "Phishing",
-      "DDoS"
+      "Credential brute forcing",
+      "Targeted phishing email",
+      "Volumetric DDoS flood"
     ],
     "answer": "Man-in-the-Middle (MITM)",
     "explanation": {
@@ -850,9 +850,9 @@
     },
     "options": [
       "Skip host discovery (treat host as online)",
-      "Scan all ports",
-      "Disable DNS resolution",
-      "Ping only"
+      "Scan every one of the 65,535 TCP ports",
+      "Disable all reverse DNS resolution",
+      "Send only ICMP echo ping probes first"
     ],
     "answer": "Skip host discovery (treat host as online)",
     "explanation": {
@@ -871,9 +871,9 @@
     },
     "options": [
       "Host discovery only (no port scan)",
-      "Full port scan",
-      "UDP scan",
-      "Version detection"
+      "A full all-ports TCP port scan",
+      "A UDP datagram-based port scan",
+      "Service and version detection"
     ],
     "answer": "Host discovery only (no port scan)",
     "explanation": {
@@ -913,9 +913,9 @@
     },
     "options": [
       "Fast scan (top 100 ports)",
-      "Full 65535 ports",
-      "Force scan",
-      "Firewall evasion"
+      "Full 65,535-port scan",
+      "Force an aggressive scan",
+      "Firewall evasion mode"
     ],
     "answer": "Fast scan (top 100 ports)",
     "explanation": {
@@ -934,9 +934,9 @@
     },
     "options": [
       "Save normal output to a file",
-      "Scan only open ports",
-      "Disable output",
-      "Run NSE scripts"
+      "Scan and show only open ports",
+      "Disable all of the scan output",
+      "Run the default NSE scripts"
     ],
     "answer": "Save normal output to a file",
     "explanation": {
@@ -955,9 +955,9 @@
     },
     "options": [
       "Listening for a reverse shell",
-      "Cracking hashes",
-      "Scanning ports",
-      "Sniffing Wi-Fi"
+      "Cracking captured password hashes",
+      "Scanning a target host's ports",
+      "Sniffing nearby wireless traffic"
     ],
     "answer": "Listening for a reverse shell",
     "explanation": {
@@ -976,9 +976,9 @@
     },
     "options": [
       "Brute-force directories/files",
-      "Crack passwords",
-      "Capture packets",
-      "Exploit SMB"
+      "Crack stored password hashes",
+      "Capture live network packets",
+      "Exploit a vulnerable SMB share"
     ],
     "answer": "Brute-force directories/files",
     "explanation": {
@@ -1018,9 +1018,9 @@
     },
     "options": [
       "Extract Windows credentials from memory",
-      "Scan ports",
-      "Crack Wi-Fi",
-      "Fuzz web apps"
+      "Scan a whole network for open ports",
+      "Crack wireless Wi-Fi network passwords",
+      "Fuzz a web application's inputs"
     ],
     "answer": "Extract Windows credentials from memory",
     "explanation": {
@@ -1039,9 +1039,9 @@
     },
     "options": [
       "Map Active Directory attack paths",
-      "Capture packets",
-      "Brute-force logins",
-      "Disassemble binaries"
+      "Capture and analyze live packets",
+      "Brute-force user account logins",
+      "Disassemble compiled binaries"
     ],
     "answer": "Map Active Directory attack paths",
     "explanation": {
@@ -1060,9 +1060,9 @@
     },
     "options": [
       "Poison LLMNR/NBT-NS to capture hashes",
-      "Scan ports",
-      "Crack hashes",
-      "Proxy web traffic"
+      "Scan a whole subnet for open ports",
+      "Crack captured NTLM password hashes",
+      "Proxy and modify live web traffic"
     ],
     "answer": "Poison LLMNR/NBT-NS to capture hashes",
     "explanation": {
@@ -1081,9 +1081,9 @@
     },
     "options": [
       "Cobalt Strike",
-      "Wireshark",
-      "Nmap",
-      "sqlmap"
+      "Metasploit Pro",
+      "PowerShell Empire",
+      "Sliver"
     ],
     "answer": "Cobalt Strike",
     "explanation": {
@@ -1102,9 +1102,9 @@
     },
     "options": [
       "Reverse engineering / disassembly",
-      "Port scanning",
-      "Packet capture",
-      "Password cracking"
+      "Network port scanning and mapping",
+      "Live network packet capturing",
+      "Offline password-hash cracking"
     ],
     "answer": "Reverse engineering / disassembly",
     "explanation": {
@@ -1123,9 +1123,9 @@
     },
     "options": [
       "Memory (RAM) forensics",
-      "Disk imaging",
-      "Port scanning",
-      "Web fuzzing"
+      "Disk image forensics",
+      "Network port scanning",
+      "Web application fuzzing"
     ],
     "answer": "Memory (RAM) forensics",
     "explanation": {
@@ -1165,9 +1165,9 @@
     },
     "options": [
       "Automated/customized request attacks (fuzzing, brute force)",
-      "Disk forensics",
-      "Port scanning",
-      "Packet capture"
+      "Automated forensic analysis of disk images and file systems",
+      "Passive network port scanning and host mapping",
+      "Live capture and inspection of raw network packets"
     ],
     "answer": "Automated/customized request attacks (fuzzing, brute force)",
     "explanation": {
@@ -1207,9 +1207,9 @@
     },
     "options": [
       "RAT (Remote Access Trojan)",
-      "Adware",
-      "Worm",
-      "Keylogger"
+      "Intrusive pop-up adware app",
+      "A self-spreading network worm",
+      "A silent keystroke logger"
     ],
     "answer": "RAT (Remote Access Trojan)",
     "explanation": {
@@ -1312,9 +1312,9 @@
     },
     "options": [
       "Privilege escalation",
-      "Lateral movement",
-      "Enumeration",
-      "Pivoting"
+      "Lateral host movement",
+      "Network enumeration",
+      "Internal host pivoting"
     ],
     "answer": "Privilege escalation",
     "explanation": {
@@ -1354,9 +1354,9 @@
     },
     "options": [
       "Buffer overflow",
-      "Race condition",
+      "Race condition bug",
       "SQL injection",
-      "XSS"
+      "Stored XSS flaw"
     ],
     "answer": "Buffer overflow",
     "explanation": {
@@ -1375,9 +1375,9 @@
     },
     "options": [
       "Directory (path) traversal",
-      "XSS",
-      "CSRF",
-      "Clickjacking"
+      "Reflected cross-site scripting",
+      "Cross-site request forgery",
+      "UI redress clickjacking"
     ],
     "answer": "Directory (path) traversal",
     "explanation": {
@@ -1396,9 +1396,9 @@
     },
     "options": [
       "Command injection",
-      "SQL injection",
-      "XSS",
-      "SSRF"
+      "SQL query injection",
+      "Reflected XSS",
+      "Server-side SSRF"
     ],
     "answer": "Command injection",
     "explanation": {
@@ -1627,9 +1627,9 @@
     },
     "options": [
       "Actively blocks/prevents threats",
-      "Only logs traffic",
-      "Encrypts traffic",
-      "Stores backups"
+      "Only logs the passing network traffic",
+      "Encrypts all of the network traffic",
+      "Stores periodic system backups"
     ],
     "answer": "Actively blocks/prevents threats",
     "explanation": {
@@ -1774,9 +1774,9 @@
     },
     "options": [
       "A flaw unknown to the vendor with no patch yet",
-      "A bug fixed on the first day",
-      "An expired TLS certificate",
-      "A weak default password"
+      "A bug the vendor already fixed in the latest patch",
+      "An expired server TLS certificate",
+      "A weak, guessable default password"
     ],
     "answer": "A flaw unknown to the vendor with no patch yet",
     "explanation": {
@@ -1795,9 +1795,9 @@
     },
     "options": [
       "To defeat precomputed rainbow-table attacks",
-      "To encrypt the password reversibly",
-      "To compress the hash",
-      "To speed up hashing"
+      "To let the password be decrypted again later",
+      "To compress the resulting stored hash",
+      "To make the hashing algorithm run faster"
     ],
     "answer": "To defeat precomputed rainbow-table attacks",
     "explanation": {
@@ -1816,9 +1816,9 @@
     },
     "options": [
       "A worm self-replicates across networks without a host file",
-      "A worm needs a user to run a file",
-      "A worm only infects boot sectors",
-      "A worm cannot spread over a network"
+      "A worm must attach to a host file and needs a user to run it",
+      "A worm can only infect the disk's boot sectors",
+      "A worm is unable to spread over any network"
     ],
     "answer": "A worm self-replicates across networks without a host file",
     "explanation": {
@@ -1837,9 +1837,9 @@
     },
     "options": [
       "Encrypt files and demand payment to decrypt them",
-      "Mine cryptocurrency silently",
-      "Log every keystroke only",
-      "Open a remote backdoor only"
+      "Silently mine cryptocurrency using the victim's CPU",
+      "Log only the victim's keystrokes to a file",
+      "Quietly open a remote backdoor for later access"
     ],
     "answer": "Encrypt files and demand payment to decrypt them",
     "explanation": {
@@ -1879,9 +1879,9 @@
     },
     "options": [
       "The Metasploit Framework console",
-      "A packet sniffer",
-      "A DNS server",
-      "A password vault"
+      "A live network packet sniffer tool",
+      "A recursive DNS resolver server",
+      "An encrypted local password vault"
     ],
     "answer": "The Metasploit Framework console",
     "explanation": {
@@ -1900,9 +1900,9 @@
     },
     "options": [
       "It signs certificates to vouch for a server’s public key",
-      "It encrypts all application data",
-      "It stores user passwords",
-      "It assigns IP addresses"
+      "It encrypts all of the application data exchanged over the link",
+      "It securely stores every user's login password",
+      "It hands out IP addresses to hosts on the network"
     ],
     "answer": "It signs certificates to vouch for a server’s public key",
     "explanation": {
@@ -1921,9 +1921,9 @@
     },
     "options": [
       "Cracking password hashes using a wordlist",
-      "Scanning for vulnerabilities",
-      "Capturing packets",
-      "Encrypting the hashes file"
+      "Scanning a host for known vulnerabilities",
+      "Capturing packets off the local network",
+      "Encrypting the captured hashes file safely"
     ],
     "answer": "Cracking password hashes using a wordlist",
     "explanation": {
@@ -1984,9 +1984,9 @@
     },
     "options": [
       "Cross-site scripting (XSS)",
-      "SQL injection",
-      "CSRF",
-      "Clickjacking"
+      "SQL database injection attack",
+      "Cross-site request forgery",
+      "UI redress clickjacking"
     ],
     "answer": "Cross-site scripting (XSS)",
     "explanation": {
@@ -2026,9 +2026,9 @@
     },
     "options": [
       "Precomputed rainbow-table attacks",
-      "Man-in-the-middle",
-      "Phishing",
-      "DDoS"
+      "Man-in-the-middle interception attacks",
+      "Targeted credential phishing emails",
+      "Volumetric DDoS traffic floods"
     ],
     "answer": "Precomputed rainbow-table attacks",
     "explanation": {
@@ -2110,9 +2110,9 @@
     },
     "options": [
       "Tricking users into revealing credentials",
-      "Overloading a server",
-      "Cracking a hash",
-      "Scanning a network"
+      "Overloading a server with junk traffic",
+      "Cracking a stored password hash offline",
+      "Scanning a whole network for open ports"
     ],
     "answer": "Tricking users into revealing credentials",
     "explanation": {
@@ -2131,9 +2131,9 @@
     },
     "options": [
       "Path (directory) traversal",
-      "SQL injection",
-      "XSS",
-      "Session hijacking"
+      "SQL database injection",
+      "Reflected cross-site scripting",
+      "Session token hijacking"
     ],
     "answer": "Path (directory) traversal",
     "explanation": {
@@ -2152,9 +2152,9 @@
     },
     "options": [
       "The same key encrypts and decrypts",
-      "A public/private key pair",
-      "It is one-way",
-      "It needs no key"
+      "A public/private key pair is used",
+      "It only works in one direction",
+      "It needs no encryption key at all"
     ],
     "answer": "The same key encrypts and decrypts",
     "explanation": {
@@ -2173,9 +2173,9 @@
     },
     "options": [
       "Capture and analyze network packets",
-      "Crack passwords",
-      "Exploit services",
-      "Fuzz web apps"
+      "Crack stored password hashes offline",
+      "Exploit vulnerable network services",
+      "Fuzz web application input fields"
     ],
     "answer": "Capture and analyze network packets",
     "explanation": {
@@ -2194,9 +2194,9 @@
     },
     "options": [
       "A flaw with no available patch yet",
-      "A patched old bug",
-      "A weak password",
-      "A phishing email"
+      "A bug that the vendor patched long ago",
+      "A weak and guessable password",
+      "A credential-phishing email lure"
     ],
     "answer": "A flaw with no available patch yet",
     "explanation": {
@@ -2236,9 +2236,9 @@
     },
     "options": [
       "A second, independent verification factor",
-      "A stronger password",
-      "A firewall rule",
-      "An antivirus scan"
+      "A single much longer and more complex password",
+      "An extra perimeter firewall rule",
+      "A scheduled full antivirus scan"
     ],
     "answer": "A second, independent verification factor",
     "explanation": {
@@ -2278,9 +2278,9 @@
     },
     "options": [
       "A self-signed certificate",
-      "A password hash",
-      "An SSH key",
-      "A firewall rule"
+      "A salted password hash value",
+      "A new SSH key pair",
+      "A host firewall rule"
     ],
     "answer": "A self-signed certificate",
     "explanation": {
@@ -2299,9 +2299,9 @@
     },
     "options": [
       "One-way integrity verification",
-      "Reversible data hiding",
-      "Key exchange",
-      "Traffic tunneling"
+      "Reversible two-way data concealment",
+      "Secure session key exchange",
+      "Encrypted traffic tunneling"
     ],
     "answer": "One-way integrity verification",
     "explanation": {
@@ -2320,9 +2320,9 @@
     },
     "options": [
       "Service and version detection",
-      "A ping sweep only",
-      "An OS-only scan",
-      "UDP port scanning"
+      "A ping sweep of the hosts only",
+      "An OS-fingerprint-only scan",
+      "UDP datagram port scanning only"
     ],
     "answer": "Service and version detection",
     "explanation": {
@@ -2362,9 +2362,9 @@
     },
     "options": [
       "Discovering live hosts without scanning ports",
-      "Scanning every port on every host",
-      "Fingerprinting operating systems",
-      "Brute-forcing SSH logins"
+      "Scanning every single port on every host",
+      "Fingerprinting the operating systems of all hosts",
+      "Brute-forcing remote SSH login credentials"
     ],
     "answer": "Discovering live hosts without scanning ports",
     "explanation": {
@@ -2404,9 +2404,9 @@
     },
     "options": [
       "Brute-forcing SSH credentials from a wordlist",
-      "Encrypting an SSH key",
-      "Capturing network packets",
-      "Scanning for open ports"
+      "Encrypting an SSH private key file safely",
+      "Capturing and decrypting packets on the local network",
+      "Scanning the target host for open TCP ports"
     ],
     "answer": "Brute-forcing SSH credentials from a wordlist",
     "explanation": {
@@ -2446,9 +2446,9 @@
     },
     "options": [
       "Port 80 traffic on eth0, saved to a file",
-      "All traffic on every interface",
-      "Only outgoing DNS queries",
-      "Kernel log messages"
+      "All traffic seen on every network interface",
+      "Only the outgoing DNS query packets now",
+      "The system kernel log messages only"
     ],
     "answer": "Port 80 traffic on eth0, saved to a file",
     "explanation": {
@@ -2467,9 +2467,9 @@
     },
     "options": [
       "The TLS handshake and certificate chain",
-      "Open UDP ports",
-      "The server's password policy",
-      "DNS zone records"
+      "The server's currently open UDP listening ports",
+      "The server's password-policy rules",
+      "The domain's full DNS zone records"
     ],
     "answer": "The TLS handshake and certificate chain",
     "explanation": {
@@ -2509,9 +2509,9 @@
     },
     "options": [
       "Cross-site scripting (XSS)",
-      "SQL injection",
-      "Buffer overflow",
-      "DNS spoofing"
+      "SQL database injection attack",
+      "A stack buffer overflow",
+      "DNS cache spoofing attack"
     ],
     "answer": "Cross-site scripting (XSS)",
     "explanation": {
@@ -2572,9 +2572,9 @@
     },
     "options": [
       "The victim's already-authenticated session",
-      "A weak hashing algorithm",
-      "An open TCP port",
-      "A missing database index"
+      "A weak and outdated password-hashing algorithm",
+      "An open, unfiltered inbound TCP port",
+      "A missing index on a database table"
     ],
     "answer": "The victim's already-authenticated session",
     "explanation": {
@@ -2635,9 +2635,9 @@
     },
     "options": [
       "Precomputed rainbow-table lookups",
-      "Brute-force attempts entirely",
-      "Network eavesdropping",
-      "SQL injection"
+      "All brute-force guessing attempts",
+      "Passive network traffic eavesdropping",
+      "SQL database injection attacks"
     ],
     "answer": "Precomputed rainbow-table lookups",
     "explanation": {
@@ -2719,9 +2719,9 @@
     },
     "options": [
       "Hide its presence while keeping privileged access",
-      "Encrypt user documents",
-      "Flood a target with traffic",
-      "Harvest email addresses only"
+      "Encrypt every one of the user's documents for ransom",
+      "Flood a chosen target host with junk traffic",
+      "Harvest email addresses from the host only"
     ],
     "answer": "Hide its presence while keeping privileged access",
     "explanation": {
@@ -2761,9 +2761,9 @@
     },
     "options": [
       "The attacker address the payload connects back to",
-      "The victim's IP address",
-      "The exploit's target port",
-      "The name of the payload file"
+      "The victim machine's public-facing IP address here",
+      "The exploit's remote target port number",
+      "The file name of the generated payload"
     ],
     "answer": "The attacker address the payload connects back to",
     "explanation": {

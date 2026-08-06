@@ -157,9 +157,9 @@
     },
     "options": [
       "Display the heads-up display",
-      "Hide the player model",
-      "Save the game",
-      "Change the level theme"
+      "Hide the player's character model",
+      "Toggle the pause-menu overlay on",
+      "Switch the current level theme"
     ],
     "answer": "Display the heads-up display",
     "explanation": {
@@ -199,9 +199,9 @@
     },
     "options": [
       "Gravity acceleration",
-      "Friction",
       "Collision detection",
-      "Sound attenuation"
+      "Kinetic friction force",
+      "Sound wave attenuation"
     ],
     "answer": "Gravity acceleration",
     "explanation": {
@@ -325,9 +325,9 @@
     },
     "options": [
       "To make movement frame-rate independent",
-      "To double the speed",
-      "To pause the game",
-      "To detect collisions"
+      "To exactly double the movement speed",
+      "To momentarily pause the game loop",
+      "To trigger collision-detection checks"
     ],
     "answer": "To make movement frame-rate independent",
     "explanation": {
@@ -346,9 +346,9 @@
     },
     "options": [
       "The midpoint between a and b",
-      "The larger of a and b",
-      "A random value",
-      "The distance from a to b"
+      "The larger of the values a and b",
+      "A random value between a and b",
+      "The exact distance from a to b"
     ],
     "answer": "The midpoint between a and b",
     "explanation": {
@@ -367,9 +367,9 @@
     },
     "options": [
       "Finding the shortest path",
-      "Rendering shadows",
-      "Compressing textures",
-      "Playing audio"
+      "Rendering the dynamic shadows",
+      "Compressing the large textures",
+      "Mixing the positional audio"
     ],
     "answer": "Finding the shortest path",
     "explanation": {
@@ -430,9 +430,9 @@
     },
     "options": [
       "A key pressed on this specific frame",
-      "A key held every frame",
-      "A key that was never pressed",
-      "Mouse movement"
+      "A key that stays held every frame",
+      "A key that was never once pressed",
+      "Continuous mouse-cursor movement"
     ],
     "answer": "A key pressed on this specific frame",
     "explanation": {
@@ -451,9 +451,9 @@
     },
     "options": [
       "Instantly changes velocity",
-      "Slowly rotates the object",
-      "Loads a level",
-      "Plays a sound"
+      "Gradually rotates the object over time",
+      "Loads the next level scene from disk",
+      "Plays a short one-shot sound clip"
     ],
     "answer": "Instantly changes velocity",
     "explanation": {
@@ -556,9 +556,9 @@
     },
     "options": [
       "The track repeats continuously",
-      "The track plays once",
-      "The volume drops",
-      "The track plays in reverse"
+      "The track plays through only once",
+      "The playback volume fades to zero",
+      "The track plays back in reverse"
     ],
     "answer": "The track repeats continuously",
     "explanation": {
@@ -598,9 +598,9 @@
     },
     "options": [
       "It follows the hand's transform",
-      "It becomes invisible",
-      "It doubles in size",
-      "It is destroyed"
+      "It turns completely invisible",
+      "It doubles its current size",
+      "It is immediately destroyed"
     ],
     "answer": "It follows the hand's transform",
     "explanation": {
@@ -619,9 +619,9 @@
     },
     "options": [
       "A burst of particles",
-      "A new level",
-      "A save file",
-      "A network packet"
+      "A whole new game level",
+      "A written game-save file",
+      "A single network packet"
     ],
     "answer": "A burst of particles",
     "explanation": {
@@ -682,9 +682,9 @@
     },
     "options": [
       "Pauses execution for 2 seconds",
-      "Ends the game",
-      "Loads a texture",
-      "Doubles the frame rate"
+      "Ends the current game session",
+      "Loads a texture from the disk",
+      "Doubles the current frame rate"
     ],
     "answer": "Pauses execution for 2 seconds",
     "explanation": {
@@ -745,9 +745,9 @@
     },
     "options": [
       "A command telling the GPU to render geometry",
-      "A physics collision test",
-      "A file load request",
-      "An audio trigger"
+      "A physics-engine collision test step",
+      "A request to load a file from disk",
+      "An audio playback trigger event"
     ],
     "answer": "A command telling the GPU to render geometry",
     "explanation": {
@@ -766,9 +766,9 @@
     },
     "options": [
       "The distance between two points",
-      "The dot product",
-      "A random number",
-      "The frame rate"
+      "The dot product of the two vectors",
+      "A pseudo-random floating value",
+      "The current display frame rate"
     ],
     "answer": "The distance between two points",
     "explanation": {
@@ -787,9 +787,9 @@
     },
     "options": [
       "A defined pose at a specific time",
-      "A compressed texture",
-      "A collision event",
-      "A shader uniform"
+      "A block-compressed texture asset",
+      "A physics collision callback event",
+      "A shader uniform input value"
     ],
     "answer": "A defined pose at a specific time",
     "explanation": {
@@ -808,9 +808,9 @@
     },
     "options": [
       "A key pressed on this frame",
-      "A key held every frame",
-      "A mouse move",
-      "A gamepad unplug"
+      "A key held down on every frame",
+      "A movement of the mouse cursor",
+      "A gamepad being unplugged now"
     ],
     "answer": "A key pressed on this frame",
     "explanation": {
@@ -829,9 +829,9 @@
     },
     "options": [
       "Reusing objects instead of constantly creating them",
-      "Merging meshes into one",
-      "Compressing audio",
-      "Baking lightmaps"
+      "Merging many meshes into one at build time",
+      "Compressing the game audio for shipping",
+      "Baking static lightmaps into the scene"
     ],
     "answer": "Reusing objects instead of constantly creating them",
     "explanation": {
@@ -850,9 +850,9 @@
     },
     "options": [
       "An axis-aligned bounding box",
-      "A pathfinding node",
-      "An animation blend",
-      "A shader pass"
+      "A navigation pathfinding node",
+      "An animation blend-tree node",
+      "A single shader render pass"
     ],
     "answer": "An axis-aligned bounding box",
     "explanation": {
@@ -871,9 +871,9 @@
     },
     "options": [
       "Reduce health by the damage amount",
-      "Heal the player",
-      "Respawn the enemy",
-      "Pause the game"
+      "Heal the player back up to full",
+      "Respawn the defeated enemy now",
+      "Pause the whole running game loop"
     ],
     "answer": "Reduce health by the damage amount",
     "explanation": {
@@ -892,9 +892,9 @@
     },
     "options": [
       "Behavior via discrete states and transitions",
-      "Texture streaming",
-      "Network packets",
-      "Audio mixing"
+      "Streaming the textures in from disk",
+      "Ordering the outgoing network packets",
+      "Mixing the game's audio channels"
     ],
     "answer": "Behavior via discrete states and transitions",
     "explanation": {
@@ -913,9 +913,9 @@
     },
     "options": [
       "A program that runs on the GPU",
-      "A physics solver",
-      "A save-file format",
-      "An input device"
+      "A rigid-body physics solver",
+      "A binary save-file format",
+      "A player input controller"
     ],
     "answer": "A program that runs on the GPU",
     "explanation": {
@@ -934,9 +934,9 @@
     },
     "options": [
       "Time elapsed since the last frame",
-      "Total play time",
-      "Frames per second",
-      "Physics tick rate"
+      "The total elapsed play time",
+      "The frames rendered per second",
+      "The physics simulation rate"
     ],
     "answer": "Time elapsed since the last frame",
     "explanation": {
@@ -955,9 +955,9 @@
     },
     "options": [
       "Linearly interpolate between a and b",
-      "Return the larger value",
-      "Clamp t to 1",
-      "Round to an int"
+      "Return the larger of a and b",
+      "Clamp the value of t to one",
+      "Round the result to an int"
     ],
     "answer": "Linearly interpolate between a and b",
     "explanation": {
@@ -976,9 +976,9 @@
     },
     "options": [
       "A heuristic estimate of remaining cost",
-      "A random walk",
-      "The frame rate",
-      "The texture size"
+      "A purely random walk at each step",
+      "The current rendering frame rate",
+      "The bound texture's pixel size"
     ],
     "answer": "A heuristic estimate of remaining cost",
     "explanation": {
@@ -997,9 +997,9 @@
     },
     "options": [
       "Simulating locally before the server confirms",
-      "Encrypting all packets",
-      "Rendering at low resolution",
-      "Batching draw calls"
+      "Encrypting every packet before it is sent",
+      "Rendering the scene at a low resolution",
+      "Batching many draw calls into a single one"
     ],
     "answer": "Simulating locally before the server confirms",
     "explanation": {
@@ -1018,9 +1018,9 @@
     },
     "options": [
       "A reusable, pre-configured game object",
-      "A compiled shader",
-      "A physics material",
-      "A save slot"
+      "A fully compiled GPU shader program",
+      "A tunable physics-material asset",
+      "A single numbered save-game slot"
     ],
     "answer": "A reusable, pre-configured game object",
     "explanation": {
@@ -1102,9 +1102,9 @@
     },
     "options": [
       "To make motion frame-rate independent",
-      "To make the game run faster",
-      "To reduce memory use",
-      "To smooth out textures"
+      "To make the whole game run faster",
+      "To lower the game's memory usage",
+      "To smooth out the blurry textures"
     ],
     "answer": "To make motion frame-rate independent",
     "explanation": {
@@ -1123,9 +1123,9 @@
     },
     "options": [
       "Skips rendering objects that cannot be seen",
-      "Reduces texture resolution",
-      "Merges meshes into one",
-      "Limits the frame rate"
+      "Lowers the resolution of the textures",
+      "Merges separate meshes into one mesh",
+      "Caps the game at a fixed frame rate"
     ],
     "answer": "Skips rendering objects that cannot be seen",
     "explanation": {
@@ -1144,9 +1144,9 @@
     },
     "options": [
       "To cut draw calls by sharing one texture",
-      "To make the sprites look sharper",
-      "To compress the audio",
-      "To simplify collision maths"
+      "To make the sprites look much sharper",
+      "To compress the background audio track",
+      "To simplify the collision-box maths"
     ],
     "answer": "To cut draw calls by sharing one texture",
     "explanation": {
@@ -1186,9 +1186,9 @@
     },
     "options": [
       "Modelling discrete behaviour states and their transitions",
-      "Storing the save file",
-      "Compressing animations",
-      "Balancing the difficulty curve"
+      "Storing the player's progress in the save file",
+      "Compressing the skeletal animation clip data",
+      "Balancing the mid-game difficulty curve"
     ],
     "answer": "Modelling discrete behaviour states and their transitions",
     "explanation": {
@@ -1207,9 +1207,9 @@
     },
     "options": [
       "Data in components from behaviour in systems",
-      "Rendering from audio",
-      "Input from the network layer",
-      "Art assets from code"
+      "The rendering pipeline from the audio mixer",
+      "Player input from the netcode transport layer",
+      "The game's art assets from the gameplay code"
     ],
     "answer": "Data in components from behaviour in systems",
     "explanation": {
@@ -1249,9 +1249,9 @@
     },
     "options": [
       "An on-screen overlay showing status information",
-      "The main menu scene",
-      "A camera shake effect",
-      "The pause behaviour"
+      "The game's main title and options menu",
+      "A brief screen-shake camera feedback effect",
+      "The behaviour that pauses the game loop"
     ],
     "answer": "An on-screen overlay showing status information",
     "explanation": {
@@ -1270,9 +1270,9 @@
     },
     "options": [
       "A press made slightly too early still registers",
-      "Two players sharing one keyboard",
-      "Controller battery drain",
-      "Slow texture loading"
+      "Two players sharing one physical keyboard",
+      "A wireless controller's battery draining fast",
+      "Textures streaming in from the disk too slowly"
     ],
     "answer": "A press made slightly too early still registers",
     "explanation": {
@@ -1354,9 +1354,9 @@
     },
     "options": [
       "Converting game state into a storable format",
-      "Compressing the game textures",
-      "Sorting the inventory",
-      "Encrypting network traffic"
+      "Compressing all of the game's textures",
+      "Sorting the player's inventory items",
+      "Encrypting the outgoing network traffic"
     ],
     "answer": "Converting game state into a storable format",
     "explanation": {
@@ -1375,9 +1375,9 @@
     },
     "options": [
       "Tight coupling between the emitter and its listeners",
-      "Memory fragmentation",
-      "Floating-point error",
-      "Texture popping"
+      "Fragmentation of the managed memory heap",
+      "Floating-point rounding error building up",
+      "Distant textures visibly popping into view"
     ],
     "answer": "Tight coupling between the emitter and its listeners",
     "explanation": {
@@ -1396,9 +1396,9 @@
     },
     "options": [
       "To keep simulation results deterministic",
-      "To raise the frame rate",
-      "To reduce texture memory",
-      "To simplify the UI code"
+      "To raise the rendered frame rate",
+      "To reduce the texture memory use",
+      "To simplify the user-interface code"
     ],
     "answer": "To keep simulation results deterministic",
     "explanation": {
@@ -1417,9 +1417,9 @@
     },
     "options": [
       "Keeps its direction and sets its length to 1",
-      "Sets it to zero",
-      "Reverses its direction",
-      "Rounds its components"
+      "Sets every one of its components to zero",
+      "Reverses the vector's pointing direction",
+      "Rounds each of its components to an int"
     ],
     "answer": "Keeps its direction and sets its length to 1",
     "explanation": {
@@ -1438,9 +1438,9 @@
     },
     "options": [
       "The cosine of the angle between them",
-      "The area they span",
-      "Their combined length",
-      "A vector perpendicular to both"
+      "The area of the region they span",
+      "Their two lengths added together",
+      "A vector perpendicular to them both"
     ],
     "answer": "The cosine of the angle between them",
     "explanation": {
@@ -1480,9 +1480,9 @@
     },
     "options": [
       "Reusing objects instead of allocating new ones",
-      "Storing objects on disk",
-      "Merging meshes at build time",
-      "Sorting objects by depth"
+      "Storing the inactive objects out on disk",
+      "Merging separate meshes at build time",
+      "Sorting all the objects by draw depth"
     ],
     "answer": "Reusing objects instead of allocating new ones",
     "explanation": {
@@ -1501,9 +1501,9 @@
     },
     "options": [
       "A hierarchy of objects and their transforms",
-      "A graph of frame times",
-      "The list of loaded textures",
-      "The audio mixing routing"
+      "A plotted graph of recent frame times",
+      "The list of currently loaded textures",
+      "The audio mixer's channel routing setup"
     ],
     "answer": "A hierarchy of objects and their transforms",
     "explanation": {

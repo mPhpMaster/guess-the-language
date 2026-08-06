@@ -10,9 +10,9 @@
     },
     "options": [
       "Build an image from the Dockerfile",
-      "Run a container",
-      "Push to a registry",
-      "Remove an image"
+      "Start a container from that image name",
+      "Publish the image to a remote registry",
+      "Delete the image and its cached layers"
     ],
     "answer": "Build an image from the Dockerfile",
     "explanation": {
@@ -31,9 +31,9 @@
     },
     "options": [
       "Running containers",
-      "All images",
-      "Networks",
-      "Volumes"
+      "Downloaded images",
+      "Configured networks",
+      "Mounted data volumes"
     ],
     "answer": "Running containers",
     "explanation": {
@@ -52,9 +52,9 @@
     },
     "options": [
       "Run detached (in the background)",
-      "Delete after exit",
-      "Debug mode",
-      "Disable networking"
+      "Delete the container once it exits",
+      "Enable extra debug log output now",
+      "Attach an interactive terminal session"
     ],
     "answer": "Run detached (in the background)",
     "explanation": {
@@ -73,9 +73,9 @@
     },
     "options": [
       "Instructions to build an image",
-      "A running container",
-      "A registry",
-      "A network config"
+      "A running instance of an image",
+      "A hosted image registry service",
+      "A container network definition"
     ],
     "answer": "Instructions to build an image",
     "explanation": {
@@ -94,9 +94,9 @@
     },
     "options": [
       "Defining and running multi-container apps",
-      "Building a single image",
-      "Scanning images",
-      "Pushing to Docker Hub"
+      "Building a single image from a Dockerfile",
+      "Scanning built images for vulnerabilities",
+      "Publishing tagged images to a registry"
     ],
     "answer": "Defining and running multi-container apps",
     "explanation": {
@@ -115,9 +115,9 @@
     },
     "options": [
       "A read-only template for containers",
-      "A running process",
-      "A virtual machine",
-      "A network bridge"
+      "A running process on the host OS",
+      "A lightweight guest virtual machine",
+      "A software-defined network bridge"
     ],
     "answer": "A read-only template for containers",
     "explanation": {
@@ -136,9 +136,9 @@
     },
     "options": [
       "Open an interactive shell in a running container",
-      "Build an image",
-      "Stop the container",
-      "List volumes"
+      "Create a new container from the base image",
+      "Stop the container and delete its writable layer",
+      "Copy files out of the container onto the host"
     ],
     "answer": "Open an interactive shell in a running container",
     "explanation": {
@@ -157,9 +157,9 @@
     },
     "options": [
       "Shares the host OS kernel (lightweight)",
-      "Includes a full guest OS",
-      "Cannot be networked",
-      "Runs only on Windows"
+      "Bundles a complete guest operating system",
+      "Cannot be attached to any virtual network",
+      "Runs only on Windows Server host machines"
     ],
     "answer": "Shares the host OS kernel (lightweight)",
     "explanation": {
@@ -178,9 +178,9 @@
     },
     "options": [
       "A container orchestration platform",
-      "A container runtime",
-      "A CI server",
-      "A text editor"
+      "A single-host container runtime",
+      "A continuous integration server",
+      "A source code editing environment"
     ],
     "answer": "A container orchestration platform",
     "explanation": {
@@ -220,9 +220,9 @@
     },
     "options": [
       "List pods",
-      "Delete a pod",
-      "Create a deployment",
-      "Show cluster logs"
+      "Delete a pod by name",
+      "Create a new deployment",
+      "Show recent cluster logs"
     ],
     "answer": "List pods",
     "explanation": {
@@ -241,9 +241,9 @@
     },
     "options": [
       "Create/update resources from a manifest",
-      "Delete all resources",
-      "Restart the cluster",
-      "Scale to zero"
+      "Delete every resource in the namespace",
+      "Restart all nodes across the cluster",
+      "Scale the deployment down to zero"
     ],
     "answer": "Create/update resources from a manifest",
     "explanation": {
@@ -262,9 +262,9 @@
     },
     "options": [
       "Stable networking/load balancing to pods",
-      "Persistent storage",
-      "Image building",
-      "Secret encryption"
+      "Persistent storage for stateful workloads",
+      "Secret encryption at rest for the cluster",
+      "Automatic image builds for the deployment"
     ],
     "answer": "Stable networking/load balancing to pods",
     "explanation": {
@@ -283,9 +283,9 @@
     },
     "options": [
       "ReplicaSets/Pods and rollouts",
-      "Physical servers",
-      "DNS records",
-      "TLS certificates"
+      "Physical bare-metal servers",
+      "Cluster-internal DNS records",
+      "TLS certificates for ingress"
     ],
     "answer": "ReplicaSets/Pods and rollouts",
     "explanation": {
@@ -325,9 +325,9 @@
     },
     "options": [
       "A Kubernetes package manager",
-      "A container runtime",
-      "A logging agent",
-      "A load balancer"
+      "A single-host container runtime",
+      "A cluster log-shipping agent",
+      "An in-cluster load balancer"
     ],
     "answer": "A Kubernetes package manager",
     "explanation": {
@@ -346,9 +346,9 @@
     },
     "options": [
       "Gradually replaces pods with no downtime",
-      "Deletes all pods at once",
-      "Rolls back to an old image",
-      "Pauses the cluster"
+      "Deletes every pod at once, then recreates",
+      "Rolls straight back to the old image tag",
+      "Pauses the whole cluster during rollout"
     ],
     "answer": "Gradually replaces pods with no downtime",
     "explanation": {
@@ -367,9 +367,9 @@
     },
     "options": [
       "Continuous Integration / Continuous Delivery",
-      "Container Image / Container Deploy",
-      "Code Inspection / Code Debug",
-      "Central Index / Central Database"
+      "Container Interface / Container Deployment",
+      "Code Inspection / Continuous Debugging",
+      "Central Index / Continuous Database"
     ],
     "answer": "Continuous Integration / Continuous Delivery",
     "explanation": {
@@ -388,9 +388,9 @@
     },
     "options": [
       ".github/workflows/*.yml",
-      "Jenkinsfile",
-      "docker-compose.yml",
-      "Makefile"
+      "A repo-root Jenkinsfile",
+      "The docker-compose.yml file",
+      "A top-level Makefile target"
     ],
     "answer": ".github/workflows/*.yml",
     "explanation": {
@@ -409,8 +409,8 @@
     },
     "options": [
       "An automation / CI server",
-      "A container registry",
-      "A cloud provider",
+      "A hosted image registry",
+      "A managed cloud provider",
       "A config-management tool"
     ],
     "answer": "An automation / CI server",
@@ -430,9 +430,9 @@
     },
     "options": [
       ".gitlab-ci.yml",
-      "Jenkinsfile",
+      "A repo Jenkinsfile",
       "azure-pipelines.json",
-      "circle.yml"
+      "A circle.yml file"
     ],
     "answer": ".gitlab-ci.yml",
     "explanation": {
@@ -451,9 +451,9 @@
     },
     "options": [
       "Every passing change auto-releases to production",
-      "Manual approval for each release",
-      "Building only on tags",
-      "Deploying once a month"
+      "Each release waits for a manual approval gate",
+      "Only tagged commits are built and shipped out",
+      "Deployments happen once at each month's end"
     ],
     "answer": "Every passing change auto-releases to production",
     "explanation": {
@@ -472,9 +472,9 @@
     },
     "options": [
       "Two prod environments; switch traffic with zero downtime",
-      "A color-coded log",
-      "A two-factor login",
-      "A network VLAN"
+      "A colour-coded application log viewer",
+      "A two-factor administrator login flow",
+      "A network VLAN separating two subnets"
     ],
     "answer": "Two prod environments; switch traffic with zero downtime",
     "explanation": {
@@ -493,9 +493,9 @@
     },
     "options": [
       "Provisioning infrastructure as code",
-      "Container runtime",
-      "Log aggregation",
-      "Unit testing"
+      "A single-host container runtime",
+      "Aggregating logs from many hosts",
+      "Unit-testing application source code"
     ],
     "answer": "Provisioning infrastructure as code",
     "explanation": {
@@ -514,9 +514,9 @@
     },
     "options": [
       "Create/update infrastructure to match the config",
-      "Destroy everything",
-      "Format code",
-      "Only download providers"
+      "Destroy every resource the state file tracks",
+      "Reformat the configuration files in place",
+      "Only download the required provider plugins"
     ],
     "answer": "Create/update infrastructure to match the config",
     "explanation": {
@@ -577,9 +577,9 @@
     },
     "options": [
       "Managing infrastructure via versioned config files",
-      "Writing apps in assembly",
-      "Manual server setup",
-      "Hard-coding IPs in apps"
+      "Writing performance-critical apps in assembly",
+      "Setting up each server manually by hand",
+      "Hard-coding server IPs inside the app code"
     ],
     "answer": "Managing infrastructure via versioned config files",
     "explanation": {
@@ -598,9 +598,9 @@
     },
     "options": [
       "The real resources it manages",
-      "Git history",
-      "Container logs",
-      "User sessions"
+      "The project's full git history",
+      "Per-container application logs",
+      "Active end-user login sessions"
     ],
     "answer": "The real resources it manages",
     "explanation": {
@@ -640,9 +640,9 @@
     },
     "options": [
       "Virtual machines (compute)",
-      "Object storage",
-      "A managed database",
-      "DNS"
+      "Managed object storage",
+      "A managed SQL database",
+      "Cloud DNS resolution"
     ],
     "answer": "Virtual machines (compute)",
     "explanation": {
@@ -661,9 +661,9 @@
     },
     "options": [
       "Metrics collection & monitoring",
-      "Source control",
-      "Container building",
-      "Secret storage"
+      "Distributed source control",
+      "Container image building",
+      "Encrypted secret storage"
     ],
     "answer": "Metrics collection & monitoring",
     "explanation": {
@@ -682,9 +682,9 @@
     },
     "options": [
       "Visualize metrics in dashboards",
-      "Compile code",
-      "Orchestrate containers",
-      "Scan vulnerabilities"
+      "Compile and package source code",
+      "Orchestrate running containers",
+      "Scan images for vulnerabilities"
     ],
     "answer": "Visualize metrics in dashboards",
     "explanation": {
@@ -703,9 +703,9 @@
     },
     "options": [
       "Reapply commits on top of another branch",
-      "Delete a branch",
-      "Clone a repository",
-      "Create a tag"
+      "Permanently delete a local feature branch",
+      "Clone a remote repository over the network",
+      "Create a lightweight tag at the current HEAD"
     ],
     "answer": "Reapply commits on top of another branch",
     "explanation": {
@@ -724,9 +724,9 @@
     },
     "options": [
       "Apply a specific commit onto the current branch",
-      "Revert all commits",
-      "Squash commits",
-      "Create a release"
+      "Revert every commit made on the branch",
+      "Squash the whole branch into one commit",
+      "Create a release from the latest tag"
     ],
     "answer": "Apply a specific commit onto the current branch",
     "explanation": {
@@ -745,9 +745,9 @@
     },
     "options": [
       "Manage systemd services on Linux",
-      "Edit files",
-      "Scan ports",
-      "Build images"
+      "Edit configuration files in place",
+      "Scan open ports on a remote host",
+      "Build images from a Dockerfile"
     ],
     "answer": "Manage systemd services on Linux",
     "explanation": {
@@ -766,9 +766,9 @@
     },
     "options": [
       "Exclude files from the build context",
-      "List running containers",
-      "Define services",
-      "Set environment variables"
+      "List every currently running container",
+      "Define the services in a Compose file",
+      "Set environment variables at runtime"
     ],
     "answer": "Exclude files from the build context",
     "explanation": {
@@ -788,8 +788,8 @@
     "options": [
       "Istio",
       "Terraform",
-      "Jenkins",
-      "Grafana"
+      "Grafana",
+      "Jenkins"
     ],
     "answer": "Istio",
     "explanation": {
@@ -808,9 +808,9 @@
     },
     "options": [
       "All containers, including stopped ones",
-      "Only running containers",
-      "All images",
-      "All networks"
+      "Only the currently running containers",
+      "Every locally downloaded Docker image",
+      "All user-defined Docker networks"
     ],
     "answer": "All containers, including stopped ones",
     "explanation": {
@@ -829,9 +829,9 @@
     },
     "options": [
       "Streams (follows) the web container’s logs in real time",
-      "Deletes the web container",
-      "Restarts the web container",
-      "Lists the container’s files"
+      "Deletes the web container and its data",
+      "Restarts the web container in the background",
+      "Lists the files inside the web container"
     ],
     "answer": "Streams (follows) the web container’s logs in real time",
     "explanation": {
@@ -850,9 +850,9 @@
     },
     "options": [
       "Runs the containers in detached (background) mode",
-      "Deletes stopped containers",
-      "Enables debug logging",
-      "Disables networking"
+      "Deletes stopped containers after startup",
+      "Enables verbose debug logging output",
+      "Disables networking for the services"
     ],
     "answer": "Runs the containers in detached (background) mode",
     "explanation": {
@@ -871,9 +871,9 @@
     },
     "options": [
       "Pods in the current namespace",
-      "All cluster nodes",
-      "Container images",
-      "Stored secrets"
+      "All nodes joined to the cluster",
+      "Locally downloaded container images",
+      "Secrets stored in the namespace"
     ],
     "answer": "Pods in the current namespace",
     "explanation": {
@@ -892,9 +892,9 @@
     },
     "options": [
       "Sets the deployment to run 5 pod replicas",
-      "Creates 5 new deployments",
-      "Limits the pod to 5 CPUs",
-      "Rolls back 5 revisions"
+      "Creates five brand-new deployments",
+      "Limits each pod to five CPU cores",
+      "Rolls the deployment back five revisions"
     ],
     "answer": "Sets the deployment to run 5 pod replicas",
     "explanation": {
@@ -913,9 +913,9 @@
     },
     "options": [
       "Exposing a stable network endpoint for a set of pods",
-      "Storing persistent data",
-      "Building container images",
-      "Scheduling cron jobs"
+      "Storing persistent data for stateful pods",
+      "Building container images from source code",
+      "Scheduling recurring cron-style batch jobs"
     ],
     "answer": "Exposing a stable network endpoint for a set of pods",
     "explanation": {
@@ -934,9 +934,9 @@
     },
     "options": [
       "Restarts a container when its health check fails",
-      "Delays pod startup",
-      "Scales the deployment up",
-      "Encrypts pod traffic"
+      "Delays the pod's initial startup time",
+      "Scales the parent deployment up by one",
+      "Encrypts traffic between the pods"
     ],
     "answer": "Restarts a container when its health check fails",
     "explanation": {
@@ -955,9 +955,9 @@
     },
     "options": [
       "Continuous Integration",
-      "Container Image",
+      "A built Container Image",
       "Cloud Infrastructure",
-      "Code Inspection"
+      "A Code Inspection step"
     ],
     "answer": "Continuous Integration",
     "explanation": {
@@ -976,9 +976,9 @@
     },
     "options": [
       "Automatically build and test code on each change",
-      "Manually deploy to production",
-      "Store secrets securely",
-      "Monitor server uptime"
+      "Manually promote a build to the production tier",
+      "Store application secrets and API keys securely",
+      "Monitor server uptime and alert on outages"
     ],
     "answer": "Automatically build and test code on each change",
     "explanation": {
@@ -997,9 +997,9 @@
     },
     "options": [
       "Provisions infrastructure to match the configuration",
-      "Only previews changes",
-      "Deletes all resources",
-      "Formats the code"
+      "Only previews the changes without applying them",
+      "Destroys every resource tracked in the state",
+      "Formats the configuration files consistently"
     ],
     "answer": "Provisions infrastructure to match the configuration",
     "explanation": {
@@ -1018,9 +1018,9 @@
     },
     "options": [
       "A preview of changes without applying them",
-      "The current cloud bill",
-      "Live server metrics",
-      "The git history"
+      "The current monthly cloud billing total",
+      "Live server metrics for each resource",
+      "The project's full commit history"
     ],
     "answer": "A preview of changes without applying them",
     "explanation": {
@@ -1039,9 +1039,9 @@
     },
     "options": [
       "Capacity automatically matches demand",
-      "Code never needs testing",
-      "Servers never restart",
-      "Storage becomes free"
+      "Application code never needs testing",
+      "Running servers are never restarted",
+      "Storage capacity suddenly becomes free"
     ],
     "answer": "Capacity automatically matches demand",
     "explanation": {
@@ -1060,9 +1060,9 @@
     },
     "options": [
       "You run code without managing servers",
-      "There are literally no servers",
-      "It only runs on your laptop",
-      "It cannot scale"
+      "There are literally no servers involved",
+      "It can only run on your local laptop",
+      "It is unable to scale under load"
     ],
     "answer": "You run code without managing servers",
     "explanation": {
@@ -1083,7 +1083,7 @@
       "Running containers",
       "Downloaded images",
       "Docker networks",
-      "Build history"
+      "Storage volumes"
     ],
     "answer": "Running containers",
     "explanation": {
@@ -1102,9 +1102,9 @@
     },
     "options": [
       "Open a shell inside a running container",
-      "Build a new image",
-      "Start a stopped image",
-      "Copy files out of a container"
+      "Build a fresh image from a Dockerfile",
+      "Start a stopped image as a service",
+      "Copy files out of a stopped container"
     ],
     "answer": "Open a shell inside a running container",
     "explanation": {
@@ -1123,9 +1123,9 @@
     },
     "options": [
       "Pods in the current namespace",
-      "Cluster nodes",
-      "Container images",
-      "Helm charts"
+      "Every node joined to the cluster",
+      "Locally cached container images",
+      "Installed Helm release charts"
     ],
     "answer": "Pods in the current namespace",
     "explanation": {
@@ -1144,9 +1144,9 @@
     },
     "options": [
       "The smallest deployable unit (one or more containers)",
-      "A physical server",
-      "A load balancer",
-      "A storage volume"
+      "A dedicated physical server in the cluster rack",
+      "A managed load balancer in front of the pods",
+      "A persistent storage volume for the app data"
     ],
     "answer": "The smallest deployable unit (one or more containers)",
     "explanation": {
@@ -1165,9 +1165,9 @@
     },
     "options": [
       "Set the deployment to 3 replicas",
-      "Delete 3 pods",
-      "Create 3 services",
-      "Roll back 3 versions"
+      "Delete three pods from the cluster",
+      "Create three brand-new services",
+      "Roll back three past revisions"
     ],
     "answer": "Set the deployment to 3 replicas",
     "explanation": {
@@ -1186,9 +1186,9 @@
     },
     "options": [
       "Frequently merging and testing code changes",
-      "Deploying only once a year",
-      "Manual server setup",
-      "Writing documentation"
+      "Deploying to production once a year at most",
+      "Setting up each server manually by hand",
+      "Writing the end-user documentation only"
     ],
     "answer": "Frequently merging and testing code changes",
     "explanation": {
@@ -1207,9 +1207,9 @@
     },
     "options": [
       "Reverting to a previous working version",
-      "Deleting the repository",
-      "Skipping the tests",
-      "Merging two branches"
+      "Deleting the whole project repository",
+      "Skipping the tests to ship faster",
+      "Merging two long-lived branches"
     ],
     "answer": "Reverting to a previous working version",
     "explanation": {
@@ -1228,9 +1228,9 @@
     },
     "options": [
       "Make real changes to match the desired state",
-      "Only show a plan",
-      "Delete the state file",
-      "Format the code"
+      "Only show a plan of the pending changes",
+      "Delete the local Terraform state file",
+      "Reformat the configuration files only"
     ],
     "answer": "Make real changes to match the desired state",
     "explanation": {
@@ -1249,9 +1249,9 @@
     },
     "options": [
       "Preview changes without applying them",
-      "Apply changes immediately",
-      "Destroy all resources",
-      "Import existing resources"
+      "Apply the pending changes immediately",
+      "Destroy all of the managed resources",
+      "Import existing resources into state"
     ],
     "answer": "Preview changes without applying them",
     "explanation": {
@@ -1270,9 +1270,9 @@
     },
     "options": [
       "Distribute traffic across multiple servers",
-      "Store backups",
-      "Encrypt disks",
-      "Compile code"
+      "Store scheduled backups of the databases",
+      "Encrypt the disks attached to each server",
+      "Compile and package the source code"
     ],
     "answer": "Distribute traffic across multiple servers",
     "explanation": {
@@ -1291,9 +1291,9 @@
     },
     "options": [
       "Run the services in the background (detached)",
-      "Delete the containers",
-      "Rebuild images",
-      "Show logs"
+      "Delete the containers once they have started",
+      "Rebuild every image before starting up",
+      "Stream the service logs to the shell"
     ],
     "answer": "Run the services in the background (detached)",
     "explanation": {
@@ -1312,9 +1312,9 @@
     },
     "options": [
       "A stable network endpoint for a set of pods",
-      "Persistent disk storage",
-      "A container image registry",
-      "A CI pipeline"
+      "Persistent disk storage for stateful data",
+      "A private container image registry",
+      "An automated CI/CD build pipeline"
     ],
     "answer": "A stable network endpoint for a set of pods",
     "explanation": {
@@ -1333,9 +1333,9 @@
     },
     "options": [
       "Adjusting resources automatically based on load",
-      "Manually adding servers weekly",
-      "Turning off logging",
-      "Caching static files"
+      "Manually adding a few more servers each week",
+      "Turning application logging off to save cost",
+      "Caching static assets at the network edge"
     ],
     "answer": "Adjusting resources automatically based on load",
     "explanation": {
@@ -1354,9 +1354,9 @@
     },
     "options": [
       "Applying repeatedly yields the same end state",
-      "It runs faster each time",
-      "It needs no state file",
-      "It only works once"
+      "It finishes a little faster on every run",
+      "It works correctly only on the first run",
+      "It needs no state file at all to operate"
     ],
     "answer": "Applying repeatedly yields the same end state",
     "explanation": {
@@ -1397,8 +1397,8 @@
     "options": [
       "A pod's container logs",
       "The node's CPU usage",
-      "The cluster events",
-      "The pod's YAML"
+      "The cluster-wide events",
+      "The pod's raw YAML spec"
     ],
     "answer": "A pod's container logs",
     "explanation": {
@@ -1417,9 +1417,9 @@
     },
     "options": [
       "Serve cached content from edge locations",
-      "Run databases",
-      "Compile applications",
-      "Manage DNS zones only"
+      "Run relational databases close to users",
+      "Compile applications on demand at the edge",
+      "Manage the DNS zones for the domain"
     ],
     "answer": "Serve cached content from edge locations",
     "explanation": {
@@ -1438,9 +1438,9 @@
     },
     "options": [
       "An image tagged app:1.0 from the current directory",
-      "A running container named app",
-      "A compressed backup of the app",
-      "A Kubernetes deployment"
+      "A running container named app on the host now",
+      "A compressed backup archive of the app source",
+      "A Kubernetes deployment for the app service"
     ],
     "answer": "An image tagged app:1.0 from the current directory",
     "explanation": {
@@ -1459,9 +1459,9 @@
     },
     "options": [
       "Maps host port 8080 to container port 80",
-      "Maps container 8080 to host 80",
-      "Limits the container to 80 MB",
-      "Opens 8080 in the firewall"
+      "Maps container port 8080 to host port 80",
+      "Limits the container to 80 MB of memory",
+      "Opens port 8080 in the host firewall"
     ],
     "answer": "Maps host port 8080 to container port 80",
     "explanation": {
@@ -1480,9 +1480,9 @@
     },
     "options": [
       "Opens an interactive shell inside a running container",
-      "Creates a new container from an image",
-      "Restarts the container",
-      "Copies files out of the container"
+      "Creates a brand-new container from the base image",
+      "Restarts the running container in the background",
+      "Copies files out of the container onto the host"
     ],
     "answer": "Opens an interactive shell inside a running container",
     "explanation": {
@@ -1501,9 +1501,9 @@
     },
     "options": [
       "Follows (streams) new log output",
-      "Filters the logs by keyword",
+      "Filters the log lines by keyword",
       "Forces the container to restart",
-      "Writes the logs to a file"
+      "Writes the logs out to a file"
     ],
     "answer": "Follows (streams) new log output",
     "explanation": {
@@ -1522,9 +1522,9 @@
     },
     "options": [
       "Copies artifacts from an earlier build stage",
-      "Downloads a file from a URL",
-      "Mounts a host directory",
-      "Imports environment variables"
+      "Downloads a file from a remote URL at build",
+      "Mounts a host directory into the image",
+      "Imports environment variables into the build"
     ],
     "answer": "Copies artifacts from an earlier build stage",
     "explanation": {
@@ -1543,9 +1543,9 @@
     },
     "options": [
       "List pods in the prod namespace",
-      "Show only pods named prod",
-      "Return the newest pod only",
-      "Use the prod cluster context"
+      "Show only pods literally named prod",
+      "Return just the single newest pod",
+      "Use the prod cluster context instead"
     ],
     "answer": "List pods in the prod namespace",
     "explanation": {
@@ -1564,9 +1564,9 @@
     },
     "options": [
       "Rolls the deployment back to the previous revision",
-      "Deletes the deployment",
-      "Pauses all new deployments",
-      "Scales the deployment to zero"
+      "Deletes the deployment and all of its pods",
+      "Pauses every new deployment across the cluster",
+      "Scales the deployment straight down to zero"
     ],
     "answer": "Rolls the deployment back to the previous revision",
     "explanation": {
@@ -1585,9 +1585,9 @@
     },
     "options": [
       "The deployment runs five pods",
-      "Five new deployments are created",
+      "Five brand-new deployments appear",
       "The pod restart limit becomes five",
-      "Five nodes join the cluster"
+      "Five nodes join the cluster now"
     ],
     "answer": "The deployment runs five pods",
     "explanation": {
@@ -1606,9 +1606,9 @@
     },
     "options": [
       "Reading a pod's events to debug why it failed",
-      "Editing the pod definition",
-      "Streaming the pod's logs",
-      "Deleting a stuck pod"
+      "Editing the live pod definition in an editor",
+      "Streaming the pod's container logs in real time",
+      "Deleting a stuck pod and recreating it"
     ],
     "answer": "Reading a pod's events to debug why it failed",
     "explanation": {
@@ -1627,7 +1627,7 @@
     },
     "options": [
       "Whether the pod receives traffic",
-      "Whether the pod is restarted",
+      "Whether the pod gets restarted",
       "How much CPU the pod may use",
       "Which node the pod lands on"
     ],
@@ -1648,9 +1648,9 @@
     },
     "options": [
       "When a pull request is opened or updated",
-      "On a fixed schedule",
-      "Only on the default branch",
-      "Only when triggered manually"
+      "On a fixed daily or hourly schedule only",
+      "Only after a push to the default branch",
+      "Only when a maintainer triggers it by hand"
     ],
     "answer": "When a pull request is opened or updated",
     "explanation": {
@@ -1669,9 +1669,9 @@
     },
     "options": [
       "Wait for the build job to succeed first",
-      "Install the build dependencies",
-      "Reuse the build job's runner",
-      "Run in parallel with build"
+      "Install the build job's dependencies again",
+      "Reuse the exact runner the build job used",
+      "Run at the same time as the build job"
     ],
     "answer": "Wait for the build job to succeed first",
     "explanation": {
@@ -1690,9 +1690,9 @@
     },
     "options": [
       "To pass build output to later jobs or releases",
-      "To reduce the repository size",
-      "To encrypt the source code",
-      "To trigger the next commit"
+      "To shrink the size of the source repository",
+      "To encrypt the application's source at rest",
+      "To automatically trigger the next commit"
     ],
     "answer": "To pass build output to later jobs or releases",
     "explanation": {
@@ -1711,9 +1711,9 @@
     },
     "options": [
       "To make builds reproducible",
-      "To speed up the test suite",
-      "To reduce the number of jobs",
-      "To avoid writing a lockfile"
+      "To speed up the test suite run",
+      "To cut the total number of CI jobs",
+      "To avoid writing a lockfile at all"
     ],
     "answer": "To make builds reproducible",
     "explanation": {
@@ -1732,9 +1732,9 @@
     },
     "options": [
       "Sends a small share of traffic to the new version",
-      "Deploys to every server at once",
-      "Runs the tests twice before deploying",
-      "Keeps the old version running forever"
+      "Deploys the new version to every server at once",
+      "Runs the whole test suite twice before deploying",
+      "Keeps the previous version running indefinitely"
     ],
     "answer": "Sends a small share of traffic to the new version",
     "explanation": {
@@ -1753,9 +1753,9 @@
     },
     "options": [
       "Shows the changes it would make, without applying them",
-      "Applies the configuration immediately",
-      "Deletes all managed resources",
-      "Formats the configuration files"
+      "Applies the configuration to real infrastructure now",
+      "Deletes every resource the state file is tracking",
+      "Reformats all of the configuration files in place"
     ],
     "answer": "Shows the changes it would make, without applying them",
     "explanation": {
@@ -1774,9 +1774,9 @@
     },
     "options": [
       "The resources Terraform currently tracks",
-      "The available provider plugins",
-      "The syntax errors in the config",
-      "The cost of the infrastructure"
+      "The provider plugins available to install",
+      "The syntax errors found in the config",
+      "The total cost of the infrastructure"
     ],
     "answer": "The resources Terraform currently tracks",
     "explanation": {
@@ -1795,9 +1795,9 @@
     },
     "options": [
       "Re-applying the same config changes nothing",
-      "It runs only once ever",
-      "It never creates resources",
-      "It requires manual approval"
+      "It is allowed to run only one single time",
+      "It never creates any real infrastructure",
+      "It always requires a manual approval step"
     ],
     "answer": "Re-applying the same config changes nothing",
     "explanation": {
@@ -1816,9 +1816,9 @@
     },
     "options": [
       "The inventory of machines to configure",
-      "The playbook to run",
-      "The number of parallel forks",
-      "The SSH private key"
+      "The single playbook file that should run",
+      "The number of parallel forks to use",
+      "The SSH private key file to connect with"
     ],
     "answer": "The inventory of machines to configure",
     "explanation": {
@@ -1837,8 +1837,8 @@
     },
     "options": [
       "Adding more instances",
-      "Adding more CPU to one instance",
-      "Moving to a bigger region",
+      "Enlarging one instance",
+      "Moving to a new region",
       "Reducing the replica count"
     ],
     "answer": "Adding more instances",
@@ -1858,9 +1858,9 @@
     },
     "options": [
       "It stops routing traffic to unhealthy instances",
-      "It restarts failed instances",
-      "It encrypts traffic to the backend",
-      "It caches responses at the edge"
+      "It automatically restarts the failed instances",
+      "It encrypts all traffic sent to the backend",
+      "It caches backend responses at the edge"
     ],
     "answer": "It stops routing traffic to unhealthy instances",
     "explanation": {
@@ -1879,9 +1879,9 @@
     },
     "options": [
       "Cheap, durable storage of large unstructured files",
-      "Low-latency transactional queries",
-      "Running relational joins",
-      "Holding a POSIX filesystem for a database"
+      "Low-latency transactional relational queries",
+      "Running heavy multi-table relational joins",
+      "Backing a POSIX filesystem for a database"
     ],
     "answer": "Cheap, durable storage of large unstructured files",
     "explanation": {
@@ -1900,9 +1900,9 @@
     },
     "options": [
       "Load metrics such as CPU or request rate",
-      "The time since the last deploy",
-      "The number of open pull requests",
-      "The size of the container image"
+      "The elapsed time since the last deployment",
+      "The count of currently open pull requests",
+      "The size of the built container image"
     ],
     "answer": "Load metrics such as CPU or request rate",
     "explanation": {
@@ -1921,9 +1921,9 @@
     },
     "options": [
       "Two full environments with traffic switched between them",
-      "A gradual per-user rollout",
-      "Deploying only during off-hours",
-      "Running two versions on the same server"
+      "A slow, gradual rollout to users one group at a time",
+      "Running two app versions on a single shared server",
+      "Deploying new code only during quiet off-hours"
     ],
     "answer": "Two full environments with traffic switched between them",
     "explanation": {

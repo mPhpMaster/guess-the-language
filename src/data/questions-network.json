@@ -283,9 +283,9 @@
     },
     "options": [
       "Loopback (localhost) address",
-      "Default gateway",
-      "Broadcast address",
-      "DNS server"
+      "The default network gateway",
+      "The subnet broadcast address",
+      "The primary DNS server host"
     ],
     "answer": "Loopback (localhost) address",
     "explanation": {
@@ -325,9 +325,9 @@
     },
     "options": [
       "Domain names to IP addresses",
-      "IP to MAC",
-      "Ports to services",
-      "Hostnames to ports"
+      "IP addresses to MAC addresses",
+      "Service names to port numbers",
+      "Hostnames to service ports"
     ],
     "answer": "Domain names to IP addresses",
     "explanation": {
@@ -346,9 +346,9 @@
     },
     "options": [
       "Automatically assign IP addresses",
-      "Resolve domain names",
-      "Encrypt traffic",
-      "Route between networks"
+      "Resolve domain names to addresses",
+      "Encrypt traffic on the network",
+      "Route packets between networks"
     ],
     "answer": "Automatically assign IP addresses",
     "explanation": {
@@ -367,9 +367,9 @@
     },
     "options": [
       "IP addresses to MAC addresses",
-      "Domain names to IPs",
-      "Ports to processes",
-      "MAC to domain"
+      "Domain names to IP addresses",
+      "Port numbers to processes",
+      "MAC addresses to domain names"
     ],
     "answer": "IP addresses to MAC addresses",
     "explanation": {
@@ -409,9 +409,9 @@
     },
     "options": [
       "Mail servers for a domain",
-      "The website IP",
-      "A text value",
-      "A name alias"
+      "The website's IPv4 address",
+      "A free-form text value",
+      "A canonical name alias"
     ],
     "answer": "Mail servers for a domain",
     "explanation": {
@@ -535,9 +535,9 @@
     },
     "options": [
       "Translate private IPs to a public IP",
-      "Encrypt packets",
-      "Assign DNS",
-      "Filter spam"
+      "Encrypt packets across the link",
+      "Assign DNS servers to the hosts",
+      "Filter incoming spam messages"
     ],
     "answer": "Translate private IPs to a public IP",
     "explanation": {
@@ -556,9 +556,9 @@
     },
     "options": [
       "Logically segment a network",
-      "Encrypt Wi-Fi",
-      "Speed up DNS",
-      "Assign IPs"
+      "Encrypt the wireless traffic",
+      "Speed up DNS resolution",
+      "Assign addresses to hosts"
     ],
     "answer": "Logically segment a network",
     "explanation": {
@@ -598,9 +598,9 @@
     },
     "options": [
       "The internet (between autonomous systems)",
-      "A single LAN",
-      "Wi-Fi only",
-      "USB devices"
+      "A single local area network segment",
+      "Wireless links between devices only",
+      "USB peripherals on one machine"
     ],
     "answer": "The internet (between autonomous systems)",
     "explanation": {
@@ -619,9 +619,9 @@
     },
     "options": [
       "The path (hops) packets take to a host",
-      "Open ports",
-      "DNS records",
-      "CPU usage"
+      "The open TCP ports on a remote host",
+      "The DNS records held for a domain",
+      "The current CPU usage of a host"
     ],
     "answer": "The path (hops) packets take to a host",
     "explanation": {
@@ -640,9 +640,9 @@
     },
     "options": [
       "The router used to reach other networks",
-      "The DNS server",
-      "The DHCP server",
-      "The broadcast address"
+      "The server that resolves DNS names",
+      "The server handing out DHCP leases",
+      "The subnet's broadcast address"
     ],
     "answer": "The router used to reach other networks",
     "explanation": {
@@ -661,9 +661,9 @@
     },
     "options": [
       "TLS/SSL",
-      "FTP",
-      "SMTP",
-      "SNMP"
+      "Kerberos",
+      "IPsec",
+      "PPTP"
     ],
     "answer": "TLS/SSL",
     "explanation": {
@@ -682,9 +682,9 @@
     },
     "options": [
       "An encrypted tunnel over a public network",
-      "Faster DNS",
-      "More IP addresses",
-      "Free Wi-Fi"
+      "A faster DNS name-resolution service",
+      "A pool of extra public IP addresses",
+      "Free public wireless internet access"
     ],
     "answer": "An encrypted tunnel over a public network",
     "explanation": {
@@ -703,9 +703,9 @@
     },
     "options": [
       "Network interfaces and their IP addresses",
-      "Routing protocols",
-      "Open TCP ports",
-      "DNS cache"
+      "The dynamic routing protocols in use",
+      "The currently open TCP listening ports",
+      "The local DNS resolver cache entries"
     ],
     "answer": "Network interfaces and their IP addresses",
     "explanation": {
@@ -724,9 +724,9 @@
     },
     "options": [
       "Filters traffic by rules",
-      "Assigns IPs",
-      "Resolves names",
-      "Encrypts disks"
+      "Assigns addresses to hosts",
+      "Resolves names to addresses",
+      "Encrypts data on the disk"
     ],
     "answer": "Filters traffic by rules",
     "explanation": {
@@ -1081,9 +1081,9 @@
     },
     "options": [
       "A hostname to an IPv4 address",
-      "A domain to an alias",
-      "An IP to a name",
-      "A mail server"
+      "A domain to a canonical alias",
+      "An IP address back to a name",
+      "A mail exchanger for a domain"
     ],
     "answer": "A hostname to an IPv4 address",
     "explanation": {
@@ -1102,9 +1102,9 @@
     },
     "options": [
       "An alias pointing to another domain name",
-      "A mail exchange record",
-      "A reverse lookup",
-      "A name server record"
+      "A mail-exchange record for a domain",
+      "A reverse IP-to-name lookup entry",
+      "An authoritative name-server record"
     ],
     "answer": "An alias pointing to another domain name",
     "explanation": {
@@ -1123,9 +1123,9 @@
     },
     "options": [
       "A three-way handshake (SYN, SYN-ACK, ACK)",
-      "A two-way handshake",
-      "No handshake",
-      "A four-way handshake"
+      "A simple two-way request-reply exchange",
+      "No handshake at all before sending",
+      "A four-way connection setup sequence"
     ],
     "answer": "A three-way handshake (SYN, SYN-ACK, ACK)",
     "explanation": {
@@ -1144,9 +1144,9 @@
     },
     "options": [
       "Connectionless and faster with no delivery guarantee",
-      "Connection-oriented and reliable",
-      "Encrypted by default",
-      "Only for local networks"
+      "Connection-oriented, ordered and fully reliable",
+      "Always encrypted end-to-end automatically",
+      "Usable only within local area networks"
     ],
     "answer": "Connectionless and faster with no delivery guarantee",
     "explanation": {
@@ -1228,9 +1228,9 @@
     },
     "options": [
       "The router used to reach non-local networks",
-      "A DNS resolver",
-      "A DHCP server",
-      "A firewall rule"
+      "A resolver that turns names into IPs",
+      "A server that hands out DHCP leases",
+      "A single rule inside the firewall"
     ],
     "answer": "The router used to reach non-local networks",
     "explanation": {
@@ -1249,9 +1249,9 @@
     },
     "options": [
       "Automatically assigns IP addresses to hosts",
-      "Resolves names to IPs",
-      "Encrypts web traffic",
-      "Routes between networks"
+      "Resolves domain names into IP addresses",
+      "Encrypts web traffic between endpoints",
+      "Routes packets between separate networks"
     ],
     "answer": "Automatically assigns IP addresses to hosts",
     "explanation": {
@@ -1270,9 +1270,9 @@
     },
     "options": [
       "An IP address to a MAC address",
-      "A name to an IP",
-      "A port to a service",
-      "A route to a gateway"
+      "A domain name to an IP address",
+      "A port number to a service",
+      "A route to the default gateway"
     ],
     "answer": "An IP address to a MAC address",
     "explanation": {
@@ -1375,9 +1375,9 @@
     },
     "options": [
       "A specific service or process on a host",
-      "A physical network cable",
-      "A subnet range",
-      "A MAC address"
+      "One physical network cable link",
+      "A range of addresses in a subnet",
+      "A hardware interface MAC address"
     ],
     "answer": "A specific service or process on a host",
     "explanation": {
@@ -1522,9 +1522,9 @@
     },
     "options": [
       "Ordered, reliable delivery",
-      "Lower latency",
-      "Broadcast support",
-      "Smaller headers"
+      "Much lower packet latency",
+      "Network broadcast support",
+      "Smaller per-packet headers"
     ],
     "answer": "Ordered, reliable delivery",
     "explanation": {
@@ -1669,9 +1669,9 @@
     },
     "options": [
       "CNAME",
-      "A",
-      "MX",
-      "NS"
+      "AAAA",
+      "HTTPS",
+      "MX"
     ],
     "answer": "CNAME",
     "explanation": {
@@ -1816,9 +1816,9 @@
     },
     "options": [
       "Forwarding traffic to networks not in the routing table",
-      "Blocking untrusted traffic",
-      "Assigning local IP addresses",
-      "Caching DNS answers"
+      "Blocking untrusted inbound connections before they reach hosts",
+      "Handing out local IP address leases to new clients",
+      "Caching recently resolved DNS answers for reuse"
     ],
     "answer": "Forwarding traffic to networks not in the routing table",
     "explanation": {
@@ -1858,9 +1858,9 @@
     },
     "options": [
       "The hops a packet passes through to the destination",
-      "The DNS records of the domain",
-      "The open ports on the host",
-      "The TLS certificate chain"
+      "The DNS records currently configured for a domain",
+      "The open listening TCP ports on the target host",
+      "The complete TLS certificate chain a server presents"
     ],
     "answer": "The hops a packet passes through to the destination",
     "explanation": {
