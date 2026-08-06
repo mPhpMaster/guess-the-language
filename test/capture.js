@@ -19,7 +19,7 @@ ipcMain.handle('questions:get', async (_e, mode) => {
   if (mode === 'all') return (await Promise.all(Object.values(FILES).map(readBank))).flat();
   return readBank(FILES[mode] || FILES.languages);
 });
-ipcMain.handle('app:version', () => '3.0.1');
+ipcMain.handle('app:version', () => require('../package.json').version);
 
 app.whenReady().then(async () => {
   fs.mkdirSync(OUT, { recursive: true });
@@ -71,6 +71,18 @@ app.whenReady().then(async () => {
     }
     await run(`(() => { const b = [...document.querySelectorAll('#options-grid button')].find(x => x.dataset.answer === ${JSON.stringify(answer)}); if (b) b.click(); return 'ok'; })()`);
   }
+  // Drive the round through the answer feedback to the results/leaderboard screen,
+  // then snap. The feedback panel now lingers, so poll instead of guessing a delay.
+  async function snapResults(name) {
+    for (let i = 0; i < 60; i++) {
+      if (await run("document.querySelector('#screen-results')?.classList.contains('active') ? '1' : ''")) break;
+      // Skip the answer-review feedback window if the "Next" button is up.
+      await run("(() => { const n = document.querySelector('#btn-next'); if (n && !n.classList.contains('hidden')) n.click(); return 'ok'; })()");
+      await sleep(200);
+    }
+    await sleep(400);
+    await snap(name);
+  }
 
   // Warm up the window so the first real capture isn't a blank first-paint frame.
   await win.loadFile(path.join(SRC, 'index.html'));
@@ -112,8 +124,7 @@ app.whenReady().then(async () => {
   await run("document.querySelector('#btn-start').click(); 'ok'");
   await sleep(300);
   await answerCorrectly('languages', 'en');
-  await sleep(3200);
-  await snap('4-results.png');
+  await snapResults('4-results.png');
 
   // ---- English: cybersecurity mode ----
   await reload('en', { questions: 10, sound: false, difficulty: 'all', name: '' });
@@ -136,8 +147,7 @@ app.whenReady().then(async () => {
   await run("document.querySelector('#btn-start').click(); 'ok'");
   await sleep(300);
   await answerCorrectly('languages', 'ar');
-  await sleep(3200);
-  await snap('7-results-ar.png');
+  await snapResults('7-results-ar.png');
 
   // ---- Arabic: cybersecurity game ----
   await reload('ar', { questions: 10, sound: false, difficulty: 'all', name: '' });
