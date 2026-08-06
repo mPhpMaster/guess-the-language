@@ -136,3 +136,32 @@ end;
 $$;
 
 grant execute on function public.record_play(text, integer, boolean, boolean) to anon, authenticated;
+
+-- ---------------------------------------------------------------------------
+-- Client error logging. The web / Discord / desktop clients write uncaught
+-- errors, unhandled rejections and console.error output here (best-effort, via
+-- the anon key). Reads are service-role only — no SELECT policy — so error
+-- contents are not publicly readable. See logError() in src/renderer.js.
+-- ---------------------------------------------------------------------------
+create table if not exists public.error_logs (
+  id bigint generated always as identity primary key,
+  created_at timestamptz not null default now(),
+  level text not null default 'error',
+  source text,
+  message text not null,
+  stack text,
+  app_version text,
+  platform text,
+  player text,
+  url text,
+  context jsonb not null default '{}'::jsonb
+);
+
+create index if not exists error_logs_created_at_idx on public.error_logs (created_at desc);
+
+alter table public.error_logs enable row level security;
+
+drop policy if exists error_logs_insert_anon on public.error_logs;
+create policy error_logs_insert_anon on public.error_logs
+  for insert to anon, authenticated
+  with check (true);

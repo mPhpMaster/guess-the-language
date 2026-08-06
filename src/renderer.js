@@ -2201,6 +2201,67 @@ async function sbFetch(pathQuery, options = {}) {
     return res.status === 204 ? null : res.json();
 }
 
+// ---------- Error logging to Supabase (best-effort; must NEVER throw) ----------
+// Any runtime error — uncaught, unhandled rejection, or console.error — is written
+// to the `error_logs` table so it can be inspected server-side later. Deduped and
+// throttled so a repeating error can't flood the table.
+let __cachedAppVersion = null;
+const __errLogThrottle = new Map();
+
+function logError(message, extra) {
+    try {
+        if (!supabaseConfigured()) return;
+        const msg = String(message == null ? 'unknown error' : (message.message || message)).slice(0, 2000);
+        if (!msg || msg === 'null' || msg === 'undefined') return;
+        const ex = extra || {};
+        const key = (ex.source || '') + '|' + msg.slice(0, 180);
+        const now = Date.now();
+        if (now - (__errLogThrottle.get(key) || 0) < 15000) return; // 1 per 15s per unique error
+        __errLogThrottle.set(key, now);
+        let platform = 'web';
+        try { if (isDiscordActivity()) platform = 'discord'; else if (/electron/i.test(navigator.userAgent)) platform = 'electron'; } catch (_) {}
+        const row = {
+            level: ex.level || 'error',
+            source: ex.source || 'manual',
+            message: msg,
+            stack: ex.stack ? String(ex.stack).slice(0, 8000) : null,
+            app_version: __cachedAppVersion,
+            platform,
+            player: (() => { try { return getPlayerName() || null; } catch (_) { return null; } })(),
+            url: (() => { try { return location.href; } catch (_) { return null; } })(),
+            context: Object.assign({ mode: state && state.mode, ua: navigator.userAgent }, ex.context || {})
+        };
+        sbFetch('error_logs', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: JSON.stringify([row]) }).catch(() => {});
+    } catch (_) { /* logging must never break the app */ }
+}
+window.GTL_LOG_ERROR = logError;
+
+let __errorLoggingInstalled = false;
+function setupErrorLogging() {
+    if (__errorLoggingInstalled) return;
+    __errorLoggingInstalled = true;
+    try { window.appWindow?.getVersion?.().then((v) => { __cachedAppVersion = v || null; }).catch(() => {}); } catch (_) {}
+    window.addEventListener('error', (e) => {
+        logError((e && (e.message || e.error)) || 'window error', {
+            source: 'window.onerror',
+            stack: e && e.error && e.error.stack,
+            context: { filename: e && e.filename, lineno: e && e.lineno, colno: e && e.colno }
+        });
+    });
+    window.addEventListener('unhandledrejection', (e) => {
+        const r = e && e.reason;
+        logError((r && (r.message || r)) || 'unhandled promise rejection', { source: 'unhandledrejection', stack: r && r.stack });
+    });
+    // Route console.error through the logger so caught-and-logged failures (exactly
+    // the ones worth debugging) are captured too. logError never calls console.error,
+    // so there is no recursion.
+    const origErr = console.error.bind(console);
+    console.error = function (...args) {
+        origErr(...args);
+        try { logError(args.map((a) => (a && a.stack) ? a.stack : String((a && a.message) ? a.message : a)).join(' '), { source: 'console.error' }); } catch (_) {}
+    };
+}
+
 // Record a finished game into player_stats (games, multiplayer wins, seconds
 // played, last activity). Best-effort — a failure must never affect gameplay.
 function recordPlay(multiplayer, won) {
@@ -4436,6 +4497,8 @@ async function selectMode(mode) {
 //  Boot
 // ============================================================
 async function boot() {
+    // Capture errors to the database from the very first line, before any UI wiring.
+    setupErrorLogging();
     // Wire up the UI FIRST so the app is always interactive. The Discord Activity
     // handshake (SDK ready / OAuth / token fetch) has no internal timeout, so if
     // it stalls we must NOT let it block bindEvents — otherwise the page renders
