@@ -23,7 +23,7 @@
         "appId": "com.mphpmaster.guessthelanguage",
         "productName": "Guess The Language",
         "directories": {
-            "output": "dist"
+            "output": "release"
         },
         "files": [
             "src/**/*",
