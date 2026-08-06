@@ -5393,7 +5393,9 @@ const UI_SCALE_MIN = 0.8, UI_SCALE_MAX = 2.0, UI_SCALE_STEP = 0.1;
 // The content is laid out around this width, then scaled up to fill wider windows
 // (the Discord Activity panel is very wide, leaving the game tiny and centered).
 const AUTOFIT_REF = 900;
-function hasManualScale() { return Number.isFinite(parseFloat(localStorage.getItem('gtl_ui_scale'))); }
+// Manual override is a DISTINCT flag (not just the presence of gtl_ui_scale, which
+// older builds auto-persisted for everyone) so existing users still get auto-fit.
+function hasManualScale() { return localStorage.getItem('gtl_ui_manual') === '1'; }
 function getUiScale() {
     const v = parseFloat(localStorage.getItem('gtl_ui_scale'));
     return Number.isFinite(v) ? Math.min(UI_SCALE_MAX, Math.max(UI_SCALE_MIN, v)) : 1;
@@ -5453,6 +5455,14 @@ function applyUiScale(scale, persist = true) {
     return s;
 }
 // Manual +/- from Settings sets a persistent override (turns auto-fit off).
-function nudgeUiScale(delta) { applyUiScale(effectiveScale() + delta, true); }
+function nudgeUiScale(delta) {
+    try { localStorage.setItem('gtl_ui_manual', '1'); } catch (e) {}
+    applyUiScale(effectiveScale() + delta, true);
+}
+// Reset back to automatic width-fitting.
+function resetUiScale() {
+    try { localStorage.removeItem('gtl_ui_manual'); localStorage.removeItem('gtl_ui_scale'); } catch (e) {}
+    applyUiScale(autoFitScale(), false);
+}
 
 boot();
