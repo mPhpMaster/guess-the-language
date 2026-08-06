@@ -2321,7 +2321,11 @@ async function sbFetch(pathQuery, options = {}) {
         }
     });
     if (!res.ok) throw new Error(`Supabase ${res.status}: ${await res.text()}`);
-    return res.status === 204 ? null : res.json();
+    // Tolerate empty bodies: return=minimal inserts come back 201/204 with no body,
+    // so res.json() would throw "Unexpected end of JSON input".
+    if (res.status === 204) return null;
+    const text = await res.text();
+    return text ? JSON.parse(text) : null;
 }
 
 // ---------- Error logging to Supabase (best-effort; must NEVER throw) ----------
