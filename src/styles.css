@@ -147,9 +147,9 @@ html.platform-discord .correct-pill { padding: 6px 12px; font-size: 12px; }
 html.platform-discord .end-btn { padding: 6px 12px; font-size: 12px; }
 /* The body flexes to fill leftover height; the code panel scrolls internally
    if the snippet is long, so the options row below is always fully visible. */
-html.platform-discord .game-body { flex: 1 1 auto; min-height: 0; gap: 12px; align-items: stretch; }
+html.platform-discord .game-body { flex: 0 0 auto; min-height: 0; gap: 12px; align-items: flex-start; }
 html.platform-discord .code-wrap { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; }
-html.platform-discord .code-panel { min-height: 0; flex: 1 1 auto; padding: 12px 14px; font-size: 13px; }
+html.platform-discord .code-panel { min-height: 56px; flex: 0 0 auto; padding: 12px 14px; font-size: 13px; }
 html.platform-discord .timer-ring { width: 74px; height: 74px; align-self: flex-start; }
 html.platform-discord .timer-num { font-size: 24px; }
 html.platform-discord .question-text { font-size: 14px; margin: 0; }
@@ -540,11 +540,11 @@ html.platform-discord .lobby-code {
 .streak-pill { color: var(--gold-1); border-color: #ffd87455; box-shadow: 0 0 18px #ffd87433; }
 
 .game-body {
-  width: min(1180px, 100%);
+  width: min(1320px, 100%);
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  align-items: stretch;
+  align-items: flex-start;
   justify-content: center;
 }
 .code-wrap { position: relative; flex: 1 1 420px; min-width: 280px; }
@@ -577,7 +577,9 @@ html.platform-discord .lobby-code {
   border-top: none;
   border-radius: 0 0 14px 14px;
   padding: 24px;
-  min-height: 240px;
+  /* Fit the snippet instead of a fixed-tall box — a 1-line snippet no longer
+     balloons and pushes the answer options below the fold. */
+  min-height: 80px;
   font-family: "Cascadia Code", "Consolas", "Courier New", monospace;
   font-size: clamp(15px, 1.1vw, 18px);
   line-height: 1.6;
@@ -1191,27 +1193,27 @@ html.ui-scaled .screen.active {
 .player-card-lastseen.is-online { color: #25d07d; }
 .player-card-lastseen.hidden { display: none; }
 .player-card-profile-stats {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 4px 0 16px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin: 2px 0 12px;
 }
 .player-card-profile-stats.hidden { display: none; }
 .pcs-cell {
-  background: #0e2238; border: 1px solid #ffffff10; border-radius: 12px;
-  padding: 12px 8px; display: flex; flex-direction: column; align-items: center; gap: 4px;
+  background: #0e2238; border: 1px solid #ffffff10; border-radius: 11px;
+  padding: 9px 6px; display: flex; flex-direction: column; align-items: center; gap: 2px;
   min-width: 0;
 }
 .pcs-value {
-  font-size: 19px; font-weight: 800; color: #eaf4ff; line-height: 1.1;
+  font-size: 18px; font-weight: 800; color: #eaf4ff; line-height: 1.1;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
 }
-.pcs-label { font-size: 11px; color: #8ea6c0; font-weight: 600; text-align: center; }
+.pcs-label { font-size: 10.5px; color: #8ea6c0; font-weight: 600; text-align: center; }
 /* Hero cell: the player's best global rank, spanning the row top. */
 .pcs-hero {
   grid-column: 1 / -1;
   background: linear-gradient(135deg, #123a5c, #0e2238);
-  border-color: #2ec5ff44; padding: 14px;
+  border-color: #2ec5ff44; padding: 11px;
 }
-.pcs-hero .pcs-value { font-size: 30px; color: var(--neon, #2ec5ff); }
-.pcs-hero .pcs-label { font-size: 12px; }
+.pcs-hero .pcs-value { font-size: 26px; color: var(--neon, #2ec5ff); }
+.pcs-hero .pcs-label { font-size: 11.5px; }
 
 .player-card-rankings { margin: 6px 0 4px; }
 .player-card-rankings.hidden { display: none; }
