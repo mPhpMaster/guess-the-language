@@ -1154,6 +1154,27 @@ html, body { min-height: 100%; overflow: hidden; }
   border-radius: 8px; padding: 6px 10px; font: inherit; font-weight: 600; cursor: pointer;
 }
 .lb-mode-switch select:focus-visible { outline: 2px solid var(--neon, #2ec5ff); outline-offset: 2px; }
+
+/* Clickable rows / profile affordances */
+.lb-row.is-clickable { cursor: pointer; }
+.lb-row.is-clickable:hover { filter: brightness(1.08); }
+.lb-row.is-clickable:focus-visible { outline: 2px solid var(--neon, #2ec5ff); outline-offset: 2px; }
+.home-profile.is-clickable { cursor: pointer; }
+.home-profile.is-clickable:focus-visible { outline: 2px solid var(--neon, #2ec5ff); outline-offset: 3px; border-radius: 999px; }
+
+/* Player profile: rank-per-mode block inside the player card */
+.player-card-rankings { margin: 6px 0 4px; }
+.player-card-rankings.hidden { display: none; }
+.player-card-rankings-title { margin: 4px 0 10px; font-size: 14px; color: #9fb4cc; font-weight: 700; }
+.player-card-rankings-list { display: flex; flex-direction: column; gap: 6px; }
+.player-card-rank-row {
+  display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 12px;
+  background: #0e2238; border-radius: 10px; padding: 9px 12px;
+}
+.pcr-mode { font-weight: 600; color: #dceaff; }
+.pcr-rank { font-weight: 700; color: var(--neon, #2ec5ff); }
+.pcr-score { color: #9fb4cc; font-weight: 600; }
+.player-card-rankings-empty { color: #9fb4cc; text-align: center; padding: 10px 0; }
 .mp-player-name { flex: 1; font-weight: 600; }
 .mp-player-score { color: var(--neon); font-weight: 700; font-size: 14px; }
 .mp-host-badge {

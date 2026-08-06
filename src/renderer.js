@@ -279,6 +279,10 @@ const I18N = {
         settingPresence: 'Show my game on Discord',
         playerCardTitle: 'Player details',
         playerCardHint: 'Live progress in this room.',
+        profileTitle: 'Player profile',
+        profileHint: 'Best score and rank in each mode.',
+        rankingsTitle: 'Rankings by mode',
+        noRankings: 'No ranked scores yet.',
         playerCardMode: 'Game mode',
         playerCardRound: 'Round',
         playerCardScore: 'Score',
@@ -460,6 +464,10 @@ const I18N = {
         settingPresence: 'إظهار لعبتي على ديسكورد',
         playerCardTitle: 'تفاصيل اللاعب',
         playerCardHint: 'تقدّمه المباشر في هذه الغرفة.',
+        profileTitle: 'ملف اللاعب',
+        profileHint: 'أفضل نتيجة وترتيبه في كل قسم.',
+        rankingsTitle: 'الترتيب حسب القسم',
+        noRankings: 'لا توجد نتائج مصنّفة بعد.',
         playerCardMode: 'نوع اللعبة',
         playerCardRound: 'الجولة',
         playerCardScore: 'النتيجة',
@@ -2397,8 +2405,26 @@ function renderLeaderboard(list) {
             report.className = 'lb-report text-btn';
             report.type = 'button';
             report.textContent = t('report');
-            report.addEventListener('click', () => openReportDialog(p));
+            report.addEventListener('click', (ev) => { ev.stopPropagation(); openReportDialog(p); });
             row.appendChild(report);
+        }
+
+        // Click a leaderboard row to open that player's profile (rank per mode).
+        // Only meaningful online, where there are real ranked scores to show.
+        if (supabaseConfigured()) {
+            row.classList.add('is-clickable');
+            row.tabIndex = 0;
+            row.title = `${displayName} — ${t('openPlayerCard')}`;
+            const open = (ev) => {
+                if (ev.target.closest && ev.target.closest('.lb-report')) return;
+                openProfileCard(p);
+            };
+            row.addEventListener('click', open);
+            row.addEventListener('keydown', (ev) => {
+                if (ev.key !== 'Enter' && ev.key !== ' ') return;
+                ev.preventDefault();
+                openProfileCard(p);
+            });
         }
         lb.appendChild(row);
 
@@ -2790,6 +2816,11 @@ function setPlayerCardRow(sel, value) {
 function openPlayerCard(player) {
     const dlg = $('#player-card');
     if (!dlg || !player) return;
+    // Room context: live-progress rows on, profile rankings off.
+    $('#player-card-room')?.classList.remove('hidden');
+    $('#player-card-rankings')?.classList.add('hidden');
+    const titleEl = $('#player-card-title'); if (titleEl) titleEl.textContent = t('playerCardTitle');
+    const hintEl = $('#player-card-hint'); if (hintEl) hintEl.textContent = t('playerCardHint');
     const mp = window.GTL_MULTIPLAYER.state;
     const room = mp.room || null;
     const { total, current } = mpRoundInfo();
@@ -2857,6 +2888,115 @@ function closePlayerCard() {
     playerCardId = null;
     const dlg = $('#player-card');
     if (dlg?.open) closeDialog(dlg);
+}
+
+// Open the same card as a *profile* (from the leaderboard, home, anywhere a name
+// is shown): the player's avatar plus their best score & rank in every mode.
+// `entry` is a leaderboard/score shape { name, avatar?, you? } — not a room row.
+async function openProfileCard(entry) {
+    const dlg = $('#player-card');
+    if (!dlg || !entry || !entry.name) return;
+    playerCardId = null; // not tied to a live room row
+    const isYou = !!entry.you;
+
+    $('#player-card-title').textContent = t('profileTitle');
+    $('#player-card-hint').textContent = t('profileHint');
+    $('#player-card-name').textContent = safeDisplayName(entry.name) + (isYou ? ` ${t('you')}` : '');
+    $('#player-card-host').classList.add('hidden');
+
+    // Avatar: a real photo URL wins; otherwise the generated emoji for the name.
+    const img = $('#player-card-avatar-img');
+    const emoji = $('#player-card-avatar');
+    let url = (typeof entry.avatar === 'string' && /^https?:\/\//.test(entry.avatar)) ? entry.avatar : null;
+    if (!url && isYou) url = discordAvatarUrl(getDiscordProfile());
+    if (url) {
+        img.src = url; img.classList.remove('hidden'); emoji.classList.add('hidden');
+    } else {
+        img.removeAttribute('src'); img.classList.add('hidden'); emoji.classList.remove('hidden');
+        emoji.textContent = (typeof entry.avatar === 'string' && entry.avatar) ? entry.avatar : avatarFor(entry.name);
+        emoji.style.background = ''; emoji.style.boxShadow = '';
+    }
+
+    // Profile context: hide the live-room rows + invite, show the rankings block.
+    $('#player-card-room').classList.add('hidden');
+    $('#btn-player-card-invite').classList.add('hidden');
+    $('#player-card-error').classList.add('hidden');
+    $('#player-card-rankings').classList.remove('hidden');
+    const list = $('#player-card-rankings-list');
+    list.innerHTML = `<p class="player-card-rankings-empty">${supabaseConfigured() ? t('lbLoading') : '—'}</p>`;
+
+    openDialog(dlg, $('#btn-player-card-close'));
+
+    if (!supabaseConfigured()) return;
+    try {
+        const rows = await fetchPlayerRankings(entry.name);
+        // Guard against the card having been closed / reopened meanwhile.
+        if (!dlg.open) return;
+        renderProfileRankings(list, rows);
+    } catch (e) {
+        list.innerHTML = `<p class="player-card-rankings-empty">${t('lbOffline')}</p>`;
+    }
+}
+
+const RANKABLE_MODES = ['languages', 'cybersecurity', 'devops', 'network', 'gamedev', 'algorithms', 'all'];
+
+// The player's best score + rank in every mode (approximate rank: count of score
+// rows above their best, +1 — same method as the personal rank on results).
+async function fetchPlayerRankings(name) {
+    const clean = safeDisplayName(name);
+    return Promise.all(RANKABLE_MODES.map(async (mode) => {
+        try {
+            const rows = await sbFetch(`scores?select=score&mode=eq.${encodeURIComponent(mode)}&player=eq.${encodeURIComponent(clean)}&order=score.desc&limit=1`);
+            const best = rows && rows[0] ? rows[0].score : null;
+            const rank = best != null ? await countScoresAbove(mode, best) : null;
+            return { mode, best, rank };
+        } catch {
+            return { mode, best: null, rank: null };
+        }
+    }));
+}
+
+async function countScoresAbove(mode, score) {
+    const c = window.SUPABASE_CONFIG;
+    const url = `${c.url}/rest/v1/scores?select=id&mode=eq.${encodeURIComponent(mode)}&score=gt.${score}`;
+    const res = await fetch(url, {
+        method: 'HEAD',
+        headers: { apikey: c.anonKey, Authorization: `Bearer ${c.anonKey}`, Prefer: 'count=exact' }
+    });
+    if (!res.ok) return null;
+    const count = Number((res.headers.get('content-range') || '').split('/')[1]);
+    return Number.isFinite(count) ? count + 1 : null;
+}
+
+function renderProfileRankings(list, rows) {
+    list.innerHTML = '';
+    const ranked = (rows || []).filter((r) => r.best != null);
+    if (!ranked.length) {
+        const p = document.createElement('p');
+        p.className = 'player-card-rankings-empty';
+        p.textContent = t('noRankings');
+        list.appendChild(p);
+        return;
+    }
+    rows.forEach((r) => {
+        if (r.best == null) return;
+        const row = document.createElement('div');
+        row.className = 'player-card-rank-row';
+        const m = document.createElement('span');
+        m.className = 'pcr-mode';
+        m.textContent = modeLabel(r.mode);
+        const medal = r.rank === 1 ? ' 🥇' : r.rank === 2 ? ' 🥈' : r.rank === 3 ? ' 🥉' : '';
+        const rk = document.createElement('span');
+        rk.className = 'pcr-rank';
+        rk.textContent = (r.rank ? `#${r.rank}` : '—') + medal;
+        const sc = document.createElement('span');
+        sc.className = 'pcr-score';
+        sc.textContent = `${r.best} pts`;
+        row.appendChild(m);
+        row.appendChild(rk);
+        row.appendChild(sc);
+        list.appendChild(row);
+    });
 }
 
 // Invite others into the room this card belongs to.
@@ -3825,6 +3965,20 @@ function bindEvents() {
         state.lbViewMode = e.target.value;
         buildResultsLeaderboard();
     });
+    // Click your name/avatar on Home to open your own profile (rank per mode).
+    const homeProfile = $('#home-profile');
+    if (homeProfile) {
+        homeProfile.classList.add('is-clickable');
+        homeProfile.tabIndex = 0;
+        homeProfile.setAttribute('role', 'button');
+        const openSelf = () => openProfileCard({ name: getPlayerName(), avatar: discordAvatarUrl(getDiscordProfile()) || undefined, you: true });
+        homeProfile.addEventListener('click', openSelf);
+        homeProfile.addEventListener('keydown', (ev) => {
+            if (ev.key !== 'Enter' && ev.key !== ' ') return;
+            ev.preventDefault();
+            openSelf();
+        });
+    }
     $('#btn-friends').addEventListener('click', viewLeaderboard);
     $('#btn-settings').addEventListener('click', openSettingsPanel);
     $('#set-close').addEventListener('click', () => {

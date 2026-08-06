@@ -385,7 +385,7 @@
           <div class="player-card-name" id="player-card-name"></div>
           <span class="mp-host-badge hidden" id="player-card-host" data-i18n="adminBadge">Host</span>
         </div>
-        <dl class="player-card-stats">
+        <dl class="player-card-stats" id="player-card-room">
           <div class="player-card-stat">
             <dt data-i18n="playerCardMode">Game mode</dt>
             <dd id="player-card-mode"></dd>
@@ -411,6 +411,12 @@
             <dd id="player-card-status"></dd>
           </div>
         </dl>
+        <!-- Profile view (opened from the leaderboard / home): the player's best
+             score and rank in each mode. -->
+        <div class="player-card-rankings hidden" id="player-card-rankings">
+          <h4 class="player-card-rankings-title" data-i18n="rankingsTitle">Rankings by mode</h4>
+          <div class="player-card-rankings-list" id="player-card-rankings-list"></div>
+        </div>
         <p class="modal-error hidden" id="player-card-error" role="alert"></p>
         <div class="modal-actions">
           <button class="btn btn-primary" id="btn-player-card-invite" data-i18n="inviteToRoom">&#10133;  Invite to this room</button>
