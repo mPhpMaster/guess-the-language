@@ -1143,6 +1143,14 @@ html, body { min-height: 100%; overflow: hidden; }
 .ui-scale-btn:focus-visible { outline: 2px solid var(--neon, #2ec5ff); outline-offset: 2px; }
 .ui-scale-value { min-width: 48px; text-align: center; font-weight: 700; color: #dceaff; }
 
+/* When the UI is zoomed, the fit-to-viewport screens would clip the enlarged
+   content (buttons off-screen). Let the active screen scroll instead so every
+   control stays reachable at any interface size. */
+html.ui-scaled #app { overflow: auto; }
+html.ui-scaled .screen.active {
+  overflow: auto; justify-content: flex-start; overscroll-behavior: contain;
+}
+
 /* In-place leaderboard mode picker */
 .lb-mode-switch {
   display: flex; align-items: center; justify-content: center; gap: 10px;
@@ -1163,6 +1171,17 @@ html, body { min-height: 100%; overflow: hidden; }
 .home-profile.is-clickable:focus-visible { outline: 2px solid var(--neon, #2ec5ff); outline-offset: 3px; border-radius: 999px; }
 
 /* Player profile: rank-per-mode block inside the player card */
+.player-card-profile-stats {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 2px 0 14px;
+}
+.player-card-profile-stats.hidden { display: none; }
+.pcs-cell {
+  background: #0e2238; border: 1px solid #ffffff12; border-radius: 12px;
+  padding: 12px; display: flex; flex-direction: column; align-items: center; gap: 3px;
+}
+.pcs-value { font-size: 22px; font-weight: 800; color: var(--neon, #2ec5ff); }
+.pcs-label { font-size: 12px; color: #9fb4cc; font-weight: 600; }
+
 .player-card-rankings { margin: 6px 0 4px; }
 .player-card-rankings.hidden { display: none; }
 .player-card-rankings-title { margin: 4px 0 10px; font-size: 14px; color: #9fb4cc; font-weight: 700; }
@@ -1212,7 +1231,11 @@ html, body { min-height: 100%; overflow: hidden; }
   width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
   box-shadow: inset 0 0 0 2px #2ec5ff55;
 }
-.player-card-name { flex: 1; font-weight: 700; font-size: 17px; text-align: start; }
+.player-card-name {
+  flex: 1; font-weight: 800; font-size: 20px; text-align: start; color: #fff;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, sans-serif;
+  line-height: 1.25; word-break: break-word;
+}
 .player-card-stats { display: flex; flex-direction: column; gap: 8px; margin: 0; }
 .player-card-stat {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;

@@ -283,6 +283,10 @@ const I18N = {
         profileHint: 'Best score and rank in each mode.',
         rankingsTitle: 'Rankings by mode',
         noRankings: 'No ranked scores yet.',
+        statGames: 'Games',
+        statBest: 'Best score',
+        statAvg: 'Avg score',
+        statMp: 'Multiplayer',
         playerCardMode: 'Game mode',
         playerCardRound: 'Round',
         playerCardScore: 'Score',
@@ -468,6 +472,10 @@ const I18N = {
         profileHint: 'أفضل نتيجة وترتيبه في كل قسم.',
         rankingsTitle: 'الترتيب حسب القسم',
         noRankings: 'لا توجد نتائج مصنّفة بعد.',
+        statGames: 'الجولات',
+        statBest: 'أفضل نتيجة',
+        statAvg: 'متوسط النتيجة',
+        statMp: 'اللعب الجماعي',
         playerCardMode: 'نوع اللعبة',
         playerCardRound: 'الجولة',
         playerCardScore: 'النتيجة',
@@ -2816,9 +2824,10 @@ function setPlayerCardRow(sel, value) {
 function openPlayerCard(player) {
     const dlg = $('#player-card');
     if (!dlg || !player) return;
-    // Room context: live-progress rows on, profile rankings off.
+    // Room context: live-progress rows on, profile stats + rankings off.
     $('#player-card-room')?.classList.remove('hidden');
     $('#player-card-rankings')?.classList.add('hidden');
+    $('#player-card-profile-stats')?.classList.add('hidden');
     const titleEl = $('#player-card-title'); if (titleEl) titleEl.textContent = t('playerCardTitle');
     const hintEl = $('#player-card-hint'); if (hintEl) hintEl.textContent = t('playerCardHint');
     const mp = window.GTL_MULTIPLAYER.state;
@@ -2917,25 +2926,68 @@ async function openProfileCard(entry) {
         emoji.style.background = ''; emoji.style.boxShadow = '';
     }
 
-    // Profile context: hide the live-room rows + invite, show the rankings block.
+    // Profile context: hide the live-room rows + invite, show stats + rankings.
     $('#player-card-room').classList.add('hidden');
     $('#btn-player-card-invite').classList.add('hidden');
     $('#player-card-error').classList.add('hidden');
+    const statsBox = $('#player-card-profile-stats');
+    statsBox.classList.remove('hidden');
+    statsBox.innerHTML = '';
     $('#player-card-rankings').classList.remove('hidden');
     const list = $('#player-card-rankings-list');
     list.innerHTML = `<p class="player-card-rankings-empty">${supabaseConfigured() ? t('lbLoading') : '—'}</p>`;
 
     openDialog(dlg, $('#btn-player-card-close'));
 
-    if (!supabaseConfigured()) return;
+    if (!supabaseConfigured()) { list.innerHTML = `<p class="player-card-rankings-empty">—</p>`; return; }
     try {
-        const rows = await fetchPlayerRankings(entry.name);
-        // Guard against the card having been closed / reopened meanwhile.
-        if (!dlg.open) return;
+        const [stats, rows] = await Promise.all([
+            fetchPlayerStats(entry.name),
+            fetchPlayerRankings(entry.name)
+        ]);
+        if (!dlg.open) return; // closed/reopened meanwhile
+        renderProfileStats(statsBox, stats);
         renderProfileRankings(list, rows);
     } catch (e) {
         list.innerHTML = `<p class="player-card-rankings-empty">${t('lbOffline')}</p>`;
     }
+}
+
+// Aggregate profile stats derived from the player's score rows across all modes.
+// (Win-rate / skill rating aren't tracked server-side, so only honest, derivable
+// numbers are shown.)
+async function fetchPlayerStats(name) {
+    const clean = safeDisplayName(name);
+    const rows = await sbFetch(`scores?select=score,multiplayer&player=eq.${encodeURIComponent(clean)}&limit=1000`) || [];
+    const games = rows.length;
+    const best = games ? Math.max(...rows.map((r) => r.score)) : 0;
+    const total = rows.reduce((sum, r) => sum + (r.score || 0), 0);
+    const avg = games ? Math.round(total / games) : 0;
+    const mp = rows.filter((r) => r.multiplayer).length;
+    return { games, best, avg, mp };
+}
+
+function renderProfileStats(box, stats) {
+    box.innerHTML = '';
+    const cells = [
+        { label: t('statGames'), value: String(stats.games) },
+        { label: t('statBest'), value: `${stats.best}` },
+        { label: t('statAvg'), value: `${stats.avg}` },
+        { label: t('statMp'), value: String(stats.mp) }
+    ];
+    cells.forEach((c) => {
+        const cell = document.createElement('div');
+        cell.className = 'pcs-cell';
+        const v = document.createElement('strong');
+        v.className = 'pcs-value';
+        v.textContent = c.value;
+        const l = document.createElement('span');
+        l.className = 'pcs-label';
+        l.textContent = c.label;
+        cell.appendChild(v);
+        cell.appendChild(l);
+        box.appendChild(cell);
+    });
 }
 
 const RANKABLE_MODES = ['languages', 'cybersecurity', 'devops', 'network', 'gamedev', 'algorithms', 'all'];
@@ -4278,7 +4330,7 @@ function hideBootLoading() { $('#boot-loading')?.classList.add('hidden'); }
 // Interface scaling — 4K displays render the Activity very small, so let the player
 // zoom the whole UI. Uses Chromium's `zoom` (Electron / Discord / Chrome are all
 // Chromium), persisted across launches.
-const UI_SCALE_MIN = 0.8, UI_SCALE_MAX = 2.5, UI_SCALE_STEP = 0.1;
+const UI_SCALE_MIN = 0.8, UI_SCALE_MAX = 2.0, UI_SCALE_STEP = 0.1;
 function getUiScale() {
     const v = parseFloat(localStorage.getItem('gtl_ui_scale'));
     return Number.isFinite(v) ? Math.min(UI_SCALE_MAX, Math.max(UI_SCALE_MIN, v)) : 1;
@@ -4286,6 +4338,9 @@ function getUiScale() {
 function applyUiScale(scale) {
     const s = Math.min(UI_SCALE_MAX, Math.max(UI_SCALE_MIN, Math.round(scale * 100) / 100));
     try { document.documentElement.style.zoom = String(s); } catch (e) {}
+    // The layout is fit-to-viewport; once enlarged, content exceeds the screen, so
+    // flag the scaled state to switch the active screen from clip to scroll (CSS).
+    document.documentElement.classList.toggle('ui-scaled', Math.abs(s - 1) > 0.001);
     localStorage.setItem('gtl_ui_scale', String(s));
     const label = $('#ui-scale-value');
     if (label) label.textContent = Math.round(s * 100) + '%';
