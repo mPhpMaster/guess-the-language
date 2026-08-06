@@ -4444,14 +4444,32 @@ function getUiScale() {
 function applyUiScale(scale) {
     const s = Math.min(UI_SCALE_MAX, Math.max(UI_SCALE_MIN, Math.round(scale * 100) / 100));
     const root = document.documentElement;
-    // Responsive scaling (not plain `zoom`): the CSS transform-scales #app while
-    // dividing its layout width by the same --ui-scale, so content REFLOWS into the
-    // narrower effective width and always fits horizontally — no clipped buttons.
-    // Taller enlarged content simply scrolls vertically. `zoom` scaled uniformly
-    // and cut content off past the right/bottom edges.
-    root.style.zoom = ''; // clear the old approach if any build set it
+    const app = document.getElementById('app');
+    const scaled = Math.abs(s - 1) > 0.001;
+    // Responsive scaling (not plain `zoom`): transform-scale #app while dividing its
+    // layout width by the same factor, so content REFLOWS into the narrower effective
+    // width and always fits horizontally — no clipped buttons. Taller enlarged content
+    // scrolls vertically. Applied INLINE (the equivalent CSS rule was being dropped by
+    // a cascade quirk against the media-query #app rules); the class drives the body /
+    // screen scroll overrides.
+    root.style.zoom = '';
     root.style.setProperty('--ui-scale', String(s));
-    root.classList.toggle('ui-scaled', Math.abs(s - 1) > 0.001);
+    root.classList.toggle('ui-scaled', scaled);
+    if (app) {
+        if (scaled) {
+            app.style.transformOrigin = '0 0';
+            app.style.transform = `scale(${s})`;
+            app.style.width = `calc(100% / ${s})`;
+            app.style.minHeight = `calc((100vh - var(--tb-h, 0px)) / ${s})`;
+            app.style.height = 'auto';
+            app.style.overflow = 'visible';
+            app.style.display = 'block';
+        } else {
+            for (const p of ['transformOrigin', 'transform', 'width', 'minHeight', 'height', 'overflow', 'display']) {
+                app.style[p] = '';
+            }
+        }
+    }
     localStorage.setItem('gtl_ui_scale', String(s));
     const label = $('#ui-scale-value');
     if (label) label.textContent = Math.round(s * 100) + '%';
