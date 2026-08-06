@@ -1272,6 +1272,10 @@ html.ui-scaled .screen.active {
   line-height: 1.25; word-break: break-word;
 }
 .player-card-stats { display: flex; flex-direction: column; gap: 8px; margin: 0; }
+/* Without this, .player-card-stats's `display:flex` beats the utility `.hidden`
+   (equal specificity, later in source), so the hidden room-stats block still took
+   ~108px in the profile view and forced the whole card to scroll. */
+.player-card-stats.hidden { display: none; }
 .player-card-stat {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
   background: #0e2238; border: 1px solid #ffffff12; border-radius: 10px; padding: 9px 12px;
