@@ -298,6 +298,8 @@ const I18N = {
         achievementUnlocked: 'Achievement unlocked!',
         dailyChallenge: 'Daily Challenge',
         dailyPlayed: 'Daily · view board',
+        scopeAllTime: 'All-time',
+        scopeWeek: 'This week',
         titleNovice: 'Novice',
         titleApprentice: 'Apprentice',
         titleCoder: 'Coder',
@@ -519,6 +521,8 @@ const I18N = {
         achievementUnlocked: 'إنجاز جديد!',
         dailyChallenge: 'التحدّي اليومي',
         dailyPlayed: 'اليومي · اعرض اللوحة',
+        scopeAllTime: 'كل الأوقات',
+        scopeWeek: 'هذا الأسبوع',
         titleNovice: 'مبتدئ',
         titleApprentice: 'متدرّب',
         titleCoder: 'مبرمج',
@@ -1581,9 +1585,11 @@ function beginRound() {
     state.viewOnly = false;
     state.selectedAnswer = null;
     state.gameStartMs = Date.now();
+    state.lifelines = 2; // two 50:50s per round
     updateScore();
     updateCorrect();
     updateStreakPill();
+    updateFiftyButton();
     $('#q-total').textContent = String(state.round.length);
     $('#correct-total').textContent = String(state.round.length);
     updateInGameProfile();
@@ -1743,6 +1749,33 @@ function renderQuestionUI(cur, disabled) {
         renderOptions(cur, disabled);
         grid.classList.remove('hidden');
     }
+    updateFiftyButton();
+}
+
+// 50:50 lifeline — remove two wrong options from the current choice question.
+// Single-player / daily only (hidden in multiplayer), two uses per round.
+function updateFiftyButton() {
+    const btn = $('#btn-fifty');
+    if (!btn) return;
+    const cur = state.current;
+    const isChoice = cur && cur.style !== 'fill';
+    btn.classList.toggle('hidden', !!state.multiplayer || !isChoice);
+    const remaining = document.querySelectorAll('#options-grid button:not(:disabled):not(.eliminated)').length;
+    btn.disabled = state.answered || (state.lifelines || 0) <= 0 || remaining <= 2;
+    const cnt = $('#fifty-count');
+    if (cnt) cnt.textContent = String(state.lifelines || 0);
+}
+
+function useFifty() {
+    const cur = state.current;
+    if (state.multiplayer || state.answered || (state.lifelines || 0) <= 0 || !cur || cur.style === 'fill') return;
+    const live = [...document.querySelectorAll('#options-grid button:not(:disabled):not(.eliminated)')];
+    const wrong = live.filter((b) => b.dataset.answer !== cur.answer);
+    if (wrong.length <= 1) return; // already down to the answer + one wrong
+    shuffle(wrong).slice(0, 2).forEach((b) => { b.classList.add('eliminated'); b.disabled = true; });
+    state.lifelines -= 1;
+    try { sfx.tick(3); } catch (_) {}
+    updateFiftyButton();
 }
 
 function setupFillForm(disabled) {
@@ -1871,6 +1904,7 @@ function resolveCurrentQuestion(chosen, timedOut = false) {
     if (state.answered) return;
     state.answered = true;
     clearTimer();
+    updateFiftyButton(); // grey out the lifeline once the question is locked
     const cur = state.current;
     const isFill = cur.style === 'fill';
     const correct = isFill ? isFillCorrect(cur, chosen) : (chosen === cur.answer);
@@ -2483,10 +2517,21 @@ function lbViewMode() {
     return (state.lbViewMode && MODES[state.lbViewMode]) ? state.lbViewMode : state.mode;
 }
 
+// Leaderboard time scope: all-time (default) or just the current week.
+function lbScope() { return state.lbScope === 'week' ? 'week' : 'all'; }
+// Start of the current week — Monday 00:00 UTC.
+function weekStartIso() {
+    const d = new Date();
+    const backToMon = (d.getUTCDay() + 6) % 7; // 0 = Monday
+    return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() - backToMon)).toISOString();
+}
+// PostgREST filter fragment for the chosen scope (empty for all-time).
+function lbScopeFilter() { return lbScope() === 'week' ? `&created_at=gte.${encodeURIComponent(weekStartIso())}` : ''; }
+
 async function fetchTopScores(limit = 10) {
     // Pull a wide score-desc window, then keep only each player's single best row
     // so one person can't occupy several slots (deduped by case-insensitive name).
-    const rows = await sbFetch(`scores?select=id,player,score,multiplayer,avatar&mode=eq.${encodeURIComponent(lbViewMode())}&order=score.desc&limit=200`);
+    const rows = await sbFetch(`scores?select=id,player,score,multiplayer,avatar&mode=eq.${encodeURIComponent(lbViewMode())}${lbScopeFilter()}&order=score.desc&limit=200`);
     const best = new Map();
     for (const r of rows || []) {
         const key = safeDisplayName(r.player).trim().toLowerCase();
@@ -2498,7 +2543,7 @@ async function fetchTopScores(limit = 10) {
 async function fetchPersonalRank(score) {
     if (!supabaseConfigured() || score <= 0) return null;
     const c = window.SUPABASE_CONFIG;
-    const url = `${c.url}/rest/v1/scores?select=id&mode=eq.${encodeURIComponent(lbViewMode())}&score=gt.${score}`;
+    const url = `${c.url}/rest/v1/scores?select=id&mode=eq.${encodeURIComponent(lbViewMode())}${lbScopeFilter()}&score=gt.${score}`;
     const res = await fetch(url, {
         method: 'HEAD',
         headers: {
@@ -2571,11 +2616,22 @@ function updateLbModeSwitch() {
     if (sel) sel.value = lbViewMode();
 }
 
+// All-time / This-week toggle: shown on any real mode board (not the daily board).
+function updateLbScopeSwitch() {
+    const wrap = $('#lb-scope-switch');
+    if (!wrap) return;
+    wrap.classList.toggle('hidden', !(supabaseConfigured() && !state.daily));
+    wrap.querySelectorAll('.lb-scope-btn').forEach((b) => {
+        b.classList.toggle('is-active', b.dataset.scope === lbScope());
+    });
+}
+
 // The daily challenge shows its own board (today's daily_scores), not a mode board.
 async function buildDailyLeaderboard() {
     const note = $('#lb-note');
     const playerName = getPlayerName();
     $('#lb-mode-switch')?.classList.add('hidden');
+    $('#lb-scope-switch')?.classList.add('hidden');
     $('.results-sub').textContent = `${t('dailyChallenge')} · ${dailyDateKey()}`;
 
     if (!supabaseConfigured()) { note.className = 'lb-note'; note.textContent = ''; return; }
@@ -2620,6 +2676,7 @@ async function buildResultsLeaderboard() {
     // leaderboard view lets you repoint the board to another mode.
     if (!state.viewOnly) state.lbViewMode = state.mode;
     updateLbModeSwitch();
+    updateLbScopeSwitch();
     const note = $('#lb-note');
     const playerName = getPlayerName();
 
@@ -4567,6 +4624,13 @@ function bindEvents() {
         state.lbViewMode = e.target.value;
         buildResultsLeaderboard();
     });
+    $('#lb-scope-switch')?.addEventListener('click', (e) => {
+        const btn = e.target.closest('.lb-scope-btn');
+        if (!btn) return;
+        state.lbScope = btn.dataset.scope === 'week' ? 'week' : 'all';
+        updateLbScopeSwitch();
+        buildResultsLeaderboard();
+    });
     // Click your name/avatar on Home to open your own profile (rank per mode).
     const homeProfile = $('#home-profile');
     if (homeProfile) {
@@ -4627,6 +4691,7 @@ function bindEvents() {
     });
     $('#btn-end-cancel').addEventListener('click', () => closeDialog($('#end-dialog')));
     $('#btn-next').addEventListener('click', advanceAfterFeedback);
+    $('#btn-fifty')?.addEventListener('click', useFifty);
 
     // Desktop: answer with number keys (1–4) or letters (a–d) while a choice
     // question is open. Typing into the fill-in box is never intercepted, and

@@ -1090,6 +1090,37 @@ html, body { min-height: 100%; overflow: hidden; }
 }
 .end-btn:hover { background: #3a1320; box-shadow: 0 0 18px #ff547033; }
 
+/* 50:50 lifeline button in the game topbar. */
+.lifeline-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #123049; border: 1px solid #2ec5ff55; color: #bfe6ff;
+  font-size: 13px; font-weight: 800; padding: 8px 12px; border-radius: 999px; cursor: pointer;
+  transition: background .15s, box-shadow .2s, opacity .15s;
+}
+.lifeline-btn:hover:not(:disabled) { background: #17405f; box-shadow: 0 0 16px #2ec5ff44; }
+.lifeline-btn:disabled { opacity: .4; cursor: default; }
+.lifeline-btn.hidden { display: none; }
+.lifeline-count {
+  background: var(--neon, #2ec5ff); color: #08111c; font-size: 11px; font-weight: 800;
+  min-width: 16px; height: 16px; line-height: 16px; text-align: center; border-radius: 999px; padding: 0 4px;
+}
+/* An option removed by 50:50: faded and struck through, not clickable. */
+.opt-btn.eliminated, .lang-btn.eliminated {
+  opacity: .22; filter: grayscale(1); text-decoration: line-through; pointer-events: none;
+}
+
+/* All-time / This-week segmented toggle on the results board. */
+.lb-scope-switch {
+  display: inline-flex; gap: 0; margin: 2px auto 8px; border-radius: 999px;
+  background: #0e2238; border: 1px solid #ffffff14; padding: 3px;
+}
+.lb-scope-switch.hidden { display: none; }
+.lb-scope-btn {
+  background: transparent; border: none; color: #9fb4cc; font-weight: 700; font-size: 12.5px;
+  padding: 6px 16px; border-radius: 999px; cursor: pointer; transition: background .15s, color .15s;
+}
+.lb-scope-btn.is-active { background: var(--neon, #2ec5ff); color: #08111c; }
+
 /* ===================== Results additions ===================== */
 .results-correct { color: var(--muted); font-size: 17px; font-weight: 600; margin: -2px 0 12px; }
 .results-correct.hidden, .final-score.hidden, #btn-challenge.hidden { display: none; }

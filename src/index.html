@@ -446,6 +446,10 @@
           <div class="streak-pill hidden" id="streak-pill">🔥 <span id="streak-count">0</span> &nbsp;×1.5</div>
         </div>
         <div class="topbar-right">
+          <button class="lifeline-btn" id="btn-fifty" type="button" title="50:50">
+            <span class="lifeline-icon" aria-hidden="true">50:50</span>
+            <span class="lifeline-count" id="fifty-count">2</span>
+          </button>
           <div class="progress-pill">
             <span data-i18n="question">Question</span>
             <span id="q-current">1</span> / <span id="q-total">10</span>
@@ -508,6 +512,11 @@
         </div>
         <div class="personal-result hidden" id="personal-result"></div>
         <p class="results-sub" data-i18n="comparison">Friends Comparison</p>
+        <!-- Scope the board to the whole history or just this week. -->
+        <div class="lb-scope-switch hidden" id="lb-scope-switch" role="group">
+          <button type="button" class="lb-scope-btn is-active" data-scope="all" data-i18n="scopeAllTime">All-time</button>
+          <button type="button" class="lb-scope-btn" data-scope="week" data-i18n="scopeWeek">This week</button>
+        </div>
         <!-- View any mode's board without leaving this screen (leaderboard view). -->
         <label class="lb-mode-switch hidden" id="lb-mode-switch">
           <span data-i18n="leaderboardFor">Leaderboard for</span>
