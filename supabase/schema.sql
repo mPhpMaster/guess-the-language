@@ -220,3 +220,19 @@ drop policy if exists daily_scores_insert_today on public.daily_scores;
 create policy daily_scores_insert_today on public.daily_scores
   for insert to anon, authenticated
   with check (day <= (now() at time zone 'utc')::date and day >= (now() at time zone 'utc')::date - 1);
+
+-- ---------------------------------------------------------------------------
+-- Friends / following (Phase 6.3). Names are self-asserted throughout the game
+-- (same trust model as scores), so follow/unfollow/read are open to the anon key.
+-- ---------------------------------------------------------------------------
+create table if not exists public.follows (
+  follower text not null check (char_length(follower) >= 1 and char_length(follower) <= 24),
+  followee text not null check (char_length(followee) >= 1 and char_length(followee) <= 24),
+  created_at timestamptz not null default now(),
+  primary key (follower, followee),
+  check (follower <> followee)
+);
+create index if not exists follows_follower_idx on public.follows (follower);
+alter table public.follows enable row level security;
+drop policy if exists follows_all on public.follows;
+create policy follows_all on public.follows for all to anon, authenticated using (true) with check (true);

@@ -122,6 +122,7 @@
           </p>
           <button class="btn btn-primary hidden" id="btn-discord-host" data-i18n="joinRoom">🔗  Join Room</button>
           <div class="home-actions-row">
+            <button class="btn btn-ghost" id="btn-practice" data-i18n="practiceMode">🎓  Practice</button>
             <button class="btn btn-ghost" id="btn-friends" data-i18n="friends">👥  Friends &amp; Scores</button>
             <button class="btn btn-ghost" id="btn-settings" data-i18n="settings">⚙  Settings</button>
           </div>
@@ -179,6 +180,10 @@
         <label class="setting-row hidden" id="setting-presence-row">
           <span data-i18n="settingPresence">Show my game on Discord</span>
           <input type="checkbox" id="set-presence" checked />
+        </label>
+        <label class="setting-row">
+          <span data-i18n="settingAdaptive">Adaptive difficulty</span>
+          <input type="checkbox" id="set-adaptive" />
         </label>
         <label class="setting-row">
           <span data-i18n="settingDifficulty">Difficulty</span>
@@ -420,8 +425,13 @@
           <h4 class="player-card-rankings-title" data-i18n="rankingsTitle">Rankings by mode</h4>
           <div class="player-card-rankings-list" id="player-card-rankings-list"></div>
         </div>
+        <div class="player-card-friends hidden" id="player-card-friends">
+          <h4 class="player-card-rankings-title" id="player-card-friends-title" data-i18n="followingTitle">Following</h4>
+          <div class="player-card-friends-list" id="player-card-friends-list"></div>
+        </div>
         <p class="modal-error hidden" id="player-card-error" role="alert"></p>
         <div class="modal-actions">
+          <button class="btn btn-ghost hidden" id="btn-player-card-follow"></button>
           <button class="btn btn-primary" id="btn-player-card-invite" data-i18n="inviteToRoom">&#10133;  Invite to this room</button>
           <button class="btn btn-ghost" id="btn-player-card-close" data-i18n="close">Close</button>
         </div>
@@ -510,6 +520,7 @@
           <div><strong id="stat-average">—</strong><span data-i18n="statAverage">Average response</span></div>
           <div><strong id="stat-fastest">—</strong><span data-i18n="statFastest">Fastest correct</span></div>
         </div>
+        <div class="round-breakdown hidden" id="round-breakdown"></div>
         <div class="personal-result hidden" id="personal-result"></div>
         <p class="results-sub" data-i18n="comparison">Friends Comparison</p>
         <!-- Scope the board to the whole history or just this week. -->
@@ -541,6 +552,7 @@
         <div class="results-buttons">
           <button class="btn btn-primary" id="btn-challenge" data-i18n="challenge">🔗  Challenge a friend</button>
           <input class="challenge-link hidden" id="challenge-link" type="text" readonly aria-label="Challenge link" />
+          <button class="btn btn-ghost" id="btn-share-card" data-i18n="shareResult">📸  Share result</button>
           <button class="btn btn-accent" id="btn-replay" data-i18n="replay">🔄  Play again</button>
           <button class="btn btn-ghost" id="btn-menu" data-i18n="backMenu">🏠  Home</button>
         </div>

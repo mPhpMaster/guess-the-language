@@ -145,6 +145,7 @@ const I18N = {
         discordNameNote: 'Your public name and avatar come from Discord.',
         settingQuestions: 'Questions per round',
         settingSound: 'Sound effects',
+        settingAdaptive: 'Adaptive difficulty',
         settingDifficulty: 'Difficulty',
         settingFeedbackDelay: 'Answer review time',
         feedback2: '2 seconds',
@@ -300,6 +301,20 @@ const I18N = {
         dailyPlayed: 'Daily · view board',
         scopeAllTime: 'All-time',
         scopeWeek: 'This week',
+        breakdownTitle: 'Accuracy by category',
+        practiceMode: '🎓  Practice',
+        practiceRound: 'Practice round',
+        practiceNotSaved: 'Practice — not saved to the leaderboard',
+        onboardTitle: 'Welcome to Guess the Language!',
+        onboardTip1: 'Pick a mode, then Start — read the code and beat the timer.',
+        onboardTip2: 'Try the 🗓️ Daily Challenge: the same 10 questions for everyone.',
+        onboardTip3: 'Earn XP, climb levels, and unlock achievements on your profile.',
+        onboardTip4: 'On desktop, answer with keys 1–4. Stuck? Use a 50:50.',
+        onboardGotIt: "Let's go",
+        shareResult: '📸  Share result',
+        follow: 'Follow',
+        following: 'Following',
+        followingTitle: 'Following',
         titleNovice: 'Novice',
         titleApprentice: 'Apprentice',
         titleCoder: 'Coder',
@@ -368,6 +383,7 @@ const I18N = {
         discordNameNote: 'يأتي اسمك العام وصورتك من Discord.',
         settingQuestions: 'عدد الأسئلة في الجولة',
         settingSound: 'المؤثرات الصوتية',
+        settingAdaptive: 'صعوبة تكيّفية',
         settingDifficulty: 'الصعوبة',
         settingFeedbackDelay: 'مدة مراجعة الإجابة',
         feedback2: 'ثانيتان',
@@ -523,6 +539,20 @@ const I18N = {
         dailyPlayed: 'اليومي · اعرض اللوحة',
         scopeAllTime: 'كل الأوقات',
         scopeWeek: 'هذا الأسبوع',
+        breakdownTitle: 'الدقّة حسب الفئة',
+        practiceMode: '🎓  تدريب',
+        practiceRound: 'جولة تدريب',
+        practiceNotSaved: 'تدريب — غير محفوظة في لوحة الصدارة',
+        onboardTitle: 'أهلًا بك في «خمّن اللغة»!',
+        onboardTip1: 'اختر نوعًا ثم ابدأ — اقرأ الكود واسبق المؤقّت.',
+        onboardTip2: 'جرّب 🗓️ التحدّي اليومي: نفس الـ١٠ أسئلة للجميع.',
+        onboardTip3: 'اكسب XP، وارتقِ بالمستويات، وافتح الإنجازات في بروفايلك.',
+        onboardTip4: 'على الكمبيوتر أجب بالأرقام ١–٤. محتار؟ استخدم 50:50.',
+        onboardGotIt: 'يلا نبدأ',
+        shareResult: '📸  شارك النتيجة',
+        follow: 'متابعة',
+        following: 'متابَع',
+        followingTitle: 'المتابَعون',
         titleNovice: 'مبتدئ',
         titleApprentice: 'متدرّب',
         titleCoder: 'مبرمج',
@@ -724,6 +754,42 @@ function updateDailyButton() {
     btn.textContent = done ? `🗓️  ${t('dailyPlayed')}` : `🗓️  ${t('dailyChallenge')}`;
 }
 
+// ---------- First-run onboarding ----------
+function maybeShowOnboarding() {
+    try { if (localStorage.getItem('gtl_onboarded') === '1') return; } catch (_) { return; }
+    if (!screens.home.classList.contains('active')) return; // don't cover a lobby / Discord auto-join
+    showOnboarding();
+}
+function showOnboarding() {
+    let el = document.getElementById('onboarding');
+    if (!el) {
+        el = document.createElement('div');
+        el.id = 'onboarding';
+        el.className = 'onboarding-overlay';
+        el.innerHTML = '<div class="onboarding-card" role="dialog" aria-modal="true">' +
+            '<div class="onboarding-emoji" aria-hidden="true">🎮</div>' +
+            '<h3 class="onboarding-title"></h3><ul class="onboarding-tips"></ul>' +
+            '<button type="button" class="btn btn-primary onboarding-ok"></button></div>';
+        document.body.appendChild(el);
+        el.querySelector('.onboarding-ok').addEventListener('click', dismissOnboarding);
+        el.addEventListener('click', (e) => { if (e.target === el) dismissOnboarding(); });
+    }
+    el.querySelector('.onboarding-title').textContent = t('onboardTitle');
+    const ul = el.querySelector('.onboarding-tips');
+    ul.innerHTML = '';
+    ['onboardTip1', 'onboardTip2', 'onboardTip3', 'onboardTip4'].forEach((k) => {
+        const li = document.createElement('li');
+        li.textContent = t(k);
+        ul.appendChild(li);
+    });
+    el.querySelector('.onboarding-ok').textContent = t('onboardGotIt');
+    el.classList.add('show');
+}
+function dismissOnboarding() {
+    try { localStorage.setItem('gtl_onboarded', '1'); } catch (_) {}
+    document.getElementById('onboarding')?.classList.remove('show');
+}
+
 // ---------- Persistent settings / high score ----------
 const store = {
     highScore(mode) {
@@ -751,6 +817,7 @@ const defaultSettings = {
     timer: 'auto',
     feedbackDelay: 4,
     name: '',
+    adaptive: false, // adjust question difficulty to the player's performance
     // Publish mode / round / score to this player's Discord profile card.
     discordPresence: true
 };
@@ -1263,6 +1330,7 @@ function applySettingsToUI() {
     }
     $('#set-questions').value = String(s.questions);
     $('#set-sound').checked = !!s.sound;
+    const adaptiveEl = $('#set-adaptive'); if (adaptiveEl) adaptiveEl.checked = !!s.adaptive;
     $('#set-difficulty').value = s.difficulty;
     $('#set-timer').value = String(s.timer || 'auto');
     $('#set-feedback-delay').value = String(s.feedbackDelay ?? 4);
@@ -1294,6 +1362,7 @@ function saveSettingsFromUI() {
             : sanitizeName($('#set-name').value),
         questions: q > 0 ? q : (getSettings().questions || defaultSettings.questions),
         sound: $('#set-sound').checked,
+        adaptive: $('#set-adaptive') ? $('#set-adaptive').checked : (getSettings().adaptive === true),
         difficulty: $('#set-difficulty').value,
         timer: timerRaw === 'auto' ? 'auto' : (Number(timerRaw) || 'auto'),
         feedbackDelay: feedbackRaw === 'manual' ? 'manual' : ([2, 4, 6].includes(Number(feedbackRaw)) ? Number(feedbackRaw) : 4),
@@ -1518,6 +1587,49 @@ function buildRound() {
     state.round = buildRoundFromPool(state.allQuestions, getSettings());
 }
 
+// ---------- Adaptive difficulty (opt-in) ----------
+// When on, questions are picked one at a time: the target difficulty rises after a
+// correct answer and falls after a wrong one, so the round meets the player's level.
+function setupAdaptive(pool, count) {
+    state.adaptive = true;
+    state.adaptiveTarget = 'easy';
+    state.adaptiveUsed = new Set();
+    state.adaptivePool = { easy: [], medium: [], hard: [] };
+    (pool || []).forEach((q) => {
+        const d = state.adaptivePool[q.difficulty] ? q.difficulty : 'medium';
+        state.adaptivePool[d].push(q);
+    });
+    state.round = new Array(Math.max(1, count)).fill(null);
+}
+function pickAdaptiveQuestion() {
+    const prefer = ({
+        easy: ['easy', 'medium', 'hard'], medium: ['medium', 'hard', 'easy'], hard: ['hard', 'medium', 'easy']
+    })[state.adaptiveTarget] || ['medium', 'easy', 'hard'];
+    const key = (q) => (q.bank || '') + '|' + q.id;
+    for (const d of prefer) {
+        const avail = (state.adaptivePool[d] || []).filter((q) => !state.adaptiveUsed.has(key(q)));
+        if (avail.length) { const q = avail[Math.floor(Math.random() * avail.length)]; state.adaptiveUsed.add(key(q)); return q; }
+    }
+    const all = Object.values(state.adaptivePool).flat();
+    const q = all.find((x) => !state.adaptiveUsed.has(key(x))) || all[0];
+    if (q) state.adaptiveUsed.add(key(q));
+    return q;
+}
+function bumpAdaptive(correct) {
+    if (!state.adaptive) return;
+    const up = { easy: 'medium', medium: 'hard', hard: 'hard' };
+    const down = { hard: 'medium', medium: 'easy', easy: 'easy' };
+    state.adaptiveTarget = correct ? up[state.adaptiveTarget] : down[state.adaptiveTarget];
+}
+// Turn adaptive on for a single-player round if the setting is enabled.
+function maybeSetupAdaptive() {
+    if (getSettings().adaptive && !state.daily) {
+        setupAdaptive(state.allQuestions, Math.min(getSettings().questions || 10, (state.allQuestions || []).length || 10));
+    } else {
+        state.adaptive = false;
+    }
+}
+
 // ---------- Daily Challenge: the same 10 questions for everyone, every day ----------
 const DAILY_QUESTION_COUNT = 10;
 // Small deterministic PRNG so every client picks the identical daily set.
@@ -1570,6 +1682,8 @@ async function startDailyChallenge() {
     if (!round.length) { announce(t('lbOffline')); return; }
     state.round = round;
     state.daily = true;
+    state.learn = false;
+    state.adaptive = false; // the daily set is fixed and identical for everyone
     state.mode = 'all'; // mixed styles; the daily board is separate from mode boards
     beginRound();
 }
@@ -1613,6 +1727,20 @@ async function startGame() {
 
     buildRound();
     state.daily = false;
+    state.learn = false;
+    maybeSetupAdaptive();
+    beginRound();
+}
+
+// Practice mode: same questions, no timer, no scoring/leaderboard — just learn.
+async function startPractice() {
+    if (!requireNameToInteract()) return;
+    const nameCheck = await ensureValidPlayerName();
+    if (!nameCheck.valid) { announce(nameCheck.message || t('nameRequired')); return; }
+    buildRound();
+    state.daily = false;
+    state.learn = true;
+    maybeSetupAdaptive();
     beginRound();
 }
 
@@ -1695,6 +1823,12 @@ function nextQuestion() {
         endGame();
         return;
     }
+    // Adaptive rounds fill each slot on demand based on the running target difficulty.
+    if (state.adaptive && !state.round[state.index]) {
+        const picked = pickAdaptiveQuestion();
+        if (!picked) { endGame(); return; }
+        state.round[state.index] = picked;
+    }
 
     const cur = normalizeQuestion(state.round[state.index]);
     state.current = cur;
@@ -1730,7 +1864,15 @@ function nextQuestion() {
     renderQuestionUI(cur, false);
     state.questionTime = resolvedQuestionTime(cur.difficulty);
     state.questionStartedAt = Date.now();
-    startTimer(state.questionTime);
+    if (state.learn) {
+        // Practice mode: no countdown — take your time and read the explanation.
+        clearTimer();
+        state.timeLeft = Infinity;
+        $('#timer-num').textContent = '∞';
+        setRing(1);
+    } else {
+        startTimer(state.questionTime);
+    }
     pushPresence();
 }
 
@@ -1864,6 +2006,8 @@ function onAnswer(chosen, btn) {
     if (btn) {
         btn.classList.add('selected');
     }
+    // Practice mode has no timer, so a pick resolves immediately (with the explanation).
+    if (state.learn) { resolveCurrentQuestion(chosen, false); return; }
     // Once a choice is locked in, don't make the player wait out a long timer:
     // if more than 2s remain, fast-forward the countdown to 2s (the answer stays
     // changeable during that window, then resolves).
@@ -1953,6 +2097,7 @@ function resolveCurrentQuestion(chosen, timedOut = false) {
     recordRoundAnswer(cur, chosen, correct, gained, timedOut);
     updateStreakPill();
     if (state.multiplayer) return;
+    bumpAdaptive(correct); // nudge the next question's difficulty
     state.index += 1;
     scheduleFeedbackAdvance();
 }
@@ -1963,6 +2108,7 @@ function recordRoundAnswer(cur, chosen, correct, points, timedOut) {
         questionIndex: state.index,
         id: cur.id,
         bank: cur.bank,
+        difficulty: cur.difficulty,
         style: cur.style,
         prompt: cur.questionText || cur.panelText,
         panelText: cur.panelText,
@@ -1982,6 +2128,8 @@ function scheduleFeedbackAdvance() {
     panel?.classList.remove('hidden');
     next?.classList.remove('hidden');
     requestAnimationFrame(() => next?.focus());
+    // Practice mode always waits for a manual "Next" so you can study the explanation.
+    if (state.learn) return;
     const setting = getSettings().feedbackDelay;
     if (setting === 'manual') return;
     const seconds = [2, 4, 6].includes(Number(setting)) ? Number(setting) : 4;
@@ -2255,6 +2403,7 @@ async function endGame() {
     $('.final-score').classList.toggle('hidden', viewOnly);
     $('.results-correct').classList.toggle('hidden', viewOnly);
     $('#btn-challenge').classList.toggle('hidden', viewOnly);
+    $('#btn-share-card')?.classList.toggle('hidden', viewOnly);
     $('#challenge-link').classList.add('hidden');
     // "Play again" only makes sense after an actual round — not when just browsing
     // the leaderboard (viewOnly), where there's no round to replay.
@@ -2263,6 +2412,7 @@ async function endGame() {
     $('#btn-menu').textContent = t('backMenu');
     $('.results-sub').textContent = `${t('leaderboardFor')} ${currentModeLabel()}`;
     $('#result-stats').classList.toggle('hidden', viewOnly);
+    if (viewOnly) $('#round-breakdown')?.classList.add('hidden');
     $('#answer-review').classList.toggle('hidden', viewOnly);
     $('#personal-result').classList.add('hidden');
 
@@ -2272,8 +2422,8 @@ async function endGame() {
         $('#results-total').textContent = String(state.round.length);
         renderRoundSummary();
         // Single-player round finished — log play-time + games, award XP and unlock
-        // achievements (not a multiplayer win).
-        if (!state.multiplayer) recordPlay(false, false, state.score, isPerfectRound());
+        // achievements (not a multiplayer win). Practice rounds are not scored/tracked.
+        if (!state.multiplayer && !state.learn) recordPlay(false, false, state.score, isPerfectRound());
     }
     await buildResultsLeaderboard();
 }
@@ -2295,7 +2445,96 @@ function renderRoundSummary() {
     $('#stat-streak').textContent = String(state.bestStreak || 0);
     $('#stat-average').textContent = answered ? formatSeconds(average) : '—';
     $('#stat-fastest').textContent = correctTimes.length ? formatSeconds(Math.min(...correctTimes)) : '—';
+    renderRoundBreakdown(history);
     renderAnswerReview(history);
+}
+
+// Per-category accuracy after a round: by bank when the round mixed several banks
+// (All / daily), otherwise by difficulty. Highlights the strongest & weakest area.
+function renderRoundBreakdown(history) {
+    const wrap = $('#round-breakdown');
+    if (!wrap) return;
+    const rows = (history || []).filter((h) => h.selectedAnswer || h.timedOut || h.correct === false || h.correct === true);
+    const banks = new Set(rows.map((h) => h.bank).filter(Boolean));
+    const useBank = banks.size > 1;
+    const keyOf = (h) => useBank ? (h.bank || 'other') : (h.difficulty || 'other');
+    const label = (k) => useBank ? modeLabel(k === 'algorithms' ? 'algorithms' : k) : (t('diff' + k.charAt(0).toUpperCase() + k.slice(1)) || k);
+
+    const groups = new Map();
+    rows.forEach((h) => {
+        const k = keyOf(h);
+        const g = groups.get(k) || { correct: 0, total: 0 };
+        g.total += 1; if (h.correct) g.correct += 1;
+        groups.set(k, g);
+    });
+    if (groups.size < 2) { wrap.classList.add('hidden'); return; }
+
+    const entries = [...groups.entries()].map(([k, g]) => ({ k, label: label(k), pct: Math.round((g.correct / g.total) * 100), correct: g.correct, total: g.total }));
+    entries.sort((a, b) => b.pct - a.pct);
+    const best = entries[0], worst = entries[entries.length - 1];
+
+    wrap.classList.remove('hidden');
+    wrap.innerHTML = `<div class="rb-title">${t('breakdownTitle')}</div>`;
+    const list = document.createElement('div');
+    list.className = 'rb-list';
+    entries.forEach((e) => {
+        const row = document.createElement('div');
+        row.className = 'rb-row' + (e === best ? ' is-best' : '') + (e === worst && best !== worst ? ' is-worst' : '');
+        const name = document.createElement('span'); name.className = 'rb-name'; name.textContent = e.label;
+        const bar = document.createElement('span'); bar.className = 'rb-bar';
+        const fill = document.createElement('span'); fill.className = 'rb-fill'; fill.style.width = e.pct + '%';
+        bar.appendChild(fill);
+        const val = document.createElement('span'); val.className = 'rb-val'; val.textContent = `${e.correct}/${e.total}`;
+        row.appendChild(name); row.appendChild(bar); row.appendChild(val);
+        list.appendChild(row);
+    });
+    wrap.appendChild(list);
+}
+
+// Draw a shareable result card (score / mode / accuracy / name) to a PNG and
+// share it (Web Share API with a file) or download it as a fallback.
+async function shareResultCard() {
+    try {
+        const w = 1080, h = 1350;
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        const g = ctx.createLinearGradient(0, 0, w, h);
+        g.addColorStop(0, '#0e2a44'); g.addColorStop(1, '#081019');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+        ctx.fillStyle = 'rgba(46,197,255,0.10)';
+        ctx.beginPath(); ctx.arc(w * 0.82, h * 0.14, 340, 0, Math.PI * 2); ctx.fill();
+        const cx = w / 2, FONT = '"Plus Jakarta Sans", system-ui, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#8ea6c0'; ctx.font = `600 42px ${FONT}`;
+        ctx.fillText('GUESS THE LANGUAGE', cx, 150);
+        ctx.fillStyle = '#2ec5ff'; ctx.font = `800 56px ${FONT}`;
+        ctx.fillText(state.daily ? t('dailyChallenge') : currentModeLabel(), cx, 250);
+        ctx.font = '150px serif'; ctx.fillText('🏆', cx, 470);
+        ctx.fillStyle = '#eaf4ff'; ctx.font = `900 200px ${FONT}`;
+        ctx.fillText(String(state.score), cx, 720);
+        ctx.fillStyle = '#8ea6c0'; ctx.font = `600 44px ${FONT}`;
+        ctx.fillText('SCORE', cx, 792);
+        const total = state.round.length || 1;
+        const acc = Math.round((state.correct / total) * 100);
+        ctx.fillStyle = '#19f0c4'; ctx.font = `800 62px ${FONT}`;
+        ctx.fillText(`${acc}%   ·   ${state.correct}/${total}`, cx, 930);
+        ctx.fillStyle = '#cfe0f4'; ctx.font = `700 54px ${FONT}`;
+        ctx.fillText(safeDisplayName(getPlayerName()) || 'Player', cx, 1130);
+        ctx.fillStyle = '#5f7590'; ctx.font = `500 38px ${FONT}`;
+        ctx.fillText('guess-the-language-chi.vercel.app', cx, 1275);
+
+        const blob = await new Promise((res) => canvas.toBlob(res, 'image/png'));
+        if (!blob) return;
+        const file = new File([blob], 'guess-the-language.png', { type: 'image/png' });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            try { await navigator.share({ files: [file], title: t('shareResult') }); return; } catch (_) { /* fall back to download */ }
+        }
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = file.name; a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+    } catch (e) { console.warn('share card failed:', e); }
 }
 
 function renderAnswerReview(history) {
@@ -2670,6 +2909,17 @@ async function buildDailyLeaderboard() {
 }
 
 async function buildResultsLeaderboard() {
+    // Practice rounds aren't scored — no submit, no leaderboard.
+    if (state.learn && !state.viewOnly) {
+        $('#lb-mode-switch')?.classList.add('hidden');
+        $('#lb-scope-switch')?.classList.add('hidden');
+        $('#leaderboard').innerHTML = '';
+        $('.results-sub').textContent = t('practiceRound');
+        const note = $('#lb-note');
+        note.className = 'lb-note';
+        note.textContent = t('practiceNotSaved');
+        return;
+    }
     // Daily challenge results (played or just viewing today's board) use the daily board.
     if (state.daily) return buildDailyLeaderboard();
     // A real round's results always show the mode just played; only the standalone
@@ -3257,6 +3507,8 @@ function openPlayerCard(player) {
     // Room context: live-progress rows on. The profile stats + rankings are shown
     // too (loaded below), so a lobby card is the player's full profile + live round.
     $('#player-card-room')?.classList.remove('hidden');
+    $('#btn-player-card-follow')?.classList.add('hidden'); // follow lives on profile cards
+    $('#player-card-friends')?.classList.add('hidden');
     const titleEl = $('#player-card-title'); if (titleEl) titleEl.textContent = t('playerCardTitle');
     const hintEl = $('#player-card-hint'); if (hintEl) hintEl.textContent = t('playerCardHint');
     const mp = window.GTL_MULTIPLAYER.state;
@@ -3335,6 +3587,93 @@ function closePlayerCard() {
 // Open the same card as a *profile* (from the leaderboard, home, anywhere a name
 // is shown): the player's avatar plus their best score & rank in every mode.
 // `entry` is a leaderboard/score shape { name, avatar?, you? } — not a room row.
+// ---------- Friends / following (names are self-asserted, like scores) ----------
+let myFollowsCache = null; // Set of followee names for the current player
+async function loadMyFollows(force) {
+    if (!supabaseConfigured()) return new Set();
+    const me = safeDisplayName(getPlayerName());
+    if (!me) return new Set();
+    if (myFollowsCache && !force) return myFollowsCache;
+    try {
+        const rows = await sbFetch(`follows?select=followee&follower=eq.${encodeURIComponent(me)}`);
+        myFollowsCache = new Set((rows || []).map((r) => safeDisplayName(r.followee)));
+    } catch (e) { myFollowsCache = new Set(); }
+    return myFollowsCache;
+}
+function isFollowing(name) { return !!(myFollowsCache && myFollowsCache.has(safeDisplayName(name))); }
+async function followPlayer(name) {
+    const me = safeDisplayName(getPlayerName());
+    const who = safeDisplayName(name);
+    if (!me || !who || me === who) return;
+    (myFollowsCache = myFollowsCache || new Set()).add(who);
+    try {
+        await sbFetch('follows', { method: 'POST', headers: { Prefer: 'resolution=ignore-duplicates,return=minimal' }, body: JSON.stringify([{ follower: me, followee: who }]) });
+    } catch (e) { console.warn('follow failed:', e.message); }
+}
+async function unfollowPlayer(name) {
+    const me = safeDisplayName(getPlayerName());
+    const who = safeDisplayName(name);
+    if (!me || !who) return;
+    if (myFollowsCache) myFollowsCache.delete(who);
+    try {
+        await sbFetch(`follows?follower=eq.${encodeURIComponent(me)}&followee=eq.${encodeURIComponent(who)}`, { method: 'DELETE', headers: { Prefer: 'return=minimal' } });
+    } catch (e) { console.warn('unfollow failed:', e.message); }
+}
+async function setupFollowButton(name, isYou) {
+    const btn = $('#btn-player-card-follow');
+    if (!btn) return;
+    const me = safeDisplayName(getPlayerName());
+    const who = safeDisplayName(name);
+    const show = supabaseConfigured() && !isYou && me && who && me !== who;
+    btn.classList.toggle('hidden', !show);
+    if (!show) return;
+    await loadMyFollows();
+    const paint = () => {
+        btn.textContent = isFollowing(who) ? `✓ ${t('following')}` : `➕ ${t('follow')}`;
+        btn.classList.toggle('is-following', isFollowing(who));
+    };
+    paint();
+    btn.onclick = async () => {
+        if (isFollowing(who)) await unfollowPlayer(who); else await followPlayer(who);
+        paint();
+    };
+}
+// The current player's following list (each with their best score), on their profile.
+async function renderFollowingList() {
+    const wrap = $('#player-card-friends');
+    const list = $('#player-card-friends-list');
+    if (!wrap || !list) return;
+    if (!supabaseConfigured()) { wrap.classList.add('hidden'); return; }
+    await loadMyFollows(true);
+    const names = [...(myFollowsCache || [])];
+    if (!names.length) { wrap.classList.add('hidden'); return; }
+    wrap.classList.remove('hidden');
+    $('#player-card-friends-title').textContent = `${t('followingTitle')} · ${names.length}`;
+    list.innerHTML = `<p class="player-card-rankings-empty">${t('lbLoading')}</p>`;
+    const rows = await Promise.all(names.slice(0, 20).map(async (n) => {
+        try {
+            const r = await sbFetch(`scores?select=score,avatar&player=eq.${encodeURIComponent(n)}&order=score.desc&limit=1`);
+            return { name: n, score: r && r[0] ? r[0].score : 0, avatar: r && r[0] ? r[0].avatar : null };
+        } catch (e) { return { name: n, score: 0, avatar: null }; }
+    }));
+    rows.sort((a, b) => b.score - a.score);
+    list.innerHTML = '';
+    rows.forEach((r) => {
+        const row = document.createElement('button');
+        row.type = 'button';
+        row.className = 'friend-row';
+        const av = document.createElement('span'); av.className = 'friend-av';
+        if (typeof r.avatar === 'string' && /^https?:\/\//.test(r.avatar)) {
+            const im = document.createElement('img'); im.src = r.avatar; im.alt = ''; im.referrerPolicy = 'no-referrer'; av.appendChild(im);
+        } else { av.textContent = avatarFor(r.name); }
+        const nm = document.createElement('span'); nm.className = 'friend-name'; nm.textContent = safeDisplayName(r.name);
+        const sc = document.createElement('span'); sc.className = 'friend-score'; sc.textContent = fmtNum(r.score);
+        row.append(av, nm, sc);
+        row.addEventListener('click', () => openProfileCard({ name: r.name, avatar: r.avatar || undefined }));
+        list.appendChild(row);
+    });
+}
+
 async function openProfileCard(entry) {
     const dlg = $('#player-card');
     if (!dlg || !entry || !entry.name) return;
@@ -3363,9 +3702,12 @@ async function openProfileCard(entry) {
     $('#player-card-room').classList.add('hidden');
     $('#btn-player-card-invite').classList.add('hidden');
     $('#player-card-error').classList.add('hidden');
+    $('#player-card-friends').classList.add('hidden'); // reset; shown only on your own profile
 
     openDialog(dlg, $('#btn-player-card-close'));
     loadPlayerProfileSections(entry.name);
+    setupFollowButton(entry.name, isYou);
+    if (isYou) renderFollowingList();
 }
 
 // Populate the shared player card's profile sections (stats + per-mode rankings +
@@ -4750,8 +5092,11 @@ function bindEvents() {
     $('#btn-replay').addEventListener('click', () => {
         if (state.multiplayer) mpPlayAgain(); // back to the lobby
         else if (state.daily) startDailyChallenge(); // same set; only the first score counts
+        else if (state.learn) startPractice();
         else startGame();
     });
+    $('#btn-practice')?.addEventListener('click', startPractice);
+    $('#btn-share-card')?.addEventListener('click', shareResultCard);
     $('#btn-menu').addEventListener('click', () => {
         if (state.multiplayer) {
             leaveMultiplayer(); // leave the room -> main menu
@@ -4961,6 +5306,7 @@ async function boot() {
     showScreen('home');
     selectMode(state.mode);
     if (challengeInfo) showChallengeBanner(challengeInfo);
+    else setTimeout(maybeShowOnboarding, 500); // first-run welcome (once)
 }
 
 function showBootLoading() { $('#boot-loading')?.classList.remove('hidden'); }
