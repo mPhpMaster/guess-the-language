@@ -1,6 +1,6 @@
 {
     "name": "guess-the-language",
-    "version": "3.4.6",
+    "version": "3.4.7",
     "description": "IT quiz game for Windows and web.",
     "main": "src/main.js",
     "author": "mPhpMaster",

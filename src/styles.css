@@ -791,8 +791,8 @@ button.opt-btn {
   border-radius: 24px;
   padding: 24px;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 20px 50px;
-  max-width: 90%;
-  width: 480px;
+  max-width: 96%;
+  width: 720px;
   max-height: 90vh;
   overflow-y: auto;
   text-align: center;
@@ -858,8 +858,17 @@ button.opt-btn {
 .lb-row.rank-2 .lb-bar-fill { background: linear-gradient(90deg, var(--silver-1), var(--silver-2)); }
 .lb-row.rank-3 .lb-bar-fill { background: linear-gradient(90deg, var(--bronze-1), var(--bronze-2)); }
 .lb-row.rank-other .lb-bar-fill { background: linear-gradient(90deg, #cdd7e3, #8395a8); }
-.lb-row.is-you .lb-avatar { border-color: var(--neon); box-shadow: 0 0 16px #2ec5ff88; }
-.lb-row.is-you .lb-bar-fill { outline: 2px solid var(--neon); outline-offset: -2px; }
+/* Make the player's own row unmistakable at a glance. */
+.lb-row.is-you {
+  background: linear-gradient(90deg, #2ec5ff26, #2ec5ff08);
+  border-radius: 14px;
+  box-shadow: 0 0 0 2px var(--neon), 0 0 22px #2ec5ff40;
+  padding: 6px 8px;
+  margin: 2px -8px;
+}
+.lb-row.is-you .lb-rank { color: var(--neon); text-shadow: 0 0 10px #2ec5ff66; }
+.lb-row.is-you .lb-avatar { border-color: var(--neon); box-shadow: 0 0 16px #2ec5ffaa; }
+.lb-row.is-you .lb-bar-fill { outline: 2px solid var(--neon); outline-offset: -2px; font-weight: 800; }
 .lb-tag { font-size: 11px; color: var(--neon); font-weight: 700; }
 .lb-mp-tag { font-size: 12px; cursor: default; }
 
@@ -1215,12 +1224,15 @@ html.ui-scaled .screen.active {
 .pcs-hero .pcs-value { font-size: 26px; color: var(--neon, #2ec5ff); }
 .pcs-hero .pcs-label { font-size: 11.5px; }
 
+/* The profile card is wider than a plain dialog so stats and rankings can lay out
+   in columns and fit without the whole card scrolling. */
+#player-card .modal-card { width: min(94vw, 620px); }
 .player-card-rankings { margin: 4px 0 2px; }
 .player-card-rankings.hidden { display: none; }
 .player-card-rankings-title { margin: 2px 0 7px; font-size: 13px; color: #9fb4cc; font-weight: 700; }
-/* Bounded so a player with many modes can't grow the card past the panel — the
-   header, stats and Close button stay visible; only this list scrolls (rarely). */
-.player-card-rankings-list { display: flex; flex-direction: column; gap: 5px; max-height: 168px; overflow: auto; }
+/* Two columns so 4–7 modes take 2–4 rows instead of a tall single stack — the
+   card stays short enough to avoid a scrollbar. */
+.player-card-rankings-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
 .player-card-rank-row {
   display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 12px;
   background: #0e2238; border-radius: 10px; padding: 7px 11px;

@@ -1361,7 +1361,7 @@ function shuffleOptions(arr, optionSeed) {
 
 // Number of language choices shown per question. The pool (LANGUAGES) is larger,
 // so each question shows the correct language plus a rotating set of distractors.
-const LANG_OPTION_COUNT = 6;
+const LANG_OPTION_COUNT = 4;
 
 // Pick the on-screen language options for a question: the correct language plus
 // (LANG_OPTION_COUNT-1) distractors from the pool, then shuffle. optionSeed keeps
