@@ -287,6 +287,9 @@ const I18N = {
         statBest: 'Best score',
         statAvg: 'Avg score',
         statMp: 'Multiplayer',
+        statTotal: 'Total score',
+        statBestRank: 'Best rank',
+        lastPlayed: 'Last played',
         playerCardMode: 'Game mode',
         playerCardRound: 'Round',
         playerCardScore: 'Score',
@@ -476,6 +479,9 @@ const I18N = {
         statBest: 'أفضل نتيجة',
         statAvg: 'متوسط النتيجة',
         statMp: 'اللعب الجماعي',
+        statTotal: 'مجموع النقاط',
+        statBestRank: 'أفضل ترتيب',
+        lastPlayed: 'آخر لعب',
         playerCardMode: 'نوع اللعبة',
         playerCardRound: 'الجولة',
         playerCardScore: 'النتيجة',
@@ -2037,7 +2043,9 @@ async function endGame() {
     $('.results-correct').classList.toggle('hidden', viewOnly);
     $('#btn-challenge').classList.toggle('hidden', viewOnly);
     $('#challenge-link').classList.add('hidden');
-    $('#btn-replay').classList.remove('hidden');
+    // "Play again" only makes sense after an actual round — not when just browsing
+    // the leaderboard (viewOnly), where there's no round to replay.
+    $('#btn-replay').classList.toggle('hidden', viewOnly);
     $('#btn-replay').textContent = t('replay');
     $('#btn-menu').textContent = t('backMenu');
     $('.results-sub').textContent = `${t('leaderboardFor')} ${currentModeLabel()}`;
@@ -2828,6 +2836,7 @@ function openPlayerCard(player) {
     $('#player-card-room')?.classList.remove('hidden');
     $('#player-card-rankings')?.classList.add('hidden');
     $('#player-card-profile-stats')?.classList.add('hidden');
+    $('#player-card-lastseen')?.classList.add('hidden');
     const titleEl = $('#player-card-title'); if (titleEl) titleEl.textContent = t('playerCardTitle');
     const hintEl = $('#player-card-hint'); if (hintEl) hintEl.textContent = t('playerCardHint');
     const mp = window.GTL_MULTIPLAYER.state;
@@ -2946,8 +2955,15 @@ async function openProfileCard(entry) {
             fetchPlayerRankings(entry.name)
         ]);
         if (!dlg.open) return; // closed/reopened meanwhile
-        renderProfileStats(statsBox, stats);
+        const ranks = rows.filter((r) => r.best != null && r.rank != null).map((r) => r.rank);
+        const bestRank = ranks.length ? Math.min(...ranks) : null;
+        renderProfileStats(statsBox, stats, bestRank);
         renderProfileRankings(list, rows);
+        const lastSeen = $('#player-card-lastseen');
+        if (lastSeen && stats.lastPlayed) {
+            lastSeen.textContent = `${t('lastPlayed')}: ${formatLastPlayed(stats.lastPlayed)}`;
+            lastSeen.classList.remove('hidden');
+        }
     } catch (e) {
         list.innerHTML = `<p class="player-card-rankings-empty">${t('lbOffline')}</p>`;
     }
@@ -2958,26 +2974,32 @@ async function openProfileCard(entry) {
 // numbers are shown.)
 async function fetchPlayerStats(name) {
     const clean = safeDisplayName(name);
-    const rows = await sbFetch(`scores?select=score,multiplayer&player=eq.${encodeURIComponent(clean)}&limit=1000`) || [];
+    const rows = await sbFetch(`scores?select=score,multiplayer,mode,created_at&player=eq.${encodeURIComponent(clean)}&limit=1000`) || [];
     const games = rows.length;
     const best = games ? Math.max(...rows.map((r) => r.score)) : 0;
     const total = rows.reduce((sum, r) => sum + (r.score || 0), 0);
     const avg = games ? Math.round(total / games) : 0;
     const mp = rows.filter((r) => r.multiplayer).length;
-    return { games, best, avg, mp };
+    const modes = new Set(rows.map((r) => r.mode)).size;
+    const lastPlayed = rows.reduce((max, r) => (r.created_at && r.created_at > max ? r.created_at : max), '');
+    return { games, best, avg, total, mp, modes, lastPlayed };
 }
 
-function renderProfileStats(box, stats) {
+// `bestRank` (min rank across modes) comes from the rankings fetch, so the whole
+// profile costs no extra query. `null` when the player has no ranked score.
+function renderProfileStats(box, stats, bestRank) {
     box.innerHTML = '';
     const cells = [
-        { label: t('statGames'), value: String(stats.games) },
-        { label: t('statBest'), value: `${stats.best}` },
-        { label: t('statAvg'), value: `${stats.avg}` },
-        { label: t('statMp'), value: String(stats.mp) }
+        { label: t('statBestRank'), value: bestRank ? `#${bestRank}` : '—', hero: true },
+        { label: t('statBest'), value: fmtNum(stats.best) },
+        { label: t('statGames'), value: fmtNum(stats.games) },
+        { label: t('statAvg'), value: fmtNum(stats.avg) },
+        { label: t('statTotal'), value: fmtNum(stats.total) },
+        { label: t('statMp'), value: fmtNum(stats.mp) }
     ];
     cells.forEach((c) => {
         const cell = document.createElement('div');
-        cell.className = 'pcs-cell';
+        cell.className = 'pcs-cell' + (c.hero ? ' pcs-hero' : '');
         const v = document.createElement('strong');
         v.className = 'pcs-value';
         v.textContent = c.value;
@@ -2988,6 +3010,21 @@ function renderProfileStats(box, stats) {
         cell.appendChild(l);
         box.appendChild(cell);
     });
+}
+
+// Compact thousands (35490 -> "35,490"), keeping small numbers plain.
+function fmtNum(n) {
+    const v = Number(n) || 0;
+    return v.toLocaleString('en-US');
+}
+
+// Absolute date + time of the player's most recent score (their last activity).
+function formatLastPlayed(iso) {
+    try {
+        return new Date(iso).toLocaleString(getLang() === 'ar' ? 'ar' : 'en', { dateStyle: 'medium', timeStyle: 'short' });
+    } catch (e) {
+        return '—';
+    }
 }
 
 const RANKABLE_MODES = ['languages', 'cybersecurity', 'devops', 'network', 'gamedev', 'algorithms', 'all'];
