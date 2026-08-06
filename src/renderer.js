@@ -291,6 +291,29 @@ const I18N = {
         statBestRank: 'Best rank',
         statWinRate: 'Win rate',
         statHours: 'Hours played',
+        statPerfect: 'Perfect rounds',
+        levelShort: 'Lvl',
+        dayStreak: 'Day streak',
+        achievementsTitle: 'Achievements',
+        achievementUnlocked: 'Achievement unlocked!',
+        titleNovice: 'Novice',
+        titleApprentice: 'Apprentice',
+        titleCoder: 'Coder',
+        titleHacker: 'Hacker',
+        titleExpert: 'Expert',
+        titleGuru: 'Guru',
+        ach_rookie: 'First game',
+        ach_dedicated: '25 games',
+        ach_centurion: '100 games',
+        ach_first_win: 'First win',
+        ach_champion: '10 wins',
+        ach_perfect: 'Perfect round',
+        ach_flawless: '5 perfect rounds',
+        ach_streak3: '3-day streak',
+        ach_streak7: '7-day streak',
+        ach_marathon: '1 hour played',
+        ach_level5: 'Reach level 5',
+        ach_level10: 'Reach level 10',
         lastPlayed: 'Last played',
         lastSeen: 'Last seen',
         online: 'Online now',
@@ -487,6 +510,29 @@ const I18N = {
         statBestRank: 'أفضل ترتيب',
         statWinRate: 'معدل الفوز',
         statHours: 'ساعات اللعب',
+        statPerfect: 'جولات كاملة',
+        levelShort: 'مستوى',
+        dayStreak: 'سلسلة الأيام',
+        achievementsTitle: 'الإنجازات',
+        achievementUnlocked: 'إنجاز جديد!',
+        titleNovice: 'مبتدئ',
+        titleApprentice: 'متدرّب',
+        titleCoder: 'مبرمج',
+        titleHacker: 'هاكر',
+        titleExpert: 'خبير',
+        titleGuru: 'أسطورة',
+        ach_rookie: 'أول جولة',
+        ach_dedicated: '٢٥ جولة',
+        ach_centurion: '١٠٠ جولة',
+        ach_first_win: 'أول فوز',
+        ach_champion: '١٠ انتصارات',
+        ach_perfect: 'جولة كاملة',
+        ach_flawless: '٥ جولات كاملة',
+        ach_streak3: 'سلسلة ٣ أيام',
+        ach_streak7: 'سلسلة ٧ أيام',
+        ach_marathon: 'ساعة لعب',
+        ach_level5: 'الوصول للمستوى ٥',
+        ach_level10: 'الوصول للمستوى ١٠',
         lastPlayed: 'آخر لعب',
         lastSeen: 'آخر ظهور',
         online: 'متصل الآن',
@@ -2115,8 +2161,9 @@ async function endGame() {
         $('#results-correct').textContent = String(state.correct);
         $('#results-total').textContent = String(state.round.length);
         renderRoundSummary();
-        // Single-player round finished — log play-time + games (not a multiplayer win).
-        if (!state.multiplayer) recordPlay(false, false);
+        // Single-player round finished — log play-time + games, award XP and unlock
+        // achievements (not a multiplayer win).
+        if (!state.multiplayer) recordPlay(false, false, state.score, isPerfectRound());
     }
     await buildResultsLeaderboard();
 }
@@ -2264,17 +2311,30 @@ function setupErrorLogging() {
 
 // Record a finished game into player_stats (games, multiplayer wins, seconds
 // played, last activity). Best-effort — a failure must never affect gameplay.
-function recordPlay(multiplayer, won) {
+function recordPlay(multiplayer, won, xp, perfect) {
     if (!supabaseConfigured()) { state.gameStartMs = null; return; }
     const seconds = state.gameStartMs ? Math.round((Date.now() - state.gameStartMs) / 1000) : 0;
     state.gameStartMs = null;
     const name = getPlayerName();
     if (!name) return;
-    sbFetch('rpc/record_play', {
+    // record_progress also awards XP/level, updates the daily streak, and unlocks
+    // achievements atomically, returning what was newly unlocked for a celebration.
+    sbFetch('rpc/record_progress', {
         method: 'POST',
-        headers: { Prefer: 'return=minimal' },
-        body: JSON.stringify({ p_player: name, p_seconds: seconds, p_multiplayer: !!multiplayer, p_won: !!won })
-    }).catch((e) => console.warn('record_play failed:', e.message));
+        body: JSON.stringify({
+            p_player: name, p_seconds: seconds, p_multiplayer: !!multiplayer, p_won: !!won,
+            p_xp: Math.max(0, Math.round(xp || 0)), p_perfect: !!perfect
+        })
+    }).then((res) => {
+        const info = Array.isArray(res) ? res[0] : res;
+        const unlocked = info && info.new_achievements;
+        if (Array.isArray(unlocked) && unlocked.length) celebrateAchievements(unlocked);
+    }).catch((e) => console.warn('record_progress failed:', e.message));
+}
+
+// True when the local player answered every question in the round correctly.
+function isPerfectRound() {
+    return state.round && state.round.length > 0 && state.correct === state.round.length;
 }
 
 // True when the local player has the (non-spectator) top score in the room.
@@ -3151,7 +3211,7 @@ async function loadPlayerProfileSections(name) {
 async function fetchPlayerActivity(name) {
     const clean = safeDisplayName(name);
     try {
-        const rows = await sbFetch(`player_stats?select=games,mp_games,wins,seconds,last_seen&player=eq.${encodeURIComponent(clean)}&limit=1`);
+        const rows = await sbFetch(`player_stats?select=games,mp_games,wins,seconds,last_seen,xp,level,day_streak,best_day_streak,perfect_games,achievements&player=eq.${encodeURIComponent(clean)}&limit=1`);
         return (rows && rows[0]) || null;
     } catch {
         return null;
@@ -3183,12 +3243,108 @@ async function fetchPlayerStats(name) {
     return { games, best, avg, total, mp, modes, lastPlayed };
 }
 
+// ---------- Progression: XP / levels / achievements (Phase 2) ----------
+// Level curve mirrors the server: level = floor(sqrt(xp/1000)) + 1.
+function levelFromXp(xp) { return Math.max(1, Math.floor(Math.sqrt(Math.max(0, xp) / 1000)) + 1); }
+function xpForLevel(level) { return Math.pow(Math.max(1, level) - 1, 2) * 1000; }
+function levelTitle(level) {
+    if (level >= 11) return t('titleGuru');
+    if (level >= 9) return t('titleExpert');
+    if (level >= 7) return t('titleHacker');
+    if (level >= 5) return t('titleCoder');
+    if (level >= 3) return t('titleApprentice');
+    return t('titleNovice');
+}
+
+// Every achievement the profile can display (id + emoji). Names come from i18n
+// (ach_<id>). The server (record_progress) is the source of truth for unlocks.
+const ACHIEVEMENTS = [
+    { id: 'rookie', icon: '🎮' }, { id: 'dedicated', icon: '🔁' }, { id: 'centurion', icon: '💯' },
+    { id: 'first_win', icon: '🥇' }, { id: 'champion', icon: '🏆' }, { id: 'perfect', icon: '✨' },
+    { id: 'flawless', icon: '🌟' }, { id: 'streak3', icon: '🔥' }, { id: 'streak7', icon: '⚡' },
+    { id: 'marathon', icon: '⏱️' }, { id: 'level5', icon: '🚀' }, { id: 'level10', icon: '👑' }
+];
+
+function celebrateAchievements(ids) {
+    try {
+        const names = ids.map((id) => t('ach_' + id) || id).join('  ·  ');
+        showAchievementPop(`🏆 ${t('achievementUnlocked')}`, names);
+        try { sfx.finish(); } catch (_) {}
+    } catch (_) {}
+}
+
+// A brief top-of-screen banner when new achievements unlock at the end of a round.
+function showAchievementPop(title, body) {
+    let el = document.getElementById('achievement-pop');
+    if (!el) {
+        el = document.createElement('div');
+        el.id = 'achievement-pop';
+        el.className = 'achievement-pop';
+        el.setAttribute('role', 'status');
+        el.innerHTML = '<div class="ach-pop-title"></div><div class="ach-pop-body"></div>';
+        document.body.appendChild(el);
+    }
+    el.querySelector('.ach-pop-title').textContent = title;
+    el.querySelector('.ach-pop-body').textContent = body;
+    el.classList.add('show');
+    if (el._t) clearTimeout(el._t);
+    el._t = setTimeout(() => el.classList.remove('show'), 5200);
+    announce(`${title}. ${body}`);
+}
+
+// Level + title + XP progress bar + daily streak, spanning the profile grid top.
+function renderLevelBar(box, activity) {
+    const xp = Number(activity && activity.xp) || 0;
+    const level = (activity && activity.level) || levelFromXp(xp);
+    const base = xpForLevel(level);
+    const span = Math.max(1, xpForLevel(level + 1) - base);
+    const pct = Math.max(0, Math.min(100, Math.round(((xp - base) / span) * 100)));
+    const streak = (activity && activity.day_streak) || 0;
+    const bar = document.createElement('div');
+    bar.className = 'pcs-levelbar';
+    bar.innerHTML =
+        `<div class="pcs-lvl-top">` +
+        `<span class="pcs-lvl-badge">${t('levelShort')} ${level}</span>` +
+        `<span class="pcs-lvl-title">${levelTitle(level)}</span>` +
+        (streak >= 2 ? `<span class="pcs-streak" title="${t('dayStreak')}">🔥 ${streak}</span>` : '') +
+        `</div>` +
+        `<div class="pcs-xpbar"><div class="pcs-xpfill" style="width:${pct}%"></div></div>` +
+        `<div class="pcs-xptext">${fmtNum(Math.max(0, xp - base))} / ${fmtNum(span)} XP</div>`;
+    box.appendChild(bar);
+}
+
+// The full achievement grid: earned badges lit, the rest dimmed.
+function renderAchievements(box, activity) {
+    const earned = new Set((activity && Array.isArray(activity.achievements)) ? activity.achievements : []);
+    const wrap = document.createElement('div');
+    wrap.className = 'pcs-ach';
+    const title = document.createElement('div');
+    title.className = 'pcs-ach-title';
+    title.textContent = `${t('achievementsTitle')} · ${earned.size}/${ACHIEVEMENTS.length}`;
+    const grid = document.createElement('div');
+    grid.className = 'pcs-ach-grid';
+    ACHIEVEMENTS.forEach((a) => {
+        const item = document.createElement('div');
+        item.className = 'pcs-ach-item' + (earned.has(a.id) ? ' is-earned' : '');
+        const name = t('ach_' + a.id) || a.id;
+        item.title = name;
+        item.innerHTML = `<span class="pcs-ach-icon">${a.icon}</span><span class="pcs-ach-name"></span>`;
+        item.querySelector('.pcs-ach-name').textContent = name;
+        grid.appendChild(item);
+    });
+    wrap.appendChild(title);
+    wrap.appendChild(grid);
+    box.appendChild(wrap);
+}
+
 // `bestRank` (min rank across modes) comes from the rankings fetch, so the whole
 // profile costs no extra query. `null` when the player has no ranked score.
 function renderProfileStats(box, stats, bestRank, activity) {
     box.innerHTML = '';
+    renderLevelBar(box, activity);
     const mpGames = activity ? activity.mp_games : 0;
     const wins = activity ? activity.wins : 0;
+    const perfect = activity ? activity.perfect_games : 0;
     const winRate = mpGames > 0 ? `${Math.round((wins / mpGames) * 100)}%` : '—';
     const hours = activity && activity.seconds ? `${(activity.seconds / 3600).toFixed(1)}h` : '0h';
     const cells = [
@@ -3198,7 +3354,8 @@ function renderProfileStats(box, stats, bestRank, activity) {
         { label: t('statWinRate'), value: winRate },
         { label: t('statHours'), value: hours },
         { label: t('statAvg'), value: fmtNum(stats.avg) },
-        { label: t('statMp'), value: fmtNum(mpGames || stats.mp) }
+        { label: t('statMp'), value: fmtNum(mpGames || stats.mp) },
+        { label: t('statPerfect'), value: fmtNum(perfect) }
     ];
     cells.forEach((c) => {
         const cell = document.createElement('div');
@@ -3213,6 +3370,7 @@ function renderProfileStats(box, stats, bestRank, activity) {
         cell.appendChild(l);
         box.appendChild(cell);
     });
+    renderAchievements(box, activity);
 }
 
 // Compact thousands (35490 -> "35,490"), keeping small numbers plain.
@@ -3851,8 +4009,8 @@ function renderMpResults() {
         sfx.finish();
         state.mpResultsShown = true;
         registerMpScores();
-        // Log my play-time + a multiplayer win if I finished top of the room.
-        if (!state.spectator) recordPlay(true, amIWinner());
+        // Log my play-time + a multiplayer win if I finished top of the room, plus XP.
+        if (!state.spectator) recordPlay(true, amIWinner(), state.score, isPerfectRound());
     }
 }
 

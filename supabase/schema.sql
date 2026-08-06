@@ -165,3 +165,30 @@ drop policy if exists error_logs_insert_anon on public.error_logs;
 create policy error_logs_insert_anon on public.error_logs
   for insert to anon, authenticated
   with check (true);
+
+-- ---------------------------------------------------------------------------
+-- Phase 2 progression: XP / levels, daily streak, perfect games, achievements.
+-- record_progress() supersedes record_play(): it does everything record_play did
+-- plus awards XP, recomputes level & daily streak, and unlocks achievements —
+-- returning the new level/xp/streak and any achievements unlocked this call.
+-- ---------------------------------------------------------------------------
+alter table public.player_stats
+  add column if not exists xp bigint not null default 0,
+  add column if not exists level int not null default 1,
+  add column if not exists day_streak int not null default 0,
+  add column if not exists best_day_streak int not null default 0,
+  add column if not exists last_play_date date,
+  add column if not exists perfect_games int not null default 0,
+  add column if not exists achievements jsonb not null default '[]'::jsonb;
+
+create or replace function public.gtl_level_from_xp(p_xp bigint)
+returns int language sql immutable as $$
+  select greatest(1, floor(sqrt(greatest(p_xp, 0) / 1000.0))::int + 1);
+$$;
+
+-- Full record_progress() body lives in migration phase2_progression_fix; it is
+-- SECURITY DEFINER, upserts player_stats, and returns:
+--   { level, xp, day_streak, best_day_streak, new_achievements: [...] }
+-- Achievement ids: rookie, dedicated, centurion, first_win, champion, perfect,
+--   flawless, streak3, streak7, marathon, level5, level10.
+-- grant execute on function public.record_progress(text,int,boolean,boolean,int,boolean) to anon, authenticated;
