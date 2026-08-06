@@ -2330,10 +2330,25 @@ async function buildResultsLeaderboard() {
                 rank: index + 1,
                 you: false
             }));
+
+            // Highlight the viewer's own entry even when just *browsing* the board
+            // (no fresh score this session): match by case-insensitive display name.
+            const myKey = safeDisplayName(playerName).trim().toLowerCase();
+            if (myKey) {
+                const myAvatarNow = discordAvatarUrl(getDiscordProfile());
+                for (const p of list) {
+                    if (safeDisplayName(p.name).trim().toLowerCase() === myKey) {
+                        p.you = true;
+                        if (myAvatarNow) p.avatar = myAvatarNow;
+                        break;
+                    }
+                }
+            }
+
             if (state.score > 0) {
                 const myAvatar = discordAvatarUrl(getDiscordProfile()) || avatarFor(playerName);
-                // Flag the player's row (by inserted id, else by name+score heuristic).
-                let mine = me ? list.find((p) => p.id === me.id) : null;
+                // Flag the player's row (already-flagged by name, else inserted id, else name+score).
+                let mine = list.find((p) => p.you) || (me ? list.find((p) => p.id === me.id) : null);
                 if (!mine) mine = list.find((p) => !p.you && p.name === playerName && p.score === state.score);
                 if (mine) {
                     mine.you = true;
@@ -2868,11 +2883,9 @@ function setPlayerCardRow(sel, value) {
 function openPlayerCard(player) {
     const dlg = $('#player-card');
     if (!dlg || !player) return;
-    // Room context: live-progress rows on, profile stats + rankings off.
+    // Room context: live-progress rows on. The profile stats + rankings are shown
+    // too (loaded below), so a lobby card is the player's full profile + live round.
     $('#player-card-room')?.classList.remove('hidden');
-    $('#player-card-rankings')?.classList.add('hidden');
-    $('#player-card-profile-stats')?.classList.add('hidden');
-    $('#player-card-lastseen')?.classList.add('hidden');
     const titleEl = $('#player-card-title'); if (titleEl) titleEl.textContent = t('playerCardTitle');
     const hintEl = $('#player-card-hint'); if (hintEl) hintEl.textContent = t('playerCardHint');
     const mp = window.GTL_MULTIPLAYER.state;
@@ -2922,9 +2935,13 @@ function openPlayerCard(player) {
     }
     $('#player-card-error')?.classList.add('hidden');
 
+    // Load the player's global profile (stats + per-mode rankings) once per open —
+    // not on every realtime refresh, which would re-fetch and flicker.
+    const isNewOpen = playerCardId !== player.id;
     playerCardId = player.id;
     // No-ops when the card is already open, so refreshes don't steal focus.
     openDialog(dlg, $('#btn-player-card-close'));
+    if (isNewOpen) loadPlayerProfileSections(safeDisplayName(player.name));
 }
 
 // Keep an open card in step with the realtime room feed.
@@ -2975,21 +2992,32 @@ async function openProfileCard(entry) {
     $('#player-card-room').classList.add('hidden');
     $('#btn-player-card-invite').classList.add('hidden');
     $('#player-card-error').classList.add('hidden');
-    const statsBox = $('#player-card-profile-stats');
-    statsBox.classList.remove('hidden');
-    statsBox.innerHTML = '';
-    $('#player-card-rankings').classList.remove('hidden');
-    const list = $('#player-card-rankings-list');
-    list.innerHTML = `<p class="player-card-rankings-empty">${supabaseConfigured() ? t('lbLoading') : '—'}</p>`;
 
     openDialog(dlg, $('#btn-player-card-close'));
+    loadPlayerProfileSections(entry.name);
+}
+
+// Populate the shared player card's profile sections (stats + per-mode rankings +
+// online/last-seen) for `name`. Used by the standalone profile card and, alongside
+// the live-room rows, by the in-lobby player card. Best-effort and self-cancelling
+// if the card is closed before the fetches resolve.
+async function loadPlayerProfileSections(name) {
+    const dlg = $('#player-card');
+    const statsBox = $('#player-card-profile-stats');
+    const rankWrap = $('#player-card-rankings');
+    const list = $('#player-card-rankings-list');
+    if (!dlg || !statsBox || !rankWrap || !list) return;
+    statsBox.classList.remove('hidden');
+    statsBox.innerHTML = '';
+    rankWrap.classList.remove('hidden');
+    list.innerHTML = `<p class="player-card-rankings-empty">${supabaseConfigured() ? t('lbLoading') : '—'}</p>`;
 
     if (!supabaseConfigured()) { list.innerHTML = `<p class="player-card-rankings-empty">—</p>`; return; }
     try {
         const [stats, rows, activity] = await Promise.all([
-            fetchPlayerStats(entry.name),
-            fetchPlayerRankings(entry.name),
-            fetchPlayerActivity(entry.name)
+            fetchPlayerStats(name),
+            fetchPlayerRankings(name),
+            fetchPlayerActivity(name)
         ]);
         if (!dlg.open) return; // closed/reopened meanwhile
         const ranks = rows.filter((r) => r.best != null && r.rank != null).map((r) => r.rank);

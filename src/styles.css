@@ -1231,15 +1231,24 @@ html.ui-scaled .screen.active {
 .player-card-rankings.hidden { display: none; }
 .player-card-rankings-title { margin: 2px 0 7px; font-size: 13px; color: #9fb4cc; font-weight: 700; }
 /* Two columns so 4–7 modes take 2–4 rows instead of a tall single stack — the
-   card stays short enough to avoid a scrollbar. */
-.player-card-rankings-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
-.player-card-rank-row {
-  display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 12px;
-  background: #0e2238; border-radius: 10px; padding: 7px 11px;
+   card stays short enough to avoid a scrollbar. minmax(0,1fr) lets each column
+   shrink below its content width so a long mode name wraps instead of forcing
+   the whole card to scroll sideways. */
+.player-card-rankings-list {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px;
 }
-.pcr-mode { font-weight: 600; color: #dceaff; }
-.pcr-rank { font-weight: 700; color: var(--neon, #2ec5ff); }
-.pcr-score { color: #9fb4cc; font-weight: 600; }
+.player-card-rank-row {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center;
+  gap: 4px 8px; min-width: 0;
+  background: #0e2238; border-radius: 10px; padding: 7px 10px;
+}
+/* mode name spans the top; rank + score sit beneath so nothing overflows the cell */
+.pcr-mode {
+  grid-column: 1 / -1; font-weight: 600; color: #dceaff; min-width: 0;
+  overflow-wrap: anywhere; line-height: 1.2; font-size: 12.5px;
+}
+.pcr-rank { font-weight: 700; color: var(--neon, #2ec5ff); font-size: 13px; }
+.pcr-score { color: #9fb4cc; font-weight: 600; justify-self: end; font-size: 12.5px; }
 .player-card-rankings-empty { color: #9fb4cc; text-align: center; padding: 10px 0; }
 .mp-player-name { flex: 1; font-weight: 600; }
 .mp-player-score { color: var(--neon); font-weight: 700; font-size: 14px; }
@@ -1294,11 +1303,11 @@ html.ui-scaled .screen.active {
 }
 .player-card-stat dt { color: var(--muted); font-size: 13px; margin: 0; }
 .player-card-stat dd { margin: 0; font-weight: 700; font-size: 14px; color: var(--neon); }
-/* Short viewports (a Discord mobile embed, a small window): bound the card and
-   scroll only the stats, so the name and the Invite / Close actions stay on
-   screen instead of being pushed past the bottom edge. */
-#player-card .modal-card { max-height: min(92vh, 660px); }
-#player-card .player-card-stats { overflow-y: auto; min-height: 0; }
+/* Bound the card to the viewport and let the whole card scroll as one when its
+   content (room progress + profile stats + rankings) is taller than the screen.
+   A single scroll container avoids the nested/double scrollbar. overflow-x is
+   clipped so a wide row can never push a horizontal scrollbar. */
+#player-card .modal-card { max-height: 92vh; overflow-y: auto; overflow-x: hidden; }
 .modal {
   backdrop-filter: blur(12px);
   background-color: rgba(2, 6, 23, 0.85);
