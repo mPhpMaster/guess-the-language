@@ -129,16 +129,23 @@ async function authorizeWithPresence(discordSdk) {
   }
 }
 
+// Records how far the Discord handshake got, so a failure can name the exact
+// stage in the error log (e.g. "token-exchange" vs "authenticate") instead of a
+// bare message with no context. Read by the top-level catch below.
+let __discordSetupStep = 'init';
+
 async function setupDiscordActivity() {
   if (!clientId) {
     console.info('[discord] no clientId configured — running as a plain web app');
     return null;
   }
 
+  __discordSetupStep = 'sdk-ready';
   console.info('[discord] initialising SDK…');
   const discordSdk = new DiscordSDK(clientId);
   await discordSdk.ready();
   console.info('[discord] SDK ready; authorizing…');
+  __discordSetupStep = 'authorize';
 
   // Route Supabase (REST + realtime WebSocket) through the Activity proxy —
   // external hosts are otherwise blocked by Discord's iframe sandbox
@@ -156,13 +163,18 @@ async function setupDiscordActivity() {
   }
 
   const { code, presence } = await authorizeWithPresence(discordSdk);
+  if (!code) throw new Error('Discord authorize returned no code (user declined or scope prompt dismissed)');
+  __discordSetupStep = 'token-exchange';
   console.info('[discord] authorized; exchanging token via', discordProxyPrefix() + '/api/token');
 
   const prefix = discordProxyPrefix();
   // Bound the token exchange so a request that never returns can't hang the
   // whole Activity init (it would otherwise leave the app unresponsive).
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 6000);
+  // Generous bound: a Vercel cold start reached through the Discord proxy can take
+  // several seconds; too tight a timeout aborts a request that would have succeeded
+  // and manifests as "couldn't read the Discord user".
+  const timer = setTimeout(() => controller.abort(), 12000);
   let tokenRes;
   try {
     tokenRes = await fetch(`${prefix}/api/token`, {
@@ -187,12 +199,21 @@ async function setupDiscordActivity() {
   }
 
   const { access_token, session_token } = await tokenRes.json();
+  if (!access_token) throw new Error('Token exchange returned no access_token');
+  __discordSetupStep = 'authenticate';
   console.info('[discord] token ok; authenticating…');
   const auth = await discordSdk.commands.authenticate({ access_token });
 
   if (!auth) {
-    throw new Error('Discord authenticate command failed');
+    throw new Error('Discord authenticate command failed (no auth response)');
   }
+  // The whole point of the handshake is reading the player's identity — if the
+  // user object is missing the game can't show a name/avatar, so treat it as a
+  // hard failure that gets logged (rather than silently falling back to web).
+  if (!auth.user || !auth.user.id) {
+    throw new Error('Discord authenticate succeeded but returned no user identity');
+  }
+  __discordSetupStep = 'ready';
 
   // Someone pressed "Ask to Join" on our profile card: Discord hands their client
   // the join secret we published in setActivity(). Fired in the *joining* user's
@@ -344,7 +365,26 @@ window.DISCORD_ACTIVITY.ready = (async () => {
     window.DISCORD_ACTIVITY._session = session;
     return session;
   } catch (err) {
-    console.warn('Discord Activity setup skipped:', err.message);
+    // This path — the Activity failing to read the Discord user — was previously
+    // only a console.warn, so it never reached the error log and was impossible to
+    // diagnose after the fact. Record it (step + message + stack) to error_logs.
+    console.warn('Discord Activity setup skipped:', err && err.message);
+    // Only worth logging when we are ACTUALLY inside a Discord iframe — on the plain
+    // web build DiscordSDK never handshakes and a failure here is expected noise.
+    const embeddedNow = (() => { try { return inDiscordEmbed(); } catch (_) { return false; } })();
+    try {
+      if (embeddedNow) window.GTL_LOG_ERROR?.(err && err.message ? err.message : String(err), {
+        source: 'discord-setup',
+        level: 'error',
+        stack: err && err.stack,
+        context: {
+          step: __discordSetupStep,
+          embedded: embeddedNow,
+          hasSupabaseCfg: !!(window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.url),
+          clientId: clientId || null
+        }
+      });
+    } catch (_) { /* never let logging break boot */ }
     window.DISCORD_ACTIVITY._session = null;
     return null;
   }
