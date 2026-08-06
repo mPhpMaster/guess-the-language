@@ -185,6 +185,7 @@ const I18N = {
         you: '(YOU)',
         lbLoading: 'Loading leaderboard…',
         bootLoading: 'Connecting…',
+        settingUiScale: 'Interface size',
         lbOnline: '🌐 Global leaderboard',
         lbOffline: '⚠ Could not reach the leaderboard — showing local results.',
         correct: 'Correct!',
@@ -365,6 +366,7 @@ const I18N = {
         you: '(أنت)',
         lbLoading: 'جارٍ تحميل لوحة الصدارة…',
         bootLoading: 'جارٍ الاتصال…',
+        settingUiScale: 'حجم الواجهة',
         lbOnline: '🌐 لوحة الصدارة العالمية',
         lbOffline: '⚠ تعذّر الاتصال بلوحة الصدارة — عرض نتائج محلية.',
         correct: 'صحيح!',
@@ -1150,6 +1152,8 @@ function showAuthError(message) {
 function applySettingsToUI() {
     const s = getSettings();
     $('#set-language').value = getLang();
+    const scaleLabel = $('#ui-scale-value');
+    if (scaleLabel) scaleLabel.textContent = Math.round(getUiScale() * 100) + '%';
     if (!isDiscordActivity()) {
         $('#set-name').value = s.name || '';
     }
@@ -2226,7 +2230,22 @@ function mpDiscordAvatarUrl(player) {
     return null;
 }
 
+// The leaderboard-view mode picker is only meaningful when browsing the board
+// (not on a real round's results, which must show the mode you just played).
+function updateLbModeSwitch() {
+    const wrap = $('#lb-mode-switch');
+    if (!wrap) return;
+    const show = state.viewOnly && supabaseConfigured();
+    wrap.classList.toggle('hidden', !show);
+    const sel = $('#lb-mode-select');
+    if (sel) sel.value = lbViewMode();
+}
+
 async function buildResultsLeaderboard() {
+    // A real round's results always show the mode just played; only the standalone
+    // leaderboard view lets you repoint the board to another mode.
+    if (!state.viewOnly) state.lbViewMode = state.mode;
+    updateLbModeSwitch();
     const note = $('#lb-note');
     const playerName = getPlayerName();
 
@@ -3800,6 +3819,12 @@ function bindEvents() {
     });
     $('#btn-lobby-leave').addEventListener('click', leaveMultiplayer);
     $('#btn-lobby-invite').addEventListener('click', inviteFromLobby);
+    $('#ui-scale-minus')?.addEventListener('click', () => nudgeUiScale(-UI_SCALE_STEP));
+    $('#ui-scale-plus')?.addEventListener('click', () => nudgeUiScale(UI_SCALE_STEP));
+    $('#lb-mode-select')?.addEventListener('change', (e) => {
+        state.lbViewMode = e.target.value;
+        buildResultsLeaderboard();
+    });
     $('#btn-friends').addEventListener('click', viewLeaderboard);
     $('#btn-settings').addEventListener('click', openSettingsPanel);
     $('#set-close').addEventListener('click', () => {
@@ -3928,6 +3953,7 @@ function viewLeaderboard() {
     state.correct = 0;
     state.round = [];
     state.viewOnly = true;
+    state.lbViewMode = state.mode; // open the board on the current mode; switchable in place
     endGame();
 }
 
@@ -4018,6 +4044,7 @@ async function boot() {
     // it stalls we must NOT let it block bindEvents — otherwise the page renders
     // but every control is dead ("it does nothing").
     bindEvents();
+    applyUiScale(getUiScale()); // restore the saved interface size before first paint settles
     if (window.GTL_MULTIPLAYER) {
         window.GTL_MULTIPLAYER.onUpdate = handleMultiplayerUpdate;
         window.GTL_MULTIPLAYER.onKicked = onMpKicked;
@@ -4093,5 +4120,23 @@ async function boot() {
 
 function showBootLoading() { $('#boot-loading')?.classList.remove('hidden'); }
 function hideBootLoading() { $('#boot-loading')?.classList.add('hidden'); }
+
+// Interface scaling — 4K displays render the Activity very small, so let the player
+// zoom the whole UI. Uses Chromium's `zoom` (Electron / Discord / Chrome are all
+// Chromium), persisted across launches.
+const UI_SCALE_MIN = 0.8, UI_SCALE_MAX = 2.5, UI_SCALE_STEP = 0.1;
+function getUiScale() {
+    const v = parseFloat(localStorage.getItem('gtl_ui_scale'));
+    return Number.isFinite(v) ? Math.min(UI_SCALE_MAX, Math.max(UI_SCALE_MIN, v)) : 1;
+}
+function applyUiScale(scale) {
+    const s = Math.min(UI_SCALE_MAX, Math.max(UI_SCALE_MIN, Math.round(scale * 100) / 100));
+    try { document.documentElement.style.zoom = String(s); } catch (e) {}
+    localStorage.setItem('gtl_ui_scale', String(s));
+    const label = $('#ui-scale-value');
+    if (label) label.textContent = Math.round(s * 100) + '%';
+    return s;
+}
+function nudgeUiScale(delta) { applyUiScale(getUiScale() + delta); }
 
 boot();

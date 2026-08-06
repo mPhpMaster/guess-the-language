@@ -141,6 +141,14 @@
             <option value="ar">العربية</option>
           </select>
         </label>
+        <div class="setting-row">
+          <span data-i18n="settingUiScale">Interface size</span>
+          <span class="ui-scale-control">
+            <button type="button" class="ui-scale-btn" id="ui-scale-minus" aria-label="Smaller interface">−</button>
+            <span class="ui-scale-value" id="ui-scale-value" aria-live="polite">100%</span>
+            <button type="button" class="ui-scale-btn" id="ui-scale-plus" aria-label="Larger interface">+</button>
+          </span>
+        </div>
         <label class="setting-row" id="setting-name-row">
           <span id="set-name-label" data-i18n="settingName">Your leaderboard name</span>
           <input type="text" id="set-name" maxlength="24" placeholder="User" autocomplete="off" />
@@ -488,6 +496,19 @@
         </div>
         <div class="personal-result hidden" id="personal-result"></div>
         <p class="results-sub" data-i18n="comparison">Friends Comparison</p>
+        <!-- View any mode's board without leaving this screen (leaderboard view). -->
+        <label class="lb-mode-switch hidden" id="lb-mode-switch">
+          <span data-i18n="leaderboardFor">Leaderboard for</span>
+          <select id="lb-mode-select">
+            <option value="languages" data-i18n="modeLanguages">Programming Languages</option>
+            <option value="cybersecurity" data-i18n="modeCyber">Cybersecurity</option>
+            <option value="devops" data-i18n="modeDevops">DevOps</option>
+            <option value="network" data-i18n="modeNetwork">Networking</option>
+            <option value="gamedev" data-i18n="modeGamedev">Game Dev</option>
+            <option value="algorithms" data-i18n="modeAlgo">Problem Solving</option>
+            <option value="all" data-i18n="modeAll">All (Mixed)</option>
+          </select>
+        </label>
         <div class="lb-note" id="lb-note" role="status" aria-live="polite"></div>
         <div class="leaderboard" id="leaderboard" role="list"><!-- rows injected --></div>
 

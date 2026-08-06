@@ -3,7 +3,7 @@
    same-origin GET requests; never touch cross-origin (Supabase / Discord). */
 'use strict';
 
-const CACHE = 'gtl-cache-v9';
+const CACHE = 'gtl-cache-v10';
 const CORE = ['./', './index.html', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png'];
 
 self.addEventListener('install', (event) => {
