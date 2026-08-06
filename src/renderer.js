@@ -4443,10 +4443,15 @@ function getUiScale() {
 }
 function applyUiScale(scale) {
     const s = Math.min(UI_SCALE_MAX, Math.max(UI_SCALE_MIN, Math.round(scale * 100) / 100));
-    try { document.documentElement.style.zoom = String(s); } catch (e) {}
-    // The layout is fit-to-viewport; once enlarged, content exceeds the screen, so
-    // flag the scaled state to switch the active screen from clip to scroll (CSS).
-    document.documentElement.classList.toggle('ui-scaled', Math.abs(s - 1) > 0.001);
+    const root = document.documentElement;
+    // Responsive scaling (not plain `zoom`): the CSS transform-scales #app while
+    // dividing its layout width by the same --ui-scale, so content REFLOWS into the
+    // narrower effective width and always fits horizontally — no clipped buttons.
+    // Taller enlarged content simply scrolls vertically. `zoom` scaled uniformly
+    // and cut content off past the right/bottom edges.
+    root.style.zoom = ''; // clear the old approach if any build set it
+    root.style.setProperty('--ui-scale', String(s));
+    root.classList.toggle('ui-scaled', Math.abs(s - 1) > 0.001);
     localStorage.setItem('gtl_ui_scale', String(s));
     const label = $('#ui-scale-value');
     if (label) label.textContent = Math.round(s * 100) + '%';

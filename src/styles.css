@@ -1143,12 +1143,28 @@ html, body { min-height: 100%; overflow: hidden; }
 .ui-scale-btn:focus-visible { outline: 2px solid var(--neon, #2ec5ff); outline-offset: 2px; }
 .ui-scale-value { min-width: 48px; text-align: center; font-weight: 700; color: #dceaff; }
 
-/* When the UI is zoomed, the fit-to-viewport screens would clip the enlarged
-   content (buttons off-screen). Let the active screen scroll instead so every
-   control stays reachable at any interface size. */
-html.ui-scaled #app { overflow: auto; }
+/* Responsive interface scaling. #app is transform-scaled by --ui-scale, and its
+   layout width is divided by the same factor, so the content lays out in a
+   narrower effective viewport (reflowing / wrapping) and is then scaled up to
+   fill the screen — it never overflows horizontally. The active screen flows in
+   normal order so its height grows with content; the page scrolls vertically when
+   the enlarged content is taller than the viewport. (Replaces plain `zoom`, which
+   scaled uniformly and clipped buttons past the right/bottom edges.) */
+html.ui-scaled { overflow-x: hidden; }
+html.ui-scaled body { overflow-y: auto; overflow-x: hidden; height: auto; }
+html.ui-scaled #app {
+  transform: scale(var(--ui-scale, 1));
+  transform-origin: 0 0;
+  width: calc(100% / var(--ui-scale, 1));
+  min-height: calc((100vh - var(--tb-h, 0px)) / var(--ui-scale, 1));
+  height: auto;
+  overflow: visible;
+  display: block;
+}
+html.ui-scaled .screen { position: relative; inset: auto; }
 html.ui-scaled .screen.active {
-  overflow: auto; justify-content: flex-start; overscroll-behavior: contain;
+  position: relative; inset: auto; overflow: visible; justify-content: flex-start;
+  min-height: calc((100vh - var(--tb-h, 0px)) / var(--ui-scale, 1));
 }
 
 /* In-place leaderboard mode picker */
