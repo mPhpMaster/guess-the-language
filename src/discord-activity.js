@@ -105,24 +105,27 @@ async function authorizeWithPresence(discordSdk) {
   };
 
   // Fetching the user must NEVER hinge on the rich-presence scope. `identify`
-  // and `applications.commands` are auto-granted for Activities and return
-  // instantly, but `rpc.activities.write` needs explicit consent — and a
-  // prompt:'none' authorize for a not-yet-consented scope can *hang* (not just
-  // reject) in some Discord clients. Without a bound that stalls the whole
-  // handshake and the user is never fetched. So race the presence attempt
-  // against a short timeout, and on timeout OR rejection fall back to the
-  // auto-granted scopes, which always succeed.
+  // and `applications.commands` are auto-granted for Activities, but
+  // `rpc.activities.write` needs explicit consent.
+  //
+  // CRITICAL: the Discord SDK is single-flight for authorize() — a second
+  // authorize() call while the first is still pending throws "Already authing".
+  // A previous version raced the presence authorize against a 3s timeout and, on
+  // timeout, fired a SECOND authorize with base scopes. But the timeout does not
+  // cancel the first (still-pending) call, so the fallback hit "Already authing"
+  // and the whole handshake — and the user fetch — failed for anyone whose
+  // presence authorize took longer than 3s. That was the top cause of "couldn't
+  // read the Discord user".
+  //
+  // So: make exactly ONE authorize at a time. Try with the presence scope; only
+  // if it REJECTS (already settled — safe) fall back to a sequential base-scope
+  // authorize. No racing timeout, therefore never two concurrent authorizes.
   try {
-    const res = await Promise.race([
-      discordSdk.commands.authorize({ ...args, scope: [...BASE_SCOPES, PRESENCE_SCOPE] }),
-      new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('presence authorize timed out')), 3000)
-      )
-    ]);
+    const res = await discordSdk.commands.authorize({ ...args, scope: [...BASE_SCOPES, PRESENCE_SCOPE] });
     return { ...res, presence: true };
   } catch (err) {
     console.warn(
-      `[discord] authorize with ${PRESENCE_SCOPE} unavailable (${err.message}) — continuing without rich presence`
+      `[discord] authorize with ${PRESENCE_SCOPE} unavailable (${err && err.message}) — retrying with base scopes`
     );
     const res = await discordSdk.commands.authorize({ ...args, scope: BASE_SCOPES });
     return { ...res, presence: false };
