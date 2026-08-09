@@ -51,6 +51,24 @@ const BASE_SCOPES = ['identify', 'applications.commands'] as const;
 const PRESENCE_SCOPE = 'rpc.activities.write';
 const PRESENCE_MIN_INTERVAL_MS = 5000;
 const TOKEN_TIMEOUT_MS = 12_000;
+const READY_TIMEOUT_MS = 12_000;
+
+/** Reject with a readable message if `promise` has not settled in `ms`. */
+function withTimeout<T>(promise: Promise<T>, ms: number, message: string): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
+        const timer = setTimeout(() => reject(new Error(message)), ms);
+        promise.then(
+            (value) => {
+                clearTimeout(timer);
+                resolve(value);
+            },
+            (err: unknown) => {
+                clearTimeout(timer);
+                reject(err instanceof Error ? err : new Error(String(err)));
+            },
+        );
+    });
+}
 
 const clientId: string =
     (import.meta.env['VITE_DISCORD_CLIENT_ID'] as string | undefined) ??
@@ -214,7 +232,15 @@ async function setupActivity(): Promise<ActivitySession | null> {
 
     setupStep = 'sdk-ready';
     const sdk = new DiscordSDK(clientId);
-    await sdk.ready();
+    // Bound the handshake. sdk.ready() waits on a postMessage reply from the Discord
+    // client and never rejects on its own, so anything that stops that reply arriving
+    // leaves the app hanging here forever: no identity, no error, nothing logged. A
+    // rejection instead surfaces the failure through the logError path below.
+    await withTimeout(
+        sdk.ready(),
+        READY_TIMEOUT_MS,
+        'Discord handshake timed out — sdk.ready() never resolved',
+    );
     setupStep = 'authorize';
 
     const { code, presence } = await authorizeWithPresence(sdk);
