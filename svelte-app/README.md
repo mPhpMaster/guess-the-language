@@ -102,6 +102,32 @@ challenge-payload validation against hostile input.
 The Electron shell has a separate headless smoke test
 (`electron --disable-gpu scripts/smoke-desktop.mjs`).
 
+### Verifying the Discord path without Discord
+
+`inDiscordEmbed()` decides from the URL alone, so appending the query params
+Discord uses puts the app into its embedded mode locally:
+
+    http://localhost:5273/?frame_id=test&instance_id=test
+
+The SDK handshake then fails (it is not a real Discord iframe), which is exactly
+the state that broke the original — and the point of the check is that the game
+must stay playable anyway. What to expect:
+
+| Signal | Expected |
+| --- | --- |
+| `<html>` class | `platform-discord` |
+| Title bar | hidden |
+| Host/Join buttons | hidden (rooms are automatic in Discord) |
+| Mode grid | 3 columns, descriptions hidden, ~58px cards |
+| Home padding-bottom | 84px (`--discord-safe-bottom`, clears the voice bar) |
+| Console | `Discord Activity setup skipped: …` warning, app still mounts |
+| Supabase requests | routed through `/supabase` (they fail locally — there is no proxy) |
+| Gameplay | a round starts and plays normally |
+
+The Supabase failures are the simulation lacking Discord's proxy, not a fault.
+Seeing the requests go to `/supabase` at all is the positive signal: it means the
+URL mapping was installed before boot, which is the fix from v3.12.2.
+
 ### Decisions worth knowing
 
 **The engine owns the data; components only render.** `game.svelte.ts` replaces
@@ -190,11 +216,17 @@ config degrades to offline play. The real files are gitignored.
 
 ## Known gaps
 
-Everything from the original is ported. What remains is verification rather than
-code: none of this has been exercised by real users inside the Discord Activity,
-which is where the original's hardest bugs lived (the CSP `blob:` block, the
-single-flight `authorize` race, the unproxied-Supabase boot). Those fixes are
-carried over deliberately, but carried over is not the same as re-proven.
+Everything from the original is ported, and the Discord path has been exercised
+as far as is possible without Discord (see above): the layout, the proxy
+ordering, the error reporting and the stays-playable-on-failure guarantee all
+check out locally.
+
+What cannot be simulated is a *successful* handshake — a real `authorize`,
+token exchange, `setActivity` presence card, participant list and voice-channel
+auto-join. Those paths are ported with their original fixes intact (notably the
+single-flight `authorize`), but they have not run against a live Discord client.
+That is the remaining risk, and it argues for shipping this behind a separate
+path to a small group first rather than swapping it in.
 
 ## Verified
 
@@ -217,6 +249,11 @@ carried over deliberately, but carried over is not the same as re-proven.
   - name gate: empty name blocks Start and opens Settings; a leet/zero-width
     obfuscated name ("f_u.c​k3r") is rejected as not allowed
   - all four stat tiles populate with measured values (17% / 1 / 2.5s / 10.0s)
+  - simulated Discord embed (`?frame_id=…&instance_id=…`): platform-discord
+    applied, title bar and Host/Join hidden, compact 3-column grid with the 84px
+    safe-area padding, handshake failure logged to `error_logs` through the
+    `/supabase` mapping rather than dying in a console.warn, and a round still
+    starts and plays — the failed-handshake-must-stay-playable guarantee
   - Electron: headless smoke test boots `dist/` and asserts the title bar, its
     three window controls, seven mode cards and the preload bridge — SMOKE OK,
     no console errors (a CSP is set, so the Electron security warning is gone)
