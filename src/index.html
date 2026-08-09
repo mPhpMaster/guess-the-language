@@ -127,6 +127,9 @@
             <button class="btn btn-ghost" id="btn-settings" data-i18n="settings">⚙  Settings</button>
             <button class="btn btn-ghost btn-admin hidden" id="btn-admin" data-i18n="adminButton">🛡️  Admin</button>
           </div>
+          <!-- Opens the SolidJS rewrite. Inside Discord it stays in the Activity
+               via the /v4 URL mapping; on web/desktop it opens the new site. -->
+          <button class="btn btn-ghost btn-new-version" id="btn-new-version" data-i18n="tryNewVersion">✨  Try the new version</button>
         </div>
 
         <div class="menu-highscore">
@@ -323,6 +326,10 @@
              server's "external invites" or word-filter AutoMod can't block it. -->
         <button class="btn btn-primary lobby-invite hidden" id="btn-lobby-invite" data-i18n="inviteToRoom">➕  Invite to this room</button>
         <p class="lobby-invite-note hidden" id="lobby-invite-note"></p>
+
+        <!-- Discord players land straight in this lobby and never see the main
+             menu, so the entry point to the SolidJS rewrite has to live here too. -->
+        <button class="btn btn-ghost btn-new-version" id="btn-lobby-new-version" data-i18n="tryNewVersion">✨  Try the new version</button>
 
         <button class="btn btn-ghost lobby-leave" id="btn-lobby-leave" data-i18n="leaveRoom">Leave</button>
       </div>

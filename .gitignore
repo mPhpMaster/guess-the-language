@@ -43,3 +43,6 @@ Desktop.ini
 
 # Claude Code local session data
 .claude/
+
+.vercel
+.env*

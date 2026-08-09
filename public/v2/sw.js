@@ -3,11 +3,12 @@
    same-origin GET requests; never touch cross-origin (Supabase / Discord). */
 'use strict';
 
-// NOTE: index.html is requested with a query string (Discord appends ?instance_id=…),
-// so it always misses this cache and comes from the network, while renderer.js always
-// hits it. Forgetting to bump this therefore ships NEW html against OLD js.
-const CACHE = 'gtl-cache-v42';
-const CORE = ['./', './index.html', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png'];
+// Distinct from the v1 app's 'gtl-cache-*': this build is also served from /v2/ of
+// the v1 deployment, so both workers share one origin's cache storage. Colliding on
+// the name would make each one's activate handler delete the other's cache.
+const CACHE = 'gtl-v2-cache-v1';
+// All relative — absolute paths would pull the v1 app's manifest and icons in.
+const CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -31,9 +32,6 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(req.url);
   // Only handle our own origin; let Supabase/Discord/CDN requests pass straight through.
   if (url.origin !== self.location.origin) return;
-  // /v2/ is the SolidJS rewrite, served from this same deployment with its own
-  // service worker. Leave its assets alone so the two caches can't diverge.
-  if (url.pathname.startsWith('/v2/') || url.pathname.startsWith('/.proxy/v2/')) return;
 
   event.respondWith(
     caches.open(CACHE).then((cache) =>

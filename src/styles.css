@@ -2016,3 +2016,16 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
 }
 .player-card-admin.hidden { display: none; }
 .player-card-admin .pca-label { font-size: 12px; font-weight: 800; color: #ffcf9a; margin-inline-end: 2px; }
+
+/* "Try the new version" — links to the SolidJS rewrite. Given a subtle accent so
+   it reads as an invitation rather than another routine menu action. */
+.btn-new-version {
+  margin-top: 6px;
+  border-color: #2ec5ff55;
+  background: linear-gradient(180deg, #2ec5ff14, #2ec5ff05);
+  color: #bfe6ff;
+}
+.btn-new-version:hover {
+  border-color: #2ec5ffaa;
+  background: linear-gradient(180deg, #2ec5ff24, #2ec5ff0a);
+}
