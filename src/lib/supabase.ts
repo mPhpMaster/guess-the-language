@@ -3,7 +3,16 @@ import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 /* ============================================================
    Supabase access — a thin typed REST helper plus the realtime
    client used by multiplayer.
+
+   Discord Activity CSP fix:
+   - Auto-detects Discord Activity iframe environment
+   - Routes all requests through /supabase URL Mapping
    ============================================================ */
+
+/** Are we running inside a Discord Activity iframe? */
+const isDiscordActivity = typeof window !== 'undefined' &&
+    (window.location.hostname.endsWith('discordsays.com') ||
+     window.location.hostname.endsWith('discord.com'));
 
 export function supabaseConfig(): SupabaseRuntimeConfig | null {
     const config = window.SUPABASE_CONFIG;
@@ -17,10 +26,25 @@ export function supabaseConfigured(): boolean {
 
 let client: SupabaseClient | null = null;
 
+/**
+ * Returns the Supabase base URL.
+ * Inside Discord Activity, returns '/supabase' to use URL Mapping.
+ * Outside Discord, returns the full URL from config.
+ */
+function getSupabaseUrl(): string {
+    const config = supabaseConfig();
+    if (!config) throw new Error('Supabase not configured');
+    return isDiscordActivity ? '/supabase' : config.url;
+}
+
 export function supabaseClient(): SupabaseClient {
     const config = supabaseConfig();
     if (!config) throw new Error('Supabase not configured');
-    client ??= createClient(config.url, config.anonKey);
+
+    if (!client) {
+        const url = getSupabaseUrl();
+        client = createClient(url, config.anonKey);
+    }
     return client;
 }
 
@@ -49,7 +73,8 @@ export async function sbFetch<T>(pathQuery: string, options: SbFetchOptions = {}
     if (options.method) init.method = options.method;
     if (options.body !== undefined) init.body = options.body;
 
-    const res = await fetch(`${config.url}/rest/v1/${pathQuery}`, init);
+    const baseUrl = getSupabaseUrl();
+    const res = await fetch(`${baseUrl}/rest/v1/${pathQuery}`, init);
     if (!res.ok) throw new Error(`Supabase ${res.status}: ${await res.text()}`);
     if (res.status === 204) return null;
     const text = await res.text();
@@ -60,7 +85,9 @@ export async function sbFetch<T>(pathQuery: string, options: SbFetchOptions = {}
 export async function sbCount(pathQuery: string): Promise<number | null> {
     const config = supabaseConfig();
     if (!config) return null;
-    const res = await fetch(`${config.url}/rest/v1/${pathQuery}`, {
+
+    const baseUrl = getSupabaseUrl();
+    const res = await fetch(`${baseUrl}/rest/v1/${pathQuery}`, {
         method: 'HEAD',
         headers: {
             apikey: config.anonKey,
