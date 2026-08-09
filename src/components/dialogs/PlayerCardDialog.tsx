@@ -43,10 +43,14 @@ async function loadProfile(input: {
     readonly name: string;
     readonly you: boolean;
 }): Promise<ProfileBundle> {
+    // The follow cache is loaded here (with the card) rather than at mount: this
+    // component is always rendered, so a bare call fired a request on every page
+    // load — before Discord's proxy mapping existed, that one was CSP-blocked.
     const [aggregate, stats, rankings] = await Promise.all([
         fetchPlayerAggregate(input.name),
         fetchPlayerStats(input.name),
         fetchPlayerRankings(input.name),
+        loadFollows(playerName()),
     ]);
     const following = input.you ? await fetchFollowedPlayers(playerName()) : [];
     return { aggregate, stats, rankings, following };
@@ -121,8 +125,6 @@ export const PlayerCardDialog: Component = () => {
                 : undefined,
         loadProfile,
     );
-
-    void loadFollows(playerName());
 
     const toggleFollow = async (): Promise<void> => {
         const me = playerName();

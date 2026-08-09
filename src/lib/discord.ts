@@ -57,6 +57,29 @@ const clientId: string =
     window.DISCORD_CONFIG?.clientId ??
     '';
 
+/**
+ * Route Supabase (REST + realtime WebSocket) through the Activity proxy.
+ *
+ * This MUST run at module load, not after the SDK handshake. Discord's iframe
+ * CSP has no `supabase.co` in `connect-src`, and the app starts querying
+ * (heartbeat, leaderboard, error log) the moment it mounts — long before
+ * `sdk.ready()` resolves. Patching later left every early request blocked,
+ * including the error log itself, so the failure reported nothing at all.
+ *
+ * `patchUrlMappings` is standalone and does not need a ready SDK. It requires a
+ * matching URL Mapping in the Developer Portal: "/supabase" -> Supabase host.
+ */
+if (isDiscordEmbed()) {
+    try {
+        const supabaseUrl = window.SUPABASE_CONFIG?.url;
+        if (supabaseUrl) {
+            patchUrlMappings([{ prefix: '/supabase', target: new URL(supabaseUrl).host }]);
+        }
+    } catch (err) {
+        console.warn('[discord] Supabase proxy mapping failed:', err);
+    }
+}
+
 let session: ActivitySession | null = null;
 
 const [participants, setParticipants] = createSignal<readonly ActivityParticipant[]>([]);
@@ -193,18 +216,6 @@ async function setupActivity(): Promise<ActivitySession | null> {
     const sdk = new DiscordSDK(clientId);
     await sdk.ready();
     setupStep = 'authorize';
-
-    // Route Supabase (REST + realtime WebSocket) through the Activity proxy —
-    // external hosts are otherwise blocked by Discord's iframe sandbox. Requires a
-    // matching URL Mapping in the Developer Portal: "/supabase" -> Supabase host.
-    try {
-        const supabaseUrl = window.SUPABASE_CONFIG?.url;
-        if (supabaseUrl) {
-            patchUrlMappings([{ prefix: '/supabase', target: new URL(supabaseUrl).host }]);
-        }
-    } catch (err) {
-        console.warn('[discord] Supabase proxy mapping failed:', err);
-    }
 
     const { code, presence } = await authorizeWithPresence(sdk);
     if (!code) throw new Error('Discord authorize returned no code');
