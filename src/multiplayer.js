@@ -522,14 +522,16 @@
     clearSession();
   }
 
-  function getRoomLeaderboard(avatarFor) {
+  // `avatarOf(player)` resolves each player's display avatar — the caller passes a
+  // resolver that prefers the real Discord photo and falls back to the emoji icon.
+  function getRoomLeaderboard(avatarOf) {
     return mp.players
       .slice()
       .sort((a, b) => b.score - a.score)
       .map((p) => ({
         id: p.id,
         name: p.name,
-        avatar: p.icon || avatarFor(p.name),
+        avatar: avatarOf(p),
         color: p.color || null,
         score: p.score,
         you: p.id === mp.playerId

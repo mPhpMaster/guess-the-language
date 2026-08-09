@@ -3065,6 +3065,11 @@ function mpVisualOf(player) {
 // badge). The local player uses their own signed-in profile; everyone else is
 // matched by the discord_user_id stored on their room_players row against the
 // Activity's connected-participants list (they're all in the same voice channel).
+// Room-leaderboard avatar: the real Discord photo when we can resolve it, else the
+// player's assigned emoji icon, else a name-derived emoji. Passed to getRoomLeaderboard.
+function mpRoomAvatarOf(player) {
+    return mpDiscordAvatarUrl(player) || player.icon || avatarFor(player.name);
+}
 function mpDiscordAvatarUrl(player) {
     const da = window.DISCORD_ACTIVITY;
     if (!da) return null;
@@ -4934,6 +4939,9 @@ function showMpGameChrome(room) {
     $('#mp-game-strip').classList.remove('hidden');
     $('#mp-room-code').textContent = room.code;
     $('#btn-end').classList.toggle('hidden', !window.GTL_MULTIPLAYER.state.isAdmin);
+    // A spectator (joined mid-game) can't end the round, but must be able to leave
+    // whenever they want — give them their own Leave button in the game chrome.
+    $('#btn-mp-leave')?.classList.toggle('hidden', !amSpectator());
     updateInGameProfile();
     renderMpPlayerList('#mp-game-players', window.GTL_MULTIPLAYER.state.players, {
         compact: true,
@@ -4944,6 +4952,7 @@ function showMpGameChrome(room) {
 function hideMpGameChrome() {
     $('#mp-game-strip').classList.add('hidden');
     $('#btn-end').classList.remove('hidden');
+    $('#btn-mp-leave')?.classList.add('hidden');
 }
 
 function showMultiplayerQuestion(room) {
@@ -5181,7 +5190,7 @@ function renderMpResults() {
     state.round = new Array(Number($('#results-total').textContent) || state.roundHistory.length);
     renderRoundSummary();
     $('.results-sub').textContent = t('roomResults');
-    renderLeaderboard(window.GTL_MULTIPLAYER.getRoomLeaderboard(avatarFor));
+    renderLeaderboard(window.GTL_MULTIPLAYER.getRoomLeaderboard(mpRoomAvatarOf));
     $('#lb-note').className = 'lb-note';
     $('#lb-note').textContent = '';
 
@@ -5276,7 +5285,7 @@ function handleMultiplayerUpdate(room, players) {
             renderMpResults();
         } else {
             // Already on the scoreboard — just refresh standings without re-animating.
-            renderLeaderboard(window.GTL_MULTIPLAYER.getRoomLeaderboard(avatarFor));
+            renderLeaderboard(window.GTL_MULTIPLAYER.getRoomLeaderboard(mpRoomAvatarOf));
         }
         pushPresence();
         refreshPlayerCard();
@@ -5678,6 +5687,8 @@ function bindEvents() {
         endQuiz();
     });
     $('#btn-end-cancel').addEventListener('click', () => closeDialog($('#end-dialog')));
+    // Spectator's own exit — leave the room and return home immediately.
+    $('#btn-mp-leave')?.addEventListener('click', () => leaveMultiplayer());
     $('#btn-next').addEventListener('click', advanceAfterFeedback);
     $('#btn-fifty')?.addEventListener('click', useFifty);
 
