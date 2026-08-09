@@ -1416,6 +1416,16 @@ async function handleDiscordOAuthReturn() {
             avatar: user.avatar || null,
             sessionToken: user.session_token || null
         }));
+        // The /v2/ rewrite cannot register its own redirect URI (Discord matches them
+        // exactly and only this root is registered), so it sends the round trip through
+        // here. The profile above is already stored on this shared origin — hand the
+        // player back to where they started.
+        const returnTo = sessionStorage.getItem('gtl_login_return_to');
+        sessionStorage.removeItem('gtl_login_return_to');
+        if (returnTo && returnTo.startsWith('/') && !returnTo.startsWith('//')) {
+            location.href = returnTo + returnSearch;
+            return true;
+        }
         return true;
     } catch (e) {
         console.error('Discord login:', e);
