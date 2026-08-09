@@ -32,6 +32,7 @@ import {
     fetchDailyTop,
     fetchPersonalRank,
     fetchTopScores,
+    isNameAllowedByServer,
     submitDailyScore,
     submitMultiplayerScores,
     submitScore,
@@ -321,6 +322,9 @@ export interface NameCheck {
     readonly message: string | null;
 }
 
+/** The name this session already cleared, so a replay isn't blocked by its own row. */
+let lastVerifiedName = '';
+
 /** Verify the leaderboard name is present, safe and not already taken. */
 export async function ensureValidPlayerName(): Promise<NameCheck> {
     if (isDiscordLinked()) return { valid: true, message: null };
@@ -332,6 +336,15 @@ export async function ensureValidPlayerName(): Promise<NameCheck> {
     }
     if (!supabaseConfigured()) return { valid: true, message: null };
 
+    // The server's blocklist is the authority — the local screen above is only a
+    // fast first pass and can be out of date.
+    if (!(await isNameAllowedByServer(candidate))) {
+        return { valid: false, message: t('unsafeName') };
+    }
+
+    // Skip the "already taken" check when the player is re-using the name they
+    // already play under, otherwise their own leaderboard row would block them.
+    if (nameKey(candidate) === lastVerifiedName) return { valid: true, message: null };
     try {
         const top = await fetchTopScores(state.mode, 'all', 100);
         const taken = top.some((row) => nameKey(row.player) === nameKey(candidate));
@@ -339,6 +352,7 @@ export async function ensureValidPlayerName(): Promise<NameCheck> {
     } catch (err) {
         console.warn('Unable to verify leaderboard name availability:', err);
     }
+    lastVerifiedName = nameKey(candidate);
     return { valid: true, message: null };
 }
 
@@ -1354,6 +1368,27 @@ export async function autoJoinDiscordVoiceRoom(): Promise<boolean> {
     } finally {
         autoJoinInFlight = false;
     }
+}
+
+/**
+ * Discord "Join Room" from Home: (re)join the voice channel's shared room and
+ * land in its lobby. A host who rejoins a FINISHED room resets it back to the
+ * lobby so a new round can start; guests follow via the realtime update.
+ */
+export async function enterDiscordLobby(): Promise<boolean> {
+    const joined = await autoJoinDiscordVoiceRoom();
+    if (!joined) {
+        announce(t('returnLobbyFailed'));
+        return false;
+    }
+    if (mp.mpIsHost() && mp.mpRoom()?.status === 'finished') {
+        try {
+            await mp.restartRoom();
+        } catch (err) {
+            console.error('restart on return-to-lobby:', err);
+        }
+    }
+    return true;
 }
 
 /**

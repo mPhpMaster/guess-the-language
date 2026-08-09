@@ -21,6 +21,25 @@ function scopeFilter(scope: LeaderboardScope): string {
     return scope === 'week' ? `&created_at=gte.${encodeURIComponent(weekStartIso())}` : '';
 }
 
+/**
+ * Server-side name screening. The client's own blocklist is only a first pass —
+ * this RPC is the authority, so a name it rejects must never reach the board.
+ * Returns `true` when the check could not run, so an outage never blocks play.
+ */
+export async function isNameAllowedByServer(name: string): Promise<boolean> {
+    if (!supabaseConfigured()) return true;
+    try {
+        const allowed = await sbFetch<boolean>('rpc/is_safe_player_name', {
+            method: 'POST',
+            body: JSON.stringify({ p_name: name }),
+        });
+        return allowed !== false;
+    } catch (err) {
+        console.warn('Unable to verify name safety server-side:', err);
+        return true;
+    }
+}
+
 export async function submitScore(
     player: string,
     score: number,

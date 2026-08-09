@@ -27,7 +27,7 @@ import {
     state,
     viewDailyResults,
     viewLeaderboard,
-    autoJoinDiscordVoiceRoom,
+    enterDiscordLobby,
     setAuthError,
 } from '../../state/game';
 import { openProfileCard, showDialog } from '../../state/ui';
@@ -254,7 +254,7 @@ export const HomeScreen: Component = () => {
                                     block
                                     icon={<Link size={17} />}
                                     disabled={!canPlay()}
-                                    onClick={() => guarded(() => autoJoinDiscordVoiceRoom())}
+                                    onClick={() => guarded(() => enterDiscordLobby())}
                                 >
                                     {t('joinRoom')}
                                 </Button>
