@@ -137,9 +137,12 @@ config degrades to offline play. The real files are gitignored.
   lifeline, countdown + beeps, feedback delay / manual advance
 - All three question styles: language pick, multiple choice, fill-in-the-blank
 - Keyboard answering (1–9 / a–f)
-- Results: score, accuracy, best streak, wrong-answer review, live leaderboard
-  with all-time / this-week scope and per-mode switching, personal rank
-- Settings dialog (native `<dialog>`), persisted
+- Results: score, all four stat tiles (accuracy, best streak, average response,
+  fastest correct), wrong-answer review, live leaderboard with all-time /
+  this-week scope and per-mode switching, personal rank
+- Settings and About dialogs (native `<dialog>`), persisted settings
+- Name gate before a round or hosting: local profanity check, then the server's
+  `is_safe_player_name`, then a duplicate check against the live board
 - EN/AR with full RTL
 - Supabase score submission, daily board, error logging
 - **Multiplayer**: host/join by code, lobby with host controls (kick, promote,
@@ -164,16 +167,11 @@ config degrades to offline play. The real files are gitignored.
 
 ## Known gaps
 
-Everything from the original is ported. Two small behaviours are still missing:
-
-- results show 2 of the original 4 stat tiles — *average response* and *fastest
-  correct* need per-answer response times recorded into the round history
-- no name-validation gate before starting a round: the original blocks Start
-  until a valid, non-profane name exists, whereas this plays anonymously and
-  simply skips the leaderboard submission
-
-The profanity guard itself (`game/names.ts`) is ported and is applied to every
-name that is displayed or submitted.
+Everything from the original is ported. What remains is verification rather than
+code: none of this has been exercised by real users inside the Discord Activity,
+which is where the original's hardest bugs lived (the CSP `blob:` block, the
+single-flight `authorize` race, the unproxied-Supabase boot). Those fixes are
+carried over deliberately, but carried over is not the same as re-proven.
 
 ## Verified
 
@@ -193,6 +191,9 @@ name that is displayed or submitted.
   - challenge deep link presets mode + settings and shows the banner; playing it
     through yields the verdict with {you}/{target} filled in; the share card
     decodes at 1080x1350 and the bucket upload returns 200 / public read 200
+  - name gate: empty name blocks Start and opens Settings; a leet/zero-width
+    obfuscated name ("f_u.c​k3r") is rejected as not allowed
+  - all four stat tiles populate with measured values (17% / 1 / 2.5s / 10.0s)
   - Electron: headless smoke test boots `dist/` and asserts the title bar, its
     three window controls, seven mode cards and the preload bridge — SMOKE OK,
     no console errors (a CSP is set, so the Electron security warning is gone)

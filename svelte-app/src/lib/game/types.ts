@@ -76,4 +76,6 @@ export interface RoundAnswer {
   correct: boolean;
   points: number;
   timedOut: boolean;
+  /** Time taken to answer, clamped to the question's own time limit. */
+  responseTimeMs: number;
 }

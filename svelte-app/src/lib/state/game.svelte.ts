@@ -80,6 +80,17 @@ class GameStore {
   progress = $derived(`${Math.min(this.index + 1, this.total)} / ${this.total}`);
   isLastQuestion = $derived(this.index >= this.#round.length - 1);
   accuracy = $derived(this.total ? Math.round((this.correct / this.total) * 100) : 0);
+  /** Mean time across every answered question; NaN when nothing was answered. */
+  averageResponseMs = $derived(
+    this.history.length
+      ? this.history.reduce((sum, h) => sum + h.responseTimeMs, 0) / this.history.length
+      : Number.NaN
+  );
+  /** Quickest correct answer; NaN when none were correct. */
+  fastestCorrectMs = $derived.by(() => {
+    const times = this.history.filter((h) => h.correct).map((h) => h.responseTimeMs);
+    return times.length ? Math.min(...times) : Number.NaN;
+  });
   /** 1 → 0 as the question's time runs out; drives the countdown ring. */
   timeFraction = $derived(this.questionTime > 0 ? Math.max(0, this.timeLeft / this.questionTime) : 0);
   canUseFifty = $derived(
@@ -276,7 +287,10 @@ class GameStore {
         chosen: chosen ?? null,
         correct,
         points: gained,
-        timedOut
+        timedOut,
+        // Clamped to the question's own limit so a backgrounded tab (where the
+        // interval stalls) can't report a wildly inflated "thinking time".
+        responseTimeMs: Math.min(this.elapsedOnQuestion, this.questionTime * 1000)
       }
     ];
 

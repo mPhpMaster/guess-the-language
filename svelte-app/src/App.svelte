@@ -23,6 +23,7 @@
   import { isAdmin } from '$lib/services/admin';
   import { setLogContextProvider } from '$lib/services/errors';
   import { fetchPersonalRank, submitDailyScore, submitScore } from '$lib/services/leaderboard';
+  import { ensureValidPlayerName, nameProblemKey } from '$lib/services/playerName';
   import { markRoundStart, pushPresence, startHeartbeat, type ScreenName } from '$lib/services/presence';
   import { recordPlay } from '$lib/services/profile';
   import {
@@ -49,6 +50,10 @@
   let joinOpen = $state(false);
   let joinBusy = $state(false);
   let mpError = $state<string | null>(null);
+  /** Rejection reason from the name gate, shown on the home screen. */
+  let nameError = $state<string | null>(null);
+  /** Last name that passed the gate, so re-using it skips the online checks. */
+  let acceptedName = '';
   let personalRank = $state<number | null>(null);
   let profileName = $state<string | null>(null);
   let profileAvatar = $state<string | null>(null);
@@ -212,7 +217,20 @@
   async function start(opts: { practice?: boolean; daily?: boolean } = {}): Promise<void> {
     if (busy) return;
     busy = true;
+    nameError = null;
     try {
+      // Practice is local-only, so it does not require a leaderboard name.
+      if (!opts.practice) {
+        const check = await ensureValidPlayerName({ candidate: settings.name, previous: acceptedName });
+        if (!check.valid) {
+          nameError = i18n.t(nameProblemKey(check.problem!));
+          settingsOpen = true;
+          return;
+        }
+        acceptedName = check.name;
+        if (check.name !== settings.name) settings.setName(check.name);
+      }
+
       // Only a solo round in the challenged mode counts as answering it.
       challengeTarget =
         challenge && !opts.practice && !opts.daily && challenge.score != null && challenge.mode === mode
@@ -245,6 +263,13 @@
     }
     busy = true;
     try {
+      const check = await ensureValidPlayerName({ candidate: settings.name, previous: acceptedName });
+      if (!check.valid) {
+        nameError = i18n.t(nameProblemKey(check.problem!));
+        settingsOpen = true;
+        return;
+      }
+      acceptedName = check.name;
       await room.host(mode, roomSettings(), playerName());
     } catch (err) {
       mpError = err instanceof Error ? err.message : i18n.t('mpHostFail');
@@ -342,7 +367,7 @@
       {busy}
       dailyDone={isDailyDone(dailyDateKey())}
       mpAvailable={room.configured() && !discord.embedded}
-      {mpError}
+      mpError={mpError ?? nameError}
       onselect={(m) => (mode = m)}
       onstart={() => start()}
       ondaily={() => start({ daily: true })}

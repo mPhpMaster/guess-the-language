@@ -3,6 +3,7 @@
   import Leaderboard from '$lib/components/Leaderboard.svelte';
   import type { ModeId } from '$lib/game/types';
   import { i18n } from '$lib/i18n/index.svelte';
+  import { formatSeconds } from '$lib/game/round';
   import { fetchTopScores, type Scope, type ScoreRow } from '$lib/services/leaderboard';
   import { supabaseConfigured } from '$lib/services/supabase';
   import { game } from '$lib/state/game.svelte';
@@ -86,6 +87,8 @@
     <div class="result-stats" aria-label="Round statistics">
       <div><strong>{game.accuracy}%</strong><span>{i18n.t('statAccuracy')}</span></div>
       <div><strong>{game.bestStreak}</strong><span>{i18n.t('statStreak')}</span></div>
+      <div><strong>{formatSeconds(game.averageResponseMs)}</strong><span>{i18n.t('statAverage')}</span></div>
+      <div><strong>{formatSeconds(game.fastestCorrectMs)}</strong><span>{i18n.t('statFastest')}</span></div>
     </div>
 
     {#if personalRank}

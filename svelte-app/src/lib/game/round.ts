@@ -237,3 +237,9 @@ export function normalizeQuestion(q: RawQuestion, opts: NormalizeOptions): Quest
     explanation: q.explanation
   };
 }
+
+/** "1.4s", or an em dash when there is no meaningful figure. */
+export function formatSeconds(ms: number): string {
+  if (!Number.isFinite(ms)) return '—';
+  return `${(ms / 1000).toFixed(1)}s`;
+}
