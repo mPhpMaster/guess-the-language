@@ -14,8 +14,18 @@ pnpm check      # svelte-check (0 errors)
 
 Svelte compiles away, so the runtime cost is the smallest of the mainstream
 frameworks — the thing that matters most here, because the Discord Activity runs
-in an iframe and a large share of players are on mobile data. The whole app
-currently builds to **~105 kB of JS (39 kB gzipped)**.
+in an iframe and a large share of players are on mobile data.
+
+The initial download is **~136 kB of JS (48 kB gzipped)**. The two heavy SDKs are
+code-split and fetched only when actually needed:
+
+| Chunk | Size | Loaded when |
+| --- | --- | --- |
+| app | 136 kB | always |
+| `@supabase/supabase-js` | 217 kB | first multiplayer room (Realtime) |
+| `@discord/embedded-app-sdk` | 159 kB | running inside the Discord Activity |
+
+A solo web player downloads none of the other two.
 
 The rewrite lives in `svelte-app/` rather than replacing `../src` so the two can
 run side by side and be compared. Nothing here imports from `../src`.
@@ -37,6 +47,11 @@ src/
       adaptive.ts            AdaptivePicker (difficulty that tracks the player)
       highlight.ts           tokenizer for the code panel
       names.ts               name sanitising + profanity guard + emoji avatars
+    multiplayer/             rooms — server-authoritative Realtime client
+      room.svelte.ts         room state, RPCs, channels, host migration
+      session.svelte.ts      the round as the local player sees it
+      round.ts               seeded dealing the server and clients agree on
+      avatars.ts             Discord photo -> emoji icon fallback
     i18n/
       dictionary.ts          277 EN/AR keys, generated from the original
       index.svelte.ts        reactive language state, t(), diffLabel(), pick()
@@ -104,20 +119,28 @@ config degrades to offline play. The real files are gitignored.
 - Settings dialog (native `<dialog>`), persisted
 - EN/AR with full RTL
 - Supabase score submission, daily board, error logging
+- **Multiplayer**: host/join by code, lobby with host controls (kick, promote,
+  mode change), server-authoritative rounds, spectators (including their own
+  Leave button), host migration, room results, play-again, leave-beacon on unload
+- **Discord Activity**: SDK handshake with the single-flight `authorize` fix,
+  identity adoption, participant tracking for real avatars, `/supabase` URL
+  mapping installed before mount, invite dialog
 
 ## Not yet ported
 
-These are the large subsystems from `../src/modules`, left out of this pass:
-
 | Area | Original source | Notes |
 | --- | --- | --- |
-| Multiplayer | `mp-ui.js` (927 lines), `multiplayer.js` (575) | rooms, lobby, spectators, server-timed rounds, reveal |
 | Admin panel | `admin.js` (246) | reports, bans, profile reset, live presence |
 | Profiles | `profile.js` (615) | XP/levels, achievements, follows, rankings |
-| Discord Activity | `discord-activity.js` (415) | SDK handshake, identity, presence |
+| Presence | `presence.js` (188) | Discord rich-presence card, heartbeat |
 | Share & challenge | in `results.js` | share card canvas, challenge links |
 | UI auto-scaling | `ui-scale.js` | `--ui-scale` auto-fit |
 | PWA | `public/sw.js` | service worker + manifest |
+| Electron shell | `main.js`, `preload.js` | still point at `../src`; not wired to electron-builder |
+
+Smaller gaps inside what is ported: the About panel reuses the Settings dialog,
+results show 2 of the original 4 stat tiles (no response-time tracking yet), and
+there is no name-validation gate before starting a round.
 
 The foundations they need (typed domain model, Supabase client, i18n, settings,
 mode metadata) are in place, so each is an additive port rather than a redesign.
@@ -125,9 +148,15 @@ mode metadata) are in place, so each is an additive port rather than a redesign.
 ## Verified
 
 - `pnpm check` — 0 errors, 0 warnings
-- `pnpm build` — succeeds, 104.75 kB JS / 58.46 kB CSS
-- Runtime, in-browser: app boots with no console errors; a full round plays from
-  mode select → question → answer → feedback → auto-advance → results; keyboard
-  answering scores correctly (+100, matching the original's timer fast-forward);
-  the live leaderboard returns real production rows; switching to Arabic sets
-  `lang=ar` / `dir=rtl`, translates the tree and persists the choice
+- `pnpm build` — succeeds; 135.7 kB app JS + 58.5 kB CSS, SDKs split into
+  separate on-demand chunks
+- Runtime, in-browser, no console errors throughout:
+  - solo: mode select → question → answer → feedback → auto-advance → results;
+    keyboard answering scored +100, matching the original's timer fast-forward
+  - live leaderboard returns real production rows
+  - Arabic sets `lang=ar` / `dir=rtl`, translates the tree, persists
+  - multiplayer against production Supabase: room created (code `NR5B`), host
+    crown correct, round started, server advanced Q1 → Q3 across mixed banks,
+    score awarded server-side (100), results rendered, play-again returned to the
+    lobby, countdown derived from the server deadline (10→9→8→7→6), End + Leave
+    cleared the session and returned home

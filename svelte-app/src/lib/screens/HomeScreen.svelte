@@ -13,9 +13,14 @@
     onleaderboard: () => void;
     onsettings: () => void;
     onabout: () => void;
+    onhost: () => void;
+    onjoin: () => void;
     busy: boolean;
     /** Today's daily challenge has already been submitted. */
     dailyDone: boolean;
+    /** Host/Join are hidden inside Discord, where rooms are automatic. */
+    mpAvailable: boolean;
+    mpError: string | null;
   }
 
   let {
@@ -27,8 +32,12 @@
     onleaderboard,
     onsettings,
     onabout,
+    onhost,
+    onjoin,
     busy,
-    dailyDone
+    dailyDone,
+    mpAvailable,
+    mpError
   }: Props = $props();
 
   /** Card metadata: id, icon, the CSS modifier and the two i18n keys. */
@@ -86,11 +95,26 @@
       🗓️ {dailyDone ? i18n.t('dailyPlayed') : i18n.t('dailyChallenge')}
     </button>
 
+    {#if mpAvailable}
+      <div class="home-mp-actions">
+        <button class="btn btn-sm" type="button" disabled={busy} onclick={onhost}>
+          {i18n.t('hostRoom')}
+        </button>
+        <button class="btn btn-sm" type="button" disabled={busy} onclick={onjoin}>
+          {i18n.t('joinRoom')}
+        </button>
+      </div>
+    {/if}
+
     <div class="home-actions-row">
       <button class="btn btn-sm" type="button" onclick={onpractice}>{i18n.t('practiceMode')}</button>
       <button class="btn btn-sm" type="button" onclick={onleaderboard}>{i18n.t('friends')}</button>
       <button class="btn btn-sm" type="button" onclick={onsettings}>{i18n.t('settings')}</button>
     </div>
+
+    {#if mpError}
+      <p class="auth-error" role="alert">{mpError}</p>
+    {/if}
   </div>
 
   {#if best > 0}

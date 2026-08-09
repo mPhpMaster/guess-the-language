@@ -1,14 +1,21 @@
 <script lang="ts">
+  import JoinRoomDialog from '$lib/components/JoinRoomDialog.svelte';
   import SettingsDialog from '$lib/components/SettingsDialog.svelte';
+  import { dailyDateKey } from '$lib/game/round';
   import type { ModeId } from '$lib/game/types';
   import { i18n } from '$lib/i18n/index.svelte';
+  import { room } from '$lib/multiplayer/room.svelte';
+  import { mpSession } from '$lib/multiplayer/session.svelte';
+  import GameScreen from '$lib/screens/GameScreen.svelte';
+  import HomeScreen from '$lib/screens/HomeScreen.svelte';
+  import LobbyScreen from '$lib/screens/LobbyScreen.svelte';
+  import MpGameScreen from '$lib/screens/MpGameScreen.svelte';
+  import MpResultsScreen from '$lib/screens/MpResultsScreen.svelte';
+  import ResultsScreen from '$lib/screens/ResultsScreen.svelte';
+  import { discord, discordProfile, ready as discordReady } from '$lib/services/discord.svelte';
   import { setLogContextProvider } from '$lib/services/errors';
   import { fetchPersonalRank, submitDailyScore, submitScore } from '$lib/services/leaderboard';
   import { supabaseConfigured } from '$lib/services/supabase';
-  import GameScreen from '$lib/screens/GameScreen.svelte';
-  import HomeScreen from '$lib/screens/HomeScreen.svelte';
-  import ResultsScreen from '$lib/screens/ResultsScreen.svelte';
-  import { dailyDateKey } from '$lib/game/round';
   import { game } from '$lib/state/game.svelte';
   import { isDailyDone, markDailyDone, settings } from '$lib/state/settings.svelte';
 
@@ -18,6 +25,9 @@
   let mode = $state<ModeId>('all');
   let busy = $state(false);
   let settingsOpen = $state(false);
+  let joinOpen = $state(false);
+  let joinBusy = $state(false);
+  let mpError = $state<string | null>(null);
   let personalRank = $state<number | null>(null);
 
   // Keep <html lang/dir> in step with the language so the whole app flips to RTL.
@@ -26,11 +36,56 @@
     document.documentElement.dir = i18n.dir;
   });
 
-  // Give the error logger enough context to be useful without a circular import.
   setLogContextProvider(() => ({ mode: game.mode, screen, player: settings.name || null }));
 
-  // The round ends inside the engine (timeout on the last question, or the last
-  // "Next"); this reacts to that rather than every call site remembering to.
+  /**
+   * Adopt the Discord identity as the leaderboard name once the handshake
+   * settles — inside the Activity the player has no other way to set it.
+   */
+  $effect(() => {
+    void discordReady.then(() => {
+      const profile = discordProfile();
+      if (profile?.name && !settings.name) settings.setName(profile.name);
+    });
+  });
+
+  // ---- multiplayer lifecycle ----
+
+  /** Which multiplayer view the room status maps to; null when solo. */
+  const mpView = $derived.by<'lobby' | 'game' | 'results' | null>(() => {
+    if (!room.online) return null;
+    if (room.status === 'playing') return 'game';
+    if (room.status === 'finished' || room.status === 'closed') return 'results';
+    return 'lobby';
+  });
+
+  // Load the room's banks and run the derived clock only while a round is live.
+  $effect(() => {
+    if (mpView === 'game') {
+      void mpSession.loadPool();
+      mpSession.start();
+      return () => mpSession.stop();
+    }
+  });
+
+  // Being removed from a room drops the player back home with a message.
+  $effect(() => {
+    if (room.kicked) {
+      mpError = i18n.t('mpKicked');
+      room.teardown();
+      screen = 'home';
+    }
+  });
+
+  // A page close/refresh mid-room would otherwise leave a zombie player behind.
+  $effect(() => {
+    const onUnload = () => room.leaveBeacon();
+    window.addEventListener('pagehide', onUnload);
+    return () => window.removeEventListener('pagehide', onUnload);
+  });
+
+  // The solo round ends inside the engine; react to that rather than making
+  // every call site remember to switch screens.
   $effect(() => {
     if (game.phase === 'finished' && screen === 'game') {
       screen = 'results';
@@ -72,6 +127,49 @@
     }
   }
 
+  function roomSettings() {
+    return { questions: settings.questions, difficulty: settings.difficulty, timer: settings.timer };
+  }
+
+  function playerName(): string {
+    return settings.name.trim() || discordProfile()?.name || 'Player';
+  }
+
+  async function hostRoom(): Promise<void> {
+    mpError = null;
+    if (!room.configured()) {
+      mpError = i18n.t('mpNeedOnline');
+      return;
+    }
+    busy = true;
+    try {
+      await room.host(mode, roomSettings(), playerName());
+    } catch (err) {
+      mpError = err instanceof Error ? err.message : i18n.t('mpHostFail');
+    } finally {
+      busy = false;
+    }
+  }
+
+  async function joinRoom(code: string): Promise<void> {
+    mpError = null;
+    joinBusy = true;
+    try {
+      await room.join(code, playerName());
+      joinOpen = false;
+    } catch (err) {
+      mpError = err instanceof Error ? err.message : i18n.t('mpJoinFail');
+    } finally {
+      joinBusy = false;
+    }
+  }
+
+  async function leaveRoom(): Promise<void> {
+    await room.leave();
+    mpSession.stop();
+    screen = 'home';
+  }
+
   function goHome(): void {
     game.abort();
     screen = 'home';
@@ -79,19 +177,26 @@
 </script>
 
 <main id="app-main">
-  {#if screen === 'home'}
+  {#if mpView === 'lobby'}
+    <LobbyScreen onleave={leaveRoom} />
+  {:else if mpView === 'game'}
+    <MpGameScreen onleave={leaveRoom} />
+  {:else if mpView === 'results'}
+    <MpResultsScreen onleave={leaveRoom} />
+  {:else if screen === 'home'}
     <HomeScreen
       {mode}
       {busy}
+      dailyDone={isDailyDone(dailyDateKey())}
+      mpAvailable={room.configured() && !discord.embedded}
+      {mpError}
       onselect={(m) => (mode = m)}
       onstart={() => start()}
-      dailyDone={isDailyDone(dailyDateKey())}
       ondaily={() => start({ daily: true })}
       onpractice={() => start({ practice: true })}
-      onleaderboard={() => {
-        // The board lives on the results card; open it with an empty round.
-        screen = 'results';
-      }}
+      onhost={hostRoom}
+      onjoin={() => (joinOpen = true)}
+      onleaderboard={() => (screen = 'results')}
       onsettings={() => (settingsOpen = true)}
       onabout={() => (settingsOpen = true)}
     />
@@ -105,3 +210,10 @@
 <div class="sr-only" role="status" aria-live="polite" id="app-live-region"></div>
 
 <SettingsDialog open={settingsOpen} onclose={() => (settingsOpen = false)} />
+<JoinRoomDialog
+  open={joinOpen}
+  busy={joinBusy}
+  error={mpError}
+  onjoin={joinRoom}
+  onclose={() => (joinOpen = false)}
+/>

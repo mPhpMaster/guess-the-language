@@ -21,7 +21,8 @@
     "vite": "^6.0.11"
   },
   "dependencies": {
-    "@discord/embedded-app-sdk": "^2.0.0"
+    "@discord/embedded-app-sdk": "^2.0.0",
+    "@supabase/supabase-js": "^2.112.2"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
