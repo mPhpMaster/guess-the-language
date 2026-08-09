@@ -1,0 +1,18 @@
+{
+  "name": "Guess the Language",
+  "short_name": "GTL",
+  "description": "A bilingual (EN / AR) programming & IT quiz game — guess the language, beat the timer, and play with friends.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#07111e",
+  "theme_color": "#07111e",
+  "lang": "en",
+  "categories": ["games", "education"],
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import ChallengeVerdict from '$lib/components/ChallengeVerdict.svelte';
   import Leaderboard from '$lib/components/Leaderboard.svelte';
   import type { ModeId } from '$lib/game/types';
   import { i18n } from '$lib/i18n/index.svelte';
@@ -14,9 +15,25 @@
     personalRank: number | null;
     /** Opens a player's profile card. */
     onprofile: (name: string, avatar: string | null) => void;
+    /** Score to beat when this round answered a friend's challenge. */
+    challengeTarget: number | null;
+    onshare: () => void;
+    onchallenge: () => void;
+    shareBusy: boolean;
+    challengeLink: string | null;
   }
 
-  let { onreplay, onhome, personalRank, onprofile }: Props = $props();
+  let {
+    onreplay,
+    onhome,
+    personalRank,
+    onprofile,
+    challengeTarget,
+    onshare,
+    onchallenge,
+    shareBusy,
+    challengeLink
+  }: Props = $props();
 
   let scope = $state<Scope>('all');
   let boardMode = $state<ModeId>(game.mode);
@@ -56,6 +73,8 @@
 <section class="screen active" id="screen-results">
   <div class="results-card">
     <div class="trophy">🏆</div>
+
+    <ChallengeVerdict target={challengeTarget} score={game.score} onchallengeback={onchallenge} />
 
     <h2 class="final-score screen-heading" tabindex="-1">
       <span>{i18n.t('finalScore')}</span> <span>{game.score}</span>
@@ -126,6 +145,13 @@
     {/if}
 
     <div class="results-buttons">
+      <button class="btn btn-primary" type="button" onclick={onchallenge}>{i18n.t('challenge')}</button>
+      {#if challengeLink}
+        <input class="challenge-link" type="text" readonly value={challengeLink} aria-label="Challenge link" />
+      {/if}
+      <button class="btn btn-ghost" type="button" disabled={shareBusy} onclick={onshare}>
+        {shareBusy ? i18n.t('shareUploading') : i18n.t('shareResult')}
+      </button>
       <button class="btn btn-accent" type="button" onclick={onreplay}>{i18n.t('replay')}</button>
       <button class="btn btn-ghost" type="button" onclick={onhome}>{i18n.t('backMenu')}</button>
     </div>

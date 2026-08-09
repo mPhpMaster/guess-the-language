@@ -1,6 +1,8 @@
 <script lang="ts">
   import AchievementPop from '$lib/components/AchievementPop.svelte';
   import AdminPanel from '$lib/components/AdminPanel.svelte';
+  import ChallengeBanner from '$lib/components/ChallengeBanner.svelte';
+  import ShareOverlay from '$lib/components/ShareOverlay.svelte';
   import JoinRoomDialog from '$lib/components/JoinRoomDialog.svelte';
   import ProfileCard from '$lib/components/ProfileCard.svelte';
   import SettingsDialog from '$lib/components/SettingsDialog.svelte';
@@ -21,9 +23,18 @@
   import { fetchPersonalRank, submitDailyScore, submitScore } from '$lib/services/leaderboard';
   import { markRoundStart, pushPresence, startHeartbeat, type ScreenName } from '$lib/services/presence';
   import { recordPlay } from '$lib/services/profile';
+  import {
+    buildChallengePayload,
+    buildChallengeUrl,
+    getChallengeFromUrl,
+    renderShareCard,
+    uploadShareCard,
+    type Challenge
+  } from '$lib/services/share';
   import { supabaseConfigured } from '$lib/services/supabase';
   import { game } from '$lib/state/game.svelte';
   import { isDailyDone, markDailyDone, settings } from '$lib/state/settings.svelte';
+  import { uiScale } from '$lib/state/uiScale.svelte';
 
   type Screen = 'home' | 'game' | 'results';
 
@@ -42,11 +53,45 @@
   /** Wall-clock start of the current round, for the "seconds played" stat. */
   let roundStartedAtMs = Date.now();
 
+  // ---- share & challenge ----
+  /** Read once from the URL; the reactive copy below only drives the banner. */
+  const launchChallenge = getChallengeFromUrl();
+  let challenge = $state<Challenge | null>(launchChallenge);
+  /** Score to beat, captured when the round that answers a challenge starts. */
+  let challengeTarget = $state<number | null>(null);
+  let challengeLink = $state<string | null>(null);
+  let shareBusy = $state(false);
+  let shareUrl = $state<string | null>(null);
+  let shareBlob = $state<Blob | null>(null);
+  let sharePublicUrl = $state<string | null>(null);
+
+  // Apply the interface scale, and keep auto-fit tracking window resizes.
+  $effect(() => {
+    uiScale.apply();
+  });
+  $effect(() => uiScale.watchResize());
+
   // Keep <html lang/dir> in step with the language so the whole app flips to RTL.
   $effect(() => {
     document.documentElement.lang = i18n.lang;
     document.documentElement.dir = i18n.dir;
   });
+
+  /**
+   * A challenged friend launches with the challenger's settings preset.
+   *
+   * Deliberately NOT an `$effect`: `settings.update()` reads the same state it
+   * writes, so running it inside an effect makes the effect depend on its own
+   * write and loop until Svelte throws effect_update_depth_exceeded. This is a
+   * one-shot bootstrap from the URL, so it belongs in component init.
+   */
+  if (launchChallenge) {
+    if (launchChallenge.mode) mode = launchChallenge.mode;
+    settings.update({
+      ...(launchChallenge.questions ? { questions: launchChallenge.questions } : {}),
+      ...(launchChallenge.difficulty ? { difficulty: launchChallenge.difficulty } : {})
+    });
+  }
 
   setLogContextProvider(() => ({ mode: game.mode, screen, player: settings.name || null }));
 
@@ -165,6 +210,11 @@
     if (busy) return;
     busy = true;
     try {
+      // Only a solo round in the challenged mode counts as answering it.
+      challengeTarget =
+        challenge && !opts.practice && !opts.daily && challenge.score != null && challenge.mode === mode
+          ? challenge.score
+          : null;
       await game.startRound(opts.daily ? 'all' : mode, opts);
       roundStartedAtMs = Date.now();
       markRoundStart();
@@ -219,6 +269,54 @@
     screen = 'home';
   }
 
+  async function shareCard(): Promise<void> {
+    if (shareBusy) return;
+    shareBusy = true;
+    try {
+      const blob = await renderShareCard({
+        score: game.score,
+        correct: game.correct,
+        total: game.total,
+        player: settings.name,
+        daily: game.daily,
+        mode: game.mode
+      });
+      if (!blob) return;
+      shareBlob = blob;
+      shareUrl = URL.createObjectURL(blob);
+      // Uploading is what makes sharing possible inside Discord, where the
+      // clipboard and downloads are blocked. A failure is not fatal.
+      sharePublicUrl = await uploadShareCard(blob).catch(() => null);
+    } catch (err) {
+      console.error('share card failed:', err);
+    } finally {
+      shareBusy = false;
+    }
+  }
+
+  function closeShare(): void {
+    if (shareUrl) URL.revokeObjectURL(shareUrl);
+    shareUrl = null;
+    shareBlob = null;
+    sharePublicUrl = null;
+  }
+
+  async function challengeFriend(): Promise<void> {
+    const payload = buildChallengePayload({
+      mode: game.mode,
+      difficulty: settings.difficulty,
+      questions: settings.questions,
+      score: game.score
+    });
+    const url = buildChallengeUrl(payload);
+    challengeLink = url;
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      // Clipboard blocked — the link is shown as selectable text instead.
+    }
+  }
+
   function goHome(): void {
     game.abort();
     screen = 'home';
@@ -233,6 +331,7 @@
   {:else if mpView === 'results'}
     <MpResultsScreen onleave={leaveRoom} />
   {:else if screen === 'home'}
+    <ChallengeBanner {challenge} ondismiss={() => (challenge = null)} />
     <HomeScreen
       {mode}
       {busy}
@@ -262,6 +361,11 @@
         profileName = name;
         profileAvatar = avatar;
       }}
+      {challengeTarget}
+      {shareBusy}
+      {challengeLink}
+      onshare={shareCard}
+      onchallenge={challengeFriend}
     />
   {/if}
 </main>
@@ -277,6 +381,14 @@
   }}
 />
 <AchievementPop ids={unlockedAchievements} onclear={() => (unlockedAchievements = [])} />
+
+<ShareOverlay
+  objectUrl={shareUrl}
+  blob={shareBlob}
+  publicUrl={sharePublicUrl}
+  message={i18n.challengeText(game.score)}
+  onclose={closeShare}
+/>
 
 <AdminPanel open={adminOpen} onclose={() => (adminOpen = false)} />
 

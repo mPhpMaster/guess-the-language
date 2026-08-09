@@ -24,3 +24,15 @@ if (!target) throw new Error('#app mount point is missing');
 if (inDiscordEmbed()) await discordReady;
 
 export default mount(App, { target });
+
+/**
+ * Register the service worker so the web build is an installable PWA that also
+ * works offline. Skipped on file:// (Electron) and inside iframes (the Discord
+ * Activity), where a worker is unwanted and would fight Discord's proxy.
+ */
+const inIframe = window.top !== window.self;
+if ('serviceWorker' in navigator && location.protocol.startsWith('http') && !inIframe) {
+  window.addEventListener('load', () => {
+    void navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => {});
+  });
+}
