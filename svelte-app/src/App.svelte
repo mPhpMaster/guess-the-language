@@ -30,10 +30,9 @@
     buildChallengePayload,
     buildChallengeUrl,
     getChallengeFromUrl,
-    renderShareCard,
-    uploadShareCard,
     type Challenge
-  } from '$lib/services/share';
+  } from '$lib/game/challenge';
+  import { renderShareCard, uploadShareCard } from '$lib/services/share';
   import { supabaseConfigured } from '$lib/services/supabase';
   import { game } from '$lib/state/game.svelte';
   import { isDailyDone, markDailyDone, settings } from '$lib/state/settings.svelte';

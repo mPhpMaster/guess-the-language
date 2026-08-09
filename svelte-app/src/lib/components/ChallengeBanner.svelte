@@ -1,7 +1,7 @@
 <script lang="ts">
   import { i18n } from '$lib/i18n/index.svelte';
   import { modeMeta } from '$lib/game/modes';
-  import type { Challenge } from '$lib/services/share';
+  import type { Challenge } from '$lib/game/challenge';
 
   interface Props {
     challenge: Challenge | null;

@@ -11,6 +11,7 @@ pnpm build:desktop    # Electron build (relative asset URLs) -> dist/
 pnpm electron         # run the desktop shell against dist/
 pnpm dist             # package a Windows installer -> release/
 pnpm check            # svelte-check (0 errors)
+pnpm test             # vitest — 80 unit tests over the pure logic
 ```
 
 ## Why Svelte (and why a separate directory)
@@ -50,6 +51,7 @@ src/
       adaptive.ts            AdaptivePicker (difficulty that tracks the player)
       highlight.ts           tokenizer for the code panel
       names.ts               name sanitising + profanity guard + emoji avatars
+      challenge.ts           challenge payload encode/decode (pure, no browser)
     multiplayer/             rooms — server-authoritative Realtime client
       room.svelte.ts         room state, RPCs, channels, host migration
       session.svelte.ts      the round as the local player sees it
@@ -78,6 +80,27 @@ src/
 electron/                    frameless desktop shell (main + preload)
 scripts/                     desktop build + headless Electron smoke test
 ```
+
+### Tests
+
+`pnpm test` runs 80 unit tests over the pure modules — the ones deliberately
+kept free of DOM and reactivity. The two that matter most:
+
+- **Multiplayer shuffle parity.** `multiplayer/round.test.ts` keeps a verbatim
+  copy of the original `multiplayer.js` LCG and asserts the port produces
+  identical output across a spread of seeds. Rooms mix clients on different
+  builds, so a drift here would show two players the same question with options
+  in different positions and the server would grade the wrong one.
+- **Daily determinism.** The daily set is asserted identical across times of day
+  and across bank load order, and different across a UTC rollover.
+
+Also covered: scoring (including the practice-mode Infinity trap), bank
+balancing, the profanity guard's obfuscation folding, question normalization for
+all three styles, the highlighter's losslessness, adaptive difficulty, and
+challenge-payload validation against hostile input.
+
+The Electron shell has a separate headless smoke test
+(`electron --disable-gpu scripts/smoke-desktop.mjs`).
 
 ### Decisions worth knowing
 
