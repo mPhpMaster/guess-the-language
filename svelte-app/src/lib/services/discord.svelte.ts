@@ -346,6 +346,88 @@ export function openExternal(url: string): void {
   window.open(url, '_blank', 'noopener,noreferrer');
 }
 
+// ---------- rich presence ----------
+
+/**
+ * Discord rate-limits SET_ACTIVITY, and the game wants to update on every
+ * question, answer and score change — far more often than that allows. Every
+ * push is coalesced: at most one command per interval, and the most recent
+ * payload is always the one that lands (a trailing flush, not a drop).
+ * Identical consecutive payloads are skipped entirely.
+ */
+const PRESENCE_MIN_INTERVAL_MS = 5000;
+
+let presenceLastSentAt = 0;
+let presenceLastPayload = '';
+let presencePending: PresenceActivity | null | undefined;
+let presencePendingSet = false;
+let presenceTimer: ReturnType<typeof setTimeout> | null = null;
+
+export interface PresenceActivity {
+  type: number;
+  instance?: boolean;
+  details?: string;
+  state?: string;
+  timestamps?: { start: number };
+  assets?: { large_image: string; large_text: string };
+  party?: { id: string; size: [number, number] };
+  secrets?: { join: string };
+}
+
+/**
+ * The SDK, but only when presence is actually usable — the handshake succeeded
+ * AND `rpc.activities.write` was granted. Without the scope, setActivity is
+ * present on the command object but rejects at runtime.
+ */
+function presenceSdk(): DiscordSDK | null {
+  return session?.presence ? session.sdk : null;
+}
+
+async function flushPresence(): Promise<void> {
+  presenceTimer = null;
+  const sdk = presenceSdk();
+  if (!sdk || !presencePendingSet) return;
+
+  const activity = presencePending;
+  presencePendingSet = false;
+  presencePending = undefined;
+
+  const key = JSON.stringify(activity ?? null);
+  if (key === presenceLastPayload) return;
+  presenceLastPayload = key;
+  presenceLastSentAt = Date.now();
+  try {
+    await sdk.commands.setActivity({ activity: (activity ?? null) as never });
+  } catch (e) {
+    // A rejected update must not break gameplay; let the next one retry.
+    presenceLastPayload = '';
+    console.warn('[discord] setActivity failed:', (e as Error).message);
+  }
+}
+
+function queuePresence(activity: PresenceActivity | null): void {
+  if (!presenceSdk()) return;
+  presencePending = activity;
+  presencePendingSet = true;
+  if (presenceTimer) return;
+  const wait = Math.max(0, PRESENCE_MIN_INTERVAL_MS - (Date.now() - presenceLastSentAt));
+  if (wait === 0) {
+    void flushPresence();
+    return;
+  }
+  presenceTimer = setTimeout(() => void flushPresence(), wait);
+}
+
+/** Publish (or refresh) the player's rich-presence card. Cheap to call often. */
+export function setActivity(activity: PresenceActivity): void {
+  queuePresence(activity);
+}
+
+/** Wipe the presence card (back on the home screen, or presence turned off). */
+export function clearActivity(): void {
+  queuePresence(null);
+}
+
 /** Discord's native invite sheet for the Activity's voice channel. */
 export function openInviteDialog(): Promise<unknown> | null {
   return session?.sdk?.commands?.openInviteDialog?.() ?? null;

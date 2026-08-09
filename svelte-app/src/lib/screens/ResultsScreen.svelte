@@ -12,9 +12,11 @@
     onhome: () => void;
     /** Rank fetched after the score was submitted, if any. */
     personalRank: number | null;
+    /** Opens a player's profile card. */
+    onprofile: (name: string, avatar: string | null) => void;
   }
 
-  let { onreplay, onhome, personalRank }: Props = $props();
+  let { onreplay, onhome, personalRank, onprofile }: Props = $props();
 
   let scope = $state<Scope>('all');
   let boardMode = $state<ModeId>(game.mode);
@@ -101,7 +103,7 @@
       </select>
     </label>
 
-    <Leaderboard {rows} {loading} {error} youName={settings.name} />
+    <Leaderboard {rows} {loading} {error} youName={settings.name} onopen={onprofile} />
 
     {#if wrongAnswers.length}
       <details class="answer-review">

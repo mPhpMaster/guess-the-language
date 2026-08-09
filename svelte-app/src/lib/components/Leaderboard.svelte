@@ -9,9 +9,11 @@
     youName?: string;
     loading?: boolean;
     error?: string | null;
+    /** Opens that player's profile card; rows are inert when omitted. */
+    onopen?: (name: string, avatar: string | null) => void;
   }
 
-  let { rows, youName = '', loading = false, error = null }: Props = $props();
+  let { rows, youName = '', loading = false, error = null, onopen }: Props = $props();
 
   const hidden = $derived(i18n.t('hiddenPlayer'));
 
@@ -30,10 +32,19 @@
   {:else}
     {#each rows as row, i (row.id)}
       {@const name = safeDisplayName(row.player, hidden)}
-      <div
+      <!--
+        A clickable row is a real <button> so it is keyboard- and
+        screen-reader-operable for free; `role="listitem"` is only applied to the
+        inert <div> variant, since a button already carries its own semantics.
+      -->
+      <svelte:element
+        this={onopen ? 'button' : 'div'}
         class="lb-row {medal(i)}"
+        class:is-clickable={!!onopen}
         class:is-you={!!youName && name.toLowerCase() === youName.toLowerCase()}
-        role="listitem"
+        role={onopen ? undefined : 'listitem'}
+        type={onopen ? 'button' : undefined}
+        onclick={onopen ? () => onopen(name, row.avatar ?? null) : undefined}
       >
         <span class="lb-rank">{i + 1}</span>
         {#if row.avatar}
@@ -43,7 +54,7 @@
         {/if}
         <span class="lb-name">{name}</span>
         <span class="lb-score">{row.score}</span>
-      </div>
+      </svelte:element>
     {/each}
   {/if}
 </div>

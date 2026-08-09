@@ -1,5 +1,7 @@
 <script lang="ts">
+  import AchievementPop from '$lib/components/AchievementPop.svelte';
   import JoinRoomDialog from '$lib/components/JoinRoomDialog.svelte';
+  import ProfileCard from '$lib/components/ProfileCard.svelte';
   import SettingsDialog from '$lib/components/SettingsDialog.svelte';
   import { dailyDateKey } from '$lib/game/round';
   import type { ModeId } from '$lib/game/types';
@@ -15,6 +17,8 @@
   import { discord, discordProfile, ready as discordReady } from '$lib/services/discord.svelte';
   import { setLogContextProvider } from '$lib/services/errors';
   import { fetchPersonalRank, submitDailyScore, submitScore } from '$lib/services/leaderboard';
+  import { markRoundStart, pushPresence, startHeartbeat, type ScreenName } from '$lib/services/presence';
+  import { recordPlay } from '$lib/services/profile';
   import { supabaseConfigured } from '$lib/services/supabase';
   import { game } from '$lib/state/game.svelte';
   import { isDailyDone, markDailyDone, settings } from '$lib/state/settings.svelte';
@@ -29,6 +33,11 @@
   let joinBusy = $state(false);
   let mpError = $state<string | null>(null);
   let personalRank = $state<number | null>(null);
+  let profileName = $state<string | null>(null);
+  let profileAvatar = $state<string | null>(null);
+  let unlockedAchievements = $state<string[]>([]);
+  /** Wall-clock start of the current round, for the "seconds played" stat. */
+  let roundStartedAtMs = Date.now();
 
   // Keep <html lang/dir> in step with the language so the whole app flips to RTL.
   $effect(() => {
@@ -58,6 +67,31 @@
     if (room.status === 'finished' || room.status === 'closed') return 'results';
     return 'lobby';
   });
+
+  // ---- presence ----
+
+  /** The screen name presence and the heartbeat report. */
+  const presenceScreen = $derived<ScreenName>(
+    mpView === 'lobby' ? 'lobby' : mpView === 'results' ? 'results' : mpView === 'game' ? 'game' : screen
+  );
+
+  // Refresh the Discord profile card on every meaningful change. The SDK layer
+  // coalesces these, so firing on each question or score change is safe.
+  $effect(() => {
+    pushPresence({
+      screen: presenceScreen,
+      mode: game.mode,
+      score: game.score,
+      current: Math.min(game.index + 1, game.total),
+      total: game.total,
+      enabled: settings.discordPresence
+    });
+  });
+
+  // Feeds the admin "who's playing right now" view.
+  $effect(() =>
+    startHeartbeat(() => ({ player: settings.name.trim(), screen: presenceScreen, mode: game.mode }))
+  );
 
   // Load the room's banks and run the derived clock only while a round is live.
   $effect(() => {
@@ -108,6 +142,16 @@
         await submitScore({ player, score: game.score, mode: game.mode, hiddenLabel });
         personalRank = await fetchPersonalRank(game.mode, 'all', game.score);
       }
+      // record_progress awards XP, updates the daily streak and unlocks
+      // achievements server-side, returning whatever was newly earned.
+      unlockedAchievements = await recordPlay({
+        player,
+        seconds: Math.round((Date.now() - roundStartedAtMs) / 1000),
+        multiplayer: false,
+        won: false,
+        xp: game.score,
+        perfect: game.total > 0 && game.correct === game.total
+      });
     } catch (err) {
       // A leaderboard outage must never interrupt the results screen.
       console.error('score submit failed:', err);
@@ -119,6 +163,8 @@
     busy = true;
     try {
       await game.startRound(opts.daily ? 'all' : mode, opts);
+      roundStartedAtMs = Date.now();
+      markRoundStart();
       screen = 'game';
     } catch (err) {
       console.error('failed to start round:', err);
@@ -203,11 +249,29 @@
   {:else if screen === 'game'}
     <GameScreen onend={goHome} />
   {:else}
-    <ResultsScreen {personalRank} onreplay={() => start()} onhome={goHome} />
+    <ResultsScreen
+      {personalRank}
+      onreplay={() => start()}
+      onhome={goHome}
+      onprofile={(name, avatar) => {
+        profileName = name;
+        profileAvatar = avatar;
+      }}
+    />
   {/if}
 </main>
 
 <div class="sr-only" role="status" aria-live="polite" id="app-live-region"></div>
+
+<ProfileCard
+  name={profileName}
+  avatar={profileAvatar}
+  onclose={() => {
+    profileName = null;
+    profileAvatar = null;
+  }}
+/>
+<AchievementPop ids={unlockedAchievements} onclear={() => (unlockedAchievements = [])} />
 
 <SettingsDialog open={settingsOpen} onclose={() => (settingsOpen = false)} />
 <JoinRoomDialog
