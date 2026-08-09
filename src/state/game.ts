@@ -861,8 +861,10 @@ async function buildDailyLeaderboard(): Promise<void> {
     setState({ lbNote: t('lbLoading'), lbNoteKind: 'idle' });
     try {
         if (state.score > 0) {
-            await submitDailyScore(me, state.score);
-            markDailyDone();
+            // Submitting never throws, so a replay (or an outage) still shows the
+            // board rather than collapsing into "could not reach the leaderboard".
+            const result = await submitDailyScore(me, state.score);
+            if (result !== 'failed') markDailyDone();
         }
         const top = await fetchDailyTop(20);
         const entries: LeaderboardEntry[] = top.map((row, index) => ({

@@ -124,23 +124,43 @@ export async function countScoresAbove(mode: GameMode, score: number): Promise<n
 
 /* ---------------- Daily board ---------------- */
 
+export type DailySubmitResult = 'saved' | 'already-played' | 'failed';
+
 /**
- * The unique (day, player) plus `resolution=ignore-duplicates` means the FIRST
- * score of the day stands and replays are silently ignored.
+ * The FIRST score of the day stands; replays are silently ignored.
+ *
+ * `on_conflict=day,player` is REQUIRED: without it PostgREST infers the conflict
+ * target from the primary key (`id`), so `resolution=ignore-duplicates` never
+ * covers the UNIQUE(day, player) constraint and a replay comes back as a hard
+ * 409 / 23505 instead of a no-op.
+ *
+ * Never throws — a failed submit must not cost the player the whole board.
  */
-export async function submitDailyScore(player: string, score: number): Promise<void> {
-    await sbFetch<null>('daily_scores', {
-        method: 'POST',
-        headers: { Prefer: 'resolution=ignore-duplicates,return=minimal' },
-        body: JSON.stringify([
-            {
-                day: dailyDateKey(),
-                player: safeDisplayName(player),
-                score: Math.max(0, Math.round(score)),
-                avatar: ownAvatarUrl(),
-            },
-        ]),
-    });
+export async function submitDailyScore(
+    player: string,
+    score: number,
+): Promise<DailySubmitResult> {
+    try {
+        await sbFetch<null>('daily_scores?on_conflict=day,player', {
+            method: 'POST',
+            headers: { Prefer: 'resolution=ignore-duplicates,return=minimal' },
+            body: JSON.stringify([
+                {
+                    day: dailyDateKey(),
+                    player: safeDisplayName(player),
+                    score: Math.max(0, Math.round(score)),
+                    avatar: ownAvatarUrl(),
+                },
+            ]),
+        });
+        return 'saved';
+    } catch (err) {
+        // Belt and braces for older PostgREST behaviour: a duplicate still means
+        // the player has already played today, which is a normal outcome.
+        if (/23505|409|duplicate/i.test(String(err))) return 'already-played';
+        console.warn('daily score submit failed:', err);
+        return 'failed';
+    }
 }
 
 export async function fetchDailyTop(limit = 20): Promise<readonly ScoreRow[]> {
