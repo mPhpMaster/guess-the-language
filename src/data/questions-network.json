@@ -2077,5 +2077,530 @@
       "en": "Routers move packets between separate networks using their routing table.",
       "ar": "تنقل الموجّهات الحزم بين شبكات منفصلة عبر جدول التوجيه."
     }
+  },
+  {
+    "id": 100,
+    "category": "protocols",
+    "difficulty": "easy",
+    "codeSnippet": "GET /index.html HTTP/1.1",
+    "question": {
+      "en": "Which layer does HTTP operate at?",
+      "ar": "في أي طبقة يعمل HTTP؟"
+    },
+    "options": [
+      "The application layer",
+      "The transport layer",
+      "The data link layer",
+      "The physical layer"
+    ],
+    "answer": "The application layer",
+    "explanation": {
+      "en": "HTTP is an application-layer protocol carried over TCP.",
+      "ar": "HTTP بروتوكول في طبقة التطبيقات ويُنقَل فوق TCP."
+    }
+  },
+  {
+    "id": 101,
+    "category": "transport",
+    "difficulty": "medium",
+    "codeSnippet": "SYN -> SYN/ACK -> ACK",
+    "question": {
+      "en": "What does this exchange establish?",
+      "ar": "ماذا يؤسّس هذا التبادل؟"
+    },
+    "options": [
+      "A TCP connection handshake",
+      "A DNS name resolution",
+      "A TLS certificate swap",
+      "A DHCP address lease"
+    ],
+    "answer": "A TCP connection handshake",
+    "explanation": {
+      "en": "The three-way SYN/SYN-ACK/ACK sequence opens a TCP connection.",
+      "ar": "تسلسل SYN/SYN-ACK/ACK الثلاثي يفتح اتصال TCP."
+    }
+  },
+  {
+    "id": 102,
+    "category": "addressing",
+    "difficulty": "easy",
+    "codeSnippet": "192.168.1.10/24",
+    "question": {
+      "en": "What does the /24 suffix indicate?",
+      "ar": "ماذا تعني اللاحقة /24؟"
+    },
+    "options": [
+      "A 24-bit network prefix",
+      "A total of 24 hosts",
+      "The gateway port number",
+      "The DNS record type"
+    ],
+    "answer": "A 24-bit network prefix",
+    "explanation": {
+      "en": "/24 means the first 24 bits are the network portion (mask 255.255.255.0).",
+      "ar": "/24 تعني أن أول 24 بت هي جزء الشبكة (القناع 255.255.255.0)."
+    }
+  },
+  {
+    "id": 103,
+    "category": "dns",
+    "difficulty": "medium",
+    "codeSnippet": "example.com  A  93.184.216.34",
+    "question": {
+      "en": "What does an A record map a name to?",
+      "ar": "إلى ماذا يربط سجل A الاسم؟"
+    },
+    "options": [
+      "An IPv4 address",
+      "A mail server host",
+      "A text policy value",
+      "Another domain name"
+    ],
+    "answer": "An IPv4 address",
+    "explanation": {
+      "en": "An A record resolves a hostname to an IPv4 address.",
+      "ar": "سجل A يحلّ اسم المضيف إلى عنوان IPv4."
+    }
+  },
+  {
+    "id": 104,
+    "category": "transport",
+    "difficulty": "medium",
+    "codeSnippet": "// live video call, some frame loss ok",
+    "question": {
+      "en": "Which protocol suits low-latency streaming?",
+      "ar": "أي بروتوكول يناسب البث منخفض الكمون؟"
+    },
+    "options": [
+      "UDP for speed",
+      "TCP for ordering",
+      "SMTP for mail",
+      "FTP for files"
+    ],
+    "answer": "UDP for speed",
+    "explanation": {
+      "en": "UDP trades reliability for low overhead, good for real-time media.",
+      "ar": "UDP يضحّي بالموثوقية مقابل خفة الحمل، ويناسب الوسائط اللحظية."
+    }
+  },
+  {
+    "id": 105,
+    "category": "protocols",
+    "difficulty": "easy",
+    "codeSnippet": "https://bank.example.com",
+    "question": {
+      "en": "What does HTTPS add over HTTP?",
+      "ar": "ماذا يضيف HTTPS على HTTP؟"
+    },
+    "options": [
+      "Transport encryption with TLS",
+      "Faster page rendering",
+      "Automatic file caching",
+      "A shorter URL format"
+    ],
+    "answer": "Transport encryption with TLS",
+    "explanation": {
+      "en": "HTTPS wraps HTTP in TLS for confidentiality and integrity.",
+      "ar": "HTTPS يغلّف HTTP بـTLS للسرية والسلامة."
+    }
+  },
+  {
+    "id": 106,
+    "category": "addressing",
+    "difficulty": "hard",
+    "codeSnippet": "10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16",
+    "question": {
+      "en": "What do these ranges have in common?",
+      "ar": "ما القاسم المشترك بين هذه النطاقات؟"
+    },
+    "options": [
+      "They are private address ranges",
+      "They are multicast reserved",
+      "They are public IPv6 blocks",
+      "They are loopback addresses"
+    ],
+    "answer": "They are private address ranges",
+    "explanation": {
+      "en": "RFC 1918 reserves these for private networks behind NAT.",
+      "ar": "معيار RFC 1918 يحجز هذه للشبكات الخاصة خلف NAT."
+    }
+  },
+  {
+    "id": 107,
+    "category": "devices",
+    "difficulty": "medium",
+    "codeSnippet": "// forwards packets between networks",
+    "question": {
+      "en": "Which device routes between different networks?",
+      "ar": "أي جهاز يوجّه بين شبكات مختلفة؟"
+    },
+    "options": [
+      "A router",
+      "A hub",
+      "A repeater",
+      "A modem"
+    ],
+    "answer": "A router",
+    "explanation": {
+      "en": "Routers forward packets between networks using layer-3 addresses.",
+      "ar": "الموجّهات تمرّر الحزم بين الشبكات باستخدام عناوين الطبقة الثالثة."
+    }
+  },
+  {
+    "id": 108,
+    "category": "transport",
+    "difficulty": "easy",
+    "codeSnippet": "Listening on 0.0.0.0:443",
+    "question": {
+      "en": "Which service typically uses port 443?",
+      "ar": "أي خدمة تستخدم عادةً المنفذ 443؟"
+    },
+    "options": [
+      "HTTPS web traffic",
+      "Plain DNS queries",
+      "Outbound email relay",
+      "Remote SSH shell"
+    ],
+    "answer": "HTTPS web traffic",
+    "explanation": {
+      "en": "Port 443 is the default for HTTPS.",
+      "ar": "المنفذ 443 هو الافتراضي لـHTTPS."
+    }
+  },
+  {
+    "id": 109,
+    "category": "addressing",
+    "difficulty": "medium",
+    "codeSnippet": "internal 192.168.0.5 -> public 203.0.113.7",
+    "question": {
+      "en": "What service performs this translation?",
+      "ar": "أي خدمة تنفّذ هذه الترجمة؟"
+    },
+    "options": [
+      "Network address translation",
+      "Domain name resolution",
+      "Dynamic host discovery",
+      "Access control listing"
+    ],
+    "answer": "Network address translation",
+    "explanation": {
+      "en": "NAT rewrites private addresses to a public one for internet access.",
+      "ar": "NAT يعيد كتابة العناوين الخاصة إلى عنوان عام للوصول للإنترنت."
+    }
+  },
+  {
+    "id": 110,
+    "category": "dns",
+    "difficulty": "easy",
+    "codeSnippet": "$ dig +short example.com",
+    "question": {
+      "en": "What does this command look up?",
+      "ar": "ماذا يستعلم هذا الأمر؟"
+    },
+    "options": [
+      "DNS records for a domain",
+      "Open ports on a host",
+      "The route to a gateway",
+      "A file on the server"
+    ],
+    "answer": "DNS records for a domain",
+    "explanation": {
+      "en": "dig queries DNS and prints the resolved records.",
+      "ar": "dig يستعلم DNS ويطبع السجلات المحلولة."
+    }
+  },
+  {
+    "id": 111,
+    "category": "protocols",
+    "difficulty": "hard",
+    "codeSnippet": "// stateless request carrying a token",
+    "question": {
+      "en": "Why is HTTP called stateless?",
+      "ar": "لماذا يُوصف HTTP بأنه عديم الحالة؟"
+    },
+    "options": [
+      "Each request is independent",
+      "It never uses any headers",
+      "It cannot send any cookies",
+      "It only runs over UDP"
+    ],
+    "answer": "Each request is independent",
+    "explanation": {
+      "en": "HTTP keeps no built-in memory between requests; state is added via tokens/cookies.",
+      "ar": "لا يحتفظ HTTP بذاكرة بين الطلبات، وتُضاف الحالة عبر الرموز/الكوكيز."
+    }
+  },
+  {
+    "id": 112,
+    "category": "transport",
+    "difficulty": "medium",
+    "codeSnippet": "// packets arrive out of order",
+    "question": {
+      "en": "Which protocol reorders and retransmits data?",
+      "ar": "أي بروتوكول يعيد الترتيب وإعادة الإرسال؟"
+    },
+    "options": [
+      "TCP reliable delivery",
+      "UDP datagram send",
+      "ICMP echo probe",
+      "ARP address lookup"
+    ],
+    "answer": "TCP reliable delivery",
+    "explanation": {
+      "en": "TCP sequences segments and retransmits losses to deliver ordered data.",
+      "ar": "TCP يرقّم المقاطع ويعيد إرسال المفقود لتسليم بيانات مرتبة."
+    }
+  },
+  {
+    "id": 113,
+    "category": "security",
+    "difficulty": "medium",
+    "codeSnippet": "// filters traffic by rules at the edge",
+    "question": {
+      "en": "Which device enforces allow/deny traffic rules?",
+      "ar": "أي جهاز يطبّق قواعد السماح/المنع للحركة؟"
+    },
+    "options": [
+      "A firewall",
+      "A switch",
+      "A bridge",
+      "A gateway"
+    ],
+    "answer": "A firewall",
+    "explanation": {
+      "en": "Firewalls permit or block traffic based on configured rules.",
+      "ar": "الجدران النارية تسمح أو تمنع الحركة وفق قواعد معدّة."
+    }
+  },
+  {
+    "id": 114,
+    "category": "addressing",
+    "difficulty": "easy",
+    "codeSnippet": "ping 127.0.0.1",
+    "question": {
+      "en": "What is 127.0.0.1 known as?",
+      "ar": "بماذا يُعرَف العنوان 127.0.0.1؟"
+    },
+    "options": [
+      "The loopback address",
+      "The default gateway",
+      "A broadcast address",
+      "A public DNS server"
+    ],
+    "answer": "The loopback address",
+    "explanation": {
+      "en": "127.0.0.1 loops back to the local host itself.",
+      "ar": "127.0.0.1 يعود إلى المضيف المحلي نفسه."
+    }
+  },
+  {
+    "id": 115,
+    "category": "protocols",
+    "difficulty": "hard",
+    "codeSnippet": "Server: h2  (ALPN negotiated)",
+    "question": {
+      "en": "What key benefit does HTTP/2 add?",
+      "ar": "ما الفائدة الأساسية التي يضيفها HTTP/2؟"
+    },
+    "options": [
+      "Multiplexed streams on one connection",
+      "Mandatory plaintext transport",
+      "A brand new address format",
+      "Removal of all request headers"
+    ],
+    "answer": "Multiplexed streams on one connection",
+    "explanation": {
+      "en": "HTTP/2 multiplexes many requests over a single connection, cutting latency.",
+      "ar": "HTTP/2 يدمج طلبات كثيرة على اتصال واحد فيقلّل الكمون."
+    }
+  },
+  {
+    "id": 116,
+    "category": "services",
+    "difficulty": "easy",
+    "codeSnippet": "// laptop gets an IP automatically",
+    "question": {
+      "en": "Which protocol assigns IP addresses automatically?",
+      "ar": "أي بروتوكول يوزّع العناوين تلقائيًا؟"
+    },
+    "options": [
+      "DHCP address leasing",
+      "DNS name lookup",
+      "SMTP mail relay",
+      "SNMP device polling"
+    ],
+    "answer": "DHCP address leasing",
+    "explanation": {
+      "en": "DHCP leases IP configuration to clients automatically.",
+      "ar": "DHCP يؤجّر إعدادات IP للعملاء تلقائيًا."
+    }
+  },
+  {
+    "id": 117,
+    "category": "transport",
+    "difficulty": "medium",
+    "codeSnippet": "TCP FIN -> ACK -> FIN -> ACK",
+    "question": {
+      "en": "What does this sequence do?",
+      "ar": "ماذا يفعل هذا التسلسل؟"
+    },
+    "options": [
+      "Gracefully close a connection",
+      "Open a new session",
+      "Retransmit lost data",
+      "Resize the send window"
+    ],
+    "answer": "Gracefully close a connection",
+    "explanation": {
+      "en": "The FIN/ACK exchange tears down a TCP connection cleanly.",
+      "ar": "تبادل FIN/ACK يغلق اتصال TCP بشكل نظيف."
+    }
+  },
+  {
+    "id": 118,
+    "category": "layers",
+    "difficulty": "hard",
+    "codeSnippet": "Ethernet | IP | TCP | HTTP",
+    "question": {
+      "en": "This nesting of headers is called what?",
+      "ar": "ماذا يُسمى تداخل الترويسات هذا؟"
+    },
+    "options": [
+      "Protocol encapsulation",
+      "Packet fragmentation",
+      "Address translation",
+      "Congestion control"
+    ],
+    "answer": "Protocol encapsulation",
+    "explanation": {
+      "en": "Each layer wraps the layer above with its own header — encapsulation.",
+      "ar": "كل طبقة تغلّف ما فوقها بترويستها الخاصة، وهو التغليف."
+    }
+  },
+  {
+    "id": 119,
+    "category": "diagnostics",
+    "difficulty": "medium",
+    "codeSnippet": "$ traceroute example.com",
+    "question": {
+      "en": "What does traceroute reveal?",
+      "ar": "ماذا يكشف traceroute؟"
+    },
+    "options": [
+      "The hops along a path",
+      "The open TCP ports",
+      "The DNS zone records",
+      "The link speed in Mbps"
+    ],
+    "answer": "The hops along a path",
+    "explanation": {
+      "en": "It lists each router hop packets pass through to a destination.",
+      "ar": "يسرد كل موجّه تمر عبره الحزم حتى الوجهة."
+    }
+  },
+  {
+    "id": 120,
+    "category": "security",
+    "difficulty": "hard",
+    "codeSnippet": "// site cert signed by a trusted CA",
+    "question": {
+      "en": "What does a valid TLS certificate primarily prove?",
+      "ar": "ماذا تثبت شهادة TLS الصالحة أساسًا؟"
+    },
+    "options": [
+      "The server's authenticated identity",
+      "The fastest available route",
+      "The server's exact location",
+      "The user's account balance"
+    ],
+    "answer": "The server's authenticated identity",
+    "explanation": {
+      "en": "A CA-signed certificate binds a public key to a verified identity.",
+      "ar": "الشهادة الموقّعة من CA تربط مفتاحًا عامًا بهوية مُتحقَّقة."
+    }
+  },
+  {
+    "id": 121,
+    "category": "addressing",
+    "difficulty": "medium",
+    "codeSnippet": "2001:db8::1",
+    "question": {
+      "en": "What kind of address is this?",
+      "ar": "أي نوع من العناوين هذا؟"
+    },
+    "options": [
+      "An IPv6 address",
+      "An IPv4 address",
+      "A MAC address",
+      "A port number"
+    ],
+    "answer": "An IPv6 address",
+    "explanation": {
+      "en": "The hexadecimal colon notation is IPv6.",
+      "ar": "الترميز الست عشري بالنقطتين هو IPv6."
+    }
+  },
+  {
+    "id": 122,
+    "category": "devices",
+    "difficulty": "easy",
+    "codeSnippet": "// forwards frames by MAC address",
+    "question": {
+      "en": "Which device switches frames within a LAN?",
+      "ar": "أي جهاز يبدّل الإطارات داخل شبكة محلية؟"
+    },
+    "options": [
+      "A network switch",
+      "A DNS resolver",
+      "A load meter",
+      "A web proxy"
+    ],
+    "answer": "A network switch",
+    "explanation": {
+      "en": "A switch forwards layer-2 frames using MAC address tables.",
+      "ar": "المبدّل يمرّر إطارات الطبقة الثانية باستخدام جداول MAC."
+    }
+  },
+  {
+    "id": 123,
+    "category": "transport",
+    "difficulty": "hard",
+    "codeSnippet": "cwnd grows then halves on loss",
+    "question": {
+      "en": "What TCP mechanism does this describe?",
+      "ar": "أي آلية في TCP يصف هذا؟"
+    },
+    "options": [
+      "Congestion control",
+      "Name resolution",
+      "Port forwarding",
+      "Frame switching"
+    ],
+    "answer": "Congestion control",
+    "explanation": {
+      "en": "TCP grows the congestion window and backs off on loss to avoid overload.",
+      "ar": "TCP يكبّر نافذة الازدحام ويتراجع عند الفقد لتجنب الإغراق."
+    }
+  },
+  {
+    "id": 124,
+    "category": "protocols",
+    "difficulty": "medium",
+    "codeSnippet": "ws://chat.example.com/socket",
+    "question": {
+      "en": "What does the WebSocket protocol enable?",
+      "ar": "ماذا يتيح بروتوكول WebSocket؟"
+    },
+    "options": [
+      "Full-duplex persistent messaging",
+      "One-time file download only",
+      "Static page caching rules",
+      "Automatic IP assignment"
+    ],
+    "answer": "Full-duplex persistent messaging",
+    "explanation": {
+      "en": "WebSocket keeps an open two-way channel for real-time messages.",
+      "ar": "WebSocket يبقي قناة ثنائية مفتوحة للرسائل اللحظية."
+    }
   }
 ]

@@ -2140,5 +2140,425 @@
       "en": "terraform destroy removes every resource the state currently manages.",
       "ar": "يزيل terraform destroy كل مورد تديره الحالة حاليًا."
     }
+  },
+  {
+    "id": 103,
+    "category": "containers",
+    "difficulty": "easy",
+    "codeSnippet": "FROM node:20-alpine",
+    "question": {
+      "en": "Why choose an -alpine base image?",
+      "ar": "لماذا نختار صورة أساس -alpine؟"
+    },
+    "options": [
+      "It is a smaller image size",
+      "It runs only on Windows",
+      "It disables all networking",
+      "It bundles a full desktop"
+    ],
+    "answer": "It is a smaller image size",
+    "explanation": {
+      "en": "Alpine is a minimal Linux base, shrinking the final image.",
+      "ar": "Alpine توزيعة Linux مصغّرة تقلّص حجم الصورة النهائية."
+    }
+  },
+  {
+    "id": 104,
+    "category": "ci",
+    "difficulty": "medium",
+    "codeSnippet": "on: push:\n  branches: [main]",
+    "question": {
+      "en": "When does this CI workflow trigger?",
+      "ar": "متى يُشغَّل مسار CI هذا؟"
+    },
+    "options": [
+      "On a push to main",
+      "Only every midnight",
+      "On any file open",
+      "When tests are edited"
+    ],
+    "answer": "On a push to main",
+    "explanation": {
+      "en": "The push trigger fires the workflow when commits land on main.",
+      "ar": "مشغّل push يشغّل المسار عند وصول تغييرات إلى main."
+    }
+  },
+  {
+    "id": 105,
+    "category": "containers",
+    "difficulty": "medium",
+    "codeSnippet": "docker build -t app . && docker run app",
+    "question": {
+      "en": "What does 'docker build' produce?",
+      "ar": "ماذا يُنتج 'docker build'؟"
+    },
+    "options": [
+      "A reusable container image",
+      "A running virtual machine",
+      "A network bridge only",
+      "A source code archive"
+    ],
+    "answer": "A reusable container image",
+    "explanation": {
+      "en": "build turns a Dockerfile into an image that run then instantiates.",
+      "ar": "build يحوّل Dockerfile إلى صورة يُنشئها run بعد ذلك."
+    }
+  },
+  {
+    "id": 106,
+    "category": "iac",
+    "difficulty": "medium",
+    "codeSnippet": "terraform plan",
+    "question": {
+      "en": "What does 'terraform plan' do?",
+      "ar": "ماذا يفعل 'terraform plan'؟"
+    },
+    "options": [
+      "Preview changes before applying",
+      "Delete all managed resources",
+      "Push code to the registry",
+      "Rotate the cloud secrets"
+    ],
+    "answer": "Preview changes before applying",
+    "explanation": {
+      "en": "plan shows the diff Terraform would apply without changing anything.",
+      "ar": "plan يعرض الفروقات التي سيطبّقها Terraform دون تنفيذ أي تغيير."
+    }
+  },
+  {
+    "id": 107,
+    "category": "orchestration",
+    "difficulty": "hard",
+    "codeSnippet": "kind: Deployment\nreplicas: 3",
+    "question": {
+      "en": "What does replicas: 3 request?",
+      "ar": "ماذا يطلب replicas: 3؟"
+    },
+    "options": [
+      "Three identical running pods",
+      "Three separate clusters",
+      "Three days of log data",
+      "Three container registries"
+    ],
+    "answer": "Three identical running pods",
+    "explanation": {
+      "en": "The Deployment keeps three pod replicas running and healthy.",
+      "ar": "يبقي الـDeployment ثلاث نسخ من الـpod تعمل وسليمة."
+    }
+  },
+  {
+    "id": 108,
+    "category": "ci",
+    "difficulty": "easy",
+    "codeSnippet": "npm ci && npm test",
+    "question": {
+      "en": "Why prefer 'npm ci' in pipelines?",
+      "ar": "لماذا نفضّل 'npm ci' في المسارات؟"
+    },
+    "options": [
+      "Clean install from the lockfile",
+      "It skips running any tests",
+      "It edits package versions",
+      "It publishes the package"
+    ],
+    "answer": "Clean install from the lockfile",
+    "explanation": {
+      "en": "npm ci installs exactly what the lockfile pins, giving reproducible builds.",
+      "ar": "npm ci يثبّت ما يحدده ملف القفل تمامًا فتصبح البناءات قابلة للتكرار."
+    }
+  },
+  {
+    "id": 109,
+    "category": "observability",
+    "difficulty": "medium",
+    "codeSnippet": "// dashboards of request latency over time",
+    "question": {
+      "en": "Which tool commonly stores time-series metrics?",
+      "ar": "أي أداة تخزّن عادةً مقاييس السلاسل الزمنية؟"
+    },
+    "options": [
+      "Prometheus",
+      "Nginx",
+      "Ansible",
+      "GitLab"
+    ],
+    "answer": "Prometheus",
+    "explanation": {
+      "en": "Prometheus scrapes and stores time-series metrics for querying.",
+      "ar": "Prometheus يجمع ويخزّن مقاييس زمنية للاستعلام عنها."
+    }
+  },
+  {
+    "id": 110,
+    "category": "containers",
+    "difficulty": "hard",
+    "codeSnippet": "COPY . .\nRUN npm install",
+    "question": {
+      "en": "Why copy package files before the full source?",
+      "ar": "لماذا ننسخ ملفات الحزم قبل كامل الشيفرة؟"
+    },
+    "options": [
+      "To cache the dependency layer",
+      "To hide the source code",
+      "To skip installing modules",
+      "To reduce network ports"
+    ],
+    "answer": "To cache the dependency layer",
+    "explanation": {
+      "en": "Copying manifests first lets Docker reuse the install layer when only code changes.",
+      "ar": "نسخ ملفات الحزم أولًا يتيح لـDocker إعادة استخدام طبقة التثبيت عند تغيّر الشيفرة فقط."
+    }
+  },
+  {
+    "id": 111,
+    "category": "deployment",
+    "difficulty": "hard",
+    "codeSnippet": "// shift 5% of traffic to the new version",
+    "question": {
+      "en": "What deployment strategy is this?",
+      "ar": "أي استراتيجية نشر هذه؟"
+    },
+    "options": [
+      "A canary release",
+      "A full rollback",
+      "A cold restart",
+      "A blue database"
+    ],
+    "answer": "A canary release",
+    "explanation": {
+      "en": "Canary sends a small traffic slice to the new version to catch issues early.",
+      "ar": "الإصدار التجريبي (canary) يرسل شريحة صغيرة للإصدار الجديد لاكتشاف المشاكل مبكرًا."
+    }
+  },
+  {
+    "id": 112,
+    "category": "iac",
+    "difficulty": "easy",
+    "codeSnippet": "- name: install nginx\n  apt: name=nginx state=present",
+    "question": {
+      "en": "Which tool uses this YAML task format?",
+      "ar": "أي أداة تستخدم صيغة YAML هذه؟"
+    },
+    "options": [
+      "Ansible",
+      "Docker",
+      "Grafana",
+      "Jenkins"
+    ],
+    "answer": "Ansible",
+    "explanation": {
+      "en": "Ansible playbooks describe desired state as YAML tasks.",
+      "ar": "دفاتر Ansible تصف الحالة المطلوبة كمهام YAML."
+    }
+  },
+  {
+    "id": 113,
+    "category": "orchestration",
+    "difficulty": "medium",
+    "codeSnippet": "kubectl get pods",
+    "question": {
+      "en": "What does this command list?",
+      "ar": "ماذا يسرد هذا الأمر؟"
+    },
+    "options": [
+      "Running pods in the cluster",
+      "Open ports on a host",
+      "Git commits on main",
+      "Cloud billing charges"
+    ],
+    "answer": "Running pods in the cluster",
+    "explanation": {
+      "en": "kubectl get pods lists pods and their status in the current namespace.",
+      "ar": "kubectl get pods يسرد الـpods وحالتها في مساحة الأسماء الحالية."
+    }
+  },
+  {
+    "id": 114,
+    "category": "ci",
+    "difficulty": "medium",
+    "codeSnippet": "stages: [build, test, deploy]",
+    "question": {
+      "en": "What do pipeline stages define?",
+      "ar": "ماذا تحدّد مراحل المسار؟"
+    },
+    "options": [
+      "An ordered sequence of steps",
+      "The server hardware specs",
+      "The database schema rows",
+      "A list of team members"
+    ],
+    "answer": "An ordered sequence of steps",
+    "explanation": {
+      "en": "Stages run in order; each groups jobs like build, test, then deploy.",
+      "ar": "تُنفَّذ المراحل بالترتيب، وكل مرحلة تجمع مهامًا مثل البناء ثم الاختبار ثم النشر."
+    }
+  },
+  {
+    "id": 115,
+    "category": "secrets",
+    "difficulty": "hard",
+    "codeSnippet": "DB_PASSWORD=${{ secrets.DB_PASSWORD }}",
+    "question": {
+      "en": "Why reference a secret this way?",
+      "ar": "لماذا نشير إلى السر بهذه الطريقة؟"
+    },
+    "options": [
+      "Keep it out of the code",
+      "Make it print in logs",
+      "Share it with everyone",
+      "Store it in plain git"
+    ],
+    "answer": "Keep it out of the code",
+    "explanation": {
+      "en": "Injecting from a secret store avoids committing credentials to the repo.",
+      "ar": "الحقن من مخزن الأسرار يتجنب حفظ بيانات الاعتماد في المستودع."
+    }
+  },
+  {
+    "id": 116,
+    "category": "observability",
+    "difficulty": "easy",
+    "codeSnippet": "kubectl logs my-pod",
+    "question": {
+      "en": "What does this command show?",
+      "ar": "ماذا يعرض هذا الأمر؟"
+    },
+    "options": [
+      "A pod's log output",
+      "The node CPU usage",
+      "The image build steps",
+      "The cluster secrets"
+    ],
+    "answer": "A pod's log output",
+    "explanation": {
+      "en": "kubectl logs streams a container's stdout/stderr.",
+      "ar": "kubectl logs يعرض مخرجات الحاوية القياسية والأخطاء."
+    }
+  },
+  {
+    "id": 117,
+    "category": "deployment",
+    "difficulty": "medium",
+    "codeSnippet": "// keep old version live until new is ready",
+    "question": {
+      "en": "Which strategy swaps two identical environments?",
+      "ar": "أي استراتيجية تبدّل بين بيئتين متطابقتين؟"
+    },
+    "options": [
+      "Blue-green deployment",
+      "Canary percentage split",
+      "Rolling pod restart",
+      "Immutable log rotation"
+    ],
+    "answer": "Blue-green deployment",
+    "explanation": {
+      "en": "Blue-green routes traffic to a fully staged new environment, enabling instant rollback.",
+      "ar": "الأزرق-الأخضر يوجّه الحركة لبيئة جديدة جاهزة كليًا مع تراجع فوري."
+    }
+  },
+  {
+    "id": 118,
+    "category": "containers",
+    "difficulty": "easy",
+    "codeSnippet": "EXPOSE 8080",
+    "question": {
+      "en": "What does EXPOSE document?",
+      "ar": "ماذا يوثّق EXPOSE؟"
+    },
+    "options": [
+      "The port the app listens on",
+      "The maximum memory limit",
+      "The container's user name",
+      "The build cache location"
+    ],
+    "answer": "The port the app listens on",
+    "explanation": {
+      "en": "EXPOSE declares the container's listening port as metadata.",
+      "ar": "EXPOSE يعلن منفذ استماع الحاوية كبيانات وصفية."
+    }
+  },
+  {
+    "id": 119,
+    "category": "reliability",
+    "difficulty": "hard",
+    "codeSnippet": "livenessProbe: httpGet: path: /healthz",
+    "question": {
+      "en": "What does a liveness probe decide?",
+      "ar": "ماذا يقرّر فحص الحيوية (liveness)؟"
+    },
+    "options": [
+      "Whether to restart the pod",
+      "Which region to deploy to",
+      "How many replicas to add",
+      "Which image tag to pull"
+    ],
+    "answer": "Whether to restart the pod",
+    "explanation": {
+      "en": "If the liveness probe fails, Kubernetes restarts the container.",
+      "ar": "إذا فشل فحص الحيوية، يعيد Kubernetes تشغيل الحاوية."
+    }
+  },
+  {
+    "id": 120,
+    "category": "iac",
+    "difficulty": "medium",
+    "codeSnippet": "terraform apply -auto-approve",
+    "question": {
+      "en": "What is the risk of -auto-approve?",
+      "ar": "ما خطر -auto-approve؟"
+    },
+    "options": [
+      "Applies changes without review",
+      "Deletes the state backend",
+      "Encrypts the whole disk",
+      "Rotates the SSH keys"
+    ],
+    "answer": "Applies changes without review",
+    "explanation": {
+      "en": "It skips the confirmation prompt, applying possibly destructive changes.",
+      "ar": "يتخطى تأكيد المستخدم فيطبّق تغييرات قد تكون مدمّرة."
+    }
+  },
+  {
+    "id": 121,
+    "category": "ci",
+    "difficulty": "easy",
+    "codeSnippet": "artifacts:\n  paths: [dist/]",
+    "question": {
+      "en": "What are build artifacts?",
+      "ar": "ما هي مخرجات البناء (artifacts)؟"
+    },
+    "options": [
+      "Files passed between jobs",
+      "Secrets shared with users",
+      "Live production servers",
+      "Deleted temporary caches"
+    ],
+    "answer": "Files passed between jobs",
+    "explanation": {
+      "en": "Artifacts persist build outputs so later stages can use them.",
+      "ar": "المخرجات تحفظ نتائج البناء لتستخدمها المراحل اللاحقة."
+    }
+  },
+  {
+    "id": 122,
+    "category": "orchestration",
+    "difficulty": "medium",
+    "codeSnippet": "kind: Service\ntype: ClusterIP",
+    "question": {
+      "en": "What does a ClusterIP Service provide?",
+      "ar": "ماذا توفّر خدمة ClusterIP؟"
+    },
+    "options": [
+      "Stable internal cluster access",
+      "A public internet address",
+      "A persistent disk volume",
+      "A container image registry"
+    ],
+    "answer": "Stable internal cluster access",
+    "explanation": {
+      "en": "ClusterIP gives pods a stable virtual IP reachable inside the cluster.",
+      "ar": "ClusterIP يمنح الـpods عنوانًا افتراضيًا ثابتًا داخل العنقود."
+    }
   }
 ]
