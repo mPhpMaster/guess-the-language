@@ -28,32 +28,36 @@
     {@const visual = mpVisualOf(p, players)}
     {@const av = avatar(p)}
     <div class="mp-player-row" class:is-you={p.id === room.playerId} class:is-spectator={p.spectator}>
-      {#if isPhoto(av)}
-        <img class="mp-player-avatar" src={av} alt="" referrerpolicy="no-referrer" />
-      {:else}
-        <span class="mp-player-icon" style:background={visual.color}>{av}</span>
-      {/if}
+      <!-- Photo avatars nest inside .mp-player-avatar, which carries the 32px
+           box; .mp-player-avatar-img is sized at 100% of it. -->
+      <span class="mp-player-avatar" style:background={isPhoto(av) ? undefined : visual.color}>
+        {#if isPhoto(av)}
+          <img class="mp-player-avatar-img" src={av} alt="" referrerpolicy="no-referrer" />
+        {:else}
+          {av}
+        {/if}
+      </span>
 
       <span class="mp-player-name">{p.name}</span>
 
       {#if room.room?.host_player_id === p.id}
-        <span class="mp-badge-host" aria-hidden="true">👑</span>
+        <span class="mp-host-badge">{i18n.t('adminBadge')}</span>
       {/if}
       {#if p.spectator}
-        <span class="mp-badge-spectator">{i18n.t('statusSpectating')}</span>
+        <span class="mp-host-badge is-spectating">{i18n.t('statusSpectating')}</span>
       {/if}
 
       <span class="mp-player-score">{p.score}</span>
 
       {#if showHostControls && room.isHost && p.id !== room.playerId}
         <button
-          class="mp-act"
+          class="mp-kick-btn is-promote"
           type="button"
           title={i18n.t('makeHost')}
           onclick={() => room.makeHost(p.id)}>👑</button
         >
         <button
-          class="mp-act mp-act-danger"
+          class="mp-kick-btn"
           type="button"
           title={i18n.t('kickPlayer')}
           onclick={() => room.kick(p.id)}>✕</button

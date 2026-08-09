@@ -2016,3 +2016,41 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
 }
 .player-card-admin.hidden { display: none; }
 .player-card-admin .pca-label { font-size: 12px; font-weight: 800; color: #ffcf9a; margin-inline-end: 2px; }
+
+/* ---------------------------------------------------------------------------
+   Svelte port additions.
+   Everything above is the original stylesheet, unchanged. The rules below cover
+   the handful of elements whose markup differs from the original DOM — either
+   because a component is new (round breakdown, onboarding tips are already
+   above) or because the port uses semantic elements the original built by hand.
+   Keep new selectors here so the ported sheet stays diffable against v1.
+   --------------------------------------------------------------------------- */
+
+/* Lobby action row (the original laid these out with the card's own flow). */
+.lobby-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+
+/* Wrong-answer review. The original emitted h4/pre/p inside .review-item; this
+   port uses labelled parts so the two answers can be coloured independently. */
+.review-q { font-weight: 700; color: #eaf4ff; margin-bottom: 6px; }
+.review-a { display: flex; gap: 10px; flex-wrap: wrap; align-items: baseline; font-size: 14px; }
+.review-wrong { color: #ff9fb1; text-decoration: line-through; font-weight: 600; }
+.review-right { color: #19f0c4; font-weight: 700; }
+.review-exp { margin-top: 8px; color: #c8e8f8; font-size: 13px; line-height: 1.5; }
+
+/* Achievement toast: .achievement-pop is styled above; these are its two lines. */
+.achievement-pop-title { font-weight: 800; color: #08111c; font-size: 14px; }
+.achievement-pop-body { font-size: 12.5px; color: #08111ccc; font-weight: 600; }
+
+/* Multiplayer row extras the original did not have: promote-to-host, and the
+   spectator badge/row treatment. .mp-kick-btn supplies the shared button box. */
+.mp-kick-btn.is-promote { background: #123049; border-color: #2ec5ff55; color: #cfe8ff; }
+.mp-host-badge.is-spectating { background: #ffffff14; color: #9fb4cc; }
+.mp-player-row.is-spectator { opacity: 0.72; }
+
+/* Multiplayer results reuse .lb-row but list names rather than score bars —
+   a per-round board has no meaningful "share of the top score" to draw. */
+.lb-name { flex: 1; font-weight: 600; color: #dceaff; min-width: 0; }
+.lb-score { font-weight: 800; color: var(--neon); font-variant-numeric: tabular-nums; }
+
+/* A non-code prompt still uses the panel, but should not be monospaced. */
+.code-panel.as-text { font-family: inherit; white-space: pre-wrap; }

@@ -1,12 +1,13 @@
 <script lang="ts">
   import MpPlayerList from '$lib/components/MpPlayerList.svelte';
-  import type { ModeId } from '$lib/game/types';
+  import type { DifficultyFilter, ModeId } from '$lib/game/types';
   import { i18n } from '$lib/i18n/index.svelte';
   import { buildRoundForRoom } from '$lib/multiplayer/round';
   import { room } from '$lib/multiplayer/room.svelte';
+  import type { RoomSettings } from '$lib/multiplayer/types';
   import { getQuestions } from '$lib/services/questions';
   import { openInviteDialog, discord } from '$lib/services/discord.svelte';
-  import { settings } from '$lib/state/settings.svelte';
+  import { settings, type TimerSetting } from '$lib/state/settings.svelte';
 
   interface Props {
     onleave: () => void;
@@ -41,13 +42,19 @@
     }
   }
 
-  async function updateMode(next: ModeId): Promise<void> {
+  /**
+   * Push one changed lobby control to the room. Every control sends the full
+   * settings object, so the three it did not change have to be carried over from
+   * the room rather than from local preferences — otherwise changing the mode
+   * would quietly reset the host's question count and timer.
+   */
+  async function push(patch: { mode?: ModeId } & Partial<RoomSettings>): Promise<void> {
     if (!room.isHost) return;
     try {
-      await room.updateSettings(next, {
-        questions: roomSettings?.questions ?? settings.questions,
-        difficulty: roomSettings?.difficulty ?? settings.difficulty,
-        timer: roomSettings?.timer ?? settings.timer
+      await room.updateSettings(patch.mode ?? mode, {
+        questions: patch.questions ?? roomSettings?.questions ?? settings.questions,
+        difficulty: patch.difficulty ?? roomSettings?.difficulty ?? settings.difficulty,
+        timer: patch.timer ?? roomSettings?.timer ?? settings.timer
       });
     } catch (err) {
       error = err instanceof Error ? err.message : String(err);
@@ -87,9 +94,11 @@
     {/if}
 
     {#if room.isHost}
+      <h4 class="lobby-settings-title">{i18n.t('lobbySettings')}</h4>
+
       <label class="setting-row">
-        <span>{i18n.t('settingDifficulty')}</span>
-        <select value={mode} onchange={(e) => updateMode(e.currentTarget.value as ModeId)}>
+        <span>{i18n.t('changeMode')}</span>
+        <select value={mode} onchange={(e) => push({ mode: e.currentTarget.value as ModeId })}>
           <option value="languages">{i18n.t('modeLanguages')}</option>
           <option value="cybersecurity">{i18n.t('modeCyber')}</option>
           <option value="devops">{i18n.t('modeDevops')}</option>
@@ -97,6 +106,45 @@
           <option value="gamedev">{i18n.t('modeGamedev')}</option>
           <option value="algorithms">{i18n.t('modeAlgo')}</option>
           <option value="all">{i18n.t('modeAll')}</option>
+        </select>
+      </label>
+
+      <label class="setting-row">
+        <span>{i18n.t('settingQuestions')}</span>
+        <select
+          value={String(roomSettings?.questions ?? settings.questions)}
+          onchange={(e) => push({ questions: Number(e.currentTarget.value) })}
+        >
+          {#each [5, 10, 15, 20] as n (n)}
+            <option value={String(n)}>{n}</option>
+          {/each}
+        </select>
+      </label>
+
+      <label class="setting-row">
+        <span>{i18n.t('settingDifficulty')}</span>
+        <select
+          value={roomSettings?.difficulty ?? settings.difficulty}
+          onchange={(e) => push({ difficulty: e.currentTarget.value as DifficultyFilter })}
+        >
+          <option value="all">{i18n.t('diffAll')}</option>
+          <option value="easy">{i18n.diffLabel('easy')}</option>
+          <option value="medium">{i18n.diffLabel('medium')}</option>
+          <option value="hard">{i18n.diffLabel('hard')}</option>
+        </select>
+      </label>
+
+      <label class="setting-row">
+        <span>{i18n.t('settingTimer')}</span>
+        <select
+          value={roomSettings?.timer ?? settings.timer}
+          onchange={(e) => push({ timer: e.currentTarget.value as TimerSetting })}
+        >
+          <option value="auto">{i18n.t('timerAuto')}</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
         </select>
       </label>
     {/if}

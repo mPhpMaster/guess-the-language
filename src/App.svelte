@@ -27,6 +27,7 @@
     ready as discordReady,
     takeJoinSecret
   } from '$lib/services/discord.svelte';
+  import { auth } from '$lib/services/discordLogin.svelte';
   import { isAdmin } from '$lib/services/admin';
   import { setLogContextProvider } from '$lib/services/errors';
   import { fetchPersonalRank, submitDailyScore, submitScore } from '$lib/services/leaderboard';
@@ -110,13 +111,24 @@
   setLogContextProvider(() => ({ mode: game.mode, screen, player: settings.name || null }));
 
   /**
-   * Adopt the Discord identity as the leaderboard name once the handshake
-   * settles — inside the Activity the player has no other way to set it.
+   * The Discord identity OWNS the leaderboard name — it is not a preference.
+   *
+   * Whenever a Discord profile is available (the Activity handshake, or a web
+   * sign-in) the stored name is overwritten with it, so a name typed before
+   * signing in cannot survive and nobody can publish scores under a name that
+   * is not theirs. Electron, which has no Discord identity, keeps the manual
+   * name from Settings.
+   *
+   * The reads inside `.then()` are asynchronous, so they are not tracked as
+   * dependencies — the effect re-runs only when the two signals below change,
+   * and the equality check keeps it from writing on every run.
    */
   $effect(() => {
+    auth.revision; // a web sign-in or sign-out
+    discord.active; // the Activity handshake settling
     void discordReady.then(() => {
       const profile = discordProfile();
-      if (profile?.name && !settings.name) settings.setName(profile.name);
+      if (profile?.name && profile.name !== settings.name) settings.setName(profile.name);
     });
   });
 

@@ -29,12 +29,23 @@
 
   const hidden = $derived(i18n.t('hiddenPlayer'));
 
+  /**
+   * Each row is a bar whose width is its share of the top score — the widest bar
+   * is the leader. The label lives *inside* the fill, which is why the fill needs
+   * a real width rather than the CSS default.
+   */
+  const max = $derived(Math.max(...rows.map((r) => r.score), 1));
+
   function isYou(name: string): boolean {
     return !!youName && name.toLowerCase() === youName.toLowerCase();
   }
 
-  function medal(index: number): string {
-    return index === 0 ? 'gold' : index === 1 ? 'silver' : index === 2 ? 'bronze' : '';
+  function rankClass(i: number): string {
+    return i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-other';
+  }
+
+  function badge(i: number): string {
+    return i === 0 ? ' 🥇' : i === 1 ? ' 🥈' : i === 2 ? ' 🥉' : '';
   }
 </script>
 
@@ -48,6 +59,7 @@
   {:else}
     {#each rows as row, i (row.id)}
       {@const name = safeDisplayName(row.player, hidden)}
+      {@const you = isYou(name)}
       <!--
         Report sits *beside* the row rather than inside it. The original nested it
         in a clickable <div> and stopped propagation; here the row is a real
@@ -62,24 +74,41 @@
         -->
         <svelte:element
           this={onopen ? 'button' : 'div'}
-          class="lb-row {medal(i)}"
+          class="lb-row {rankClass(i)}"
           class:is-clickable={!!onopen}
-          class:is-you={isYou(name)}
+          class:is-you={you}
           role={onopen ? undefined : 'listitem'}
           type={onopen ? 'button' : undefined}
           onclick={onopen ? () => onopen(name, row.avatar ?? null) : undefined}
         >
-          <span class="lb-rank">{i + 1}</span>
-          {#if row.avatar}
-            <img class="lb-avatar-img" src={row.avatar} alt="" referrerpolicy="no-referrer" />
-          {:else}
-            <span class="lb-avatar" aria-hidden="true">{avatarFor(name)}</span>
-          {/if}
-          <span class="lb-name">{name}</span>
-          <span class="lb-score">{row.score}</span>
+          <div class="lb-rank">{i + 1}</div>
+          <div class="lb-bar-wrap">
+            <div class="lb-bar-bg"></div>
+            <div class="lb-bar-fill" style:width="{Math.max(18, (row.score / max) * 100)}%">
+              {name}{badge(i)} — {row.score} pts
+              {#if row.multiplayer}
+                <span class="lb-mp-tag" title={i18n.t('multiplayerScore')}> 👥</span>
+              {/if}
+              {#if you}
+                <span class="lb-tag"> {i18n.t('you')}</span>
+              {/if}
+            </div>
+          </div>
+          <!--
+            The <img> must stay INSIDE .lb-avatar: that div carries the 48px box
+            and .lb-avatar-img is sized at 100% of its parent, so hoisting the
+            image out makes it 100% of the whole row instead.
+          -->
+          <div class="lb-avatar" aria-hidden="true">
+            {#if row.avatar}
+              <img class="lb-avatar-img" src={row.avatar} alt="" referrerpolicy="no-referrer" />
+            {:else}
+              {avatarFor(name)}
+            {/if}
+          </div>
         </svelte:element>
 
-        {#if onreport && !isYou(name) && Number(row.id) > 0}
+        {#if onreport && !you && Number(row.id) > 0}
           <button
             class="lb-report text-btn"
             type="button"
@@ -107,5 +136,19 @@
   .lb-row-wrap > :global(.lb-row) {
     flex: 1 1 auto;
     min-width: 0;
+  }
+  /* The row is a <button> here, not the original's <div>. Strip the control
+     chrome the browser adds so it looks identical to the inert variant. */
+  .lb-row-wrap > :global(button.lb-row) {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    text-align: start;
+    cursor: pointer;
+  }
+  .lb-row-wrap > :global(button.lb-row.is-you) {
+    background: linear-gradient(90deg, #2ec5ff26, #2ec5ff08);
   }
 </style>

@@ -58,7 +58,7 @@
 
 {#if objectUrl}
   <div class="share-overlay show" role="dialog" aria-modal="true">
-    <div class="share-box">
+    <div class="share-card-box">
       <img class="share-img" src={objectUrl} alt="" />
 
       <div class="share-actions">

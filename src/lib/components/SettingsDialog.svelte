@@ -24,8 +24,15 @@
     auth.revision;
     return webProfile();
   });
-  /** Inside the Activity the name is the Discord one and cannot be edited. */
-  const nameFromDiscord = $derived(discord.active);
+  /**
+   * Whenever a Discord identity exists — the Activity handshake OR a web
+   * sign-in — the name is theirs and is not editable. Only Electron, which has
+   * no Discord identity, offers a free-text name.
+   */
+  const nameFromDiscord = $derived.by(() => {
+    auth.revision;
+    return discord.active || !!webProfile();
+  });
 
   // Drive the native <dialog> from the `open` prop so focus trapping, Esc and
   // the backdrop all come from the platform rather than being reimplemented.

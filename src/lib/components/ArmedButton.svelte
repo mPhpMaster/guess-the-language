@@ -46,7 +46,7 @@
 
 <button
   class="admin-act"
-  class:mp-act-danger={danger}
+  class:danger={danger}
   class:is-armed={armed}
   type="button"
   disabled={busy}
