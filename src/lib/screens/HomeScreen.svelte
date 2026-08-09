@@ -28,6 +28,8 @@
     /** Host/Join are hidden inside Discord, where rooms are automatic. */
     mpAvailable: boolean;
     mpError: string | null;
+    /** Neutral multiplayer status, e.g. joining the Discord voice room. */
+    mpNote?: string | null;
     /** Shows the admin entry point. Server-side checks are the real gate. */
     admin: boolean;
     onadmin: () => void;
@@ -50,6 +52,7 @@
     dailyDone,
     mpAvailable,
     mpError,
+    mpNote = null,
     admin,
     onadmin,
     onprofile
@@ -183,6 +186,10 @@
         <button class="btn btn-sm" type="button" onclick={onadmin}>{i18n.t('adminButton')}</button>
       {/if}
     </div>
+
+    {#if mpNote}
+      <p class="auth-hint" role="status">{mpNote}</p>
+    {/if}
 
     {#if mpError}
       <p class="auth-error" role="alert">{mpError}</p>

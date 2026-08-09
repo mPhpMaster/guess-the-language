@@ -57,6 +57,8 @@
   let joinOpen = $state(false);
   let joinBusy = $state(false);
   let mpError = $state<string | null>(null);
+  /** Informational multiplayer status (e.g. "joining…"), not a failure. */
+  let mpNote = $state<string | null>(null);
   /** Rejection reason from the name gate, shown on the home screen. */
   let nameError = $state<string | null>(null);
   /** Last name that passed the gate, so re-using it skips the online checks. */
@@ -174,6 +176,41 @@
       mpSession.start();
       return () => mpSession.stop();
     }
+  });
+
+  /**
+   * Inside a Discord Activity the room is AUTOMATIC: everyone launching it from
+   * the same voice channel lands in one room keyed by the Activity instance id.
+   * That is why Host/Join are hidden in the embed — without this the player had
+   * no way into a room at all and Start just began a solo round.
+   *
+   * Runs once, after the handshake resolves the identity. A challenge deep link
+   * is left alone: that player came to beat a score, not to join a lobby.
+   */
+  let autoJoinTried = false;
+  $effect(() => {
+    if (autoJoinTried || !discord.active || room.online) return;
+    const instanceId = discord.instanceId;
+    const userId = discord.user?.id ?? null;
+    if (!instanceId || !userId) return;
+    if (launchChallenge) return;
+    if (!room.configured()) {
+      mpError = i18n.t('discordMpUnavailable');
+      return;
+    }
+    autoJoinTried = true;
+    mpNote = i18n.t('discordJoining');
+    void room
+      .joinDiscord(instanceId, mode, roomSettings(), playerName(), userId)
+      .then(() => {
+        mpNote = null;
+      })
+      .catch((err) => {
+        // Never fatal: the player keeps a working solo game.
+        console.error('Discord voice-room join failed:', err);
+        mpNote = null;
+        mpError = i18n.t('discordMpUnavailable');
+      });
   });
 
   /**
@@ -409,6 +446,7 @@
       dailyDone={isDailyDone(dailyDateKey())}
       mpAvailable={room.configured() && !discord.embedded}
       mpError={mpError ?? nameError}
+      {mpNote}
       onselect={(m) => (mode = m)}
       onstart={() => start()}
       ondaily={() => start({ daily: true })}
