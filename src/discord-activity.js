@@ -31,6 +31,33 @@ function inDiscordEmbed() {
   return params.has('frame_id') || params.has('instance_id');
 }
 
+// Route Supabase through the "/supabase" URL Mapping BEFORE anything can make a
+// request. Discord's iframe CSP has no supabase.co in connect-src, so an
+// unproxied call is blocked outright.
+//
+// This used to run inside the handshake, after sdk.ready(). Everything the app
+// did during boot therefore went out unproxied and failed — the presence
+// heartbeat most visibly, since startHeartbeat() pings immediately rather than
+// waiting for its first interval. Module scope is safe: patchUrlMappings only
+// wraps window.fetch / WebSocket / XHR and needs nothing from the SDK.
+//
+// Depends on window.SUPABASE_CONFIG, so supabase-config.js MUST be loaded before
+// this module in index.html — otherwise this silently does nothing.
+if (inDiscordEmbed()) {
+  try {
+    const supaUrl = window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.url;
+    if (supaUrl) {
+      const supaHost = new URL(supaUrl).host;
+      patchUrlMappings([{ prefix: '/supabase', target: supaHost }]);
+      console.info('[discord] proxying Supabase via /supabase ->', supaHost);
+    } else {
+      console.warn('[discord] SUPABASE_CONFIG missing at patch time — check script order');
+    }
+  } catch (e) {
+    console.warn('[discord] Supabase proxy mapping failed:', e);
+  }
+}
+
 /** Users currently connected to this Activity instance (for real avatars). */
 let participants = [];
 
@@ -150,20 +177,8 @@ async function setupDiscordActivity() {
   console.info('[discord] SDK ready; authorizing…');
   __discordSetupStep = 'authorize';
 
-  // Route Supabase (REST + realtime WebSocket) through the Activity proxy —
-  // external hosts are otherwise blocked by Discord's iframe sandbox
-  // ("TypeError: Failed to fetch"). Requires a matching URL Mapping in the
-  // Discord Developer Portal: prefix "/supabase" -> the Supabase host.
-  try {
-    const supaUrl = window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.url;
-    if (supaUrl) {
-      const supaHost = new URL(supaUrl).host;
-      patchUrlMappings([{ prefix: '/supabase', target: supaHost }]);
-      console.info('[discord] proxying Supabase via /supabase ->', supaHost);
-    }
-  } catch (e) {
-    console.warn('[discord] Supabase proxy mapping failed:', e);
-  }
+  // (Supabase is already proxied — see the patchUrlMappings call at module scope,
+  // which has to happen before boot rather than here.)
 
   const { code, presence } = await authorizeWithPresence(discordSdk);
   if (!code) throw new Error('Discord authorize returned no code (user declined or scope prompt dismissed)');

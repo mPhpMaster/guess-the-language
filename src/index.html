@@ -19,6 +19,11 @@
   <meta name="apple-mobile-web-app-title" content="GTL" />
 
   <script defer src="discord-config.js"></script>
+  <!-- Must stay in <head>, above the bundled module. discord-activity.js patches
+       Supabase's host onto fetch at load time from window.SUPABASE_CONFIG, and the
+       build hoists that module ahead of any script placed at the end of <body> —
+       so putting this one down there makes the patch a silent no-op in Discord. -->
+  <script defer src="supabase-config.js"></script>
 </head>
 <body>
   <!-- ===== Custom title bar (kept LTR like native window chrome) ===== -->
@@ -588,7 +593,6 @@
   <div class="sr-only" id="app-live-region" role="status" aria-live="polite" aria-atomic="true"></div>
 
   <script type="module" src="discord-activity.js"></script>
-  <script defer src="supabase-config.js"></script>
   <script defer src="vendor/supabase.js"></script>
   <script defer src="web-shim.js"></script>
   <script defer src="multiplayer.js"></script>
