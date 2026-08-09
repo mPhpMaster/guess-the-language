@@ -16,12 +16,12 @@ Svelte compiles away, so the runtime cost is the smallest of the mainstream
 frameworks — the thing that matters most here, because the Discord Activity runs
 in an iframe and a large share of players are on mobile data.
 
-The initial download is **~136 kB of JS (48 kB gzipped)**. The two heavy SDKs are
+The initial download is **~163 kB of JS (58 kB gzipped)**. The two heavy SDKs are
 code-split and fetched only when actually needed:
 
 | Chunk | Size | Loaded when |
 | --- | --- | --- |
-| app | 136 kB | always |
+| app | 163 kB | always |
 | `@supabase/supabase-js` | 217 kB | first multiplayer room (Realtime) |
 | `@discord/embedded-app-sdk` | 159 kB | running inside the Discord Activity |
 
@@ -161,7 +161,7 @@ mode metadata) are in place, so each is an additive port rather than a redesign.
 ## Verified
 
 - `pnpm check` — 0 errors, 0 warnings
-- `pnpm build` — succeeds; 135.7 kB app JS + 58.5 kB CSS, SDKs split into
+- `pnpm build` — succeeds; 162.9 kB app JS + 58.5 kB CSS, SDKs split into
   separate on-demand chunks
 - Runtime, in-browser, no console errors throughout:
   - solo: mode select → question → answer → feedback → auto-advance → results;
