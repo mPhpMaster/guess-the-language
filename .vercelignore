@@ -1,11 +1,16 @@
-# The Vercel CLI does NOT read .gitignore, so without this it uploads the Electron
-# installers in release/ (hundreds of MB) and blows the 100 MB file limit.
-# Vercel builds from source via `pnpm run build:web`, so no build output is needed.
+# The Vercel CLI does NOT read .gitignore, so without this it uploads the whole
+# archived v1 tree — including the Electron installers in v1/release/ (hundreds
+# of MB), which blows the 100 MB file limit.
+#
+# v1/ is the pre-Svelte application, kept for reference only. Nothing in it is
+# built or served; the deployed app is the Svelte one at the repository root.
+v1
+
 node_modules
-release
 dist
-dist-web
+release
 out
+electron
 screenshots
 .playwright-cli
 .claude

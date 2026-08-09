@@ -1,0 +1,47 @@
+{
+    "name": "guess-the-language",
+    "version": "3.12.3",
+    "description": "IT quiz game for Windows and web.",
+    "main": "src/main.js",
+    "author": "mPhpMaster",
+    "license": "MIT",
+    "scripts": {
+        "start": "electron .",
+        "dist": "electron-builder --win",
+        "pack": "electron-builder --dir",
+        "dev:web": "node scripts/ensure-supabase-config.js && node scripts/ensure-discord-config.js && vite",
+        "build:web": "node scripts/ensure-supabase-config.js && node scripts/ensure-discord-config.js && vite build && node scripts/copy-web-assets.js && node scripts/generate-supabase-config.js && node scripts/generate-discord-config.js",
+        "preview:web": "vite preview",
+        "test:ux": "electron --disable-gpu test/smoke-ux.js && node test/smoke-report-api.js"
+    },
+    "devDependencies": {
+        "electron": "^39.8.5",
+        "electron-builder": "^26.15.3",
+        "vite": "^6.3.5"
+    },
+    "build": {
+        "appId": "com.mphpmaster.guessthelanguage",
+        "productName": "Guess The Language",
+        "directories": {
+            "output": "release"
+        },
+        "files": [
+            "src/**/*",
+            "package.json"
+        ],
+        "win": {
+            "target": [
+                "nsis"
+            ]
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true,
+            "createDesktopShortcut": true
+        }
+    },
+    "dependencies": {
+        "@discord/embedded-app-sdk": "^2.0.0",
+        "@supabase/supabase-js": "^2.108.2"
+    }
+}

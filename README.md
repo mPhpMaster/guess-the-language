@@ -53,6 +53,27 @@ Arabic (RTL):
 
 ---
 
+## Repository layout
+
+The application is a **Svelte 5** app living at the repository root. The
+pre-rewrite implementation — the same game written as a vanilla-JS ES-module app
+— is kept, unmodified and buildable, under [`v1/`](v1).
+
+```
+/                 the application: Svelte 5 + Vite + TypeScript
+  src/            components, state (runes), game logic, services
+  api/            Vercel serverless functions (Discord auth, reports, admin)
+  public/         runtime config, question banks, PWA assets, privacy/terms
+  electron/       desktop shell (main + preload)
+v1/               the previous app, archived — not built, not deployed
+supabase/         SQL schema and RPCs (shared by both)
+docs/             design notes; see docs/svelte-rewrite.md
+```
+
+Nothing in `v1/` runs in production. It has its own `package.json` and
+`vite.config.js`, so it can still be built and run on its own if you need to
+compare behaviour — `cd v1 && pnpm install && pnpm run dev:web`.
+
 ## Requirements
 
 - [Node.js](https://nodejs.org/) 18+ (developed on v22)
@@ -63,68 +84,84 @@ Arabic (RTL):
 
 ## Run (development)
 
-### Desktop (Electron)
-
-```powershell
-pnpm install      # install dependencies
-pnpm start        # launch the desktop app
-```
-
 ### Web (browser)
 
-```powershell
+```bash
 pnpm install
-pnpm dev:web      # http://localhost:5173
 ```
 
-The same `src/` UI powers both runtimes. Electron uses IPC to load question
-banks from disk; the browser uses `fetch`. A small `web-shim.js` provides the
-same `gameAPI` / `appWindow` surface when preload is not present.
+```bash
+pnpm dev
+```
+
+Serves on <http://localhost:5173>. This is the primary way to run the app —
+every target builds from the same `src/`.
+
+### Desktop (Electron)
+
+```bash
+pnpm run build:desktop && pnpm electron
+```
+
+Electron loads the build from disk over `file://`, which needs relative asset
+URLs, so it is a separate build rather than a flag on the normal one. All targets
+fetch question banks from `public/data` — there is no IPC channel for them.
 
 ## Build
 
-### Windows installer (.exe)
-
-```powershell
-pnpm run dist     # produces an NSIS installer in dist/
-# or a portable, uninstalled build:
-pnpm run pack
-```
-
-The output is written to `dist/` (e.g. `Guess The Language Setup 3.1.0.exe`).
-On the dev machine, build to `release/` to avoid a `dist/` file lock:
-`pnpm exec electron-builder --win -c.directories.output=release`.
-
 ### Web (static site) + PWA / mobile app
 
-```powershell
-pnpm run build:web    # output in dist-web/
-pnpm run preview:web  # smoke-test the production build locally
+```bash
+pnpm run build
 ```
+
+Output lands in `dist/`; `pnpm run preview` smoke-tests it locally. The build
+also writes the runtime config files from the environment — see
+[Deploy to Vercel](#deploy-to-vercel).
 
 The web build is an installable **PWA**: a web app manifest, a service worker
 (cached offline shell), and app icons live in `public/`. On a phone, open the
 deployed site and **Add to Home Screen** to run it standalone as a mobile app.
-The service worker is registered only on the web — never in Electron or the
-Discord iframe.
+The service worker is registered in production only, and never in Electron or
+the Discord iframe — in dev its cache-first strategy shadows Vite's module graph
+and keeps serving a stale bundle across reloads.
+
+### Windows installer (.exe)
+
+```bash
+pnpm run dist
+```
+
+Produces an NSIS installer in `release/`.
 
 ### Deploy to Vercel
 
-1. Import the repo in [Vercel](https://vercel.com).
-2. Vercel reads [`vercel.json`](vercel.json) — build command `pnpm run build:web`,
-   output directory `dist-web`.
+1. Import the repo in [Vercel](https://vercel.com). Leave the root directory at
+   the repository root — `v1/` is excluded by [`.vercelignore`](.vercelignore).
+2. Vercel reads [`vercel.json`](vercel.json) — build command `pnpm run build`,
+   output directory `dist`.
 3. Add environment variables (Project Settings → Environment Variables):
-   - `VITE_SUPABASE_URL` — your Supabase project URL
-   - `VITE_SUPABASE_ANON_KEY` — public anon key
-   - `SUPABASE_SERVICE_ROLE_KEY` — server-only key used by `/api/report`
-   - `APP_SESSION_SECRET` — server-only session-signing secret
-4. Deploy. If the vars are left empty, the game still runs with a local mock
-   leaderboard (same as desktop without Supabase).
 
-> **Supabase on desktop:** copy `src/supabase-config.example.js` to
-> `src/supabase-config.js` locally (git-ignored). Web builds inject config from
-> Vercel env vars into `dist-web/supabase-config.js` at build time — your local
-> Electron config is never overwritten.
+   | Variable | Exposed to the browser | Used by |
+   | --- | --- | --- |
+   | `VITE_SUPABASE_URL` | yes | leaderboard, rooms, profiles |
+   | `VITE_SUPABASE_ANON_KEY` | yes | same (RLS is the real gate) |
+   | `VITE_DISCORD_CLIENT_ID` | yes | Activity + web sign-in |
+   | `DISCORD_CLIENT_SECRET` | **no** | `/api/token`, `/api/discord-login` |
+   | `APP_SESSION_SECRET` | **no** | signs session tokens (falls back to the secret above) |
+   | `SUPABASE_SERVICE_ROLE_KEY` | **no** | `/api/report`, `/api/admin` |
+   | `ADMIN_DISCORD_USERNAMES` | **no** | extra admins, comma-separated |
+
+4. Deploy. Left empty, the game still runs — it degrades to offline solo play
+   rather than failing.
+
+> **How config reaches the browser.** `index.html` loads
+> `/supabase-config.js` and `/discord-config.js` before the bundle, so one build
+> artifact can be pointed at a different project without rebuilding. Those files
+> hold real credentials and are git-ignored, which means they do **not** exist on
+> a Vercel build machine — `scripts/generate-runtime-config.mjs` writes them from
+> the environment after every build. A blank environment never overwrites a local
+> copy, so your working `public/*-config.js` survives a local build.
 
 ---
 
@@ -163,54 +200,52 @@ are masked, and signed-in Discord users can report an entry for review.
 
 ```
 prog-game2/
-├─ package.json                 # scripts + electron-builder + web (Vite) config
-├─ vite.config.js               # web dev/build (root = src/)
-├─ vercel.json                  # Vercel static deploy
-├─ pnpm-workspace.yaml          # allows Electron's build script under pnpm
-├─ public/                      # web static assets copied to the site root
-│  ├─ manifest.webmanifest      # PWA manifest (installable mobile app)
-│  ├─ sw.js                     # service worker (offline shell)
-│  ├─ icon-192.png / icon-512.png # PWA icons
-│  ├─ privacy.html / terms.html # legal pages
+├─ package.json                 # scripts + electron-builder config
+├─ vite.config.ts               # web / Electron / Discord build
+├─ tsconfig.json                # strict TS, $lib alias
+├─ vercel.json                  # build command + output directory
+├─ .vercelignore                # keeps v1/ out of the upload
+├─ index.html                   # loads the runtime config, then the bundle
+├─ api/                         # Vercel serverless functions
+│  ├─ _session.js               # HMAC sign/verify for app session tokens
+│  ├─ token.js                  # Discord Activity code exchange
+│  ├─ discord-login.js          # web OAuth2 code exchange
+│  ├─ report.js                 # file a leaderboard report
+│  └─ admin.js                  # every admin action (service-role only)
+├─ electron/
+│  ├─ main.cjs                  # frameless window
+│  └─ preload.cjs               # contextBridge window controls
+├─ public/
+│  ├─ data/*.json               # the six question banks
+│  ├─ supabase-config.js        # Supabase creds (local, git-ignored)
+│  ├─ discord-config.js         # Discord client id (local, git-ignored)
+│  ├─ manifest.webmanifest, sw.js, icon-*.png   # PWA
+│  └─ privacy.html, terms.html  # legal pages (registered with Discord)
+├─ scripts/
+│  ├─ generate-runtime-config.mjs  # writes the config files from the env
+│  ├─ build-desktop.mjs            # relative-base build for file://
+│  └─ smoke-desktop.mjs            # headless Electron smoke test
+├─ src/
+│  ├─ main.ts                   # mount gating, platform class, SW registration
+│  ├─ App.svelte                # screen routing and cross-screen wiring
+│  ├─ app.css                   # the theme
+│  └─ lib/
+│     ├─ game/                  # pure logic: rounds, scoring, highlight, names…
+│     ├─ state/                 # runes stores: game, settings, uiScale
+│     ├─ multiplayer/           # room store, server-authoritative session
+│     ├─ services/              # supabase, discord, profiles, share, admin…
+│     ├─ i18n/                  # EN/AR dictionary + reactive store
+│     ├─ components/            # dialogs, leaderboard, options grid…
+│     └─ screens/               # home, game, results, lobby, mp game/results
 ├─ supabase/
 │  ├─ schema.sql                # leaderboard safety, reports, scores + RLS
 │  ├─ schema-multiplayer.sql    # rooms, players, RPCs, Realtime
 │  └─ schema-discord-rooms.sql  # Discord voice-channel rooms (by instanceId)
-├─ src/
-│  ├─ main.js                   # Electron main process (window + IPC)
-│  ├─ preload.js                # secure bridge (window controls + question load)
-│  ├─ index.html                # the screens (home / lobby / game / results)
-│  ├─ styles.css                # dark + neon theme
-│  ├─ renderer.js               # game logic, modes, timer, scoring, leaderboard
-│  ├─ web-shim.js               # browser gameAPI/appWindow + SW registration
-│  ├─ multiplayer.js            # Supabase Realtime rooms (host/join/sync)
-│  ├─ discord-activity.js       # Discord Embedded App SDK bootstrap
-│  ├─ vendor/supabase.js          # bundled @supabase/supabase-js (UMD)
-│  ├─ supabase-config.js         # Supabase creds (local, git-ignored)
-│  ├─ discord-config.js          # Discord client id (local, git-ignored)
-│  └─ data/
-│     ├─ questions.json          # languages bank (365 questions, 15 languages)
-│     ├─ questions-cyber.json    # cybersecurity bank (110 questions)
-│     ├─ questions-devops.json   # devops bank (68 questions)
-│     ├─ questions-network.json  # networking bank (67 questions)
-│     ├─ questions-gamedev.json  # game-dev bank (50 questions)
-│     └─ questions-algo.json     # problem-solving fill-in bank (54 questions)
-└─ test/
-   ├─ smoke-main.js             # languages mode end-to-end (14 checks)
-   ├─ smoke-cyber.js            # cybersecurity mode (12 checks)
-   ├─ smoke-newmodes.js         # devops + networking modes (10 checks)
-   ├─ smoke-i18n.js             # language switch / RTL (9 checks)
-   ├─ smoke-online.js           # Supabase online-path test (10 checks)
-   ├─ smoke-multiplayer.js      # multiplayer UI + client smoke test (26 checks)
-   ├─ smoke-all.js              # All (mixed) mode (10 checks)
-   ├─ smoke-gamedev.js          # game-dev bank sanity check
-   ├─ smoke-algo.js             # problem-solving fill-in bank sanity check
-   ├─ smoke-fill.js             # fill-in-the-blank mode play (16 checks)
-   ├─ smoke-shuffle.js          # option-shuffle fairness (3 checks)
-   ├─ capture.js                # render screenshots of each screen
-   ├─ capture-mp.js             # multiplayer lobby / reveal / results screenshots
-   └─ reset-state.js            # clear persisted local state
+└─ v1/                          # the archived pre-rewrite app (see above)
 ```
+
+Unit tests sit next to what they test (`src/lib/**/*.test.ts`); the original's
+Electron smoke-test suite is in [`v1/test/`](v1/test).
 
 ## Questions databases
 
@@ -357,14 +392,32 @@ Click a player and you get their **round, score and game mode** — in two place
 
 ## Tests
 
-```powershell
-pnpm exec electron test/smoke-main.js      # offline end-to-end (13 checks)
-pnpm exec electron test/smoke-online.js    # Supabase online path (10 checks)
-pnpm exec electron test/smoke-multiplayer.js  # multiplayer smoke (UI + helpers)
-pnpm exec electron test/smoke-presence.js  # Discord presence + player card (53 checks)
-pnpm exec electron scripts/make-discord-cover.js  # re-render the invite banner PNG
-pnpm run test:ux                           # responsive/accessibility + report API
+```bash
+pnpm test
 ```
+
+86 unit tests over the DOM-free logic — round building and bank balancing,
+scoring, the adaptive picker, the syntax tokenizer, name safety, challenge-link
+parsing, the results breakdown, and a parity test pinning the multiplayer option
+shuffle to the exact LCG the server and existing clients already agree on.
+
+```bash
+pnpm run check
+```
+
+`svelte-check` — strict TypeScript across every component. It logs a notice
+about `v1/vite.config.js` having no Svelte plugin; that is the archived app's
+config being picked up by the config scanner, and the run still exits zero.
+
+A headless smoke test covers the desktop shell. It must run *under Electron*,
+not node — the script imports `electron` directly:
+
+```bash
+pnpm exec electron --disable-gpu scripts/smoke-desktop.mjs
+```
+
+The original Electron-driven suite (screen captures, presence, multiplayer UI)
+is preserved in [`v1/test/`](v1/test) and runs against the archived app.
 
 ## Roadmap
 

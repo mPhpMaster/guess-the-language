@@ -21,5 +21,9 @@
       "$lib/*": ["src/lib/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.svelte", "vite.config.ts"]
+  "include": ["src/**/*.ts", "src/**/*.svelte", "vite.config.ts"],
+  // v1/ is the archived pre-rewrite app: plain JS, its own Vite config, never
+  // built from here. Without this, svelte-check walks into it and fails trying
+  // to load a Vite config that has no Svelte plugin.
+  "exclude": ["v1", "dist", "node_modules"]
 }

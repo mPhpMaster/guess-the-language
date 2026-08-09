@@ -1,5 +1,6 @@
 {
-  "buildCommand": "pnpm run build:web",
-  "outputDirectory": "dist-web",
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "pnpm run build",
+  "outputDirectory": "dist",
   "framework": null
 }

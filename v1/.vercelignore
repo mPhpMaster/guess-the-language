@@ -1,0 +1,12 @@
+# The Vercel CLI does NOT read .gitignore, so without this it uploads the Electron
+# installers in release/ (hundreds of MB) and blows the 100 MB file limit.
+# Vercel builds from source via `pnpm run build:web`, so no build output is needed.
+node_modules
+release
+dist
+dist-web
+out
+screenshots
+.playwright-cli
+.claude
+*.log

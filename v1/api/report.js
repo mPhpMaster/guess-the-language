@@ -1,19 +1,15 @@
-import { bearer, verifySession } from './_session.js';
+'use strict';
 
-/**
- * Report a leaderboard entry.
- *
- * The write uses the service-role key so `leaderboard_reports` can stay closed
- * to anon, and the reporter's Discord id comes from the signed session rather
- * than the request body — a client cannot report as someone else.
- */
-export default async function handler(req, res) {
+const { verifySession } = require('./_session');
+
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const session = verifySession(bearer(req));
+  const auth = String(req.headers.authorization || '');
+  const session = verifySession(auth.startsWith('Bearer ') ? auth.slice(7) : '');
   if (!session) return res.status(401).json({ error: 'Authentication required' });
 
   const scoreId = Number(req.body?.score_id);
@@ -44,8 +40,6 @@ export default async function handler(req, res) {
         details
       })
     });
-    // A unique index makes a second report of the same entry a 409, which the
-    // client turns into "you already reported this" rather than a failure.
     if (result.status === 409) return res.status(409).json({ error: 'Already reported' });
     if (!result.ok) {
       console.error('Report insert failed:', result.status, await result.text());
@@ -56,4 +50,4 @@ export default async function handler(req, res) {
     console.error('Report endpoint error:', error);
     return res.status(500).json({ error: 'Could not save report' });
   }
-}
+};

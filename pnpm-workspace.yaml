@@ -1,11 +1,12 @@
+# Install scripts that must be allowed to run.
+#
+# esbuild only links its prebuilt platform binary, but Vite cannot run without
+# it, and pnpm exits non-zero when a script is left unapproved — which fails the
+# Vercel install step. pnpm 11 reads this here, not from package.json.
 allowBuilds:
+  esbuild: true
   electron: true
   electron-builder: true
-  # We only build the NSIS target (see package.json build.win), so the
+  # Only the NSIS target is built (see package.json build.win), so the
   # Squirrel.Windows installer's postinstall is not needed.
   electron-winstaller: false
-  esbuild: true
-onlyBuiltDependencies:
-  - electron
-  - electron-builder
-  - esbuild

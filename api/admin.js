@@ -1,6 +1,4 @@
-'use strict';
-
-const { verifySession } = require('./_session');
+import { bearer, verifySession } from './_session.js';
 
 // ===== Admin API =====
 // Every destructive capability the in-game admin panel exposes goes through here.
@@ -10,6 +8,9 @@ const { verifySession } = require('./_session');
 //      and the token is HMAC-signed, so it cannot be forged or self-granted.
 //   2. Actual DB writes use the Supabase SERVICE ROLE key (never shipped to the
 //      client) and go through service_role-only RPCs. anon can't reach them.
+//
+// The client-side `isAdmin()` only decides whether to show a button. This file is
+// the authorization boundary.
 
 function sbConfig() {
   const url = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
@@ -37,19 +38,18 @@ async function sb(cfg, path, opts = {}) {
   return body;
 }
 
-// Call a service_role-only RPC.
+/** Call a service_role-only RPC. */
 function rpc(cfg, fn, args) {
   return sb(cfg, `rpc/${fn}`, { method: 'POST', body: JSON.stringify(args) });
 }
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const auth = String(req.headers.authorization || '');
-  const session = verifySession(auth.startsWith('Bearer ') ? auth.slice(7) : '');
+  const session = verifySession(bearer(req));
   if (!session) return res.status(401).json({ error: 'Authentication required' });
   if (!session.adm) return res.status(403).json({ error: 'Not an admin' });
 
@@ -66,13 +66,18 @@ module.exports = async function handler(req, res) {
 
       case 'reports': {
         // Open reports first, then recently resolved; attach the reported score.
-        const reports = await sb(cfg,
+        const reports = await sb(
+          cfg,
           'leaderboard_reports?select=id,score_id,reporter_discord_id,reason,details,status,created_at,resolved_at,resolved_by' +
-          '&order=status.asc,created_at.desc&limit=100');
+            '&order=status.asc,created_at.desc&limit=100'
+        );
         const ids = [...new Set((reports || []).map((r) => r.score_id).filter(Boolean))];
         let scoreById = {};
         if (ids.length) {
-          const scores = await sb(cfg, `scores?select=id,player,score,mode,avatar,multiplayer&id=in.(${ids.join(',')})`);
+          const scores = await sb(
+            cfg,
+            `scores?select=id,player,score,mode,avatar,multiplayer&id=in.(${ids.join(',')})`
+          );
           scoreById = Object.fromEntries((scores || []).map((s) => [s.id, s]));
         }
         return res.status(200).json({
@@ -122,28 +127,38 @@ module.exports = async function handler(req, res) {
       }
 
       case 'banned': {
-        const rows = await sb(cfg, 'banned_players?select=player,reason,banned_by,created_at&order=created_at.desc&limit=200');
+        const rows = await sb(
+          cfg,
+          'banned_players?select=player,reason,banned_by,created_at&order=created_at.desc&limit=200'
+        );
         return res.status(200).json({ banned: rows || [] });
       }
 
       case 'users': {
         const search = String(req.body?.search || '').trim();
         const filter = search ? `&player=ilike.*${encodeURIComponent(search)}*` : '';
-        const rows = await sb(cfg,
+        const rows = await sb(
+          cfg,
           'player_stats?select=player,level,xp,games,mp_games,wins,day_streak,perfect_games,last_seen' +
-          `&order=last_seen.desc.nullslast&limit=200${filter}`);
+            `&order=last_seen.desc.nullslast&limit=200${filter}`
+        );
         const banned = await sb(cfg, 'banned_players?select=player');
         const bannedSet = new Set((banned || []).map((b) => b.player));
         return res.status(200).json({
-          users: (rows || []).map((u) => ({ ...u, banned: bannedSet.has(String(u.player).trim().toLowerCase()) }))
+          users: (rows || []).map((u) => ({
+            ...u,
+            banned: bannedSet.has(String(u.player).trim().toLowerCase())
+          }))
         });
       }
 
       case 'live': {
         const since = new Date(Date.now() - 3 * 60 * 1000).toISOString();
-        const rows = await sb(cfg,
+        const rows = await sb(
+          cfg,
           'presence?select=player,discord_id,guild_id,channel_id,mode,activity,platform,updated_at' +
-          `&updated_at=gte.${since}&order=updated_at.desc&limit=200`);
+            `&updated_at=gte.${since}&order=updated_at.desc&limit=200`
+        );
         return res.status(200).json({ live: rows || [] });
       }
 
@@ -152,6 +167,8 @@ module.exports = async function handler(req, res) {
     }
   } catch (err) {
     console.error('admin action failed:', action, err && err.message);
-    return res.status(err.status && err.status < 500 ? err.status : 500).json({ error: 'Admin action failed' });
+    return res
+      .status(err.status && err.status < 500 ? err.status : 500)
+      .json({ error: 'Admin action failed' });
   }
-};
+}

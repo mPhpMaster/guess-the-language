@@ -1,4 +1,6 @@
-import { isAdminUsername, signSession } from './_session.js';
+'use strict';
+
+const { signSession, isAdminUsername } = require('./_session');
 
 /**
  * "Login with Discord" for the WEB build (standard OAuth2 authorization-code
@@ -9,10 +11,10 @@ import { isAdminUsername, signSession } from './_session.js';
  * secret), fetches the user's identity, and returns only the public profile —
  * the access token never reaches the client.
  *
- * Requires DISCORD_CLIENT_SECRET (and client id) in the Vercel env, and the
- * redirect_uri must be registered under the app's OAuth2 -> Redirects.
+ * Requires DISCORD_CLIENT_SECRET (and client id) in Vercel env vars, and the
+ * redirect_uri must be registered under the app's OAuth2 → Redirects.
  */
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method not allowed' });
@@ -63,13 +65,10 @@ export default async function handler(req, res) {
       username: user.username,
       global_name: user.global_name,
       avatar: user.avatar,
-      session_token: signSession(user.id, {
-        adm: isAdminUsername(user.username),
-        uname: user.username || null
-      })
+      session_token: signSession(user.id, { adm: isAdminUsername(user.username), uname: user.username || null })
     });
   } catch (err) {
     console.error('Discord login error:', err);
     return res.status(500).json({ error: 'Login failed' });
   }
-}
+};

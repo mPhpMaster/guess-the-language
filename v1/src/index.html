@@ -589,6 +589,9 @@
   <script defer src="vendor/supabase.js"></script>
   <script defer src="web-shim.js"></script>
   <script defer src="multiplayer.js"></script>
+  <!-- Bootstrap for the game logic (src/modules/*). Stays a classic script so it
+       keeps running LAST, after the globals above exist; it dynamically imports
+       the module graph. See src/renderer.js for why it is not type="module". -->
   <script defer src="renderer.js"></script>
 </body>
 </html>

@@ -15,11 +15,9 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Local Supabase credentials (use supabase-config.example.js as a template)
-src/supabase-config.js
-
-# Local Discord client ID (use discord-config.example.js as a template)
-src/discord-config.js
+# Local credentials for the archived v1 app (see its *.example.js templates)
+v1/src/supabase-config.js
+v1/src/discord-config.js
 
 # Environment variables (Vite / Vercel build)
 .env
@@ -52,5 +50,5 @@ Desktop.ini
 !**/.env.example
 
 # Runtime config with local credentials (see *.example.js)
-svelte-app/public/supabase-config.js
-svelte-app/public/discord-config.js
+public/supabase-config.js
+public/discord-config.js

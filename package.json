@@ -1,47 +1,58 @@
 {
-    "name": "guess-the-language",
-    "version": "3.12.3",
-    "description": "IT quiz game for Windows and web.",
-    "main": "src/main.js",
-    "author": "mPhpMaster",
-    "license": "MIT",
-    "scripts": {
-        "start": "electron .",
-        "dist": "electron-builder --win",
-        "pack": "electron-builder --dir",
-        "dev:web": "node scripts/ensure-supabase-config.js && node scripts/ensure-discord-config.js && vite",
-        "build:web": "node scripts/ensure-supabase-config.js && node scripts/ensure-discord-config.js && vite build && node scripts/copy-web-assets.js && node scripts/generate-supabase-config.js && node scripts/generate-discord-config.js",
-        "preview:web": "vite preview",
-        "test:ux": "electron --disable-gpu test/smoke-ux.js && node test/smoke-report-api.js"
+  "name": "guess-the-language",
+  "version": "4.0.0",
+  "private": true,
+  "type": "module",
+  "description": "IT quiz game for web, Windows and Discord. Svelte 5; the pre-rewrite app is archived in v1/.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node scripts/generate-runtime-config.mjs",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
+    "build:desktop": "node scripts/build-desktop.mjs",
+    "electron": "electron .",
+    "dist": "node scripts/build-desktop.mjs && electron-builder --win",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@tsconfig/svelte": "^5.0.4",
+    "@types/node": "^26.2.0",
+    "electron": "^39.8.5",
+    "electron-builder": "^26.15.3",
+    "svelte": "^5.19.0",
+    "svelte-check": "^4.1.4",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.11",
+    "vitest": "^4.1.10"
+  },
+  "dependencies": {
+    "@discord/embedded-app-sdk": "^2.0.0",
+    "@supabase/supabase-js": "^2.112.2"
+  },
+  "main": "electron/main.cjs",
+  "build": {
+    "appId": "com.mphpmaster.guessthelanguage",
+    "productName": "Guess The Language",
+    "directories": {
+      "output": "release"
     },
-    "devDependencies": {
-        "electron": "^39.8.5",
-        "electron-builder": "^26.15.3",
-        "vite": "^6.3.5"
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ]
     },
-    "build": {
-        "appId": "com.mphpmaster.guessthelanguage",
-        "productName": "Guess The Language",
-        "directories": {
-            "output": "release"
-        },
-        "files": [
-            "src/**/*",
-            "package.json"
-        ],
-        "win": {
-            "target": [
-                "nsis"
-            ]
-        },
-        "nsis": {
-            "oneClick": false,
-            "allowToChangeInstallationDirectory": true,
-            "createDesktopShortcut": true
-        }
-    },
-    "dependencies": {
-        "@discord/embedded-app-sdk": "^2.0.0",
-        "@supabase/supabase-js": "^2.108.2"
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
     }
+  }
 }

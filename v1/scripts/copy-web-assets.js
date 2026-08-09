@@ -36,6 +36,33 @@ for (const file of files) {
 
 copyDir(path.join(src, 'data'), path.join(out, 'data'));
 
+// renderer.js is a native ES module entry; ship its module graph alongside it.
+// The `?v=` stamping below rewrites index.html's script src, but a module's OWN
+// import specifiers resolve relative to itself and would keep stable URLs — so
+// the Discord client would happily serve last release's modules behind a fresh
+// renderer.js. Stamp the specifiers too, making every release a new URL.
+copyDir(path.join(src, 'modules'), path.join(out, 'modules'));
+
+(function stampModuleImports() {
+  const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf-8'));
+  const v = encodeURIComponent(pkg.version);
+  const rewrite = (file) => {
+    const before = fs.readFileSync(file, 'utf-8');
+    // Covers both static `from './x.js'` and the dynamic `import('./modules/app.js')`
+    // that renderer.js uses to enter the graph.
+    const after = before.replace(
+      /(\bfrom\s+['"]|\bimport\(\s*['"])(\.\.?\/[^'"?]+\.js)(['"])/g,
+      `$1$2?v=${v}$3`
+    );
+    if (after !== before) fs.writeFileSync(file, after, 'utf-8');
+  };
+  rewrite(path.join(out, 'renderer.js'));
+  for (const name of fs.readdirSync(path.join(out, 'modules'))) {
+    if (name.endsWith('.js')) rewrite(path.join(out, 'modules', name));
+  }
+  console.log('Stamped ?v=' + pkg.version + ' onto ES module import specifiers');
+})();
+
 // Cache-bust the non-hashed classic scripts. Vite fingerprints its own bundle
 // (assets/index-<hash>.js), but renderer.js / multiplayer.js / web-shim.js and
 // the config files keep stable URLs — so a client (notably the Discord Activity

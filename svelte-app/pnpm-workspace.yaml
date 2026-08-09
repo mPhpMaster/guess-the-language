@@ -1,4 +1,0 @@
-# esbuild's install script only links its prebuilt platform binary; Vite cannot
-# run without it. pnpm 11 reads this here rather than from package.json.
-allowBuilds:
-  esbuild: true
