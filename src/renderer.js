@@ -334,7 +334,6 @@ const I18N = {
         scopeWeek: 'This week',
         breakdownTitle: 'Accuracy by category',
         practiceMode: '🎓  Practice',
-        tryNewVersion: '✨  Try the new version',
         practiceRound: 'Practice round',
         practiceNotSaved: 'Practice — not saved to the leaderboard',
         onboardTitle: 'Welcome to Guess the Language!',
@@ -618,7 +617,6 @@ const I18N = {
         scopeWeek: 'هذا الأسبوع',
         breakdownTitle: 'الدقّة حسب الفئة',
         practiceMode: '🎓  تدريب',
-        tryNewVersion: '✨  جرّب النسخة الجديدة',
         practiceRound: 'جولة تدريب',
         practiceNotSaved: 'تدريب — غير محفوظة في لوحة الصدارة',
         onboardTitle: 'أهلًا بك في «خمّن اللغة»!',
@@ -1416,16 +1414,6 @@ async function handleDiscordOAuthReturn() {
             avatar: user.avatar || null,
             sessionToken: user.session_token || null
         }));
-        // The /v2/ rewrite cannot register its own redirect URI (Discord matches them
-        // exactly and only this root is registered), so it sends the round trip through
-        // here. The profile above is already stored on this shared origin — hand the
-        // player back to where they started.
-        const returnTo = sessionStorage.getItem('gtl_login_return_to');
-        sessionStorage.removeItem('gtl_login_return_to');
-        if (returnTo && returnTo.startsWith('/') && !returnTo.startsWith('//')) {
-            location.href = returnTo + returnSearch;
-            return true;
-        }
         return true;
     } catch (e) {
         console.error('Discord login:', e);
@@ -3555,29 +3543,6 @@ function showChallengeBanner(info) {
 // Public web address of the game. On the plain web build that's the current
 // origin; inside Discord/Electron the origin is a proxy/file, so fall back to
 // the deployed site so the shared link is always playable in a browser.
-// ---------- Link out to the SolidJS rewrite ----------
-// Its own deployment, sharing this game's Supabase data and Discord app.
-const NEW_VERSION_URL = 'https://guess-the-language-chi.vercel.app/v2/';
-
-// The SolidJS rewrite ships inside THIS deployment at /v2/, so it needs no Discord
-// URL mapping — same origin everywhere. Carrying location.search over hands it
-// frame_id / instance_id, so inside Discord it boots as a REAL Activity (SDK
-// handshake, voice-channel room, presence) rather than a plain page in the iframe.
-function openNewVersion() {
-    if (isDiscordEmbedded()) {
-        const base = location.pathname.startsWith('/.proxy') ? '/.proxy/v2/' : '/v2/';
-        location.href = base + location.search;
-        return;
-    }
-    // Web build: /v2/ is served from this same origin.
-    if (document.documentElement.classList.contains('platform-web')) {
-        location.href = '/v2/';
-        return;
-    }
-    // Electron ships no copy of the rewrite, so open the public site instead.
-    openExternalUrl(NEW_VERSION_URL);
-}
-
 const GAME_PUBLIC_URL = 'https://guess-the-language-chi.vercel.app/';
 function gameShareBaseUrl() {
     if (document.documentElement.classList.contains('platform-web')) {
@@ -5788,8 +5753,6 @@ function bindEvents() {
         else startGame();
     });
     $('#btn-practice')?.addEventListener('click', startPractice);
-    $('#btn-new-version')?.addEventListener('click', openNewVersion);
-    $('#btn-lobby-new-version')?.addEventListener('click', openNewVersion);
     $('#btn-share-card')?.addEventListener('click', shareResultCard);
     $('#btn-menu').addEventListener('click', () => {
         if (state.multiplayer) {

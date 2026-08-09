@@ -1,6 +1,6 @@
 {
     "name": "guess-the-language",
-    "version": "3.12.2",
+    "version": "3.12.3",
     "description": "IT quiz game for Windows and web.",
     "main": "src/main.js",
     "author": "mPhpMaster",
@@ -10,9 +10,8 @@
         "dist": "electron-builder --win",
         "pack": "electron-builder --dir",
         "dev:web": "node scripts/ensure-supabase-config.js && node scripts/ensure-discord-config.js && vite",
-        "build:web": "node scripts/ensure-supabase-config.js && node scripts/ensure-discord-config.js && vite build && node scripts/copy-web-assets.js && node scripts/generate-supabase-config.js && node scripts/generate-discord-config.js && node scripts/generate-v2-config.js",
+        "build:web": "node scripts/ensure-supabase-config.js && node scripts/ensure-discord-config.js && vite build && node scripts/copy-web-assets.js && node scripts/generate-supabase-config.js && node scripts/generate-discord-config.js",
         "preview:web": "vite preview",
-        "sync:v2": "node scripts/sync-v2.js",
         "test:ux": "electron --disable-gpu test/smoke-ux.js && node test/smoke-report-api.js"
     },
     "devDependencies": {
