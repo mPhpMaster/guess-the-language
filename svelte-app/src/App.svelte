@@ -1,5 +1,6 @@
 <script lang="ts">
   import AchievementPop from '$lib/components/AchievementPop.svelte';
+  import AdminPanel from '$lib/components/AdminPanel.svelte';
   import JoinRoomDialog from '$lib/components/JoinRoomDialog.svelte';
   import ProfileCard from '$lib/components/ProfileCard.svelte';
   import SettingsDialog from '$lib/components/SettingsDialog.svelte';
@@ -15,6 +16,7 @@
   import MpResultsScreen from '$lib/screens/MpResultsScreen.svelte';
   import ResultsScreen from '$lib/screens/ResultsScreen.svelte';
   import { discord, discordProfile, ready as discordReady } from '$lib/services/discord.svelte';
+  import { isAdmin } from '$lib/services/admin';
   import { setLogContextProvider } from '$lib/services/errors';
   import { fetchPersonalRank, submitDailyScore, submitScore } from '$lib/services/leaderboard';
   import { markRoundStart, pushPresence, startHeartbeat, type ScreenName } from '$lib/services/presence';
@@ -29,6 +31,7 @@
   let mode = $state<ModeId>('all');
   let busy = $state(false);
   let settingsOpen = $state(false);
+  let adminOpen = $state(false);
   let joinOpen = $state(false);
   let joinBusy = $state(false);
   let mpError = $state<string | null>(null);
@@ -243,6 +246,8 @@
       onhost={hostRoom}
       onjoin={() => (joinOpen = true)}
       onleaderboard={() => (screen = 'results')}
+      admin={isAdmin()}
+      onadmin={() => (adminOpen = true)}
       onsettings={() => (settingsOpen = true)}
       onabout={() => (settingsOpen = true)}
     />
@@ -272,6 +277,8 @@
   }}
 />
 <AchievementPop ids={unlockedAchievements} onclear={() => (unlockedAchievements = [])} />
+
+<AdminPanel open={adminOpen} onclose={() => (adminOpen = false)} />
 
 <SettingsDialog open={settingsOpen} onclose={() => (settingsOpen = false)} />
 <JoinRoomDialog

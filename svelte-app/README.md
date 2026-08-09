@@ -64,6 +64,9 @@ src/
       questions.ts           per-bank JSON loading, cached
       errors.ts              error_logs reporting + global hooks
       audio.ts               synthesized SFX + haptics
+      profile.ts             stats, XP/level, achievements, follows, rankings
+      presence.ts            Discord rich-presence card + admin heartbeat
+      admin.ts               admin client (UI gate only; server enforces)
     components/              CodePanel, TimerRing, OptionsGrid, FillForm,
                              Leaderboard, SettingsDialog
     screens/                 HomeScreen, GameScreen, ResultsScreen
@@ -100,6 +103,13 @@ original `styles.css`, and the components keep the original class names. That ke
 the visual design identical and makes the diff reviewable. Moving rules into
 component `<style>` blocks is a follow-up, not part of the conversion.
 
+**Admin authority is server-side only.** `services/admin.ts` reads the session
+token's claims *without verifying them* purely to decide whether to show the admin
+button. A forged token reveals a button and nothing else: `/api/admin` verifies
+the HMAC signature and the admin claim, and the underlying RPCs are granted to
+`service_role` only. Verified against production — no auth 401, forged token 401,
+GET 405.
+
 **Runtime config, not build-time.** `public/supabase-config.js` and
 `public/discord-config.js` load before the bundle (copy the `.example.js` files),
 so one build artifact can point at different projects. Both are optional — missing
@@ -125,14 +135,17 @@ config degrades to offline play. The real files are gitignored.
 - **Discord Activity**: SDK handshake with the single-flight `authorize` fix,
   identity adoption, participant tracking for real avatars, `/supabase` URL
   mapping installed before mount, invite dialog
+- **Profiles**: stats, XP/level/streak, achievements, per-mode rankings, follows;
+  leaderboard rows open a player's card
+- **Presence**: Discord rich-presence card (solo + room, party badge, Ask-to-Join
+  secret) and the admin heartbeat
+- **Admin panel**: reports, users, live players and bans, with click-twice
+  confirmation instead of `window.confirm` (which Discord's iframe suppresses)
 
 ## Not yet ported
 
 | Area | Original source | Notes |
 | --- | --- | --- |
-| Admin panel | `admin.js` (246) | reports, bans, profile reset, live presence |
-| Profiles | `profile.js` (615) | XP/levels, achievements, follows, rankings |
-| Presence | `presence.js` (188) | Discord rich-presence card, heartbeat |
 | Share & challenge | in `results.js` | share card canvas, challenge links |
 | UI auto-scaling | `ui-scale.js` | `--ui-scale` auto-fit |
 | PWA | `public/sw.js` | service worker + manifest |
@@ -155,6 +168,11 @@ mode metadata) are in place, so each is an additive port rather than a redesign.
     keyboard answering scored +100, matching the original's timer fast-forward
   - live leaderboard returns real production rows
   - Arabic sets `lang=ar` / `dir=rtl`, translates the tree, persists
+  - profile card against production: opened RealCyGuy from the live board —
+    Lvl 2 "Novice", 1875 XP, 2/12 achievements, rank #2 in Mixed, matching their
+    row; heartbeat RPC accepted (204)
+  - admin endpoint (production): no auth 401, forged token 401, bad action 401,
+    GET 405; the admin button stays hidden without a session
   - multiplayer against production Supabase: room created (code `NR5B`), host
     crown correct, round started, server advanced Q1 → Q3 across mixed banks,
     score awarded server-side (100), results rendered, play-again returned to the

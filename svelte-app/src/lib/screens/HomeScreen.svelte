@@ -21,6 +21,9 @@
     /** Host/Join are hidden inside Discord, where rooms are automatic. */
     mpAvailable: boolean;
     mpError: string | null;
+    /** Shows the admin entry point. Server-side checks are the real gate. */
+    admin: boolean;
+    onadmin: () => void;
   }
 
   let {
@@ -37,7 +40,9 @@
     busy,
     dailyDone,
     mpAvailable,
-    mpError
+    mpError,
+    admin,
+    onadmin
   }: Props = $props();
 
   /** Card metadata: id, icon, the CSS modifier and the two i18n keys. */
@@ -110,6 +115,9 @@
       <button class="btn btn-sm" type="button" onclick={onpractice}>{i18n.t('practiceMode')}</button>
       <button class="btn btn-sm" type="button" onclick={onleaderboard}>{i18n.t('friends')}</button>
       <button class="btn btn-sm" type="button" onclick={onsettings}>{i18n.t('settings')}</button>
+      {#if admin}
+        <button class="btn btn-sm" type="button" onclick={onadmin}>{i18n.t('adminButton')}</button>
+      {/if}
     </div>
 
     {#if mpError}
