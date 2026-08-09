@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { isAdminUsername, signSession } from './_session';
+import { isAdminUsername, signSession } from './_session.js';
 
 interface TokenResponse {
     readonly access_token?: string;

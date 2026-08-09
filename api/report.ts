@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { bearerToken, verifySession } from './_session';
+import { bearerToken, verifySession } from './_session.js';
 
 const ALLOWED_REASONS: ReadonlySet<string> = new Set([
     'offensive_name',

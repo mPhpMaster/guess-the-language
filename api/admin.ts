@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { bearerToken, verifySession } from './_session';
+import { bearerToken, verifySession } from './_session.js';
 
 /* ============================================================
    Admin API — every destructive capability the in-game admin
