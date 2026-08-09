@@ -1,0 +1,31 @@
+{
+  "name": "guess-the-language-svelte",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Svelte 5 rewrite of the Guess the Language quiz game (web + Electron + Discord Activity).",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@tsconfig/svelte": "^5.0.4",
+    "@types/node": "^26.2.0",
+    "svelte": "^5.19.0",
+    "svelte-check": "^4.1.4",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.11"
+  },
+  "dependencies": {
+    "@discord/embedded-app-sdk": "^2.0.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}

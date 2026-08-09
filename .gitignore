@@ -46,3 +46,7 @@ Desktop.ini
 
 .vercel
 .env*
+
+# Runtime config with local credentials (see *.example.js)
+svelte-app/public/supabase-config.js
+svelte-app/public/discord-config.js
