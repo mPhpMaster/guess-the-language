@@ -178,6 +178,8 @@ export function initialsFor(name: string): string {
 
 const OAUTH_STATE_KEY = 'gtl_discord_oauth_state';
 const OAUTH_RETURN_KEY = 'gtl_discord_return_search';
+/** Read by v1 after it completes an OAuth round trip started from this build. */
+const LOGIN_RETURN_KEY = 'gtl_login_return_to';
 
 export function discordLoginAvailable(): boolean {
     return (
@@ -191,11 +193,17 @@ export function discordLoginAvailable(): boolean {
 export function startDiscordLogin(): void {
     const clientId = window.DISCORD_CONFIG?.clientId;
     if (!clientId) return;
-    const redirectUri = window.location.origin + window.location.pathname;
+    // Discord matches redirect URIs exactly and only the deployment ROOT is
+    // registered. This build is served from /v2/, so redirecting back here would be
+    // rejected outright. Route the round trip through the root instead: v1 completes
+    // the exchange and stores the profile on this same origin — where this build
+    // already reads it — then follows the breadcrumb below back to /v2/.
+    const redirectUri = `${window.location.origin}/`;
     const state = `${Math.random().toString(36).slice(2)}${Date.now().toString(36)}`;
     try {
         window.sessionStorage.setItem(OAUTH_STATE_KEY, state);
         window.sessionStorage.setItem(OAUTH_RETURN_KEY, window.location.search);
+        window.sessionStorage.setItem(LOGIN_RETURN_KEY, window.location.pathname);
     } catch {
         /* ignore */
     }

@@ -1,6 +1,6 @@
 import { DiscordSDK, Events, patchUrlMappings } from '@discord/embedded-app-sdk';
 import { createSignal } from 'solid-js';
-import { isDiscordEmbed } from './platform';
+import { apiPrefix, isDiscordEmbed } from './platform';
 import { logError } from './errorLog';
 
 /* ============================================================
@@ -221,7 +221,12 @@ async function setupActivity(): Promise<ActivitySession | null> {
     if (!code) throw new Error('Discord authorize returned no code');
 
     setupStep = 'token-exchange';
-    const prefix = window.location.pathname.startsWith('/.proxy') ? '/.proxy' : '';
+    // Must use apiPrefix(), not a bare pathname test. Discord's web client serves the
+    // Activity from the app root with no '/.proxy' segment in the path, and this build
+    // is served from '/v2/' — so a pathname test yields '' and the exchange is POSTed
+    // to /api/token, which never reaches the backend through the proxy. apiPrefix()
+    // also treats the frame_id / instance_id params as proof we are embedded.
+    const prefix = apiPrefix();
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), TOKEN_TIMEOUT_MS);
     let tokenRes: Response;
