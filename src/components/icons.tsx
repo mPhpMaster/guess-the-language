@@ -10,6 +10,7 @@ import ShieldHalf from 'lucide-solid/icons/shield-half';
 import GraduationCap from 'lucide-solid/icons/graduation-cap';
 import CalendarDays from 'lucide-solid/icons/calendar-days';
 import RotateCw from 'lucide-solid/icons/rotate-cw';
+import Undo2 from 'lucide-solid/icons/undo-2';
 import Camera from 'lucide-solid/icons/camera';
 import Share2 from 'lucide-solid/icons/share-2';
 import Trophy from 'lucide-solid/icons/trophy';
@@ -100,6 +101,7 @@ export {
     GraduationCap,
     CalendarDays,
     RotateCw,
+    Undo2,
     Camera,
     Share2,
     Trophy,

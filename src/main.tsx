@@ -18,7 +18,10 @@ if (
     window.top === window.self
 ) {
     window.addEventListener('load', () => {
-        void navigator.serviceWorker.register('/sw.js').catch(() => undefined);
+        // Relative on purpose: when this build is served from a sub-path (it ships
+        // as /v2/ inside the old deployment) an absolute '/sw.js' would register
+        // the OTHER app's worker at the root scope.
+        void navigator.serviceWorker.register('./sw.js').catch(() => undefined);
     });
 }
 

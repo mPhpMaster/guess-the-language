@@ -213,6 +213,7 @@ export const en = {
     scopeWeek: 'This week',
     breakdownTitle: 'Accuracy by category',
     practiceMode: 'Practice',
+    backToOldVersion: 'Back to the old version',
     practiceRound: 'Practice round',
     practiceNotSaved: 'Practice — not saved to the leaderboard',
     onboardTitle: 'Welcome to Guess the Language!',

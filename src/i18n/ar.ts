@@ -209,6 +209,7 @@ export const ar: Readonly<Record<TranslationKey, string>> = {
     scopeWeek: 'هذا الأسبوع',
     breakdownTitle: 'الدقّة حسب الفئة',
     practiceMode: 'تدريب',
+    backToOldVersion: 'العودة إلى النسخة القديمة',
     practiceRound: 'جولة تدريب',
     practiceNotSaved: 'تدريب — غير محفوظة في لوحة الصدارة',
     onboardTitle: 'أهلًا بك في «خمّن اللغة»!',

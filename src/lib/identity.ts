@@ -1,5 +1,5 @@
 import { createSignal } from 'solid-js';
-import { discordActivity, type DiscordUser } from './discord';
+import { discordActivity } from './discord';
 import { isDiscordEmbed, isWebBuild } from './platform';
 import { isRecord, readJson, readString, removeKey, writeJson } from './storage';
 import { isSafePlayerName, sanitizeName } from './names';
@@ -74,12 +74,17 @@ export function requiresDiscordLogin(): boolean {
     return isWebBuild() && !discordActivity.active && !isDiscordEmbed();
 }
 
-/** The name typed into settings (or the Discord one when signed in). */
+/**
+ * The name typed into settings, or the Discord one when signed in.
+ *
+ * Reads the unified profile rather than only the Activity SDK: on web and in
+ * Electron a player can be linked via "Login with Discord" with no Activity at
+ * all, and returning '' there made canPlay() false — a linked player who never
+ * typed a name could not start a game.
+ */
 export function localPlayerNameInput(): string {
-    if (discordActivity.active) {
-        const user: DiscordUser | null = discordActivity.user;
-        return user ? sanitizeName(user.global_name ?? user.username) : '';
-    }
+    const profile = discordProfile();
+    if (profile) return sanitizeName(profile.name);
     return sanitizeName(settings().name);
 }
 

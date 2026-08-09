@@ -70,6 +70,26 @@ export function openExternalUrl(url: string, viaDiscord?: (url: string) => void)
     anchor.remove();
 }
 
+/**
+ * Go back to the original app. This build is served from /v2/ of the v1
+ * deployment, so v1 is simply the parent path — same origin, which keeps the
+ * Discord Activity alive. Carrying location.search over hands v1 the
+ * frame_id / instance_id / platform params it needs to re-run its SDK handshake.
+ */
+export function openOldVersion(): void {
+    if (isDiscordEmbed()) {
+        const base = window.location.pathname.startsWith('/.proxy') ? '/.proxy/' : '/';
+        window.location.href = base + window.location.search;
+        return;
+    }
+    if (isWebBuild()) {
+        window.location.href = '/';
+        return;
+    }
+    // Electron ships no copy of v1, so open the public site instead.
+    openExternalUrl(GAME_PUBLIC_URL);
+}
+
 export async function copyToClipboard(text: string): Promise<boolean> {
     try {
         await navigator.clipboard.writeText(text);

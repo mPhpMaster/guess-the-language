@@ -30,6 +30,7 @@ import {
     enterDiscordLobby,
     setAuthError,
 } from '../../state/game';
+import { openOldVersion } from '../../lib/platform';
 import { openProfileCard, showDialog } from '../../state/ui';
 import { Avatar, Button } from '../ui';
 import {
@@ -45,6 +46,7 @@ import {
     SettingsIcon,
     ShieldHalf,
     Trophy,
+    Undo2,
     Users,
     X,
 } from '../icons';
@@ -318,6 +320,14 @@ export const HomeScreen: Component = () => {
                         </Button>
                     </Show>
                 </div>
+
+                <Button
+                    size="sm"
+                    icon={<Undo2 size={15} />}
+                    onClick={openOldVersion}
+                >
+                    {t('backToOldVersion')}
+                </Button>
             </div>
 
             <p class="mt-4 flex items-center gap-1.5 text-xs text-muted">
