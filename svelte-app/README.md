@@ -5,9 +5,12 @@ in its own directory so the shipping app in `../src` keeps running untouched.
 
 ```bash
 pnpm install --ignore-workspace
-pnpm dev        # http://localhost:5273
-pnpm build      # -> dist/
-pnpm check      # svelte-check (0 errors)
+pnpm dev              # http://localhost:5273
+pnpm build            # web / Discord build -> dist/
+pnpm build:desktop    # Electron build (relative asset URLs) -> dist/
+pnpm electron         # run the desktop shell against dist/
+pnpm dist             # package a Windows installer -> release/
+pnpm check            # svelte-check (0 errors)
 ```
 
 ## Why Svelte (and why a separate directory)
@@ -67,9 +70,13 @@ src/
       profile.ts             stats, XP/level, achievements, follows, rankings
       presence.ts            Discord rich-presence card + admin heartbeat
       admin.ts               admin client (UI gate only; server enforces)
+      share.ts               result card canvas, upload, challenge links
     components/              CodePanel, TimerRing, OptionsGrid, FillForm,
-                             Leaderboard, SettingsDialog
-    screens/                 HomeScreen, GameScreen, ResultsScreen
+                             Leaderboard, ProfileCard, AdminPanel, ShareOverlay,
+                             TitleBar, dialogs
+    screens/                 Home, Game, Results, Lobby, MpGame, MpResults
+electron/                    frameless desktop shell (main + preload)
+scripts/                     desktop build + headless Electron smoke test
 ```
 
 ### Decisions worth knowing
@@ -110,6 +117,12 @@ the HMAC signature and the admin claim, and the underlying RPCs are granted to
 `service_role` only. Verified against production — no auth 401, forged token 401,
 GET 405.
 
+**One question-loading path for every target.** The original desktop build read
+banks over an Electron IPC channel while web fetched them. Here all three targets
+fetch from `dist/data`, so the preload bridge shrank to window controls only.
+The desktop build is separate (`pnpm build:desktop`) purely because file:// needs
+relative asset URLs.
+
 **Runtime config, not build-time.** `public/supabase-config.js` and
 `public/discord-config.js` load before the bundle (copy the `.example.js` files),
 so one build artifact can point at different projects. Both are optional — missing
@@ -141,22 +154,26 @@ config degrades to offline play. The real files are gitignored.
   secret) and the admin heartbeat
 - **Admin panel**: reports, users, live players and bans, with click-twice
   confirmation instead of `window.confirm` (which Discord's iframe suppresses)
+- **Share & challenge**: 1080x1350 result card with the player's Discord photo,
+  public-bucket upload, context-aware share actions, challenge deep links and the
+  end-of-round verdict
+- **UI auto-scaling**: responsive transform-scale with the manual-override flag
+- **PWA**: manifest, icons and a service worker (production only)
+- **Electron**: frameless desktop shell with a custom title bar, its own
+  relative-base build and electron-builder packaging
 
-## Not yet ported
+## Known gaps
 
-| Area | Original source | Notes |
-| --- | --- | --- |
-| Share & challenge | in `results.js` | share card canvas, challenge links |
-| UI auto-scaling | `ui-scale.js` | `--ui-scale` auto-fit |
-| PWA | `public/sw.js` | service worker + manifest |
-| Electron shell | `main.js`, `preload.js` | still point at `../src`; not wired to electron-builder |
+Everything from the original is ported. Two small behaviours are still missing:
 
-Smaller gaps inside what is ported: the About panel reuses the Settings dialog,
-results show 2 of the original 4 stat tiles (no response-time tracking yet), and
-there is no name-validation gate before starting a round.
+- results show 2 of the original 4 stat tiles — *average response* and *fastest
+  correct* need per-answer response times recorded into the round history
+- no name-validation gate before starting a round: the original blocks Start
+  until a valid, non-profane name exists, whereas this plays anonymously and
+  simply skips the leaderboard submission
 
-The foundations they need (typed domain model, Supabase client, i18n, settings,
-mode metadata) are in place, so each is an additive port rather than a redesign.
+The profanity guard itself (`game/names.ts`) is ported and is applied to every
+name that is displayed or submitted.
 
 ## Verified
 
@@ -173,6 +190,12 @@ mode metadata) are in place, so each is an additive port rather than a redesign.
     row; heartbeat RPC accepted (204)
   - admin endpoint (production): no auth 401, forged token 401, bad action 401,
     GET 405; the admin button stays hidden without a session
+  - challenge deep link presets mode + settings and shows the banner; playing it
+    through yields the verdict with {you}/{target} filled in; the share card
+    decodes at 1080x1350 and the bucket upload returns 200 / public read 200
+  - Electron: headless smoke test boots `dist/` and asserts the title bar, its
+    three window controls, seven mode cards and the preload bridge — SMOKE OK,
+    no console errors (a CSP is set, so the Electron security warning is gone)
   - multiplayer against production Supabase: room created (code `NR5B`), host
     crown correct, round started, server advanced Q1 → Q3 across mixed banks,
     score awarded server-side (100), results rendered, play-again returned to the

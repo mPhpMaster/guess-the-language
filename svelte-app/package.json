@@ -9,7 +9,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch"
+    "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
+    "build:desktop": "node scripts/build-desktop.mjs",
+    "electron": "electron .",
+    "dist": "node scripts/build-desktop.mjs && electron-builder --win"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
@@ -28,5 +31,28 @@
     "onlyBuiltDependencies": [
       "esbuild"
     ]
+  },
+  "main": "electron/main.cjs",
+  "build": {
+    "appId": "com.mphpmaster.guessthelanguage.svelte",
+    "productName": "Guess The Language",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    }
   }
 }

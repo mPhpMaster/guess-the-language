@@ -1,8 +1,10 @@
 <script lang="ts">
+  import AboutDialog from '$lib/components/AboutDialog.svelte';
   import AchievementPop from '$lib/components/AchievementPop.svelte';
   import AdminPanel from '$lib/components/AdminPanel.svelte';
   import ChallengeBanner from '$lib/components/ChallengeBanner.svelte';
   import ShareOverlay from '$lib/components/ShareOverlay.svelte';
+  import TitleBar from '$lib/components/TitleBar.svelte';
   import JoinRoomDialog from '$lib/components/JoinRoomDialog.svelte';
   import ProfileCard from '$lib/components/ProfileCard.svelte';
   import SettingsDialog from '$lib/components/SettingsDialog.svelte';
@@ -43,6 +45,7 @@
   let busy = $state(false);
   let settingsOpen = $state(false);
   let adminOpen = $state(false);
+  let aboutOpen = $state(false);
   let joinOpen = $state(false);
   let joinBusy = $state(false);
   let mpError = $state<string | null>(null);
@@ -323,6 +326,8 @@
   }
 </script>
 
+<TitleBar />
+
 <main id="app-main">
   {#if mpView === 'lobby'}
     <LobbyScreen onleave={leaveRoom} />
@@ -348,7 +353,7 @@
       admin={isAdmin()}
       onadmin={() => (adminOpen = true)}
       onsettings={() => (settingsOpen = true)}
-      onabout={() => (settingsOpen = true)}
+      onabout={() => (aboutOpen = true)}
     />
   {:else if screen === 'game'}
     <GameScreen onend={goHome} />
@@ -389,6 +394,8 @@
   message={i18n.challengeText(game.score)}
   onclose={closeShare}
 />
+
+<AboutDialog open={aboutOpen} onclose={() => (aboutOpen = false)} />
 
 <AdminPanel open={adminOpen} onclose={() => (adminOpen = false)} />
 

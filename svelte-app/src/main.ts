@@ -9,6 +9,14 @@ import { inDiscordEmbed, ready as discordReady } from '$lib/services/discord.sve
 exposeGlobalLogger();
 setupErrorLogging();
 
+/**
+ * app.css branches on these classes (compact Discord layout, hidden window
+ * controls on web), so they must be set before the first paint.
+ */
+document.documentElement.classList.add(
+  inDiscordEmbed() ? 'platform-discord' : window.appWindow ? 'platform-electron' : 'platform-web'
+);
+
 const target = document.getElementById('app');
 if (!target) throw new Error('#app mount point is missing');
 
@@ -29,9 +37,13 @@ export default mount(App, { target });
  * Register the service worker so the web build is an installable PWA that also
  * works offline. Skipped on file:// (Electron) and inside iframes (the Discord
  * Activity), where a worker is unwanted and would fight Discord's proxy.
+ *
+ * Production only: in dev the worker's cache-first strategy shadows Vite's
+ * module graph and keeps serving a stale bundle across reloads, which looks
+ * exactly like edits silently not applying.
  */
 const inIframe = window.top !== window.self;
-if ('serviceWorker' in navigator && location.protocol.startsWith('http') && !inIframe) {
+if (import.meta.env.PROD && 'serviceWorker' in navigator && location.protocol.startsWith('http') && !inIframe) {
   window.addEventListener('load', () => {
     void navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => {});
   });
