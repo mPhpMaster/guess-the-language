@@ -125,6 +125,7 @@
             <button class="btn btn-ghost" id="btn-practice" data-i18n="practiceMode">🎓  Practice</button>
             <button class="btn btn-ghost" id="btn-friends" data-i18n="friends">👥  Friends &amp; Scores</button>
             <button class="btn btn-ghost" id="btn-settings" data-i18n="settings">⚙  Settings</button>
+            <button class="btn btn-ghost btn-admin hidden" id="btn-admin" data-i18n="adminButton">🛡️  Admin</button>
           </div>
         </div>
 
@@ -354,6 +355,18 @@
         </div>
       </div>
     </dialog>
+
+    <!-- Admin panel (visible only to admins; every action is verified server-side) -->
+    <div class="admin-modal hidden" id="admin-modal" role="dialog" aria-modal="true" aria-labelledby="admin-title">
+      <div class="admin-box">
+        <div class="admin-head">
+          <h2 id="admin-title">🛡️ Admin panel</h2>
+          <button type="button" class="admin-close" id="admin-close" aria-label="Close">✕</button>
+        </div>
+        <div class="admin-tabs" id="admin-tabs"></div>
+        <div class="admin-body" id="admin-body"></div>
+      </div>
+    </div>
 
     <dialog id="report-dialog" class="modal" aria-labelledby="report-title" aria-describedby="report-desc">
       <form class="modal-card" id="report-form" method="dialog">

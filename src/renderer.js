@@ -236,6 +236,31 @@ const I18N = {
         challengeLostSub: 'You scored {you}, the target was {target}. So close — try again!',
         challengeBack: '🔗  Challenge them back',
         challengeDismiss: 'Dismiss',
+        adminButton: '🛡️  Admin',
+        adminTitle: '🛡️ Admin panel',
+        adminReports: 'Reports',
+        adminUsers: 'Users',
+        adminLive: 'Live',
+        adminBans: 'Bans',
+        adminEmpty: 'Nothing here.',
+        adminLoading: 'Loading…',
+        adminError: 'Request failed.',
+        adminDeleteScore: 'Delete score',
+        adminBan: 'Ban',
+        adminUnban: 'Unban',
+        adminResolve: 'Resolve',
+        adminDismiss: 'Dismiss',
+        adminReset: 'Reset profile',
+        adminConfirm: 'Confirm?',
+        adminSearch: 'Search player…',
+        adminReporter: 'Reporter',
+        adminBannedBy: 'by',
+        adminActivityHome: 'On home',
+        adminActivityLobby: 'In lobby',
+        adminActivityPlaying: 'Playing',
+        adminServer: 'Server',
+        adminNoServer: 'No server (web)',
+        adminDone: '✓ Done',
         loginDiscord: '💬  Login with Discord',
         loginDiscordToPlay: 'Sign in with Discord to play',
         logoutDiscord: '🚪  Log out',
@@ -488,6 +513,31 @@ const I18N = {
         challengeLostSub: 'حصلت على {you} نقطة والهدف كان {target}. اقتربت — حاول مجدداً!',
         challengeBack: '🔗  تحدَّ صديقك بالمقابل',
         challengeDismiss: 'إغلاق',
+        adminButton: '🛡️  لوحة التحكم',
+        adminTitle: '🛡️ لوحة التحكم',
+        adminReports: 'البلاغات',
+        adminUsers: 'المستخدمون',
+        adminLive: 'المتصلون الآن',
+        adminBans: 'المحظورون',
+        adminEmpty: 'لا يوجد شيء.',
+        adminLoading: 'جارٍ التحميل…',
+        adminError: 'فشل الطلب.',
+        adminDeleteScore: 'حذف النتيجة',
+        adminBan: 'حظر',
+        adminUnban: 'رفع الحظر',
+        adminResolve: 'إغلاق البلاغ',
+        adminDismiss: 'تجاهل',
+        adminReset: 'تصفير البروفايل',
+        adminConfirm: 'تأكيد؟',
+        adminSearch: 'ابحث عن لاعب…',
+        adminReporter: 'المُبلِّغ',
+        adminBannedBy: 'بواسطة',
+        adminActivityHome: 'في الرئيسية',
+        adminActivityLobby: 'في اللوبي',
+        adminActivityPlaying: 'يلعب',
+        adminServer: 'السيرفر',
+        adminNoServer: 'بلا سيرفر (ويب)',
+        adminDone: '✓ تم',
         loginDiscord: '💬  تسجيل الدخول عبر Discord',
         loginDiscordToPlay: 'سجّل الدخول عبر Discord للّعب',
         logoutDiscord: '🚪  تسجيل الخروج',
@@ -892,6 +942,7 @@ const screens = {
 };
 
 function showScreen(name) {
+    state.currentScreen = name;
     Object.entries(screens).forEach(([key, screen]) => {
         const active = key === name;
         screen.classList.toggle('active', active);
@@ -1232,6 +1283,7 @@ function updateHomeProfile() {
     const cta = $('#home-login-cta');
     if (cta) cta.classList.add('hidden');
     $('#web-auth-hint')?.classList.toggle('hidden', !signedOutWeb);
+    updateAdminButton();
 }
 
 // Web login only: unlink the Discord account so the name is editable again.
@@ -3628,6 +3680,298 @@ function markPresenceRoundStart() {
     pushPresence();
 }
 
+// ============================================================
+//  Live presence heartbeat (feeds the admin "who's playing now" view)
+// ============================================================
+function currentPlatform() {
+    try {
+        if (isDiscordActivity()) return 'discord';
+        if (/electron/i.test(navigator.userAgent)) return 'electron';
+    } catch (_) {}
+    return 'web';
+}
+function currentActivity() {
+    const s = state.currentScreen;
+    if (s === 'game') return 'playing';
+    if (s === 'lobby' || (window.GTL_MULTIPLAYER && window.GTL_MULTIPLAYER.state && window.GTL_MULTIPLAYER.state.room)) return 'lobby';
+    return 'home';
+}
+// Best-effort presence ping. Silent on failure — never affects gameplay.
+function sendHeartbeat() {
+    try {
+        if (!supabaseConfigured()) return;
+        const name = getPlayerName();
+        if (!name) return;
+        if (document.hidden) return;
+        const prof = getDiscordProfile();
+        sbFetch('rpc/heartbeat', {
+            method: 'POST',
+            headers: { Prefer: 'return=minimal' },
+            body: JSON.stringify({
+                p_player: name,
+                p_discord_id: (prof && prof.id) || null,
+                p_guild_id: (window.DISCORD_ACTIVITY && window.DISCORD_ACTIVITY.guildId) || null,
+                p_channel_id: (window.DISCORD_ACTIVITY && window.DISCORD_ACTIVITY.channelId) || null,
+                p_mode: state.mode || null,
+                p_activity: currentActivity(),
+                p_platform: currentPlatform()
+            })
+        }).catch(() => {});
+    } catch (_) {}
+}
+let __heartbeatTimer = null;
+function startHeartbeat() {
+    if (__heartbeatTimer) return;
+    sendHeartbeat();
+    __heartbeatTimer = setInterval(sendHeartbeat, 25000);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) sendHeartbeat(); });
+}
+
+// ============================================================
+//  Admin panel — gated by a signed `adm` claim in the session token
+// ============================================================
+function b64urlDecode(str) {
+    let s = String(str).replace(/-/g, '+').replace(/_/g, '/');
+    while (s.length % 4) s += '=';
+    return atob(s);
+}
+// Read (not verify — the server verifies) the session token's claims so the UI can
+// decide whether to show the admin entry point. Real enforcement is server-side.
+function sessionClaims() {
+    try {
+        const tok = getAppSessionToken();
+        if (!tok) return null;
+        return JSON.parse(b64urlDecode(tok.split('.')[0]));
+    } catch (_) { return null; }
+}
+function isAdmin() {
+    const c = sessionClaims();
+    return !!(c && c.adm);
+}
+
+async function adminApi(action, extra) {
+    const token = getAppSessionToken();
+    if (!token) throw new Error('no session');
+    const res = await fetch(`${appApiPrefix()}/api/admin`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.assign({ action }, extra || {}))
+    });
+    const txt = await res.text();
+    const data = txt ? JSON.parse(txt) : null;
+    if (!res.ok) throw new Error((data && data.error) || `admin ${res.status}`);
+    return data;
+}
+
+function updateAdminButton() {
+    const btn = $('#btn-admin');
+    if (btn) btn.classList.toggle('hidden', !isAdmin());
+}
+
+let __adminTab = 'reports';
+function openAdminPanel() {
+    if (!isAdmin()) return;
+    $('#admin-modal').classList.remove('hidden');
+    $('#admin-title').textContent = t('adminTitle');
+    renderAdminTabs();
+    loadAdminTab(__adminTab);
+}
+function closeAdminPanel() { $('#admin-modal').classList.add('hidden'); }
+
+function renderAdminTabs() {
+    const wrap = $('#admin-tabs');
+    if (!wrap) return;
+    const tabs = [
+        ['reports', t('adminReports')],
+        ['users', t('adminUsers')],
+        ['live', t('adminLive')],
+        ['bans', t('adminBans')]
+    ];
+    wrap.innerHTML = '';
+    tabs.forEach(([key, label]) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'admin-tab' + (key === __adminTab ? ' is-active' : '');
+        b.textContent = label;
+        b.onclick = () => loadAdminTab(key);
+        wrap.appendChild(b);
+    });
+}
+
+async function loadAdminTab(tab) {
+    __adminTab = tab;
+    renderAdminTabs();
+    const body = $('#admin-body');
+    body.innerHTML = `<p class="admin-msg">${t('adminLoading')}</p>`;
+    try {
+        if (tab === 'reports') return renderAdminReports(await adminApi('reports'));
+        if (tab === 'users') return renderAdminUsers();
+        if (tab === 'live') return renderAdminLive(await adminApi('live'));
+        if (tab === 'bans') return renderAdminBans(await adminApi('banned'));
+    } catch (e) {
+        body.innerHTML = `<p class="admin-msg admin-err">${t('adminError')}</p>`;
+    }
+}
+
+// A destructive button that must be clicked twice: the first click arms it
+// (shows "Confirm?"), the second within 3.5s runs the action. Works everywhere,
+// unlike window.confirm() which Discord's iframe can suppress.
+function armButton(btn, run) {
+    if (btn.dataset.armed === '1') { run(); return; }
+    const original = btn.textContent;
+    btn.dataset.armed = '1';
+    btn.textContent = t('adminConfirm');
+    btn.classList.add('is-armed');
+    const reset = () => { btn.dataset.armed = ''; btn.textContent = original; btn.classList.remove('is-armed'); };
+    btn._armReset = reset;
+    setTimeout(() => { if (btn.dataset.armed === '1') reset(); }, 3500);
+}
+
+function adminActionBtn(label, cls, handler, danger) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'admin-act ' + cls;
+    b.textContent = label;
+    b.onclick = () => {
+        if (danger) {
+            armButton(b, async () => { await runAdmin(b, handler); });
+        } else {
+            runAdmin(b, handler);
+        }
+    };
+    return b;
+}
+
+async function runAdmin(btn, handler) {
+    btn.disabled = true;
+    try {
+        await handler();
+        btn.textContent = t('adminDone');
+        setTimeout(() => loadAdminTab(__adminTab), 500);
+    } catch (e) {
+        btn.disabled = false;
+        if (btn._armReset) btn._armReset();
+        btn.textContent = t('adminError');
+    }
+}
+
+function renderAdminReports(data) {
+    const body = $('#admin-body');
+    const reports = (data && data.reports) || [];
+    if (!reports.length) { body.innerHTML = `<p class="admin-msg">${t('adminEmpty')}</p>`; return; }
+    body.innerHTML = '';
+    reports.forEach((r) => {
+        const card = document.createElement('div');
+        card.className = 'admin-row admin-report status-' + (r.status || 'open');
+        const who = r.score ? safeDisplayName(r.score.player) : ('#' + r.score_id);
+        const meta = r.score ? `${r.score.score} · ${modeLabel(r.score.mode)}` : '';
+        const head = document.createElement('div');
+        head.className = 'admin-row-main';
+        head.innerHTML = `<div class="admin-row-name">${escapeHtml(who)} <span class="admin-badge">${r.status || 'open'}</span></div>` +
+            `<div class="admin-row-sub">${escapeHtml(meta)} · ${escapeHtml(r.reason || '')}${r.details ? ' — ' + escapeHtml(r.details) : ''}</div>`;
+        card.appendChild(head);
+        const acts = document.createElement('div');
+        acts.className = 'admin-row-acts';
+        if (r.score) {
+            acts.appendChild(adminActionBtn(t('adminDeleteScore'), 'danger', () => adminApi('delete_score', { id: r.score_id }), true));
+            acts.appendChild(adminActionBtn(t('adminBan'), 'danger', () => adminApi('ban', { player: r.score.player, reason: r.reason }), true));
+        }
+        if (r.status === 'open') {
+            acts.appendChild(adminActionBtn(t('adminResolve'), 'ghost', () => adminApi('resolve_report', { id: r.id, status: 'resolved' })));
+            acts.appendChild(adminActionBtn(t('adminDismiss'), 'ghost', () => adminApi('resolve_report', { id: r.id, status: 'dismissed' })));
+        }
+        card.appendChild(acts);
+        body.appendChild(card);
+    });
+}
+
+function renderAdminUsers(preload) {
+    const body = $('#admin-body');
+    body.innerHTML = `<div class="admin-search"><input type="text" id="admin-user-search" placeholder="${t('adminSearch')}" /></div><div id="admin-user-list"></div>`;
+    const input = $('#admin-user-search');
+    let timer = null;
+    const run = async () => {
+        const list = $('#admin-user-list');
+        list.innerHTML = `<p class="admin-msg">${t('adminLoading')}</p>`;
+        try {
+            const data = await adminApi('users', { search: input.value.trim() });
+            const users = (data && data.users) || [];
+            if (!users.length) { list.innerHTML = `<p class="admin-msg">${t('adminEmpty')}</p>`; return; }
+            list.innerHTML = '';
+            users.forEach((u) => {
+                const row = document.createElement('div');
+                row.className = 'admin-row';
+                const seen = u.last_seen ? timeAgo(u.last_seen) : '';
+                row.innerHTML = `<div class="admin-row-main"><div class="admin-row-name">${escapeHtml(safeDisplayName(u.player))}${u.banned ? ' <span class="admin-badge ban">ban</span>' : ''}</div>` +
+                    `<div class="admin-row-sub">Lv ${u.level || 1} · ${u.games || 0} games · 🔥${u.day_streak || 0} · ${escapeHtml(seen)}</div></div>`;
+                const acts = document.createElement('div');
+                acts.className = 'admin-row-acts';
+                acts.appendChild(adminActionBtn(t('adminReset'), 'danger', () => adminApi('reset_profile', { player: u.player }), true));
+                if (u.banned) acts.appendChild(adminActionBtn(t('adminUnban'), 'ghost', () => adminApi('unban', { player: u.player })));
+                else acts.appendChild(adminActionBtn(t('adminBan'), 'danger', () => adminApi('ban', { player: u.player, reason: 'admin' }), true));
+                row.appendChild(acts);
+                list.appendChild(row);
+            });
+        } catch (e) {
+            list.innerHTML = `<p class="admin-msg admin-err">${t('adminError')}</p>`;
+        }
+    };
+    input.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(run, 300); });
+    run();
+}
+
+function renderAdminLive(data) {
+    const body = $('#admin-body');
+    const live = (data && data.live) || [];
+    if (!live.length) { body.innerHTML = `<p class="admin-msg">${t('adminEmpty')}</p>`; return; }
+    body.innerHTML = '';
+    const actLabel = { home: t('adminActivityHome'), lobby: t('adminActivityLobby'), playing: t('adminActivityPlaying') };
+    live.forEach((p) => {
+        const row = document.createElement('div');
+        row.className = 'admin-row';
+        const server = p.guild_id ? `${t('adminServer')}: ${escapeHtml(p.guild_id)}` : t('adminNoServer');
+        row.innerHTML = `<div class="admin-row-main"><div class="admin-row-name">${escapeHtml(safeDisplayName(p.player))} <span class="admin-badge live">${escapeHtml(actLabel[p.activity] || p.activity || '')}</span></div>` +
+            `<div class="admin-row-sub">${escapeHtml(modeLabel(p.mode || ''))} · ${escapeHtml(p.platform || '')} · ${server} · ${escapeHtml(timeAgo(p.updated_at))}</div></div>`;
+        const acts = document.createElement('div');
+        acts.className = 'admin-row-acts';
+        acts.appendChild(adminActionBtn(t('adminBan'), 'danger', () => adminApi('ban', { player: p.player, reason: 'admin' }), true));
+        row.appendChild(acts);
+        body.appendChild(row);
+    });
+}
+
+function renderAdminBans(data) {
+    const body = $('#admin-body');
+    const banned = (data && data.banned) || [];
+    if (!banned.length) { body.innerHTML = `<p class="admin-msg">${t('adminEmpty')}</p>`; return; }
+    body.innerHTML = '';
+    banned.forEach((b) => {
+        const row = document.createElement('div');
+        row.className = 'admin-row';
+        row.innerHTML = `<div class="admin-row-main"><div class="admin-row-name">${escapeHtml(b.player)}</div>` +
+            `<div class="admin-row-sub">${escapeHtml(b.reason || '')} · ${t('adminBannedBy')} ${escapeHtml(b.banned_by || '')} · ${escapeHtml(timeAgo(b.created_at))}</div></div>`;
+        const acts = document.createElement('div');
+        acts.className = 'admin-row-acts';
+        acts.appendChild(adminActionBtn(t('adminUnban'), 'ghost', () => adminApi('unban', { player: b.player })));
+        row.appendChild(acts);
+        body.appendChild(row);
+    });
+}
+
+function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+function timeAgo(iso) {
+    try {
+        const then = new Date(iso).getTime();
+        const s = Math.max(0, Math.round((Date.now() - then) / 1000));
+        if (s < 60) return `${s}s`;
+        if (s < 3600) return `${Math.round(s / 60)}m`;
+        if (s < 86400) return `${Math.round(s / 3600)}h`;
+        return `${Math.round(s / 86400)}d`;
+    } catch (_) { return ''; }
+}
+
 // A member pressed "Ask to Join" on someone's profile card: Discord launches the
 // Activity for them and hands over the secret we published. If the voice-channel
 // auto-join already landed them in that room there is nothing to do; otherwise
@@ -4897,6 +5241,8 @@ function onDiscordSessionReady() {
     if (!isDiscordActivity()) return;
     syncDiscordNameField();
     refreshMultiplayerButtons();
+    updateAdminButton();
+    sendHeartbeat();
     // If we fell through to Home solo because the identity wasn't ready in time,
     // join the voice-channel room now — but never hijack a challenge landing.
     const onHome = $('#screen-home') && $('#screen-home').classList.contains('active');
@@ -5188,6 +5534,9 @@ function bindEvents() {
         else startDailyChallenge();
     });
     $('#btn-settings').addEventListener('click', openSettingsPanel);
+    $('#btn-admin')?.addEventListener('click', openAdminPanel);
+    $('#admin-close')?.addEventListener('click', closeAdminPanel);
+    $('#admin-modal')?.addEventListener('click', (e) => { if (e.target === $('#admin-modal')) closeAdminPanel(); });
     $('#set-close').addEventListener('click', () => {
         saveSettingsFromUI();
         const selectedLanguage = $('#set-language').value;
@@ -5502,6 +5851,8 @@ async function boot() {
     if (!awaitingLateJoin) hideBootLoading();
     showScreen('home');
     selectMode(state.mode);
+    updateAdminButton();
+    startHeartbeat();
     if (challengeInfo) showChallengeBanner(challengeInfo);
     else setTimeout(maybeShowOnboarding, 500); // first-run welcome (once)
 }

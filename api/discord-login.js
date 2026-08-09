@@ -1,6 +1,6 @@
 'use strict';
 
-const { signSession } = require('./_session');
+const { signSession, isAdminUsername } = require('./_session');
 
 /**
  * "Login with Discord" for the WEB build (standard OAuth2 authorization-code
@@ -65,7 +65,7 @@ module.exports = async function handler(req, res) {
       username: user.username,
       global_name: user.global_name,
       avatar: user.avatar,
-      session_token: signSession(user.id)
+      session_token: signSession(user.id, { adm: isAdminUsername(user.username), uname: user.username || null })
     });
   } catch (err) {
     console.error('Discord login error:', err);

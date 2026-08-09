@@ -286,6 +286,12 @@ window.DISCORD_ACTIVITY = {
   get instanceId() {
     return window.DISCORD_ACTIVITY._session?.instanceId ?? null;
   },
+  get guildId() {
+    return window.DISCORD_ACTIVITY._session?.guildId ?? null;
+  },
+  get channelId() {
+    return window.DISCORD_ACTIVITY._session?.channelId ?? null;
+  },
   get active() {
     return Boolean(window.DISCORD_ACTIVITY._session);
   },

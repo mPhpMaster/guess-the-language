@@ -1,6 +1,6 @@
 'use strict';
 
-const { signSession } = require('./_session');
+const { signSession, isAdminUsername } = require('./_session');
 
 /**
  * Exchange a Discord OAuth2 authorization code for an access token.
@@ -56,8 +56,12 @@ module.exports = async function handler(req, res) {
         headers: { Authorization: `Bearer ${data.access_token}` }
       });
       const user = await userRes.json();
-      if (userRes.ok && user.id) sessionToken = signSession(user.id);
-      else console.warn('Discord profile fetch failed; continuing without a session token');
+      if (userRes.ok && user.id) {
+        // Admin is decided here, server-side, from the real Discord username — the
+        // resulting `adm` claim is signed so the client can't forge it.
+        const adm = isAdminUsername(user.username);
+        sessionToken = signSession(user.id, { adm, uname: user.username || null });
+      } else console.warn('Discord profile fetch failed; continuing without a session token');
     } catch (err) {
       console.warn('Discord profile fetch error; continuing without a session token:', err.message);
     }
