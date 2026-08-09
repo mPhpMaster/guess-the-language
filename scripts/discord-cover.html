@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<!--
+  Source artwork for the Discord "Rich Presence Invite Image" (Cover Image):
+  1024x576, 16:9 — the banner on the "Invite to join" card in chat.
+
+  Rendered to screenshots/discord-cover.png by:  electron scripts/make-discord-cover.js
+  Edit this file, re-run that script, then re-upload in the Developer Portal
+  (Rich Presence -> Art Assets -> Cover Image).
+
+  Colours and the syntax-token palette are copied from src/styles.css so the
+  banner matches the game.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style>
+  @font-face {
+    font-family: "Plus Jakarta Sans";
+    src: url("../src/assets/fonts/PlusJakartaSans-wght.woff2") format("woff2");
+    font-weight: 200 800;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1024px; height: 576px; overflow: hidden; }
+  body {
+    font-family: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
+    color: #eaf2ff;
+    background: #07111e;
+    display: flex;
+    align-items: center;
+    gap: 34px;
+    padding: 56px 60px;
+    position: relative;
+  }
+  /* Depth: the app's navy gradient plus two neon glows. */
+  .bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(120% 90% at 88% 8%, #19f0c41f 0%, transparent 55%),
+      radial-gradient(110% 95% at 6% 92%, #2ec5ff26 0%, transparent 58%),
+      linear-gradient(135deg, #0b1a2b 0%, #07111e 55%, #102a44 100%);
+  }
+  /* Faint grid, so flat colour areas don't look empty when scaled down. */
+  .grid {
+    position: absolute; inset: 0; z-index: 0; opacity: 0.5;
+    background-image:
+      linear-gradient(#ffffff08 1px, transparent 1px),
+      linear-gradient(90deg, #ffffff08 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(80% 70% at 40% 50%, #000 0%, transparent 78%);
+  }
+
+  .left  { position: relative; z-index: 1; width: 498px; }
+  .right { position: relative; z-index: 1; flex: 1; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-size: 15px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+    color: #2ec5ff;
+    background: #2ec5ff1a; border: 1px solid #2ec5ff4d;
+    border-radius: 999px; padding: 8px 16px;
+  }
+  h1 {
+    font-size: 68px; font-weight: 800; line-height: 1.02; letter-spacing: -0.03em;
+    margin: 22px 0 0;
+    text-shadow: 0 0 44px #2ec5ff40;
+  }
+  h1 .accent {
+    background: linear-gradient(92deg, #2ec5ff 0%, #19f0c4 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  /* Bilingual, because the game ships EN + AR. inline-block so the RTL run is
+     shaped correctly but still sits flush against the left column, instead of
+     being pushed to the far edge by the RTL alignment. */
+  .arabic {
+    font-size: 31px; font-weight: 700; color: #9fb4cc;
+    margin-top: 12px; direction: rtl; display: inline-block;
+  }
+  .tagline { font-size: 19px; font-weight: 500; color: #9fb4cc; margin-top: 18px; }
+  .chips { display: flex; gap: 9px; margin-top: 26px; flex-wrap: wrap; }
+  .chip {
+    font-size: 15px; font-weight: 600;
+    background: #0d1f33cc; border: 1px solid #ffffff1f;
+    border-radius: 999px; padding: 8px 15px;
+  }
+
+  /* The game's signature visual: the code panel plus answer buttons. */
+  .panel {
+    background: #060f1a; border: 1px solid #ffffff1f; border-radius: 18px;
+    padding: 22px 24px;
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+    /* nowrap keeps the fake indentation intact — a wrapped line reads as broken
+       code rather than as a snippet. */
+    font-size: 15.5px; line-height: 1.62; white-space: nowrap;
+    box-shadow: 0 26px 60px #00000073, 0 0 0 1px #2ec5ff1a;
+    transform: rotate(-1.4deg);
+  }
+  .panel .dots { display: flex; gap: 7px; margin-bottom: 15px; }
+  .panel .dots i { width: 11px; height: 11px; border-radius: 50%; background: #ffffff1f; }
+  .kw { color: #ff79c6; font-weight: 600; }
+  .fn { color: #7ad3ff; }
+  .nu { color: #ffca7a; }
+  .pu { color: #9fb4cc; }
+  .co { color: #6b7c93; font-style: italic; }
+
+  .opts { display: flex; gap: 12px; margin-top: 20px; transform: rotate(-1.4deg); }
+  .opt {
+    flex: 1; display: flex; align-items: center; gap: 11px;
+    background: #11283fcc; border: 1px solid #ffffff1f; border-radius: 14px;
+    padding: 13px 15px; font-size: 16px; font-weight: 700;
+  }
+  .opt .badge {
+    width: 30px; height: 30px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 9px; background: #ffffff14; font-size: 14px; color: #9fb4cc;
+  }
+  .opt.correct {
+    border-color: #25d07d;
+    box-shadow: 0 0 0 2px #25d07d, 0 0 30px #25d07d66;
+  }
+  .opt.correct .badge { background: #25d07d; color: #06210f; }
+</style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="grid"></div>
+
+  <div class="left">
+    <div class="eyebrow">🎮 Discord Activity</div>
+    <h1>Guess the<br /><span class="accent">Language</span></h1>
+    <div class="arabic">خمّن اللغة</div>
+    <p class="tagline">Bilingual IT quiz — beat the timer, climb the board.</p>
+    <div class="chips">
+      <span class="chip">💻 Languages</span>
+      <span class="chip">🛡️ Cyber</span>
+      <span class="chip">♾️ DevOps</span>
+      <span class="chip">🌐 Network</span>
+      <span class="chip">🎮 Game Dev</span>
+      <span class="chip">🧩 Problem Solving</span>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="panel">
+      <div class="dots"><i></i><i></i><i></i></div>
+      <div><span class="kw">def</span> <span class="fn">fib</span><span class="pu">(</span>n<span class="pu">):</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> n <span class="pu">&lt;=</span> <span class="nu">1</span><span class="pu">:</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> n</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> <span class="fn">fib</span><span class="pu">(</span>n<span class="pu">-</span><span class="nu">1</span><span class="pu">)</span> <span class="pu">+</span> <span class="fn">fib</span><span class="pu">(</span>n<span class="pu">-</span><span class="nu">2</span><span class="pu">)</span></div>
+      <div><span class="co"># which language?</span></div>
+    </div>
+    <div class="opts">
+      <div class="opt correct"><span class="badge">✓</span>Python</div>
+      <div class="opt"><span class="badge">B</span>Ruby</div>
+    </div>
+  </div>
+</body>
+</html>

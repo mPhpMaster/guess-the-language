@@ -1,0 +1,1524 @@
+[
+  {
+    "id": 1,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "____ greet(name):\n    return \"Hi \" + name",
+    "question": {
+      "en": "Fill the Python keyword that defines a function.",
+      "ar": "أكمل الكلمة المفتاحية التي تُعرِّف دالة في بايثون."
+    },
+    "answer": "def",
+    "accept": [
+      "def"
+    ],
+    "explanation": {
+      "en": "def introduces a function definition in Python.",
+      "ar": "def تبدأ تعريف دالة في بايثون."
+    }
+  },
+  {
+    "id": 2,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "for i in ____(10):\n    print(i)",
+    "question": {
+      "en": "Fill the built-in that yields the numbers 0..9.",
+      "ar": "أكمل الدالة المدمجة التي تُنتج الأرقام 0..9."
+    },
+    "answer": "range",
+    "accept": [
+      "range"
+    ],
+    "explanation": {
+      "en": "range(10) produces 0 through 9.",
+      "ar": "range(10) تُنتج من 0 إلى 9."
+    }
+  },
+  {
+    "id": 3,
+    "category": "strings",
+    "difficulty": "medium",
+    "codeSnippet": "reversed_list = nums[::____]",
+    "question": {
+      "en": "Fill the slice step that reverses a Python list.",
+      "ar": "أكمل خطوة التقطيع التي تعكس قائمة بايثون."
+    },
+    "answer": "-1",
+    "accept": [
+      "-1"
+    ],
+    "explanation": {
+      "en": "A step of -1 walks the list backwards.",
+      "ar": "خطوة بمقدار -1 تسير في القائمة عكسياً."
+    }
+  },
+  {
+    "id": 4,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "codeSnippet": "count = freq.____(\"a\", 0)",
+    "question": {
+      "en": "Fill the dict method that returns a default when the key is missing.",
+      "ar": "أكمل دالة القاموس التي تعيد قيمة افتراضية عند غياب المفتاح."
+    },
+    "answer": "get",
+    "accept": [
+      "get"
+    ],
+    "explanation": {
+      "en": "dict.get(key, default) avoids a KeyError.",
+      "ar": "dict.get(key, default) تتجنّب خطأ KeyError."
+    }
+  },
+  {
+    "id": 5,
+    "category": "data-structures",
+    "difficulty": "easy",
+    "codeSnippet": "stack.____(x)   # push onto the stack",
+    "question": {
+      "en": "Fill the list method that adds x to the end.",
+      "ar": "أكمل دالة القائمة التي تضيف x إلى النهاية."
+    },
+    "answer": "append",
+    "accept": [
+      "append"
+    ],
+    "explanation": {
+      "en": "list.append(x) pushes onto the end (a stack push).",
+      "ar": "list.append(x) تدفع إلى النهاية (دفع في المكدّس)."
+    }
+  },
+  {
+    "id": 6,
+    "category": "data-structures",
+    "difficulty": "easy",
+    "codeSnippet": "top = stack.____()   # LIFO remove",
+    "question": {
+      "en": "Fill the method that removes and returns the last item.",
+      "ar": "أكمل الدالة التي تزيل وتعيد آخر عنصر."
+    },
+    "answer": "pop",
+    "accept": [
+      "pop"
+    ],
+    "explanation": {
+      "en": "list.pop() removes and returns the last element (LIFO).",
+      "ar": "list.pop() تزيل وتعيد آخر عنصر (LIFO)."
+    }
+  },
+  {
+    "id": 7,
+    "category": "algorithms",
+    "difficulty": "medium",
+    "codeSnippet": "mid = (lo + hi) ____ 2   # binary search",
+    "question": {
+      "en": "Fill the operator for integer (floor) division.",
+      "ar": "أكمل عامل القسمة الصحيحة (للأسفل)."
+    },
+    "answer": "//",
+    "accept": [
+      "//"
+    ],
+    "explanation": {
+      "en": "// is floor division, keeping mid an integer index.",
+      "ar": "// هي القسمة للأسفل، وتُبقي mid فهرساً صحيحاً."
+    }
+  },
+  {
+    "id": 8,
+    "category": "algorithms",
+    "difficulty": "medium",
+    "codeSnippet": "if target - x ____ seen:   # Two Sum",
+    "question": {
+      "en": "Fill the operator that tests membership in a set.",
+      "ar": "أكمل العامل الذي يختبر العضوية في مجموعة."
+    },
+    "answer": "in",
+    "accept": [
+      "in"
+    ],
+    "explanation": {
+      "en": "x in seen checks membership in O(1) average.",
+      "ar": "x in seen تتحقّق من العضوية بمتوسط O(1)."
+    }
+  },
+  {
+    "id": 9,
+    "category": "algorithms",
+    "difficulty": "easy",
+    "codeSnippet": "if n ____ 0:\n    return 1   # factorial base case",
+    "question": {
+      "en": "Fill the operator that compares n with 0.",
+      "ar": "أكمل العامل الذي يقارن n بالصفر."
+    },
+    "answer": "==",
+    "accept": [
+      "=="
+    ],
+    "explanation": {
+      "en": "== tests equality for the recursion base case.",
+      "ar": "== تختبر المساواة لحالة الأساس في التكرار."
+    }
+  },
+  {
+    "id": 10,
+    "category": "recursion",
+    "difficulty": "medium",
+    "codeSnippet": "def rec(n):\n    if n == 0: return 0\n    return n ____ rec(n - 1)",
+    "question": {
+      "en": "Fill the operator to add n to the recursive result.",
+      "ar": "أكمل العامل لإضافة n إلى نتيجة التكرار."
+    },
+    "answer": "+",
+    "accept": [
+      "+"
+    ],
+    "explanation": {
+      "en": "It sums n with the sum of everything below → 1+2+…+n.",
+      "ar": "يجمع n مع مجموع ما دونه → 1+2+…+n."
+    }
+  },
+  {
+    "id": 11,
+    "category": "complexity",
+    "difficulty": "medium",
+    "codeSnippet": "# binary search runs in\nbig_o = \"O(____ n)\"",
+    "question": {
+      "en": "Fill the function name in binary search's Big-O.",
+      "ar": "أكمل اسم الدالة في تعقيد البحث الثنائي."
+    },
+    "answer": "log",
+    "accept": [
+      "log"
+    ],
+    "explanation": {
+      "en": "Halving the range each step gives O(log n).",
+      "ar": "تنصيف المجال كل خطوة يعطي O(log n)."
+    }
+  },
+  {
+    "id": 12,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "a, b = b, ____   # swap a and b",
+    "question": {
+      "en": "Fill to complete the Pythonic swap of a and b.",
+      "ar": "أكمل التبديل البايثوني بين a و b."
+    },
+    "answer": "a",
+    "accept": [
+      "a"
+    ],
+    "explanation": {
+      "en": "a, b = b, a swaps two variables in one line.",
+      "ar": "a, b = b, a تبدّل متغيّرين في سطر واحد."
+    }
+  },
+  {
+    "id": 13,
+    "category": "data-structures",
+    "difficulty": "easy",
+    "codeSnippet": "nums.____()   # ascending, in place",
+    "question": {
+      "en": "Fill the list method that sorts in place.",
+      "ar": "أكمل دالة القائمة التي ترتّب في المكان."
+    },
+    "answer": "sort",
+    "accept": [
+      "sort"
+    ],
+    "explanation": {
+      "en": "list.sort() sorts the list in place.",
+      "ar": "list.sort() ترتّب القائمة في مكانها."
+    }
+  },
+  {
+    "id": 14,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "codeSnippet": "unique = ____(items)   # remove duplicates",
+    "question": {
+      "en": "Fill the built-in that removes duplicates.",
+      "ar": "أكمل الدالة المدمجة التي تزيل التكرارات."
+    },
+    "answer": "set",
+    "accept": [
+      "set"
+    ],
+    "explanation": {
+      "en": "set(items) keeps only distinct values.",
+      "ar": "set(items) تُبقي القيم المتمايزة فقط."
+    }
+  },
+  {
+    "id": 15,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "n = ____(arr)   # number of elements",
+    "question": {
+      "en": "Fill the built-in that returns how many elements a list has.",
+      "ar": "أكمل الدالة المدمجة التي تعيد عدد عناصر القائمة."
+    },
+    "answer": "len",
+    "accept": [
+      "len"
+    ],
+    "explanation": {
+      "en": "len(arr) returns the element count.",
+      "ar": "len(arr) تعيد عدد العناصر."
+    }
+  },
+  {
+    "id": 16,
+    "category": "patterns",
+    "difficulty": "medium",
+    "codeSnippet": "while total > k:\n    left ____ 1   # shrink the window",
+    "question": {
+      "en": "Fill to advance the left pointer by 1.",
+      "ar": "أكمل لتقديم المؤشّر الأيسر بمقدار 1."
+    },
+    "answer": "+=",
+    "accept": [
+      "+="
+    ],
+    "explanation": {
+      "en": "left += 1 shrinks the sliding window from the left.",
+      "ar": "left += 1 تقلّص النافذة المنزلقة من اليسار."
+    }
+  },
+  {
+    "id": 17,
+    "category": "algorithms",
+    "difficulty": "easy",
+    "codeSnippet": "if arr[mid] == target:\n    ____ mid",
+    "question": {
+      "en": "Fill the keyword that returns mid.",
+      "ar": "أكمل الكلمة المفتاحية التي تعيد mid."
+    },
+    "answer": "return",
+    "accept": [
+      "return"
+    ],
+    "explanation": {
+      "en": "return mid ends the function with the found index.",
+      "ar": "return mid تُنهي الدالة بالفهرس الموجود."
+    }
+  },
+  {
+    "id": 18,
+    "category": "graphs",
+    "difficulty": "medium",
+    "codeSnippet": "visited.____(node)   # mark as seen (a set)",
+    "question": {
+      "en": "Fill the set method that adds node.",
+      "ar": "أكمل دالة المجموعة التي تضيف node."
+    },
+    "answer": "add",
+    "accept": [
+      "add"
+    ],
+    "explanation": {
+      "en": "set.add(node) records a visited node in BFS/DFS.",
+      "ar": "set.add(node) تسجّل عقدة مزارة في BFS/DFS."
+    }
+  },
+  {
+    "id": 19,
+    "category": "data-structures",
+    "difficulty": "hard",
+    "codeSnippet": "import heapq\nheapq.____(h, x)   # push x",
+    "question": {
+      "en": "Fill the heapq function that pushes x onto heap h.",
+      "ar": "أكمل دالة heapq التي تدفع x إلى الكومة h."
+    },
+    "answer": "heappush",
+    "accept": [
+      "heappush"
+    ],
+    "explanation": {
+      "en": "heapq.heappush(h, x) adds x keeping the heap invariant.",
+      "ar": "heapq.heappush(h, x) تضيف x مع الحفاظ على ثابت الكومة."
+    }
+  },
+  {
+    "id": 20,
+    "category": "math",
+    "difficulty": "easy",
+    "codeSnippet": "if n ____ 2 == 0:   # even?",
+    "question": {
+      "en": "Fill the operator for remainder (modulo).",
+      "ar": "أكمل عامل باقي القسمة (modulo)."
+    },
+    "answer": "%",
+    "accept": [
+      "%"
+    ],
+    "explanation": {
+      "en": "n % 2 == 0 is true for even numbers.",
+      "ar": "n % 2 == 0 صحيحة للأعداد الزوجية."
+    }
+  },
+  {
+    "id": 21,
+    "category": "graphs",
+    "difficulty": "medium",
+    "codeSnippet": "if ____ visited[node]:\n    dfs(node)   # if not visited",
+    "question": {
+      "en": "Fill the keyword so it reads 'if not visited'.",
+      "ar": "أكمل الكلمة المفتاحية لتصبح 'if not visited'."
+    },
+    "answer": "not",
+    "accept": [
+      "not"
+    ],
+    "explanation": {
+      "en": "not negates the boolean → visit unseen nodes.",
+      "ar": "not تنفي القيمة المنطقية → زيارة العقد غير المزارة."
+    }
+  },
+  {
+    "id": 22,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "for i in range(0, n, ____):   # every 2nd index",
+    "question": {
+      "en": "Fill the step so the loop visits every 2nd index.",
+      "ar": "أكمل الخطوة ليزور الحلقة كل فهرس ثانٍ."
+    },
+    "answer": "2",
+    "accept": [
+      "2"
+    ],
+    "explanation": {
+      "en": "range(0, n, 2) steps by 2.",
+      "ar": "range(0, n, 2) تتقدّم بمقدار 2."
+    }
+  },
+  {
+    "id": 23,
+    "category": "strings",
+    "difficulty": "medium",
+    "codeSnippet": "csv = \",\".____(parts)   # join with commas",
+    "question": {
+      "en": "Fill the str method that joins a list with commas.",
+      "ar": "أكمل دالة النص التي تدمج قائمة بفواصل."
+    },
+    "answer": "join",
+    "accept": [
+      "join"
+    ],
+    "explanation": {
+      "en": "\",\".join(parts) concatenates with commas.",
+      "ar": "\",\".join(parts) تدمج بفواصل."
+    }
+  },
+  {
+    "id": 24,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "smallest = ____(nums)",
+    "question": {
+      "en": "Fill the built-in that returns the smallest value.",
+      "ar": "أكمل الدالة المدمجة التي تعيد أصغر قيمة."
+    },
+    "answer": "min",
+    "accept": [
+      "min"
+    ],
+    "explanation": {
+      "en": "min(nums) returns the minimum.",
+      "ar": "min(nums) تعيد الأصغر."
+    }
+  },
+  {
+    "id": 25,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "largest = ____(nums)",
+    "question": {
+      "en": "Fill the built-in that returns the largest value.",
+      "ar": "أكمل الدالة المدمجة التي تعيد أكبر قيمة."
+    },
+    "answer": "max",
+    "accept": [
+      "max"
+    ],
+    "explanation": {
+      "en": "max(nums) returns the maximum.",
+      "ar": "max(nums) تعيد الأكبر."
+    }
+  },
+  {
+    "id": 26,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "squares = [x____2 for x in range(n)]",
+    "question": {
+      "en": "Fill the operator so each x is squared (x to the power 2).",
+      "ar": "أكمل العامل بحيث يُربَّع كل x (أُس 2)."
+    },
+    "answer": "**",
+    "accept": [
+      "**"
+    ],
+    "explanation": {
+      "en": "x**2 raises x to the power 2 in the comprehension.",
+      "ar": "x**2 ترفع x للأُس 2 داخل الفهم القائمي."
+    }
+  },
+  {
+    "id": 27,
+    "category": "math",
+    "difficulty": "medium",
+    "codeSnippet": "x = a if a ____ 0 else -a   # absolute value",
+    "question": {
+      "en": "Fill the comparison so x becomes |a|.",
+      "ar": "أكمل المقارنة بحيث يصبح x القيمة المطلقة |a|."
+    },
+    "answer": ">=",
+    "accept": [
+      ">=",
+      ">"
+    ],
+    "explanation": {
+      "en": "a if a >= 0 else -a returns the absolute value.",
+      "ar": "a if a >= 0 else -a تعيد القيمة المطلقة."
+    }
+  },
+  {
+    "id": 28,
+    "category": "patterns",
+    "difficulty": "medium",
+    "codeSnippet": "while left ____ right:   # two pointers",
+    "question": {
+      "en": "Fill the operator so the loop runs while left is before right.",
+      "ar": "أكمل العامل بحيث تعمل الحلقة ما دام left قبل right."
+    },
+    "answer": "<",
+    "accept": [
+      "<"
+    ],
+    "explanation": {
+      "en": "left < right keeps the two pointers from crossing.",
+      "ar": "left < right تمنع تقاطع المؤشّرين."
+    }
+  },
+  {
+    "id": 29,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "codeSnippet": "return len(stack) ____ 0   # is it empty?",
+    "question": {
+      "en": "Fill the operator to check the stack is empty.",
+      "ar": "أكمل العامل للتحقق من أنّ المكدّس فارغ."
+    },
+    "answer": "==",
+    "accept": [
+      "=="
+    ],
+    "explanation": {
+      "en": "len(stack) == 0 is true when the stack is empty (valid parentheses).",
+      "ar": "len(stack) == 0 صحيحة عندما يكون المكدّس فارغاً (الأقواس الصحيحة)."
+    }
+  },
+  {
+    "id": 30,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "count ____ 1   # increment the counter",
+    "question": {
+      "en": "Fill to add 1 to count.",
+      "ar": "أكمل لإضافة 1 إلى count."
+    },
+    "answer": "+=",
+    "accept": [
+      "+="
+    ],
+    "explanation": {
+      "en": "count += 1 increments the counter.",
+      "ar": "count += 1 تزيد العدّاد بمقدار 1."
+    }
+  },
+  {
+    "id": 31,
+    "category": "dynamic-programming",
+    "difficulty": "medium",
+    "codeSnippet": "dp = [0] ____ (n + 1)   # n+1 zeros",
+    "question": {
+      "en": "Fill the operator that repeats the list n+1 times.",
+      "ar": "أكمل العامل الذي يكرّر القائمة n+1 مرة."
+    },
+    "answer": "*",
+    "accept": [
+      "*"
+    ],
+    "explanation": {
+      "en": "[0] * (n+1) builds a DP array of n+1 zeros.",
+      "ar": "[0] * (n+1) تبني مصفوفة DP من n+1 صفراً."
+    }
+  },
+  {
+    "id": 32,
+    "category": "bit-manipulation",
+    "difficulty": "hard",
+    "codeSnippet": "x = x ____ (x - 1)   # clear lowest set bit",
+    "question": {
+      "en": "Fill the bitwise operator that clears the lowest set bit.",
+      "ar": "أكمل العامل البتّي الذي يمسح أدنى بت مضبوط."
+    },
+    "answer": "&",
+    "accept": [
+      "&"
+    ],
+    "explanation": {
+      "en": "x & (x - 1) turns off the rightmost 1 bit.",
+      "ar": "x & (x - 1) تُطفئ أقصى بت مضبوط إلى اليمين."
+    }
+  },
+  {
+    "id": 33,
+    "category": "algorithms",
+    "difficulty": "easy",
+    "codeSnippet": "if found:\n    ____   # stop the loop early",
+    "question": {
+      "en": "Fill the keyword that exits a loop early.",
+      "ar": "أكمل الكلمة المفتاحية التي تخرج من الحلقة مبكراً."
+    },
+    "answer": "break",
+    "accept": [
+      "break"
+    ],
+    "explanation": {
+      "en": "break exits the nearest enclosing loop.",
+      "ar": "break تخرج من أقرب حلقة محيطة."
+    }
+  },
+  {
+    "id": 34,
+    "category": "recursion",
+    "difficulty": "medium",
+    "codeSnippet": "def fib(n):\n    if n ____ 2:\n        return n\n    return fib(n-1) + fib(n-2)",
+    "question": {
+      "en": "Fill the comparison for the Fibonacci base case (n = 0 or 1).",
+      "ar": "أكمل المقارنة لحالة أساس فيبوناتشي (n = 0 أو 1)."
+    },
+    "answer": "<",
+    "accept": [
+      "<"
+    ],
+    "explanation": {
+      "en": "if n < 2 returns n for the base cases 0 and 1.",
+      "ar": "if n < 2 تعيد n لحالتي الأساس 0 و1."
+    }
+  },
+  {
+    "id": 35,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "nums = [1, 2, 3]\nprint(____(nums))",
+    "question": {
+      "en": "Fill the built-in that returns how many items are in a list.",
+      "ar": "أكمل الدالة المدمجة التي تعيد عدد عناصر القائمة."
+    },
+    "answer": "len",
+    "accept": [
+      "len"
+    ],
+    "explanation": {
+      "en": "len() returns the number of items in a sequence.",
+      "ar": "len() تعيد عدد عناصر التسلسل."
+    }
+  },
+  {
+    "id": 36,
+    "category": "strings",
+    "difficulty": "easy",
+    "codeSnippet": "s = \"hello\"\nprint(s.____())  # HELLO",
+    "question": {
+      "en": "Fill the string method that returns an uppercase copy.",
+      "ar": "أكمل دالة النص التي تعيد نسخة بأحرف كبيرة."
+    },
+    "answer": "upper",
+    "accept": [
+      "upper"
+    ],
+    "explanation": {
+      "en": "str.upper() returns an uppercased copy of the string.",
+      "ar": "str.upper() تعيد نسخة من النص بأحرف كبيرة."
+    }
+  },
+  {
+    "id": 37,
+    "category": "data-structures",
+    "difficulty": "easy",
+    "codeSnippet": "stack = []\nstack.____(5)  # push",
+    "question": {
+      "en": "Fill the list method that adds an item to the end (push).",
+      "ar": "أكمل دالة القائمة التي تضيف عنصرًا في النهاية."
+    },
+    "answer": "append",
+    "accept": [
+      "append"
+    ],
+    "explanation": {
+      "en": "list.append(x) adds x to the end — a stack push.",
+      "ar": "list.append(x) تضيف x في النهاية، أي دفع للمكدس."
+    }
+  },
+  {
+    "id": 38,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "codeSnippet": "d = {}\nvalue = d.____(\"k\", 0)",
+    "question": {
+      "en": "Fill the dict method that returns a default when the key is missing.",
+      "ar": "أكمل دالة القاموس التي تعيد قيمة افتراضية عند غياب المفتاح."
+    },
+    "answer": "get",
+    "accept": [
+      "get"
+    ],
+    "explanation": {
+      "en": "dict.get(k, default) avoids a KeyError by returning default.",
+      "ar": "dict.get(k, default) تتجنب KeyError بإعادة القيمة الافتراضية."
+    }
+  },
+  {
+    "id": 39,
+    "category": "algorithms",
+    "difficulty": "medium",
+    "codeSnippet": "lo, hi = 0, len(a) - 1\nmid = (lo + hi) ____ 2",
+    "question": {
+      "en": "Fill the operator for integer (floor) division of the midpoint.",
+      "ar": "أكمل معامل القسمة الصحيحة لإيجاد المنتصف."
+    },
+    "answer": "//",
+    "accept": [
+      "//"
+    ],
+    "explanation": {
+      "en": "// is floor division, keeping mid an integer index.",
+      "ar": "// قسمة صحيحة تُبقي mid فهرسًا صحيحًا."
+    }
+  },
+  {
+    "id": 40,
+    "category": "recursion",
+    "difficulty": "easy",
+    "codeSnippet": "def fact(n):\n    if n == 0:\n        return 1\n    return n ____ fact(n - 1)",
+    "question": {
+      "en": "Fill the operator that multiplies n by the recursive result.",
+      "ar": "أكمل المعامل الذي يضرب n بالنتيجة العَودية."
+    },
+    "answer": "*",
+    "accept": [
+      "*"
+    ],
+    "explanation": {
+      "en": "Factorial multiplies n by fact(n-1).",
+      "ar": "المضروب يضرب n في fact(n-1)."
+    }
+  },
+  {
+    "id": 41,
+    "category": "complexity",
+    "difficulty": "easy",
+    "codeSnippet": "# Binary search runs in O(____ n) time",
+    "question": {
+      "en": "Fill the function name in the binary-search time complexity.",
+      "ar": "أكمل اسم الدالة في تعقيد البحث الثنائي الزمني."
+    },
+    "answer": "log",
+    "accept": [
+      "log"
+    ],
+    "explanation": {
+      "en": "Binary search halves the range each step: O(log n).",
+      "ar": "البحث الثنائي ينصّف المجال كل خطوة: O(log n)."
+    }
+  },
+  {
+    "id": 42,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "for i in ____(5):\n    print(i)",
+    "question": {
+      "en": "Fill the built-in that yields 0..4 in a for loop.",
+      "ar": "أكمل الدالة المدمجة التي تولّد 0..4 في الحلقة."
+    },
+    "answer": "range",
+    "accept": [
+      "range"
+    ],
+    "explanation": {
+      "en": "range(5) yields 0,1,2,3,4.",
+      "ar": "range(5) تولّد 0 و1 و2 و3 و4."
+    }
+  },
+  {
+    "id": 43,
+    "category": "algorithms",
+    "difficulty": "easy",
+    "codeSnippet": "arr = [3, 1, 2]\narr.____()  # [1, 2, 3]",
+    "question": {
+      "en": "Fill the list method that sorts in place ascending.",
+      "ar": "أكمل دالة القائمة التي تفرز مكانيًا تصاعديًا."
+    },
+    "answer": "sort",
+    "accept": [
+      "sort"
+    ],
+    "explanation": {
+      "en": "list.sort() sorts the list in place.",
+      "ar": "list.sort() تفرز القائمة في مكانها."
+    }
+  },
+  {
+    "id": 44,
+    "category": "patterns",
+    "difficulty": "easy",
+    "codeSnippet": "seen = ____()\nseen.add(x)",
+    "question": {
+      "en": "Fill the type that stores unique items with add().",
+      "ar": "أكمل النوع الذي يخزّن عناصر فريدة مع add()."
+    },
+    "answer": "set",
+    "accept": [
+      "set"
+    ],
+    "explanation": {
+      "en": "set() creates an empty set supporting add().",
+      "ar": "set() تنشئ مجموعة فارغة تدعم add()."
+    }
+  },
+  {
+    "id": 45,
+    "category": "graphs",
+    "difficulty": "medium",
+    "codeSnippet": "from collections import deque\nq = ____()",
+    "question": {
+      "en": "Fill the double-ended queue used for BFS.",
+      "ar": "أكمل الطابور ثنائي الطرف المستخدم في BFS."
+    },
+    "answer": "deque",
+    "accept": [
+      "deque"
+    ],
+    "explanation": {
+      "en": "deque gives O(1) pops from both ends for BFS.",
+      "ar": "deque توفّر إزالة بزمن O(1) من الطرفين لـ BFS."
+    }
+  },
+  {
+    "id": 46,
+    "category": "math",
+    "difficulty": "easy",
+    "codeSnippet": "import math\nprint(math.____(16))  # 4.0",
+    "question": {
+      "en": "Fill the math function that returns the square root.",
+      "ar": "أكمل دالة الرياضيات التي تعيد الجذر التربيعي."
+    },
+    "answer": "sqrt",
+    "accept": [
+      "sqrt"
+    ],
+    "explanation": {
+      "en": "math.sqrt(16) returns 4.0.",
+      "ar": "math.sqrt(16) تعيد 4.0."
+    }
+  },
+  {
+    "id": 47,
+    "category": "bit-manipulation",
+    "difficulty": "medium",
+    "codeSnippet": "# true when n is even\nif n ____ 1 == 0:",
+    "question": {
+      "en": "Fill the bitwise operator that isolates the lowest bit.",
+      "ar": "أكمل المعامل الثنائي الذي يعزل أدنى بِت."
+    },
+    "answer": "&",
+    "accept": [
+      "&"
+    ],
+    "explanation": {
+      "en": "n & 1 == 0 tests the low bit to detect even numbers.",
+      "ar": "n & 1 == 0 تفحص أدنى بِت لكشف الأعداد الزوجية."
+    }
+  },
+  {
+    "id": 48,
+    "category": "dynamic-programming",
+    "difficulty": "medium",
+    "codeSnippet": "if n in ____:\n    return memo[n]",
+    "question": {
+      "en": "Fill the cache name checked before recomputing.",
+      "ar": "أكمل اسم الذاكرة المؤقتة المفحوصة قبل إعادة الحساب."
+    },
+    "answer": "memo",
+    "accept": [
+      "memo"
+    ],
+    "explanation": {
+      "en": "Memoization returns the cached result if present.",
+      "ar": "الحفظ المؤقت يعيد النتيجة المخزنة إن وُجدت."
+    }
+  },
+  {
+    "id": 49,
+    "category": "strings",
+    "difficulty": "medium",
+    "codeSnippet": "words = sentence.____(\" \")",
+    "question": {
+      "en": "Fill the string method that breaks text on spaces.",
+      "ar": "أكمل دالة النص التي تقسّم النص عند المسافات."
+    },
+    "answer": "split",
+    "accept": [
+      "split"
+    ],
+    "explanation": {
+      "en": "str.split(' ') returns a list of words.",
+      "ar": "str.split(' ') تعيد قائمة بالكلمات."
+    }
+  },
+  {
+    "id": 50,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "codeSnippet": "q = deque([1, 2, 3])\nq.____()  # removes 1",
+    "question": {
+      "en": "Fill the deque method that removes from the left.",
+      "ar": "أكمل دالة deque التي تزيل من اليسار."
+    },
+    "answer": "popleft",
+    "accept": [
+      "popleft"
+    ],
+    "explanation": {
+      "en": "deque.popleft() removes and returns the leftmost item.",
+      "ar": "deque.popleft() تزيل وتعيد العنصر الأيسر."
+    }
+  },
+  {
+    "id": 51,
+    "category": "algorithms",
+    "difficulty": "medium",
+    "codeSnippet": "arr[i], arr[j] = arr[j], ____",
+    "question": {
+      "en": "Fill the expression that completes an in-place swap.",
+      "ar": "أكمل التعبير الذي يُتمّ التبديل المكاني."
+    },
+    "answer": "arr[i]",
+    "accept": [
+      "arr[i]"
+    ],
+    "explanation": {
+      "en": "Tuple assignment swaps two elements without a temp.",
+      "ar": "الإسناد الطرفي يبدّل عنصرين دون متغير مؤقت."
+    }
+  },
+  {
+    "id": 52,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "rev = lst[::____]",
+    "question": {
+      "en": "Fill the step that reverses a list via slicing.",
+      "ar": "أكمل الخطوة التي تعكس القائمة عبر التقطيع."
+    },
+    "answer": "-1",
+    "accept": [
+      "-1"
+    ],
+    "explanation": {
+      "en": "lst[::-1] returns the list reversed.",
+      "ar": "lst[::-1] تعيد القائمة معكوسة."
+    }
+  },
+  {
+    "id": 53,
+    "category": "recursion",
+    "difficulty": "medium",
+    "codeSnippet": "def fib(n):\n    if n < 2:\n        return n\n    return fib(n - 1) ____ fib(n - 2)",
+    "question": {
+      "en": "Fill the operator combining the two recursive Fibonacci calls.",
+      "ar": "أكمل المعامل الذي يجمع نداءي فيبوناتشي العَوديين."
+    },
+    "answer": "+",
+    "accept": [
+      "+"
+    ],
+    "explanation": {
+      "en": "Fibonacci sums the two previous terms.",
+      "ar": "فيبوناتشي يجمع الحدّين السابقين."
+    }
+  },
+  {
+    "id": 54,
+    "category": "complexity",
+    "difficulty": "easy",
+    "codeSnippet": "# Array index access is O(____)",
+    "question": {
+      "en": "Fill the complexity of accessing an array element by index.",
+      "ar": "أكمل تعقيد الوصول لعنصر مصفوفة بالفهرس."
+    },
+    "answer": "1",
+    "accept": [
+      "1"
+    ],
+    "explanation": {
+      "en": "Indexed access is constant time, O(1).",
+      "ar": "الوصول بالفهرس زمن ثابت O(1)."
+    }
+  },
+  {
+    "id": 55,
+    "category": "complexity",
+    "difficulty": "easy",
+    "codeSnippet": "# Binary search on a sorted array is O(log ____)",
+    "question": {
+      "en": "Fill in the complexity of binary search.",
+      "ar": "أكمل تعقيد البحث الثنائي."
+    },
+    "answer": "n",
+    "accept": [
+      "n"
+    ],
+    "explanation": {
+      "en": "Each step halves the range, giving O(log n).",
+      "ar": "كل خطوة تنصّف المدى فينتج O(log n)."
+    }
+  },
+  {
+    "id": 56,
+    "category": "complexity",
+    "difficulty": "medium",
+    "codeSnippet": "# Merge sort worst case is O(n log ____)",
+    "question": {
+      "en": "Fill in merge sort's worst-case complexity.",
+      "ar": "أكمل تعقيد الفرز بالدمج في أسوأ حالة."
+    },
+    "answer": "n",
+    "accept": [
+      "n"
+    ],
+    "explanation": {
+      "en": "Merge sort always splits and merges: O(n log n).",
+      "ar": "يقسم الفرز بالدمج ويدمج دائمًا: O(n log n)."
+    }
+  },
+  {
+    "id": 57,
+    "category": "complexity",
+    "difficulty": "easy",
+    "codeSnippet": "# Average hash-table lookup is O(____)",
+    "question": {
+      "en": "Fill in the average lookup cost of a hash table.",
+      "ar": "أكمل تكلفة البحث المتوسطة في جدول التجزئة."
+    },
+    "answer": "1",
+    "accept": [
+      "1"
+    ],
+    "explanation": {
+      "en": "Hashing goes straight to a bucket: constant on average.",
+      "ar": "تصل التجزئة إلى السلة مباشرة: ثابت في المتوسط."
+    }
+  },
+  {
+    "id": 58,
+    "category": "complexity",
+    "difficulty": "medium",
+    "codeSnippet": "# Appending to a dynamic array is amortized O(____)",
+    "question": {
+      "en": "Fill in the amortized cost of an append.",
+      "ar": "أكمل التكلفة المُستهلَكة لعملية الإضافة."
+    },
+    "answer": "1",
+    "accept": [
+      "1"
+    ],
+    "explanation": {
+      "en": "Occasional doubling spreads out to constant time per append.",
+      "ar": "المضاعفة العارضة توزّع الكلفة لتصبح ثابتة لكل إضافة."
+    }
+  },
+  {
+    "id": 59,
+    "category": "data-structures",
+    "difficulty": "easy",
+    "codeSnippet": "# A ____ is a first-in, first-out collection",
+    "question": {
+      "en": "Fill in the FIFO data structure.",
+      "ar": "أكمل اسم بنية البيانات التي تعمل بنظام أول داخل أول خارج."
+    },
+    "answer": "queue",
+    "accept": [
+      "queue"
+    ],
+    "explanation": {
+      "en": "A queue removes items in the order they arrived.",
+      "ar": "يُخرج الطابور العناصر بترتيب وصولها."
+    }
+  },
+  {
+    "id": 60,
+    "category": "data-structures",
+    "difficulty": "easy",
+    "codeSnippet": "# A ____ is a last-in, first-out collection",
+    "question": {
+      "en": "Fill in the LIFO data structure.",
+      "ar": "أكمل اسم بنية البيانات التي تعمل بنظام آخر داخل أول خارج."
+    },
+    "answer": "stack",
+    "accept": [
+      "stack"
+    ],
+    "explanation": {
+      "en": "A stack pushes and pops from the same end.",
+      "ar": "تُدفع العناصر وتُسحب من الطرف نفسه في المكدس."
+    }
+  },
+  {
+    "id": 61,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "codeSnippet": "# A binary ____ tree keeps left < node < right",
+    "question": {
+      "en": "Fill in the tree name.",
+      "ar": "أكمل اسم الشجرة."
+    },
+    "answer": "search",
+    "accept": [
+      "search"
+    ],
+    "explanation": {
+      "en": "That ordering is what makes lookups logarithmic.",
+      "ar": "هذا الترتيب هو ما يجعل البحث لوغاريتميًا."
+    }
+  },
+  {
+    "id": 62,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "codeSnippet": "# A hash ____ maps keys to values via a hash function",
+    "question": {
+      "en": "Fill in the structure name.",
+      "ar": "أكمل اسم البنية."
+    },
+    "answer": "table",
+    "accept": [
+      "table",
+      "map"
+    ],
+    "explanation": {
+      "en": "A hash table (or hash map) indexes by hashed key.",
+      "ar": "يفهرس جدول التجزئة بالمفتاح المجزّأ."
+    }
+  },
+  {
+    "id": 63,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "nums.____()  # reverse the list in place",
+    "question": {
+      "en": "Fill in the in-place list method.",
+      "ar": "أكمل دالة القائمة التي تعكسها في مكانها."
+    },
+    "answer": "reverse",
+    "accept": [
+      "reverse"
+    ],
+    "explanation": {
+      "en": "list.reverse() mutates the list and returns None.",
+      "ar": "تعدّل list.reverse() القائمة وتُرجع None."
+    }
+  },
+  {
+    "id": 64,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "words.sort(key=____)  # sort by word length",
+    "question": {
+      "en": "Fill in the key function.",
+      "ar": "أكمل دالة المفتاح."
+    },
+    "answer": "len",
+    "accept": [
+      "len"
+    ],
+    "explanation": {
+      "en": "Passing len as the key sorts by each item's length.",
+      "ar": "تمرير len كمفتاح يرتّب حسب طول كل عنصر."
+    }
+  },
+  {
+    "id": 65,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "list(____(str, [1, 2, 3]))  # -> ['1', '2', '3']",
+    "question": {
+      "en": "Fill in the built-in that applies a function to every item.",
+      "ar": "أكمل الدالة المدمجة التي تطبّق دالة على كل عنصر."
+    },
+    "answer": "map",
+    "accept": [
+      "map"
+    ],
+    "explanation": {
+      "en": "map applies the function lazily to each element.",
+      "ar": "تطبّق map الدالة على كل عنصر بشكل مؤجّل."
+    }
+  },
+  {
+    "id": 66,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "from collections import ____  # dict with automatic defaults",
+    "question": {
+      "en": "Fill in the collections class.",
+      "ar": "أكمل اسم الصنف من collections."
+    },
+    "answer": "defaultdict",
+    "accept": [
+      "defaultdict"
+    ],
+    "explanation": {
+      "en": "defaultdict builds a missing value instead of raising KeyError.",
+      "ar": "تبني defaultdict القيمة المفقودة بدل إطلاق KeyError."
+    }
+  },
+  {
+    "id": 67,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "count = d.____(key, 0)  # read with a fallback",
+    "question": {
+      "en": "Fill in the dict method that returns a default.",
+      "ar": "أكمل دالة القاموس التي تُرجع قيمة افتراضية."
+    },
+    "answer": "get",
+    "accept": [
+      "get"
+    ],
+    "explanation": {
+      "en": "dict.get returns the default instead of raising KeyError.",
+      "ar": "تُرجع dict.get القيمة الافتراضية بدل إطلاق KeyError."
+    }
+  },
+  {
+    "id": 68,
+    "category": "strings",
+    "difficulty": "easy",
+    "codeSnippet": "reversed_text = s[::____]  # reverse a string",
+    "question": {
+      "en": "Fill in the slice step that reverses a string.",
+      "ar": "أكمل خطوة التقطيع التي تعكس النص."
+    },
+    "answer": "-1",
+    "accept": [
+      "-1"
+    ],
+    "explanation": {
+      "en": "A step of -1 walks the sequence backwards.",
+      "ar": "الخطوة -1 تمرّ على التسلسل بالعكس."
+    }
+  },
+  {
+    "id": 69,
+    "category": "strings",
+    "difficulty": "easy",
+    "codeSnippet": "parts = 'a-b-c'.____('-')  # -> ['a', 'b', 'c']",
+    "question": {
+      "en": "Fill in the string method.",
+      "ar": "أكمل دالة النص."
+    },
+    "answer": "split",
+    "accept": [
+      "split"
+    ],
+    "explanation": {
+      "en": "split cuts the string on each separator.",
+      "ar": "تقطع split النص عند كل فاصل."
+    }
+  },
+  {
+    "id": 70,
+    "category": "strings",
+    "difficulty": "easy",
+    "codeSnippet": "line = '-'.____(['a', 'b'])  # -> 'a-b'",
+    "question": {
+      "en": "Fill in the method that joins a list into a string.",
+      "ar": "أكمل الدالة التي تدمج قائمة في نص."
+    },
+    "answer": "join",
+    "accept": [
+      "join"
+    ],
+    "explanation": {
+      "en": "The separator string joins the iterable's items.",
+      "ar": "يدمج نص الفاصل عناصر المُتكرِّر."
+    }
+  },
+  {
+    "id": 71,
+    "category": "strings",
+    "difficulty": "easy",
+    "codeSnippet": "# A word that reads the same both ways is a ____",
+    "question": {
+      "en": "Fill in the term.",
+      "ar": "أكمل المصطلح."
+    },
+    "answer": "palindrome",
+    "accept": [
+      "palindrome"
+    ],
+    "explanation": {
+      "en": "Reversing a palindrome gives the same string back.",
+      "ar": "عكس المتناظر يعطي النص نفسه."
+    }
+  },
+  {
+    "id": 72,
+    "category": "recursion",
+    "difficulty": "easy",
+    "codeSnippet": "def fact(n):\n    return 1 if n <= 1 else n * fact(n - ____)",
+    "question": {
+      "en": "Fill in the recursive step.",
+      "ar": "أكمل خطوة الاستدعاء الذاتي."
+    },
+    "answer": "1",
+    "accept": [
+      "1"
+    ],
+    "explanation": {
+      "en": "Each call shrinks n by one until the base case.",
+      "ar": "كل استدعاء ينقص n بواحد حتى الحالة الأساسية."
+    }
+  },
+  {
+    "id": 73,
+    "category": "recursion",
+    "difficulty": "easy",
+    "codeSnippet": "# The base ____ is what stops a recursive function",
+    "question": {
+      "en": "Fill in the term.",
+      "ar": "أكمل المصطلح."
+    },
+    "answer": "case",
+    "accept": [
+      "case"
+    ],
+    "explanation": {
+      "en": "Without a base case the recursion never terminates.",
+      "ar": "بدون حالة أساسية لا تتوقف العَودية أبدًا."
+    }
+  },
+  {
+    "id": 74,
+    "category": "algorithms",
+    "difficulty": "easy",
+    "codeSnippet": "# ____ search requires the input to be sorted",
+    "question": {
+      "en": "Fill in the search name.",
+      "ar": "أكمل اسم البحث."
+    },
+    "answer": "binary",
+    "accept": [
+      "binary"
+    ],
+    "explanation": {
+      "en": "Halving only works if the data is ordered.",
+      "ar": "التنصيف يعمل فقط إذا كانت البيانات مرتّبة."
+    }
+  },
+  {
+    "id": 75,
+    "category": "algorithms",
+    "difficulty": "medium",
+    "codeSnippet": "# ____ sort repeatedly picks the smallest remaining element",
+    "question": {
+      "en": "Fill in the sort name.",
+      "ar": "أكمل اسم الفرز."
+    },
+    "answer": "selection",
+    "accept": [
+      "selection"
+    ],
+    "explanation": {
+      "en": "Selection sort scans for the minimum each pass.",
+      "ar": "يبحث فرز الاختيار عن الأصغر في كل مرور."
+    }
+  },
+  {
+    "id": 76,
+    "category": "algorithms",
+    "difficulty": "medium",
+    "codeSnippet": "# Two pointers on a sorted array find a pair in O(____)",
+    "question": {
+      "en": "Fill in the complexity.",
+      "ar": "أكمل التعقيد."
+    },
+    "answer": "n",
+    "accept": [
+      "n"
+    ],
+    "explanation": {
+      "en": "Each pointer moves at most n steps in total.",
+      "ar": "يتحرك كل مؤشر n خطوة كحد أقصى إجمالًا."
+    }
+  },
+  {
+    "id": 77,
+    "category": "graphs",
+    "difficulty": "medium",
+    "codeSnippet": "# ____ explores a graph level by level using a queue",
+    "question": {
+      "en": "Fill in the traversal (abbreviation is fine).",
+      "ar": "أكمل اسم الاجتياز (الاختصار مقبول)."
+    },
+    "answer": "BFS",
+    "accept": [
+      "bfs",
+      "breadth-first search",
+      "breadth first search"
+    ],
+    "explanation": {
+      "en": "Breadth-first search visits all neighbours before going deeper.",
+      "ar": "يزور البحث بالعرض كل الجيران قبل التعمّق."
+    }
+  },
+  {
+    "id": 78,
+    "category": "graphs",
+    "difficulty": "medium",
+    "codeSnippet": "# ____ goes as deep as possible before backtracking",
+    "question": {
+      "en": "Fill in the traversal (abbreviation is fine).",
+      "ar": "أكمل اسم الاجتياز (الاختصار مقبول)."
+    },
+    "answer": "DFS",
+    "accept": [
+      "dfs",
+      "depth-first search",
+      "depth first search"
+    ],
+    "explanation": {
+      "en": "Depth-first search uses a stack or recursion.",
+      "ar": "يستخدم البحث بالعمق مكدسًا أو العَودية."
+    }
+  },
+  {
+    "id": 79,
+    "category": "graphs",
+    "difficulty": "hard",
+    "codeSnippet": "# ____'s algorithm finds shortest paths with non-negative weights",
+    "question": {
+      "en": "Fill in the algorithm's name.",
+      "ar": "أكمل اسم الخوارزمية."
+    },
+    "answer": "Dijkstra",
+    "accept": [
+      "dijkstra",
+      "dijkstras",
+      "dijkstra's"
+    ],
+    "explanation": {
+      "en": "Dijkstra greedily expands the closest unvisited node.",
+      "ar": "توسّع ديكسترا بجَشَع أقرب عقدة غير مزارة."
+    }
+  },
+  {
+    "id": 80,
+    "category": "dynamic-programming",
+    "difficulty": "medium",
+    "codeSnippet": "# Caching subproblem results is called ____",
+    "question": {
+      "en": "Fill in the technique.",
+      "ar": "أكمل اسم الأسلوب."
+    },
+    "answer": "memoization",
+    "accept": [
+      "memoization",
+      "memoisation"
+    ],
+    "explanation": {
+      "en": "Memoization trades memory for avoided recomputation.",
+      "ar": "تستبدل الحفظ المؤقت الذاكرة بتجنّب إعادة الحساب."
+    }
+  },
+  {
+    "id": 81,
+    "category": "bit-manipulation",
+    "difficulty": "medium",
+    "codeSnippet": "x & (x - ____)  # clears the lowest set bit",
+    "question": {
+      "en": "Fill in the constant.",
+      "ar": "أكمل الثابت."
+    },
+    "answer": "1",
+    "accept": [
+      "1"
+    ],
+    "explanation": {
+      "en": "x & (x-1) removes the rightmost 1 bit.",
+      "ar": "تحذف x & (x-1) أقصى بت يميني بقيمة واحد."
+    }
+  },
+  {
+    "id": 82,
+    "category": "bit-manipulation",
+    "difficulty": "medium",
+    "codeSnippet": "doubled = n ____ 1  # multiply by two with a shift",
+    "question": {
+      "en": "Fill in the operator.",
+      "ar": "أكمل المُعامل."
+    },
+    "answer": "<<",
+    "accept": [
+      "<<"
+    ],
+    "explanation": {
+      "en": "A left shift by one doubles an integer.",
+      "ar": "الإزاحة لليسار بواحد تضاعف العدد الصحيح."
+    }
+  },
+  {
+    "id": 83,
+    "category": "math",
+    "difficulty": "hard",
+    "codeSnippet": "# Euclid: gcd(a, b) == gcd(b, a ____ b)",
+    "question": {
+      "en": "Fill in the operator.",
+      "ar": "أكمل المُعامل."
+    },
+    "answer": "%",
+    "accept": [
+      "%",
+      "mod"
+    ],
+    "explanation": {
+      "en": "The remainder shrinks the pair until b is zero.",
+      "ar": "يقلّص الباقي الزوج حتى يصبح b صفرًا."
+    }
+  },
+  {
+    "id": 84,
+    "category": "patterns",
+    "difficulty": "easy",
+    "codeSnippet": "# The ____ pattern allows only one instance of a class",
+    "question": {
+      "en": "Fill in the pattern name.",
+      "ar": "أكمل اسم النمط."
+    },
+    "answer": "singleton",
+    "accept": [
+      "singleton"
+    ],
+    "explanation": {
+      "en": "A singleton exposes one shared instance globally.",
+      "ar": "يوفّر النمط المفرد نسخة مشتركة واحدة عالميًا."
+    }
+  }
+]

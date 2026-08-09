@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Guess the Language</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+
+    <!-- PWA / installable mobile app -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#07111e" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="GTL" />
+
+    <script defer src="/discord-config.js"></script>
+    <script defer src="/supabase-config.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>

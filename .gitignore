@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-web/
+release/
+out/
+
+# Logs
+*.log
+.playwright-cli/
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local Supabase credentials (scripts/templates/supabase-config.example.js)
+public/supabase-config.js
+
+# Local Discord client ID (scripts/templates/discord-config.example.js)
+public/discord-config.js
+
+# Environment variables (Vite / Vercel build)
+.env
+.env.*
+!.env.example
+
+# Vercel
+.vercel
+
+# Electron Builder
+electron-builder.env
+
+# OS / editor
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.swp
+*~
+
+# Claude Code local session data
+.claude/

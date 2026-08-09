@@ -1,0 +1,60 @@
+{
+    "name": "guess-the-language",
+    "version": "4.0.0",
+    "description": "IT quiz game for Windows and web — SolidJS + TypeScript + Tailwind.",
+    "type": "module",
+    "main": "electron/dist/main.js",
+    "author": "mPhpMaster",
+    "license": "MIT",
+    "scripts": {
+        "start": "electron .",
+        "dev": "node scripts/ensure-supabase-config.cjs && node scripts/ensure-discord-config.cjs && vite",
+        "build": "node scripts/ensure-supabase-config.cjs && node scripts/ensure-discord-config.cjs && tsc --noEmit && vite build && node scripts/generate-supabase-config.cjs && node scripts/generate-discord-config.cjs",
+        "build:web": "pnpm run build",
+        "typecheck": "tsc --noEmit && tsc -p electron --noEmit && tsc -p api --noEmit",
+        "build:electron": "tsc -p electron",
+        "preview": "vite preview",
+        "test:smoke": "electron --disable-gpu test/smoke-electron.cjs",
+        "dist": "pnpm run build && pnpm run build:electron && electron-builder --win"
+    },
+    "devDependencies": {
+        "@tailwindcss/vite": "^4.1.11",
+        "@types/node": "^22.10.2",
+        "@vercel/node": "^5.9.6",
+        "electron": "^39.8.5",
+        "electron-builder": "^26.15.3",
+        "tailwindcss": "^4.1.11",
+        "typescript": "^5.7.2",
+        "vite": "^6.3.5",
+        "vite-plugin-solid": "^2.11.0"
+    },
+    "dependencies": {
+        "@discord/embedded-app-sdk": "^2.0.0",
+        "@supabase/supabase-js": "^2.108.2",
+        "lucide-solid": "^0.468.0",
+        "solid-icons": "^1.1.0",
+        "solid-js": "^1.9.4"
+    },
+    "build": {
+        "appId": "com.mphpmaster.guessthelanguage",
+        "productName": "Guess The Language",
+        "directories": {
+            "output": "release"
+        },
+        "files": [
+            "electron/**/*",
+            "dist-web/**/*",
+            "package.json"
+        ],
+        "win": {
+            "target": [
+                "nsis"
+            ]
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true,
+            "createDesktopShortcut": true
+        }
+    }
+}

@@ -1,0 +1,167 @@
+@import 'tailwindcss';
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('./assets/fonts/PlusJakartaSans-wght.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 200 800;
+    font-display: swap;
+}
+
+/* ============================================================
+   Design tokens — dark navy + neon, carried over from the
+   original stylesheet so the refactor keeps the same identity.
+   ============================================================ */
+@theme {
+    --color-bg-0: #07111e;
+    --color-bg-1: #0b1a2b;
+    --color-bg-2: #102a44;
+    --color-panel: #0d1f33;
+    --color-panel-2: #11283f;
+    --color-ink: #eaf2ff;
+    --color-muted: #9fb4cc;
+    --color-neon: #2ec5ff;
+    --color-neon-2: #19f0c4;
+    --color-gold: #ffd874;
+    --color-gold-deep: #d9a536;
+    --color-silver: #e7edf5;
+    --color-bronze: #e8a86b;
+    --color-good: #25d07d;
+    --color-bad: #ff5470;
+    --color-discord: #5865f2;
+
+    --font-display: 'Plus Jakarta Sans', 'Segoe UI', Tahoma, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Cascadia Code', Consolas, monospace;
+
+    --radius-card: 16px;
+}
+
+@layer base {
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html,
+    body {
+        min-height: 100%;
+        font-family: var(--font-display);
+        color: var(--color-ink);
+        background:
+            radial-gradient(circle at top, rgb(48 150 255 / 16%), transparent 28%),
+            linear-gradient(180deg, #07111e 0%, #091b30 45%, #081823 100%);
+    }
+
+    body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        background:
+            radial-gradient(1200px 800px at 20% 10%, #15375c55, transparent 60%),
+            radial-gradient(1000px 900px at 85% 80%, #0e6b8e44, transparent 60%),
+            radial-gradient(800px 700px at 60% 50%, #1b2f6b33, transparent 70%),
+            linear-gradient(160deg, var(--color-bg-0), var(--color-bg-1) 55%, var(--color-bg-2));
+    }
+
+    button {
+        font: inherit;
+        color: inherit;
+        cursor: pointer;
+        background: none;
+        border: none;
+    }
+
+    input,
+    select,
+    textarea {
+        font: inherit;
+        color: inherit;
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--color-neon);
+        outline-offset: 2px;
+    }
+}
+
+/* ============================================================
+   Small utilities that are awkward to express inline.
+   ============================================================ */
+@utility neon-text {
+    color: var(--color-neon);
+    text-shadow: 0 0 18px rgb(46 197 255 / 45%);
+}
+
+@utility glass-panel {
+    background: linear-gradient(180deg, rgb(255 255 255 / 4%), rgb(255 255 255 / 1%));
+    border: 1px solid rgb(255 255 255 / 8%);
+    backdrop-filter: blur(6px);
+}
+
+@utility scrollbar-slim {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(46 197 255 / 35%) transparent;
+}
+
+/* Syntax highlighting tokens for the code panel. */
+.tok-comment {
+    color: #5f7590;
+    font-style: italic;
+}
+.tok-string {
+    color: #ffd874;
+}
+.tok-number {
+    color: #ff9f5a;
+}
+.tok-keyword {
+    color: #2ec5ff;
+    font-weight: 600;
+}
+.tok-func {
+    color: #19f0c4;
+}
+.tok-punct {
+    color: #9fb4cc;
+}
+
+/* The Electron title bar is the only draggable region. */
+.app-drag {
+    -webkit-app-region: drag;
+}
+.app-no-drag {
+    -webkit-app-region: no-drag;
+}
+
+@keyframes gtl-shake {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-6px);
+    }
+    75% {
+        transform: translateX(6px);
+    }
+}
+.animate-shake {
+    animation: gtl-shake 0.35s ease-in-out;
+}
+
+@keyframes gtl-pop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.35);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+.animate-pop {
+    animation: gtl-pop 0.35s ease-out;
+}
