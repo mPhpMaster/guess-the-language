@@ -2007,3 +2007,12 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
 .admin-act.danger:hover { background: #ff547d22; }
 .admin-act.is-armed { background: #ff547d; color: #fff; border-color: #ff547d; }
 .admin-act:disabled { opacity: 0.6; cursor: default; }
+
+/* Admin controls embedded in a player card (leaderboard / lobby / in-game). */
+.player-card-admin {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  padding: 10px 12px; margin: 4px 0 8px; border-radius: 12px;
+  background: #ff9f5a12; border: 1px dashed #ff9f5a55;
+}
+.player-card-admin.hidden { display: none; }
+.player-card-admin .pca-label { font-size: 12px; font-weight: 800; color: #ffcf9a; margin-inline-end: 2px; }

@@ -350,6 +350,12 @@ const I18N = {
         downloadStarted: '⬇ Saved to your downloads',
         downloadBlocked: 'Download blocked here — long-press / right-click the image to save it.',
         shareHint: 'Copy it, download it, or long-press the image to save.',
+        shareOpenImage: '🖼️  Open image',
+        shareToDiscord: '📤  Share to Discord',
+        shareCopyLink: '🔗  Copy link',
+        shareLinkCopied2: '✓ Link copied',
+        shareDiscordHint: 'Open the image to save it, or share it straight into Discord.',
+        shareUploading: 'Preparing…',
         follow: 'Follow',
         following: 'Following',
         followingTitle: 'Following',
@@ -627,6 +633,12 @@ const I18N = {
         downloadStarted: '⬇ تم الحفظ في التنزيلات',
         downloadBlocked: 'التنزيل محجوب هنا — اضغط مطوّلًا/بزر يمين على الصورة لحفظها.',
         shareHint: 'انسخها أو نزّلها، أو اضغط مطوّلًا على الصورة لحفظها.',
+        shareOpenImage: '🖼️  فتح الصورة',
+        shareToDiscord: '📤  مشاركة في ديسكورد',
+        shareCopyLink: '🔗  نسخ الرابط',
+        shareLinkCopied2: '✓ تم نسخ الرابط',
+        shareDiscordHint: 'افتح الصورة لحفظها، أو شاركها مباشرة في ديسكورد.',
+        shareUploading: 'جارٍ التجهيز…',
         follow: 'متابعة',
         following: 'متابَع',
         followingTitle: 'المتابَعون',
@@ -2650,14 +2662,38 @@ async function shareResultCard() {
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
             try { await navigator.share({ files: [file], title: t('shareResult') }); return; } catch (_) { /* fall through */ }
         }
-        // Otherwise show the card in an overlay — inside the Discord iframe a silent
-        // download is blocked, so this guarantees the player actually sees/gets it.
-        showShareOverlay(URL.createObjectURL(blob), blob);
+        // Inside Discord the iframe blocks clipboard writes AND downloads, so neither
+        // "copy image" nor "download" can work. The only reliable path is a real
+        // https URL we can hand to the Discord SDK (openExternalLink / shareLink), so
+        // upload the card to public storage first.
+        let publicUrl = null;
+        try { publicUrl = await uploadShareCard(blob); } catch (_) { publicUrl = null; }
+        showShareOverlay(URL.createObjectURL(blob), blob, publicUrl);
     } catch (e) { console.warn('share card failed:', e); if (typeof logError === 'function') logError('share card: ' + e, { source: 'shareResultCard' }); }
 }
 
-// Overlay that presents the generated result card with copy/download actions.
-function showShareOverlay(url, blob) {
+// Upload a share-card PNG to the public `share-cards` bucket and return its public
+// URL (or null on failure). Inside Discord the request is transparently proxied via
+// the /supabase URL mapping; the returned URL uses the real host so it opens in the
+// player's browser / embeds in a Discord message.
+async function uploadShareCard(blob) {
+    if (!supabaseConfigured() || !blob) return null;
+    const c = window.SUPABASE_CONFIG;
+    const name = `card-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.png`;
+    const res = await fetch(`${c.url}/storage/v1/object/share-cards/${name}`, {
+        method: 'POST',
+        headers: { apikey: c.anonKey, Authorization: `Bearer ${c.anonKey}`, 'Content-Type': 'image/png' },
+        body: blob
+    });
+    if (!res.ok) return null;
+    return `${c.url}/storage/v1/object/public/share-cards/${name}`;
+}
+
+// Overlay presenting the generated card. Actions adapt to the context: inside
+// Discord (clipboard + downloads blocked) it offers open-in-browser / share-to-
+// Discord / copy-link against the uploaded `publicUrl`; on web it offers the direct
+// copy-image / download that actually work there.
+function showShareOverlay(url, blob, publicUrl) {
     let el = document.getElementById('share-overlay');
     if (!el) {
         el = document.createElement('div');
@@ -2666,48 +2702,68 @@ function showShareOverlay(url, blob) {
         el.innerHTML =
             '<div class="share-card-box">' +
             '<img class="share-img" id="share-img" alt="" />' +
-            '<div class="share-actions">' +
-            '<button type="button" class="btn btn-primary btn-sm" id="share-copy"></button>' +
-            '<button type="button" class="btn btn-ghost btn-sm" id="share-dl"></button>' +
-            '<button type="button" class="btn btn-ghost btn-sm" id="share-close"></button>' +
-            '</div><p class="share-hint" id="share-hint"></p></div>';
+            '<div class="share-actions" id="share-actions"></div>' +
+            '<p class="share-hint" id="share-hint"></p></div>';
         document.body.appendChild(el);
         el.addEventListener('click', (e) => { if (e.target === el) hideShareOverlay(); });
     }
     const hint = el.querySelector('#share-hint');
+    const actions = el.querySelector('#share-actions');
     el.querySelector('#share-img').src = url;
-    el.querySelector('#share-copy').textContent = `📋 ${t('copyImage')}`;
-    el.querySelector('#share-dl').textContent = `⬇ ${t('download')}`;
-    el.querySelector('#share-close').textContent = t('close');
-    hint.textContent = t('shareHint');
-    el.querySelector('#share-copy').onclick = async () => {
-        try {
-            if (!navigator.clipboard || typeof ClipboardItem === 'undefined') throw new Error('no-clipboard');
-            await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
-            hint.textContent = t('copied');
-        } catch (e) {
-            // Discord's iframe / older browsers block image copy — tell the player
-            // how to save the visible card instead of failing silently.
-            hint.textContent = t('copyFailed');
-        }
+    actions.innerHTML = '';
+
+    const mkBtn = (label, cls, onClick) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = `btn ${cls} btn-sm`;
+        b.textContent = label;
+        b.onclick = onClick;
+        actions.appendChild(b);
+        return b;
     };
-    el.querySelector('#share-dl').onclick = () => {
-        try {
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'guess-the-language.png';
-            a.rel = 'noopener';
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-            hint.textContent = t('downloadStarted');
-        } catch (e) {
-            // Sandboxed contexts (Discord) block programmatic downloads.
-            try { window.open(url, '_blank'); } catch (_) {}
-            hint.textContent = t('downloadBlocked');
-        }
-    };
-    el.querySelector('#share-close').onclick = hideShareOverlay;
+
+    const inDiscord = isDiscordActivity();
+    const da = window.DISCORD_ACTIVITY;
+
+    if (inDiscord && publicUrl) {
+        // Reliable inside the sandbox: hand the real https URL to the SDK.
+        mkBtn(t('shareOpenImage'), 'btn-primary', () => { try { da.openExternal(publicUrl); } catch (_) {} });
+        mkBtn(t('shareToDiscord'), 'btn-ghost', () => {
+            try {
+                const msg = `${safeDisplayName(getPlayerName()) || 'Player'} — ${state.score} pts • ${publicUrl}`;
+                const p = da.shareLink ? da.shareLink(msg, null) : null;
+                if (!p) da.openExternal(publicUrl);
+            } catch (_) { try { da.openExternal(publicUrl); } catch (__) {} }
+        });
+        mkBtn(t('shareCopyLink'), 'btn-ghost', async () => {
+            try { await navigator.clipboard.writeText(publicUrl); hint.textContent = t('shareLinkCopied2'); }
+            catch (e) { hint.textContent = publicUrl; }
+        });
+        hint.textContent = t('shareDiscordHint');
+    } else if (inDiscord) {
+        // Upload failed — no https URL to hand off; the visible image is still saveable.
+        hint.textContent = t('shareHint');
+    } else {
+        // Web / Electron: direct copy + download work here.
+        mkBtn(`📋 ${t('copyImage')}`, 'btn-primary', async () => {
+            try {
+                if (!navigator.clipboard || typeof ClipboardItem === 'undefined') throw new Error('no-clipboard');
+                await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+                hint.textContent = t('copied');
+            } catch (e) { hint.textContent = t('copyFailed'); }
+        });
+        mkBtn(`⬇ ${t('download')}`, 'btn-ghost', () => {
+            try {
+                const a = document.createElement('a');
+                a.href = url; a.download = 'guess-the-language.png'; a.rel = 'noopener';
+                document.body.appendChild(a); a.click(); a.remove();
+                hint.textContent = t('downloadStarted');
+            } catch (e) { try { window.open(url, '_blank'); } catch (_) {} hint.textContent = t('downloadBlocked'); }
+        });
+        hint.textContent = t('shareHint');
+    }
+
+    mkBtn(t('close'), 'btn-ghost', hideShareOverlay);
     el._url = url;
     el.classList.add('show');
 }
@@ -4027,6 +4083,46 @@ function setPlayerCardRow(sel, value) {
 }
 
 // Clicking a row in #lobby-players / #mp-game-players lands here.
+// Admin controls on ANY player card (leaderboard profile, lobby, in-game). Shown
+// only to admins and never for your own card. Ban / full-reset, with a click-twice
+// confirm; on success the card closes and a visible leaderboard refreshes.
+function cardAdminBtn(label, handler) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'admin-act danger';
+    b.textContent = label;
+    b.onclick = () => armButton(b, async () => {
+        b.disabled = true;
+        try {
+            await handler();
+            b.textContent = t('adminDone');
+            setTimeout(() => {
+                closePlayerCard();
+                if (state.currentScreen === 'results' && typeof buildResultsLeaderboard === 'function') buildResultsLeaderboard();
+            }, 500);
+        } catch (e) {
+            b.disabled = false;
+            if (b._armReset) b._armReset();
+            b.textContent = t('adminError');
+        }
+    });
+    return b;
+}
+function renderCardAdminControls(name, isYou) {
+    const box = $('#player-card-admin');
+    if (!box) return;
+    const who = safeDisplayName(name);
+    if (!isAdmin() || isYou || !who) { box.classList.add('hidden'); box.innerHTML = ''; return; }
+    box.innerHTML = '';
+    const label = document.createElement('span');
+    label.className = 'pca-label';
+    label.textContent = t('adminButton');
+    box.appendChild(label);
+    box.appendChild(cardAdminBtn(t('adminBan'), () => adminApi('ban', { player: name, reason: 'admin' })));
+    box.appendChild(cardAdminBtn(t('adminReset'), () => adminApi('reset_profile', { player: name })));
+    box.classList.remove('hidden');
+}
+
 function openPlayerCard(player) {
     const dlg = $('#player-card');
     if (!dlg || !player) return;
@@ -4094,6 +4190,7 @@ function openPlayerCard(player) {
         };
     }
     $('#player-card-error')?.classList.add('hidden');
+    renderCardAdminControls(player.name, isYou);
 
     // Load the player's global profile (stats + per-mode rankings) once per open —
     // not on every realtime refresh, which would re-fetch and flicker.
@@ -4241,6 +4338,7 @@ async function openProfileCard(entry) {
     $('#btn-player-card-makehost')?.classList.add('hidden'); // room-only control
     $('#player-card-error').classList.add('hidden');
     $('#player-card-friends').classList.add('hidden'); // reset; shown only on your own profile
+    renderCardAdminControls(entry.name, isYou);
 
     openDialog(dlg, $('#btn-player-card-close'));
     loadPlayerProfileSections(entry.name);
@@ -5103,16 +5201,21 @@ function registerMpScores() {
     const mpState = window.GTL_MULTIPLAYER.state;
     if (!mpState.isAdmin) return;
     const mode = (mpState.room && mpState.room.mode) || state.mode;
-    const rows = mpState.players.map((p) => ({
-        player: p.name,
-        score: p.score,
-        mode,
-        multiplayer: true,
-        // Persist each player's real Discord photo so EVERYONE sees it on the
-        // board later (not just the local player via the live render override).
-        // The host resolves it from the shared Activity participants; null → emoji.
-        avatar: mpDiscordAvatarUrl(p) || null
-    }));
+    const rows = mpState.players
+        // Never post a 0 (or negative) result to the global board — a player who
+        // scored nothing shouldn't create a "— 0 pts" leaderboard entry.
+        .filter((p) => (p.score || 0) > 0 && !p.spectator)
+        .map((p) => ({
+            player: p.name,
+            score: p.score,
+            mode,
+            multiplayer: true,
+            // Persist each player's real Discord photo so EVERYONE sees it on the
+            // board later (not just the local player via the live render override).
+            // The host resolves it from the shared Activity participants; null → emoji.
+            avatar: mpDiscordAvatarUrl(p) || null
+        }));
+    if (!rows.length) return;
     submitMpScores(rows).catch((e) => console.error('register mp scores:', e));
 }
 

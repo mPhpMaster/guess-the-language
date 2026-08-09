@@ -126,3 +126,17 @@ begin
     execute format('grant execute on function public.%s to service_role', fn);
   end loop;
 end $$;
+
+-- ===== Share-card hosting (migration share_cards_storage_bucket) =====
+-- Public, PNG-only, 3MB-capped bucket so the Discord Activity (whose iframe blocks
+-- clipboard writes and downloads) can openExternalLink()/shareLink() a real URL.
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('share-cards', 'share-cards', true, 3145728, array['image/png'])
+on conflict (id) do update set public = true, file_size_limit = 3145728, allowed_mime_types = array['image/png'];
+
+drop policy if exists "share_cards_insert" on storage.objects;
+create policy "share_cards_insert" on storage.objects
+  for insert to anon, authenticated with check (bucket_id = 'share-cards');
+drop policy if exists "share_cards_read" on storage.objects;
+create policy "share_cards_read" on storage.objects
+  for select to anon, authenticated using (bucket_id = 'share-cards');
