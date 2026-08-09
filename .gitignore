@@ -46,6 +46,10 @@ Desktop.ini
 
 .vercel
 .env*
+# This blanket rule shadows the earlier "!.env.example", so re-allow the
+# templates — they carry no values and are the only record of which keys exist.
+!.env.example
+!**/.env.example
 
 # Runtime config with local credentials (see *.example.js)
 svelte-app/public/supabase-config.js

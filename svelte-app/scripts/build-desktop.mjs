@@ -19,5 +19,14 @@ const result = spawnSync(process.execPath, [vite, 'build'], {
   stdio: 'inherit',
   env: { ...process.env, GTL_BASE: './' }
 });
+if (result.status) process.exit(result.status);
 
-process.exit(result.status ?? 1);
+// Same runtime-config step the web build runs. The desktop shell has no server
+// to inject credentials, so whatever lands here is what the installed app ships.
+const config = spawnSync(
+  process.execPath,
+  [path.join(root, 'scripts', 'generate-runtime-config.mjs')],
+  { cwd: root, stdio: 'inherit' }
+);
+
+process.exit(config.status ?? 1);

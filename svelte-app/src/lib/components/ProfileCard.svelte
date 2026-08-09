@@ -4,6 +4,7 @@
   import { i18n } from '$lib/i18n/index.svelte';
   import {
     ACHIEVEMENTS,
+    fetchFollowing,
     fetchPlayerActivity,
     fetchPlayerRankings,
     fetchPlayerStats,
@@ -15,6 +16,7 @@
     loadMyFollows,
     unfollowPlayer,
     xpForLevel,
+    type FollowedPlayer,
     type ModeRank,
     type PlayerActivity,
     type PlayerStats
@@ -27,9 +29,11 @@
     name: string | null;
     avatar?: string | null;
     onclose: () => void;
+    /** Switches the card to another player (used by the Following list). */
+    onopen?: (name: string, avatar: string | null) => void;
   }
 
-  let { name, avatar = null, onclose }: Props = $props();
+  let { name, avatar = null, onclose, onopen }: Props = $props();
 
   let dialog = $state<HTMLDialogElement | null>(null);
   let activity = $state<PlayerActivity | null>(null);
@@ -37,6 +41,8 @@
   let rankings = $state<ModeRank[]>([]);
   let loading = $state(false);
   let following = $state(false);
+  /** Only populated on your own card — following is a private list. */
+  let followingList = $state<FollowedPlayer[]>([]);
 
   const me = $derived(settings.name.trim());
   const isYou = $derived(!!name && name.toLowerCase() === me.toLowerCase());
@@ -67,20 +73,25 @@
     activity = null;
     stats = null;
     rankings = [];
+    followingList = [];
 
     const hidden = i18n.t('hiddenPlayer');
+    const mine = !!who && who.toLowerCase() === me.toLowerCase();
     void Promise.all([
       fetchPlayerActivity(who, hidden),
       fetchPlayerStats(who, hidden).catch(() => null),
       fetchPlayerRankings(who, hidden).catch(() => []),
-      loadMyFollows(me).then(() => isFollowing(who))
+      loadMyFollows(me).then(() => isFollowing(who)),
+      // Who you follow is yours alone — never fetched for someone else's card.
+      mine ? fetchFollowing(me, hidden).catch(() => []) : Promise.resolve([])
     ])
-      .then(([act, st, ranks, follows]) => {
+      .then(([act, st, ranks, follows, mySquad]) => {
         if (cancelled) return;
         activity = act;
         stats = st;
         rankings = ranks;
         following = follows;
+        followingList = mySquad;
       })
       .finally(() => {
         if (!cancelled) loading = false;
@@ -147,6 +158,34 @@
               {ach.icon}
             </span>
           {/each}
+        </div>
+      {/if}
+
+      {#if followingList.length}
+        <div class="player-card-rankings">
+          <div class="player-card-rankings-title">
+            {i18n.t('followingTitle')} · {followingList.length}
+          </div>
+          <div class="player-card-friends-list">
+            {#each followingList as friend (friend.name)}
+              <button
+                class="friend-row"
+                type="button"
+                disabled={!onopen}
+                onclick={() => onopen?.(friend.name, friend.avatar)}
+              >
+                <span class="friend-av">
+                  {#if friend.avatar?.startsWith('http')}
+                    <img src={friend.avatar} alt="" referrerpolicy="no-referrer" />
+                  {:else}
+                    {avatarFor(friend.name)}
+                  {/if}
+                </span>
+                <span class="friend-name">{friend.name}</span>
+                <span class="friend-score">{friend.score}</span>
+              </button>
+            {/each}
+          </div>
         </div>
       {/if}
 

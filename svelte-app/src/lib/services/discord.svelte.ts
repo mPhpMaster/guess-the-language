@@ -106,6 +106,13 @@ let setupStep = 'init';
 /** Connected participants, kept fresh by the participants subscription. */
 const participants = $state<Participant[]>([]);
 
+/**
+ * The join secret handed over when someone presses "Ask to Join" on a member's
+ * profile card. Delivered in the *joining* player's iframe, so the app can route
+ * them into that exact room rather than the voice channel's default one.
+ */
+const joinRequest = $state<{ secret: string | null }>({ secret: null });
+
 class DiscordState {
   /** True once the SDK handshake has succeeded. */
   active = $state(false);
@@ -133,6 +140,10 @@ class DiscordState {
   }
   get participants(): Participant[] {
     return participants;
+  }
+  /** Set once when a member accepts an "Ask to Join"; cleared by the consumer. */
+  get joinSecret(): string | null {
+    return joinRequest.secret;
   }
 }
 
@@ -185,6 +196,31 @@ async function subscribeParticipants(sdk: DiscordSDK): Promise<void> {
   } catch {
     /* refused without the presence scope — never fatal */
   }
+}
+
+/**
+ * "Ask to Join": Discord hands the joining member the secret this app published
+ * in `setActivity`. Each subscription is independently optional — one being
+ * refused (no presence scope) must not take the other down with it.
+ */
+async function subscribeJoin(sdk: DiscordSDK): Promise<void> {
+  try {
+    const { Events } = await import('@discord/embedded-app-sdk');
+    await sdk.subscribe(Events.ACTIVITY_JOIN, (event) => {
+      const secret = (event as { secret?: string } | undefined)?.secret ?? null;
+      console.info('[discord] ACTIVITY_JOIN', secret ? '(secret received)' : '(no secret)');
+      joinRequest.secret = secret;
+    });
+  } catch {
+    /* refused without the presence scope — never fatal */
+  }
+}
+
+/** Consume the pending join secret, so a re-render cannot re-trigger the join. */
+export function takeJoinSecret(): string | null {
+  const secret = joinRequest.secret;
+  joinRequest.secret = null;
+  return secret;
 }
 
 async function exchangeToken(code: string): Promise<{ access_token: string; session_token?: string }> {
@@ -252,6 +288,7 @@ async function setup(): Promise<Session | null> {
   setupStep = 'ready';
 
   await subscribeParticipants(sdk);
+  await subscribeJoin(sdk);
 
   return {
     sdk,

@@ -1,6 +1,14 @@
 <script lang="ts">
   import type { DifficultyFilter } from '$lib/game/types';
   import { i18n } from '$lib/i18n/index.svelte';
+  import { discord } from '$lib/services/discord.svelte';
+  import {
+    auth,
+    discordLoginAvailable,
+    discordLogout,
+    startDiscordLogin,
+    webProfile
+  } from '$lib/services/discordLogin.svelte';
   import { settings, type FeedbackDelay, type TimerSetting } from '$lib/state/settings.svelte';
 
   interface Props {
@@ -11,6 +19,13 @@
   let { open, onclose }: Props = $props();
 
   let dialog = $state<HTMLDialogElement | null>(null);
+
+  const linked = $derived.by(() => {
+    auth.revision;
+    return webProfile();
+  });
+  /** Inside the Activity the name is the Discord one and cannot be edited. */
+  const nameFromDiscord = $derived(discord.active);
 
   // Drive the native <dialog> from the `open` prop so focus trapping, Esc and
   // the backdrop all come from the platform rather than being reimplemented.
@@ -30,9 +45,32 @@
       type="text"
       value={settings.name}
       maxlength="24"
+      disabled={nameFromDiscord}
       oninput={(e) => settings.setName(e.currentTarget.value)}
     />
   </label>
+
+  {#if nameFromDiscord}
+    <p class="discord-name-note">{i18n.t('discordNameNote')}</p>
+  {/if}
+
+  <!--
+    Web sign-in only. Inside the Activity the identity comes from the SDK, and in
+    Electron the file:// origin cannot be an OAuth redirect target — in both cases
+    `discordLoginAvailable()` is false and this block never renders.
+  -->
+  {#if discordLoginAvailable()}
+    {#if linked}
+      <p class="discord-login-status">{i18n.t('discordLinkedAs')} {linked.name}</p>
+      <button class="btn btn-discord-logout btn-sm" type="button" onclick={discordLogout}>
+        {i18n.t('logoutDiscord')}
+      </button>
+    {:else}
+      <button class="btn btn-discord btn-sm" type="button" onclick={startDiscordLogin}>
+        {i18n.t('loginDiscord')}
+      </button>
+    {/if}
+  {/if}
 
   <label class="setting-row">
     <span>{i18n.t('settingQuestions')}</span>

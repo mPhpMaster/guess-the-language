@@ -6,6 +6,7 @@
   import ShareOverlay from '$lib/components/ShareOverlay.svelte';
   import TitleBar from '$lib/components/TitleBar.svelte';
   import JoinRoomDialog from '$lib/components/JoinRoomDialog.svelte';
+  import Onboarding from '$lib/components/Onboarding.svelte';
   import ProfileCard from '$lib/components/ProfileCard.svelte';
   import SettingsDialog from '$lib/components/SettingsDialog.svelte';
   import { dailyDateKey } from '$lib/game/round';
@@ -19,7 +20,13 @@
   import MpGameScreen from '$lib/screens/MpGameScreen.svelte';
   import MpResultsScreen from '$lib/screens/MpResultsScreen.svelte';
   import ResultsScreen from '$lib/screens/ResultsScreen.svelte';
-  import { discord, discordProfile, ready as discordReady } from '$lib/services/discord.svelte';
+  import {
+    discord,
+    discordAvatarUrl,
+    discordProfile,
+    ready as discordReady,
+    takeJoinSecret
+  } from '$lib/services/discord.svelte';
   import { isAdmin } from '$lib/services/admin';
   import { setLogContextProvider } from '$lib/services/errors';
   import { fetchPersonalRank, submitDailyScore, submitScore } from '$lib/services/leaderboard';
@@ -155,6 +162,29 @@
       mpSession.start();
       return () => mpSession.stop();
     }
+  });
+
+  /**
+   * "Ask to Join" on someone's Discord profile card.
+   *
+   * The secret is the room code this app published in `setActivity`; joining by
+   * it puts the player in that exact room rather than the voice channel's
+   * default one. Consumed rather than read, so the effect cannot re-fire.
+   */
+  $effect(() => {
+    if (!discord.joinSecret) return;
+    const secret = takeJoinSecret();
+    const match = /^room:([A-Za-z0-9]{4})$/.exec(String(secret ?? ''));
+    if (!match) return;
+    const code = match[1].toUpperCase();
+    // Already there — the voice-channel auto-join usually gets there first.
+    if (room.code === code) return;
+    void room.join(code, playerName()).catch((err) => {
+      // A room already in progress rejects a join by code; say so rather than
+      // leaving the player staring at an unchanged home screen.
+      console.error('Ask-to-Join failed:', err);
+      mpError = err instanceof Error ? err.message : i18n.t('mpJoinFail');
+    });
   });
 
   // Being removed from a room drops the player back home with a message.
@@ -376,6 +406,10 @@
       onleaderboard={() => (screen = 'results')}
       admin={isAdmin()}
       onadmin={() => (adminOpen = true)}
+      onprofile={() => {
+        profileName = settings.name.trim() || discordProfile()?.name || null;
+        profileAvatar = discordAvatarUrl(discordProfile(), 96);
+      }}
       onsettings={() => (settingsOpen = true)}
       onabout={() => (aboutOpen = true)}
     />
@@ -401,9 +435,15 @@
 
 <div class="sr-only" role="status" aria-live="polite" id="app-live-region"></div>
 
+<Onboarding eligible={screen === 'home' && mpView === null} />
+
 <ProfileCard
   name={profileName}
   avatar={profileAvatar}
+  onopen={(name, avatar) => {
+    profileName = name;
+    profileAvatar = avatar;
+  }}
   onclose={() => {
     profileName = null;
     profileAvatar = null;

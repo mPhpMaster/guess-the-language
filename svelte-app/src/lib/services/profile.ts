@@ -223,6 +223,44 @@ export async function unfollowPlayer(me: string, who: string): Promise<void> {
   }
 }
 
+export interface FollowedPlayer {
+  name: string;
+  score: number;
+  avatar: string | null;
+}
+
+/**
+ * The people the current player follows, each with their best score.
+ *
+ * Capped at 20 because this is one request per followee — the list is a glance
+ * at your circle, not a directory. Sorted by score so the board reads like a
+ * private leaderboard. A lookup that fails still yields the name at 0 rather
+ * than dropping the person from the list.
+ */
+export async function fetchFollowing(me: string, hiddenLabel = ''): Promise<FollowedPlayer[]> {
+  if (!supabaseConfigured() || !me) return [];
+  const names = [...(await loadMyFollows(me, true))];
+  if (!names.length) return [];
+
+  const rows = await Promise.all(
+    names.slice(0, 20).map(async (name): Promise<FollowedPlayer> => {
+      try {
+        const best = await sbFetch<{ score: number; avatar: string | null }[]>(
+          `scores?select=score,avatar&player=eq.${encodeURIComponent(name)}&order=score.desc&limit=1`
+        );
+        return {
+          name: safeDisplayName(name, hiddenLabel),
+          score: best?.[0]?.score ?? 0,
+          avatar: best?.[0]?.avatar ?? null
+        };
+      } catch {
+        return { name: safeDisplayName(name, hiddenLabel), score: 0, avatar: null };
+      }
+    })
+  );
+  return rows.sort((a, b) => b.score - a.score);
+}
+
 // ---------- progress recording ----------
 
 export interface RecordPlayInput {

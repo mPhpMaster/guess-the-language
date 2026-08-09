@@ -177,6 +177,48 @@ relative asset URLs.
 so one build artifact can point at different projects. Both are optional — missing
 config degrades to offline play. The real files are gitignored.
 
+## Configuration
+
+Credentials come from the same places the original project uses, so one set
+serves both builds.
+
+**Runtime config** — `index.html` loads two plain scripts before the bundle:
+
+| File | Sets | Source |
+| --- | --- | --- |
+| `public/supabase-config.js` | `window.SUPABASE_CONFIG` | copied from the root project; gitignored |
+| `public/discord-config.js` | `window.DISCORD_CONFIG` | copied from the root project; gitignored |
+
+They are read at runtime rather than baked in, so one build artifact can be
+pointed at a different Supabase project or Discord app without rebuilding. Both
+are optional — missing config degrades to offline solo play instead of failing.
+
+Because those files hold real credentials they are gitignored, which means they
+do **not** exist on a Vercel build machine. `scripts/generate-runtime-config.mjs`
+(run automatically after `vite build`) writes them from the environment instead:
+
+```
+VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY, VITE_DISCORD_CLIENT_ID
+```
+
+A blank env never clobbers a local `public/` copy, and if neither supplies
+anything a blank stub is written so the `<script>` tag does not 404. Copy
+`.env.example` to `.env.local` for the full list, including the server-only
+`DISCORD_CLIENT_SECRET`, `SUPABASE_SERVICE_ROLE_KEY` and `APP_SESSION_SECRET`.
+
+**Serverless functions** live in `api/` and are ported from the root project's
+`api/` (ESM instead of CommonJS; the HMAC token format is unchanged, so existing
+sessions keep working):
+
+- `token.js` — Activity handshake code exchange, mints the signed session token
+- `discord-login.js` — web OAuth2 code exchange
+- `report.js` — files a leaderboard report as the *signed* user
+- `admin.js` — every admin action, service-role only
+- `_session.js` — sign/verify; `api/admin.js` is the real authorization boundary
+
+In `vite dev` only `/api/token` is stubbed (see `vite.config.ts`), so reporting
+and admin actions fail locally by design rather than reaching production.
+
 ## What is ported
 
 - Home screen: all seven modes, language switch, best score, daily button state
@@ -187,8 +229,10 @@ config degrades to offline play. The real files are gitignored.
 - All three question styles: language pick, multiple choice, fill-in-the-blank
 - Keyboard answering (1–9 / a–f)
 - Results: score, all four stat tiles (accuracy, best streak, average response,
-  fastest correct), wrong-answer review, live leaderboard with all-time /
+  fastest correct), per-category accuracy breakdown (by bank on a mixed round, by
+  difficulty otherwise), wrong-answer review, live leaderboard with all-time /
   this-week scope and per-mode switching, personal rank
+- First-run onboarding tips, shown once and never over a lobby
 - Settings and About dialogs (native `<dialog>`), persisted settings
 - Name gate before a round or hosting: local profanity check, then the server's
   `is_safe_player_name`, then a duplicate check against the live board
@@ -199,9 +243,16 @@ config degrades to offline play. The real files are gitignored.
   Leave button), host migration, room results, play-again, leave-beacon on unload
 - **Discord Activity**: SDK handshake with the single-flight `authorize` fix,
   identity adoption, participant tracking for real avatars, `/supabase` URL
-  mapping installed before mount, invite dialog
-- **Profiles**: stats, XP/level/streak, achievements, per-mode rankings, follows;
-  leaderboard rows open a player's card
+  mapping installed before mount, invite dialog, Ask-to-Join (the published join
+  secret routes the joiner into that exact room)
+- **Web Discord sign-in**: OAuth2 authorization-code flow with a CSRF state
+  check, the spent `?code` stripped before mount, and the sign-in gate that only
+  ever applies on the plain web build — inside the Activity a top-level redirect
+  is blocked, so gating there would strand the player
+- **Reporting**: report a leaderboard entry through `/api/report`, with the
+  reporter taken from the signed session rather than the request body
+- **Profiles**: stats, XP/level/streak, achievements, per-mode rankings, follows
+  and your own Following list; leaderboard rows open a player's card
 - **Presence**: Discord rich-presence card (solo + room, party badge, Ask-to-Join
   secret) and the admin heartbeat
 - **Admin panel**: reports, users, live players and bans, with click-twice
@@ -216,7 +267,11 @@ config degrades to offline play. The real files are gitignored.
 
 ## Known gaps
 
-Everything from the original is ported, and the Discord path has been exercised
+One deliberate deviation: the original also offered "invite to this room" from
+the player card, duplicating the lobby's invite button. Only the lobby one is
+ported — the two ran identical code.
+
+Everything else from the original is ported, and the Discord path has been exercised
 as far as is possible without Discord (see above): the layout, the proxy
 ordering, the error reporting and the stays-playable-on-failure guarantee all
 check out locally.
@@ -231,8 +286,22 @@ path to a small group first rather than swapping it in.
 ## Verified
 
 - `pnpm check` — 0 errors, 0 warnings
-- `pnpm build` — succeeds; 162.9 kB app JS + 58.5 kB CSS, SDKs split into
+- `pnpm test` — 86 unit tests pass
+- `pnpm build` — succeeds; 159.4 kB app JS + 58.6 kB CSS, SDKs split into
   separate on-demand chunks
+- Second pass over the original modules found six unported behaviours; all six
+  are now in and were exercised in the browser:
+  - onboarding overlay appears once, dismissal persists across reloads
+  - sign-in gate turns Start into "Sign in with Discord to play" on the web, and
+    stays absent inside the Activity (verified with the `frame_id` simulation)
+  - accuracy breakdown grouped by bank on a mixed round
+  - report dialog opens against a real board row, all three reasons present, and
+    the failure path shows `reportFailed` (dev has no `/api/report`, so nothing
+    was actually filed)
+  - follow → own card shows "Following · 1" with that player's best score →
+    clicking the row switches the card to them → unfollow cleans up
+  - runtime-config generator: keeps `public/` when the env is blank, writes from
+    the env when it is not
 - Runtime, in-browser, no console errors throughout:
   - solo: mode select → question → answer → feedback → auto-advance → results;
     keyboard answering scored +100, matching the original's timer fast-forward

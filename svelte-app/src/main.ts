@@ -3,6 +3,7 @@ import App from './App.svelte';
 import './app.css';
 import { exposeGlobalLogger, setupErrorLogging } from '$lib/services/errors';
 import { inDiscordEmbed, ready as discordReady } from '$lib/services/discord.svelte';
+import { handleDiscordOAuthReturn } from '$lib/services/discordLogin.svelte';
 
 // Install the error hooks before anything else so a failure during boot is still
 // reported to `error_logs`.
@@ -19,6 +20,14 @@ document.documentElement.classList.add(
 
 const target = document.getElementById('app');
 if (!target) throw new Error('#app mount point is missing');
+
+/**
+ * Complete a "Login with Discord" redirect before mounting, so the app never
+ * renders a signed-out home screen for a player who is one await away from being
+ * signed in — and so the spent ?code is out of the address bar before any other
+ * code reads location.search. A no-op when there is no ?code.
+ */
+await handleDiscordOAuthReturn();
 
 /**
  * Inside the Discord Activity the handshake must finish before the app mounts:

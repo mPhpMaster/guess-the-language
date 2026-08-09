@@ -6,7 +6,7 @@
   "description": "Svelte 5 rewrite of the Guess the Language quiz game (web + Electron + Discord Activity).",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/generate-runtime-config.mjs",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
@@ -29,11 +29,6 @@
   "dependencies": {
     "@discord/embedded-app-sdk": "^2.0.0",
     "@supabase/supabase-js": "^2.112.2"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
   },
   "main": "electron/main.cjs",
   "build": {

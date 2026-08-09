@@ -1,10 +1,13 @@
 <script lang="ts">
   import ChallengeVerdict from '$lib/components/ChallengeVerdict.svelte';
   import Leaderboard from '$lib/components/Leaderboard.svelte';
+  import ReportDialog from '$lib/components/ReportDialog.svelte';
+  import RoundBreakdown from '$lib/components/RoundBreakdown.svelte';
   import type { ModeId } from '$lib/game/types';
   import { i18n } from '$lib/i18n/index.svelte';
   import { formatSeconds } from '$lib/game/round';
   import { fetchTopScores, type Scope, type ScoreRow } from '$lib/services/leaderboard';
+  import { reportingAvailable } from '$lib/services/report';
   import { supabaseConfigured } from '$lib/services/supabase';
   import { game } from '$lib/state/game.svelte';
   import { settings } from '$lib/state/settings.svelte';
@@ -41,6 +44,8 @@
   let rows = $state<ScoreRow[]>([]);
   let loading = $state(false);
   let error = $state<string | null>(null);
+  let reportTarget = $state<ScoreRow | null>(null);
+  let boardNote = $state<string | null>(null);
 
   const wrongAnswers = $derived(game.history.filter((h) => !h.correct));
 
@@ -91,6 +96,8 @@
       <div><strong>{formatSeconds(game.fastestCorrectMs)}</strong><span>{i18n.t('statFastest')}</span></div>
     </div>
 
+    <RoundBreakdown history={game.history} />
+
     {#if personalRank}
       <div class="personal-result">#{personalRank}</div>
     {/if}
@@ -125,7 +132,15 @@
       </select>
     </label>
 
-    <Leaderboard {rows} {loading} {error} youName={settings.name} onopen={onprofile} />
+    <Leaderboard
+      {rows}
+      {loading}
+      {error}
+      youName={settings.name}
+      onopen={onprofile}
+      note={boardNote}
+      onreport={reportingAvailable() ? (row) => (reportTarget = row) : undefined}
+    />
 
     {#if wrongAnswers.length}
       <details class="answer-review">
@@ -160,3 +175,9 @@
     </div>
   </div>
 </section>
+
+<ReportDialog
+  target={reportTarget}
+  onclose={() => (reportTarget = null)}
+  ondone={(message) => (boardNote = message)}
+/>

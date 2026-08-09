@@ -2,6 +2,13 @@
   import type { ModeId } from '$lib/game/types';
   import type { TextKey } from '$lib/i18n/index.svelte';
   import { i18n } from '$lib/i18n/index.svelte';
+  import { discordAvatarUrl, discordProfile } from '$lib/services/discord.svelte';
+  import {
+    auth,
+    discordLoginAvailable,
+    requiresDiscordLogin,
+    startDiscordLogin
+  } from '$lib/services/discordLogin.svelte';
   import { highScore, settings } from '$lib/state/settings.svelte';
 
   interface Props {
@@ -24,6 +31,8 @@
     /** Shows the admin entry point. Server-side checks are the real gate. */
     admin: boolean;
     onadmin: () => void;
+    /** Opens the player's own profile card. */
+    onprofile: () => void;
   }
 
   let {
@@ -42,7 +51,8 @@
     mpAvailable,
     mpError,
     admin,
-    onadmin
+    onadmin,
+    onprofile
   }: Props = $props();
 
   /** Card metadata: id, icon, the CSS modifier and the two i18n keys. */
@@ -63,6 +73,17 @@
   ];
 
   const best = $derived(highScore(mode));
+
+  /** Sign-in gate — only ever true on the plain web build. */
+  const needsLogin = $derived.by(() => {
+    auth.revision;
+    return requiresDiscordLogin();
+  });
+  const profile = $derived.by(() => {
+    auth.revision;
+    return discordProfile();
+  });
+  const avatar = $derived(discordAvatarUrl(profile, 64));
 </script>
 
 <section class="screen active" id="screen-home">
@@ -75,6 +96,28 @@
 
   <h1 class="home-title" tabindex="-1"><span class="neon">{i18n.t('appTitle')}</span></h1>
   <p class="home-sub">{i18n.t('homeSub')}</p>
+
+  {#if settings.name || profile}
+    <button class="home-profile is-clickable" type="button" onclick={onprofile}>
+      {#if avatar}
+        <img class="home-profile-avatar" src={avatar} alt="" referrerpolicy="no-referrer" />
+      {/if}
+      <span class="home-profile-name">{settings.name || profile?.name}</span>
+    </button>
+  {/if}
+
+  {#if needsLogin}
+    <p class="auth-hint">{i18n.t('webAuthHint')}</p>
+  {/if}
+
+  {#if auth.error}
+    <div class="auth-error" role="alert">
+      <span>{i18n.t(auth.error as TextKey)}</span>
+      {#if discordLoginAvailable()}
+        <button class="text-btn" type="button" onclick={startDiscordLogin}>{i18n.t('retry')}</button>
+      {/if}
+    </div>
+  {/if}
 
   <div class="mode-grid" role="group" aria-label="Game mode">
     {#each CARDS as card (card.id)}
@@ -93,19 +136,40 @@
   </div>
 
   <div class="home-actions">
-    <button class="btn btn-primary" id="btn-start" type="button" disabled={busy} onclick={onstart}>
-      {busy ? i18n.t('loading') : i18n.t('start')}
+    <!--
+      Everything that publishes a score needs an identity, so it waits on the
+      sign-in gate. Practice stays open: it is local-only and never reaches the
+      leaderboard, which is also why it skips the name check.
+
+      Start is not disabled while signed out — it *becomes* the sign-in, so the
+      primary button always does the next useful thing instead of going dead with
+      no explanation.
+    -->
+    <button
+      class="btn btn-primary"
+      id="btn-start"
+      type="button"
+      disabled={busy}
+      onclick={needsLogin ? startDiscordLogin : onstart}
+    >
+      {busy ? i18n.t('loading') : needsLogin ? i18n.t('loginDiscordToPlay') : i18n.t('start')}
     </button>
-    <button class="btn btn-daily" class:is-done={dailyDone} type="button" disabled={busy} onclick={ondaily}>
+    <button
+      class="btn btn-daily"
+      class:is-done={dailyDone}
+      type="button"
+      disabled={busy || needsLogin}
+      onclick={ondaily}
+    >
       🗓️ {dailyDone ? i18n.t('dailyPlayed') : i18n.t('dailyChallenge')}
     </button>
 
     {#if mpAvailable}
       <div class="home-mp-actions">
-        <button class="btn btn-sm" type="button" disabled={busy} onclick={onhost}>
+        <button class="btn btn-sm" type="button" disabled={busy || needsLogin} onclick={onhost}>
           {i18n.t('hostRoom')}
         </button>
-        <button class="btn btn-sm" type="button" disabled={busy} onclick={onjoin}>
+        <button class="btn btn-sm" type="button" disabled={busy || needsLogin} onclick={onjoin}>
           {i18n.t('joinRoom')}
         </button>
       </div>
@@ -127,9 +191,5 @@
 
   {#if best > 0}
     <p class="menu-highscore">{i18n.t('bestScore')} <strong>{best}</strong></p>
-  {/if}
-
-  {#if settings.name}
-    <p class="menu-highscore">{settings.name}</p>
   {/if}
 </section>
