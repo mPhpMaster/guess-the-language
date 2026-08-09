@@ -61,52 +61,73 @@
       {@const name = safeDisplayName(row.player, hidden)}
       {@const you = isYou(name)}
       <!--
-        Report sits *beside* the row rather than inside it. The original nested it
-        in a clickable <div> and stopped propagation; here the row is a real
-        <button>, and a button inside a button is invalid markup that browsers
-        silently un-nest.
+        Structure matches the original row exactly: rank, then avatar, then the
+        score bar, with Report as the last child *inside* the row. The stylesheet
+        assumes `.lb-row` is the direct flex child of `.leaderboard` — wrapping it
+        in an extra element pushed the row past the container width (a horizontal
+        scrollbar) because `.lb-row.is-you` deliberately bleeds into a negative
+        margin.
+
+        The row stays a <div role="listitem"> rather than a <button> so the report
+        control can legally nest inside it; the click is made keyboard-operable
+        with tabindex + Enter/Space, which is what the original did.
       -->
-      <div class="lb-row-wrap">
+      <!--
+        The row must stay a listitem inside `role="list"`, yet it also opens the
+        player card. Svelte flags the tabindex/handlers on a non-interactive
+        element; the alternative — role="button" — would break the list
+        semantics, and a real <button> cannot legally contain the Report button.
+        Keyboard access is provided explicitly below, so the behaviour the rule
+        protects is present.
+      -->
+      <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+      <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+      <div
+        class="lb-row {rankClass(i)}"
+        class:is-clickable={!!onopen}
+        class:is-you={you}
+        role="listitem"
+        tabindex={onopen ? 0 : undefined}
+        title={onopen ? `${name} — ${i18n.t('openPlayerCard')}` : undefined}
+        onclick={(e) => {
+          if (!onopen) return;
+          // Report is a child; its own click must not also open the card.
+          if ((e.target as HTMLElement).closest('.lb-report')) return;
+          onopen(name, row.avatar ?? null);
+        }}
+        onkeydown={(e) => {
+          if (!onopen || (e.key !== 'Enter' && e.key !== ' ')) return;
+          e.preventDefault();
+          onopen(name, row.avatar ?? null);
+        }}
+      >
+        <div class="lb-rank">{i + 1}</div>
+
         <!--
-          A clickable row is a real <button> so it is keyboard- and
-          screen-reader-operable for free; `role="listitem"` is only applied to
-          the inert <div> variant, since a button carries its own semantics.
+          The <img> must stay INSIDE .lb-avatar: that div carries the 48px box and
+          .lb-avatar-img is sized at 100% of its parent, so hoisting the image out
+          makes it 100% of the whole row instead.
         -->
-        <svelte:element
-          this={onopen ? 'button' : 'div'}
-          class="lb-row {rankClass(i)}"
-          class:is-clickable={!!onopen}
-          class:is-you={you}
-          role={onopen ? undefined : 'listitem'}
-          type={onopen ? 'button' : undefined}
-          onclick={onopen ? () => onopen(name, row.avatar ?? null) : undefined}
-        >
-          <div class="lb-rank">{i + 1}</div>
-          <div class="lb-bar-wrap">
-            <div class="lb-bar-bg"></div>
-            <div class="lb-bar-fill" style:width="{Math.max(18, (row.score / max) * 100)}%">
-              {name}{badge(i)} — {row.score} pts
-              {#if row.multiplayer}
-                <span class="lb-mp-tag" title={i18n.t('multiplayerScore')}> 👥</span>
-              {/if}
-              {#if you}
-                <span class="lb-tag"> {i18n.t('you')}</span>
-              {/if}
-            </div>
-          </div>
-          <!--
-            The <img> must stay INSIDE .lb-avatar: that div carries the 48px box
-            and .lb-avatar-img is sized at 100% of its parent, so hoisting the
-            image out makes it 100% of the whole row instead.
-          -->
-          <div class="lb-avatar" aria-hidden="true">
-            {#if row.avatar}
-              <img class="lb-avatar-img" src={row.avatar} alt="" referrerpolicy="no-referrer" />
-            {:else}
-              {avatarFor(name)}
+        <div class="lb-avatar" aria-hidden="true">
+          {#if row.avatar}
+            <img class="lb-avatar-img" src={row.avatar} alt="" referrerpolicy="no-referrer" />
+          {:else}
+            {avatarFor(name)}
+          {/if}
+        </div>
+
+        <div class="lb-bar-wrap">
+          <div class="lb-bar-bg"></div>
+          <div class="lb-bar-fill" style:width="{Math.max(18, (row.score / max) * 100)}%">
+            {name}{badge(i)} — {row.score} pts
+            {#if row.multiplayer}
+              <span class="lb-mp-tag" title={i18n.t('multiplayerScore')}> 👥</span>
+            {/if}
+            {#if you}
+              <span class="lb-tag"> {i18n.t('you')}</span>
             {/if}
           </div>
-        </svelte:element>
+        </div>
 
         {#if onreport && !you && Number(row.id) > 0}
           <button
@@ -124,31 +145,3 @@
     <div class="lb-note">{note}</div>
   {/if}
 </div>
-
-<style>
-  /* The report control is a sibling of the row, so the pair needs its own flex
-     line; the row keeps every bit of the width the report button does not use. */
-  .lb-row-wrap {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .lb-row-wrap > :global(.lb-row) {
-    flex: 1 1 auto;
-    min-width: 0;
-  }
-  /* The row is a <button> here, not the original's <div>. Strip the control
-     chrome the browser adds so it looks identical to the inert variant. */
-  .lb-row-wrap > :global(button.lb-row) {
-    background: none;
-    border: 0;
-    padding: 0;
-    font: inherit;
-    color: inherit;
-    text-align: start;
-    cursor: pointer;
-  }
-  .lb-row-wrap > :global(button.lb-row.is-you) {
-    background: linear-gradient(90deg, #2ec5ff26, #2ec5ff08);
-  }
-</style>

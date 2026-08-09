@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { DifficultyFilter } from '$lib/game/types';
   import { i18n } from '$lib/i18n/index.svelte';
-  import { discord } from '$lib/services/discord.svelte';
+  import { discord, inDiscordEmbed } from '$lib/services/discord.svelte';
   import {
     auth,
     discordLoginAvailable,
@@ -25,13 +25,20 @@
     return webProfile();
   });
   /**
-   * Whenever a Discord identity exists — the Activity handshake OR a web
-   * sign-in — the name is theirs and is not editable. Only Electron, which has
-   * no Discord identity, offers a free-text name.
+   * Can this platform obtain a Discord identity at all?
+   *
+   * Everywhere it can — the web build and inside the Activity — there is no
+   * free-text name field: the identity is Discord's, so a typed name would only
+   * ever be a nickname that the sign-in immediately overwrites.
+   *
+   * Electron is the exception and keeps the field. It is served from `file://`,
+   * which cannot be a registered OAuth redirect target, so no Discord sign-in is
+   * possible there — without a field the desktop build would have no identity
+   * and could not start a round at all.
    */
-  const nameFromDiscord = $derived.by(() => {
+  const discordIsPossible = $derived.by(() => {
     auth.revision;
-    return discord.active || !!webProfile();
+    return discord.active || inDiscordEmbed() || discordLoginAvailable() || !!webProfile();
   });
 
   // Drive the native <dialog> from the `open` prop so focus trapping, Esc and
@@ -46,19 +53,25 @@
 <dialog class="popover" bind:this={dialog} onclose={onclose}>
   <h3>{i18n.t('settingsTitle')}</h3>
 
-  <label class="setting-row">
-    <span>{i18n.t('settingName')}</span>
-    <input
-      type="text"
-      value={settings.name}
-      maxlength="24"
-      disabled={nameFromDiscord}
-      oninput={(e) => settings.setName(e.currentTarget.value)}
-    />
-  </label>
-
-  {#if nameFromDiscord}
+  {#if discordIsPossible}
+    <!-- Identity is Discord's. Show it, never offer to edit it. -->
+    {#if settings.name}
+      <div class="setting-row">
+        <span>{i18n.t('settingName')}</span>
+        <strong>{settings.name}</strong>
+      </div>
+    {/if}
     <p class="discord-name-note">{i18n.t('discordNameNote')}</p>
+  {:else}
+    <label class="setting-row">
+      <span>{i18n.t('settingName')}</span>
+      <input
+        type="text"
+        value={settings.name}
+        maxlength="24"
+        oninput={(e) => settings.setName(e.currentTarget.value)}
+      />
+    </label>
   {/if}
 
   <!--

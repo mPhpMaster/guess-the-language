@@ -223,6 +223,28 @@ export async function unfollowPlayer(me: string, who: string): Promise<void> {
   }
 }
 
+/**
+ * The most recent avatar this player ever submitted a score with.
+ *
+ * The card is normally handed the avatar from the row that was clicked, but a
+ * score submitted before avatars were captured has none — which is why the top
+ * player could open with a generic emoji while their photo showed elsewhere.
+ * Returns null when they genuinely have never stored one.
+ */
+export async function fetchPlayerAvatar(name: string): Promise<string | null> {
+  if (!supabaseConfigured() || !name) return null;
+  try {
+    const rows = await sbFetch<{ avatar: string | null }[]>(
+      `scores?select=avatar&player=eq.${encodeURIComponent(name)}` +
+        '&avatar=not.is.null&order=created_at.desc&limit=1'
+    );
+    const url = rows?.[0]?.avatar ?? null;
+    return url && /^https?:\/\//.test(url) ? url : null;
+  } catch {
+    return null;
+  }
+}
+
 export interface FollowedPlayer {
   name: string;
   score: number;

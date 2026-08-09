@@ -2054,3 +2054,27 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
 
 /* A non-code prompt still uses the panel, but should not be monospaced. */
 .code-panel.as-text { font-family: inherit; white-space: pre-wrap; }
+
+/* Profile card: ONE scroll container, not two.
+   `#player-card .modal-card` is meant to be the single scroller (its own comment
+   above says so), but `dialog.modal` further down also declares `overflow-y:
+   auto` — so a tall profile scrolled the dialog AND the card, showing two
+   scrollbars side by side. This is inherited from the original stylesheet, which
+   has the same pair of rules and the same markup.
+   The dialog now clips instead of scrolling, and both take the same max-height
+   so the card can never be taller than the box that contains it. */
+#player-card { overflow: hidden; }
+#player-card .modal-card { max-height: min(calc(100dvh - 32px), 760px); }
+
+/* .modal-card declares `color: rgb(0, 0, 0)` — a leftover from a light-theme
+   draft that the `background: linear-gradient(dark…)` two lines later
+   contradicts. Anything inside without an explicit colour therefore renders
+   black on a dark card, i.e. invisible: the report dialog's "Details (optional)"
+   label was the visible casualty (its textarea sets its own colour, so typing
+   showed but the label did not). Fixing the default rather than the one label
+   stops the next unstyled element repeating it. */
+.modal-card { color: var(--text); }
+
+/* Square Discord avatars, so `fill` and `cover` look the same today — but a
+   non-square source would stretch without this. */
+img.player-card-avatar { object-fit: cover; }

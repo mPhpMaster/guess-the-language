@@ -151,6 +151,30 @@ export async function handleDiscordOAuthReturn(): Promise<boolean> {
   }
 }
 
+/**
+ * Drop a stored web sign-in whose session token has aged out.
+ *
+ * Session tokens last a week and are only minted at sign-in — there is no
+ * refresh. Keeping an expired one around leaves the app looking signed in while
+ * every authenticated call (reports, admin) fails with 401. Clearing it puts the
+ * player back in front of the sign-in button, which re-mints everything.
+ */
+export function purgeExpiredSession(): void {
+  const user = linkedDiscordUser();
+  if (!user?.sessionToken) return;
+  try {
+    const payload = user.sessionToken.split('.')[0] ?? '';
+    let b64 = payload.replace(/-/g, '+').replace(/_/g, '/');
+    while (b64.length % 4) b64 += '=';
+    const { exp } = JSON.parse(atob(b64)) as { exp?: number };
+    if (exp && exp > Math.floor(Date.now() / 1000)) return;
+  } catch {
+    // An unreadable token is no more usable than an expired one.
+  }
+  console.info('[auth] stored Discord session expired — signing out');
+  discordLogout();
+}
+
 /** Forget the web sign-in. The Activity identity is unaffected. */
 export function discordLogout(): void {
   try {

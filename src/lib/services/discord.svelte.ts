@@ -374,13 +374,43 @@ export function discordAvatarUrl(user: { id: string; avatar?: string | null } | 
 
 // ---------- commands ----------
 
-/** Plain window.open is blocked by Discord's sandbox — route through the SDK. */
+/**
+ * Open an external link on whichever platform we are running on.
+ *
+ * Three different mechanisms, none of which works on the other two:
+ *   - Discord Activity: `window.open` is blocked by the iframe sandbox, so the
+ *     link has to go through the SDK command.
+ *   - Electron: hand off to the OS browser via the preload bridge, otherwise the
+ *     page would navigate away inside the app window.
+ *   - Web: a synthetic <a target="_blank"> click. `window.open(url, …)` with a
+ *     features string is treated as a popup and gets blocked; a real anchor
+ *     click is not.
+ */
 export function openExternal(url: string): void {
+  if (!url || typeof url !== 'string') return;
+
   if (session?.sdk?.commands?.openExternalLink) {
-    void session.sdk.commands.openExternalLink({ url });
+    try {
+      const result = session.sdk.commands.openExternalLink({ url }) as unknown;
+      if (result instanceof Promise) result.catch((e) => console.warn('openExternalLink:', e));
+    } catch (e) {
+      console.warn('openExternalLink:', e);
+    }
     return;
   }
-  window.open(url, '_blank', 'noopener,noreferrer');
+
+  if (!document.documentElement.classList.contains('platform-web') && window.appWindow?.openExternal) {
+    window.appWindow.openExternal(url);
+    return;
+  }
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
 }
 
 // ---------- rich presence ----------

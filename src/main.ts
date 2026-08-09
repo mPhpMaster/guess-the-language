@@ -3,7 +3,7 @@ import App from './App.svelte';
 import './app.css';
 import { exposeGlobalLogger, setupErrorLogging } from '$lib/services/errors';
 import { inDiscordEmbed, ready as discordReady } from '$lib/services/discord.svelte';
-import { handleDiscordOAuthReturn } from '$lib/services/discordLogin.svelte';
+import { handleDiscordOAuthReturn, purgeExpiredSession } from '$lib/services/discordLogin.svelte';
 
 // Install the error hooks before anything else so a failure during boot is still
 // reported to `error_logs`.
@@ -28,6 +28,11 @@ if (!target) throw new Error('#app mount point is missing');
  * code reads location.search. A no-op when there is no ?code.
  */
 await handleDiscordOAuthReturn();
+
+// A week-old session token still looks like a sign-in but is rejected by every
+// authenticated endpoint. Clear it before mounting so the UI offers a fresh
+// sign-in rather than failing later with "Authentication required".
+purgeExpiredSession();
 
 /**
  * Inside the Discord Activity the handshake must finish before the app mounts:

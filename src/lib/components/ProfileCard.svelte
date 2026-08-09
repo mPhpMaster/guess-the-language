@@ -5,6 +5,7 @@
   import {
     ACHIEVEMENTS,
     fetchFollowing,
+    fetchPlayerAvatar,
     fetchPlayerActivity,
     fetchPlayerRankings,
     fetchPlayerStats,
@@ -43,6 +44,13 @@
   let following = $state(false);
   /** Only populated on your own card — following is a private list. */
   let followingList = $state<FollowedPlayer[]>([]);
+  /** Looked up when the clicked row carried no avatar. */
+  let fallbackAvatar = $state<string | null>(null);
+
+  /** The row's avatar if it had one, otherwise the player's most recent. */
+  const shownAvatar = $derived(
+    avatar?.startsWith('http') ? avatar : (fallbackAvatar ?? avatar)
+  );
 
   const me = $derived(settings.name.trim());
   const isYou = $derived(!!name && name.toLowerCase() === me.toLowerCase());
@@ -103,6 +111,14 @@
     stats = null;
     rankings = [];
     followingList = [];
+    fallbackAvatar = null;
+
+    // Only worth a lookup when the row that opened the card had no photo.
+    if (!avatar?.startsWith('http')) {
+      void fetchPlayerAvatar(who).then((url) => {
+        if (!cancelled) fallbackAvatar = url;
+      });
+    }
 
     const hidden = i18n.t('hiddenPlayer');
     const mine = who.toLowerCase() === me.toLowerCase();
@@ -149,10 +165,10 @@
   <div class="modal-card">
     {#if name}
       <div class="player-card-head">
-        {#if avatar?.startsWith('http')}
-          <img class="player-card-avatar" src={avatar} alt="" referrerpolicy="no-referrer" />
+        {#if shownAvatar?.startsWith('http')}
+          <img class="player-card-avatar" src={shownAvatar} alt="" referrerpolicy="no-referrer" />
         {:else}
-          <span class="player-card-avatar">{avatar || avatarFor(name)}</span>
+          <span class="player-card-avatar">{shownAvatar || avatarFor(name)}</span>
         {/if}
         <div>
           <div class="player-card-name">{name}</div>
