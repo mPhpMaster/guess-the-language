@@ -3,7 +3,7 @@
 /* Problem Solving (mode `algorithms`) is now a MERGED category: the fill-in-the-blank
    `algorithms` bank plus the two multiple-choice banks that used to be standalone modes
    — `bug` (Fix The Bug) and `output` (Guess the Output). This test proves the merge:
-   the three banks load as one 234-question pool, the two retired mode cards are gone,
+   the three banks load as one pool (size derived from the files), the retired mode cards are gone,
    and a single round mixes BOTH answer styles (option buttons AND the typed fill input).
    Run:  electron test/smoke-arena.js                                            */
 
@@ -189,21 +189,30 @@ app.whenReady().then(async () => {
         }
       };
     })`);
-    check('merged Problem Solving bank loads', bank.total === 234, `total=${bank.total}`);
+    /* Counts are derived from the bank files, never frozen into the test — the
+       question banks are appended to regularly, and a hard-coded total would
+       fail on every content addition while proving nothing about the merge. */
+    const sizes = {};
+    for (const b of MODE_BANKS.algorithms) sizes[b] = (await readBank(QUESTION_FILES[b])).length;
+    const expectedTotal = MODE_BANKS.algorithms.reduce((n, b) => n + sizes[b], 0);
+    const expectedFill = sizes.algorithms - 84;   // ids > 84 are the imported/authored fill set
+    const expectedMc = sizes.bug + sizes.output;
+
+    check('merged Problem Solving bank loads', bank.total === expectedTotal, `total=${bank.total} expected=${expectedTotal}`);
     check('merged bank keeps all three bank tags',
-      bank.byBank.algorithms === 134 && bank.byBank.bug === 50 && bank.byBank.output === 50,
+      bank.byBank.algorithms === sizes.algorithms && bank.byBank.bug === sizes.bug && bank.byBank.output === sizes.output,
       `algorithms=${bank.byBank.algorithms} bug=${bank.byBank.bug} output=${bank.byBank.output}`);
     check('merged bank has no colliding bank|id keys', bank.uniqueKeys === bank.total,
       `unique=${bank.uniqueKeys}/${bank.total}`);
 
-    check('imported fill questions present', bank.fill.n === 50, `n=${bank.fill.n}`);
+    check('imported fill questions present', bank.fill.n === expectedFill, `n=${bank.fill.n} expected=${expectedFill}`);
     check('imported fill questions have no options', bank.fill.noOptions);
     check('imported fill questions have accept lists', bank.fill.hasAccept);
-    check('imported fill questions carry a ____ blank', bank.fill.blanked === 50, `blanked=${bank.fill.blanked}`);
+    check('imported fill questions carry a ____ blank', bank.fill.blanked === expectedFill, `blanked=${bank.fill.blanked}/${expectedFill}`);
     check('imported fill questions carry Arabic text', bank.fill.arabic);
 
-    check('imported bug/output questions present', bank.mc.n === 100, `n=${bank.mc.n}`);
-    check('imported bug/output questions have exactly 4 options', bank.mc.four === 100, `four=${bank.mc.four}`);
+    check('imported bug/output questions present', bank.mc.n === expectedMc, `n=${bank.mc.n} expected=${expectedMc}`);
+    check('imported bug/output questions have exactly 4 options', bank.mc.four === expectedMc, `four=${bank.mc.four}/${expectedMc}`);
     check('imported bug/output answers are among their options', bank.mc.answerInOptions);
     check('imported bug/output questions are bilingual', bank.mc.bilingual);
   } catch (err) {

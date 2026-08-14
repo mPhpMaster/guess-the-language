@@ -1048,5 +1048,635 @@
       "en": "The bucket array must exist before pushing into it.",
       "ar": "يجب أن توجد مصفوفة السلة قبل الإضافة إليها."
     }
+  },
+  {
+    "id": 51,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "const nums = [10, 20, 30];\nfor (const i in nums) {\n  console.log(i * 2);\n}",
+    "question": {
+      "en": "Which fix removes the bug?",
+      "ar": "أي إصلاح يزيل الخطأ؟"
+    },
+    "options": [
+      "Use `for (const n of nums)` to get values",
+      "Use `for (const i on nums)` to get values",
+      "Change `i * 2` to `i + i` in the body",
+      "Change `const i` to `let i` in the header"
+    ],
+    "answer": "Use `for (const n of nums)` to get values",
+    "explanation": {
+      "en": "`for...in` yields string keys ('0','1'), so the multiply is wrong; `for...of` yields the values.",
+      "ar": "‏for...in تُعطي المفاتيح كنصوص ('0','1') فيفسد الضرب، بينما for...of تُعطي القيم."
+    }
+  },
+  {
+    "id": 52,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "function half(s) {\n  return parseInt(s) / 2;\n}\nhalf('08');",
+    "question": {
+      "en": "What is the correct fix?",
+      "ar": "ما الإصلاح الصحيح؟"
+    },
+    "options": [
+      "Pass the radix: `parseInt(s, 10)`",
+      "Pass the radix: `parseInt(s, 2)`",
+      "Swap `parseInt` for `parseFloat(s)`",
+      "Wrap the whole call in `String(s)`"
+    ],
+    "answer": "Pass the radix: `parseInt(s, 10)`",
+    "explanation": {
+      "en": "Always give parseInt a radix; without it the base is implementation-dependent for odd input.",
+      "ar": "مرّر الأساس دائمًا إلى parseInt؛ بدونه يعتمد الأساس على التنفيذ مع المدخلات الغريبة."
+    }
+  },
+  {
+    "id": 53,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "def greet(self, name):\n    return \"Hi \" + name\n\nclass Greeter:\n    greet = greet",
+    "question": {
+      "en": "Which fix removes the bug?",
+      "ar": "أي إصلاح يزيل الخطأ؟"
+    },
+    "options": [
+      "Define `greet` inside the class body",
+      "Define `greet` after the class body",
+      "Rename the `self` parameter to `cls`",
+      "Return `name` without the greeting"
+    ],
+    "answer": "Define `greet` inside the class body",
+    "explanation": {
+      "en": "A method belongs in the class body; assigning a stray function is fragile and confusing.",
+      "ar": "الدالة العضو تُعرَّف داخل جسم الصنف؛ إسناد دالة خارجية هشّ ومربك."
+    }
+  },
+  {
+    "id": 54,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "switch (kind) {\n  case 'a':\n    total += 1;\n  case 'b':\n    total += 10;\n}",
+    "question": {
+      "en": "What is the correct fix?",
+      "ar": "ما الإصلاح الصحيح؟"
+    },
+    "options": [
+      "Add `break;` at the end of each case",
+      "Add `return;` at the end of each case",
+      "Change `switch` to a chain of `if`s",
+      "Move `case 'b'` above `case 'a'`"
+    ],
+    "answer": "Add `break;` at the end of each case",
+    "explanation": {
+      "en": "Without break the cases fall through, so 'a' also runs the 'b' branch.",
+      "ar": "بدون break تتسرّب الحالات، فتُنفَّذ 'b' أيضًا عند اختيار 'a'."
+    }
+  },
+  {
+    "id": 55,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "s = \"hello\"\ns[0] = \"H\"\nprint(s)",
+    "question": {
+      "en": "Which fix removes the bug?",
+      "ar": "أي إصلاح يزيل الخطأ؟"
+    },
+    "options": [
+      "Rebuild it: `s = \"H\" + s[1:]`",
+      "Rebuild it: `s = \"H\" + s[0:]`",
+      "Convert first with `s = list(s)`",
+      "Use `s.replace(0, \"H\")` instead"
+    ],
+    "answer": "Rebuild it: `s = \"H\" + s[1:]`",
+    "explanation": {
+      "en": "Python strings are immutable, so build a new string instead of assigning to an index.",
+      "ar": "النصوص في بايثون غير قابلة للتغيير، فابنِ نصًا جديدًا بدل الإسناد إلى فهرس."
+    }
+  },
+  {
+    "id": 56,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "const items = [3, 1, 2];\nconst sorted = items.sort();\nconsole.log(items);",
+    "question": {
+      "en": "Which fix removes the subtle bug?",
+      "ar": "أي إصلاح يزيل الخطأ الخفي؟"
+    },
+    "options": [
+      "Copy first: `[...items].sort((a,b)=>a-b)`",
+      "Copy first: `[...items].reverse((a,b)=>a-b)`",
+      "Assign it back with `items = items.sort()`",
+      "Call `items.sort()` a second time after"
+    ],
+    "answer": "Copy first: `[...items].sort((a,b)=>a-b)`",
+    "explanation": {
+      "en": "sort() mutates the original array in place; spread into a copy to leave `items` untouched.",
+      "ar": "‏sort() تعدّل المصفوفة الأصلية؛ انسخها بالنشر كي تبقى items كما هي."
+    }
+  },
+  {
+    "id": 57,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "a = [1, 2, 3]\nb = a\nb.append(4)\nprint(len(a))",
+    "question": {
+      "en": "What is the correct fix?",
+      "ar": "ما الإصلاح الصحيح؟"
+    },
+    "options": [
+      "Copy it with `b = a[:]` instead",
+      "Copy it with `b = a[0]` instead",
+      "Change `b.append(4)` to `b + [4]`",
+      "Declare `b` before `a` is created"
+    ],
+    "answer": "Copy it with `b = a[:]` instead",
+    "explanation": {
+      "en": "`b = a` binds the same list, so appending is visible through `a`; slice to copy it.",
+      "ar": "‏b = a تربط القائمة نفسها فتظهر الإضافة عبر a؛ استخدم التقطيع لنسخها."
+    }
+  },
+  {
+    "id": 58,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "const found = [1, 2, 3].forEach((n) => {\n  if (n === 2) return n;\n});",
+    "question": {
+      "en": "Which fix removes the bug?",
+      "ar": "أي إصلاح يزيل الخطأ؟"
+    },
+    "options": [
+      "Use `find` so the match is returned",
+      "Use `filter` so the match is returned",
+      "Add `return` before the `forEach` call",
+      "Change the arrow to a normal function"
+    ],
+    "answer": "Use `find` so the match is returned",
+    "explanation": {
+      "en": "forEach always returns undefined and a return inside it only exits that callback; find returns the match.",
+      "ar": "‏forEach تُعيد undefined دائمًا، وreturn بداخلها تُنهي الاستدعاء فقط؛ find تُعيد المطابق."
+    }
+  },
+  {
+    "id": 59,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "counts = {\"a\": 1, \"b\": 0}\nfor k in counts:\n    if counts[k] == 0:\n        del counts[k]",
+    "question": {
+      "en": "What is the correct fix?",
+      "ar": "ما الإصلاح الصحيح؟"
+    },
+    "options": [
+      "Iterate a copy: `for k in list(counts)`",
+      "Iterate a copy: `for k in dict(counts[k])`",
+      "Change `del counts[k]` to `counts.pop()`",
+      "Change the test to `if not counts[k]:`"
+    ],
+    "answer": "Iterate a copy: `for k in list(counts)`",
+    "explanation": {
+      "en": "Deleting while iterating a dict raises RuntimeError; iterate over a snapshot of the keys.",
+      "ar": "الحذف أثناء المرور على القاموس يرفع RuntimeError؛ مُرّ على نسخة من المفاتيح."
+    }
+  },
+  {
+    "id": 60,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "async function total(): Promise<number> {\n  const res = fetch('/api/sum');\n  return (await res).ok ? 1 : 0;\n}",
+    "question": {
+      "en": "Which fix removes the bug?",
+      "ar": "أي إصلاح يزيل الخطأ؟"
+    },
+    "options": [
+      "Await at the call: `await fetch('/api/sum')`",
+      "Await at the call: `async fetch('/api/sum')`",
+      "Drop `async` from the function signature",
+      "Change the return type to `Promise<void>`"
+    ],
+    "answer": "Await at the call: `await fetch('/api/sum')`",
+    "explanation": {
+      "en": "Await the promise where it is created so `res` is the response, not a pending promise.",
+      "ar": "انتظر الوعد عند إنشائه ليكون res هو الاستجابة لا وعدًا معلّقًا."
+    }
+  },
+  {
+    "id": 61,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "const obj = {\n  count: 0,\n  start() {\n    setTimeout(function () {\n      this.count++;\n    }, 10);\n  }\n};",
+    "question": {
+      "en": "What is the correct fix?",
+      "ar": "ما الإصلاح الصحيح؟"
+    },
+    "options": [
+      "Use an arrow callback so `this` is kept",
+      "Use a normal callback so `this` is kept",
+      "Change `this.count++` to `count++` there",
+      "Move `setTimeout` outside of the method"
+    ],
+    "answer": "Use an arrow callback so `this` is kept",
+    "explanation": {
+      "en": "A normal function gets its own `this`; an arrow keeps the enclosing method's `this`.",
+      "ar": "الدالة العادية تملك this خاصًا بها، أما السهمية فتحتفظ بـ this الخاص بالدالة المحيطة."
+    }
+  },
+  {
+    "id": 62,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "def rate(a, b):\n    if b is 0:\n        return 0\n    return a / b",
+    "question": {
+      "en": "Which fix removes the bug?",
+      "ar": "أي إصلاح يزيل الخطأ؟"
+    },
+    "options": [
+      "Compare by value with `if b == 0:`",
+      "Compare by value with `if b = 0:`",
+      "Change the guard to `if not b is 0:`",
+      "Return `None` instead of 0 when empty"
+    ],
+    "answer": "Compare by value with `if b == 0:`",
+    "explanation": {
+      "en": "`is` compares identity, not value; use == for numeric comparison.",
+      "ar": "‏is تقارن الهوية لا القيمة؛ استخدم == لمقارنة الأعداد."
+    }
+  },
+  {
+    "id": 63,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "function tag(name) {\n  this.name = name;\n}\nconst t = tag('box');\nconsole.log(t.name);",
+    "question": {
+      "en": "What is the correct fix?",
+      "ar": "ما الإصلاح الصحيح؟"
+    },
+    "options": [
+      "Construct it: `const t = new tag('box')`",
+      "Construct it: `const t = call tag('box')`",
+      "Add `return this;` at the end of `tag`",
+      "Rename the parameter from `name` to `n`"
+    ],
+    "answer": "Construct it: `const t = new tag('box')`",
+    "explanation": {
+      "en": "Without `new` the call has no fresh `this`, so it returns undefined.",
+      "ar": "بدون new لا يوجد this جديد للاستدعاء، فتكون النتيجة undefined."
+    }
+  },
+  {
+    "id": 64,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "try:\n    value = int(raw)\nexcept:\n    value = 0",
+    "question": {
+      "en": "Which fix removes the subtle bug?",
+      "ar": "أي إصلاح يزيل الخطأ الخفي؟"
+    },
+    "options": [
+      "Catch narrowly: `except ValueError:`",
+      "Catch narrowly: `except Exception as:`",
+      "Move the assignment above the `try`",
+      "Add an `else:` branch after the except"
+    ],
+    "answer": "Catch narrowly: `except ValueError:`",
+    "explanation": {
+      "en": "A bare except also swallows KeyboardInterrupt and real errors; catch the specific one.",
+      "ar": "‏except المجرّدة تبتلع KeyboardInterrupt والأخطاء الحقيقية؛ التقط الاستثناء المحدّد."
+    }
+  },
+  {
+    "id": 65,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "const a = [1, 2];\nconst b = [1, 2];\nif (a === b) {\n  console.log('same');\n}",
+    "question": {
+      "en": "What is the correct fix?",
+      "ar": "ما الإصلاح الصحيح؟"
+    },
+    "options": [
+      "Compare contents element by element",
+      "Compare contents with a loose `==`",
+      "Freeze both arrays before comparing",
+      "Convert both with `Number(a)` first"
+    ],
+    "answer": "Compare contents element by element",
+    "explanation": {
+      "en": "=== compares references for arrays, so two distinct arrays are never equal; compare contents.",
+      "ar": "‏=== تقارن المراجع للمصفوفات فلا تتساوى مصفوفتان مختلفتان؛ قارن المحتوى."
+    }
+  },
+  {
+    "id": 66,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "def top(words):\n    return sorted(words, key=len(words))",
+    "question": {
+      "en": "Which fix removes the bug?",
+      "ar": "أي إصلاح يزيل الخطأ؟"
+    },
+    "options": [
+      "Pass the function itself: `key=len`",
+      "Pass the function itself: `key=len()`",
+      "Change `sorted` to `words.sort(len)`",
+      "Add `reverse=True` to the sorted call"
+    ],
+    "answer": "Pass the function itself: `key=len`",
+    "explanation": {
+      "en": "key takes a function to call per item; `len(words)` passes a number instead.",
+      "ar": "‏key تأخذ دالة تُستدعى لكل عنصر، أما len(words) فتمرّر عددًا."
+    }
+  },
+  {
+    "id": 67,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "let total = 0;\n[1, 2, 3].forEach((n) => {\n  total = total + n;\n});\nconst avg = total / 0;",
+    "question": {
+      "en": "What is the correct fix?",
+      "ar": "ما الإصلاح الصحيح؟"
+    },
+    "options": [
+      "Divide by the count: `total / 3`",
+      "Divide by the count: `total / n`",
+      "Move `avg` inside the forEach body",
+      "Change `let total` to `const total`"
+    ],
+    "answer": "Divide by the count: `total / 3`",
+    "explanation": {
+      "en": "Dividing by zero gives Infinity; divide by the number of elements.",
+      "ar": "القسمة على صفر تعطي Infinity؛ اقسم على عدد العناصر."
+    }
+  },
+  {
+    "id": 68,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "const seen: Map<string, number> = new Map();\nseen['a'] = 1;\nconsole.log(seen.size);",
+    "question": {
+      "en": "Which fix removes the bug?",
+      "ar": "أي إصلاح يزيل الخطأ؟"
+    },
+    "options": [
+      "Store it with `seen.set('a', 1)`",
+      "Store it with `seen.push('a', 1)`",
+      "Change `Map` to a plain object type",
+      "Read the count with `seen.length`"
+    ],
+    "answer": "Store it with `seen.set('a', 1)`",
+    "explanation": {
+      "en": "Bracket assignment adds a plain property and never touches the Map, so size stays 0.",
+      "ar": "الإسناد بالأقواس يضيف خاصية عادية ولا يمسّ الـ Map، فيبقى size صفرًا."
+    }
+  },
+  {
+    "id": 69,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "total = 0\nfor row in rows:\n    total += row\nprint(\"total: \" + total)",
+    "question": {
+      "en": "What is the correct fix?",
+      "ar": "ما الإصلاح الصحيح؟"
+    },
+    "options": [
+      "Convert it: `\"total: \" + str(total)`",
+      "Convert it: `\"total: \" + int(total)`",
+      "Change `total = 0` to `total = \"\"`",
+      "Use `print(\"total: \", + total)` here"
+    ],
+    "answer": "Convert it: `\"total: \" + str(total)`",
+    "explanation": {
+      "en": "A str and an int cannot be concatenated; convert the number with str().",
+      "ar": "لا يمكن دمج نص مع عدد صحيح؛ حوّل العدد بـ str()."
+    }
+  },
+  {
+    "id": 70,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "const cfg = { retries: 0 };\nconst retries = cfg.retries || 3;\nconsole.log(retries);",
+    "question": {
+      "en": "Which fix removes the subtle bug?",
+      "ar": "أي إصلاح يزيل الخطأ الخفي؟"
+    },
+    "options": [
+      "Use `??` so only null/undefined default",
+      "Use `&&` so only null/undefined default",
+      "Change `retries: 0` to `retries: null`",
+      "Compare explicitly with `cfg.retries > 0`"
+    ],
+    "answer": "Use `??` so only null/undefined default",
+    "explanation": {
+      "en": "0 is falsy so || replaces a valid value; ?? only falls back on null or undefined.",
+      "ar": "الصفر يُعدّ خاطئًا فتستبدله ||؛ أما ?? فلا تتدخّل إلا مع null أو undefined."
+    }
+  },
+  {
+    "id": 71,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "grid = [[0] * 3] * 3\ngrid[0][0] = 5\nprint(grid[1][0])",
+    "question": {
+      "en": "What is the correct fix?",
+      "ar": "ما الإصلاح الصحيح؟"
+    },
+    "options": [
+      "Build rows: `[[0] * 3 for _ in range(3)]`",
+      "Build rows: `[[0] for _ in range(3) * 3]`",
+      "Change `grid[0][0] = 5` to append a row",
+      "Wrap the outer list in `list(grid)` first"
+    ],
+    "answer": "Build rows: `[[0] * 3 for _ in range(3)]`",
+    "explanation": {
+      "en": "`* 3` repeats the SAME inner list three times, so one write appears in every row.",
+      "ar": "‏* 3 تكرّر القائمة الداخلية نفسها ثلاث مرات، فتظهر أي كتابة في كل الصفوف."
+    }
+  },
+  {
+    "id": 72,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "async function all(ids) {\n  const out = [];\n  ids.forEach(async (id) => {\n    out.push(await load(id));\n  });\n  return out;\n}",
+    "question": {
+      "en": "Which fix removes the bug?",
+      "ar": "أي إصلاح يزيل الخطأ؟"
+    },
+    "options": [
+      "Use `await Promise.all(ids.map(load))`",
+      "Use `await Promise.race(ids.map(load))`",
+      "Add `await` before the `ids.forEach` call",
+      "Change `out.push` to `out.concat` inside"
+    ],
+    "answer": "Use `await Promise.all(ids.map(load))`",
+    "explanation": {
+      "en": "forEach ignores the async callbacks, so `out` is still empty at the return; Promise.all waits.",
+      "ar": "‏forEach تتجاهل الاستدعاءات غير المتزامنة فتبقى out فارغة عند الإرجاع؛ Promise.all تنتظرها."
+    }
+  },
+  {
+    "id": 73,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "fns = []\nfor i in range(3):\n    fns.append(lambda: i)\nprint(fns[0]())",
+    "question": {
+      "en": "What is the correct fix?",
+      "ar": "ما الإصلاح الصحيح؟"
+    },
+    "options": [
+      "Bind it now: `lambda i=i: i` in append",
+      "Bind it now: `lambda i: i` in the append",
+      "Move the append above the `for` header",
+      "Change `range(3)` to `list(range(3))`"
+    ],
+    "answer": "Bind it now: `lambda i=i: i` in append",
+    "explanation": {
+      "en": "The lambdas close over the variable, not its value, so all see the final i; a default binds it.",
+      "ar": "تغلق اللامدا على المتغيّر لا قيمته فترى كلها i الأخيرة؛ القيمة الافتراضية تثبّتها."
+    }
+  },
+  {
+    "id": 74,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "const clone = { ...user };\nclone.address.city = 'Riyadh';\nconsole.log(user.address.city);",
+    "question": {
+      "en": "Which fix removes the subtle bug?",
+      "ar": "أي إصلاح يزيل الخطأ الخفي؟"
+    },
+    "options": [
+      "Deep copy: `structuredClone(user)` first",
+      "Deep copy: `Object.freeze(user)` first",
+      "Spread it twice to reach nested values",
+      "Assign with `clone.address = 'Riyadh'`"
+    ],
+    "answer": "Deep copy: `structuredClone(user)` first",
+    "explanation": {
+      "en": "Spread copies one level, so `address` is shared and the write leaks into `user`.",
+      "ar": "النشر ينسخ مستوى واحدًا، فتبقى address مشتركة وتتسرّب الكتابة إلى user."
+    }
+  },
+  {
+    "id": 75,
+    "category": "typescript",
+    "difficulty": "hard",
+    "codeSnippet": "function pick<T>(list: T[], i: number): T {\n  return list[i];\n}\nconst v = pick([1, 2], 9);",
+    "question": {
+      "en": "What is the correct fix?",
+      "ar": "ما الإصلاح الصحيح؟"
+    },
+    "options": [
+      "Return `T | undefined` and guard the index",
+      "Return `T | never` and guard the index",
+      "Change the parameter type to `i: T`",
+      "Mark the whole function as `async`"
+    ],
+    "answer": "Return `T | undefined` and guard the index",
+    "explanation": {
+      "en": "An out-of-range index yields undefined, which the declared return type wrongly denies.",
+      "ar": "الفهرس خارج النطاق يعطي undefined، وهو ما ينفيه نوع الإرجاع المعلن خطأً."
+    }
+  },
+  {
+    "id": 76,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "def add_tag(tag, tags=[]):\n    tags.append(tag)\n    return tags\n\nprint(add_tag(\"a\"), add_tag(\"b\"))",
+    "question": {
+      "en": "Which fix removes the bug?",
+      "ar": "أي إصلاح يزيل الخطأ؟"
+    },
+    "options": [
+      "Default to `None` and build inside",
+      "Default to `list` and build inside",
+      "Return `tags[:]` at the end instead",
+      "Move `tags.append(tag)` above the def"
+    ],
+    "answer": "Default to `None` and build inside",
+    "explanation": {
+      "en": "A mutable default is created once and shared by every call, so the list keeps growing.",
+      "ar": "القيمة الافتراضية القابلة للتغيير تُنشأ مرة وتُشارك كل الاستدعاءات، فتتراكم القائمة."
+    }
+  },
+  {
+    "id": 77,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "const ids = rows.map((r) => r.id);\nconst uniq = ids.filter((id, i) => ids.indexOf(id) === i);\nconst missing = uniq.filter((id) => !id);",
+    "question": {
+      "en": "Which fix removes the subtle bug?",
+      "ar": "أي إصلاح يزيل الخطأ الخفي؟"
+    },
+    "options": [
+      "Test with `id == null` so 0 is kept",
+      "Test with `id === null` so 0 is kept",
+      "Change `uniq.filter` to `uniq.every`",
+      "Compare `indexOf(id) !== i` instead"
+    ],
+    "answer": "Test with `id == null` so 0 is kept",
+    "explanation": {
+      "en": "`!id` also matches the valid id 0 and an empty string; test for null/undefined explicitly.",
+      "ar": "‏!id تطابق أيضًا المعرّف 0 والنص الفارغ؛ افحص null/undefined صراحةً."
+    }
+  },
+  {
+    "id": 78,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "with open(path) as f:\n    data = f.read()\nprint(f.closed)\nrows = data.split(\"\\n\")[1:]",
+    "question": {
+      "en": "What is the correct fix?",
+      "ar": "ما الإصلاح الصحيح؟"
+    },
+    "options": [
+      "Strip first so a trailing blank line goes",
+      "Strip first so a leading header line goes",
+      "Read the file with `f.readlines()` here",
+      "Move `rows = ...` inside the with block"
+    ],
+    "answer": "Strip first so a trailing blank line goes",
+    "explanation": {
+      "en": "A file usually ends with a newline, so split leaves an empty final row; strip it first.",
+      "ar": "ينتهي الملف عادةً بسطر جديد فيترك التقسيم صفًا فارغًا في آخره؛ احذفه أولًا."
+    }
+  },
+  {
+    "id": 79,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "let timer;\nfunction poll() {\n  timer = setInterval(fetchNow, 1000);\n}\npoll();\npoll();",
+    "question": {
+      "en": "Which fix removes the bug?",
+      "ar": "أي إصلاح يزيل الخطأ؟"
+    },
+    "options": [
+      "Call `clearInterval(timer)` before setting",
+      "Call `clearTimeout(timer)` before setting",
+      "Change `setInterval` to `setTimeout` here",
+      "Declare `timer` inside the `poll` function"
+    ],
+    "answer": "Call `clearInterval(timer)` before setting",
+    "explanation": {
+      "en": "The second call orphans the first interval, which keeps firing forever; clear it first.",
+      "ar": "الاستدعاء الثاني يتيم المؤقّت الأول فيظلّ يعمل بلا نهاية؛ ألغِه أولًا."
+    }
+  },
+  {
+    "id": 80,
+    "category": "typescript",
+    "difficulty": "hard",
+    "codeSnippet": "enum Role { User, Admin }\nfunction isAdmin(r: Role) {\n  return r == Role.Admin || r;\n}",
+    "question": {
+      "en": "What is the correct fix?",
+      "ar": "ما الإصلاح الصحيح؟"
+    },
+    "options": [
+      "Return `r === Role.Admin` on its own",
+      "Return `r !== Role.Admin` on its own",
+      "Change the enum so `User` starts at 1",
+      "Compare against the string `'Admin'`"
+    ],
+    "answer": "Return `r === Role.Admin` on its own",
+    "explanation": {
+      "en": "The trailing `|| r` makes any non-zero role truthy; the comparison alone is the answer.",
+      "ar": "‏|| r في آخر السطر تجعل أي دور غير صفري صحيحًا؛ المقارنة وحدها هي المطلوب."
+    }
   }
 ]
