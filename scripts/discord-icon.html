@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--
+  Source artwork for the Discord "App Icon": 1024x1024, 1:1.
+
+  Rendered to screenshots/discord-icon.png by:  electron scripts/make-discord-icon.js
+  Edit this file, re-run that script, then re-upload in the Developer Portal
+  (General Information -> App Icon).
+
+  Same visual language as scripts/discord-cover.html (the 16:9 invite banner) —
+  it is that banner's left column, re-laid out square and scaled up, without the
+  code panel which is unreadable at icon sizes.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style>
+  @font-face {
+    font-family: "Plus Jakarta Sans";
+    src: url("../src/assets/fonts/PlusJakartaSans-wght.woff2") format("woff2");
+    font-weight: 200 800;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1024px; height: 1024px; overflow: hidden; }
+  body {
+    font-family: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
+    color: #eaf2ff;
+    background: #07111e;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 92px 88px;
+    position: relative;
+  }
+  /* Depth: the app's navy gradient plus two neon glows. */
+  .bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(120% 90% at 88% 8%, #19f0c421 0%, transparent 55%),
+      radial-gradient(110% 95% at 6% 92%, #2ec5ff29 0%, transparent 58%),
+      linear-gradient(135deg, #0b1a2b 0%, #07111e 55%, #102a44 100%);
+  }
+  /* Faint grid, so flat colour areas don't look empty when scaled down. */
+  .grid {
+    position: absolute; inset: 0; z-index: 0; opacity: 0.5;
+    background-image:
+      linear-gradient(#ffffff08 1px, transparent 1px),
+      linear-gradient(90deg, #ffffff08 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(80% 70% at 50% 50%, #000 0%, transparent 80%);
+  }
+
+  .content { position: relative; z-index: 1; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 13px;
+    font-size: 23px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+    color: #2ec5ff;
+    background: #2ec5ff1a; border: 1px solid #2ec5ff4d;
+    border-radius: 999px; padding: 13px 26px;
+  }
+  h1 {
+    font-size: 118px; font-weight: 800; line-height: 1.0; letter-spacing: -0.035em;
+    margin: 40px 0 0;
+    text-shadow: 0 0 70px #2ec5ff40;
+  }
+  h1 .accent {
+    background: linear-gradient(92deg, #2ec5ff 0%, #19f0c4 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .tagline { font-size: 31px; font-weight: 500; color: #9fb4cc; margin-top: 34px; }
+  .chips { display: flex; gap: 14px; margin-top: 52px; flex-wrap: wrap; }
+  .chip {
+    font-size: 24px; font-weight: 600;
+    background: #0d1f33cc; border: 1px solid #ffffff1f;
+    border-radius: 999px; padding: 14px 24px;
+  }
+</style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="grid"></div>
+
+  <div class="content">
+    <div class="eyebrow">🎮 Discord Activity</div>
+    <h1>Guess the<br /><span class="accent">Language</span></h1>
+    <p class="tagline">IT quiz — beat the timer, climb the board.</p>
+    <div class="chips">
+      <span class="chip">💻 Languages</span>
+      <span class="chip">🛡️ Cyber</span>
+      <span class="chip">♾️ DevOps</span>
+      <span class="chip">🌐 Network</span>
+      <span class="chip">🎮 Game Dev</span>
+      <span class="chip">🧩 Problem Solving</span>
+    </div>
+  </div>
+</body>
+</html>
