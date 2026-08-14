@@ -33,6 +33,79 @@ function isAdminUsername(username) {
   return admins.has(uname);
 }
 
+// ---- Admin passcode (second factor on top of the signed `adm` claim) ----
+// Normally the expected value is the ADMIN_PASSCODE env var. When that is unset
+// the passcode falls back to TODAY'S DATE as DDMMYYYY (e.g. 14082026).
+//
+// That fallback is deliberately weak and is a convenience, not a security
+// control: anyone who knows the scheme can derive it. It does not open the panel
+// to the public — the FIRST factor still applies, an HMAC-signed `adm` claim set
+// server-side from the real Discord username, which cannot be forged. But it does
+// give up most of what the second factor was for (someone using an already
+// signed-in session). Set ADMIN_PASSCODE to get real second-factor protection.
+const UNLOCK_TTL_SECONDS = 30 * 60;
+
+function adminPasscodeConfigured() {
+  return typeof process.env.ADMIN_PASSCODE === 'string' && process.env.ADMIN_PASSCODE.length > 0;
+}
+
+// The date-based fallback, as DDMMYYYY. The server runs on UTC while the owner is
+// in Asia/Riyadh (UTC+3), so both dates are accepted — otherwise "today's date"
+// would stop working three hours before local midnight every night.
+const FALLBACK_TZ_OFFSETS_MINUTES = [0, 180]; // UTC, Asia/Riyadh
+
+function fallbackPasscodes(now = Date.now()) {
+  const out = new Set();
+  for (const offset of FALLBACK_TZ_OFFSETS_MINUTES) {
+    const d = new Date(now + offset * 60000);
+    out.add(
+      String(d.getUTCDate()).padStart(2, '0') +
+      String(d.getUTCMonth() + 1).padStart(2, '0') +
+      String(d.getUTCFullYear())
+    );
+  }
+  return [...out];
+}
+
+// Constant-time equality that leaks neither the content nor the LENGTH of the
+// secret: both sides are first reduced to a fixed 32-byte HMAC digest (keyed
+// with a random per-process key, so the digests are useless to an attacker),
+// and only those equal-length buffers are compared with timingSafeEqual.
+const COMPARE_KEY = crypto.randomBytes(32);
+
+function safeEquals(a, b) {
+  const da = crypto.createHmac('sha256', COMPARE_KEY).update(String(a), 'utf8').digest();
+  const db = crypto.createHmac('sha256', COMPARE_KEY).update(String(b), 'utf8').digest();
+  return crypto.timingSafeEqual(da, db);
+}
+
+// Never logs or echoes the value. Falls back to the date passcode when
+// ADMIN_PASSCODE is unset (see the note above).
+function checkAdminPasscode(candidate) {
+  if (typeof candidate !== 'string' || !candidate.length) return false;
+  if (adminPasscodeConfigured()) return safeEquals(candidate, process.env.ADMIN_PASSCODE);
+  // Every candidate is compared, with no early exit, so the time taken does not
+  // reveal which of the accepted dates matched.
+  let ok = false;
+  for (const expected of fallbackPasscodes()) {
+    if (safeEquals(candidate, expected)) ok = true;
+  }
+  return ok;
+}
+
+// Short-lived "the human at the keyboard typed the passcode" token. It reuses
+// the same HMAC scheme as the session token, with a distinct `unl` claim, and
+// is bound to the same Discord user id as the session that requested it.
+function signUnlock(discordUserId) {
+  return signSession(discordUserId, { unl: true }, UNLOCK_TTL_SECONDS);
+}
+
+function verifyUnlock(token, discordUserId) {
+  const data = verifySession(token);
+  if (!data || data.unl !== true) return false;
+  return String(data.sub) === String(discordUserId || '');
+}
+
 function verifySession(token) {
   const secret = sessionSecret();
   if (!secret || !token || typeof token !== 'string') return null;
@@ -51,4 +124,13 @@ function verifySession(token) {
   }
 }
 
-module.exports = { signSession, verifySession, isAdminUsername };
+module.exports = {
+  signSession,
+  verifySession,
+  isAdminUsername,
+  adminPasscodeConfigured,
+  checkAdminPasscode,
+  signUnlock,
+  verifyUnlock,
+  UNLOCK_TTL_SECONDS
+};

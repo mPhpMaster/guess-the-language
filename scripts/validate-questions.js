@@ -16,7 +16,7 @@ const fs = require('fs');
 const path = require('path');
 
 const DIR = path.join(__dirname, '..', 'src', 'data');
-const MC_FILES = ['questions-cyber.json', 'questions-devops.json', 'questions-network.json', 'questions-gamedev.json'];
+const MC_FILES = ['questions-cyber.json', 'questions-devops.json', 'questions-network.json', 'questions-gamedev.json', 'questions-bug.json', 'questions-output.json'];
 const CHOICE_FILE = 'questions.json'; // guess-the-language (options generated at runtime)
 const FILL_FILE = 'questions-algo.json';
 const DIFFS = new Set(['easy', 'medium', 'hard']);

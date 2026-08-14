@@ -1520,5 +1520,942 @@
       "en": "A singleton exposes one shared instance globally.",
       "ar": "يوفّر النمط المفرد نسخة مشتركة واحدة عالميًا."
     }
+  },
+  {
+    "id": 85,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// returns the sum of a and b\nfunction add(a, b) {\n  return ____;\n}",
+    "question": {
+      "en": "Fill the blank to complete the function",
+      "ar": "املأ الفراغ لإكمال الدالة"
+    },
+    "answer": "a + b",
+    "accept": [
+      "a + b",
+      "a+b"
+    ],
+    "explanation": {
+      "en": "Adding the two parameters returns their sum.",
+      "ar": "جمع المعاملين يُعيد مجموعهما."
+    }
+  },
+  {
+    "id": 86,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# returns the number of items in the list\ndef count(items):\n    return ____(items)",
+    "question": {
+      "en": "What goes in the blank?",
+      "ar": "ما الذي يملأ الفراغ؟"
+    },
+    "answer": "len",
+    "accept": [
+      "len",
+      "len()"
+    ],
+    "explanation": {
+      "en": "Python uses the built-in len() to get list length.",
+      "ar": "بايثون تستخدم الدالة المدمجة len() لمعرفة طول القائمة."
+    }
+  },
+  {
+    "id": 87,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// returns true if n is even\nfunction isEven(n) {\n  return n ____ 2 === 0;\n}",
+    "question": {
+      "en": "Complete the function",
+      "ar": "أكمل الدالة"
+    },
+    "answer": "%",
+    "accept": [
+      "%"
+    ],
+    "explanation": {
+      "en": "The modulo operator gives the remainder, which is 0 for even numbers.",
+      "ar": "معامل باقي القسمة يعطي الباقي، وهو 0 للأعداد الزوجية."
+    }
+  },
+  {
+    "id": 88,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# adds 5 to the end of the list nums\nnums = [1, 2, 3]\nnums.____(5)\n# nums is now [1, 2, 3, 5]",
+    "question": {
+      "en": "Fill in the blank",
+      "ar": "املأ الفراغ"
+    },
+    "answer": "append",
+    "accept": [
+      "append",
+      "append()"
+    ],
+    "explanation": {
+      "en": "append() adds a single element to the end of a list.",
+      "ar": "append() تضيف عنصرًا واحدًا إلى نهاية القائمة."
+    }
+  },
+  {
+    "id": 89,
+    "category": "typescript",
+    "difficulty": "easy",
+    "codeSnippet": "// returns the first character of the string s\nfunction firstChar(s: string): string {\n  return s[____];\n}",
+    "question": {
+      "en": "What goes in the blank?",
+      "ar": "ما الذي يملأ الفراغ؟"
+    },
+    "answer": "0",
+    "accept": [
+      "0"
+    ],
+    "explanation": {
+      "en": "Index 0 is the first character of a string.",
+      "ar": "الفهرس 0 هو أول حرف في النص."
+    }
+  },
+  {
+    "id": 90,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// prints 0, 1, 2, 3, 4\nfor (let i = 0; i ____ 5; i++) {\n  console.log(i);\n}",
+    "question": {
+      "en": "Complete the loop",
+      "ar": "أكمل الحلقة"
+    },
+    "answer": "<",
+    "accept": [
+      "<"
+    ],
+    "explanation": {
+      "en": "Using < 5 prints 0 through 4 (five iterations).",
+      "ar": "استخدام < 5 يطبع من 0 إلى 4 أي خمس دورات."
+    }
+  },
+  {
+    "id": 91,
+    "category": "typescript",
+    "difficulty": "easy",
+    "codeSnippet": "// returns the string in all uppercase\nfunction shout(s: string): string {\n  return s.____();\n}\n// shout(\"hi\") -> \"HI\"",
+    "question": {
+      "en": "Fill the blank",
+      "ar": "املأ الفراغ"
+    },
+    "answer": "toUpperCase",
+    "accept": [
+      "toUpperCase",
+      "toUpperCase()"
+    ],
+    "explanation": {
+      "en": "toUpperCase() converts every character to uppercase.",
+      "ar": "toUpperCase() تحوّل كل حرف إلى حالة كبيرة."
+    }
+  },
+  {
+    "id": 92,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// returns the length of the array arr\nfunction size(arr) {\n  return arr.____;\n}",
+    "question": {
+      "en": "What goes in the blank?",
+      "ar": "ما الذي يملأ الفراغ؟"
+    },
+    "answer": "length",
+    "accept": [
+      "length",
+      "length()"
+    ],
+    "explanation": {
+      "en": "JavaScript arrays expose their size via the length property.",
+      "ar": "مصفوفات جافاسكربت تُظهر حجمها عبر الخاصية length."
+    }
+  },
+  {
+    "id": 93,
+    "category": "typescript",
+    "difficulty": "easy",
+    "codeSnippet": "// returns the larger of a and b\nfunction bigger(a: number, b: number): number {\n  return Math.____(a, b);\n}\n// bigger(3, 7) -> 7",
+    "question": {
+      "en": "Complete the function",
+      "ar": "أكمل الدالة"
+    },
+    "answer": "max",
+    "accept": [
+      "max",
+      "max()"
+    ],
+    "explanation": {
+      "en": "Math.max() returns the largest of its arguments.",
+      "ar": "Math.max() تُعيد أكبر وسائطها."
+    }
+  },
+  {
+    "id": 94,
+    "category": "typescript",
+    "difficulty": "easy",
+    "codeSnippet": "// returns the value doubled\nconst double = (n: number): number => n ____ 2;\n// double(4) -> 8",
+    "question": {
+      "en": "Fill in the blank",
+      "ar": "املأ الفراغ"
+    },
+    "answer": "*",
+    "accept": [
+      "*"
+    ],
+    "explanation": {
+      "en": "Multiplying by 2 doubles the number.",
+      "ar": "الضرب في 2 يضاعف العدد."
+    }
+  },
+  {
+    "id": 95,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// returns true only if both conditions are true\nfunction bothTrue(a, b) {\n  return a ____ b;\n}",
+    "question": {
+      "en": "What goes in the blank?",
+      "ar": "ما الذي يملأ الفراغ؟"
+    },
+    "answer": "&&",
+    "accept": [
+      "&&"
+    ],
+    "explanation": {
+      "en": "The && operator is true only when both operands are true.",
+      "ar": "المعامل && يكون صحيحًا فقط إذا كان الطرفان صحيحين."
+    }
+  },
+  {
+    "id": 96,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# returns the value of name from the dict person\nperson = {\"name\": \"Ada\", \"age\": 36}\ndef get_name(person):\n    return person____",
+    "question": {
+      "en": "Complete the function",
+      "ar": "أكمل الدالة"
+    },
+    "answer": "[\"name\"]",
+    "accept": [
+      "[\"name\"]",
+      "['name']",
+      "name"
+    ],
+    "explanation": {
+      "en": "Dictionary values are accessed with square-bracket key lookup.",
+      "ar": "قيم القاموس تُقرأ بالبحث عن المفتاح بين قوسين مربعين."
+    }
+  },
+  {
+    "id": 97,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// returns the absolute value of n\nfunction abs(n) {\n  return Math.____(n);\n}",
+    "question": {
+      "en": "Fill the blank",
+      "ar": "املأ الفراغ"
+    },
+    "answer": "abs",
+    "accept": [
+      "abs",
+      "abs()"
+    ],
+    "explanation": {
+      "en": "Math.abs() returns the absolute value of a number.",
+      "ar": "Math.abs() تُعيد القيمة المطلقة للعدد."
+    }
+  },
+  {
+    "id": 98,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// returns a new array with each number doubled\nfunction doubleAll(nums) {\n  return nums.____(n => n * 2);\n}\n// doubleAll([1,2,3]) -> [2,4,6]",
+    "question": {
+      "en": "What goes in the blank?",
+      "ar": "ما الذي يملأ الفراغ؟"
+    },
+    "answer": "map",
+    "accept": [
+      "map",
+      "map()"
+    ],
+    "explanation": {
+      "en": "map() returns a new array of transformed values.",
+      "ar": "map() تُعيد مصفوفة جديدة بالقيم المحوّلة."
+    }
+  },
+  {
+    "id": 99,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# returns only the even numbers from nums\ndef evens(nums):\n    return [n for n in nums if n % 2 ____ 0]\n# evens([1,2,3,4]) -> [2,4]",
+    "question": {
+      "en": "Complete the function",
+      "ar": "أكمل الدالة"
+    },
+    "answer": "==",
+    "accept": [
+      "=="
+    ],
+    "explanation": {
+      "en": "An even number has a remainder equal to 0 when divided by 2.",
+      "ar": "العدد الزوجي باقيه يساوي 0 عند القسمة على 2."
+    }
+  },
+  {
+    "id": 100,
+    "category": "typescript",
+    "difficulty": "easy",
+    "codeSnippet": "// returns the array reversed without mutating\nfunction reversed(arr: number[]): number[] {\n  return [...arr].____();\n}\n// reversed([1,2,3]) -> [3,2,1]",
+    "question": {
+      "en": "Fill in the blank",
+      "ar": "املأ الفراغ"
+    },
+    "answer": "reverse",
+    "accept": [
+      "reverse",
+      "reverse()"
+    ],
+    "explanation": {
+      "en": "reverse() flips the order of elements in the array.",
+      "ar": "reverse() تعكس ترتيب عناصر المصفوفة."
+    }
+  },
+  {
+    "id": 101,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# removes and returns the last element of the list\nstack = [1, 2, 3]\nlast = stack.____()\n# last == 3, stack == [1, 2]",
+    "question": {
+      "en": "What goes in the blank?",
+      "ar": "ما الذي يملأ الفراغ؟"
+    },
+    "answer": "pop",
+    "accept": [
+      "pop",
+      "pop()"
+    ],
+    "explanation": {
+      "en": "pop() with no argument removes and returns the last list element.",
+      "ar": "pop() بدون وسيط تحذف آخر عنصر وتُعيده."
+    }
+  },
+  {
+    "id": 102,
+    "category": "typescript",
+    "difficulty": "easy",
+    "codeSnippet": "// returns true if the array contains the value\nfunction has(arr: number[], value: number): boolean {\n  return arr.____(value);\n}\n// has([1,2,3], 2) -> true",
+    "question": {
+      "en": "Complete the function",
+      "ar": "أكمل الدالة"
+    },
+    "answer": "includes",
+    "accept": [
+      "includes",
+      "includes()"
+    ],
+    "explanation": {
+      "en": "includes() returns a boolean indicating membership.",
+      "ar": "includes() تُعيد قيمة منطقية تدل على وجود العنصر."
+    }
+  },
+  {
+    "id": 103,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# joins the list of words into one space-separated string\nwords = [\"hello\", \"world\"]\nsentence = \" \".____(words)\n# sentence == \"hello world\"",
+    "question": {
+      "en": "Fill the blank",
+      "ar": "املأ الفراغ"
+    },
+    "answer": "join",
+    "accept": [
+      "join",
+      "join()"
+    ],
+    "explanation": {
+      "en": "str.join() concatenates an iterable using the string as separator.",
+      "ar": "str.join() تدمج عناصر متكرّر مستخدمة النص فاصلًا."
+    }
+  },
+  {
+    "id": 104,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// returns the value, or \"default\" if value is falsy\nfunction withDefault(value) {\n  return value ____ \"default\";\n}",
+    "question": {
+      "en": "What goes in the blank?",
+      "ar": "ما الذي يملأ الفراغ؟"
+    },
+    "answer": "||",
+    "accept": [
+      "||"
+    ],
+    "explanation": {
+      "en": "|| returns the right side when the left is falsy.",
+      "ar": "|| تُعيد الطرف الأيمن عندما يكون الأيسر خاطئًا."
+    }
+  },
+  {
+    "id": 105,
+    "category": "typescript",
+    "difficulty": "easy",
+    "codeSnippet": "// returns \"yes\" if n is positive, otherwise \"no\"\nfunction label(n: number): string {\n  return n > 0 ____ \"yes\" : \"no\";\n}",
+    "question": {
+      "en": "Complete the function",
+      "ar": "أكمل الدالة"
+    },
+    "answer": "?",
+    "accept": [
+      "?"
+    ],
+    "explanation": {
+      "en": "The ternary operator uses ? before the truthy branch.",
+      "ar": "المعامل الثلاثي يستخدم ? قبل فرع الصواب."
+    }
+  },
+  {
+    "id": 106,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# returns a list of numbers 0,1,2,3,4\ndef first_five():\n    return list(____(5))",
+    "question": {
+      "en": "Fill in the blank",
+      "ar": "املأ الفراغ"
+    },
+    "answer": "range",
+    "accept": [
+      "range",
+      "range()"
+    ],
+    "explanation": {
+      "en": "range(5) yields the integers 0 through 4.",
+      "ar": "range(5) تُنتج الأعداد من 0 إلى 4."
+    }
+  },
+  {
+    "id": 107,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// returns the string with leading/trailing spaces removed\nfunction clean(s) {\n  return s.____();\n}\n// clean(\"  hi  \") -> \"hi\"",
+    "question": {
+      "en": "What goes in the blank?",
+      "ar": "ما الذي يملأ الفراغ؟"
+    },
+    "answer": "trim",
+    "accept": [
+      "trim",
+      "trim()"
+    ],
+    "explanation": {
+      "en": "trim() removes whitespace from both ends of a string.",
+      "ar": "trim() تحذف المسافات من طرفي النص."
+    }
+  },
+  {
+    "id": 108,
+    "category": "typescript",
+    "difficulty": "easy",
+    "codeSnippet": "// returns the sum of all numbers in nums\nfunction total(nums: number[]): number {\n  return nums.reduce((acc, n) => acc + n, ____);\n}\n// total([1,2,3]) -> 6",
+    "question": {
+      "en": "Complete the function",
+      "ar": "أكمل الدالة"
+    },
+    "answer": "0",
+    "accept": [
+      "0"
+    ],
+    "explanation": {
+      "en": "The reduce seed must be 0 so the running total starts correctly.",
+      "ar": "بذرة reduce يجب أن تكون 0 ليبدأ المجموع بشكل صحيح."
+    }
+  },
+  {
+    "id": 109,
+    "category": "typescript",
+    "difficulty": "easy",
+    "codeSnippet": "// returns a greeting using the provided name, default \"friend\"\nfunction greet(name: string ____ \"friend\"): string {\n  return \"Hi \" + name;\n}",
+    "question": {
+      "en": "Fill the blank",
+      "ar": "املأ الفراغ"
+    },
+    "answer": "=",
+    "accept": [
+      "="
+    ],
+    "explanation": {
+      "en": "Default parameter values are assigned with =.",
+      "ar": "القيم الافتراضية للمعاملات تُسنَد بعلامة =."
+    }
+  },
+  {
+    "id": 110,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// returns only numbers greater than 10\nfunction bigOnes(nums) {\n  return nums.____(n => n > 10);\n}\n// bigOnes([5,15,20]) -> [15,20]",
+    "question": {
+      "en": "What goes in the blank?",
+      "ar": "ما الذي يملأ الفراغ؟"
+    },
+    "answer": "filter",
+    "accept": [
+      "filter",
+      "filter()"
+    ],
+    "explanation": {
+      "en": "filter() keeps only elements that pass the test.",
+      "ar": "filter() تُبقي العناصر التي تجتاز الاختبار فقط."
+    }
+  },
+  {
+    "id": 111,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// returns the first number greater than 10, or undefined\nfunction firstBig(nums) {\n  return nums.____(n => n > 10);\n}\n// firstBig([5,12,20]) -> 12",
+    "question": {
+      "en": "Complete the function",
+      "ar": "أكمل الدالة"
+    },
+    "answer": "find",
+    "accept": [
+      "find",
+      "find()"
+    ],
+    "explanation": {
+      "en": "find() returns the first element matching the predicate.",
+      "ar": "find() تُعيد أول عنصر يطابق الشرط."
+    }
+  },
+  {
+    "id": 112,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "# returns index and value pairs while looping\ndef pairs(items):\n    result = []\n    for i, v in ____(items):\n        result.append((i, v))\n    return result\n# pairs([\"a\",\"b\"]) -> [(0,\"a\"),(1,\"b\")]",
+    "question": {
+      "en": "What goes in the blank?",
+      "ar": "ما الذي يملأ الفراغ؟"
+    },
+    "answer": "enumerate",
+    "accept": [
+      "enumerate",
+      "enumerate()"
+    ],
+    "explanation": {
+      "en": "enumerate() yields (index, value) pairs.",
+      "ar": "enumerate() تُنتج أزواج (الفهرس، القيمة)."
+    }
+  },
+  {
+    "id": 113,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "// returns a copy of the first 2 elements\nfunction firstTwo<T>(arr: T[]): T[] {\n  return arr.____(0, 2);\n}\n// firstTwo([1,2,3,4]) -> [1,2]",
+    "question": {
+      "en": "Fill in the blank",
+      "ar": "املأ الفراغ"
+    },
+    "answer": "slice",
+    "accept": [
+      "slice",
+      "slice()"
+    ],
+    "explanation": {
+      "en": "slice(0, 2) returns a non-mutating copy of indices 0 and 1.",
+      "ar": "slice(0, 2) تُعيد نسخة للفهرسين 0 و1 دون تعديل الأصل."
+    }
+  },
+  {
+    "id": 114,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "# returns a dict mapping each word to its length\ndef lengths(words):\n    return {w: ____ for w in words}\n# lengths([\"a\",\"bb\"]) -> {\"a\":1,\"bb\":2}",
+    "question": {
+      "en": "Complete the comprehension",
+      "ar": "أكمل الـ comprehension"
+    },
+    "answer": "len(w)",
+    "accept": [
+      "len(w)"
+    ],
+    "explanation": {
+      "en": "len(w) gives the length of each individual word.",
+      "ar": "len(w) تعطي طول كل كلمة على حدة."
+    }
+  },
+  {
+    "id": 115,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "// returns true only if every number is positive\nfunction allPositive(nums: number[]): boolean {\n  return nums.____(n => n > 0);\n}\n// allPositive([1,2,3]) -> true",
+    "question": {
+      "en": "What goes in the blank?",
+      "ar": "ما الذي يملأ الفراغ؟"
+    },
+    "answer": "every",
+    "accept": [
+      "every",
+      "every()"
+    ],
+    "explanation": {
+      "en": "every() returns true only when all elements pass the test.",
+      "ar": "every() تُعيد true فقط إذا اجتازت كل العناصر الاختبار."
+    }
+  },
+  {
+    "id": 116,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "# returns the count of each character in s\ndef freq(s):\n    counts = {}\n    for c in s:\n        counts[c] = counts.____(c, 0) + 1\n    return counts",
+    "question": {
+      "en": "Fill the blank",
+      "ar": "املأ الفراغ"
+    },
+    "answer": "get",
+    "accept": [
+      "get",
+      "get()"
+    ],
+    "explanation": {
+      "en": "dict.get(c, 0) returns the current count or 0 if absent.",
+      "ar": "dict.get(c, 0) تُعيد العدّ الحالي أو 0 إن لم يوجد."
+    }
+  },
+  {
+    "id": 117,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "// returns nums sorted in ascending numeric order\nfunction sortAsc(nums: number[]): number[] {\n  return [...nums].sort((a, b) => ____);\n}\n// sortAsc([3,1,2]) -> [1,2,3]",
+    "question": {
+      "en": "Complete the function",
+      "ar": "أكمل الدالة"
+    },
+    "answer": "a - b",
+    "accept": [
+      "a - b",
+      "a-b"
+    ],
+    "explanation": {
+      "en": "a - b sorts numbers in ascending order.",
+      "ar": "a - b ترتّب الأعداد تصاعديًا."
+    }
+  },
+  {
+    "id": 118,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// returns the index of \"x\", or -1 if not present\nfunction locate(arr, x) {\n  return arr.____(x);\n}\n// locate([\"a\",\"x\"], \"x\") -> 1",
+    "question": {
+      "en": "What goes in the blank?",
+      "ar": "ما الذي يملأ الفراغ؟"
+    },
+    "answer": "indexOf",
+    "accept": [
+      "indexOf",
+      "indexOf()"
+    ],
+    "explanation": {
+      "en": "indexOf() returns the matching index or -1.",
+      "ar": "indexOf() تُعيد فهرس المطابقة أو -1."
+    }
+  },
+  {
+    "id": 119,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "# returns the list with duplicates removed (order not important)\ndef unique(items):\n    return list(____(items))\n# unique([1,1,2]) -> [1,2]",
+    "question": {
+      "en": "Fill in the blank",
+      "ar": "املأ الفراغ"
+    },
+    "answer": "set",
+    "accept": [
+      "set",
+      "set()"
+    ],
+    "explanation": {
+      "en": "Converting to a set removes duplicate values.",
+      "ar": "التحويل إلى set يحذف القيم المكرّرة."
+    }
+  },
+  {
+    "id": 120,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// returns n! (factorial) recursively\nfunction factorial(n) {\n  if (n <= 1) return ____;\n  return n * factorial(n - 1);\n}",
+    "question": {
+      "en": "Complete the recursion",
+      "ar": "أكمل الاستدعاء الذاتي"
+    },
+    "answer": "1",
+    "accept": [
+      "1"
+    ],
+    "explanation": {
+      "en": "The factorial base case returns 1 so the product is correct.",
+      "ar": "حالة الأساس في المضروب تُعيد 1 ليكون الحاصل صحيحًا."
+    }
+  },
+  {
+    "id": 121,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "// returns the keys of the object as an array\nfunction keysOf(obj: Record<string, number>): string[] {\n  return Object.____(obj);\n}\n// keysOf({a:1,b:2}) -> [\"a\",\"b\"]",
+    "question": {
+      "en": "What goes in the blank?",
+      "ar": "ما الذي يملأ الفراغ؟"
+    },
+    "answer": "keys",
+    "accept": [
+      "keys",
+      "keys()"
+    ],
+    "explanation": {
+      "en": "Object.keys() returns an array of the object property names.",
+      "ar": "Object.keys() تُعيد مصفوفة بأسماء خصائص الكائن."
+    }
+  },
+  {
+    "id": 122,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "# returns elements of a that are also in b\ndef common(a, b):\n    b_set = set(b)\n    return [x for x in a ____ x in b_set]\n# common([1,2,3],[2,3,4]) -> [2,3]",
+    "question": {
+      "en": "Fill the blank",
+      "ar": "املأ الفراغ"
+    },
+    "answer": "if",
+    "accept": [
+      "if",
+      "if()"
+    ],
+    "explanation": {
+      "en": "The if clause filters the comprehension to matching elements.",
+      "ar": "جملة if تُرشّح الـ comprehension إلى العناصر المطابقة."
+    }
+  },
+  {
+    "id": 123,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "// returns a flattened one-level array\nfunction flatten(arr) {\n  return arr.reduce((acc, x) => acc.____(x), []);\n}\n// flatten([[1],[2,3]]) -> [1,2,3]",
+    "question": {
+      "en": "Complete the function",
+      "ar": "أكمل الدالة"
+    },
+    "answer": "concat",
+    "accept": [
+      "concat",
+      "concat()"
+    ],
+    "explanation": {
+      "en": "concat() merges each sub-array into the accumulator and returns it.",
+      "ar": "concat() تدمج كل مصفوفة فرعية في المُجمِّع وتُعيده."
+    }
+  },
+  {
+    "id": 124,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "# returns the most common element in items\nfrom collections import Counter\ndef most_common(items):\n    return Counter(items).most_common(1)[0][____]\n# most_common([1,1,2]) -> 1",
+    "question": {
+      "en": "What goes in the blank?",
+      "ar": "ما الذي يملأ الفراغ؟"
+    },
+    "answer": "0",
+    "accept": [
+      "0"
+    ],
+    "explanation": {
+      "en": "most_common returns (value, count) tuples, so index 0 is the value.",
+      "ar": "most_common تُعيد أزواج (القيمة، العدد)، لذا الفهرس 0 هو القيمة."
+    }
+  },
+  {
+    "id": 125,
+    "category": "typescript",
+    "difficulty": "hard",
+    "codeSnippet": "// returns a memoized version of fn\nfunction memoize<T>(fn: (n: number) => T): (n: number) => T {\n  const cache = new Map<number, T>();\n  return (n) => {\n    if (cache.____(n)) return cache.get(n)!;\n    const r = fn(n);\n    cache.set(n, r);\n    return r;\n  };\n}",
+    "question": {
+      "en": "Fill in the blank",
+      "ar": "املأ الفراغ"
+    },
+    "answer": "has",
+    "accept": [
+      "has",
+      "has()"
+    ],
+    "explanation": {
+      "en": "Map.has() checks whether a cached result already exists.",
+      "ar": "Map.has() تفحص إن كانت النتيجة مخزّنة مسبقًا."
+    }
+  },
+  {
+    "id": 126,
+    "category": "typescript",
+    "difficulty": "hard",
+    "codeSnippet": "// returns the nth Fibonacci number (fib(0)=0, fib(1)=1)\nfunction fib(n: number): number {\n  if (n < 2) return ____;\n  return fib(n - 1) + fib(n - 2);\n}",
+    "question": {
+      "en": "Complete the recursion",
+      "ar": "أكمل الاستدعاء الذاتي"
+    },
+    "answer": "n",
+    "accept": [
+      "n",
+      "n()"
+    ],
+    "explanation": {
+      "en": "For n < 2 the value equals n itself (0 or 1).",
+      "ar": "عندما n < 2 تكون القيمة مساوية لـ n نفسها (0 أو 1)."
+    }
+  },
+  {
+    "id": 127,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "// returns an object grouping words by first letter\nfunction groupByFirst(words) {\n  return words.reduce((acc, w) => {\n    const k = w[0];\n    (acc[k] ____ (acc[k] = [])).push(w);\n    return acc;\n  }, {});\n}",
+    "question": {
+      "en": "What goes in the blank?",
+      "ar": "ما الذي يملأ الفراغ؟"
+    },
+    "answer": "||",
+    "accept": [
+      "||"
+    ],
+    "explanation": {
+      "en": "|| reuses an existing array or creates a new one when missing.",
+      "ar": "|| تعيد استخدام مصفوفة موجودة أو تُنشئ واحدة عند غيابها."
+    }
+  },
+  {
+    "id": 128,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "# returns a list of (key, value) sorted by value descending\ndef by_value(d):\n    return sorted(d.items(), key=lambda kv: kv[1], reverse=____)\n# by_value({\"a\":1,\"b\":3}) -> [(\"b\",3),(\"a\",1)]",
+    "question": {
+      "en": "Fill the blank",
+      "ar": "املأ الفراغ"
+    },
+    "answer": "True",
+    "accept": [
+      "True",
+      "True()"
+    ],
+    "explanation": {
+      "en": "reverse=True sorts from largest to smallest value.",
+      "ar": "reverse=True ترتّب من الأكبر إلى الأصغر."
+    }
+  },
+  {
+    "id": 129,
+    "category": "typescript",
+    "difficulty": "hard",
+    "codeSnippet": "// returns the sum of values using reduce with a typed accumulator\nfunction sumValues(items: { v: number }[]): number {\n  return items.reduce((acc, item) => acc + item.____, 0);\n}\n// sumValues([{v:1},{v:2}]) -> 3",
+    "question": {
+      "en": "Complete the function",
+      "ar": "أكمل الدالة"
+    },
+    "answer": "v",
+    "accept": [
+      "v",
+      "v()"
+    ],
+    "explanation": {
+      "en": "Each item exposes its number on the property named v.",
+      "ar": "كل عنصر يعرض عدده في الخاصية v."
+    }
+  },
+  {
+    "id": 130,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "// returns a debounced function that delays calls by ms\nfunction debounce(fn, ms) {\n  let t;\n  return (...args) => {\n    ____(t);\n    t = setTimeout(() => fn(...args), ms);\n  };\n}",
+    "question": {
+      "en": "What goes in the blank?",
+      "ar": "ما الذي يملأ الفراغ؟"
+    },
+    "answer": "clearTimeout",
+    "accept": [
+      "clearTimeout",
+      "clearTimeout()"
+    ],
+    "explanation": {
+      "en": "clearTimeout cancels the pending call before scheduling a new one.",
+      "ar": "clearTimeout تُلغي الاستدعاء المعلّق قبل جدولة آخر."
+    }
+  },
+  {
+    "id": 131,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "# returns a generator yielding squares of nums\ndef squares(nums):\n    for n in nums:\n        ____ n * n\n# list(squares([1,2,3])) -> [1,4,9]",
+    "question": {
+      "en": "Fill in the blank",
+      "ar": "املأ الفراغ"
+    },
+    "answer": "yield",
+    "accept": [
+      "yield",
+      "yield()"
+    ],
+    "explanation": {
+      "en": "yield turns the function into a generator that produces each square.",
+      "ar": "yield تحوّل الدالة إلى مولّد يُنتج كل مربّع."
+    }
+  },
+  {
+    "id": 132,
+    "category": "typescript",
+    "difficulty": "hard",
+    "codeSnippet": "// returns the deduplicated array preserving order\nfunction dedupe<T>(arr: T[]): T[] {\n  const seen = new ____<T>();\n  return arr.filter(x => seen.has(x) ? false : (seen.add(x), true));\n}",
+    "question": {
+      "en": "Complete the function",
+      "ar": "أكمل الدالة"
+    },
+    "answer": "Set",
+    "accept": [
+      "Set",
+      "Set()"
+    ],
+    "explanation": {
+      "en": "A Set stores unique values and supports has()/add().",
+      "ar": "Set تخزّن قيمًا فريدة وتدعم has() و add()."
+    }
+  },
+  {
+    "id": 133,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "# returns pairs of corresponding elements from a and b\ndef pair_up(a, b):\n    return list(____(a, b))\n# pair_up([1,2],[\"x\",\"y\"]) -> [(1,\"x\"),(2,\"y\")]",
+    "question": {
+      "en": "What goes in the blank?",
+      "ar": "ما الذي يملأ الفراغ؟"
+    },
+    "answer": "zip",
+    "accept": [
+      "zip",
+      "zip()"
+    ],
+    "explanation": {
+      "en": "zip() pairs elements from each iterable by position.",
+      "ar": "zip() تزاوج عناصر كل متكرّر حسب الموضع."
+    }
+  },
+  {
+    "id": 134,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "// returns a promise that resolves after ms milliseconds\nfunction delay(ms) {\n  return new Promise(____ => setTimeout(resolve, ms));\n}",
+    "question": {
+      "en": "Fill the blank",
+      "ar": "املأ الفراغ"
+    },
+    "answer": "resolve",
+    "accept": [
+      "resolve",
+      "resolve()"
+    ],
+    "explanation": {
+      "en": "The executor receives resolve, which is called by setTimeout.",
+      "ar": "المُنفِّذ يستقبل resolve التي يستدعيها setTimeout."
+    }
   }
 ]

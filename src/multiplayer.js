@@ -370,6 +370,23 @@
     return result;
   }
 
+  // Adopt a seat the SERVER already created for us — used by the admin panel's
+  // "Join" on a Live row, where /api/admin does the join and hands back the ids.
+  // Same tail as hostRoom/joinRoom: store the ids, persist, subscribe (which
+  // ends in refresh(), pulling the room + players and emitting an update).
+  async function adoptSession({ roomId, playerId, code } = {}) {
+    if (!roomId || !playerId) throw new Error('adoptSession requires roomId and playerId');
+    mp.roomId = roomId;
+    mp.playerId = playerId;
+    mp.code = code || null;
+    // isAdmin here means "I am this room's HOST" — a joining admin never is.
+    // emitUpdate() recomputes it from room.host_player_id on every update anyway.
+    mp.isAdmin = false;
+    saveSession();
+    await subscribe();
+    return { roomId: mp.roomId, playerId: mp.playerId, code: mp.code };
+  }
+
   async function startRoom(roundRefs, answerKeys) {
     if (!mp.isAdmin) throw new Error('Admin access required');
     const updated = await rpc('start_room', {
@@ -555,6 +572,7 @@
     hostRoom,
     joinRoom,
     joinDiscordRoom,
+    adoptSession,
     startRoom,
     submitAnswer,
     endRoom,
