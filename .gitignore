@@ -17,9 +17,12 @@ yarn-error.log*
 
 # Local Supabase credentials (use supabase-config.example.js as a template)
 src/supabase-config.js
+# Same file, generated into publicDir for the Vite build/dev server.
+public/supabase-config.js
 
 # Local Discord client ID (use discord-config.example.js as a template)
 src/discord-config.js
+public/discord-config.js
 
 # Environment variables (Vite / Vercel build)
 .env
