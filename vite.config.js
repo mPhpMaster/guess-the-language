@@ -11,8 +11,13 @@ function injectVersion(code) {
   return code.replace(/__GTL_VERSION__/g, pkg.version);
 }
 
-/** Classic script tags — serve raw so Vite does not parse dynamic imports inside vendor/supabase.js */
-const STATIC_PREFIXES = ['vendor/', 'data/'];
+/** Classic script tags — serve raw so Vite does not parse dynamic imports inside vendor/supabase.js.
+ *  `modules/` is served raw too: renderer.js is a native ES module entry that the
+ *  browser loads itself, keeping it LAST in document order (after the classic
+ *  defer scripts that define window.GTL_MULTIPLAYER / web-shim globals). Letting
+ *  Vite bundle it would hoist it to the first module script's slot and run boot()
+ *  before those globals exist. */
+const STATIC_PREFIXES = ['vendor/', 'data/', 'modules/'];
 const STATIC_FILES = new Set([
   'renderer.js',
   'multiplayer.js',

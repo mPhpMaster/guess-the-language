@@ -1945,6 +1945,10 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
 
 /* ---- Admin panel ---- */
 .btn-admin { border-color: #ff9f5a55 !important; color: #ffcf9a !important; }
+/* Passcode gate. Widened dot spacing so the masked value stays readable; the
+   value itself is never persisted anywhere. */
+#admin-unlock .modal-card { border-color: #ff9f5a44; }
+#admin-unlock-input { letter-spacing: 0.16em; }
 .admin-modal {
   position: fixed; inset: 0; z-index: 1000003; display: flex;
   align-items: center; justify-content: center; padding: 16px;
@@ -1991,6 +1995,14 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
 .admin-row-main { min-width: 0; flex: 1 1 200px; }
 .admin-row-name { font-weight: 800; color: #eaf4ff; font-size: 14px; word-break: break-word; }
 .admin-row-sub { font-size: 12px; color: #9fb4cc; margin-top: 2px; word-break: break-word; }
+/* Clickable player name in the Users tab — opens that player's profile card. */
+.admin-name-btn {
+  cursor: pointer; border-radius: 6px; padding: 0 2px; margin: 0 -2px;
+  text-decoration: underline; text-decoration-color: #ffffff33; text-underline-offset: 3px;
+  transition: color 0.15s, text-decoration-color 0.15s;
+}
+.admin-name-btn:hover { color: var(--neon, #2ec5ff); text-decoration-color: var(--neon, #2ec5ff); }
+.admin-name-btn:focus-visible { outline: 2px solid var(--neon, #2ec5ff); outline-offset: 2px; }
 .admin-badge {
   display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 7px;
   border-radius: 999px; background: #ffffff1a; color: #cfe0f4; vertical-align: middle;

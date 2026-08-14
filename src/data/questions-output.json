@@ -1,0 +1,1052 @@
+[
+  {
+    "id": 1,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log(2 + 3);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "5",
+      "23",
+      "\"5\"",
+      "6"
+    ],
+    "answer": "5",
+    "explanation": {
+      "en": "Adding two numbers yields the numeric sum 5.",
+      "ar": "جمع عددين يعطي الناتج الرقمي 5."
+    }
+  },
+  {
+    "id": 2,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(\"Hello\" + \" \" + \"World\")",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "HelloWorld",
+      "Hello World",
+      "Hello + World",
+      "Hello  World"
+    ],
+    "answer": "Hello World",
+    "explanation": {
+      "en": "String concatenation joins the pieces with a single space.",
+      "ar": "دمج النصوص يربط الأجزاء بمسافة واحدة."
+    }
+  },
+  {
+    "id": 3,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(10 - 4 * 2)",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "12",
+      "8",
+      "6",
+      "2"
+    ],
+    "answer": "2",
+    "explanation": {
+      "en": "Multiplication happens first: 10 - 8 = 2.",
+      "ar": "الضرب يُنفَّذ أولًا: 10 - 8 = 2."
+    }
+  },
+  {
+    "id": 4,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log(10 % 3);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "3",
+      "0",
+      "1",
+      "3.33"
+    ],
+    "answer": "1",
+    "explanation": {
+      "en": "10 divided by 3 leaves a remainder of 1.",
+      "ar": "باقي قسمة 10 على 3 يساوي 1."
+    }
+  },
+  {
+    "id": 5,
+    "category": "typescript",
+    "difficulty": "easy",
+    "codeSnippet": "const x: number = 4;\nconsole.log(x * x);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "8",
+      "44",
+      "16",
+      "4"
+    ],
+    "answer": "16",
+    "explanation": {
+      "en": "4 multiplied by 4 is 16.",
+      "ar": "4 مضروبة في 4 تساوي 16."
+    }
+  },
+  {
+    "id": 6,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(7 > 3)",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "true",
+      "True",
+      "1",
+      "yes"
+    ],
+    "answer": "True",
+    "explanation": {
+      "en": "Python booleans print capitalized as True.",
+      "ar": "القيم المنطقية في بايثون تُطبع بحرف كبير True."
+    }
+  },
+  {
+    "id": 7,
+    "category": "typescript",
+    "difficulty": "easy",
+    "codeSnippet": "const ok: boolean = 5 > 2;\nconsole.log(ok);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "true",
+      "True",
+      "1",
+      "yes"
+    ],
+    "answer": "true",
+    "explanation": {
+      "en": "JavaScript booleans print lowercase as true.",
+      "ar": "القيم المنطقية في جافاسكربت تُطبع بأحرف صغيرة true."
+    }
+  },
+  {
+    "id": 8,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(len(\"apple\"))",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "4",
+      "6",
+      "\"apple\"",
+      "5"
+    ],
+    "answer": "5",
+    "explanation": {
+      "en": "The string \"apple\" has 5 characters.",
+      "ar": "النص \"apple\" مكوّن من 5 أحرف."
+    }
+  },
+  {
+    "id": 9,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log(\"JS\".length);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "2",
+      "1",
+      "3",
+      "undefined"
+    ],
+    "answer": "2",
+    "explanation": {
+      "en": "The string \"JS\" has 2 characters.",
+      "ar": "النص \"JS\" مكوّن من حرفين."
+    }
+  },
+  {
+    "id": 10,
+    "category": "typescript",
+    "difficulty": "easy",
+    "codeSnippet": "const arr = [1, 2, 3];\nconsole.log(arr.length);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "2",
+      "3",
+      "4",
+      "[1,2,3]"
+    ],
+    "answer": "3",
+    "explanation": {
+      "en": "The array has 3 elements.",
+      "ar": "المصفوفة تحتوي 3 عناصر."
+    }
+  },
+  {
+    "id": 11,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(2 ** 3)",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "6",
+      "9",
+      "23",
+      "8"
+    ],
+    "answer": "8",
+    "explanation": {
+      "en": "** is exponentiation: 2 to the power 3 is 8.",
+      "ar": "المعامل ** للأُس: 2 أُس 3 يساوي 8."
+    }
+  },
+  {
+    "id": 12,
+    "category": "typescript",
+    "difficulty": "easy",
+    "codeSnippet": "const biggest: number = Math.max(1, 9, 4);\nconsole.log(biggest);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "1",
+      "4",
+      "9",
+      "14"
+    ],
+    "answer": "9",
+    "explanation": {
+      "en": "Math.max returns the largest argument, 9.",
+      "ar": "Math.max تُعيد أكبر وسيط، وهو 9."
+    }
+  },
+  {
+    "id": 13,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(True and False)",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "True",
+      "False",
+      "None",
+      "true"
+    ],
+    "answer": "False",
+    "explanation": {
+      "en": "and is True only if both sides are True.",
+      "ar": "and تكون True فقط إذا كان الطرفان True."
+    }
+  },
+  {
+    "id": 14,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log(\"5\" + 3);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "8",
+      "\"53\"",
+      "53",
+      "\"8\""
+    ],
+    "answer": "53",
+    "explanation": {
+      "en": "A string plus a number concatenates into the string 53.",
+      "ar": "نص زائد عدد يُدمجان في النص 53."
+    }
+  },
+  {
+    "id": 15,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log(5 + \"3\");",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "8",
+      "\"8\"",
+      "15",
+      "53"
+    ],
+    "answer": "53",
+    "explanation": {
+      "en": "Number plus string coerces the number to text, giving 53.",
+      "ar": "عدد زائد نص يحوّل العدد إلى نص فيعطي 53."
+    }
+  },
+  {
+    "id": 16,
+    "category": "typescript",
+    "difficulty": "easy",
+    "codeSnippet": "const r = (\"5\" as any) - 3;\nconsole.log(r);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "2",
+      "\"2\"",
+      "53",
+      "NaN"
+    ],
+    "answer": "2",
+    "explanation": {
+      "en": "The minus operator forces numeric conversion: 5 - 3 = 2.",
+      "ar": "معامل الطرح يفرض التحويل الرقمي: 5 - 3 = 2."
+    }
+  },
+  {
+    "id": 17,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(\"ab\" * 3)",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "ababab",
+      "abababab",
+      "ab3",
+      "ab ab ab"
+    ],
+    "answer": "ababab",
+    "explanation": {
+      "en": "Multiplying a string repeats it: \"ab\" three times.",
+      "ar": "ضرب نص يكرّره: \"ab\" ثلاث مرات."
+    }
+  },
+  {
+    "id": 18,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(7 / 2)",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "3",
+      "4",
+      "3.0",
+      "3.5"
+    ],
+    "answer": "3.5",
+    "explanation": {
+      "en": "In Python 3, / is float division giving 3.5.",
+      "ar": "في بايثون 3 يعطي / قسمة عشرية تساوي 3.5."
+    }
+  },
+  {
+    "id": 19,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(7 // 2)",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "3",
+      "3.5",
+      "4",
+      "3.0"
+    ],
+    "answer": "3",
+    "explanation": {
+      "en": "// is floor division, discarding the fractional part.",
+      "ar": "// قسمة صحيحة تُهمل الجزء الكسري."
+    }
+  },
+  {
+    "id": 20,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log(typeof 42);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "\"int\"",
+      "\"integer\"",
+      "\"number\"",
+      "\"42\""
+    ],
+    "answer": "\"number\"",
+    "explanation": {
+      "en": "All JS numbers report the type \"number\".",
+      "ar": "كل الأعداد في جافاسكربت نوعها \"number\"."
+    }
+  },
+  {
+    "id": 21,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log(typeof \"hi\");",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "\"text\"",
+      "\"char\"",
+      "\"string\"",
+      "\"str\""
+    ],
+    "answer": "\"string\"",
+    "explanation": {
+      "en": "typeof of a string is \"string\".",
+      "ar": "نوع النص عبر typeof هو \"string\"."
+    }
+  },
+  {
+    "id": 22,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(10 % 4)",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "2",
+      "2.5",
+      "0",
+      "4"
+    ],
+    "answer": "2",
+    "explanation": {
+      "en": "10 divided by 4 leaves a remainder of 2.",
+      "ar": "باقي قسمة 10 على 4 يساوي 2."
+    }
+  },
+  {
+    "id": 23,
+    "category": "typescript",
+    "difficulty": "easy",
+    "codeSnippet": "const s = \"hello\";\nconsole.log(s.toUpperCase());",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "hello",
+      "HELLO",
+      "Hello",
+      "\"HELLO\""
+    ],
+    "answer": "HELLO",
+    "explanation": {
+      "en": "toUpperCase converts every letter to uppercase.",
+      "ar": "toUpperCase تحوّل كل حرف إلى حالة كبيرة."
+    }
+  },
+  {
+    "id": 24,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(bool(0))",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "True",
+      "0",
+      "None",
+      "False"
+    ],
+    "answer": "False",
+    "explanation": {
+      "en": "0 is falsy, so bool(0) is False.",
+      "ar": "القيمة 0 تُعدّ خاطئة، لذا bool(0) هي False."
+    }
+  },
+  {
+    "id": 25,
+    "category": "typescript",
+    "difficulty": "easy",
+    "codeSnippet": "const b: boolean = Boolean(\"\");\nconsole.log(b);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "true",
+      "false",
+      "\"\"",
+      "undefined"
+    ],
+    "answer": "false",
+    "explanation": {
+      "en": "The empty string is falsy, so it becomes false.",
+      "ar": "النص الفارغ يُعدّ خاطئًا، فيصبح false."
+    }
+  },
+  {
+    "id": 26,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log([1, 2, 3].join(\"-\"));",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "1-2-3",
+      "123",
+      "[1-2-3]",
+      "1,2,3"
+    ],
+    "answer": "1-2-3",
+    "explanation": {
+      "en": "join inserts the separator between elements.",
+      "ar": "join تُدرج الفاصل بين العناصر."
+    }
+  },
+  {
+    "id": 27,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "print(0.1 + 0.2)",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "0.3",
+      "0.30000000000000004",
+      "0.30000000000000",
+      "0.4"
+    ],
+    "answer": "0.30000000000000004",
+    "explanation": {
+      "en": "Floating point rounding gives 0.30000000000000004.",
+      "ar": "تقريب الفاصلة العائمة يعطي 0.30000000000000004."
+    }
+  },
+  {
+    "id": 28,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log(0.1 + 0.2 === 0.3);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "true",
+      "false",
+      "NaN",
+      "0.3"
+    ],
+    "answer": "false",
+    "explanation": {
+      "en": "Float rounding makes 0.1 + 0.2 not exactly equal to 0.3.",
+      "ar": "تقريب الأعداد العشرية يجعل 0.1 + 0.2 غير مساوٍ تمامًا لـ 0.3."
+    }
+  },
+  {
+    "id": 29,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log([] + []);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "\"[]\"",
+      "0",
+      "\"\"",
+      "\"[][]\""
+    ],
+    "answer": "\"\"",
+    "explanation": {
+      "en": "Both arrays become empty strings, yielding \"\".",
+      "ar": "المصفوفتان تتحوّلان إلى نصين فارغين فينتج \"\"."
+    }
+  },
+  {
+    "id": 30,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log(typeof null);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "\"null\"",
+      "\"object\"",
+      "\"undefined\"",
+      "null"
+    ],
+    "answer": "\"object\"",
+    "explanation": {
+      "en": "A historic JS quirk: typeof null is \"object\".",
+      "ar": "غرابة تاريخية في جافاسكربت: typeof null يساوي \"object\"."
+    }
+  },
+  {
+    "id": 31,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "print(True + True)",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "True",
+      "1",
+      "TrueTrue",
+      "2"
+    ],
+    "answer": "2",
+    "explanation": {
+      "en": "Booleans act as integers, so True + True is 2.",
+      "ar": "القيم المنطقية تعمل كأعداد صحيحة، لذا True + True تساوي 2."
+    }
+  },
+  {
+    "id": 32,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "a = [1, 2, 3]\nb = a\nb.append(4)\nprint(a)",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "[1, 2, 3]",
+      "[4]",
+      "[1, 2, 3, 4]",
+      "[1, 2, 3, [4]]"
+    ],
+    "answer": "[1, 2, 3, 4]",
+    "explanation": {
+      "en": "b and a reference the same list, so a sees the append.",
+      "ar": "b و a تشيران إلى القائمة نفسها، لذا ترى a الإضافة."
+    }
+  },
+  {
+    "id": 33,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "nums = [0, 1, 2, 3, 4]\nprint(nums[1:4])",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "[1, 2, 3, 4]",
+      "[0, 1, 2, 3]",
+      "[2, 3, 4]",
+      "[1, 2, 3]"
+    ],
+    "answer": "[1, 2, 3]",
+    "explanation": {
+      "en": "Slicing [1:4] includes indices 1, 2, 3 but not 4.",
+      "ar": "التقطيع [1:4] يشمل الفهارس 1 و2 و3 دون 4."
+    }
+  },
+  {
+    "id": 34,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "name = \"Sam\"\nprint(f\"Hi {name}, {2 + 2}\")",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "Hi Sam, 4",
+      "Hi {name}, 4",
+      "Hi Sam, {2+2}",
+      "Hi Sam, 22"
+    ],
+    "answer": "Hi Sam, 4",
+    "explanation": {
+      "en": "f-strings interpolate variables and evaluate expressions.",
+      "ar": "نصوص f تُدرج المتغيّرات وتُقيّم التعابير."
+    }
+  },
+  {
+    "id": 35,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "const nums: number[] = [1, 2, 3];\nconsole.log(nums.map(x => x * 2));",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "[2, 4, 6]",
+      "[1, 2, 3]",
+      "6",
+      "[1,4,9]"
+    ],
+    "answer": "[2, 4, 6]",
+    "explanation": {
+      "en": "map doubles each element producing [2, 4, 6].",
+      "ar": "map تضاعف كل عنصر فتنتج [2, 4, 6]."
+    }
+  },
+  {
+    "id": 36,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log(\"abc\".indexOf(\"b\"));",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "0",
+      "2",
+      "-1",
+      "1"
+    ],
+    "answer": "1",
+    "explanation": {
+      "en": "\"b\" is at index 1 in zero-based indexing.",
+      "ar": "الحرف \"b\" في الفهرس 1 لأن الترقيم يبدأ من الصفر."
+    }
+  },
+  {
+    "id": 37,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "const n = 7;\nconsole.log(n % 2 === 0 ? \"even\" : \"odd\");",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "even",
+      "odd",
+      "true",
+      "1"
+    ],
+    "answer": "odd",
+    "explanation": {
+      "en": "7 is not divisible by 2, so the ternary returns \"odd\".",
+      "ar": "العدد 7 لا يقبل القسمة على 2، لذا يُعيد الشرط الثلاثي \"odd\"."
+    }
+  },
+  {
+    "id": 38,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "print(2 == 2.0)",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "True",
+      "False",
+      "1",
+      "None"
+    ],
+    "answer": "True",
+    "explanation": {
+      "en": "Python compares int and float by value, so 2 equals 2.0.",
+      "ar": "بايثون تقارن int و float بالقيمة، لذا 2 تساوي 2.0."
+    }
+  },
+  {
+    "id": 39,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "for (var i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 0);\n}",
+    "question": {
+      "en": "What is logged?",
+      "ar": "ما الذي سيُسجَّل؟"
+    },
+    "options": [
+      "0 1 2",
+      "0 0 0",
+      "1 2 3",
+      "3 3 3"
+    ],
+    "answer": "3 3 3",
+    "explanation": {
+      "en": "var is function-scoped, so all callbacks see the final i of 3.",
+      "ar": "var نطاقها الدالة، لذا ترى كل الدوال القيمة النهائية 3."
+    }
+  },
+  {
+    "id": 40,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "for (let i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 0);\n}",
+    "question": {
+      "en": "What is logged?",
+      "ar": "ما الذي سيُسجَّل؟"
+    },
+    "options": [
+      "0 1 2",
+      "3 3 3",
+      "0 0 0",
+      "1 2 3"
+    ],
+    "answer": "0 1 2",
+    "explanation": {
+      "en": "let creates a fresh binding per iteration, logging 0 1 2.",
+      "ar": "let تُنشئ ارتباطًا جديدًا كل دورة، فتُطبع 0 1 2."
+    }
+  },
+  {
+    "id": 41,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "def add(x, lst=[]):\n    lst.append(x)\n    return lst\nprint(add(1))\nprint(add(2))",
+    "question": {
+      "en": "What is printed after both calls?",
+      "ar": "ما الذي سيُطبع بعد الاستدعاءين؟"
+    },
+    "options": [
+      "[1]\n[2]",
+      "[1, 2]\n[1, 2]",
+      "[1]\n[1]",
+      "[1]\n[1, 2]"
+    ],
+    "answer": "[1]\n[1, 2]",
+    "explanation": {
+      "en": "The default list is shared across calls, so it accumulates.",
+      "ar": "القائمة الافتراضية مشتركة بين الاستدعاءات فتتراكم."
+    }
+  },
+  {
+    "id": 42,
+    "category": "typescript",
+    "difficulty": "hard",
+    "codeSnippet": "const xs: number[] = [1, 2, 10, 3];\nconsole.log(xs.sort());",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "[1, 2, 3, 10]",
+      "[10, 3, 2, 1]",
+      "[1, 2, 10, 3]",
+      "[1, 10, 2, 3]"
+    ],
+    "answer": "[1, 10, 2, 3]",
+    "explanation": {
+      "en": "Default sort compares strings, so \"10\" precedes \"2\".",
+      "ar": "الترتيب الافتراضي يقارن النصوص، لذا يسبق \"10\" الرقم \"2\"."
+    }
+  },
+  {
+    "id": 43,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "console.log(1 + 2 + \"3\" + 4 + 5);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "\"3345\"",
+      "\"15\"",
+      "\"12345\"",
+      "3345"
+    ],
+    "answer": "\"3345\"",
+    "explanation": {
+      "en": "1+2 is 3, then concatenation gives \"33\", \"334\", \"3345\".",
+      "ar": "1+2 تساوي 3، ثم يعطي الدمج \"33\" ثم \"334\" ثم \"3345\"."
+    }
+  },
+  {
+    "id": 44,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "console.log(null == undefined, null === undefined);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "true true",
+      "false false",
+      "true false",
+      "false true"
+    ],
+    "answer": "true false",
+    "explanation": {
+      "en": "Loose equality treats them as equal; strict equality does not.",
+      "ar": "المساواة المرنة تعتبرهما متساويين، أما الصارمة فلا."
+    }
+  },
+  {
+    "id": 45,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "print([1, 2, 3] * 2)",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "[2, 4, 6]",
+      "[1, 2, 3, 2]",
+      "[[1,2,3],[1,2,3]]",
+      "[1, 2, 3, 1, 2, 3]"
+    ],
+    "answer": "[1, 2, 3, 1, 2, 3]",
+    "explanation": {
+      "en": "List multiplication repeats the elements, not doubles them.",
+      "ar": "ضرب القائمة يكرّر العناصر ولا يضاعف قيمها."
+    }
+  },
+  {
+    "id": 46,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "print(\"hello\"[::-1])",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "hello",
+      "h",
+      "ohlle",
+      "olleh"
+    ],
+    "answer": "olleh",
+    "explanation": {
+      "en": "A step of -1 reverses the string.",
+      "ar": "الخطوة -1 تعكس النص."
+    }
+  },
+  {
+    "id": 47,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "console.log(0.1 + 0.2);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "0.3",
+      "0.30000000000000",
+      "0.4",
+      "0.30000000000000004"
+    ],
+    "answer": "0.30000000000000004",
+    "explanation": {
+      "en": "JS uses IEEE 754 doubles, giving 0.30000000000000004.",
+      "ar": "جافاسكربت تستخدم IEEE 754 فينتج 0.30000000000000004."
+    }
+  },
+  {
+    "id": 48,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "print(3 * \"5\" if False else 2 + 3)",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "555",
+      "23",
+      "5",
+      "6"
+    ],
+    "answer": "5",
+    "explanation": {
+      "en": "The condition is False so the else branch 2 + 3 = 5 runs.",
+      "ar": "الشرط False لذا يُنفَّذ فرع else: 2 + 3 = 5."
+    }
+  },
+  {
+    "id": 49,
+    "category": "typescript",
+    "difficulty": "hard",
+    "codeSnippet": "const x = [10, 20, 30];\nconsole.log(x.reduce((a, b) => a + b, 0));",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "60",
+      "102030",
+      "30",
+      "0"
+    ],
+    "answer": "60",
+    "explanation": {
+      "en": "reduce sums all elements starting from 0, giving 60.",
+      "ar": "reduce تجمع كل العناصر بدءًا من 0 فتعطي 60."
+    }
+  },
+  {
+    "id": 50,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "console.log(!!\"false\");",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "false",
+      "\"false\"",
+      "undefined",
+      "true"
+    ],
+    "answer": "true",
+    "explanation": {
+      "en": "Any non-empty string is truthy, so it coerces to true.",
+      "ar": "أي نص غير فارغ يُعدّ صحيحًا، فيتحوّل إلى true."
+    }
+  }
+]

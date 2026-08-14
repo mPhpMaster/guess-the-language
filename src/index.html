@@ -106,12 +106,12 @@
           <button class="mode-card mode-card-algo" data-mode="algorithms" aria-pressed="false">
             <div class="mode-icon">🧩</div>
             <div class="mode-name" data-i18n="modeAlgo">Problem Solving</div>
-            <div class="mode-desc" data-i18n="modeAlgoDesc">Fill in the blank: algorithms, data structures &amp; Big-O</div>
+            <div class="mode-desc" data-i18n="modeAlgoDesc">Fill the blank, fix the bug or predict the output</div>
           </button>
           <button class="mode-card mode-card-all" data-mode="all" aria-pressed="false">
             <div class="mode-icon">&#127922;</div>
             <div class="mode-name" data-i18n="modeAll">All (Mixed)</div>
-            <div class="mode-desc" data-i18n="modeAllDesc">Everything: all six banks together</div>
+            <div class="mode-desc" data-i18n="modeAllDesc">Everything: all six modes together</div>
           </button>
         </div>
 
@@ -361,6 +361,25 @@
       </div>
     </dialog>
 
+    <!-- Admin passcode gate. The panel only opens after the SERVER accepts this
+         passcode and hands back a short-lived unlock token; the code itself is
+         never stored, never logged and never leaves this input. -->
+    <dialog id="admin-unlock" class="modal" aria-labelledby="admin-unlock-title" aria-describedby="admin-unlock-hint">
+      <div class="modal-card">
+        <h3 id="admin-unlock-title" data-i18n="adminUnlockTitle">🔒 Admin passcode</h3>
+        <p class="modal-hint" id="admin-unlock-hint" data-i18n="adminUnlockHint">Enter the admin passcode to open the panel.</p>
+        <label class="setting-row">
+          <span id="admin-unlock-label" data-i18n="adminUnlockLabel">Passcode</span>
+          <input type="password" id="admin-unlock-input" dir="ltr" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" maxlength="128" />
+        </label>
+        <p class="modal-error hidden" id="admin-unlock-error" role="alert"></p>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-primary" id="admin-unlock-submit" data-i18n="adminUnlockSubmit">Unlock</button>
+          <button type="button" class="btn btn-ghost" id="admin-unlock-cancel" data-i18n="close">Close</button>
+        </div>
+      </div>
+    </dialog>
+
     <!-- Admin panel (visible only to admins; every action is verified server-side) -->
     <div class="admin-modal hidden" id="admin-modal" role="dialog" aria-modal="true" aria-labelledby="admin-title">
       <div class="admin-box">
@@ -589,6 +608,9 @@
   <script defer src="vendor/supabase.js"></script>
   <script defer src="web-shim.js"></script>
   <script defer src="multiplayer.js"></script>
+  <!-- Bootstrap for the game logic (src/modules/*). Stays a classic script so it
+       keeps running LAST, after the globals above exist; it dynamically imports
+       the module graph. See src/renderer.js for why it is not type="module". -->
   <script defer src="renderer.js"></script>
 </body>
 </html>
