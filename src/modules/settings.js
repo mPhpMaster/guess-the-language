@@ -1,6 +1,6 @@
 import { fetchTopScores, sbFetch, supabaseConfigured } from './api.js';
 import { $, announce, closeDialog, openDialog } from './dom.js';
-import { getLang, t } from './i18n.js';
+import { t } from './i18n.js';
 import { canPlay, getDiscordDisplayName, getDiscordProfile, getSettings, isDiscordActivity, isDiscordLinked, isSafePlayerName, requiresDiscordLogin, sanitizeName, startDiscordLogin, syncDiscordNameField, updateDiscordLoginButton, updateHomeProfile } from './identity.js';
 import { refreshMultiplayerButtons } from './mp-ui.js';
 import { canPublishPresence, pushPresence } from './presence.js';
@@ -9,7 +9,6 @@ import { getUiScale } from './ui-scale.js';
 
 export function applySettingsToUI() {
     const s = getSettings();
-    $('#set-language').value = getLang();
     const scaleLabel = $('#ui-scale-value');
     if (scaleLabel) scaleLabel.textContent = Math.round(getUiScale() * 100) + '%';
     if (!isDiscordActivity()) {
@@ -83,7 +82,7 @@ export function openSettingsPanel() {
     closeDialog($('#about-panel'), false);
     applySettingsToUI();
     const nameInput = $('#set-name');
-    openDialog($('#settings-panel'), nameInput && !nameInput.disabled ? nameInput : $('#set-language'));
+    openDialog($('#settings-panel'), nameInput && !nameInput.disabled ? nameInput : $('#set-questions'));
     if (nameInput && !nameInput.disabled) nameInput.select();
 }
 

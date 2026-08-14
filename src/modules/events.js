@@ -2,7 +2,7 @@ import { closeAdminPanel, requestAdminAccess } from './admin.js';
 import { $, closeDialog, openDialog, screens, showScreen } from './dom.js';
 import { advanceAfterFeedback, clearTimer, endQuiz, onGameKeydown, startGame, startPractice, submitFill, useFifty } from './game.js';
 import { renderHome } from './home.js';
-import { MODES, setLang, t } from './i18n.js';
+import { MODES, t } from './i18n.js';
 import { discordAvatarUrl, discordLogout, getDiscordProfile, startDiscordLogin } from './identity.js';
 import { buildResultsLeaderboard, challengeFriend, flashButton, hideChallengeBanner, submitLeaderboardReport, updateLbScopeSwitch } from './leaderboard.js';
 import { closeJoinModal, confirmJoinRoom, enterDiscordLobby, hostRoomFlow, inviteFromLobby, invitePlayersToRoom, leaveMultiplayer, lobbyStartGame, mpPlayAgain, openJoinModal, pushLobbySettings } from './mp-ui.js';
@@ -22,11 +22,6 @@ export function bindEvents() {
     $('#tb-min').addEventListener('click', () => window.appWindow ?.minimize());
     $('#tb-max').addEventListener('click', () => window.appWindow ?.toggleMaximize());
     $('#tb-close').addEventListener('click', () => window.appWindow ?.close());
-
-    // language switch (home toggle + lobby toggle + settings dropdown)
-    document.querySelectorAll('.lang-switch button').forEach((b) => {
-        b.addEventListener('click', () => setLang(b.dataset.setlang));
-    });
 
     // Leave the room if the player closes the window, refreshes, or navigates
     // away — a keepalive beacon still flushes while the renderer is unloading.
@@ -123,9 +118,10 @@ export function bindEvents() {
     $('#admin-modal')?.addEventListener('click', (e) => { if (e.target === $('#admin-modal')) closeAdminPanel(); });
     $('#set-close').addEventListener('click', () => {
         saveSettingsFromUI();
-        const selectedLanguage = $('#set-language').value;
         closeDialog($('#settings-panel'));
-        setLang(selectedLanguage);
+        // Repaint the home screen so the new round settings (best score, mode
+        // buttons) are reflected right away.
+        renderHome();
     });
     $('#set-name').addEventListener('input', () => {
         $('#set-name').removeAttribute('aria-invalid');

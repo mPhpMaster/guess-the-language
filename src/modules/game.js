@@ -1,7 +1,7 @@
 import { OPTION_COLORS, RING_CIRCUMFERENCE } from './constants.js';
 import { $, announce, showScreen } from './dom.js';
 import { highlight } from './highlight.js';
-import { diffLabel, getLang, t } from './i18n.js';
+import { diffLabel, t } from './i18n.js';
 import { getSettings, updateInGameProfile } from './identity.js';
 import { syncMpHudFromPlayers } from './mp-ui.js';
 import { markPresenceRoundStart, pushPresence } from './presence.js';
@@ -111,9 +111,9 @@ export function normalizeQuestion(q, opts) {
             id: q.id,
             bank: q.bank || state.mode,
             style: 'cyber',
-            panelText: hasCmd ? q.codeSnippet : q.question[getLang()],
+            panelText: hasCmd ? q.codeSnippet : q.question.en,
             panelIsCode: hasCmd,
-            questionText: hasCmd ? q.question[getLang()] : '',
+            questionText: hasCmd ? q.question.en : '',
             options: shuffleOptions(q.options, optionSeed).map((o) => ({
                 label: o
             })),
@@ -129,7 +129,7 @@ export function normalizeQuestion(q, opts) {
         style: 'fill',
         panelText: q.codeSnippet || '',
         panelIsCode: true,
-        questionText: q.question ? q.question[getLang()] : t('fillPrompt'),
+        questionText: q.question ? q.question.en : t('fillPrompt'),
         answer: q.answer,
         accept: Array.isArray(q.accept) ? q.accept : [],
         difficulty: q.difficulty,
@@ -414,11 +414,11 @@ export function resolveCurrentQuestion(chosen, timedOut = false) {
         sfx.correct();
         updateScore(true);
         updateCorrect();
-        showFeedback('good', `${t('correct')} +${gained}${state.streak >= 3 ? '  ' + t('streakBonus') : ''}`, cur.explanation[getLang()]);
+        showFeedback('good', `${t('correct')} +${gained}${state.streak >= 3 ? '  ' + t('streakBonus') : ''}`, cur.explanation.en);
     } else {
         state.streak = 0;
         sfx.wrong();
-        showFeedback('bad', `${t('wrong')} ${cur.answer}.`, cur.explanation[getLang()]);
+        showFeedback('bad', `${t('wrong')} ${cur.answer}.`, cur.explanation.en);
     }
 
     recordRoundAnswer(cur, chosen, correct, gained, timedOut);
@@ -570,7 +570,7 @@ export function onTimeout() {
     // NOTHING was picked do we replace it with the red "time's up" message.
     resolveCurrentQuestion(pick, true);
     if (!hadPick && !state.multiplayer) {
-        showFeedback('bad', `${t('timeUp')} ${cur.answer}.`, cur.explanation[getLang()]);
+        showFeedback('bad', `${t('timeUp')} ${cur.answer}.`, cur.explanation.en);
     }
     updateStreakPill();
 }

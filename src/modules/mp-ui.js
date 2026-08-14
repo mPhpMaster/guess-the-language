@@ -5,7 +5,7 @@ import { $, announce, closeDialog, openDialog, screens, showScreen } from './dom
 import { selectMode } from './events.js';
 import { clearTimer, hideMpStatus, hideToast, isFillCorrect, normFill, normalizeQuestion, recordRoundAnswer, renderQuestionUI, showFeedback, startTimerFromServer, updateCorrect, updateScore, updateStreakPill } from './game.js';
 import { highlight } from './highlight.js';
-import { MODES, diffLabel, getLang, t } from './i18n.js';
+import { MODES, diffLabel, t } from './i18n.js';
 import { canPlay, getSettings, isDiscordActivity, isDiscordLinked, requiresDiscordLogin, safeDisplayName, showAuthError, syncDiscordNameField, updateInGameProfile } from './identity.js';
 import { flashButton, mpDiscordAvatarUrl, mpRoomAvatarOf, mpVisualOf, parseChallengePayload, renderLeaderboard } from './leaderboard.js';
 import { presenceStartedAt, pushPresence, sendHeartbeat, setPresenceStartedAt } from './presence.js';
@@ -446,16 +446,16 @@ export async function showMultiplayerReveal(room) {
         }
         if (submit) submit.disabled = true;
         if (state.spectator) {
-            showFeedback('good', ans, cur.explanation[getLang()]);
+            showFeedback('good', ans, cur.explanation.en);
         } else if (ok) {
             sfx.correct();
-            showFeedback('good', t('correct'), cur.explanation[getLang()]);
+            showFeedback('good', t('correct'), cur.explanation.en);
         } else if (normFill(chosen)) {
             sfx.wrong();
-            showFeedback('bad', `${t('wrong')} ${ans}.`, cur.explanation[getLang()]);
+            showFeedback('bad', `${t('wrong')} ${ans}.`, cur.explanation.en);
         } else {
             sfx.wrong();
-            showFeedback('bad', `${t('timeUp')} ${ans}.`, cur.explanation[getLang()]);
+            showFeedback('bad', `${t('timeUp')} ${ans}.`, cur.explanation.en);
         }
         if (!state.spectator && !state.roundHistory.some((item) => item.questionIndex === state.index)) {
             recordRoundAnswer(cur, chosen, ok, 0, !normFill(chosen));
@@ -483,17 +483,17 @@ export async function showMultiplayerReveal(room) {
     // Local result feedback (the key-gated caller runs this once per reveal).
     if (state.spectator) {
         // A watcher just sees the correct answer, no pass/fail sound.
-        showFeedback('good', ans, cur.explanation[getLang()]);
+        showFeedback('good', ans, cur.explanation.en);
         state.answered = true;
     } else if (chosen && chosen === ans) {
         sfx.correct();
-        showFeedback('good', t('correct'), cur.explanation[getLang()]);
+        showFeedback('good', t('correct'), cur.explanation.en);
     } else if (chosen) {
         sfx.wrong();
-        showFeedback('bad', `${t('wrong')} ${ans}.`, cur.explanation[getLang()]);
+        showFeedback('bad', `${t('wrong')} ${ans}.`, cur.explanation.en);
     } else {
         sfx.wrong();
-        showFeedback('bad', `${t('timeUp')} ${ans}.`, cur.explanation[getLang()]);
+        showFeedback('bad', `${t('timeUp')} ${ans}.`, cur.explanation.en);
     }
     if (!state.spectator && !state.roundHistory.some((item) => item.questionIndex === state.index)) {
         recordRoundAnswer(cur, chosen, chosen === ans, 0, !chosen);

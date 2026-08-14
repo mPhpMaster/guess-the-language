@@ -333,22 +333,22 @@ app.whenReady().then(async () => {
     })()`);
     check('join: malformed secrets are ignored', junk === 0, String(junk));
 
-    // --- Arabic: the card a member sees follows the player's language. ---
-    const arabic = await run(`(() => {
+    // --- The card a member sees is built from the English strings. ---
+    // (The app used to be bilingual and this asserted the Arabic rendering; the
+    // language switch is gone, so what matters now is that the card is populated
+    // from the dictionary at all and still carries the live round numbers.)
+    const englishCard = await run(`(() => {
       ${ROOM_FIXTURE}
       window.GTL_MULTIPLAYER.state.room.status = 'playing';
-      setLang('ar');
       showScreen('game');
       pushPresence();
-      const a = window.__ACT[window.__ACT.length - 1];
-      setLang('en');
-      return a;
+      return window.__ACT[window.__ACT.length - 1];
     })()`);
-    check('i18n: presence is localized to Arabic',
-      /[؀-ۿ]/.test(arabic?.state || '') && /[؀-ۿ]/.test(arabic?.details || ''),
-      JSON.stringify({ details: arabic?.details, state: arabic?.state }));
-    check('i18n: the round numbers survive translation', /\b5\/10\b/.test(arabic?.state || ''),
-      arabic?.state);
+    check('i18n: presence text is rendered from the dictionary',
+      /[A-Za-z]/.test(englishCard?.state || '') && /[A-Za-z]/.test(englishCard?.details || ''),
+      JSON.stringify({ details: englishCard?.details, state: englishCard?.state }));
+    check('i18n: the round numbers reach the presence card', /\b5\/10\b/.test(englishCard?.state || ''),
+      englishCard?.state);
 
     // --- Back home: the card drops the round and its elapsed timer. ---
     const home = await run(`(() => {

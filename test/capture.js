@@ -1,6 +1,6 @@
 'use strict';
 
-/* Renders each screen (both modes, both languages) and saves PNGs to
+/* Renders each screen (both modes) and saves PNGs to
    screenshots/ for review. Run with:  electron test/capture.js            */
 
 const { app, BrowserWindow, ipcMain } = require('electron');
@@ -38,16 +38,15 @@ app.whenReady().then(async () => {
     fs.writeFileSync(path.join(OUT, name), img.toPNG());
     console.log('saved', name);
   }
-  async function reload(lang, settings) {
+  async function reload(settings) {
     // Load the file:// page first so localStorage is on the right origin.
     await win.loadFile(path.join(SRC, 'index.html'));
     await sleep(150);
-    if (lang) await run(`localStorage.setItem('gtl_lang', '${lang}'); 'ok'`);
     if (settings) {
       settings = Object.assign({}, settings, { name: settings.name || 'Capture' });
       await run(`localStorage.setItem('gtl_settings', '${JSON.stringify(settings)}'); 'ok'`);
     }
-    if (lang || settings) { await win.loadFile(path.join(SRC, 'index.html')); await sleep(450); }
+    if (settings) { await win.loadFile(path.join(SRC, 'index.html')); await sleep(450); }
     else await sleep(300);
     // Use the offline mock leaderboard for screenshots (don't write to real Supabase).
     await run("window.SUPABASE_CONFIG = { url: '', anonKey: '' }; 'ok'");
@@ -59,7 +58,7 @@ app.whenReady().then(async () => {
       await sleep(100);
     }
   }
-  async function answerCorrectly(mode, lang) {
+  async function answerCorrectly(mode) {
     const panel = await run("document.querySelector('#code-snippet').textContent");
     const qtext = await run("document.querySelector('#question-text').textContent");
     let answer;
@@ -67,7 +66,7 @@ app.whenReady().then(async () => {
       answer = await run(`window.gameAPI.getQuestions('languages').then(qs => { const q = qs.find(x => x.codeSnippet === ${JSON.stringify(panel)}); return q ? q.correctLanguage : null; })`);
     } else {
       const shown = (qtext && qtext.trim()) ? qtext : panel;
-      answer = await run(`window.gameAPI.getQuestions('cybersecurity').then(qs => { const q = qs.find(x => x.question['${lang}'] === ${JSON.stringify(shown)}); return q ? q.answer : null; })`);
+      answer = await run(`window.gameAPI.getQuestions('cybersecurity').then(qs => { const q = qs.find(x => x.question.en === ${JSON.stringify(shown)}); return q ? q.answer : null; })`);
     }
     await run(`(() => { const b = [...document.querySelectorAll('#options-grid button')].find(x => x.dataset.answer === ${JSON.stringify(answer)}); if (b) b.click(); return 'ok'; })()`);
   }
@@ -90,7 +89,7 @@ app.whenReady().then(async () => {
 
   try {
   // ---- English: home (mode picker + actions in one page) ----
-  await reload('en', { questions: 10, sound: false, difficulty: 'all', name: '' });
+  await reload({ questions: 10, sound: false, difficulty: 'all', name: '' });
   await sleep(250);
   await snap('8-modeselect.png');
 
@@ -119,46 +118,25 @@ app.whenReady().then(async () => {
   await snap('3-answered.png');
 
   // languages results with a real score (single-question round)
-  await reload('en', { questions: 1, sound: false, difficulty: 'all', feedbackDelay: 2, name: '' });
+  await reload({ questions: 1, sound: false, difficulty: 'all', feedbackDelay: 2, name: '' });
   await pickMode('languages');
   await run("document.querySelector('#btn-start').click(); 'ok'");
   await sleep(300);
-  await answerCorrectly('languages', 'en');
+  await answerCorrectly('languages');
   await snapResults('4-results.png');
 
   // ---- English: cybersecurity mode ----
-  await reload('en', { questions: 10, sound: false, difficulty: 'all', name: '' });
+  await reload({ questions: 10, sound: false, difficulty: 'all', name: '' });
   await pickMode('cybersecurity');
   await run("document.querySelector('#btn-start').click(); 'ok'");
   await sleep(500);
   await snap('9-cyber-game.png');
 
-  // ---- Arabic: languages mode ----
-  await reload('ar', { questions: 10, sound: false, difficulty: 'all', name: '' });
-  await snap('11-modeselect-ar.png');
-  await pickMode('languages');
-  await run("document.querySelector('#btn-start').click(); 'ok'");
-  await sleep(500);
-  await snap('6-game-ar.png');
-
-  // Arabic languages results with a real score
-  await reload('ar', { questions: 1, sound: false, difficulty: 'all', feedbackDelay: 2, name: '' });
-  await pickMode('languages');
-  await run("document.querySelector('#btn-start').click(); 'ok'");
-  await sleep(300);
-  await answerCorrectly('languages', 'ar');
-  await snapResults('7-results-ar.png');
-
-  // ---- Arabic: cybersecurity game ----
-  await reload('ar', { questions: 10, sound: false, difficulty: 'all', name: '' });
-  await pickMode('cybersecurity');
-  await run("document.querySelector('#btn-start').click(); 'ok'");
-  await sleep(500);
-  await snap('10-cyber-game-ar.png');
+  // (The Arabic passes that used to live here are gone with the language switch.)
 
   // ---- Compact mobile states ----
   win.setContentSize(390, 844);
-  await reload('en', { questions: 10, sound: false, difficulty: 'all', feedbackDelay: 4, name: 'Capture' });
+  await reload({ questions: 10, sound: false, difficulty: 'all', feedbackDelay: 4, name: 'Capture' });
   await snap('13-mobile-home.png');
   await pickMode('languages');
   await run("document.querySelector('#btn-start').click(); 'ok'");
@@ -171,13 +149,13 @@ app.whenReady().then(async () => {
   await sleep(250);
   await snap('16-mobile-results.png');
 
-  await reload('ar', { questions: 10, sound: false, difficulty: 'all', feedbackDelay: 4, name: 'Capture' });
-  await snap('17-mobile-home-ar.png');
+  await reload({ questions: 10, sound: false, difficulty: 'all', feedbackDelay: 4, name: 'Capture' });
+  await snap('17-mobile-home.png');
 
   // Report dialog state (data is mocked; no report is sent during capture).
   await run("openReportDialog({id:1,name:'Example player',score:100}); 'ok'");
   await sleep(150);
-  await snap('18-report-dialog-ar.png');
+  await snap('18-report-dialog.png');
   } catch (err) {
     console.error('capture failed:', err);
   }

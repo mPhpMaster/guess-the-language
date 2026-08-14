@@ -6,8 +6,7 @@ An interactive quiz game for **Windows** (Electron), the **web** (also an
 installable **PWA / mobile app**), and **Discord** (as an embedded Activity).
 From a single home page you pick one of seven quiz modes and race the timer — with
 scoring, streaks, a correct/total counter, and a per-mode **live global
-leaderboard** (Supabase). The entire UI is available in **English and Arabic**
-(with full RTL layout), switchable anytime.
+leaderboard** (Supabase). The UI is English.
 
 ### Seven game modes
 - **💻 Programming Languages** — a code snippet appears; guess the language.
@@ -38,18 +37,6 @@ leaderboard** (Supabase). The entire UI is available in **English and Arabic**
 | Results | About |
 | --- | --- |
 | ![Results](screenshots/4-results.png) | ![About](screenshots/12-about.png) |
-
-Arabic (RTL):
-
-![Home AR](screenshots/11-modeselect-ar.png)
-
-| Languages mode (AR) | Cybersecurity mode (AR) |
-| --- | --- |
-| ![Game AR](screenshots/6-game-ar.png) | ![Cyber AR](screenshots/10-cyber-game-ar.png) |
-
-| Results (AR) | About |
-| --- | --- |
-| ![Results AR](screenshots/7-results-ar.png) | ![About](screenshots/12-about.png) |
 
 ---
 
@@ -145,9 +132,6 @@ without leaving the page.
    advance. Results include accuracy, response times, best streak, incorrect
    answers, personal rank, and the global leaderboard.
 
-Switch between **English and Arabic** anytime via the EN / ع toggle (also under
-Settings). The choice is persisted, and Arabic flips the UI to RTL.
-
 Public names are checked in the client and by Supabase. Existing unsafe names
 are masked, and signed-in Discord users can report an entry for review.
 
@@ -199,7 +183,7 @@ prog-game2/
    ├─ smoke-main.js             # languages mode end-to-end (14 checks)
    ├─ smoke-cyber.js            # cybersecurity mode (12 checks)
    ├─ smoke-newmodes.js         # devops + networking modes (10 checks)
-   ├─ smoke-i18n.js             # language switch / RTL (9 checks)
+   ├─ smoke-i18n.js             # English-only UI strings + stale-language migration (11 checks)
    ├─ smoke-online.js           # Supabase online-path test (10 checks)
    ├─ smoke-multiplayer.js      # multiplayer UI + client smoke test (26 checks)
    ├─ smoke-all.js              # All (mixed) mode (10 checks)

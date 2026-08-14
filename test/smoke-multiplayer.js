@@ -176,7 +176,8 @@ app.whenReady().then(async () => {
     check('lobby timer offers a 5s option', await run('!!document.querySelector("#lobby-timer option[value=\\"5\\"]")'));
 
     // Players can switch UI language from inside the lobby too.
-    check('lobby has its own language switch', await run('!!document.querySelector("#screen-lobby .lang-switch button[data-setlang]")'));
+    // The app is English-only, so the lobby's language switch is gone for good.
+    check('lobby has no leftover language switch', await run('!document.querySelector("#screen-lobby .lang-switch, #screen-lobby [data-setlang]")'));
 
     // Only one in-game End control now (the strip "End Game" was removed).
     check('duplicate end button removed', await run('!document.querySelector("#btn-mp-end")'));

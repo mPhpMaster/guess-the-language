@@ -1,7 +1,7 @@
 import { adminApi, armButton, isAdmin } from './admin.js';
 import { sbFetch, supabaseConfigured } from './api.js';
 import { $, announce, closeDialog, openDialog, showScreen } from './dom.js';
-import { getLang, t } from './i18n.js';
+import { t } from './i18n.js';
 import { discordAvatarUrl, getDiscordProfile, isDiscordActivity, safeDisplayName } from './identity.js';
 import { avatarFor, buildResultsLeaderboard, mpVisualOf } from './leaderboard.js';
 import { loadAllBanks, modeLabel, mpOnline, renderLobby } from './mp-ui.js';
@@ -559,7 +559,7 @@ export function fmtNum(n) {
 // Absolute date + time of the player's most recent score (their last activity).
 export function formatLastPlayed(iso) {
     try {
-        return new Date(iso).toLocaleString(getLang() === 'ar' ? 'ar' : 'en', { dateStyle: 'medium', timeStyle: 'short' });
+        return new Date(iso).toLocaleString('en', { dateStyle: 'medium', timeStyle: 'short' });
     } catch (e) {
         return '—';
     }

@@ -52,10 +52,6 @@
     <!-- ============ HOME SCREEN (mode + actions in one page) ============ -->
     <section id="screen-home" class="screen active">
         <button class="corner-btn about-btn" id="btn-about" title="About">&#9432;</button>
-        <div class="lang-switch">
-          <button data-setlang="en">EN</button>
-          <button data-setlang="ar">ع</button>
-        </div>
 
         <h1 class="home-title" tabindex="-1"><span class="neon" data-i18n="appTitle">Guess the Language</span></h1>
         <p class="home-sub" data-i18n="homeSub">Pick a mode and beat the timer</p>
@@ -142,13 +138,6 @@
       <dialog id="settings-panel" class="popover" aria-labelledby="settings-title" aria-describedby="settings-description">
         <h3 id="settings-title" data-i18n="settingsTitle">Settings</h3>
         <p class="dialog-description" id="settings-description" data-i18n="settingsDescription">Adjust your quiz preferences.</p>
-        <label class="setting-row">
-          <span data-i18n="settingLanguage">Language</span>
-          <select id="set-language">
-            <option value="en">English</option>
-            <option value="ar">العربية</option>
-          </select>
-        </label>
         <div class="setting-row">
           <span data-i18n="settingUiScale">Interface size</span>
           <span class="ui-scale-control">
@@ -230,7 +219,7 @@
         <h3 id="about-title" data-i18n="aboutTitle">About</h3>
         <div class="about-logo">&#127918;</div>
         <p class="about-app"><span data-i18n="appTitle">Guess the Language</span> <span id="about-version"></span></p>
-        <p class="about-desc" data-i18n="aboutDesc">A bilingual (EN / AR) IT quiz game: languages, cybersecurity, DevOps & networking.</p>
+        <p class="about-desc" data-i18n="aboutDesc">An IT quiz game: programming languages, cybersecurity, DevOps & networking.</p>
         <p class="about-count"><span data-i18n="aboutQuestions">Questions:</span> <strong id="about-count">…</strong></p>
         <div class="about-links">
           <button class="about-link" data-url="https://github.com/mPhpMaster/guess-the-language">&#128187; GitHub</button>
@@ -250,10 +239,6 @@
     <section id="screen-lobby" class="screen">
       <div class="lobby-card">
         <h2 class="sr-only screen-heading" tabindex="-1" data-i18n="lobbyTitle">Multiplayer lobby</h2>
-        <div class="lang-switch">
-          <button data-setlang="en">EN</button>
-          <button data-setlang="ar">ع</button>
-        </div>
         <p class="lobby-label" id="lobby-label" data-i18n="roomCode">Room code</p>
         <div class="lobby-code-row">
           <div class="lobby-code" id="lobby-code">----</div>

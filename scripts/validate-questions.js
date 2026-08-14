@@ -31,12 +31,20 @@ let biasFail = false;
 
 function err(file, id, msg) { hardErrors++; console.error(`  ✗ ${file}#${id}: ${msg}`); }
 
-function bilingualOk(o) { return o && typeof o.en === 'string' && o.en.trim() && typeof o.ar === 'string' && o.ar.trim(); }
+// The app is English-only, so `en` is the only required text. Banks still carry `ar`
+// as dormant data and new questions may add it, but nothing reads it — so it is
+// optional. What is NOT allowed is a present-but-empty/non-string `ar`: that is a
+// malformed field rather than an omitted one.
+function textOk(o) {
+  if (!o || typeof o.en !== 'string' || !o.en.trim()) return false;
+  if (o.ar !== undefined && (typeof o.ar !== 'string' || !o.ar.trim())) return false;
+  return true;
+}
 
 function checkCommon(file, q) {
   if (q.id == null) err(file, '?', 'missing id');
   if (!DIFFS.has(q.difficulty)) err(file, q.id, `bad difficulty "${q.difficulty}"`);
-  if (!bilingualOk(q.explanation)) err(file, q.id, 'explanation missing en/ar');
+  if (!textOk(q.explanation)) err(file, q.id, 'explanation needs a non-empty en (ar optional, non-empty if present)');
 }
 
 function analyzeMc(file, questions) {
@@ -46,7 +54,7 @@ function analyzeMc(file, questions) {
   for (const q of questions) {
     if (ids.has(q.id)) err(file, q.id, 'duplicate id'); else ids.add(q.id);
     checkCommon(file, q);
-    if (!bilingualOk(q.question)) err(file, q.id, 'question missing en/ar');
+    if (!textOk(q.question)) err(file, q.id, 'question needs a non-empty en (ar optional, non-empty if present)');
     if (!Array.isArray(q.options) || q.options.length < 3) { err(file, q.id, 'needs >= 3 options'); continue; }
     if (!q.options.includes(q.answer)) { err(file, q.id, `answer "${q.answer}" not in options`); continue; }
     if (new Set(q.options).size !== q.options.length) err(file, q.id, 'duplicate options');

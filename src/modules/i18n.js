@@ -2,7 +2,7 @@ import { renderHome } from './home.js';
 import { syncDiscordNameField } from './identity.js';
 
 // ============================================================
-//  Internationalization (English / Arabic)
+//  UI strings (English only)
 // ============================================================
 export const I18N = {
     en: {
@@ -15,7 +15,7 @@ export const I18N = {
         endQuiz: 'End',
         correctLabel: 'Correct:',
         aboutTitle: 'About',
-        aboutDesc: 'A bilingual (EN / AR) IT quiz game: programming languages, cybersecurity, DevOps & networking.',
+        aboutDesc: 'An IT quiz game: programming languages, cybersecurity, DevOps & networking.',
         aboutQuestions: 'Questions:',
         close: 'Close',
         start: '▶  Start',
@@ -24,7 +24,6 @@ export const I18N = {
         bestScore: 'Best score:',
         settingsTitle: 'Settings',
         settingsDescription: 'Adjust your quiz preferences.',
-        settingLanguage: 'Language',
         settingName: 'Your leaderboard name',
         settingNameDiscord: 'Your name (from Discord)',
         discordNameNote: 'Your public name and avatar come from Discord.',
@@ -302,304 +301,6 @@ export const I18N = {
         presenceSolo: 'Solo round',
         presenceRoom: 'Multiplayer room',
         presenceSpectating: 'Spectating'
-    },
-    ar: {
-        appTitle: 'خمّن اللغة',
-        homeSub: 'اختر نمطاً وتغلّب على المؤقّت',
-        langPrompt: 'ما هذه اللغة؟',
-        fillSubmit: 'إرسال',
-        fillPlaceholder: 'اكتب الكود الناقص…',
-        fillPrompt: 'املأ الفراغ (____)',
-        endQuiz: 'إنهاء',
-        correctLabel: 'الإجابات الصحيحة:',
-        aboutTitle: 'حول التطبيق',
-        aboutDesc: 'لعبة اختبارات تقنية بالعربية والإنجليزية: لغات البرمجة والأمن السيبراني وDevOps والشبكات.',
-        aboutQuestions: 'عدد الأسئلة:',
-        close: 'إغلاق',
-        start: '▶  ابدأ اللعب',
-        friends: '🏆  لوحة الصدارة العالمية',
-        settings: '⚙  الإعدادات',
-        bestScore: 'أفضل نتيجة:',
-        settingsTitle: 'الإعدادات',
-        settingsDescription: 'اضبط تفضيلات الاختبار.',
-        settingLanguage: 'اللغة',
-        settingName: 'اسمك في لوحة الصدارة',
-        settingNameDiscord: 'اسمك (من Discord)',
-        discordNameNote: 'يأتي اسمك العام وصورتك من Discord.',
-        settingQuestions: 'عدد الأسئلة في الجولة',
-        settingSound: 'المؤثرات الصوتية',
-        settingAdaptive: 'صعوبة تكيّفية',
-        settingDifficulty: 'الصعوبة',
-        settingFeedbackDelay: 'مدة مراجعة الإجابة',
-        feedback2: 'ثانيتان',
-        feedback4: '4 ثوانٍ',
-        feedback6: '6 ثوانٍ',
-        feedbackManual: 'يدوي',
-        diffAll: 'الكل',
-        diffEasy: 'سهل',
-        diffMedium: 'متوسط',
-        diffHard: 'صعب',
-        save: 'حفظ وإغلاق',
-        score: 'النقاط:',
-        question: 'سؤال',
-        finalScore: 'النتيجة النهائية:',
-        comparison: 'لوحة الصدارة العالمية',
-        globalLeaderboard: '🏆 لوحة الصدارة العالمية',
-        challenge: '🔗  تحدَّ صديقاً',
-        replay: '🔄  إعادة اللعب',
-        backMenu: '🏠  القائمة الرئيسية',
-        webAuthHint: 'سجّل الدخول عبر Discord لحفظ هويتك واللعب في لوحة الصدارة العالمية.',
-        retry: 'إعادة المحاولة',
-        nextQuestion: 'السؤال التالي',
-        gameTitle: 'الاختبار جارٍ',
-        lobbyTitle: 'ردهة اللعب الجماعي',
-        joinHint: 'الصق رمزاً من 4 أحرف أو اكتبه يدوياً.',
-        endConfirmTitle: 'إنهاء هذا الاختبار؟',
-        endConfirmDesc: 'سيظهر تقدمك الحالي في صفحة النتائج.',
-        continueQuiz: 'متابعة اللعب',
-        statAccuracy: 'الدقة',
-        statStreak: 'أفضل سلسلة',
-        statAverage: 'متوسط الاستجابة',
-        statFastest: 'أسرع إجابة صحيحة',
-        reviewAnswers: 'مراجعة الإجابات الخاطئة',
-        noIncorrect: 'لا توجد إجابات خاطئة للمراجعة.',
-        yourAnswer: 'إجابتك',
-        correctAnswer: 'الإجابة الصحيحة',
-        personalRank: 'ترتيبك العالمي',
-        you: '(أنت)',
-        lbLoading: 'جارٍ تحميل لوحة الصدارة…',
-        bootLoading: 'جارٍ الاتصال…',
-        settingUiScale: 'حجم الواجهة',
-        lbOnline: '🌐 لوحة الصدارة العالمية',
-        lbOffline: '⚠ تعذّر الاتصال بلوحة الصدارة — عرض نتائج محلية.',
-        correct: 'صحيح!',
-        streakBonus: '(×1.5 🔥)',
-        wrong: 'خطأ — الإجابة الصحيحة:',
-        timeUp: 'انتهى الوقت! الإجابة:',
-        loadFail: '⚠ تعذّر تحميل الأسئلة',
-        challengeCopied: '✅ تم نسخ التحدي!',
-        loading: 'جارٍ التحميل…',
-        modeSelectTitle: 'اختر نمط اللعب',
-        modeLanguages: 'لغات البرمجة',
-        modeLanguagesDesc: 'خمّن اللغة من مقتطف كود',
-        modeCyber: 'الأمن السيبراني',
-        modeCyberDesc: 'أدوات وبرمجيات خبيثة وNmap وMetasploit والمزيد',
-        modeDevops: 'DevOps',
-        modeDevopsDesc: 'Docker وKubernetes وCI/CD وGit والسحابة',
-        modeNetwork: 'الشبكات',
-        modeNetworkDesc: 'OSI وTCP/IP وDNS والتوجيه والبروتوكولات',
-        modeGamedev: 'تطوير الألعاب',
-        modeGamedevDesc: 'حلقات الألعاب والفيزياء والرسوم والمحتوى والواجهات',
-        modeAlgo: 'حل المشكلات',
-        modeAlgoDesc: 'املأ الفراغ أو أصلح الخطأ أو توقّع الناتج',
-        modeAll: 'الكل (مدمج)',
-        modeAllDesc: 'كل شيء: الأنماط الستة معاً',
-        changeMode: 'الأنماط',
-        diff: {
-            easy: 'سهل',
-            medium: 'متوسط',
-            hard: 'صعب'
-        },
-        hostRoom: '🏠  إنشاء غرفة',
-        joinRoom: '🔗  الانضمام لغرفة',
-        discordVoiceRoom: 'قناة الصوت',
-        discordVoiceRoomHint: 'الجميع في هذه المكالمة',
-        discordAutoMp: 'اللعب الجماعي تلقائي هنا — الجميع في قناة الصوت يشاركون نفس الغرفة.',
-        discordJoining: 'جارٍ الانضمام لغرفة قناة الصوت…',
-        discordMpUnavailable: 'تعذّر الاتصال باللعب الجماعي — يمكنك اللعب منفرداً بالأسفل.',
-        createRoom: '🏠  إنشاء غرفة',
-        backToLobby: '🔙  العودة إلى اللوبي',
-        discordCreateHint: 'ادخل إلى لوبي الغرفة المشتركة لقناتك الصوتية.',
-        returnLobbyFailed: 'تعذّر الوصول إلى الغرفة — حاول مرة أخرى.',
-        challengeSent: '✅ تم إرسال التحدي!',
-        challengeFailed: 'تعذّر فتح نافذة المشاركة.',
-        challengeWon: '🎉 مبروك! كسرت التحدّي',
-        challengeLost: '💪 لم تكسر التحدّي',
-        challengeWonSub: 'حصلت على {you} نقطة والهدف كان {target}. تحدَّ صديقك بالمقابل!',
-        challengeLostSub: 'حصلت على {you} نقطة والهدف كان {target}. اقتربت — حاول مجدداً!',
-        challengeBack: '🔗  تحدَّ صديقك بالمقابل',
-        challengeDismiss: 'إغلاق',
-        adminButton: '🛡️  لوحة التحكم',
-        adminTitle: '🛡️ لوحة التحكم',
-        adminReports: 'البلاغات',
-        adminUsers: 'المستخدمون',
-        adminLive: 'المتصلون الآن',
-        adminBans: 'المحظورون',
-        adminEmpty: 'لا يوجد شيء.',
-        adminLoading: 'جارٍ التحميل…',
-        adminError: 'فشل الطلب.',
-        adminDeleteScore: 'حذف النتيجة',
-        adminBan: 'حظر',
-        adminUnban: 'رفع الحظر',
-        adminResolve: 'إغلاق البلاغ',
-        adminDismiss: 'تجاهل',
-        adminReset: 'تصفير البروفايل',
-        adminConfirm: 'تأكيد؟',
-        adminSearch: 'ابحث عن لاعب…',
-        adminReporter: 'المُبلِّغ',
-        adminBannedBy: 'بواسطة',
-        adminActivityHome: 'في الرئيسية',
-        adminActivityLobby: 'في اللوبي',
-        adminActivityPlaying: 'يلعب',
-        adminServer: 'السيرفر',
-        adminNoServer: 'بلا سيرفر (ويب)',
-        adminJoin: 'انضمام',
-        adminJoinHint: 'انضم إلى هذه الغرفة كلاعب',
-        adminJoinAmbiguous: 'هذا اللاعب موجود في أكثر من غرفة — سيتم الانضمام إلى الأحدث.',
-        adminJoinGone: 'انتهت هذه الغرفة.',
-        adminJoinFail: 'تعذّر الانضمام إلى هذه الغرفة.',
-        adminDone: '✓ تم',
-        adminUnlockTitle: '🔒 رمز المشرف',
-        adminUnlockHint: 'أدخل رمز المشرف لفتح لوحة التحكم.',
-        adminUnlockLabel: 'الرمز',
-        adminUnlockPlaceholder: 'الرمز',
-        adminUnlockSubmit: 'فتح',
-        adminUnlockChecking: 'جارٍ التحقق…',
-        adminUnlockWrong: 'الرمز غير صحيح.',
-        adminUnlockLocked: 'محاولات كثيرة. حاول مرة أخرى بعد {min} دقيقة.',
-        adminUnlockUnset: 'لم يتم ضبط رمز المشرف على الخادم.',
-        adminUnlockExpired: 'انتهت جلسة المشرف — أعد إدخال الرمز.',
-        loginDiscord: '💬  تسجيل الدخول عبر Discord',
-        loginDiscordToPlay: 'سجّل الدخول عبر Discord للّعب',
-        logoutDiscord: '🚪  تسجيل الخروج',
-        discordLinkedAs: 'مسجّل الدخول باسم',
-        discordLoginFailed: 'فشل تسجيل الدخول عبر Discord. حاول مرة أخرى.',
-        unsafeName: 'هذا الاسم غير مسموح. اختر اسماً مختلفاً.',
-        hiddenPlayer: 'لاعب مخفي',
-        report: 'إبلاغ',
-        reportTitle: 'الإبلاغ عن نتيجة',
-        reportDesc: 'أخبرنا بسبب ضرورة مراجعة هذه النتيجة.',
-        reportReason: 'السبب',
-        reportOffensive: 'اسم مسيء',
-        reportImpersonation: 'انتحال شخصية',
-        reportSpam: 'إزعاج أو سبب آخر',
-        reportDetails: 'التفاصيل (اختياري)',
-        reportSubmit: 'إرسال البلاغ',
-        reportSuccess: 'شكراً. تم إرسال النتيجة للمراجعة.',
-        reportDuplicate: 'لقد أبلغت عن هذه النتيجة مسبقاً.',
-        reportFailed: 'تعذّر إرسال البلاغ. حاول مرة أخرى.',
-        roomCode: 'رمز الغرفة',
-        copyCode: 'نسخ',
-        playersTitle: 'اللاعبون',
-        waitingHost: 'بانتظار المضيف…',
-        startGame: '▶  بدء اللعب',
-        endRoom: 'إنهاء الغرفة',
-        endGame: 'إنهاء اللعبة',
-        leaveRoom: 'مغادرة',
-        joinConfirm: 'انضم',
-        joining: 'جارٍ الانضمام…',
-        adminBadge: 'مضيف',
-        kickPlayer: 'إزالة',
-        roomResults: 'نتائج الغرفة',
-        mpNeedOnline: 'اللعب الجماعي يتطلب اتصالاً بالإنترنت — راجع README',
-        mpJoinFail: 'تعذّر الانضمام للغرفة',
-        mpHostFail: 'تعذّر إنشاء الغرفة',
-        codeCopied: '✅ تم نسخ الرمز!',
-        challengeLinkCopied: '🔗 تم نسخ الرابط!',
-        spectating: '👁  وضع المشاهدة — اللعبة جارية',
-        mpKicked: 'تمت إزالتك من الغرفة',
-        waitingOpponents: '⏳ بانتظار الخصوم…',
-        lobbySettings: 'إعدادات اللعبة',
-        settingTimer: 'مدة كل سؤال',
-        timerAuto: 'تلقائي (حسب الصعوبة)',
-        multiplayerScore: 'نتيجة جماعية',
-        nameRequired: 'يرجى إدخال اسمك قبل بدء اللعبة.',
-        nameTaken: 'هذا الاسم مستخدم بالفعل في لوحة الصدارة. يرجى اختيار اسم آخر.',
-        leaderboardFor: 'لوحة الصدارة لـ',
-        settingPresence: 'إظهار لعبتي على ديسكورد',
-        playerCardTitle: 'تفاصيل اللاعب',
-        playerCardHint: 'تقدّمه المباشر في هذه الغرفة.',
-        profileTitle: 'ملف اللاعب',
-        profileHint: 'أفضل نتيجة وترتيبه في كل قسم.',
-        rankingsTitle: 'الترتيب حسب القسم',
-        noRankings: 'لا توجد نتائج مصنّفة بعد.',
-        statGames: 'الجولات',
-        statBest: 'أفضل نتيجة',
-        statAvg: 'متوسط النتيجة',
-        statMp: 'اللعب الجماعي',
-        statTotal: 'مجموع النقاط',
-        statBestRank: 'أفضل ترتيب',
-        statWinRate: 'معدل الفوز',
-        statHours: 'ساعات اللعب',
-        statPerfect: 'جولات كاملة',
-        levelShort: 'مستوى',
-        dayStreak: 'سلسلة الأيام',
-        achievementsTitle: 'الإنجازات',
-        achievementUnlocked: 'إنجاز جديد!',
-        dailyChallenge: 'التحدّي اليومي',
-        dailyPlayed: 'اليومي · اعرض اللوحة',
-        scopeAllTime: 'كل الأوقات',
-        scopeWeek: 'هذا الأسبوع',
-        breakdownTitle: 'الدقّة حسب الفئة',
-        practiceMode: '🎓  تدريب',
-        practiceRound: 'جولة تدريب',
-        practiceNotSaved: 'تدريب — غير محفوظة في لوحة الصدارة',
-        onboardTitle: 'أهلًا بك في «خمّن اللغة»!',
-        onboardTip1: 'اختر نوعًا ثم ابدأ — اقرأ الكود واسبق المؤقّت.',
-        onboardTip2: 'جرّب 🗓️ التحدّي اليومي: نفس الـ١٠ أسئلة للجميع.',
-        onboardTip3: 'اكسب XP، وارتقِ بالمستويات، وافتح الإنجازات في بروفايلك.',
-        onboardTip4: 'على الكمبيوتر أجب بالأرقام ١–٤. محتار؟ استخدم 50:50.',
-        onboardGotIt: 'يلا نبدأ',
-        shareResult: '📸  شارك النتيجة',
-        copyImage: 'نسخ الصورة',
-        download: 'تنزيل',
-        copied: '✓ نُسخت — الصقها في المحادثة',
-        copyFailed: 'النسخ محجوب هنا — اضغط مطوّلًا/بزر يمين على الصورة لحفظها.',
-        downloadStarted: '⬇ تم الحفظ في التنزيلات',
-        downloadBlocked: 'التنزيل محجوب هنا — اضغط مطوّلًا/بزر يمين على الصورة لحفظها.',
-        shareHint: 'انسخها أو نزّلها، أو اضغط مطوّلًا على الصورة لحفظها.',
-        shareOpenImage: '🖼️  فتح الصورة',
-        shareToDiscord: '📤  مشاركة في ديسكورد',
-        shareCopyLink: '🔗  نسخ الرابط',
-        shareLinkCopied2: '✓ تم نسخ الرابط',
-        shareDiscordHint: 'افتح الصورة لحفظها، أو شاركها مباشرة في ديسكورد.',
-        shareUploading: 'جارٍ التجهيز…',
-        follow: 'متابعة',
-        following: 'متابَع',
-        followingTitle: 'المتابَعون',
-        makeHost: 'اجعله المضيف',
-        titleNovice: 'مبتدئ',
-        titleApprentice: 'متدرّب',
-        titleCoder: 'مبرمج',
-        titleHacker: 'هاكر',
-        titleExpert: 'خبير',
-        titleGuru: 'أسطورة',
-        ach_rookie: 'أول جولة',
-        ach_dedicated: '٢٥ جولة',
-        ach_centurion: '١٠٠ جولة',
-        ach_first_win: 'أول فوز',
-        ach_champion: '١٠ انتصارات',
-        ach_perfect: 'جولة كاملة',
-        ach_flawless: '٥ جولات كاملة',
-        ach_streak3: 'سلسلة ٣ أيام',
-        ach_streak7: 'سلسلة ٧ أيام',
-        ach_marathon: 'ساعة لعب',
-        ach_level5: 'الوصول للمستوى ٥',
-        ach_level10: 'الوصول للمستوى ١٠',
-        lastPlayed: 'آخر لعب',
-        lastSeen: 'آخر ظهور',
-        online: 'متصل الآن',
-        playerCardMode: 'نوع اللعبة',
-        playerCardRound: 'الجولة',
-        playerCardScore: 'النتيجة',
-        playerCardCorrect: 'الإجابات الصحيحة',
-        playerCardStreak: 'التتابع',
-        playerCardStatus: 'الحالة',
-        statusPlaying: '🎮 يلعب',
-        statusSpectating: '👁 يشاهد',
-        statusLobby: '⏳ في غرفة الانتظار',
-        statusFinished: '🏁 انتهى',
-        inviteToRoom: '➕  دعوة إلى هذه الغرفة',
-        inviteFailed: 'تعذّر فتح نافذة الدعوة',
-        inviteShareCode: 'تم نسخ رمز الغرفة — شاركه عشان أصحابك يدخلون.',
-        openPlayerCard: 'عرض التقدّم',
-        joinRequestFailed: 'تعذّر الانضمام إلى تلك الغرفة',
-        presenceLobby: 'في غرفة الانتظار',
-        presenceResults: 'يستعرض النتائج',
-        presenceMenu: 'في القائمة',
-        presenceSolo: 'جولة فردية',
-        presenceRoom: 'غرفة جماعية',
-        presenceSpectating: 'وضع المشاهدة'
     }
 };
 
@@ -609,131 +310,110 @@ export const MODES = {
         key: 'languages',
         icon: '💻',
         title: {
-            en: ['Guess the', 'Programming Language'],
-            ar: ['خمِّن', 'لغة البرمجة']
+            en: ['Guess the', 'Programming Language']
         },
         desc: {
-            en: 'Identify the language from the snippet before time runs out',
-            ar: 'خمّن لغة البرمجة من مقتطف الكود قبل انتهاء الوقت'
+            en: 'Identify the language from the snippet before time runs out'
         }
     },
     cybersecurity: {
         key: 'cybersecurity',
         icon: '🛡️',
         title: {
-            en: ['Cyber', 'Security Quiz'],
-            ar: ['اختبار', 'الأمن السيبراني']
+            en: ['Cyber', 'Security Quiz']
         },
         desc: {
-            en: 'Identify tools, malware, Nmap, Metasploit & more',
-            ar: 'تعرّف على الأدوات والبرمجيات الخبيثة وNmap وMetasploit والمزيد'
+            en: 'Identify tools, malware, Nmap, Metasploit & more'
         }
     },
     devops: {
         key: 'devops',
         icon: '♾️',
         title: {
-            en: ['DevOps', 'Quiz'],
-            ar: ['اختبار', 'DevOps']
+            en: ['DevOps', 'Quiz']
         },
         desc: {
-            en: 'Docker, Kubernetes, CI/CD, Git, Terraform & cloud',
-            ar: 'Docker وKubernetes وCI/CD وGit وTerraform والسحابة'
+            en: 'Docker, Kubernetes, CI/CD, Git, Terraform & cloud'
         }
     },
     network: {
         key: 'network',
         icon: '🌐',
         title: {
-            en: ['Networking', 'Quiz'],
-            ar: ['اختبار', 'الشبكات']
+            en: ['Networking', 'Quiz']
         },
         desc: {
-            en: 'OSI, TCP/IP, DNS, routing, subnetting & protocols',
-            ar: 'OSI وTCP/IP وDNS والتوجيه والتقسيم والبروتوكولات'
+            en: 'OSI, TCP/IP, DNS, routing, subnetting & protocols'
         }
     },
     gamedev: {
         key: 'gamedev',
         icon: '🎮',
         title: {
-            en: ['Game', 'Dev Quiz'],
-            ar: ['اختبار', 'تطوير الألعاب']
+            en: ['Game', 'Dev Quiz']
         },
         desc: {
-            en: 'Game loops, physics, rendering, assets and UI systems',
-            ar: 'حلقات الألعاب والفيزياء والرسوم والمحتوى والواجهات'
+            en: 'Game loops, physics, rendering, assets and UI systems'
         }
     },
     algorithms: {
         key: 'algorithms',
         icon: '🧩',
         title: {
-            en: ['Problem', 'Solving Quiz'],
-            ar: ['اختبار', 'حل المشكلات']
+            en: ['Problem', 'Solving Quiz']
         },
         desc: {
-            en: 'Fill the blank, fix the bug or predict the output',
-            ar: 'املأ الفراغ أو أصلح الخطأ أو توقّع الناتج'
+            en: 'Fill the blank, fix the bug or predict the output'
         }
     },
     all: {
         key: 'all',
         icon: '🎲',
         title: {
-            en: ['All', 'Mixed Quiz'],
-            ar: ['الكل', 'اختبار شامل']
+            en: ['All', 'Mixed Quiz']
         },
         desc: {
-            en: 'Everything mixed: all six modes together',
-            ar: 'كل شيء مدمج: الأنماط الستة معاً'
+            en: 'Everything mixed: all six modes together'
         }
     }
 };
 
-export function getLang() {
-    const l = localStorage.getItem('gtl_lang');
-    return l === 'ar' || l === 'en' ? l : 'en';
-}
-
-export function setLang(lang) {
-    localStorage.setItem('gtl_lang', lang === 'ar' ? 'ar' : 'en');
-    applyLanguage();
-}
-
 export function t(key) {
-    const d = I18N[getLang()];
-    if (d && d[key] != null) return d[key];
     return I18N.en[key] != null ? I18N.en[key] : key;
 }
 
 export function diffLabel(d) {
-    return (I18N[getLang()].diff || {})[d] || d;
+    return (I18N.en.diff || {})[d] || d;
 }
 
 export function challengeText(score) {
-    return getLang() === 'ar' ?
-        `حصلت على ${score} نقطة في لعبة "خمّن اللغة"! هل تستطيع التغلب عليّ؟` :
-        `I scored ${score} points in "Guess the Language"! Can you beat me?`;
+    return `I scored ${score} points in "Guess the Language"! Can you beat me?`;
 }
 
+// The app is English-only. Older builds persisted a UI language in `gtl_lang`
+// and could leave the document in RTL; drop that key so a returning player who
+// had picked Arabic still boots into the English LTR layout.
+function purgeLegacyLanguagePref() {
+    try { localStorage.removeItem('gtl_lang'); } catch (_) {}
+}
+
+// Paints every [data-i18n] element from the English dictionary. Still needed on
+// boot (and whenever the home screen is re-rendered) even though there is no
+// longer a language to choose.
 export function applyLanguage() {
-    const lang = getLang();
-    const dict = I18N[lang];
-    document.documentElement.lang = lang;
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    purgeLegacyLanguagePref();
+    const dict = I18N.en;
+    document.documentElement.lang = 'en';
+    document.documentElement.dir = 'ltr';
     document.querySelectorAll('[data-i18n]').forEach((el) => {
         const k = el.getAttribute('data-i18n');
         if (dict[k] != null) el.textContent = dict[k];
     });
-    document.querySelectorAll('.lang-switch button').forEach((b) => {
-        b.classList.toggle('active', b.dataset.setlang === lang);
-    });
-    const sel = document.querySelector('#set-language');
-    if (sel) sel.value = lang;
     // Refresh the currently-shown difficulty badge if a question is loaded.
     const dEl = document.querySelector('#code-difficulty');
     if (dEl && dEl.dataset.diff) dEl.textContent = diffLabel(dEl.dataset.diff);
     renderHome();
     syncDiscordNameField();
 }
+
+purgeLegacyLanguagePref();

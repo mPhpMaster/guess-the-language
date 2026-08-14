@@ -1,7 +1,7 @@
 import { fetchDailyTop, fetchPersonalRank, fetchTopScores, lbScope, lbViewMode, submitDailyScore, submitScore, supabaseConfigured } from './api.js';
 import { FRIENDS } from './constants.js';
 import { $, announce, closeDialog, openDialog } from './dom.js';
-import { MODES, challengeText, getLang, t } from './i18n.js';
+import { MODES, challengeText, t } from './i18n.js';
 import { appApiPrefix, discordAvatarUrl, getAppSessionToken, getDiscordProfile, getSettings, isDiscordActivity, safeDisplayName } from './identity.js';
 import { modeLabel } from './mp-ui.js';
 import { openProfileCard } from './profile.js';
@@ -235,8 +235,7 @@ export async function buildResultsLeaderboard() {
 
 export function currentModeLabel() {
     const mode = MODES[state.mode] || MODES.languages;
-    const lang = getLang();
-    const title = mode.title?.[lang] || mode.title?.en || [];
+    const title = mode.title?.en || [];
     return Array.isArray(title) ? title.join(' ') : String(title || mode.key || '');
 }
 
@@ -493,9 +492,7 @@ export function renderChallengeVerdict(viewOnly) {
 export function challengeBannerText(info) {
     const modeName = modeLabel(info.mode || state.mode);
     const score = info.score != null ? info.score : 0;
-    return getLang() === 'ar'
-        ? `🎯 لقد تم تحدّيك! تجاوز ${score} نقطة في وضع «${modeName}».`
-        : `🎯 You've been challenged! Beat ${score} points in ${modeName} mode.`;
+    return `🎯 You've been challenged! Beat ${score} points in ${modeName} mode.`;
 }
 
 export function showChallengeBanner(info) {

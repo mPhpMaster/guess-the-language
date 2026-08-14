@@ -53,8 +53,6 @@ ipcMain.handle('questions:get', async (_e, mode) => {
 const checks = [];
 const check = (name, cond, detail) => checks.push({ name, pass: !!cond, detail });
 
-const ARABIC = /[؀-ۿ]/;
-
 // __ISOLATED_USERDATA__: pristine localStorage per run (no cross-test leakage)
 try { app.setPath('userData', path.join(require('os').tmpdir(), 'gtl-test-' + Date.now() + '-' + Math.floor(Math.random() * 1e9))); } catch (e) {}
 
@@ -91,17 +89,10 @@ app.whenReady().then(async () => {
     };
   })()`;
 
-  async function openHome(lang) {
+  async function openHome() {
     await win.loadFile(path.join(SRC, 'index.html'));
     await sleep(400);
     await run("window.SUPABASE_CONFIG = { url: '', anonKey: '' }; 'ok'"); // force offline mock
-    // The display language is baked in when a question is RENDERED, so it has to be
-    // chosen before the round starts — switching mid-question does not re-render.
-    // setLang() lives in an ES module (not on window), so drive the real EN/ع toggle
-    // first; re-applying the language repaints the home screen.
-    await run(`var b = document.querySelector('#screen-home [data-setlang="${lang === 'ar' ? 'ar' : 'en'}"]');`
-      + " if (b) b.click(); 'ok'");
-    await sleep(200);
     // A 20-question round samples the merged pool widely; __GTL_QTIME=1 keeps it quick.
     await run("window.__GTL_QTIME=1;"
       + " var n=document.querySelector('#set-name'); n.value='Tester'; n.dispatchEvent(new Event('input'));"
@@ -124,11 +115,10 @@ app.whenReady().then(async () => {
      assuming positions, and replays fresh rounds if a round happened to show only
      one style. `seen.mc` / `seen.fill` stay null when a style never appeared — the
      caller turns that into a loud FAIL. */
-  async function collectBothStyles(lang) {
-    const seen = { started: false, mc: null, fill: null, mcCount: 0, fillCount: 0, rounds: 0, htmlLang: '' };
+  async function collectBothStyles() {
+    const seen = { started: false, mc: null, fill: null, mcCount: 0, fillCount: 0, rounds: 0 };
     for (let attempt = 0; attempt < 3 && !(seen.mc && seen.fill); attempt++) {
-      await openHome(lang);
-      seen.htmlLang = await run("document.documentElement.lang");
+      await openHome();
       const active = await startProblemSolving();
       seen.rounds++;
       if (active) seen.started = true; else continue;
@@ -166,7 +156,6 @@ app.whenReady().then(async () => {
       qs.forEach(function (q) { keys[(q.bank || '') + '|' + q.id] = 1; });
       var fill = qs.filter(function (q) { return q.bank === 'algorithms' && q.id > 84; });
       var mc = qs.filter(function (q) { return q.bank === 'bug' || q.bank === 'output'; });
-      var ar = /[\\u0600-\\u06FF]/;
       return {
         total: qs.length,
         byBank: by,
@@ -176,15 +165,14 @@ app.whenReady().then(async () => {
           noOptions: fill.every(function (q) { return !q.options; }),
           hasAccept: fill.every(function (q) { return Array.isArray(q.accept) && q.accept.length > 0; }),
           blanked: fill.filter(function (q) { return (q.codeSnippet || '').indexOf('____') >= 0; }).length,
-          arabic: fill.every(function (q) { return q.question && ar.test(q.question.ar || ''); })
+          english: fill.every(function (q) { return !!(q.question && q.question.en); })
         },
         mc: {
           n: mc.length,
           four: mc.filter(function (q) { return Array.isArray(q.options) && q.options.length === 4; }).length,
           answerInOptions: mc.every(function (q) { return q.options.indexOf(q.answer) >= 0; }),
-          bilingual: mc.every(function (q) {
-            return q.question && q.question.en && ar.test(q.question.ar || '')
-              && q.explanation && q.explanation.en && q.explanation.ar;
+          english: mc.every(function (q) {
+            return !!(q.question && q.question.en && q.explanation && q.explanation.en);
           })
         }
       };
@@ -209,12 +197,12 @@ app.whenReady().then(async () => {
     check('imported fill questions have no options', bank.fill.noOptions);
     check('imported fill questions have accept lists', bank.fill.hasAccept);
     check('imported fill questions carry a ____ blank', bank.fill.blanked === expectedFill, `blanked=${bank.fill.blanked}/${expectedFill}`);
-    check('imported fill questions carry Arabic text', bank.fill.arabic);
+    check('imported fill questions carry English text', bank.fill.english);
 
     check('imported bug/output questions present', bank.mc.n === expectedMc, `n=${bank.mc.n} expected=${expectedMc}`);
     check('imported bug/output questions have exactly 4 options', bank.mc.four === expectedMc, `four=${bank.mc.four}/${expectedMc}`);
     check('imported bug/output answers are among their options', bank.mc.answerInOptions);
-    check('imported bug/output questions are bilingual', bank.mc.bilingual);
+    check('imported bug/output questions carry English text and explanations', bank.mc.english);
   } catch (err) {
     check('merged bank: no exceptions', false, String(err));
   }
@@ -227,10 +215,10 @@ app.whenReady().then(async () => {
   check('the Guess the Output mode card is gone',
     await run("!document.querySelector('.mode-card[data-mode=\"output\"]')"));
 
-  // ---------- 3. Playing the merged mode (English) ----------
+  // ---------- 3. Playing the merged mode ----------
   let en = { started: false, mc: null, fill: null, mcCount: 0, fillCount: 0, rounds: 0 };
   try {
-    en = await collectBothStyles('en');
+    en = await collectBothStyles();
   } catch (err) {
     check('merged mode round: no exceptions', false, String(err));
   }
@@ -266,19 +254,6 @@ app.whenReady().then(async () => {
   } catch (err) {
     check('bank provenance: no exceptions', false, String(err));
   }
-
-  // ---------- 4. Both styles render in Arabic ----------
-  let ar = { mc: null, fill: null, mcCount: 0, fillCount: 0, rounds: 0, htmlLang: '' };
-  try {
-    ar = await collectBothStyles('ar');
-  } catch (err) {
-    check('Arabic round: no exceptions', false, String(err));
-  }
-  const arMc = (ar.mc || {}).question || '';
-  const arFill = (ar.fill || {}).question || '';
-  check('Arabic: the language actually switched', ar.htmlLang === 'ar', `html.lang=${ar.htmlLang}`);
-  check('Arabic: the MC question renders Arabic text', ARABIC.test(arMc), `ar="${arMc.slice(0, 26)}"`);
-  check('Arabic: the fill question renders Arabic text', ARABIC.test(arFill), `ar="${arFill.slice(0, 26)}"`);
 
   let passed = 0;
   console.log('\n==== PROBLEM SOLVING MERGED BANK TEST ====');

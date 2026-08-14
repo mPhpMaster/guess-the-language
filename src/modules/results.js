@@ -1,6 +1,6 @@
 import { isPerfectRound, logError, recordPlay, supabaseConfigured } from './api.js';
 import { $, showScreen } from './dom.js';
-import { getLang, t } from './i18n.js';
+import { t } from './i18n.js';
 import { discordAvatarUrl, getDiscordProfile, isDiscordActivity, loadCrossOriginImage, safeDisplayName } from './identity.js';
 import { buildResultsLeaderboard, currentModeLabel, renderChallengeVerdict } from './leaderboard.js';
 import { modeLabel } from './mp-ui.js';
@@ -299,7 +299,7 @@ export function renderAnswerReview(history) {
         answers.textContent = `${t('yourAnswer')}: ${item.selectedAnswer || '—'} · ${t('correctAnswer')}: ${item.correctAnswer}`;
         const explanation = document.createElement('p');
         explanation.className = 'review-explanation';
-        explanation.textContent = item.explanation?.[getLang()] || item.explanation?.en || '';
+        explanation.textContent = item.explanation?.en || '';
         article.append(title, code, answers, explanation);
         list.appendChild(article);
     });
