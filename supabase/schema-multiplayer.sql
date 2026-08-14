@@ -785,7 +785,24 @@ end;
 $$;
 
 grant usage on schema public to anon, authenticated;
-grant select on public.rooms, public.room_players, public.room_answers to anon, authenticated;
+grant select on public.room_players, public.room_answers to anon, authenticated;
+
+-- rooms: every column EXCEPT `code` (migration rooms_hide_code_from_anon).
+-- The row itself must stay readable — Realtime applies the caller's SELECT
+-- privilege, and RLS cannot express "only the rooms I am in" because membership
+-- is proven by a client-supplied room_players.id, not an auth identity. So a
+-- stranger can still see that a room exists, but not the 4-letter code that
+-- would let them join it. A column-level REVOKE alone is useless while a
+-- table-wide grant exists (table-level implies all columns), hence the explicit
+-- column list. create_room / join_room / join_discord_room are SECURITY DEFINER
+-- and still read and return the code; clients keep their own copy from that
+-- result (see ROOM_COLUMNS + fetchRoom in src/multiplayer.js — a client asking
+-- for `select *` here gets "permission denied for table rooms").
+grant select (
+  id, status, mode, host_player_id, created_at, finished_at,
+  discord_instance_id, settings, round_refs, question_index,
+  question_ends_at, phase
+) on public.rooms to anon, authenticated;
 grant execute on function public.create_room(text, jsonb, text) to anon, authenticated;
 grant execute on function public.join_room(text, text) to anon, authenticated;
 grant execute on function public.start_room(uuid, uuid, jsonb, jsonb) to anon, authenticated;
