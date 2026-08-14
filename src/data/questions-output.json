@@ -1678,5 +1678,1055 @@
       "en": "1, 1.0 and True hash equal, so each write replaces the same single entry.",
       "ar": "القيم 1 و1.0 وTrue تتساوى في التجزئة، فكل كتابة تستبدل المدخل نفسه."
     }
+  },
+  {
+    "id": 81,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log([1, 2, 3].reduce((a, b) => a + b));",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "6",
+      "0",
+      "123",
+      "NaN"
+    ],
+    "answer": "6",
+    "explanation": {
+      "en": "With no seed, reduce starts from the first element and adds the rest.",
+      "ar": "بلا قيمة ابتدائية تبدأ reduce من أول عنصر وتجمع البقية."
+    }
+  },
+  {
+    "id": 82,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log([1, 2, 3].join(''));",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "123",
+      "1,2,3",
+      "[123]",
+      "6"
+    ],
+    "answer": "123",
+    "explanation": {
+      "en": "An empty separator glues the elements together as text.",
+      "ar": "الفاصل الفارغ يلصق العناصر معًا كنص."
+    }
+  },
+  {
+    "id": 83,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log('abc'.at(-1), [1, 2, 3].at(-1));",
+    "question": {
+      "en": "What is logged?",
+      "ar": "ما الذي سيُسجَّل؟"
+    },
+    "options": [
+      "c 3",
+      "a 1",
+      "c 2",
+      "undefined undefined"
+    ],
+    "answer": "c 3",
+    "explanation": {
+      "en": "at() accepts a negative index counted from the end.",
+      "ar": "‏at() تقبل فهرسًا سالبًا يُحسب من النهاية."
+    }
+  },
+  {
+    "id": 84,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log(+true, +'', +'3');",
+    "question": {
+      "en": "What is logged?",
+      "ar": "ما الذي سيُسجَّل؟"
+    },
+    "options": [
+      "1 0 3",
+      "true 0 3",
+      "1 NaN 3",
+      "1 0 '3'"
+    ],
+    "answer": "1 0 3",
+    "explanation": {
+      "en": "Unary + converts to a number: true is 1 and the empty string is 0.",
+      "ar": "‏+ الأحادية تحوّل إلى عدد: true تساوي 1 والنص الفارغ صفر."
+    }
+  },
+  {
+    "id": 85,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log('10' > '9', 10 > 9);",
+    "question": {
+      "en": "What is logged?",
+      "ar": "ما الذي سيُسجَّل؟"
+    },
+    "options": [
+      "false true",
+      "true true",
+      "false false",
+      "true false"
+    ],
+    "answer": "false true",
+    "explanation": {
+      "en": "Two strings compare character by character, so '1' loses to '9'.",
+      "ar": "النصان يُقارنان حرفًا بحرف، فيخسر '1' أمام '9'."
+    }
+  },
+  {
+    "id": 86,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log(parseInt('08'), parseInt('0x1f'), parseInt('12px'));",
+    "question": {
+      "en": "What is logged?",
+      "ar": "ما الذي سيُسجَّل؟"
+    },
+    "options": [
+      "8 31 12",
+      "8 0 NaN",
+      "0 31 12",
+      "8 31 NaN"
+    ],
+    "answer": "8 31 12",
+    "explanation": {
+      "en": "parseInt reads a 0x prefix as hex and stops at the first character it cannot use.",
+      "ar": "‏parseInt تقرأ البادئة 0x كنظام ست عشري وتتوقّف عند أول حرف لا تستطيع استخدامه."
+    }
+  },
+  {
+    "id": 87,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log('aaa'.replace('a', 'b'));",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "baa",
+      "bbb",
+      "aaa",
+      "ba"
+    ],
+    "answer": "baa",
+    "explanation": {
+      "en": "A string pattern replaces only the first match; /a/g replaces them all.",
+      "ar": "النمط النصي يستبدل أول مطابقة فقط، أما ‎/a/g فتستبدلها كلها."
+    }
+  },
+  {
+    "id": 88,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(divmod(7, 2))",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "(3, 1)",
+      "(1, 3)",
+      "3.5",
+      "(3.5, 1)"
+    ],
+    "answer": "(3, 1)",
+    "explanation": {
+      "en": "divmod returns the quotient and the remainder as a tuple.",
+      "ar": "‏divmod تُعيد الناتج والباقي في زوج."
+    }
+  },
+  {
+    "id": 89,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(ord('A'), chr(66))",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "65 B",
+      "65 66",
+      "A 66",
+      "97 b"
+    ],
+    "answer": "65 B",
+    "explanation": {
+      "en": "ord gives the code point, chr turns a code point back into a character.",
+      "ar": "‏ord تعطي رمز الحرف، وchr تُعيد الرمز إلى حرف."
+    }
+  },
+  {
+    "id": 90,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print('5' * 3, [1, 2] * 2)",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "555 [1, 2, 1, 2]",
+      "15 [2, 4]",
+      "555 [1, 1, 2, 2]",
+      "15 [1, 2, 1, 2]"
+    ],
+    "answer": "555 [1, 2, 1, 2]",
+    "explanation": {
+      "en": "Multiplying a sequence repeats it rather than doing arithmetic.",
+      "ar": "ضرب المتسلسلة يكرّرها بدل إجراء عملية حسابية."
+    }
+  },
+  {
+    "id": 91,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print('abc'[::2])",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "ac",
+      "ab",
+      "abc",
+      "bc"
+    ],
+    "answer": "ac",
+    "explanation": {
+      "en": "A step of 2 takes every other character.",
+      "ar": "الخطوة 2 تأخذ حرفًا بعد حرف."
+    }
+  },
+  {
+    "id": 92,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(sum([True, True, False]))",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "2",
+      "3",
+      "1",
+      "TypeError"
+    ],
+    "answer": "2",
+    "explanation": {
+      "en": "Booleans are integers in Python, so True adds 1.",
+      "ar": "القيم المنطقية أعداد صحيحة في بايثون، فتضيف True واحدًا."
+    }
+  },
+  {
+    "id": 93,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(tuple('ab'), list({'a': 1}))",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "('a', 'b') ['a']",
+      "('ab',) ['a']",
+      "('a', 'b') [1]",
+      "('ab',) [('a', 1)]"
+    ],
+    "answer": "('a', 'b') ['a']",
+    "explanation": {
+      "en": "Both iterate their argument; iterating a dict yields its keys.",
+      "ar": "كلاهما يمرّ على وسيطه، والمرور على القاموس يعطي مفاتيحه."
+    }
+  },
+  {
+    "id": 94,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(len(range(0, 10, 3)))",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "4",
+      "3",
+      "10",
+      "9"
+    ],
+    "answer": "4",
+    "explanation": {
+      "en": "The range covers 0, 3, 6 and 9.",
+      "ar": "النطاق يشمل 0 و3 و6 و9."
+    }
+  },
+  {
+    "id": 95,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log(Math.max());",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "-Infinity",
+      "0",
+      "Infinity",
+      "NaN"
+    ],
+    "answer": "-Infinity",
+    "explanation": {
+      "en": "With no arguments Math.max returns its identity, -Infinity.",
+      "ar": "بلا وسائط تُعيد Math.max عنصرها المحايد وهو سالب اللانهاية."
+    }
+  },
+  {
+    "id": 96,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log([NaN].includes(NaN), [NaN].indexOf(NaN));",
+    "question": {
+      "en": "What is logged?",
+      "ar": "ما الذي سيُسجَّل؟"
+    },
+    "options": [
+      "true -1",
+      "true 0",
+      "false -1",
+      "false 0"
+    ],
+    "answer": "true -1",
+    "explanation": {
+      "en": "includes uses SameValueZero which matches NaN; indexOf uses === which never does.",
+      "ar": "‏includes تستخدم SameValueZero فتطابق NaN، أما indexOf فتستخدم === ولا تطابقها أبدًا."
+    }
+  },
+  {
+    "id": 97,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log((0.1 * 3).toFixed(2), typeof (1).toFixed(1));",
+    "question": {
+      "en": "What is logged?",
+      "ar": "ما الذي سيُسجَّل؟"
+    },
+    "options": [
+      "0.30 string",
+      "0.3 number",
+      "0.30 number",
+      "0.3 string"
+    ],
+    "answer": "0.30 string",
+    "explanation": {
+      "en": "toFixed keeps trailing zeros and always returns a string.",
+      "ar": "‏toFixed تُبقي الأصفار اللاحقة وتُعيد نصًا دائمًا."
+    }
+  },
+  {
+    "id": 98,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log(new Date(2026, 0, 15).getMonth());",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "0",
+      "1",
+      "15",
+      "12"
+    ],
+    "answer": "0",
+    "explanation": {
+      "en": "Date months are zero-based, so January is 0.",
+      "ar": "أشهر Date تبدأ من الصفر، فيناير هو 0."
+    }
+  },
+  {
+    "id": 99,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log('a,b,,c'.split(',').length);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "4",
+      "3",
+      "5",
+      "2"
+    ],
+    "answer": "4",
+    "explanation": {
+      "en": "The empty field between the two commas is kept as an empty string.",
+      "ar": "الحقل الفارغ بين الفاصلتين يبقى كنص فارغ."
+    }
+  },
+  {
+    "id": 100,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log(String([1, [2, 3]]));",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "1,2,3",
+      "1,[2,3]",
+      "[1,[2,3]]",
+      "1,2 3"
+    ],
+    "answer": "1,2,3",
+    "explanation": {
+      "en": "Array to string joins with commas and flattens nested arrays the same way.",
+      "ar": "تحويل المصفوفة إلى نص يربطها بفواصل ويعامل المتداخلة بالطريقة نفسها."
+    }
+  },
+  {
+    "id": 101,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log([10, 9, 8].findIndex((x) => x < 9));",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "2",
+      "8",
+      "-1",
+      "1"
+    ],
+    "answer": "2",
+    "explanation": {
+      "en": "findIndex returns the position of the first match, not the value.",
+      "ar": "‏findIndex تُعيد موضع أول مطابقة لا قيمتها."
+    }
+  },
+  {
+    "id": 102,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "print(list(zip([1, 2, 3], [4, 5])))",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "[(1, 4), (2, 5)]",
+      "[(1, 4), (2, 5), (3, None)]",
+      "[(1, 2, 3), (4, 5)]",
+      "[1, 4, 2, 5]"
+    ],
+    "answer": "[(1, 4), (2, 5)]",
+    "explanation": {
+      "en": "zip stops at the shortest iterable and drops the leftover.",
+      "ar": "‏zip تتوقّف عند أقصر متكرّر وتُهمل الزائد."
+    }
+  },
+  {
+    "id": 103,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "print('a-b-c'.split('-', 1))",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "['a', 'b-c']",
+      "['a', 'b', 'c']",
+      "['a-b', 'c']",
+      "['a']"
+    ],
+    "answer": "['a', 'b-c']",
+    "explanation": {
+      "en": "The second argument caps how many splits are performed.",
+      "ar": "الوسيط الثاني يحدّ عدد مرات التقسيم."
+    }
+  },
+  {
+    "id": 104,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "print({1, 2} | {2, 3}, {1, 2} & {2, 3})",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "{1, 2, 3} {2}",
+      "{1, 2, 3} {1, 3}",
+      "{2} {1, 2, 3}",
+      "{1, 2, 2, 3} {2}"
+    ],
+    "answer": "{1, 2, 3} {2}",
+    "explanation": {
+      "en": "| is set union and & is set intersection.",
+      "ar": "‏| اتحاد المجموعتين و& تقاطعهما."
+    }
+  },
+  {
+    "id": 105,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "print(max('apple', 'banana'))",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "banana",
+      "apple",
+      "6",
+      "banana apple"
+    ],
+    "answer": "banana",
+    "explanation": {
+      "en": "Two strings compare lexicographically, and 'b' beats 'a'.",
+      "ar": "النصان يُقارنان معجميًا، و'b' تسبق 'a'."
+    }
+  },
+  {
+    "id": 106,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "print('x'.join([]), len('x'.join([])))",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      " 0",
+      "x 1",
+      "None 0",
+      "TypeError"
+    ],
+    "answer": " 0",
+    "explanation": {
+      "en": "Joining nothing yields the empty string, so the length is zero.",
+      "ar": "دمج لا شيء يعطي نصًا فارغًا فيكون الطول صفرًا."
+    }
+  },
+  {
+    "id": 107,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "print(bin(5), hex(255))",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "0b101 0xff",
+      "101 ff",
+      "0b101 0xFF",
+      "5 255"
+    ],
+    "answer": "0b101 0xff",
+    "explanation": {
+      "en": "Both keep their base prefix and hex uses lowercase digits.",
+      "ar": "كلاهما يحتفظ ببادئة الأساس، والست عشري يستخدم حروفًا صغيرة."
+    }
+  },
+  {
+    "id": 108,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "const o = Object.freeze({ n: 1 });\no.n = 2;\nconsole.log(o.n);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "1",
+      "2",
+      "undefined",
+      "TypeError"
+    ],
+    "answer": "1",
+    "explanation": {
+      "en": "In non-strict code the write on a frozen object fails silently.",
+      "ar": "في الوضع غير الصارم تفشل الكتابة على كائن مجمّد بصمت."
+    }
+  },
+  {
+    "id": 109,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log(Object.entries({ a: 1 }).flat());",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "['a', 1]",
+      "[['a', 1]]",
+      "['a']",
+      "[1]"
+    ],
+    "answer": "['a', 1]",
+    "explanation": {
+      "en": "entries gives [['a',1]] and flat lifts the pair one level.",
+      "ar": "‏entries تعطي ‎[['a',1]]‎ وflat ترفع الزوج مستوى واحدًا."
+    }
+  },
+  {
+    "id": 110,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log([1, 2, 3].fill(0, 1));",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "[1, 0, 0]",
+      "[0, 0, 0]",
+      "[1, 2, 0]",
+      "[0, 2, 3]"
+    ],
+    "answer": "[1, 0, 0]",
+    "explanation": {
+      "en": "fill overwrites from the given start index to the end.",
+      "ar": "‏fill تكتب من فهرس البداية المعطى حتى النهاية."
+    }
+  },
+  {
+    "id": 111,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "d = {'a': 1}\nprint(d.get('b'), d.get('b', 0))",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "None 0",
+      "0 0",
+      "KeyError",
+      "None None"
+    ],
+    "answer": "None 0",
+    "explanation": {
+      "en": "get returns None for a missing key unless a default is given.",
+      "ar": "‏get تُعيد None للمفتاح المفقود ما لم تُعطَ قيمة افتراضية."
+    }
+  },
+  {
+    "id": 112,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "print(sorted([3, 1, 2], reverse=True), [3, 1, 2].sort())",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "[3, 2, 1] None",
+      "[3, 2, 1] [1, 2, 3]",
+      "[1, 2, 3] None",
+      "[3, 2, 1] [3, 2, 1]"
+    ],
+    "answer": "[3, 2, 1] None",
+    "explanation": {
+      "en": "sorted returns a new list; list.sort() sorts in place and returns None.",
+      "ar": "‏sorted تُعيد قائمة جديدة، أما list.sort() فترتّب في مكانها وتُعيد None."
+    }
+  },
+  {
+    "id": 113,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "console.log([] == false, [] == 0, [0] == false);",
+    "question": {
+      "en": "What is logged?",
+      "ar": "ما الذي سيُسجَّل؟"
+    },
+    "options": [
+      "true true true",
+      "false false false",
+      "true false true",
+      "false true false"
+    ],
+    "answer": "true true true",
+    "explanation": {
+      "en": "Each side converts to a number, and both [] and [0] become 0.",
+      "ar": "يتحوّل كل طرف إلى عدد، وتصبح [] و[0] صفرًا."
+    }
+  },
+  {
+    "id": 114,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "const re = /a/g;\nconsole.log(re.test('a'), re.test('a'));",
+    "question": {
+      "en": "What is logged?",
+      "ar": "ما الذي سيُسجَّل؟"
+    },
+    "options": [
+      "true false",
+      "true true",
+      "false true",
+      "false false"
+    ],
+    "answer": "true false",
+    "explanation": {
+      "en": "A global regex keeps lastIndex between calls, so the second test starts past the match.",
+      "ar": "التعبير النمطي العام يحتفظ بـ lastIndex بين الاستدعاءات، فيبدأ الفحص الثاني بعد المطابقة."
+    }
+  },
+  {
+    "id": 115,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "function f() {\n  try { return 1; } finally { return 2; }\n}\nconsole.log(f());",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "2",
+      "1",
+      "undefined",
+      "SyntaxError"
+    ],
+    "answer": "2",
+    "explanation": {
+      "en": "A return inside finally overrides the one from try.",
+      "ar": "‏return داخل finally تتجاوز تلك التي في try."
+    }
+  },
+  {
+    "id": 116,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "console.log(typeof typeof 1);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "string",
+      "number",
+      "undefined",
+      "object"
+    ],
+    "answer": "string",
+    "explanation": {
+      "en": "The inner typeof yields 'number', and the type of that string is 'string'.",
+      "ar": "‏typeof الداخلية تعطي 'number'، ونوع ذلك النص هو 'string'."
+    }
+  },
+  {
+    "id": 117,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "const a = [1, 2, 3];\na.length = 1;\nconsole.log(a);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "[1]",
+      "[1, 2, 3]",
+      "[]",
+      "[1, undefined, undefined]"
+    ],
+    "answer": "[1]",
+    "explanation": {
+      "en": "Assigning a shorter length truncates the array in place.",
+      "ar": "إسناد طول أقصر يقتطع المصفوفة في مكانها."
+    }
+  },
+  {
+    "id": 118,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "console.log(0.1 + 0.2 + 0.3 === 0.3 + 0.2 + 0.1);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "false",
+      "true",
+      "NaN",
+      "TypeError"
+    ],
+    "answer": "false",
+    "explanation": {
+      "en": "Float addition is not associative, so the two orders round differently.",
+      "ar": "جمع الأعداد العشرية ليس تجميعيًا، فيختلف التقريب باختلاف الترتيب."
+    }
+  },
+  {
+    "id": 119,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "a = 256\nb = int('256')\nc = 1000\nd = int('1000')\nprint(a is b, c is d)",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "True False",
+      "True True",
+      "False False",
+      "False True"
+    ],
+    "answer": "True False",
+    "explanation": {
+      "en": "CPython caches small integers up to 256, so 256 is reused while 1000 is a fresh object.",
+      "ar": "‏CPython تخزّن الأعداد الصغيرة حتى 256، فيُعاد استخدام 256 بينما 1000 كائن جديد."
+    }
+  },
+  {
+    "id": 120,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "x = [1, 2, 3]\ny = x[:]\ny[0] = 9\nprint(x[0], x is y, x == y)",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "1 False False",
+      "9 False False",
+      "1 True True",
+      "1 False True"
+    ],
+    "answer": "1 False False",
+    "explanation": {
+      "en": "A slice copies, so x is unchanged; the lists are neither the same object nor equal now.",
+      "ar": "التقطيع ينسخ فتبقى x كما هي؛ والقائمتان ليستا الكائن نفسه ولا متساويتين الآن."
+    }
+  },
+  {
+    "id": 121,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "print([x for x in 'abc'], [x for x in ''])",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "['a', 'b', 'c'] []",
+      "['abc'] []",
+      "['a', 'b', 'c'] ['']",
+      "'abc' ''"
+    ],
+    "answer": "['a', 'b', 'c'] []",
+    "explanation": {
+      "en": "Iterating a string yields its characters; an empty string yields nothing.",
+      "ar": "المرور على النص يعطي حروفه، والنص الفارغ لا يعطي شيئًا."
+    }
+  },
+  {
+    "id": 122,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "def f(n, acc=0):\n    if n == 0: return acc\n    return f(n - 1, acc + n)\nprint(f(4))",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "10",
+      "4",
+      "0",
+      "24"
+    ],
+    "answer": "10",
+    "explanation": {
+      "en": "The accumulator sums 4+3+2+1 before the base case returns it.",
+      "ar": "المُجمِّع يجمع 4+3+2+1 قبل أن تُعيده حالة الأساس."
+    }
+  },
+  {
+    "id": 123,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "s = {3, 1, 2}\nprint(sorted(s) == [1, 2, 3], list(s)[0] == 1)",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "True True",
+      "True False",
+      "False True",
+      "False False"
+    ],
+    "answer": "True True",
+    "explanation": {
+      "en": "sorted always orders a set; for these small ints the iteration order also starts at 1.",
+      "ar": "‏sorted ترتّب المجموعة دائمًا، ومع هذه الأعداد الصغيرة يبدأ المرور أيضًا من 1."
+    }
+  },
+  {
+    "id": 124,
+    "category": "typescript",
+    "difficulty": "hard",
+    "codeSnippet": "enum Dir { Up = 1, Down }\nconsole.log(Dir.Down, Dir[2]);",
+    "question": {
+      "en": "What is logged?",
+      "ar": "ما الذي سيُسجَّل؟"
+    },
+    "options": [
+      "2 Down",
+      "1 Up",
+      "2 2",
+      "Down 2"
+    ],
+    "answer": "2 Down",
+    "explanation": {
+      "en": "Members auto-increment, and a numeric enum also maps values back to names.",
+      "ar": "الأعضاء تتزايد تلقائيًا، والـ enum الرقمي يربط القيم بأسمائها أيضًا."
+    }
+  },
+  {
+    "id": 125,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "console.log([1, 2, 3].map((x, i, arr) => arr.length));",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "[3, 3, 3]",
+      "[1, 2, 3]",
+      "[0, 1, 2]",
+      "[3]"
+    ],
+    "answer": "[3, 3, 3]",
+    "explanation": {
+      "en": "The third callback argument is the whole array, whose length is 3 each time.",
+      "ar": "الوسيط الثالث للاستدعاء هو المصفوفة كاملة، وطولها 3 في كل مرة."
+    }
+  },
+  {
+    "id": 126,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "let x = 0;\nconst y = x++ + ++x;\nconsole.log(x, y);",
+    "question": {
+      "en": "What is logged?",
+      "ar": "ما الذي سيُسجَّل؟"
+    },
+    "options": [
+      "2 2",
+      "2 3",
+      "1 1",
+      "2 1"
+    ],
+    "answer": "2 2",
+    "explanation": {
+      "en": "x++ contributes 0 then x becomes 1; ++x makes it 2 and contributes 2.",
+      "ar": "‏x++ تساهم بصفر ثم تصبح x واحدًا، و‎++x تجعلها 2 وتساهم بـ 2."
+    }
+  },
+  {
+    "id": 127,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "print(float('inf') > 10 ** 100, int(True) + int(True))",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      "True 2",
+      "False 2",
+      "True 1",
+      "False 1"
+    ],
+    "answer": "True 2",
+    "explanation": {
+      "en": "Infinity exceeds any finite integer, and int(True) is 1.",
+      "ar": "اللانهاية تتجاوز أي عدد صحيح منتهٍ، وint(True) تساوي 1."
+    }
+  },
+  {
+    "id": 128,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "print('ab' * 0, len('ab' * 0), [] * 5)",
+    "question": {
+      "en": "What is printed?",
+      "ar": "ما الذي سيُطبع؟"
+    },
+    "options": [
+      " 0 []",
+      "ab 2 []",
+      " 0 [[]]",
+      "None 0 []"
+    ],
+    "answer": " 0 []",
+    "explanation": {
+      "en": "Multiplying a sequence by zero empties it, so nothing is printed for it.",
+      "ar": "ضرب المتسلسلة في صفر يفرغها، فلا يُطبع لها شيء."
+    }
+  },
+  {
+    "id": 129,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "const s = new Set([1, '1', 1]);\nconsole.log(s.size);",
+    "question": {
+      "en": "What is the output?",
+      "ar": "ما ناتج التنفيذ؟"
+    },
+    "options": [
+      "2",
+      "1",
+      "3",
+      "0"
+    ],
+    "answer": "2",
+    "explanation": {
+      "en": "A Set compares without coercion, so 1 and '1' are different but the repeat 1 collapses.",
+      "ar": "‏Set تقارن بلا تحويل، فيختلف 1 عن '1' بينما يندمج التكرار."
+    }
+  },
+  {
+    "id": 130,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "console.log(['a', 'b'].forEach(() => {}), ['a'].map(() => {}));",
+    "question": {
+      "en": "What is logged?",
+      "ar": "ما الذي سيُسجَّل؟"
+    },
+    "options": [
+      "undefined [undefined]",
+      "undefined []",
+      "[] []",
+      "undefined undefined"
+    ],
+    "answer": "undefined [undefined]",
+    "explanation": {
+      "en": "forEach returns undefined; map returns an array of each callback's undefined result.",
+      "ar": "‏forEach تُعيد undefined، وmap تُعيد مصفوفة بنتائج الاستدعاء وهي undefined."
+    }
   }
 ]

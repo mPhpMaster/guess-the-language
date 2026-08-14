@@ -1,11 +1,13 @@
 'use strict';
 
-/* Append the authored batches in scripts/new/arena-*-v2.json to their banks.
-   Assigns ids continuing from each bank's current maximum, builds the tolerant
-   `accept` list for fill questions, and refuses to add a snippet that already
-   exists. Run with --dry to see the plan without writing.
+/* Append an authored batch (scripts/new/arena-{bug,output,fill}-<tag>.json) to the
+   banks. Assigns ids continuing from each bank's current maximum, builds the
+   tolerant `accept` list for fill questions, and refuses a snippet that already
+   exists — so re-running a batch is a no-op rather than a duplicate.
 
-     node scripts/append-arena-v2.js [--dry]
+     node scripts/append-arena-v2.js v3 [--dry]
+
+   The tag defaults to v2, which is what the first authored batch used.
 */
 
 const fs = require('fs');
@@ -14,11 +16,12 @@ const path = require('path');
 const DATA = path.join(__dirname, '..', 'src', 'data');
 const NEW = path.join(__dirname, 'new');
 const DRY = process.argv.includes('--dry');
+const TAG = process.argv.slice(2).find((a) => !a.startsWith('--')) || 'v2';
 
 const JOBS = [
-  { src: 'arena-bug-v2.json', bank: 'questions-bug.json', kind: 'mc' },
-  { src: 'arena-output-v2.json', bank: 'questions-output.json', kind: 'mc' },
-  { src: 'arena-fill-v2.json', bank: 'questions-algo.json', kind: 'fill' }
+  { src: `arena-bug-${TAG}.json`, bank: 'questions-bug.json', kind: 'mc' },
+  { src: `arena-output-${TAG}.json`, bank: 'questions-output.json', kind: 'mc' },
+  { src: `arena-fill-${TAG}.json`, bank: 'questions-algo.json', kind: 'fill' }
 ];
 
 // Grading already ignores case and surrounding space; these cover the spacing
