@@ -910,6 +910,59 @@ export async function confirmJoinRoom() {
     }
 }
 
+// Admin "Join" from the panel's Live tab: drop into the room a live player is in.
+// The seat itself is created server-side (`join_room` admin action, gated by the
+// unlock token); this only leaves whatever room we were in, adopts the returned
+// ids, and lands on the same screens confirmJoinRoom() does. Throws on failure so
+// the caller can show a friendly message — a reaped room is a normal outcome.
+export async function adminJoinRoomFlow(roomId) {
+    if (!roomId) return;
+    // Leave first, or our previous room_players row is left orphaned in that room.
+    let leftRoom = false;
+    if (state.multiplayer) {
+        try {
+            await window.GTL_MULTIPLAYER.leaveRoom();
+        } catch (e) {
+            console.warn('admin join: leaving current room failed:', e);
+        }
+        state.multiplayer = false;
+        leftRoom = true;
+    }
+    try {
+        await loadAllBanks();
+        const data = await adminApi('join_room', { roomId, name: getPlayerName() });
+        const seat = (data && data.room) || null;
+        if (!seat || !seat.roomId || !seat.playerId) throw new Error('join_room returned no seat');
+        // seat.name may be a SUFFIXED variant of the name we sent (" (2)") when it
+        // collided inside that room. We deliberately don't write it back to the
+        // local player name: the suffix disambiguates one room, while getPlayerName()
+        // is the account identity that progress/follows/leaderboards key off. Every
+        // room-local view resolves us by playerId (me(), amSpectator(), the room
+        // leaderboard's `you`), so the suffixed name renders from the server row.
+        await window.GTL_MULTIPLAYER.adoptSession({
+            roomId: seat.roomId,
+            playerId: seat.playerId,
+            code: seat.code
+        });
+        // ---- landing tail, same as confirmJoinRoom() ----
+        state.multiplayer = true;
+        state.viewOnly = false;
+        state.spectator = amSpectator();
+        const mp = window.GTL_MULTIPLAYER.state;
+        if (mp.room && mp.room.status === 'playing') {
+            handleMultiplayerUpdate(mp.room, mp.players);
+        } else {
+            showScreen('lobby');
+            renderLobby(mp.room, mp.players);
+        }
+    } catch (e) {
+        // We may already have given up the old seat — don't strand the player on a
+        // lobby/game screen for a room they are no longer in.
+        if (leftRoom) returnHome();
+        throw e;
+    }
+}
+
 export async function lobbyStartGame() {
     const room = window.GTL_MULTIPLAYER.state.room;
     const settings = Object.assign({}, getSettings(), (room && room.settings) || {}, {

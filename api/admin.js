@@ -24,7 +24,8 @@ const {
 // Actions that change state. Read-only actions (whoami / reports / users /
 // live / banned) keep the pre-existing `adm`-only gate.
 const MUTATING_ACTIONS = new Set([
-  'delete_score', 'ban', 'unban', 'reset_profile', 'make_host', 'kick', 'resolve_report'
+  'delete_score', 'ban', 'unban', 'reset_profile', 'make_host', 'kick', 'resolve_report',
+  'join_room'
 ]);
 
 // ---- Brute-force guard for `unlock` ----------------------------------------
@@ -106,6 +107,67 @@ async function sb(cfg, path, opts = {}) {
 // Call a service_role-only RPC.
 function rpc(cfg, fn, args) {
   return sb(cfg, `rpc/${fn}`, { method: 'POST', body: JSON.stringify(args) });
+}
+
+// ---- Live presence -> room resolution ---------------------------------------
+// `presence` has no room column, and adding one would mean shipping a new
+// heartbeat RPC to every client first. The room is recoverable server-side
+// instead: presence.player equals room_players.name, and for Discord players
+// presence.discord_id equals room_players.discord_user_id (the exact match, so
+// it is tried first). Names are not unique across rooms, so when a name lands in
+// more than one room we take the newest membership and say so via `ambiguous`
+// rather than silently guessing.
+const NO_ROOM = {
+  roomId: null, roomCode: null, roomStatus: null, roomMode: null, roomPlayers: null, ambiguous: false
+};
+
+function pushTo(map, key, value) {
+  if (!key) return;
+  const list = map.get(key);
+  if (list) list.push(value); else map.set(key, [value]);
+}
+
+function newest(list) {
+  return list.reduce((a, b) =>
+    (Date.parse(b.joined_at || 0) || 0) > (Date.parse(a.joined_at || 0) || 0) ? b : a);
+}
+
+async function attachRooms(cfg, rows) {
+  if (!rows.length) return rows;
+  const [rooms, players] = await Promise.all([
+    sb(cfg, 'rooms?select=id,code,status,mode&order=created_at.desc&limit=500'),
+    sb(cfg, 'room_players?select=room_id,name,discord_user_id,joined_at&order=joined_at.desc&limit=2000')
+  ]);
+
+  const roomById = new Map((rooms || []).map((r) => [r.id, r]));
+  const headcount = new Map();
+  const byDiscord = new Map();
+  const byName = new Map();
+  for (const p of players || []) {
+    if (!roomById.has(p.room_id)) continue; // room aged out of the page above
+    headcount.set(p.room_id, (headcount.get(p.room_id) || 0) + 1);
+    pushTo(byDiscord, p.discord_user_id ? String(p.discord_user_id).trim() : '', p);
+    pushTo(byName, String(p.name || '').trim().toLowerCase(), p);
+  }
+
+  return rows.map((row) => {
+    const discordId = row.discord_id ? String(row.discord_id).trim() : '';
+    let matches = discordId ? byDiscord.get(discordId) : null;
+    if (!matches || !matches.length) matches = byName.get(String(row.player || '').trim().toLowerCase());
+    if (!matches || !matches.length) return { ...row, ...NO_ROOM };
+    const best = newest(matches);
+    const room = roomById.get(best.room_id);
+    if (!room) return { ...row, ...NO_ROOM };
+    return {
+      ...row,
+      roomId: room.id,
+      roomCode: room.code,
+      roomStatus: room.status,
+      roomMode: room.mode,
+      roomPlayers: headcount.get(room.id) || 0,
+      ambiguous: new Set(matches.map((m) => m.room_id)).size > 1
+    };
+  });
 }
 
 module.exports = async function handler(req, res) {
@@ -251,6 +313,21 @@ module.exports = async function handler(req, res) {
         return res.status(200).json({ ok: true, result: out || null });
       }
 
+      /* Drop the admin into a live room as an ordinary player. join_room refuses
+         a room that already started (and any duplicate name), so this goes
+         through the service-role twin, which spectates the round in progress and
+         suffixes a colliding name instead of failing. */
+      case 'join_room': {
+        const roomId = String(req.body?.roomId || '').trim();
+        const name = String(req.body?.name || '').trim().slice(0, 24);
+        if (!UUID_RE.test(roomId)) return res.status(400).json({ error: 'Bad roomId' });
+        if (!name) return res.status(400).json({ error: 'Bad name' });
+        const out = await rpc(cfg, 'admin_join_room', {
+          p_room_id: roomId, p_name: name, p_by: by
+        });
+        return res.status(200).json({ ok: true, room: out || null });
+      }
+
       case 'banned': {
         const rows = await sb(cfg, 'banned_players?select=player,reason,banned_by,created_at&order=created_at.desc&limit=200');
         return res.status(200).json({ banned: rows || [] });
@@ -274,7 +351,15 @@ module.exports = async function handler(req, res) {
         const rows = await sb(cfg,
           'presence?select=player,discord_id,guild_id,channel_id,mode,activity,platform,updated_at' +
           `&updated_at=gte.${since}&order=updated_at.desc&limit=200`);
-        return res.status(200).json({ live: rows || [] });
+        let live = rows || [];
+        try {
+          live = await attachRooms(cfg, live);
+        } catch (roomErr) {
+          // Room lookup is decoration; never let it take the Live tab down.
+          console.error('live room decoration failed:', roomErr && roomErr.message);
+          live = live.map((row) => ({ ...row, ...NO_ROOM }));
+        }
+        return res.status(200).json({ live });
       }
 
       default:

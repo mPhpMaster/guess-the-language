@@ -1,7 +1,7 @@
-import { $, closeDialog, openDialog } from './dom.js';
+import { $, announce, closeDialog, openDialog } from './dom.js';
 import { t } from './i18n.js';
-import { appApiPrefix, getAppSessionToken, safeDisplayName } from './identity.js';
-import { modeLabel } from './mp-ui.js';
+import { appApiPrefix, getAppSessionToken, isDiscordActivity, safeDisplayName } from './identity.js';
+import { adminJoinRoomFlow, modeLabel } from './mp-ui.js';
 import { openProfileCard } from './profile.js';
 import { escapeHtml } from './util.js';
 
@@ -334,6 +334,60 @@ export function renderAdminUsers(preload) {
     run();
 }
 
+// A join failure closes over nothing useful (the panel is already shut), so put
+// the panel back up on the Live tab with the reason pinned above the rows.
+async function reopenAdminLiveWithNotice(msg) {
+    announce(msg);
+    if (!isAdmin() || !isAdminUnlocked()) return;
+    $('#admin-modal').classList.remove('hidden');
+    $('#admin-title').textContent = t('adminTitle');
+    renderAdminTabs();
+    await loadAdminTab('live'); // awaited, so the notice survives the re-render
+    const body = $('#admin-body');
+    if (!body) return;
+    const note = document.createElement('p');
+    note.className = 'admin-msg admin-err';
+    note.textContent = msg; // textContent — never innerHTML for a server string
+    body.prepend(note);
+}
+
+// Rooms are reaped automatically, so "it's gone" is an ordinary outcome here.
+function joinFailText(err) {
+    const code = (err && err.code) || '';
+    const status = (err && err.status) || 0;
+    if (status === 404 || status === 410) return t('adminJoinGone');
+    if (/room_gone|room_not_found|no_room|not_found/i.test(code)) return t('adminJoinGone');
+    if (/not found|no longer|ended|gone/i.test((err && err.message) || '')) return t('adminJoinGone');
+    return t('adminJoinFail');
+}
+
+// The Join button deliberately does NOT go through runAdmin(): that helper
+// reloads the current tab afterwards, and by then we've left the panel entirely.
+export function adminJoinBtn(p) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'admin-act admin-join';
+    const code = String(p.roomCode || '').trim().toUpperCase();
+    const heads = Number(p.roomPlayers) || 0;
+    // textContent, so an untrusted room code can never become markup.
+    b.textContent = code
+        ? `${t('adminJoin')} ${code}${heads ? ` (${heads})` : ''}`
+        : t('adminJoin');
+    b.title = p.ambiguous ? t('adminJoinAmbiguous') : t('adminJoinHint');
+    b.onclick = async () => {
+        b.disabled = true;
+        closeAdminPanel();
+        try {
+            await adminJoinRoomFlow(p.roomId);
+        } catch (e) {
+            console.warn('admin join_room:', e);
+            b.disabled = false;
+            reopenAdminLiveWithNotice(joinFailText(e)).catch(() => {});
+        }
+    };
+    return b;
+}
+
 export function renderAdminLive(data) {
     const body = $('#admin-body');
     const live = (data && data.live) || [];
@@ -348,6 +402,10 @@ export function renderAdminLive(data) {
             `<div class="admin-row-sub">${escapeHtml(modeLabel(p.mode || ''))} · ${escapeHtml(p.platform || '')} · ${server} · ${escapeHtml(timeAgo(p.updated_at))}</div></div>`;
         const acts = document.createElement('div');
         acts.className = 'admin-row-acts';
+        // Only rows where the player is actually in a room get a Join button, and
+        // never inside Discord: rooms there are pinned to the voice-channel
+        // instance, so the Activity would pull the admin straight back out.
+        if (p.roomId && !isDiscordActivity()) acts.appendChild(adminJoinBtn(p));
         acts.appendChild(adminActionBtn(t('adminBan'), 'danger', () => adminApi('ban', { player: p.player, reason: 'admin' }), true));
         row.appendChild(acts);
         body.appendChild(row);

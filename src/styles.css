@@ -2018,6 +2018,9 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
 .admin-act.danger { border-color: #ff547d55; color: #ff9fb6; background: #ff547d12; }
 .admin-act.danger:hover { background: #ff547d22; }
 .admin-act.is-armed { background: #ff547d; color: #fff; border-color: #ff547d; }
+/* "Join" on a Live row — a normal action, kept visually apart from the danger Ban. */
+.admin-act.admin-join { border-color: #6fd3ff55; color: #a9e4ff; background: #6fd3ff12; }
+.admin-act.admin-join:hover { background: #6fd3ff22; }
 .admin-act:disabled { opacity: 0.6; cursor: default; }
 
 /* Admin controls embedded in a player card (leaderboard / lobby / in-game). */
