@@ -2,7 +2,6 @@
 
 const {
   verifySession,
-  adminPasscodeConfigured,
   checkAdminPasscode,
   signUnlock,
   verifyUnlock,
@@ -126,10 +125,8 @@ module.exports = async function handler(req, res) {
   // Second factor. Requires an already-verified admin session, so a non-admin
   // cannot even reach the passcode check.
   if (action === 'unlock') {
-    if (!adminPasscodeConfigured()) {
-      // Fail closed — never "no passcode configured, so let them in".
-      return res.status(503).json({ error: 'Admin passcode is not configured', code: 'unlock_unconfigured' });
-    }
+    // A passcode always exists: ADMIN_PASSCODE when set, otherwise today's date
+    // as DDMMYYYY (see api/_session.js). It is never skipped.
     const key = String(session.sub || '');
     const wait = unlockCooldown(key);
     if (wait > 0) {

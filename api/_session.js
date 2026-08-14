@@ -34,12 +34,37 @@ function isAdminUsername(username) {
 }
 
 // ---- Admin passcode (second factor on top of the signed `adm` claim) ----
-// The expected value lives ONLY in the ADMIN_PASSCODE env var. There is no
-// default and no fallback: when it is unset the unlock action fails closed.
+// Normally the expected value is the ADMIN_PASSCODE env var. When that is unset
+// the passcode falls back to TODAY'S DATE as DDMMYYYY (e.g. 14082026).
+//
+// That fallback is deliberately weak and is a convenience, not a security
+// control: anyone who knows the scheme can derive it. It does not open the panel
+// to the public — the FIRST factor still applies, an HMAC-signed `adm` claim set
+// server-side from the real Discord username, which cannot be forged. But it does
+// give up most of what the second factor was for (someone using an already
+// signed-in session). Set ADMIN_PASSCODE to get real second-factor protection.
 const UNLOCK_TTL_SECONDS = 30 * 60;
 
 function adminPasscodeConfigured() {
   return typeof process.env.ADMIN_PASSCODE === 'string' && process.env.ADMIN_PASSCODE.length > 0;
+}
+
+// The date-based fallback, as DDMMYYYY. The server runs on UTC while the owner is
+// in Asia/Riyadh (UTC+3), so both dates are accepted — otherwise "today's date"
+// would stop working three hours before local midnight every night.
+const FALLBACK_TZ_OFFSETS_MINUTES = [0, 180]; // UTC, Asia/Riyadh
+
+function fallbackPasscodes(now = Date.now()) {
+  const out = new Set();
+  for (const offset of FALLBACK_TZ_OFFSETS_MINUTES) {
+    const d = new Date(now + offset * 60000);
+    out.add(
+      String(d.getUTCDate()).padStart(2, '0') +
+      String(d.getUTCMonth() + 1).padStart(2, '0') +
+      String(d.getUTCFullYear())
+    );
+  }
+  return [...out];
 }
 
 // Constant-time equality that leaks neither the content nor the LENGTH of the
@@ -54,12 +79,18 @@ function safeEquals(a, b) {
   return crypto.timingSafeEqual(da, db);
 }
 
-// Returns true only when a passcode is configured AND matches. Never logs or
-// echoes the value.
+// Never logs or echoes the value. Falls back to the date passcode when
+// ADMIN_PASSCODE is unset (see the note above).
 function checkAdminPasscode(candidate) {
-  if (!adminPasscodeConfigured()) return false;
   if (typeof candidate !== 'string' || !candidate.length) return false;
-  return safeEquals(candidate, process.env.ADMIN_PASSCODE);
+  if (adminPasscodeConfigured()) return safeEquals(candidate, process.env.ADMIN_PASSCODE);
+  // Every candidate is compared, with no early exit, so the time taken does not
+  // reveal which of the accepted dates matched.
+  let ok = false;
+  for (const expected of fallbackPasscodes()) {
+    if (safeEquals(candidate, expected)) ok = true;
+  }
+  return ok;
 }
 
 // Short-lived "the human at the keyboard typed the passcode" token. It reuses
