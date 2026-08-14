@@ -160,16 +160,34 @@
     return mp.players.find((p) => p.id === mp.playerId) || null;
   }
 
+  /* Every column EXCEPT `code`, listed explicitly rather than '*'.
+     `rooms` is readable by anon (realtime needs that, and RLS cannot express
+     "only the rooms I am in" without an auth identity), which means anyone
+     holding the public anon key can list every live room. While the code is in
+     that projection they can also JOIN those rooms. So the plan is to drop
+     `code` from anon's SELECT grant server-side — and a client asking for '*'
+     would then get "permission denied for table rooms" and lose multiplayer
+     entirely. Naming the columns makes this client survive that change.
+     We never need the column anyway: the code arrives in the create/join RPC
+     result and is re-attached below. */
+  const ROOM_COLUMNS = [
+    'id', 'status', 'mode', 'host_player_id', 'created_at', 'finished_at',
+    'discord_instance_id', 'settings', 'round_refs', 'question_index',
+    'question_ends_at', 'phase'
+  ].join(',');
+
   async function fetchRoom() {
     if (!mp.roomId) return null;
     const { data, error } = await getClient()
       .from('rooms')
-      .select('*')
+      .select(ROOM_COLUMNS)
       .eq('id', mp.roomId)
       .single();
     if (error) throw new Error(error.message);
-    mp.room = data;
-    return data;
+    // Re-attach the code we already hold, so room.code keeps working for the
+    // lobby display and the invite/copy buttons.
+    mp.room = { ...data, code: mp.code || null };
+    return mp.room;
   }
 
   async function fetchPlayers() {
@@ -293,7 +311,9 @@
           emitUpdate();
           return;
         }
-        mp.room = payload.new || mp.room;
+        // Realtime rows follow the same SELECT grant as a query, so `code` may be
+        // absent here; keep the one we already hold rather than blanking it.
+        mp.room = payload.new ? { ...payload.new, code: mp.code || payload.new.code || null } : mp.room;
         const key = syncKey(mp.room);
         if (key !== mp.lastSyncKey) {
           mp.lastSyncKey = key;
