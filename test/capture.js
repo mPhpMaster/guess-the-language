@@ -34,6 +34,10 @@ app.whenReady().then(async () => {
   const run = (js) => win.webContents.executeJavaScript(js, true);
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   async function snap(name) {
+    // The first-run welcome overlay blurs and covers the whole page. reload()
+    // marks it seen, but never let a stray one land in a screenshot.
+    const covered = await run("(() => { const el = document.getElementById('onboarding'); if (!el || !el.classList.contains('show')) return ''; el.classList.remove('show'); return '1'; })()");
+    if (covered) { console.warn('dismissed a stray onboarding overlay before', name); await sleep(200); }
     const img = await win.webContents.capturePage();
     fs.writeFileSync(path.join(OUT, name), img.toPNG());
     console.log('saved', name);
@@ -46,8 +50,11 @@ app.whenReady().then(async () => {
       settings = Object.assign({}, settings, { name: settings.name || 'Capture' });
       await run(`localStorage.setItem('gtl_settings', '${JSON.stringify(settings)}'); 'ok'`);
     }
-    if (settings) { await win.loadFile(path.join(SRC, 'index.html')); await sleep(450); }
-    else await sleep(300);
+    // Mark the first-run welcome seen. It pops 500ms after boot, i.e. exactly
+    // inside the capture window, and covers every screen behind a blur.
+    await run("localStorage.setItem('gtl_onboarded', '1'); 'ok'");
+    await win.loadFile(path.join(SRC, 'index.html'));
+    await sleep(450);
     // Use the offline mock leaderboard for screenshots (don't write to real Supabase).
     await run("window.SUPABASE_CONFIG = { url: '', anonKey: '' }; 'ok'");
   }
