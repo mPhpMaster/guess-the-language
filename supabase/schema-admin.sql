@@ -115,12 +115,64 @@ begin
   delete from public.presence where lower(trim(player)) = v_key;
 end $$;
 
+-- ===== In-room moderation (migration admin_room_moderation) =====
+-- Mirrors make_host / kick_player but deliberately OMITS _assert_admin. The room
+-- RPCs identify their caller by a client-supplied room_players.id, which can only
+-- ever prove "I am the host of THIS room" — a site admin sitting in the room as an
+-- ordinary player has no way to prove admin-ness on that path. Authorization moves
+-- upstream to api/admin.js (verified `adm` claim + service-role key), so these must
+-- stay service_role-only: granting them to anon would make host-stealing public.
+
+create or replace function public.admin_make_host(
+  p_room_id uuid,
+  p_target_player_id uuid,
+  p_by text default null
+)
+returns jsonb language plpgsql security definer set search_path = public as $$
+begin
+  if not exists (select 1 from public.rooms where id = p_room_id) then
+    raise exception 'Room not found';
+  end if;
+  if not exists (
+    select 1 from public.room_players where id = p_target_player_id and room_id = p_room_id
+  ) then
+    raise exception 'No such player in room';
+  end if;
+
+  update public.rooms set host_player_id = p_target_player_id where id = p_room_id;
+  update public.room_players set is_host = (id = p_target_player_id) where room_id = p_room_id;
+
+  return jsonb_build_object('ok', true, 'hostPlayerId', p_target_player_id);
+end $$;
+
+create or replace function public.admin_kick_player(
+  p_room_id uuid,
+  p_target_player_id uuid,
+  p_by text default null
+)
+returns jsonb language plpgsql security definer set search_path = public as $$
+declare v_was_host boolean; v_host uuid;
+begin
+  select (host_player_id = p_target_player_id) into v_was_host
+  from public.rooms where id = p_room_id;
+  if not found then raise exception 'Room not found'; end if;
+
+  delete from public.room_players where id = p_target_player_id and room_id = p_room_id;
+
+  -- Unlike kick_player this is allowed mid-round and may remove the host itself,
+  -- so re-elect immediately; _ensure_host is a no-op when the host is still there.
+  v_host := public._ensure_host(p_room_id);
+
+  return jsonb_build_object('ok', true, 'hostPlayerId', v_host, 'wasHost', coalesce(v_was_host, false));
+end $$;
+
 do $$
 declare fn text;
 begin
   foreach fn in array array[
     'admin_delete_score(bigint,text)', 'admin_ban(text,text,text)',
-    'admin_unban(text)', 'admin_reset_profile(text)'
+    'admin_unban(text)', 'admin_reset_profile(text)',
+    'admin_make_host(uuid,uuid,text)', 'admin_kick_player(uuid,uuid,text)'
   ] loop
     execute format('revoke all on function public.%s from public, anon, authenticated', fn);
     execute format('grant execute on function public.%s to service_role', fn);

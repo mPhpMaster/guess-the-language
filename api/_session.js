@@ -33,6 +33,48 @@ function isAdminUsername(username) {
   return admins.has(uname);
 }
 
+// ---- Admin passcode (second factor on top of the signed `adm` claim) ----
+// The expected value lives ONLY in the ADMIN_PASSCODE env var. There is no
+// default and no fallback: when it is unset the unlock action fails closed.
+const UNLOCK_TTL_SECONDS = 30 * 60;
+
+function adminPasscodeConfigured() {
+  return typeof process.env.ADMIN_PASSCODE === 'string' && process.env.ADMIN_PASSCODE.length > 0;
+}
+
+// Constant-time equality that leaks neither the content nor the LENGTH of the
+// secret: both sides are first reduced to a fixed 32-byte HMAC digest (keyed
+// with a random per-process key, so the digests are useless to an attacker),
+// and only those equal-length buffers are compared with timingSafeEqual.
+const COMPARE_KEY = crypto.randomBytes(32);
+
+function safeEquals(a, b) {
+  const da = crypto.createHmac('sha256', COMPARE_KEY).update(String(a), 'utf8').digest();
+  const db = crypto.createHmac('sha256', COMPARE_KEY).update(String(b), 'utf8').digest();
+  return crypto.timingSafeEqual(da, db);
+}
+
+// Returns true only when a passcode is configured AND matches. Never logs or
+// echoes the value.
+function checkAdminPasscode(candidate) {
+  if (!adminPasscodeConfigured()) return false;
+  if (typeof candidate !== 'string' || !candidate.length) return false;
+  return safeEquals(candidate, process.env.ADMIN_PASSCODE);
+}
+
+// Short-lived "the human at the keyboard typed the passcode" token. It reuses
+// the same HMAC scheme as the session token, with a distinct `unl` claim, and
+// is bound to the same Discord user id as the session that requested it.
+function signUnlock(discordUserId) {
+  return signSession(discordUserId, { unl: true }, UNLOCK_TTL_SECONDS);
+}
+
+function verifyUnlock(token, discordUserId) {
+  const data = verifySession(token);
+  if (!data || data.unl !== true) return false;
+  return String(data.sub) === String(discordUserId || '');
+}
+
 function verifySession(token) {
   const secret = sessionSecret();
   if (!secret || !token || typeof token !== 'string') return null;
@@ -51,4 +93,13 @@ function verifySession(token) {
   }
 }
 
-module.exports = { signSession, verifySession, isAdminUsername };
+module.exports = {
+  signSession,
+  verifySession,
+  isAdminUsername,
+  adminPasscodeConfigured,
+  checkAdminPasscode,
+  signUnlock,
+  verifyUnlock,
+  UNLOCK_TTL_SECONDS
+};
