@@ -5,16 +5,14 @@
     "difficulty": "easy",
     "codeSnippet": "____ greet(name):\n    return \"Hi \" + name",
     "question": {
-      "en": "Fill the Python keyword that defines a function.",
-      "ar": "أكمل الكلمة المفتاحية التي تُعرِّف دالة في بايثون."
+      "en": "Fill the Python keyword that defines a function."
     },
     "answer": "def",
     "accept": [
       "def"
     ],
     "explanation": {
-      "en": "def introduces a function definition in Python.",
-      "ar": "def تبدأ تعريف دالة في بايثون."
+      "en": "def introduces a function definition in Python."
     }
   },
   {
@@ -23,16 +21,14 @@
     "difficulty": "easy",
     "codeSnippet": "for i in ____(10):\n    print(i)",
     "question": {
-      "en": "Fill the built-in that yields the numbers 0..9.",
-      "ar": "أكمل الدالة المدمجة التي تُنتج الأرقام 0..9."
+      "en": "Fill the built-in that yields the numbers 0..9."
     },
     "answer": "range",
     "accept": [
       "range"
     ],
     "explanation": {
-      "en": "range(10) produces 0 through 9.",
-      "ar": "range(10) تُنتج من 0 إلى 9."
+      "en": "range(10) produces 0 through 9."
     }
   },
   {
@@ -41,16 +37,14 @@
     "difficulty": "medium",
     "codeSnippet": "reversed_list = nums[::____]",
     "question": {
-      "en": "Fill the slice step that reverses a Python list.",
-      "ar": "أكمل خطوة التقطيع التي تعكس قائمة بايثون."
+      "en": "Fill the slice step that reverses a Python list."
     },
     "answer": "-1",
     "accept": [
       "-1"
     ],
     "explanation": {
-      "en": "A step of -1 walks the list backwards.",
-      "ar": "خطوة بمقدار -1 تسير في القائمة عكسياً."
+      "en": "A step of -1 walks the list backwards."
     }
   },
   {
@@ -59,16 +53,14 @@
     "difficulty": "medium",
     "codeSnippet": "count = freq.____(\"a\", 0)",
     "question": {
-      "en": "Fill the dict method that returns a default when the key is missing.",
-      "ar": "أكمل دالة القاموس التي تعيد قيمة افتراضية عند غياب المفتاح."
+      "en": "Fill the dict method that returns a default when the key is missing."
     },
     "answer": "get",
     "accept": [
       "get"
     ],
     "explanation": {
-      "en": "dict.get(key, default) avoids a KeyError.",
-      "ar": "dict.get(key, default) تتجنّب خطأ KeyError."
+      "en": "dict.get(key, default) avoids a KeyError."
     }
   },
   {
@@ -77,16 +69,14 @@
     "difficulty": "easy",
     "codeSnippet": "stack.____(x)   # push onto the stack",
     "question": {
-      "en": "Fill the list method that adds x to the end.",
-      "ar": "أكمل دالة القائمة التي تضيف x إلى النهاية."
+      "en": "Fill the list method that adds x to the end."
     },
     "answer": "append",
     "accept": [
       "append"
     ],
     "explanation": {
-      "en": "list.append(x) pushes onto the end (a stack push).",
-      "ar": "list.append(x) تدفع إلى النهاية (دفع في المكدّس)."
+      "en": "list.append(x) pushes onto the end (a stack push)."
     }
   },
   {
@@ -95,16 +85,14 @@
     "difficulty": "easy",
     "codeSnippet": "top = stack.____()   # LIFO remove",
     "question": {
-      "en": "Fill the method that removes and returns the last item.",
-      "ar": "أكمل الدالة التي تزيل وتعيد آخر عنصر."
+      "en": "Fill the method that removes and returns the last item."
     },
     "answer": "pop",
     "accept": [
       "pop"
     ],
     "explanation": {
-      "en": "list.pop() removes and returns the last element (LIFO).",
-      "ar": "list.pop() تزيل وتعيد آخر عنصر (LIFO)."
+      "en": "list.pop() removes and returns the last element (LIFO)."
     }
   },
   {
@@ -113,16 +101,14 @@
     "difficulty": "medium",
     "codeSnippet": "mid = (lo + hi) ____ 2   # binary search",
     "question": {
-      "en": "Fill the operator for integer (floor) division.",
-      "ar": "أكمل عامل القسمة الصحيحة (للأسفل)."
+      "en": "Fill the operator for integer (floor) division."
     },
     "answer": "//",
     "accept": [
       "//"
     ],
     "explanation": {
-      "en": "// is floor division, keeping mid an integer index.",
-      "ar": "// هي القسمة للأسفل، وتُبقي mid فهرساً صحيحاً."
+      "en": "// is floor division, keeping mid an integer index."
     }
   },
   {
@@ -131,16 +117,14 @@
     "difficulty": "medium",
     "codeSnippet": "if target - x ____ seen:   # Two Sum",
     "question": {
-      "en": "Fill the operator that tests membership in a set.",
-      "ar": "أكمل العامل الذي يختبر العضوية في مجموعة."
+      "en": "Fill the operator that tests membership in a set."
     },
     "answer": "in",
     "accept": [
       "in"
     ],
     "explanation": {
-      "en": "x in seen checks membership in O(1) average.",
-      "ar": "x in seen تتحقّق من العضوية بمتوسط O(1)."
+      "en": "x in seen checks membership in O(1) average."
     }
   },
   {
@@ -149,16 +133,14 @@
     "difficulty": "easy",
     "codeSnippet": "if n ____ 0:\n    return 1   # factorial base case",
     "question": {
-      "en": "Fill the operator that compares n with 0.",
-      "ar": "أكمل العامل الذي يقارن n بالصفر."
+      "en": "Fill the operator that compares n with 0."
     },
     "answer": "==",
     "accept": [
       "=="
     ],
     "explanation": {
-      "en": "== tests equality for the recursion base case.",
-      "ar": "== تختبر المساواة لحالة الأساس في التكرار."
+      "en": "== tests equality for the recursion base case."
     }
   },
   {
@@ -167,16 +149,14 @@
     "difficulty": "medium",
     "codeSnippet": "def rec(n):\n    if n == 0: return 0\n    return n ____ rec(n - 1)",
     "question": {
-      "en": "Fill the operator to add n to the recursive result.",
-      "ar": "أكمل العامل لإضافة n إلى نتيجة التكرار."
+      "en": "Fill the operator to add n to the recursive result."
     },
     "answer": "+",
     "accept": [
       "+"
     ],
     "explanation": {
-      "en": "It sums n with the sum of everything below → 1+2+…+n.",
-      "ar": "يجمع n مع مجموع ما دونه → 1+2+…+n."
+      "en": "It sums n with the sum of everything below → 1+2+…+n."
     }
   },
   {
@@ -185,16 +165,14 @@
     "difficulty": "medium",
     "codeSnippet": "# binary search runs in\nbig_o = \"O(____ n)\"",
     "question": {
-      "en": "Fill the function name in binary search's Big-O.",
-      "ar": "أكمل اسم الدالة في تعقيد البحث الثنائي."
+      "en": "Fill the function name in binary search's Big-O."
     },
     "answer": "log",
     "accept": [
       "log"
     ],
     "explanation": {
-      "en": "Halving the range each step gives O(log n).",
-      "ar": "تنصيف المجال كل خطوة يعطي O(log n)."
+      "en": "Halving the range each step gives O(log n)."
     }
   },
   {
@@ -203,16 +181,14 @@
     "difficulty": "easy",
     "codeSnippet": "a, b = b, ____   # swap a and b",
     "question": {
-      "en": "Fill to complete the Pythonic swap of a and b.",
-      "ar": "أكمل التبديل البايثوني بين a و b."
+      "en": "Fill to complete the Pythonic swap of a and b."
     },
     "answer": "a",
     "accept": [
       "a"
     ],
     "explanation": {
-      "en": "a, b = b, a swaps two variables in one line.",
-      "ar": "a, b = b, a تبدّل متغيّرين في سطر واحد."
+      "en": "a, b = b, a swaps two variables in one line."
     }
   },
   {
@@ -221,16 +197,14 @@
     "difficulty": "easy",
     "codeSnippet": "nums.____()   # ascending, in place",
     "question": {
-      "en": "Fill the list method that sorts in place.",
-      "ar": "أكمل دالة القائمة التي ترتّب في المكان."
+      "en": "Fill the list method that sorts in place."
     },
     "answer": "sort",
     "accept": [
       "sort"
     ],
     "explanation": {
-      "en": "list.sort() sorts the list in place.",
-      "ar": "list.sort() ترتّب القائمة في مكانها."
+      "en": "list.sort() sorts the list in place."
     }
   },
   {
@@ -239,16 +213,14 @@
     "difficulty": "medium",
     "codeSnippet": "unique = ____(items)   # remove duplicates",
     "question": {
-      "en": "Fill the built-in that removes duplicates.",
-      "ar": "أكمل الدالة المدمجة التي تزيل التكرارات."
+      "en": "Fill the built-in that removes duplicates."
     },
     "answer": "set",
     "accept": [
       "set"
     ],
     "explanation": {
-      "en": "set(items) keeps only distinct values.",
-      "ar": "set(items) تُبقي القيم المتمايزة فقط."
+      "en": "set(items) keeps only distinct values."
     }
   },
   {
@@ -257,16 +229,14 @@
     "difficulty": "easy",
     "codeSnippet": "n = ____(arr)   # number of elements",
     "question": {
-      "en": "Fill the built-in that returns how many elements a list has.",
-      "ar": "أكمل الدالة المدمجة التي تعيد عدد عناصر القائمة."
+      "en": "Fill the built-in that returns how many elements a list has."
     },
     "answer": "len",
     "accept": [
       "len"
     ],
     "explanation": {
-      "en": "len(arr) returns the element count.",
-      "ar": "len(arr) تعيد عدد العناصر."
+      "en": "len(arr) returns the element count."
     }
   },
   {
@@ -275,16 +245,14 @@
     "difficulty": "medium",
     "codeSnippet": "while total > k:\n    left ____ 1   # shrink the window",
     "question": {
-      "en": "Fill to advance the left pointer by 1.",
-      "ar": "أكمل لتقديم المؤشّر الأيسر بمقدار 1."
+      "en": "Fill to advance the left pointer by 1."
     },
     "answer": "+=",
     "accept": [
       "+="
     ],
     "explanation": {
-      "en": "left += 1 shrinks the sliding window from the left.",
-      "ar": "left += 1 تقلّص النافذة المنزلقة من اليسار."
+      "en": "left += 1 shrinks the sliding window from the left."
     }
   },
   {
@@ -293,16 +261,14 @@
     "difficulty": "easy",
     "codeSnippet": "if arr[mid] == target:\n    ____ mid",
     "question": {
-      "en": "Fill the keyword that returns mid.",
-      "ar": "أكمل الكلمة المفتاحية التي تعيد mid."
+      "en": "Fill the keyword that returns mid."
     },
     "answer": "return",
     "accept": [
       "return"
     ],
     "explanation": {
-      "en": "return mid ends the function with the found index.",
-      "ar": "return mid تُنهي الدالة بالفهرس الموجود."
+      "en": "return mid ends the function with the found index."
     }
   },
   {
@@ -311,16 +277,14 @@
     "difficulty": "medium",
     "codeSnippet": "visited.____(node)   # mark as seen (a set)",
     "question": {
-      "en": "Fill the set method that adds node.",
-      "ar": "أكمل دالة المجموعة التي تضيف node."
+      "en": "Fill the set method that adds node."
     },
     "answer": "add",
     "accept": [
       "add"
     ],
     "explanation": {
-      "en": "set.add(node) records a visited node in BFS/DFS.",
-      "ar": "set.add(node) تسجّل عقدة مزارة في BFS/DFS."
+      "en": "set.add(node) records a visited node in BFS/DFS."
     }
   },
   {
@@ -329,16 +293,14 @@
     "difficulty": "hard",
     "codeSnippet": "import heapq\nheapq.____(h, x)   # push x",
     "question": {
-      "en": "Fill the heapq function that pushes x onto heap h.",
-      "ar": "أكمل دالة heapq التي تدفع x إلى الكومة h."
+      "en": "Fill the heapq function that pushes x onto heap h."
     },
     "answer": "heappush",
     "accept": [
       "heappush"
     ],
     "explanation": {
-      "en": "heapq.heappush(h, x) adds x keeping the heap invariant.",
-      "ar": "heapq.heappush(h, x) تضيف x مع الحفاظ على ثابت الكومة."
+      "en": "heapq.heappush(h, x) adds x keeping the heap invariant."
     }
   },
   {
@@ -347,16 +309,14 @@
     "difficulty": "easy",
     "codeSnippet": "if n ____ 2 == 0:   # even?",
     "question": {
-      "en": "Fill the operator for remainder (modulo).",
-      "ar": "أكمل عامل باقي القسمة (modulo)."
+      "en": "Fill the operator for remainder (modulo)."
     },
     "answer": "%",
     "accept": [
       "%"
     ],
     "explanation": {
-      "en": "n % 2 == 0 is true for even numbers.",
-      "ar": "n % 2 == 0 صحيحة للأعداد الزوجية."
+      "en": "n % 2 == 0 is true for even numbers."
     }
   },
   {
@@ -365,16 +325,14 @@
     "difficulty": "medium",
     "codeSnippet": "if ____ visited[node]:\n    dfs(node)   # if not visited",
     "question": {
-      "en": "Fill the keyword so it reads 'if not visited'.",
-      "ar": "أكمل الكلمة المفتاحية لتصبح 'if not visited'."
+      "en": "Fill the keyword so it reads 'if not visited'."
     },
     "answer": "not",
     "accept": [
       "not"
     ],
     "explanation": {
-      "en": "not negates the boolean → visit unseen nodes.",
-      "ar": "not تنفي القيمة المنطقية → زيارة العقد غير المزارة."
+      "en": "not negates the boolean → visit unseen nodes."
     }
   },
   {
@@ -383,16 +341,14 @@
     "difficulty": "medium",
     "codeSnippet": "for i in range(0, n, ____):   # every 2nd index",
     "question": {
-      "en": "Fill the step so the loop visits every 2nd index.",
-      "ar": "أكمل الخطوة ليزور الحلقة كل فهرس ثانٍ."
+      "en": "Fill the step so the loop visits every 2nd index."
     },
     "answer": "2",
     "accept": [
       "2"
     ],
     "explanation": {
-      "en": "range(0, n, 2) steps by 2.",
-      "ar": "range(0, n, 2) تتقدّم بمقدار 2."
+      "en": "range(0, n, 2) steps by 2."
     }
   },
   {
@@ -401,16 +357,14 @@
     "difficulty": "medium",
     "codeSnippet": "csv = \",\".____(parts)   # join with commas",
     "question": {
-      "en": "Fill the str method that joins a list with commas.",
-      "ar": "أكمل دالة النص التي تدمج قائمة بفواصل."
+      "en": "Fill the str method that joins a list with commas."
     },
     "answer": "join",
     "accept": [
       "join"
     ],
     "explanation": {
-      "en": "\",\".join(parts) concatenates with commas.",
-      "ar": "\",\".join(parts) تدمج بفواصل."
+      "en": "\",\".join(parts) concatenates with commas."
     }
   },
   {
@@ -419,16 +373,14 @@
     "difficulty": "easy",
     "codeSnippet": "smallest = ____(nums)",
     "question": {
-      "en": "Fill the built-in that returns the smallest value.",
-      "ar": "أكمل الدالة المدمجة التي تعيد أصغر قيمة."
+      "en": "Fill the built-in that returns the smallest value."
     },
     "answer": "min",
     "accept": [
       "min"
     ],
     "explanation": {
-      "en": "min(nums) returns the minimum.",
-      "ar": "min(nums) تعيد الأصغر."
+      "en": "min(nums) returns the minimum."
     }
   },
   {
@@ -437,16 +389,14 @@
     "difficulty": "easy",
     "codeSnippet": "largest = ____(nums)",
     "question": {
-      "en": "Fill the built-in that returns the largest value.",
-      "ar": "أكمل الدالة المدمجة التي تعيد أكبر قيمة."
+      "en": "Fill the built-in that returns the largest value."
     },
     "answer": "max",
     "accept": [
       "max"
     ],
     "explanation": {
-      "en": "max(nums) returns the maximum.",
-      "ar": "max(nums) تعيد الأكبر."
+      "en": "max(nums) returns the maximum."
     }
   },
   {
@@ -455,16 +405,14 @@
     "difficulty": "medium",
     "codeSnippet": "squares = [x____2 for x in range(n)]",
     "question": {
-      "en": "Fill the operator so each x is squared (x to the power 2).",
-      "ar": "أكمل العامل بحيث يُربَّع كل x (أُس 2)."
+      "en": "Fill the operator so each x is squared (x to the power 2)."
     },
     "answer": "**",
     "accept": [
       "**"
     ],
     "explanation": {
-      "en": "x**2 raises x to the power 2 in the comprehension.",
-      "ar": "x**2 ترفع x للأُس 2 داخل الفهم القائمي."
+      "en": "x**2 raises x to the power 2 in the comprehension."
     }
   },
   {
@@ -473,8 +421,7 @@
     "difficulty": "medium",
     "codeSnippet": "x = a if a ____ 0 else -a   # absolute value",
     "question": {
-      "en": "Fill the comparison so x becomes |a|.",
-      "ar": "أكمل المقارنة بحيث يصبح x القيمة المطلقة |a|."
+      "en": "Fill the comparison so x becomes |a|."
     },
     "answer": ">=",
     "accept": [
@@ -482,8 +429,7 @@
       ">"
     ],
     "explanation": {
-      "en": "a if a >= 0 else -a returns the absolute value.",
-      "ar": "a if a >= 0 else -a تعيد القيمة المطلقة."
+      "en": "a if a >= 0 else -a returns the absolute value."
     }
   },
   {
@@ -492,16 +438,14 @@
     "difficulty": "medium",
     "codeSnippet": "while left ____ right:   # two pointers",
     "question": {
-      "en": "Fill the operator so the loop runs while left is before right.",
-      "ar": "أكمل العامل بحيث تعمل الحلقة ما دام left قبل right."
+      "en": "Fill the operator so the loop runs while left is before right."
     },
     "answer": "<",
     "accept": [
       "<"
     ],
     "explanation": {
-      "en": "left < right keeps the two pointers from crossing.",
-      "ar": "left < right تمنع تقاطع المؤشّرين."
+      "en": "left < right keeps the two pointers from crossing."
     }
   },
   {
@@ -510,16 +454,14 @@
     "difficulty": "medium",
     "codeSnippet": "return len(stack) ____ 0   # is it empty?",
     "question": {
-      "en": "Fill the operator to check the stack is empty.",
-      "ar": "أكمل العامل للتحقق من أنّ المكدّس فارغ."
+      "en": "Fill the operator to check the stack is empty."
     },
     "answer": "==",
     "accept": [
       "=="
     ],
     "explanation": {
-      "en": "len(stack) == 0 is true when the stack is empty (valid parentheses).",
-      "ar": "len(stack) == 0 صحيحة عندما يكون المكدّس فارغاً (الأقواس الصحيحة)."
+      "en": "len(stack) == 0 is true when the stack is empty (valid parentheses)."
     }
   },
   {
@@ -528,16 +470,14 @@
     "difficulty": "easy",
     "codeSnippet": "count ____ 1   # increment the counter",
     "question": {
-      "en": "Fill to add 1 to count.",
-      "ar": "أكمل لإضافة 1 إلى count."
+      "en": "Fill to add 1 to count."
     },
     "answer": "+=",
     "accept": [
       "+="
     ],
     "explanation": {
-      "en": "count += 1 increments the counter.",
-      "ar": "count += 1 تزيد العدّاد بمقدار 1."
+      "en": "count += 1 increments the counter."
     }
   },
   {
@@ -546,16 +486,14 @@
     "difficulty": "medium",
     "codeSnippet": "dp = [0] ____ (n + 1)   # n+1 zeros",
     "question": {
-      "en": "Fill the operator that repeats the list n+1 times.",
-      "ar": "أكمل العامل الذي يكرّر القائمة n+1 مرة."
+      "en": "Fill the operator that repeats the list n+1 times."
     },
     "answer": "*",
     "accept": [
       "*"
     ],
     "explanation": {
-      "en": "[0] * (n+1) builds a DP array of n+1 zeros.",
-      "ar": "[0] * (n+1) تبني مصفوفة DP من n+1 صفراً."
+      "en": "[0] * (n+1) builds a DP array of n+1 zeros."
     }
   },
   {
@@ -564,16 +502,14 @@
     "difficulty": "hard",
     "codeSnippet": "x = x ____ (x - 1)   # clear lowest set bit",
     "question": {
-      "en": "Fill the bitwise operator that clears the lowest set bit.",
-      "ar": "أكمل العامل البتّي الذي يمسح أدنى بت مضبوط."
+      "en": "Fill the bitwise operator that clears the lowest set bit."
     },
     "answer": "&",
     "accept": [
       "&"
     ],
     "explanation": {
-      "en": "x & (x - 1) turns off the rightmost 1 bit.",
-      "ar": "x & (x - 1) تُطفئ أقصى بت مضبوط إلى اليمين."
+      "en": "x & (x - 1) turns off the rightmost 1 bit."
     }
   },
   {
@@ -582,16 +518,14 @@
     "difficulty": "easy",
     "codeSnippet": "if found:\n    ____   # stop the loop early",
     "question": {
-      "en": "Fill the keyword that exits a loop early.",
-      "ar": "أكمل الكلمة المفتاحية التي تخرج من الحلقة مبكراً."
+      "en": "Fill the keyword that exits a loop early."
     },
     "answer": "break",
     "accept": [
       "break"
     ],
     "explanation": {
-      "en": "break exits the nearest enclosing loop.",
-      "ar": "break تخرج من أقرب حلقة محيطة."
+      "en": "break exits the nearest enclosing loop."
     }
   },
   {
@@ -600,16 +534,14 @@
     "difficulty": "medium",
     "codeSnippet": "def fib(n):\n    if n ____ 2:\n        return n\n    return fib(n-1) + fib(n-2)",
     "question": {
-      "en": "Fill the comparison for the Fibonacci base case (n = 0 or 1).",
-      "ar": "أكمل المقارنة لحالة أساس فيبوناتشي (n = 0 أو 1)."
+      "en": "Fill the comparison for the Fibonacci base case (n = 0 or 1)."
     },
     "answer": "<",
     "accept": [
       "<"
     ],
     "explanation": {
-      "en": "if n < 2 returns n for the base cases 0 and 1.",
-      "ar": "if n < 2 تعيد n لحالتي الأساس 0 و1."
+      "en": "if n < 2 returns n for the base cases 0 and 1."
     }
   },
   {
@@ -618,16 +550,14 @@
     "difficulty": "easy",
     "codeSnippet": "nums = [1, 2, 3]\nprint(____(nums))",
     "question": {
-      "en": "Fill the built-in that returns how many items are in a list.",
-      "ar": "أكمل الدالة المدمجة التي تعيد عدد عناصر القائمة."
+      "en": "Fill the built-in that returns how many items are in a list."
     },
     "answer": "len",
     "accept": [
       "len"
     ],
     "explanation": {
-      "en": "len() returns the number of items in a sequence.",
-      "ar": "len() تعيد عدد عناصر التسلسل."
+      "en": "len() returns the number of items in a sequence."
     }
   },
   {
@@ -636,16 +566,14 @@
     "difficulty": "easy",
     "codeSnippet": "s = \"hello\"\nprint(s.____())  # HELLO",
     "question": {
-      "en": "Fill the string method that returns an uppercase copy.",
-      "ar": "أكمل دالة النص التي تعيد نسخة بأحرف كبيرة."
+      "en": "Fill the string method that returns an uppercase copy."
     },
     "answer": "upper",
     "accept": [
       "upper"
     ],
     "explanation": {
-      "en": "str.upper() returns an uppercased copy of the string.",
-      "ar": "str.upper() تعيد نسخة من النص بأحرف كبيرة."
+      "en": "str.upper() returns an uppercased copy of the string."
     }
   },
   {
@@ -654,16 +582,14 @@
     "difficulty": "easy",
     "codeSnippet": "stack = []\nstack.____(5)  # push",
     "question": {
-      "en": "Fill the list method that adds an item to the end (push).",
-      "ar": "أكمل دالة القائمة التي تضيف عنصرًا في النهاية."
+      "en": "Fill the list method that adds an item to the end (push)."
     },
     "answer": "append",
     "accept": [
       "append"
     ],
     "explanation": {
-      "en": "list.append(x) adds x to the end — a stack push.",
-      "ar": "list.append(x) تضيف x في النهاية، أي دفع للمكدس."
+      "en": "list.append(x) adds x to the end — a stack push."
     }
   },
   {
@@ -672,16 +598,14 @@
     "difficulty": "medium",
     "codeSnippet": "d = {}\nvalue = d.____(\"k\", 0)",
     "question": {
-      "en": "Fill the dict method that returns a default when the key is missing.",
-      "ar": "أكمل دالة القاموس التي تعيد قيمة افتراضية عند غياب المفتاح."
+      "en": "Fill the dict method that returns a default when the key is missing."
     },
     "answer": "get",
     "accept": [
       "get"
     ],
     "explanation": {
-      "en": "dict.get(k, default) avoids a KeyError by returning default.",
-      "ar": "dict.get(k, default) تتجنب KeyError بإعادة القيمة الافتراضية."
+      "en": "dict.get(k, default) avoids a KeyError by returning default."
     }
   },
   {
@@ -690,16 +614,14 @@
     "difficulty": "medium",
     "codeSnippet": "lo, hi = 0, len(a) - 1\nmid = (lo + hi) ____ 2",
     "question": {
-      "en": "Fill the operator for integer (floor) division of the midpoint.",
-      "ar": "أكمل معامل القسمة الصحيحة لإيجاد المنتصف."
+      "en": "Fill the operator for integer (floor) division of the midpoint."
     },
     "answer": "//",
     "accept": [
       "//"
     ],
     "explanation": {
-      "en": "// is floor division, keeping mid an integer index.",
-      "ar": "// قسمة صحيحة تُبقي mid فهرسًا صحيحًا."
+      "en": "// is floor division, keeping mid an integer index."
     }
   },
   {
@@ -708,16 +630,14 @@
     "difficulty": "easy",
     "codeSnippet": "def fact(n):\n    if n == 0:\n        return 1\n    return n ____ fact(n - 1)",
     "question": {
-      "en": "Fill the operator that multiplies n by the recursive result.",
-      "ar": "أكمل المعامل الذي يضرب n بالنتيجة العَودية."
+      "en": "Fill the operator that multiplies n by the recursive result."
     },
     "answer": "*",
     "accept": [
       "*"
     ],
     "explanation": {
-      "en": "Factorial multiplies n by fact(n-1).",
-      "ar": "المضروب يضرب n في fact(n-1)."
+      "en": "Factorial multiplies n by fact(n-1)."
     }
   },
   {
@@ -726,16 +646,14 @@
     "difficulty": "easy",
     "codeSnippet": "# Binary search runs in O(____ n) time",
     "question": {
-      "en": "Fill the function name in the binary-search time complexity.",
-      "ar": "أكمل اسم الدالة في تعقيد البحث الثنائي الزمني."
+      "en": "Fill the function name in the binary-search time complexity."
     },
     "answer": "log",
     "accept": [
       "log"
     ],
     "explanation": {
-      "en": "Binary search halves the range each step: O(log n).",
-      "ar": "البحث الثنائي ينصّف المجال كل خطوة: O(log n)."
+      "en": "Binary search halves the range each step: O(log n)."
     }
   },
   {
@@ -744,16 +662,14 @@
     "difficulty": "easy",
     "codeSnippet": "for i in ____(5):\n    print(i)",
     "question": {
-      "en": "Fill the built-in that yields 0..4 in a for loop.",
-      "ar": "أكمل الدالة المدمجة التي تولّد 0..4 في الحلقة."
+      "en": "Fill the built-in that yields 0..4 in a for loop."
     },
     "answer": "range",
     "accept": [
       "range"
     ],
     "explanation": {
-      "en": "range(5) yields 0,1,2,3,4.",
-      "ar": "range(5) تولّد 0 و1 و2 و3 و4."
+      "en": "range(5) yields 0,1,2,3,4."
     }
   },
   {
@@ -762,16 +678,14 @@
     "difficulty": "easy",
     "codeSnippet": "arr = [3, 1, 2]\narr.____()  # [1, 2, 3]",
     "question": {
-      "en": "Fill the list method that sorts in place ascending.",
-      "ar": "أكمل دالة القائمة التي تفرز مكانيًا تصاعديًا."
+      "en": "Fill the list method that sorts in place ascending."
     },
     "answer": "sort",
     "accept": [
       "sort"
     ],
     "explanation": {
-      "en": "list.sort() sorts the list in place.",
-      "ar": "list.sort() تفرز القائمة في مكانها."
+      "en": "list.sort() sorts the list in place."
     }
   },
   {
@@ -780,16 +694,14 @@
     "difficulty": "easy",
     "codeSnippet": "seen = ____()\nseen.add(x)",
     "question": {
-      "en": "Fill the type that stores unique items with add().",
-      "ar": "أكمل النوع الذي يخزّن عناصر فريدة مع add()."
+      "en": "Fill the type that stores unique items with add()."
     },
     "answer": "set",
     "accept": [
       "set"
     ],
     "explanation": {
-      "en": "set() creates an empty set supporting add().",
-      "ar": "set() تنشئ مجموعة فارغة تدعم add()."
+      "en": "set() creates an empty set supporting add()."
     }
   },
   {
@@ -798,16 +710,14 @@
     "difficulty": "medium",
     "codeSnippet": "from collections import deque\nq = ____()",
     "question": {
-      "en": "Fill the double-ended queue used for BFS.",
-      "ar": "أكمل الطابور ثنائي الطرف المستخدم في BFS."
+      "en": "Fill the double-ended queue used for BFS."
     },
     "answer": "deque",
     "accept": [
       "deque"
     ],
     "explanation": {
-      "en": "deque gives O(1) pops from both ends for BFS.",
-      "ar": "deque توفّر إزالة بزمن O(1) من الطرفين لـ BFS."
+      "en": "deque gives O(1) pops from both ends for BFS."
     }
   },
   {
@@ -816,16 +726,14 @@
     "difficulty": "easy",
     "codeSnippet": "import math\nprint(math.____(16))  # 4.0",
     "question": {
-      "en": "Fill the math function that returns the square root.",
-      "ar": "أكمل دالة الرياضيات التي تعيد الجذر التربيعي."
+      "en": "Fill the math function that returns the square root."
     },
     "answer": "sqrt",
     "accept": [
       "sqrt"
     ],
     "explanation": {
-      "en": "math.sqrt(16) returns 4.0.",
-      "ar": "math.sqrt(16) تعيد 4.0."
+      "en": "math.sqrt(16) returns 4.0."
     }
   },
   {
@@ -834,16 +742,14 @@
     "difficulty": "medium",
     "codeSnippet": "# true when n is even\nif n ____ 1 == 0:",
     "question": {
-      "en": "Fill the bitwise operator that isolates the lowest bit.",
-      "ar": "أكمل المعامل الثنائي الذي يعزل أدنى بِت."
+      "en": "Fill the bitwise operator that isolates the lowest bit."
     },
     "answer": "&",
     "accept": [
       "&"
     ],
     "explanation": {
-      "en": "n & 1 == 0 tests the low bit to detect even numbers.",
-      "ar": "n & 1 == 0 تفحص أدنى بِت لكشف الأعداد الزوجية."
+      "en": "n & 1 == 0 tests the low bit to detect even numbers."
     }
   },
   {
@@ -852,16 +758,14 @@
     "difficulty": "medium",
     "codeSnippet": "if n in ____:\n    return memo[n]",
     "question": {
-      "en": "Fill the cache name checked before recomputing.",
-      "ar": "أكمل اسم الذاكرة المؤقتة المفحوصة قبل إعادة الحساب."
+      "en": "Fill the cache name checked before recomputing."
     },
     "answer": "memo",
     "accept": [
       "memo"
     ],
     "explanation": {
-      "en": "Memoization returns the cached result if present.",
-      "ar": "الحفظ المؤقت يعيد النتيجة المخزنة إن وُجدت."
+      "en": "Memoization returns the cached result if present."
     }
   },
   {
@@ -870,16 +774,14 @@
     "difficulty": "medium",
     "codeSnippet": "words = sentence.____(\" \")",
     "question": {
-      "en": "Fill the string method that breaks text on spaces.",
-      "ar": "أكمل دالة النص التي تقسّم النص عند المسافات."
+      "en": "Fill the string method that breaks text on spaces."
     },
     "answer": "split",
     "accept": [
       "split"
     ],
     "explanation": {
-      "en": "str.split(' ') returns a list of words.",
-      "ar": "str.split(' ') تعيد قائمة بالكلمات."
+      "en": "str.split(' ') returns a list of words."
     }
   },
   {
@@ -888,16 +790,14 @@
     "difficulty": "medium",
     "codeSnippet": "q = deque([1, 2, 3])\nq.____()  # removes 1",
     "question": {
-      "en": "Fill the deque method that removes from the left.",
-      "ar": "أكمل دالة deque التي تزيل من اليسار."
+      "en": "Fill the deque method that removes from the left."
     },
     "answer": "popleft",
     "accept": [
       "popleft"
     ],
     "explanation": {
-      "en": "deque.popleft() removes and returns the leftmost item.",
-      "ar": "deque.popleft() تزيل وتعيد العنصر الأيسر."
+      "en": "deque.popleft() removes and returns the leftmost item."
     }
   },
   {
@@ -906,16 +806,14 @@
     "difficulty": "medium",
     "codeSnippet": "arr[i], arr[j] = arr[j], ____",
     "question": {
-      "en": "Fill the expression that completes an in-place swap.",
-      "ar": "أكمل التعبير الذي يُتمّ التبديل المكاني."
+      "en": "Fill the expression that completes an in-place swap."
     },
     "answer": "arr[i]",
     "accept": [
       "arr[i]"
     ],
     "explanation": {
-      "en": "Tuple assignment swaps two elements without a temp.",
-      "ar": "الإسناد الطرفي يبدّل عنصرين دون متغير مؤقت."
+      "en": "Tuple assignment swaps two elements without a temp."
     }
   },
   {
@@ -924,16 +822,14 @@
     "difficulty": "easy",
     "codeSnippet": "rev = lst[::____]",
     "question": {
-      "en": "Fill the step that reverses a list via slicing.",
-      "ar": "أكمل الخطوة التي تعكس القائمة عبر التقطيع."
+      "en": "Fill the step that reverses a list via slicing."
     },
     "answer": "-1",
     "accept": [
       "-1"
     ],
     "explanation": {
-      "en": "lst[::-1] returns the list reversed.",
-      "ar": "lst[::-1] تعيد القائمة معكوسة."
+      "en": "lst[::-1] returns the list reversed."
     }
   },
   {
@@ -942,16 +838,14 @@
     "difficulty": "medium",
     "codeSnippet": "def fib(n):\n    if n < 2:\n        return n\n    return fib(n - 1) ____ fib(n - 2)",
     "question": {
-      "en": "Fill the operator combining the two recursive Fibonacci calls.",
-      "ar": "أكمل المعامل الذي يجمع نداءي فيبوناتشي العَوديين."
+      "en": "Fill the operator combining the two recursive Fibonacci calls."
     },
     "answer": "+",
     "accept": [
       "+"
     ],
     "explanation": {
-      "en": "Fibonacci sums the two previous terms.",
-      "ar": "فيبوناتشي يجمع الحدّين السابقين."
+      "en": "Fibonacci sums the two previous terms."
     }
   },
   {
@@ -960,16 +854,14 @@
     "difficulty": "easy",
     "codeSnippet": "# Array index access is O(____)",
     "question": {
-      "en": "Fill the complexity of accessing an array element by index.",
-      "ar": "أكمل تعقيد الوصول لعنصر مصفوفة بالفهرس."
+      "en": "Fill the complexity of accessing an array element by index."
     },
     "answer": "1",
     "accept": [
       "1"
     ],
     "explanation": {
-      "en": "Indexed access is constant time, O(1).",
-      "ar": "الوصول بالفهرس زمن ثابت O(1)."
+      "en": "Indexed access is constant time, O(1)."
     }
   },
   {
@@ -978,16 +870,14 @@
     "difficulty": "easy",
     "codeSnippet": "# Binary search on a sorted array is O(log ____)",
     "question": {
-      "en": "Fill in the complexity of binary search.",
-      "ar": "أكمل تعقيد البحث الثنائي."
+      "en": "Fill in the complexity of binary search."
     },
     "answer": "n",
     "accept": [
       "n"
     ],
     "explanation": {
-      "en": "Each step halves the range, giving O(log n).",
-      "ar": "كل خطوة تنصّف المدى فينتج O(log n)."
+      "en": "Each step halves the range, giving O(log n)."
     }
   },
   {
@@ -996,16 +886,14 @@
     "difficulty": "medium",
     "codeSnippet": "# Merge sort worst case is O(n log ____)",
     "question": {
-      "en": "Fill in merge sort's worst-case complexity.",
-      "ar": "أكمل تعقيد الفرز بالدمج في أسوأ حالة."
+      "en": "Fill in merge sort's worst-case complexity."
     },
     "answer": "n",
     "accept": [
       "n"
     ],
     "explanation": {
-      "en": "Merge sort always splits and merges: O(n log n).",
-      "ar": "يقسم الفرز بالدمج ويدمج دائمًا: O(n log n)."
+      "en": "Merge sort always splits and merges: O(n log n)."
     }
   },
   {
@@ -1014,16 +902,14 @@
     "difficulty": "easy",
     "codeSnippet": "# Average hash-table lookup is O(____)",
     "question": {
-      "en": "Fill in the average lookup cost of a hash table.",
-      "ar": "أكمل تكلفة البحث المتوسطة في جدول التجزئة."
+      "en": "Fill in the average lookup cost of a hash table."
     },
     "answer": "1",
     "accept": [
       "1"
     ],
     "explanation": {
-      "en": "Hashing goes straight to a bucket: constant on average.",
-      "ar": "تصل التجزئة إلى السلة مباشرة: ثابت في المتوسط."
+      "en": "Hashing goes straight to a bucket: constant on average."
     }
   },
   {
@@ -1032,16 +918,14 @@
     "difficulty": "medium",
     "codeSnippet": "# Appending to a dynamic array is amortized O(____)",
     "question": {
-      "en": "Fill in the amortized cost of an append.",
-      "ar": "أكمل التكلفة المُستهلَكة لعملية الإضافة."
+      "en": "Fill in the amortized cost of an append."
     },
     "answer": "1",
     "accept": [
       "1"
     ],
     "explanation": {
-      "en": "Occasional doubling spreads out to constant time per append.",
-      "ar": "المضاعفة العارضة توزّع الكلفة لتصبح ثابتة لكل إضافة."
+      "en": "Occasional doubling spreads out to constant time per append."
     }
   },
   {
@@ -1050,16 +934,14 @@
     "difficulty": "easy",
     "codeSnippet": "# A ____ is a first-in, first-out collection",
     "question": {
-      "en": "Fill in the FIFO data structure.",
-      "ar": "أكمل اسم بنية البيانات التي تعمل بنظام أول داخل أول خارج."
+      "en": "Fill in the FIFO data structure."
     },
     "answer": "queue",
     "accept": [
       "queue"
     ],
     "explanation": {
-      "en": "A queue removes items in the order they arrived.",
-      "ar": "يُخرج الطابور العناصر بترتيب وصولها."
+      "en": "A queue removes items in the order they arrived."
     }
   },
   {
@@ -1068,16 +950,14 @@
     "difficulty": "easy",
     "codeSnippet": "# A ____ is a last-in, first-out collection",
     "question": {
-      "en": "Fill in the LIFO data structure.",
-      "ar": "أكمل اسم بنية البيانات التي تعمل بنظام آخر داخل أول خارج."
+      "en": "Fill in the LIFO data structure."
     },
     "answer": "stack",
     "accept": [
       "stack"
     ],
     "explanation": {
-      "en": "A stack pushes and pops from the same end.",
-      "ar": "تُدفع العناصر وتُسحب من الطرف نفسه في المكدس."
+      "en": "A stack pushes and pops from the same end."
     }
   },
   {
@@ -1086,16 +966,14 @@
     "difficulty": "medium",
     "codeSnippet": "# A binary ____ tree keeps left < node < right",
     "question": {
-      "en": "Fill in the tree name.",
-      "ar": "أكمل اسم الشجرة."
+      "en": "Fill in the tree name."
     },
     "answer": "search",
     "accept": [
       "search"
     ],
     "explanation": {
-      "en": "That ordering is what makes lookups logarithmic.",
-      "ar": "هذا الترتيب هو ما يجعل البحث لوغاريتميًا."
+      "en": "That ordering is what makes lookups logarithmic."
     }
   },
   {
@@ -1104,8 +982,7 @@
     "difficulty": "medium",
     "codeSnippet": "# A hash ____ maps keys to values via a hash function",
     "question": {
-      "en": "Fill in the structure name.",
-      "ar": "أكمل اسم البنية."
+      "en": "Fill in the structure name."
     },
     "answer": "table",
     "accept": [
@@ -1113,8 +990,7 @@
       "map"
     ],
     "explanation": {
-      "en": "A hash table (or hash map) indexes by hashed key.",
-      "ar": "يفهرس جدول التجزئة بالمفتاح المجزّأ."
+      "en": "A hash table (or hash map) indexes by hashed key."
     }
   },
   {
@@ -1123,16 +999,14 @@
     "difficulty": "easy",
     "codeSnippet": "nums.____()  # reverse the list in place",
     "question": {
-      "en": "Fill in the in-place list method.",
-      "ar": "أكمل دالة القائمة التي تعكسها في مكانها."
+      "en": "Fill in the in-place list method."
     },
     "answer": "reverse",
     "accept": [
       "reverse"
     ],
     "explanation": {
-      "en": "list.reverse() mutates the list and returns None.",
-      "ar": "تعدّل list.reverse() القائمة وتُرجع None."
+      "en": "list.reverse() mutates the list and returns None."
     }
   },
   {
@@ -1141,16 +1015,14 @@
     "difficulty": "medium",
     "codeSnippet": "words.sort(key=____)  # sort by word length",
     "question": {
-      "en": "Fill in the key function.",
-      "ar": "أكمل دالة المفتاح."
+      "en": "Fill in the key function."
     },
     "answer": "len",
     "accept": [
       "len"
     ],
     "explanation": {
-      "en": "Passing len as the key sorts by each item's length.",
-      "ar": "تمرير len كمفتاح يرتّب حسب طول كل عنصر."
+      "en": "Passing len as the key sorts by each item's length."
     }
   },
   {
@@ -1159,16 +1031,14 @@
     "difficulty": "medium",
     "codeSnippet": "list(____(str, [1, 2, 3]))  # -> ['1', '2', '3']",
     "question": {
-      "en": "Fill in the built-in that applies a function to every item.",
-      "ar": "أكمل الدالة المدمجة التي تطبّق دالة على كل عنصر."
+      "en": "Fill in the built-in that applies a function to every item."
     },
     "answer": "map",
     "accept": [
       "map"
     ],
     "explanation": {
-      "en": "map applies the function lazily to each element.",
-      "ar": "تطبّق map الدالة على كل عنصر بشكل مؤجّل."
+      "en": "map applies the function lazily to each element."
     }
   },
   {
@@ -1177,16 +1047,14 @@
     "difficulty": "medium",
     "codeSnippet": "from collections import ____  # dict with automatic defaults",
     "question": {
-      "en": "Fill in the collections class.",
-      "ar": "أكمل اسم الصنف من collections."
+      "en": "Fill in the collections class."
     },
     "answer": "defaultdict",
     "accept": [
       "defaultdict"
     ],
     "explanation": {
-      "en": "defaultdict builds a missing value instead of raising KeyError.",
-      "ar": "تبني defaultdict القيمة المفقودة بدل إطلاق KeyError."
+      "en": "defaultdict builds a missing value instead of raising KeyError."
     }
   },
   {
@@ -1195,16 +1063,14 @@
     "difficulty": "easy",
     "codeSnippet": "count = d.____(key, 0)  # read with a fallback",
     "question": {
-      "en": "Fill in the dict method that returns a default.",
-      "ar": "أكمل دالة القاموس التي تُرجع قيمة افتراضية."
+      "en": "Fill in the dict method that returns a default."
     },
     "answer": "get",
     "accept": [
       "get"
     ],
     "explanation": {
-      "en": "dict.get returns the default instead of raising KeyError.",
-      "ar": "تُرجع dict.get القيمة الافتراضية بدل إطلاق KeyError."
+      "en": "dict.get returns the default instead of raising KeyError."
     }
   },
   {
@@ -1213,16 +1079,14 @@
     "difficulty": "easy",
     "codeSnippet": "reversed_text = s[::____]  # reverse a string",
     "question": {
-      "en": "Fill in the slice step that reverses a string.",
-      "ar": "أكمل خطوة التقطيع التي تعكس النص."
+      "en": "Fill in the slice step that reverses a string."
     },
     "answer": "-1",
     "accept": [
       "-1"
     ],
     "explanation": {
-      "en": "A step of -1 walks the sequence backwards.",
-      "ar": "الخطوة -1 تمرّ على التسلسل بالعكس."
+      "en": "A step of -1 walks the sequence backwards."
     }
   },
   {
@@ -1231,16 +1095,14 @@
     "difficulty": "easy",
     "codeSnippet": "parts = 'a-b-c'.____('-')  # -> ['a', 'b', 'c']",
     "question": {
-      "en": "Fill in the string method.",
-      "ar": "أكمل دالة النص."
+      "en": "Fill in the string method."
     },
     "answer": "split",
     "accept": [
       "split"
     ],
     "explanation": {
-      "en": "split cuts the string on each separator.",
-      "ar": "تقطع split النص عند كل فاصل."
+      "en": "split cuts the string on each separator."
     }
   },
   {
@@ -1249,16 +1111,14 @@
     "difficulty": "easy",
     "codeSnippet": "line = '-'.____(['a', 'b'])  # -> 'a-b'",
     "question": {
-      "en": "Fill in the method that joins a list into a string.",
-      "ar": "أكمل الدالة التي تدمج قائمة في نص."
+      "en": "Fill in the method that joins a list into a string."
     },
     "answer": "join",
     "accept": [
       "join"
     ],
     "explanation": {
-      "en": "The separator string joins the iterable's items.",
-      "ar": "يدمج نص الفاصل عناصر المُتكرِّر."
+      "en": "The separator string joins the iterable's items."
     }
   },
   {
@@ -1267,16 +1127,14 @@
     "difficulty": "easy",
     "codeSnippet": "# A word that reads the same both ways is a ____",
     "question": {
-      "en": "Fill in the term.",
-      "ar": "أكمل المصطلح."
+      "en": "Fill in the term."
     },
     "answer": "palindrome",
     "accept": [
       "palindrome"
     ],
     "explanation": {
-      "en": "Reversing a palindrome gives the same string back.",
-      "ar": "عكس المتناظر يعطي النص نفسه."
+      "en": "Reversing a palindrome gives the same string back."
     }
   },
   {
@@ -1285,16 +1143,14 @@
     "difficulty": "easy",
     "codeSnippet": "def fact(n):\n    return 1 if n <= 1 else n * fact(n - ____)",
     "question": {
-      "en": "Fill in the recursive step.",
-      "ar": "أكمل خطوة الاستدعاء الذاتي."
+      "en": "Fill in the recursive step."
     },
     "answer": "1",
     "accept": [
       "1"
     ],
     "explanation": {
-      "en": "Each call shrinks n by one until the base case.",
-      "ar": "كل استدعاء ينقص n بواحد حتى الحالة الأساسية."
+      "en": "Each call shrinks n by one until the base case."
     }
   },
   {
@@ -1303,16 +1159,14 @@
     "difficulty": "easy",
     "codeSnippet": "# The base ____ is what stops a recursive function",
     "question": {
-      "en": "Fill in the term.",
-      "ar": "أكمل المصطلح."
+      "en": "Fill in the term."
     },
     "answer": "case",
     "accept": [
       "case"
     ],
     "explanation": {
-      "en": "Without a base case the recursion never terminates.",
-      "ar": "بدون حالة أساسية لا تتوقف العَودية أبدًا."
+      "en": "Without a base case the recursion never terminates."
     }
   },
   {
@@ -1321,16 +1175,14 @@
     "difficulty": "easy",
     "codeSnippet": "# ____ search requires the input to be sorted",
     "question": {
-      "en": "Fill in the search name.",
-      "ar": "أكمل اسم البحث."
+      "en": "Fill in the search name."
     },
     "answer": "binary",
     "accept": [
       "binary"
     ],
     "explanation": {
-      "en": "Halving only works if the data is ordered.",
-      "ar": "التنصيف يعمل فقط إذا كانت البيانات مرتّبة."
+      "en": "Halving only works if the data is ordered."
     }
   },
   {
@@ -1339,16 +1191,14 @@
     "difficulty": "medium",
     "codeSnippet": "# ____ sort repeatedly picks the smallest remaining element",
     "question": {
-      "en": "Fill in the sort name.",
-      "ar": "أكمل اسم الفرز."
+      "en": "Fill in the sort name."
     },
     "answer": "selection",
     "accept": [
       "selection"
     ],
     "explanation": {
-      "en": "Selection sort scans for the minimum each pass.",
-      "ar": "يبحث فرز الاختيار عن الأصغر في كل مرور."
+      "en": "Selection sort scans for the minimum each pass."
     }
   },
   {
@@ -1357,16 +1207,14 @@
     "difficulty": "medium",
     "codeSnippet": "# Two pointers on a sorted array find a pair in O(____)",
     "question": {
-      "en": "Fill in the complexity.",
-      "ar": "أكمل التعقيد."
+      "en": "Fill in the complexity."
     },
     "answer": "n",
     "accept": [
       "n"
     ],
     "explanation": {
-      "en": "Each pointer moves at most n steps in total.",
-      "ar": "يتحرك كل مؤشر n خطوة كحد أقصى إجمالًا."
+      "en": "Each pointer moves at most n steps in total."
     }
   },
   {
@@ -1375,8 +1223,7 @@
     "difficulty": "medium",
     "codeSnippet": "# ____ explores a graph level by level using a queue",
     "question": {
-      "en": "Fill in the traversal (abbreviation is fine).",
-      "ar": "أكمل اسم الاجتياز (الاختصار مقبول)."
+      "en": "Fill in the traversal (abbreviation is fine)."
     },
     "answer": "BFS",
     "accept": [
@@ -1385,8 +1232,7 @@
       "breadth first search"
     ],
     "explanation": {
-      "en": "Breadth-first search visits all neighbours before going deeper.",
-      "ar": "يزور البحث بالعرض كل الجيران قبل التعمّق."
+      "en": "Breadth-first search visits all neighbours before going deeper."
     }
   },
   {
@@ -1395,8 +1241,7 @@
     "difficulty": "medium",
     "codeSnippet": "# ____ goes as deep as possible before backtracking",
     "question": {
-      "en": "Fill in the traversal (abbreviation is fine).",
-      "ar": "أكمل اسم الاجتياز (الاختصار مقبول)."
+      "en": "Fill in the traversal (abbreviation is fine)."
     },
     "answer": "DFS",
     "accept": [
@@ -1405,8 +1250,7 @@
       "depth first search"
     ],
     "explanation": {
-      "en": "Depth-first search uses a stack or recursion.",
-      "ar": "يستخدم البحث بالعمق مكدسًا أو العَودية."
+      "en": "Depth-first search uses a stack or recursion."
     }
   },
   {
@@ -1415,8 +1259,7 @@
     "difficulty": "hard",
     "codeSnippet": "# ____'s algorithm finds shortest paths with non-negative weights",
     "question": {
-      "en": "Fill in the algorithm's name.",
-      "ar": "أكمل اسم الخوارزمية."
+      "en": "Fill in the algorithm's name."
     },
     "answer": "Dijkstra",
     "accept": [
@@ -1425,8 +1268,7 @@
       "dijkstra's"
     ],
     "explanation": {
-      "en": "Dijkstra greedily expands the closest unvisited node.",
-      "ar": "توسّع ديكسترا بجَشَع أقرب عقدة غير مزارة."
+      "en": "Dijkstra greedily expands the closest unvisited node."
     }
   },
   {
@@ -1435,8 +1277,7 @@
     "difficulty": "medium",
     "codeSnippet": "# Caching subproblem results is called ____",
     "question": {
-      "en": "Fill in the technique.",
-      "ar": "أكمل اسم الأسلوب."
+      "en": "Fill in the technique."
     },
     "answer": "memoization",
     "accept": [
@@ -1444,8 +1285,7 @@
       "memoisation"
     ],
     "explanation": {
-      "en": "Memoization trades memory for avoided recomputation.",
-      "ar": "تستبدل الحفظ المؤقت الذاكرة بتجنّب إعادة الحساب."
+      "en": "Memoization trades memory for avoided recomputation."
     }
   },
   {
@@ -1454,16 +1294,14 @@
     "difficulty": "medium",
     "codeSnippet": "x & (x - ____)  # clears the lowest set bit",
     "question": {
-      "en": "Fill in the constant.",
-      "ar": "أكمل الثابت."
+      "en": "Fill in the constant."
     },
     "answer": "1",
     "accept": [
       "1"
     ],
     "explanation": {
-      "en": "x & (x-1) removes the rightmost 1 bit.",
-      "ar": "تحذف x & (x-1) أقصى بت يميني بقيمة واحد."
+      "en": "x & (x-1) removes the rightmost 1 bit."
     }
   },
   {
@@ -1472,16 +1310,14 @@
     "difficulty": "medium",
     "codeSnippet": "doubled = n ____ 1  # multiply by two with a shift",
     "question": {
-      "en": "Fill in the operator.",
-      "ar": "أكمل المُعامل."
+      "en": "Fill in the operator."
     },
     "answer": "<<",
     "accept": [
       "<<"
     ],
     "explanation": {
-      "en": "A left shift by one doubles an integer.",
-      "ar": "الإزاحة لليسار بواحد تضاعف العدد الصحيح."
+      "en": "A left shift by one doubles an integer."
     }
   },
   {
@@ -1490,8 +1326,7 @@
     "difficulty": "hard",
     "codeSnippet": "# Euclid: gcd(a, b) == gcd(b, a ____ b)",
     "question": {
-      "en": "Fill in the operator.",
-      "ar": "أكمل المُعامل."
+      "en": "Fill in the operator."
     },
     "answer": "%",
     "accept": [
@@ -1499,8 +1334,7 @@
       "mod"
     ],
     "explanation": {
-      "en": "The remainder shrinks the pair until b is zero.",
-      "ar": "يقلّص الباقي الزوج حتى يصبح b صفرًا."
+      "en": "The remainder shrinks the pair until b is zero."
     }
   },
   {
@@ -1509,16 +1343,14 @@
     "difficulty": "easy",
     "codeSnippet": "# The ____ pattern allows only one instance of a class",
     "question": {
-      "en": "Fill in the pattern name.",
-      "ar": "أكمل اسم النمط."
+      "en": "Fill in the pattern name."
     },
     "answer": "singleton",
     "accept": [
       "singleton"
     ],
     "explanation": {
-      "en": "A singleton exposes one shared instance globally.",
-      "ar": "يوفّر النمط المفرد نسخة مشتركة واحدة عالميًا."
+      "en": "A singleton exposes one shared instance globally."
     }
   },
   {
@@ -1527,8 +1359,7 @@
     "difficulty": "easy",
     "codeSnippet": "// returns the sum of a and b\nfunction add(a, b) {\n  return ____;\n}",
     "question": {
-      "en": "Fill the blank to complete the function",
-      "ar": "املأ الفراغ لإكمال الدالة"
+      "en": "Fill the blank to complete the function"
     },
     "answer": "a + b",
     "accept": [
@@ -1536,8 +1367,7 @@
       "a+b"
     ],
     "explanation": {
-      "en": "Adding the two parameters returns their sum.",
-      "ar": "جمع المعاملين يُعيد مجموعهما."
+      "en": "Adding the two parameters returns their sum."
     }
   },
   {
@@ -1546,8 +1376,7 @@
     "difficulty": "easy",
     "codeSnippet": "# returns the number of items in the list\ndef count(items):\n    return ____(items)",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "len",
     "accept": [
@@ -1555,8 +1384,7 @@
       "len()"
     ],
     "explanation": {
-      "en": "Python uses the built-in len() to get list length.",
-      "ar": "بايثون تستخدم الدالة المدمجة len() لمعرفة طول القائمة."
+      "en": "Python uses the built-in len() to get list length."
     }
   },
   {
@@ -1565,16 +1393,14 @@
     "difficulty": "easy",
     "codeSnippet": "// returns true if n is even\nfunction isEven(n) {\n  return n ____ 2 === 0;\n}",
     "question": {
-      "en": "Complete the function",
-      "ar": "أكمل الدالة"
+      "en": "Complete the function"
     },
     "answer": "%",
     "accept": [
       "%"
     ],
     "explanation": {
-      "en": "The modulo operator gives the remainder, which is 0 for even numbers.",
-      "ar": "معامل باقي القسمة يعطي الباقي، وهو 0 للأعداد الزوجية."
+      "en": "The modulo operator gives the remainder, which is 0 for even numbers."
     }
   },
   {
@@ -1583,8 +1409,7 @@
     "difficulty": "easy",
     "codeSnippet": "# adds 5 to the end of the list nums\nnums = [1, 2, 3]\nnums.____(5)\n# nums is now [1, 2, 3, 5]",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "append",
     "accept": [
@@ -1592,8 +1417,7 @@
       "append()"
     ],
     "explanation": {
-      "en": "append() adds a single element to the end of a list.",
-      "ar": "append() تضيف عنصرًا واحدًا إلى نهاية القائمة."
+      "en": "append() adds a single element to the end of a list."
     }
   },
   {
@@ -1602,16 +1426,14 @@
     "difficulty": "easy",
     "codeSnippet": "// returns the first character of the string s\nfunction firstChar(s: string): string {\n  return s[____];\n}",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "0",
     "accept": [
       "0"
     ],
     "explanation": {
-      "en": "Index 0 is the first character of a string.",
-      "ar": "الفهرس 0 هو أول حرف في النص."
+      "en": "Index 0 is the first character of a string."
     }
   },
   {
@@ -1620,16 +1442,14 @@
     "difficulty": "easy",
     "codeSnippet": "// prints 0, 1, 2, 3, 4\nfor (let i = 0; i ____ 5; i++) {\n  console.log(i);\n}",
     "question": {
-      "en": "Complete the loop",
-      "ar": "أكمل الحلقة"
+      "en": "Complete the loop"
     },
     "answer": "<",
     "accept": [
       "<"
     ],
     "explanation": {
-      "en": "Using < 5 prints 0 through 4 (five iterations).",
-      "ar": "استخدام < 5 يطبع من 0 إلى 4 أي خمس دورات."
+      "en": "Using < 5 prints 0 through 4 (five iterations)."
     }
   },
   {
@@ -1638,8 +1458,7 @@
     "difficulty": "easy",
     "codeSnippet": "// returns the string in all uppercase\nfunction shout(s: string): string {\n  return s.____();\n}\n// shout(\"hi\") -> \"HI\"",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "toUpperCase",
     "accept": [
@@ -1647,8 +1466,7 @@
       "toUpperCase()"
     ],
     "explanation": {
-      "en": "toUpperCase() converts every character to uppercase.",
-      "ar": "toUpperCase() تحوّل كل حرف إلى حالة كبيرة."
+      "en": "toUpperCase() converts every character to uppercase."
     }
   },
   {
@@ -1657,8 +1475,7 @@
     "difficulty": "easy",
     "codeSnippet": "// returns the length of the array arr\nfunction size(arr) {\n  return arr.____;\n}",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "length",
     "accept": [
@@ -1666,8 +1483,7 @@
       "length()"
     ],
     "explanation": {
-      "en": "JavaScript arrays expose their size via the length property.",
-      "ar": "مصفوفات جافاسكربت تُظهر حجمها عبر الخاصية length."
+      "en": "JavaScript arrays expose their size via the length property."
     }
   },
   {
@@ -1676,8 +1492,7 @@
     "difficulty": "easy",
     "codeSnippet": "// returns the larger of a and b\nfunction bigger(a: number, b: number): number {\n  return Math.____(a, b);\n}\n// bigger(3, 7) -> 7",
     "question": {
-      "en": "Complete the function",
-      "ar": "أكمل الدالة"
+      "en": "Complete the function"
     },
     "answer": "max",
     "accept": [
@@ -1685,8 +1500,7 @@
       "max()"
     ],
     "explanation": {
-      "en": "Math.max() returns the largest of its arguments.",
-      "ar": "Math.max() تُعيد أكبر وسائطها."
+      "en": "Math.max() returns the largest of its arguments."
     }
   },
   {
@@ -1695,16 +1509,14 @@
     "difficulty": "easy",
     "codeSnippet": "// returns the value doubled\nconst double = (n: number): number => n ____ 2;\n// double(4) -> 8",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "*",
     "accept": [
       "*"
     ],
     "explanation": {
-      "en": "Multiplying by 2 doubles the number.",
-      "ar": "الضرب في 2 يضاعف العدد."
+      "en": "Multiplying by 2 doubles the number."
     }
   },
   {
@@ -1713,16 +1525,14 @@
     "difficulty": "easy",
     "codeSnippet": "// returns true only if both conditions are true\nfunction bothTrue(a, b) {\n  return a ____ b;\n}",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "&&",
     "accept": [
       "&&"
     ],
     "explanation": {
-      "en": "The && operator is true only when both operands are true.",
-      "ar": "المعامل && يكون صحيحًا فقط إذا كان الطرفان صحيحين."
+      "en": "The && operator is true only when both operands are true."
     }
   },
   {
@@ -1731,8 +1541,7 @@
     "difficulty": "easy",
     "codeSnippet": "# returns the value of name from the dict person\nperson = {\"name\": \"Ada\", \"age\": 36}\ndef get_name(person):\n    return person____",
     "question": {
-      "en": "Complete the function",
-      "ar": "أكمل الدالة"
+      "en": "Complete the function"
     },
     "answer": "[\"name\"]",
     "accept": [
@@ -1741,8 +1550,7 @@
       "name"
     ],
     "explanation": {
-      "en": "Dictionary values are accessed with square-bracket key lookup.",
-      "ar": "قيم القاموس تُقرأ بالبحث عن المفتاح بين قوسين مربعين."
+      "en": "Dictionary values are accessed with square-bracket key lookup."
     }
   },
   {
@@ -1751,8 +1559,7 @@
     "difficulty": "easy",
     "codeSnippet": "// returns the absolute value of n\nfunction abs(n) {\n  return Math.____(n);\n}",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "abs",
     "accept": [
@@ -1760,8 +1567,7 @@
       "abs()"
     ],
     "explanation": {
-      "en": "Math.abs() returns the absolute value of a number.",
-      "ar": "Math.abs() تُعيد القيمة المطلقة للعدد."
+      "en": "Math.abs() returns the absolute value of a number."
     }
   },
   {
@@ -1770,8 +1576,7 @@
     "difficulty": "easy",
     "codeSnippet": "// returns a new array with each number doubled\nfunction doubleAll(nums) {\n  return nums.____(n => n * 2);\n}\n// doubleAll([1,2,3]) -> [2,4,6]",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "map",
     "accept": [
@@ -1779,8 +1584,7 @@
       "map()"
     ],
     "explanation": {
-      "en": "map() returns a new array of transformed values.",
-      "ar": "map() تُعيد مصفوفة جديدة بالقيم المحوّلة."
+      "en": "map() returns a new array of transformed values."
     }
   },
   {
@@ -1789,16 +1593,14 @@
     "difficulty": "easy",
     "codeSnippet": "# returns only the even numbers from nums\ndef evens(nums):\n    return [n for n in nums if n % 2 ____ 0]\n# evens([1,2,3,4]) -> [2,4]",
     "question": {
-      "en": "Complete the function",
-      "ar": "أكمل الدالة"
+      "en": "Complete the function"
     },
     "answer": "==",
     "accept": [
       "=="
     ],
     "explanation": {
-      "en": "An even number has a remainder equal to 0 when divided by 2.",
-      "ar": "العدد الزوجي باقيه يساوي 0 عند القسمة على 2."
+      "en": "An even number has a remainder equal to 0 when divided by 2."
     }
   },
   {
@@ -1807,8 +1609,7 @@
     "difficulty": "easy",
     "codeSnippet": "// returns the array reversed without mutating\nfunction reversed(arr: number[]): number[] {\n  return [...arr].____();\n}\n// reversed([1,2,3]) -> [3,2,1]",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "reverse",
     "accept": [
@@ -1816,8 +1617,7 @@
       "reverse()"
     ],
     "explanation": {
-      "en": "reverse() flips the order of elements in the array.",
-      "ar": "reverse() تعكس ترتيب عناصر المصفوفة."
+      "en": "reverse() flips the order of elements in the array."
     }
   },
   {
@@ -1826,8 +1626,7 @@
     "difficulty": "easy",
     "codeSnippet": "# removes and returns the last element of the list\nstack = [1, 2, 3]\nlast = stack.____()\n# last == 3, stack == [1, 2]",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "pop",
     "accept": [
@@ -1835,8 +1634,7 @@
       "pop()"
     ],
     "explanation": {
-      "en": "pop() with no argument removes and returns the last list element.",
-      "ar": "pop() بدون وسيط تحذف آخر عنصر وتُعيده."
+      "en": "pop() with no argument removes and returns the last list element."
     }
   },
   {
@@ -1845,8 +1643,7 @@
     "difficulty": "easy",
     "codeSnippet": "// returns true if the array contains the value\nfunction has(arr: number[], value: number): boolean {\n  return arr.____(value);\n}\n// has([1,2,3], 2) -> true",
     "question": {
-      "en": "Complete the function",
-      "ar": "أكمل الدالة"
+      "en": "Complete the function"
     },
     "answer": "includes",
     "accept": [
@@ -1854,8 +1651,7 @@
       "includes()"
     ],
     "explanation": {
-      "en": "includes() returns a boolean indicating membership.",
-      "ar": "includes() تُعيد قيمة منطقية تدل على وجود العنصر."
+      "en": "includes() returns a boolean indicating membership."
     }
   },
   {
@@ -1864,8 +1660,7 @@
     "difficulty": "easy",
     "codeSnippet": "# joins the list of words into one space-separated string\nwords = [\"hello\", \"world\"]\nsentence = \" \".____(words)\n# sentence == \"hello world\"",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "join",
     "accept": [
@@ -1873,8 +1668,7 @@
       "join()"
     ],
     "explanation": {
-      "en": "str.join() concatenates an iterable using the string as separator.",
-      "ar": "str.join() تدمج عناصر متكرّر مستخدمة النص فاصلًا."
+      "en": "str.join() concatenates an iterable using the string as separator."
     }
   },
   {
@@ -1883,16 +1677,14 @@
     "difficulty": "easy",
     "codeSnippet": "// returns the value, or \"default\" if value is falsy\nfunction withDefault(value) {\n  return value ____ \"default\";\n}",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "||",
     "accept": [
       "||"
     ],
     "explanation": {
-      "en": "|| returns the right side when the left is falsy.",
-      "ar": "|| تُعيد الطرف الأيمن عندما يكون الأيسر خاطئًا."
+      "en": "|| returns the right side when the left is falsy."
     }
   },
   {
@@ -1901,16 +1693,14 @@
     "difficulty": "easy",
     "codeSnippet": "// returns \"yes\" if n is positive, otherwise \"no\"\nfunction label(n: number): string {\n  return n > 0 ____ \"yes\" : \"no\";\n}",
     "question": {
-      "en": "Complete the function",
-      "ar": "أكمل الدالة"
+      "en": "Complete the function"
     },
     "answer": "?",
     "accept": [
       "?"
     ],
     "explanation": {
-      "en": "The ternary operator uses ? before the truthy branch.",
-      "ar": "المعامل الثلاثي يستخدم ? قبل فرع الصواب."
+      "en": "The ternary operator uses ? before the truthy branch."
     }
   },
   {
@@ -1919,8 +1709,7 @@
     "difficulty": "easy",
     "codeSnippet": "# returns a list of numbers 0,1,2,3,4\ndef first_five():\n    return list(____(5))",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "range",
     "accept": [
@@ -1928,8 +1717,7 @@
       "range()"
     ],
     "explanation": {
-      "en": "range(5) yields the integers 0 through 4.",
-      "ar": "range(5) تُنتج الأعداد من 0 إلى 4."
+      "en": "range(5) yields the integers 0 through 4."
     }
   },
   {
@@ -1938,8 +1726,7 @@
     "difficulty": "easy",
     "codeSnippet": "// returns the string with leading/trailing spaces removed\nfunction clean(s) {\n  return s.____();\n}\n// clean(\"  hi  \") -> \"hi\"",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "trim",
     "accept": [
@@ -1947,8 +1734,7 @@
       "trim()"
     ],
     "explanation": {
-      "en": "trim() removes whitespace from both ends of a string.",
-      "ar": "trim() تحذف المسافات من طرفي النص."
+      "en": "trim() removes whitespace from both ends of a string."
     }
   },
   {
@@ -1957,16 +1743,14 @@
     "difficulty": "easy",
     "codeSnippet": "// returns the sum of all numbers in nums\nfunction total(nums: number[]): number {\n  return nums.reduce((acc, n) => acc + n, ____);\n}\n// total([1,2,3]) -> 6",
     "question": {
-      "en": "Complete the function",
-      "ar": "أكمل الدالة"
+      "en": "Complete the function"
     },
     "answer": "0",
     "accept": [
       "0"
     ],
     "explanation": {
-      "en": "The reduce seed must be 0 so the running total starts correctly.",
-      "ar": "بذرة reduce يجب أن تكون 0 ليبدأ المجموع بشكل صحيح."
+      "en": "The reduce seed must be 0 so the running total starts correctly."
     }
   },
   {
@@ -1975,16 +1759,14 @@
     "difficulty": "easy",
     "codeSnippet": "// returns a greeting using the provided name, default \"friend\"\nfunction greet(name: string ____ \"friend\"): string {\n  return \"Hi \" + name;\n}",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "=",
     "accept": [
       "="
     ],
     "explanation": {
-      "en": "Default parameter values are assigned with =.",
-      "ar": "القيم الافتراضية للمعاملات تُسنَد بعلامة =."
+      "en": "Default parameter values are assigned with =."
     }
   },
   {
@@ -1993,8 +1775,7 @@
     "difficulty": "easy",
     "codeSnippet": "// returns only numbers greater than 10\nfunction bigOnes(nums) {\n  return nums.____(n => n > 10);\n}\n// bigOnes([5,15,20]) -> [15,20]",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "filter",
     "accept": [
@@ -2002,8 +1783,7 @@
       "filter()"
     ],
     "explanation": {
-      "en": "filter() keeps only elements that pass the test.",
-      "ar": "filter() تُبقي العناصر التي تجتاز الاختبار فقط."
+      "en": "filter() keeps only elements that pass the test."
     }
   },
   {
@@ -2012,8 +1792,7 @@
     "difficulty": "medium",
     "codeSnippet": "// returns the first number greater than 10, or undefined\nfunction firstBig(nums) {\n  return nums.____(n => n > 10);\n}\n// firstBig([5,12,20]) -> 12",
     "question": {
-      "en": "Complete the function",
-      "ar": "أكمل الدالة"
+      "en": "Complete the function"
     },
     "answer": "find",
     "accept": [
@@ -2021,8 +1800,7 @@
       "find()"
     ],
     "explanation": {
-      "en": "find() returns the first element matching the predicate.",
-      "ar": "find() تُعيد أول عنصر يطابق الشرط."
+      "en": "find() returns the first element matching the predicate."
     }
   },
   {
@@ -2031,8 +1809,7 @@
     "difficulty": "medium",
     "codeSnippet": "# returns index and value pairs while looping\ndef pairs(items):\n    result = []\n    for i, v in ____(items):\n        result.append((i, v))\n    return result\n# pairs([\"a\",\"b\"]) -> [(0,\"a\"),(1,\"b\")]",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "enumerate",
     "accept": [
@@ -2040,8 +1817,7 @@
       "enumerate()"
     ],
     "explanation": {
-      "en": "enumerate() yields (index, value) pairs.",
-      "ar": "enumerate() تُنتج أزواج (الفهرس، القيمة)."
+      "en": "enumerate() yields (index, value) pairs."
     }
   },
   {
@@ -2050,8 +1826,7 @@
     "difficulty": "medium",
     "codeSnippet": "// returns a copy of the first 2 elements\nfunction firstTwo<T>(arr: T[]): T[] {\n  return arr.____(0, 2);\n}\n// firstTwo([1,2,3,4]) -> [1,2]",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "slice",
     "accept": [
@@ -2059,8 +1834,7 @@
       "slice()"
     ],
     "explanation": {
-      "en": "slice(0, 2) returns a non-mutating copy of indices 0 and 1.",
-      "ar": "slice(0, 2) تُعيد نسخة للفهرسين 0 و1 دون تعديل الأصل."
+      "en": "slice(0, 2) returns a non-mutating copy of indices 0 and 1."
     }
   },
   {
@@ -2069,16 +1843,14 @@
     "difficulty": "medium",
     "codeSnippet": "# returns a dict mapping each word to its length\ndef lengths(words):\n    return {w: ____ for w in words}\n# lengths([\"a\",\"bb\"]) -> {\"a\":1,\"bb\":2}",
     "question": {
-      "en": "Complete the comprehension",
-      "ar": "أكمل الـ comprehension"
+      "en": "Complete the comprehension"
     },
     "answer": "len(w)",
     "accept": [
       "len(w)"
     ],
     "explanation": {
-      "en": "len(w) gives the length of each individual word.",
-      "ar": "len(w) تعطي طول كل كلمة على حدة."
+      "en": "len(w) gives the length of each individual word."
     }
   },
   {
@@ -2087,8 +1859,7 @@
     "difficulty": "medium",
     "codeSnippet": "// returns true only if every number is positive\nfunction allPositive(nums: number[]): boolean {\n  return nums.____(n => n > 0);\n}\n// allPositive([1,2,3]) -> true",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "every",
     "accept": [
@@ -2096,8 +1867,7 @@
       "every()"
     ],
     "explanation": {
-      "en": "every() returns true only when all elements pass the test.",
-      "ar": "every() تُعيد true فقط إذا اجتازت كل العناصر الاختبار."
+      "en": "every() returns true only when all elements pass the test."
     }
   },
   {
@@ -2106,8 +1876,7 @@
     "difficulty": "medium",
     "codeSnippet": "# returns the count of each character in s\ndef freq(s):\n    counts = {}\n    for c in s:\n        counts[c] = counts.____(c, 0) + 1\n    return counts",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "get",
     "accept": [
@@ -2115,8 +1884,7 @@
       "get()"
     ],
     "explanation": {
-      "en": "dict.get(c, 0) returns the current count or 0 if absent.",
-      "ar": "dict.get(c, 0) تُعيد العدّ الحالي أو 0 إن لم يوجد."
+      "en": "dict.get(c, 0) returns the current count or 0 if absent."
     }
   },
   {
@@ -2125,8 +1893,7 @@
     "difficulty": "medium",
     "codeSnippet": "// returns nums sorted in ascending numeric order\nfunction sortAsc(nums: number[]): number[] {\n  return [...nums].sort((a, b) => ____);\n}\n// sortAsc([3,1,2]) -> [1,2,3]",
     "question": {
-      "en": "Complete the function",
-      "ar": "أكمل الدالة"
+      "en": "Complete the function"
     },
     "answer": "a - b",
     "accept": [
@@ -2134,8 +1901,7 @@
       "a-b"
     ],
     "explanation": {
-      "en": "a - b sorts numbers in ascending order.",
-      "ar": "a - b ترتّب الأعداد تصاعديًا."
+      "en": "a - b sorts numbers in ascending order."
     }
   },
   {
@@ -2144,8 +1910,7 @@
     "difficulty": "medium",
     "codeSnippet": "// returns the index of \"x\", or -1 if not present\nfunction locate(arr, x) {\n  return arr.____(x);\n}\n// locate([\"a\",\"x\"], \"x\") -> 1",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "indexOf",
     "accept": [
@@ -2153,8 +1918,7 @@
       "indexOf()"
     ],
     "explanation": {
-      "en": "indexOf() returns the matching index or -1.",
-      "ar": "indexOf() تُعيد فهرس المطابقة أو -1."
+      "en": "indexOf() returns the matching index or -1."
     }
   },
   {
@@ -2163,8 +1927,7 @@
     "difficulty": "medium",
     "codeSnippet": "# returns the list with duplicates removed (order not important)\ndef unique(items):\n    return list(____(items))\n# unique([1,1,2]) -> [1,2]",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "set",
     "accept": [
@@ -2172,8 +1935,7 @@
       "set()"
     ],
     "explanation": {
-      "en": "Converting to a set removes duplicate values.",
-      "ar": "التحويل إلى set يحذف القيم المكرّرة."
+      "en": "Converting to a set removes duplicate values."
     }
   },
   {
@@ -2182,16 +1944,14 @@
     "difficulty": "medium",
     "codeSnippet": "// returns n! (factorial) recursively\nfunction factorial(n) {\n  if (n <= 1) return ____;\n  return n * factorial(n - 1);\n}",
     "question": {
-      "en": "Complete the recursion",
-      "ar": "أكمل الاستدعاء الذاتي"
+      "en": "Complete the recursion"
     },
     "answer": "1",
     "accept": [
       "1"
     ],
     "explanation": {
-      "en": "The factorial base case returns 1 so the product is correct.",
-      "ar": "حالة الأساس في المضروب تُعيد 1 ليكون الحاصل صحيحًا."
+      "en": "The factorial base case returns 1 so the product is correct."
     }
   },
   {
@@ -2200,8 +1960,7 @@
     "difficulty": "medium",
     "codeSnippet": "// returns the keys of the object as an array\nfunction keysOf(obj: Record<string, number>): string[] {\n  return Object.____(obj);\n}\n// keysOf({a:1,b:2}) -> [\"a\",\"b\"]",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "keys",
     "accept": [
@@ -2209,8 +1968,7 @@
       "keys()"
     ],
     "explanation": {
-      "en": "Object.keys() returns an array of the object property names.",
-      "ar": "Object.keys() تُعيد مصفوفة بأسماء خصائص الكائن."
+      "en": "Object.keys() returns an array of the object property names."
     }
   },
   {
@@ -2219,8 +1977,7 @@
     "difficulty": "medium",
     "codeSnippet": "# returns elements of a that are also in b\ndef common(a, b):\n    b_set = set(b)\n    return [x for x in a ____ x in b_set]\n# common([1,2,3],[2,3,4]) -> [2,3]",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "if",
     "accept": [
@@ -2228,8 +1985,7 @@
       "if()"
     ],
     "explanation": {
-      "en": "The if clause filters the comprehension to matching elements.",
-      "ar": "جملة if تُرشّح الـ comprehension إلى العناصر المطابقة."
+      "en": "The if clause filters the comprehension to matching elements."
     }
   },
   {
@@ -2238,8 +1994,7 @@
     "difficulty": "hard",
     "codeSnippet": "// returns a flattened one-level array\nfunction flatten(arr) {\n  return arr.reduce((acc, x) => acc.____(x), []);\n}\n// flatten([[1],[2,3]]) -> [1,2,3]",
     "question": {
-      "en": "Complete the function",
-      "ar": "أكمل الدالة"
+      "en": "Complete the function"
     },
     "answer": "concat",
     "accept": [
@@ -2247,8 +2002,7 @@
       "concat()"
     ],
     "explanation": {
-      "en": "concat() merges each sub-array into the accumulator and returns it.",
-      "ar": "concat() تدمج كل مصفوفة فرعية في المُجمِّع وتُعيده."
+      "en": "concat() merges each sub-array into the accumulator and returns it."
     }
   },
   {
@@ -2257,16 +2011,14 @@
     "difficulty": "hard",
     "codeSnippet": "# returns the most common element in items\nfrom collections import Counter\ndef most_common(items):\n    return Counter(items).most_common(1)[0][____]\n# most_common([1,1,2]) -> 1",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "0",
     "accept": [
       "0"
     ],
     "explanation": {
-      "en": "most_common returns (value, count) tuples, so index 0 is the value.",
-      "ar": "most_common تُعيد أزواج (القيمة، العدد)، لذا الفهرس 0 هو القيمة."
+      "en": "most_common returns (value, count) tuples, so index 0 is the value."
     }
   },
   {
@@ -2275,8 +2027,7 @@
     "difficulty": "hard",
     "codeSnippet": "// returns a memoized version of fn\nfunction memoize<T>(fn: (n: number) => T): (n: number) => T {\n  const cache = new Map<number, T>();\n  return (n) => {\n    if (cache.____(n)) return cache.get(n)!;\n    const r = fn(n);\n    cache.set(n, r);\n    return r;\n  };\n}",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "has",
     "accept": [
@@ -2284,8 +2035,7 @@
       "has()"
     ],
     "explanation": {
-      "en": "Map.has() checks whether a cached result already exists.",
-      "ar": "Map.has() تفحص إن كانت النتيجة مخزّنة مسبقًا."
+      "en": "Map.has() checks whether a cached result already exists."
     }
   },
   {
@@ -2294,8 +2044,7 @@
     "difficulty": "hard",
     "codeSnippet": "// returns the nth Fibonacci number (fib(0)=0, fib(1)=1)\nfunction fib(n: number): number {\n  if (n < 2) return ____;\n  return fib(n - 1) + fib(n - 2);\n}",
     "question": {
-      "en": "Complete the recursion",
-      "ar": "أكمل الاستدعاء الذاتي"
+      "en": "Complete the recursion"
     },
     "answer": "n",
     "accept": [
@@ -2303,8 +2052,7 @@
       "n()"
     ],
     "explanation": {
-      "en": "For n < 2 the value equals n itself (0 or 1).",
-      "ar": "عندما n < 2 تكون القيمة مساوية لـ n نفسها (0 أو 1)."
+      "en": "For n < 2 the value equals n itself (0 or 1)."
     }
   },
   {
@@ -2313,16 +2061,14 @@
     "difficulty": "hard",
     "codeSnippet": "// returns an object grouping words by first letter\nfunction groupByFirst(words) {\n  return words.reduce((acc, w) => {\n    const k = w[0];\n    (acc[k] ____ (acc[k] = [])).push(w);\n    return acc;\n  }, {});\n}",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "||",
     "accept": [
       "||"
     ],
     "explanation": {
-      "en": "|| reuses an existing array or creates a new one when missing.",
-      "ar": "|| تعيد استخدام مصفوفة موجودة أو تُنشئ واحدة عند غيابها."
+      "en": "|| reuses an existing array or creates a new one when missing."
     }
   },
   {
@@ -2331,8 +2077,7 @@
     "difficulty": "hard",
     "codeSnippet": "# returns a list of (key, value) sorted by value descending\ndef by_value(d):\n    return sorted(d.items(), key=lambda kv: kv[1], reverse=____)\n# by_value({\"a\":1,\"b\":3}) -> [(\"b\",3),(\"a\",1)]",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "True",
     "accept": [
@@ -2340,8 +2085,7 @@
       "True()"
     ],
     "explanation": {
-      "en": "reverse=True sorts from largest to smallest value.",
-      "ar": "reverse=True ترتّب من الأكبر إلى الأصغر."
+      "en": "reverse=True sorts from largest to smallest value."
     }
   },
   {
@@ -2350,8 +2094,7 @@
     "difficulty": "hard",
     "codeSnippet": "// returns the sum of values using reduce with a typed accumulator\nfunction sumValues(items: { v: number }[]): number {\n  return items.reduce((acc, item) => acc + item.____, 0);\n}\n// sumValues([{v:1},{v:2}]) -> 3",
     "question": {
-      "en": "Complete the function",
-      "ar": "أكمل الدالة"
+      "en": "Complete the function"
     },
     "answer": "v",
     "accept": [
@@ -2359,8 +2102,7 @@
       "v()"
     ],
     "explanation": {
-      "en": "Each item exposes its number on the property named v.",
-      "ar": "كل عنصر يعرض عدده في الخاصية v."
+      "en": "Each item exposes its number on the property named v."
     }
   },
   {
@@ -2369,8 +2111,7 @@
     "difficulty": "hard",
     "codeSnippet": "// returns a debounced function that delays calls by ms\nfunction debounce(fn, ms) {\n  let t;\n  return (...args) => {\n    ____(t);\n    t = setTimeout(() => fn(...args), ms);\n  };\n}",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "clearTimeout",
     "accept": [
@@ -2378,8 +2119,7 @@
       "clearTimeout()"
     ],
     "explanation": {
-      "en": "clearTimeout cancels the pending call before scheduling a new one.",
-      "ar": "clearTimeout تُلغي الاستدعاء المعلّق قبل جدولة آخر."
+      "en": "clearTimeout cancels the pending call before scheduling a new one."
     }
   },
   {
@@ -2388,8 +2128,7 @@
     "difficulty": "hard",
     "codeSnippet": "# returns a generator yielding squares of nums\ndef squares(nums):\n    for n in nums:\n        ____ n * n\n# list(squares([1,2,3])) -> [1,4,9]",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "yield",
     "accept": [
@@ -2397,8 +2136,7 @@
       "yield()"
     ],
     "explanation": {
-      "en": "yield turns the function into a generator that produces each square.",
-      "ar": "yield تحوّل الدالة إلى مولّد يُنتج كل مربّع."
+      "en": "yield turns the function into a generator that produces each square."
     }
   },
   {
@@ -2407,8 +2145,7 @@
     "difficulty": "hard",
     "codeSnippet": "// returns the deduplicated array preserving order\nfunction dedupe<T>(arr: T[]): T[] {\n  const seen = new ____<T>();\n  return arr.filter(x => seen.has(x) ? false : (seen.add(x), true));\n}",
     "question": {
-      "en": "Complete the function",
-      "ar": "أكمل الدالة"
+      "en": "Complete the function"
     },
     "answer": "Set",
     "accept": [
@@ -2416,8 +2153,7 @@
       "Set()"
     ],
     "explanation": {
-      "en": "A Set stores unique values and supports has()/add().",
-      "ar": "Set تخزّن قيمًا فريدة وتدعم has() و add()."
+      "en": "A Set stores unique values and supports has()/add()."
     }
   },
   {
@@ -2426,8 +2162,7 @@
     "difficulty": "hard",
     "codeSnippet": "# returns pairs of corresponding elements from a and b\ndef pair_up(a, b):\n    return list(____(a, b))\n# pair_up([1,2],[\"x\",\"y\"]) -> [(1,\"x\"),(2,\"y\")]",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "zip",
     "accept": [
@@ -2435,8 +2170,7 @@
       "zip()"
     ],
     "explanation": {
-      "en": "zip() pairs elements from each iterable by position.",
-      "ar": "zip() تزاوج عناصر كل متكرّر حسب الموضع."
+      "en": "zip() pairs elements from each iterable by position."
     }
   },
   {
@@ -2445,8 +2179,7 @@
     "difficulty": "hard",
     "codeSnippet": "// returns a promise that resolves after ms milliseconds\nfunction delay(ms) {\n  return new Promise(____ => setTimeout(resolve, ms));\n}",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "resolve",
     "accept": [
@@ -2454,8 +2187,7 @@
       "resolve()"
     ],
     "explanation": {
-      "en": "The executor receives resolve, which is called by setTimeout.",
-      "ar": "المُنفِّذ يستقبل resolve التي يستدعيها setTimeout."
+      "en": "The executor receives resolve, which is called by setTimeout."
     }
   },
   {
@@ -2464,8 +2196,7 @@
     "difficulty": "easy",
     "codeSnippet": "# split a sentence into words\nwords = \"a b c\".____()",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "split",
     "accept": [
@@ -2473,8 +2204,7 @@
       "split()"
     ],
     "explanation": {
-      "en": "split() breaks a string on whitespace by default.",
-      "ar": "‏split() تُقسّم النص عند المسافات افتراضيًا."
+      "en": "split() breaks a string on whitespace by default."
     }
   },
   {
@@ -2483,8 +2213,7 @@
     "difficulty": "easy",
     "codeSnippet": "# total of a list of numbers\ntotal = ____(nums)",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "sum",
     "accept": [
@@ -2492,8 +2221,7 @@
       "sum()"
     ],
     "explanation": {
-      "en": "sum() adds every item of an iterable.",
-      "ar": "‏sum() تجمع كل عناصر المتكرّر."
+      "en": "sum() adds every item of an iterable."
     }
   },
   {
@@ -2502,8 +2230,7 @@
     "difficulty": "easy",
     "codeSnippet": "# smallest value in the list\nlowest = ____(nums)",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "min",
     "accept": [
@@ -2511,8 +2238,7 @@
       "min()"
     ],
     "explanation": {
-      "en": "min() returns the smallest element.",
-      "ar": "‏min() تُعيد أصغر عنصر."
+      "en": "min() returns the smallest element."
     }
   },
   {
@@ -2521,8 +2247,7 @@
     "difficulty": "easy",
     "codeSnippet": "# does the name start with \"Mr\"?\nflag = name.____(\"Mr\")",
     "question": {
-      "en": "Complete the function",
-      "ar": "أكمل الدالة"
+      "en": "Complete the function"
     },
     "answer": "startswith",
     "accept": [
@@ -2530,8 +2255,7 @@
       "startswith()"
     ],
     "explanation": {
-      "en": "startswith() tests a prefix and returns a boolean.",
-      "ar": "‏startswith() تفحص البادئة وتُعيد قيمة منطقية."
+      "en": "startswith() tests a prefix and returns a boolean."
     }
   },
   {
@@ -2540,8 +2264,7 @@
     "difficulty": "easy",
     "codeSnippet": "# drop surrounding whitespace\nclean = raw.____()",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "strip",
     "accept": [
@@ -2549,8 +2272,7 @@
       "strip()"
     ],
     "explanation": {
-      "en": "strip() removes whitespace from both ends of a string.",
-      "ar": "‏strip() تحذف المسافات من طرفي النص."
+      "en": "strip() removes whitespace from both ends of a string."
     }
   },
   {
@@ -2559,8 +2281,7 @@
     "difficulty": "easy",
     "codeSnippet": "# swap every comma for a space\nout = text.____(\",\", \" \")",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "replace",
     "accept": [
@@ -2568,8 +2289,7 @@
       "replace()"
     ],
     "explanation": {
-      "en": "replace(old, new) substitutes every occurrence.",
-      "ar": "‏replace(old, new) تستبدل كل التكرارات."
+      "en": "replace(old, new) substitutes every occurrence."
     }
   },
   {
@@ -2578,8 +2298,7 @@
     "difficulty": "easy",
     "codeSnippet": "// add an item to the end\nconst list = [1, 2];\nlist.____(3);",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "push",
     "accept": [
@@ -2587,8 +2306,7 @@
       "push()"
     ],
     "explanation": {
-      "en": "push() appends to the end of an array.",
-      "ar": "‏push() تضيف إلى نهاية المصفوفة."
+      "en": "push() appends to the end of an array."
     }
   },
   {
@@ -2597,8 +2315,7 @@
     "difficulty": "easy",
     "codeSnippet": "// remove and return the FIRST item\nconst first = queue.____();",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "shift",
     "accept": [
@@ -2606,8 +2323,7 @@
       "shift()"
     ],
     "explanation": {
-      "en": "shift() removes the first element and returns it.",
-      "ar": "‏shift() تحذف أول عنصر وتُعيده."
+      "en": "shift() removes the first element and returns it."
     }
   },
   {
@@ -2616,8 +2332,7 @@
     "difficulty": "easy",
     "codeSnippet": "// is ANY score above 90?\nconst high = scores.____((s) => s > 90);",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "some",
     "accept": [
@@ -2625,8 +2340,7 @@
       "some()"
     ],
     "explanation": {
-      "en": "some() returns true when at least one element passes the test.",
-      "ar": "‏some() تُعيد true إذا اجتاز عنصر واحد على الأقل الاختبار."
+      "en": "some() returns true when at least one element passes the test."
     }
   },
   {
@@ -2635,8 +2349,7 @@
     "difficulty": "easy",
     "codeSnippet": "# True when EVERY value is positive\nok = ____(v > 0 for v in nums)",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "all",
     "accept": [
@@ -2644,8 +2357,7 @@
       "all()"
     ],
     "explanation": {
-      "en": "all() is True only when every item is truthy.",
-      "ar": "‏all() تكون True فقط إذا كان كل عنصر صحيحًا."
+      "en": "all() is True only when every item is truthy."
     }
   },
   {
@@ -2654,8 +2366,7 @@
     "difficulty": "medium",
     "codeSnippet": "# True when AT LEAST ONE value is negative\nbad = ____(v < 0 for v in nums)",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "any",
     "accept": [
@@ -2663,8 +2374,7 @@
       "any()"
     ],
     "explanation": {
-      "en": "any() is True as soon as one item is truthy.",
-      "ar": "‏any() تكون True بمجرّد أن يكون عنصر واحد صحيحًا."
+      "en": "any() is True as soon as one item is truthy."
     }
   },
   {
@@ -2673,8 +2383,7 @@
     "difficulty": "medium",
     "codeSnippet": "// sum the array into one value\nconst total = nums.____((a, b) => a + b, 0);",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "reduce",
     "accept": [
@@ -2682,8 +2391,7 @@
       "reduce()"
     ],
     "explanation": {
-      "en": "reduce() folds an array down to a single value.",
-      "ar": "‏reduce() تطوي المصفوفة إلى قيمة واحدة."
+      "en": "reduce() folds an array down to a single value."
     }
   },
   {
@@ -2692,8 +2400,7 @@
     "difficulty": "medium",
     "codeSnippet": "# walk the dictionary as key/value pairs\nfor k, v in scores.____():\n    print(k, v)",
     "question": {
-      "en": "Complete the loop",
-      "ar": "أكمل الحلقة"
+      "en": "Complete the loop"
     },
     "answer": "items",
     "accept": [
@@ -2701,8 +2408,7 @@
       "items()"
     ],
     "explanation": {
-      "en": "items() yields (key, value) tuples.",
-      "ar": "‏items() تُنتج أزواج (المفتاح، القيمة)."
+      "en": "items() yields (key, value) tuples."
     }
   },
   {
@@ -2711,8 +2417,7 @@
     "difficulty": "medium",
     "codeSnippet": "# longest word first\nwords.sort(____=len, reverse=True)",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "key",
     "accept": [
@@ -2720,8 +2425,7 @@
       "key()"
     ],
     "explanation": {
-      "en": "The key argument names the function used to rank each item.",
-      "ar": "المعامل key يحدّد الدالة المستخدمة لترتيب كل عنصر."
+      "en": "The key argument names the function used to rank each item."
     }
   },
   {
@@ -2730,8 +2434,7 @@
     "difficulty": "medium",
     "codeSnippet": "# sort pairs by the second field\npairs.sort(key=____ p: p[1])",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "lambda",
     "accept": [
@@ -2739,8 +2442,7 @@
       "lambda()"
     ],
     "explanation": {
-      "en": "lambda builds a small anonymous function inline.",
-      "ar": "‏lambda تبني دالة مجهولة صغيرة في المكان."
+      "en": "lambda builds a small anonymous function inline."
     }
   },
   {
@@ -2749,8 +2451,7 @@
     "difficulty": "medium",
     "codeSnippet": "# guard: only numbers allowed\nif not ____(v, (int, float)):\n    raise TypeError",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "isinstance",
     "accept": [
@@ -2758,8 +2459,7 @@
       "isinstance()"
     ],
     "explanation": {
-      "en": "isinstance() checks a value against a type or tuple of types.",
-      "ar": "‏isinstance() تفحص القيمة مقابل نوع أو مجموعة أنواع."
+      "en": "isinstance() checks a value against a type or tuple of types."
     }
   },
   {
@@ -2768,8 +2468,7 @@
     "difficulty": "medium",
     "codeSnippet": "# add every item of another list\nbase.____(extra)",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "extend",
     "accept": [
@@ -2777,8 +2476,7 @@
       "extend()"
     ],
     "explanation": {
-      "en": "extend() appends each element, unlike append() which adds the list itself.",
-      "ar": "‏extend() تضيف كل عنصر، بخلاف append() التي تضيف القائمة نفسها."
+      "en": "extend() appends each element, unlike append() which adds the list itself."
     }
   },
   {
@@ -2787,8 +2485,7 @@
     "difficulty": "medium",
     "codeSnippet": "// map then flatten one level\nconst tags = posts.____((p) => p.tags);",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "flatMap",
     "accept": [
@@ -2796,8 +2493,7 @@
       "flatMap()"
     ],
     "explanation": {
-      "en": "flatMap() maps each item then flattens the result one level.",
-      "ar": "‏flatMap() تحوّل كل عنصر ثم تفرد النتيجة مستوى واحدًا."
+      "en": "flatMap() maps each item then flattens the result one level."
     }
   },
   {
@@ -2806,8 +2502,7 @@
     "difficulty": "medium",
     "codeSnippet": "// always two digits: \"7\" -> \"07\"\nconst mm = String(m).____(2, '0');",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "padStart",
     "accept": [
@@ -2815,8 +2510,7 @@
       "padStart()"
     ],
     "explanation": {
-      "en": "padStart() pads the front until the string reaches the given length.",
-      "ar": "‏padStart() تحشو البداية حتى يبلغ النص الطول المطلوب."
+      "en": "padStart() pads the front until the string reaches the given length."
     }
   },
   {
@@ -2825,8 +2519,7 @@
     "difficulty": "medium",
     "codeSnippet": "// a divider line of 20 dashes\nconst line = '-'.____(20);",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "repeat",
     "accept": [
@@ -2834,8 +2527,7 @@
       "repeat()"
     ],
     "explanation": {
-      "en": "repeat(n) returns the string joined to itself n times.",
-      "ar": "‏repeat(n) تُعيد النص مكرّرًا n مرة."
+      "en": "repeat(n) returns the string joined to itself n times."
     }
   },
   {
@@ -2844,8 +2536,7 @@
     "difficulty": "medium",
     "codeSnippet": "// remove 2 items starting at index 1\nlist.____(1, 2);",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "splice",
     "accept": [
@@ -2853,8 +2544,7 @@
       "splice()"
     ],
     "explanation": {
-      "en": "splice(start, count) removes items in place.",
-      "ar": "‏splice(start, count) تحذف عناصر من المصفوفة نفسها."
+      "en": "splice(start, count) removes items in place."
     }
   },
   {
@@ -2863,8 +2553,7 @@
     "difficulty": "medium",
     "codeSnippet": "# how many times does 'a' appear?\nn = letters.____(\"a\")",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "count",
     "accept": [
@@ -2872,8 +2561,7 @@
       "count()"
     ],
     "explanation": {
-      "en": "count() returns the number of occurrences.",
-      "ar": "‏count() تُعيد عدد مرات التكرار."
+      "en": "count() returns the number of occurrences."
     }
   },
   {
@@ -2882,8 +2570,7 @@
     "difficulty": "medium",
     "codeSnippet": "// parse a JSON string into an object\nconst cfg = JSON.____(raw);",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "parse",
     "accept": [
@@ -2891,8 +2578,7 @@
       "parse()"
     ],
     "explanation": {
-      "en": "JSON.parse() turns text into a value; stringify goes the other way.",
-      "ar": "‏JSON.parse() تحوّل النص إلى قيمة، وstringify تفعل العكس."
+      "en": "JSON.parse() turns text into a value; stringify goes the other way."
     }
   },
   {
@@ -2901,8 +2587,7 @@
     "difficulty": "medium",
     "codeSnippet": "// run no matter what happened above\ntry { save(); } catch (e) { log(e); } ____ { close(); }",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "finally",
     "accept": [
@@ -2910,8 +2595,7 @@
       "finally()"
     ],
     "explanation": {
-      "en": "finally runs whether or not an exception was thrown.",
-      "ar": "‏finally تُنفَّذ سواء وقع استثناء أم لا."
+      "en": "finally runs whether or not an exception was thrown."
     }
   },
   {
@@ -2920,8 +2604,7 @@
     "difficulty": "hard",
     "codeSnippet": "# {'a': 1, 'b': 2} -> {1: 'a', 2: 'b'}\nflipped = {v: k for k, v in d.____()}",
     "question": {
-      "en": "Complete the comprehension",
-      "ar": "أكمل الـ comprehension"
+      "en": "Complete the comprehension"
     },
     "answer": "items",
     "accept": [
@@ -2929,8 +2612,7 @@
       "items()"
     ],
     "explanation": {
-      "en": "items() gives the pairs the comprehension swaps.",
-      "ar": "‏items() تعطي الأزواج التي يقلبها الـ comprehension."
+      "en": "items() gives the pairs the comprehension swaps."
     }
   },
   {
@@ -2939,8 +2621,7 @@
     "difficulty": "hard",
     "codeSnippet": "# yield a running total\ndef running(nums):\n    t = 0\n    for n in nums:\n        t += n\n        ____ t",
     "question": {
-      "en": "Complete the function",
-      "ar": "أكمل الدالة"
+      "en": "Complete the function"
     },
     "answer": "yield",
     "accept": [
@@ -2948,8 +2629,7 @@
       "yield()"
     ],
     "explanation": {
-      "en": "yield turns the function into a generator producing each running total.",
-      "ar": "‏yield تحوّل الدالة إلى مولّد يُنتج كل مجموع تراكمي."
+      "en": "yield turns the function into a generator producing each running total."
     }
   },
   {
@@ -2958,8 +2638,7 @@
     "difficulty": "hard",
     "codeSnippet": "// wait for every request together\nconst all = await Promise.____(ids.map(load));",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "all",
     "accept": [
@@ -2967,8 +2646,7 @@
       "all()"
     ],
     "explanation": {
-      "en": "Promise.all waits for every promise and keeps their order.",
-      "ar": "‏Promise.all تنتظر كل الوعود وتحافظ على ترتيبها."
+      "en": "Promise.all waits for every promise and keeps their order."
     }
   },
   {
@@ -2977,8 +2655,7 @@
     "difficulty": "hard",
     "codeSnippet": "// first one to settle wins\nconst fastest = await Promise.____([a, b]);",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "race",
     "accept": [
@@ -2986,8 +2663,7 @@
       "race()"
     ],
     "explanation": {
-      "en": "Promise.race settles as soon as the first promise does.",
-      "ar": "‏Promise.race تنتهي بمجرّد انتهاء أول وعد."
+      "en": "Promise.race settles as soon as the first promise does."
     }
   },
   {
@@ -2996,8 +2672,7 @@
     "difficulty": "hard",
     "codeSnippet": "# count each word in one line\nfrom collections import Counter\ntally = ____(words)",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "Counter",
     "accept": [
@@ -3005,8 +2680,7 @@
       "Counter()"
     ],
     "explanation": {
-      "en": "Counter builds a dict of element counts in one call.",
-      "ar": "‏Counter تبني قاموس تكرارات العناصر باستدعاء واحد."
+      "en": "Counter builds a dict of element counts in one call."
     }
   },
   {
@@ -3015,16 +2689,14 @@
     "difficulty": "hard",
     "codeSnippet": "// narrow away null before using it\nif (v ____ null) {\n  return v.trim();\n}",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "!==",
     "accept": [
       "!=="
     ],
     "explanation": {
-      "en": "A strict !== null check narrows the type so the call is safe.",
-      "ar": "فحص ‎!== null الصارم يضيّق النوع فيصبح الاستدعاء آمنًا."
+      "en": "A strict !== null check narrows the type so the call is safe."
     }
   },
   {
@@ -3033,8 +2705,7 @@
     "difficulty": "easy",
     "codeSnippet": "# \"ana\" -> \"Ana\"\nname = raw.____()",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "capitalize",
     "accept": [
@@ -3042,8 +2713,7 @@
       "capitalize()"
     ],
     "explanation": {
-      "en": "capitalize() upper-cases the first character only.",
-      "ar": "‏capitalize() ترفع أول حرف فقط."
+      "en": "capitalize() upper-cases the first character only."
     }
   },
   {
@@ -3052,8 +2722,7 @@
     "difficulty": "easy",
     "codeSnippet": "# \"HELLO\" -> \"hello\"\nq = text.____()",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "lower",
     "accept": [
@@ -3061,8 +2730,7 @@
       "lower()"
     ],
     "explanation": {
-      "en": "lower() converts every letter to lowercase.",
-      "ar": "‏lower() تحوّل كل حرف إلى صغير."
+      "en": "lower() converts every letter to lowercase."
     }
   },
   {
@@ -3071,8 +2739,7 @@
     "difficulty": "easy",
     "codeSnippet": "# \"7\" -> \"007\"\ncode = num.____(3, \"0\")",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "rjust",
     "accept": [
@@ -3080,8 +2747,7 @@
       "rjust()"
     ],
     "explanation": {
-      "en": "rjust pads on the left until the string reaches the width.",
-      "ar": "‏rjust تحشو من اليسار حتى يبلغ النص العرض المطلوب."
+      "en": "rjust pads on the left until the string reaches the width."
     }
   },
   {
@@ -3090,8 +2756,7 @@
     "difficulty": "easy",
     "codeSnippet": "# does the file end in .csv?\nok = path.____(\".csv\")",
     "question": {
-      "en": "Complete the function",
-      "ar": "أكمل الدالة"
+      "en": "Complete the function"
     },
     "answer": "endswith",
     "accept": [
@@ -3099,8 +2764,7 @@
       "endswith()"
     ],
     "explanation": {
-      "en": "endswith() tests a suffix and returns a boolean.",
-      "ar": "‏endswith() تفحص اللاحقة وتُعيد قيمة منطقية."
+      "en": "endswith() tests a suffix and returns a boolean."
     }
   },
   {
@@ -3109,8 +2773,7 @@
     "difficulty": "easy",
     "codeSnippet": "# add a key only if it is missing\ncfg.____(\"port\", 8080)",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "setdefault",
     "accept": [
@@ -3118,8 +2781,7 @@
       "setdefault()"
     ],
     "explanation": {
-      "en": "setdefault inserts the value only when the key is absent.",
-      "ar": "‏setdefault تُدرج القيمة فقط عند غياب المفتاح."
+      "en": "setdefault inserts the value only when the key is absent."
     }
   },
   {
@@ -3128,8 +2790,7 @@
     "difficulty": "easy",
     "codeSnippet": "# merge another dict into this one\nbase.____(extra)",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "update",
     "accept": [
@@ -3137,8 +2798,7 @@
       "update()"
     ],
     "explanation": {
-      "en": "update() copies the other mapping's pairs in.",
-      "ar": "‏update() تنسخ أزواج القاموس الآخر إليه."
+      "en": "update() copies the other mapping's pairs in."
     }
   },
   {
@@ -3147,8 +2807,7 @@
     "difficulty": "easy",
     "codeSnippet": "# walk the list from last to first\nfor x in ____(items):\n    print(x)",
     "question": {
-      "en": "Complete the loop",
-      "ar": "أكمل الحلقة"
+      "en": "Complete the loop"
     },
     "answer": "reversed",
     "accept": [
@@ -3156,8 +2815,7 @@
       "reversed()"
     ],
     "explanation": {
-      "en": "reversed() iterates a sequence backwards without copying it.",
-      "ar": "‏reversed() تمرّ على المتسلسلة عكسيًا دون نسخها."
+      "en": "reversed() iterates a sequence backwards without copying it."
     }
   },
   {
@@ -3166,8 +2824,7 @@
     "difficulty": "easy",
     "codeSnippet": "# stop with a clear error\nif v < 0:\n    ____ ValueError(\"negative\")",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "raise",
     "accept": [
@@ -3175,8 +2832,7 @@
       "raise()"
     ],
     "explanation": {
-      "en": "raise throws the exception you construct.",
-      "ar": "‏raise ترمي الاستثناء الذي تنشئه."
+      "en": "raise throws the exception you construct."
     }
   },
   {
@@ -3185,8 +2841,7 @@
     "difficulty": "easy",
     "codeSnippet": "// add an item to the FRONT\nqueue.____('first');",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "unshift",
     "accept": [
@@ -3194,8 +2849,7 @@
       "unshift()"
     ],
     "explanation": {
-      "en": "unshift() inserts at the start of an array.",
-      "ar": "‏unshift() تُدرج في بداية المصفوفة."
+      "en": "unshift() inserts at the start of an array."
     }
   },
   {
@@ -3204,8 +2858,7 @@
     "difficulty": "easy",
     "codeSnippet": "// position of the LAST match\nconst i = list.____('a');",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "lastIndexOf",
     "accept": [
@@ -3213,8 +2866,7 @@
       "lastIndexOf()"
     ],
     "explanation": {
-      "en": "lastIndexOf() searches from the end backwards.",
-      "ar": "‏lastIndexOf() تبحث من النهاية إلى البداية."
+      "en": "lastIndexOf() searches from the end backwards."
     }
   },
   {
@@ -3223,8 +2875,7 @@
     "difficulty": "easy",
     "codeSnippet": "// index of the first match, or -1\nconst i = rows.____((r) => r.ok);",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "findIndex",
     "accept": [
@@ -3232,8 +2883,7 @@
       "findIndex()"
     ],
     "explanation": {
-      "en": "findIndex() returns the position, while find() returns the element.",
-      "ar": "‏findIndex() تُعيد الموضع، وfind() تُعيد العنصر."
+      "en": "findIndex() returns the position, while find() returns the element."
     }
   },
   {
@@ -3242,8 +2892,7 @@
     "difficulty": "easy",
     "codeSnippet": "// object -> [[key, value], ...]\nconst pairs = Object.____(user);",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "entries",
     "accept": [
@@ -3251,8 +2900,7 @@
       "entries()"
     ],
     "explanation": {
-      "en": "Object.entries() returns key/value pairs.",
-      "ar": "‏Object.entries() تُعيد أزواج المفتاح والقيمة."
+      "en": "Object.entries() returns key/value pairs."
     }
   },
   {
@@ -3261,8 +2909,7 @@
     "difficulty": "easy",
     "codeSnippet": "// [[k, v], ...] -> object\nconst obj = Object.____(pairs);",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "fromEntries",
     "accept": [
@@ -3270,8 +2917,7 @@
       "fromEntries()"
     ],
     "explanation": {
-      "en": "Object.fromEntries() is the inverse of entries().",
-      "ar": "‏Object.fromEntries() عكس entries()."
+      "en": "Object.fromEntries() is the inverse of entries()."
     }
   },
   {
@@ -3280,8 +2926,7 @@
     "difficulty": "easy",
     "codeSnippet": "// object -> array of its values\nconst vals = Object.____(scores);",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "values",
     "accept": [
@@ -3289,8 +2934,7 @@
       "values()"
     ],
     "explanation": {
-      "en": "Object.values() collects the values into an array.",
-      "ar": "‏Object.values() تجمع القيم في مصفوفة."
+      "en": "Object.values() collects the values into an array."
     }
   },
   {
@@ -3299,8 +2943,7 @@
     "difficulty": "easy",
     "codeSnippet": "// object -> JSON text\nconst body = JSON.____(payload);",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "stringify",
     "accept": [
@@ -3308,8 +2951,7 @@
       "stringify()"
     ],
     "explanation": {
-      "en": "JSON.stringify() serialises a value to text.",
-      "ar": "‏JSON.stringify() تُسلسل القيمة إلى نص."
+      "en": "JSON.stringify() serialises a value to text."
     }
   },
   {
@@ -3318,8 +2960,7 @@
     "difficulty": "medium",
     "codeSnippet": "// block the default form submit\nform.addEventListener('submit', (e) => {\n  e.____();\n});",
     "question": {
-      "en": "Complete the function",
-      "ar": "أكمل الدالة"
+      "en": "Complete the function"
     },
     "answer": "preventDefault",
     "accept": [
@@ -3327,8 +2968,7 @@
       "preventDefault()"
     ],
     "explanation": {
-      "en": "preventDefault() stops the browser's built-in action.",
-      "ar": "‏preventDefault() توقف السلوك الافتراضي للمتصفح."
+      "en": "preventDefault() stops the browser's built-in action."
     }
   },
   {
@@ -3337,8 +2977,7 @@
     "difficulty": "medium",
     "codeSnippet": "// stop the event reaching the parent\nchild.addEventListener('click', (e) => {\n  e.____();\n});",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "stopPropagation",
     "accept": [
@@ -3346,8 +2985,7 @@
       "stopPropagation()"
     ],
     "explanation": {
-      "en": "stopPropagation() keeps the event from bubbling up.",
-      "ar": "‏stopPropagation() تمنع الحدث من الصعود للأب."
+      "en": "stopPropagation() keeps the event from bubbling up."
     }
   },
   {
@@ -3356,8 +2994,7 @@
     "difficulty": "medium",
     "codeSnippet": "// is it an array?\nif (Array.____(v)) {\n  walk(v);\n}",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "isArray",
     "accept": [
@@ -3365,8 +3002,7 @@
       "isArray()"
     ],
     "explanation": {
-      "en": "Array.isArray() is the reliable test — typeof reports 'object'.",
-      "ar": "‏Array.isArray() هي الفحص الموثوق، إذ يعطي typeof القيمة 'object'."
+      "en": "Array.isArray() is the reliable test — typeof reports 'object'."
     }
   },
   {
@@ -3375,8 +3011,7 @@
     "difficulty": "medium",
     "codeSnippet": "// class check for a Date\nif (d ____ Date) {\n  fmt(d);\n}",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "instanceof",
     "accept": [
@@ -3384,8 +3019,7 @@
       "instanceof()"
     ],
     "explanation": {
-      "en": "instanceof walks the prototype chain to test the constructor.",
-      "ar": "‏instanceof تمشي على سلسلة النماذج لفحص الباني."
+      "en": "instanceof walks the prototype chain to test the constructor."
     }
   },
   {
@@ -3394,8 +3028,7 @@
     "difficulty": "medium",
     "codeSnippet": "// make the method keep its object\nconst bound = obj.run.____(obj);",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "bind",
     "accept": [
@@ -3403,8 +3036,7 @@
       "bind()"
     ],
     "explanation": {
-      "en": "bind() returns a copy whose `this` is fixed.",
-      "ar": "‏bind() تُعيد نسخة بـ this مثبّتة."
+      "en": "bind() returns a copy whose `this` is fixed."
     }
   },
   {
@@ -3413,8 +3045,7 @@
     "difficulty": "medium",
     "codeSnippet": "// keep only the truthy values\nconst clean = rows.filter(____);",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "Boolean",
     "accept": [
@@ -3422,8 +3053,7 @@
       "Boolean()"
     ],
     "explanation": {
-      "en": "Passing Boolean as the predicate drops every falsy entry.",
-      "ar": "تمرير Boolean كشرط يحذف كل قيمة خاطئة."
+      "en": "Passing Boolean as the predicate drops every falsy entry."
     }
   },
   {
@@ -3432,8 +3062,7 @@
     "difficulty": "medium",
     "codeSnippet": "// wait, then continue\nawait new Promise((r) => ____(r, 500));",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "setTimeout",
     "accept": [
@@ -3441,8 +3070,7 @@
       "setTimeout()"
     ],
     "explanation": {
-      "en": "setTimeout resolves the promise after the delay.",
-      "ar": "‏setTimeout تحلّ الوعد بعد المهلة."
+      "en": "setTimeout resolves the promise after the delay."
     }
   },
   {
@@ -3451,8 +3079,7 @@
     "difficulty": "medium",
     "codeSnippet": "// read the id written in the markup\nconst id = el.____.userId;",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "dataset",
     "accept": [
@@ -3460,8 +3087,7 @@
       "dataset()"
     ],
     "explanation": {
-      "en": "dataset exposes every data-* attribute in camelCase.",
-      "ar": "‏dataset تُظهر كل سمات ‎data-*‎ بصيغة camelCase."
+      "en": "dataset exposes every data-* attribute in camelCase."
     }
   },
   {
@@ -3470,8 +3096,7 @@
     "difficulty": "medium",
     "codeSnippet": "// toggle a css class safely\nel.____.toggle('active');",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "classList",
     "accept": [
@@ -3479,8 +3104,7 @@
       "classList()"
     ],
     "explanation": {
-      "en": "classList gives add/remove/toggle without touching the whole class string.",
-      "ar": "‏classList تتيح الإضافة والحذف والتبديل دون المساس بسلسلة الأصناف كاملة."
+      "en": "classList gives add/remove/toggle without touching the whole class string."
     }
   },
   {
@@ -3489,8 +3113,7 @@
     "difficulty": "medium",
     "codeSnippet": "# every value that is in BOTH sets\nboth = a.____(b)",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "intersection",
     "accept": [
@@ -3498,8 +3121,7 @@
       "intersection()"
     ],
     "explanation": {
-      "en": "intersection() keeps the members present in both sets.",
-      "ar": "‏intersection() تُبقي العناصر الموجودة في المجموعتين."
+      "en": "intersection() keeps the members present in both sets."
     }
   },
   {
@@ -3508,8 +3130,7 @@
     "difficulty": "medium",
     "codeSnippet": "# values in a but NOT in b\nonly = a.____(b)",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "difference",
     "accept": [
@@ -3517,8 +3138,7 @@
       "difference()"
     ],
     "explanation": {
-      "en": "difference() removes anything also found in the other set.",
-      "ar": "‏difference() تحذف كل ما يوجد في المجموعة الأخرى."
+      "en": "difference() removes anything also found in the other set."
     }
   },
   {
@@ -3527,8 +3147,7 @@
     "difficulty": "medium",
     "codeSnippet": "# remove if present, ignore if not\ntags.____(\"old\")",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "discard",
     "accept": [
@@ -3536,8 +3155,7 @@
       "discard()"
     ],
     "explanation": {
-      "en": "discard() never raises, unlike remove() on a missing member.",
-      "ar": "‏discard() لا ترمي خطأً أبدًا، بخلاف remove() مع عنصر مفقود."
+      "en": "discard() never raises, unlike remove() on a missing member."
     }
   },
   {
@@ -3546,8 +3164,7 @@
     "difficulty": "medium",
     "codeSnippet": "# group values under a key, no KeyError\nfrom collections import defaultdict\nby = ____(list)",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "defaultdict",
     "accept": [
@@ -3555,8 +3172,7 @@
       "defaultdict()"
     ],
     "explanation": {
-      "en": "defaultdict(list) creates an empty list on first access to a key.",
-      "ar": "‏defaultdict(list) تنشئ قائمة فارغة عند أول وصول لمفتاح."
+      "en": "defaultdict(list) creates an empty list on first access to a key."
     }
   },
   {
@@ -3565,8 +3181,7 @@
     "difficulty": "medium",
     "codeSnippet": "# pull the next item from an iterator\nfirst = ____(it)",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "next",
     "accept": [
@@ -3574,8 +3189,7 @@
       "next()"
     ],
     "explanation": {
-      "en": "next() advances an iterator by one step.",
-      "ar": "‏next() تتقدّم بالمكرّر خطوة واحدة."
+      "en": "next() advances an iterator by one step."
     }
   },
   {
@@ -3584,8 +3198,7 @@
     "difficulty": "medium",
     "codeSnippet": "# 3.7 -> 3 (toward zero)\nn = ____(3.7)",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "int",
     "accept": [
@@ -3593,8 +3206,7 @@
       "int()"
     ],
     "explanation": {
-      "en": "int() truncates the fraction instead of rounding.",
-      "ar": "‏int() تقتطع الكسر بدل التقريب."
+      "en": "int() truncates the fraction instead of rounding."
     }
   },
   {
@@ -3603,8 +3215,7 @@
     "difficulty": "medium",
     "codeSnippet": "# reuse the file handle safely\n____ open(path) as f:\n    data = f.read()",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "with",
     "accept": [
@@ -3612,8 +3223,7 @@
       "with()"
     ],
     "explanation": {
-      "en": "A with block closes the file even if the body raises.",
-      "ar": "كتلة with تغلق الملف حتى لو رمى الجسم استثناءً."
+      "en": "A with block closes the file even if the body raises."
     }
   },
   {
@@ -3622,8 +3232,7 @@
     "difficulty": "medium",
     "codeSnippet": "# skip this row and keep looping\nfor r in rows:\n    if not r.ok:\n        ____",
     "question": {
-      "en": "Complete the loop",
-      "ar": "أكمل الحلقة"
+      "en": "Complete the loop"
     },
     "answer": "continue",
     "accept": [
@@ -3631,8 +3240,7 @@
       "continue()"
     ],
     "explanation": {
-      "en": "continue jumps straight to the next iteration.",
-      "ar": "‏continue تقفز مباشرة إلى الدورة التالية."
+      "en": "continue jumps straight to the next iteration."
     }
   },
   {
@@ -3641,8 +3249,7 @@
     "difficulty": "medium",
     "codeSnippet": "# call the parent constructor\nclass Admin(User):\n    def __init__(self, n):\n        ____().__init__(n)",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "super",
     "accept": [
@@ -3650,8 +3257,7 @@
       "super()"
     ],
     "explanation": {
-      "en": "super() reaches the parent class implementation.",
-      "ar": "‏super() تصل إلى تنفيذ الصنف الأب."
+      "en": "super() reaches the parent class implementation."
     }
   },
   {
@@ -3660,8 +3266,7 @@
     "difficulty": "medium",
     "codeSnippet": "# the constructor of a class\nclass Point:\n    def ____(self, x):\n        self.x = x",
     "question": {
-      "en": "Complete the function",
-      "ar": "أكمل الدالة"
+      "en": "Complete the function"
     },
     "answer": "__init__",
     "accept": [
@@ -3669,8 +3274,7 @@
       "__init__()"
     ],
     "explanation": {
-      "en": "__init__ runs when the instance is created.",
-      "ar": "‏__init__ تُنفَّذ عند إنشاء الكائن."
+      "en": "__init__ runs when the instance is created."
     }
   },
   {
@@ -3679,8 +3283,7 @@
     "difficulty": "medium",
     "codeSnippet": "// inherit from a base class\nclass Admin ____ User {\n  constructor(n) { super(n); }\n}",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "extends",
     "accept": [
@@ -3688,8 +3291,7 @@
       "extends()"
     ],
     "explanation": {
-      "en": "extends sets up the prototype chain to the base class.",
-      "ar": "‏extends تُنشئ سلسلة النماذج إلى الصنف الأساس."
+      "en": "extends sets up the prototype chain to the base class."
     }
   },
   {
@@ -3698,8 +3300,7 @@
     "difficulty": "medium",
     "codeSnippet": "// a method callable without an instance\nclass MathUtil {\n  ____ square(n) { return n * n; }\n}",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "static",
     "accept": [
@@ -3707,8 +3308,7 @@
       "static()"
     ],
     "explanation": {
-      "en": "static puts the method on the class itself.",
-      "ar": "‏static تضع الدالة على الصنف نفسه."
+      "en": "static puts the method on the class itself."
     }
   },
   {
@@ -3717,8 +3317,7 @@
     "difficulty": "medium",
     "codeSnippet": "// signal a failure to the caller\nif (!ok) {\n  ____ new Error('failed');\n}",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "throw",
     "accept": [
@@ -3726,8 +3325,7 @@
       "throw()"
     ],
     "explanation": {
-      "en": "throw raises the error for the nearest catch.",
-      "ar": "‏throw ترمي الخطأ إلى أقرب catch."
+      "en": "throw raises the error for the nearest catch."
     }
   },
   {
@@ -3736,16 +3334,14 @@
     "difficulty": "hard",
     "codeSnippet": "// collect the remaining arguments\nfunction log(first, ____rest) {\n  console.log(rest.length);\n}",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "...",
     "accept": [
       "..."
     ],
     "explanation": {
-      "en": "The rest parameter gathers the extra arguments into an array.",
-      "ar": "معامل الباقي يجمع الوسائط الزائدة في مصفوفة."
+      "en": "The rest parameter gathers the extra arguments into an array."
     }
   },
   {
@@ -3754,16 +3350,14 @@
     "difficulty": "hard",
     "codeSnippet": "// read a nested value without crashing\nconst city = user____.address?.city;",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "?.",
     "accept": [
       "?."
     ],
     "explanation": {
-      "en": "Optional chaining short-circuits to undefined instead of throwing.",
-      "ar": "التسلسل الاختياري يعيد undefined بدل رمي خطأ."
+      "en": "Optional chaining short-circuits to undefined instead of throwing."
     }
   },
   {
@@ -3772,16 +3366,14 @@
     "difficulty": "hard",
     "codeSnippet": "// keep 0 but default null/undefined\nconst n = input ____ 10;",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "??",
     "accept": [
       "??"
     ],
     "explanation": {
-      "en": "?? only falls back on null or undefined, unlike ||.",
-      "ar": "‏?? لا تتدخّل إلا مع null أو undefined، بخلاف ||."
+      "en": "?? only falls back on null or undefined, unlike ||."
     }
   },
   {
@@ -3790,8 +3382,7 @@
     "difficulty": "hard",
     "codeSnippet": "// wait for all, keep failures too\nconst res = await Promise.____(tasks);",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "allSettled",
     "accept": [
@@ -3799,8 +3390,7 @@
       "allSettled()"
     ],
     "explanation": {
-      "en": "allSettled resolves with every outcome instead of rejecting on the first failure.",
-      "ar": "‏allSettled تُعيد كل النتائج بدل الرفض عند أول فشل."
+      "en": "allSettled resolves with every outcome instead of rejecting on the first failure."
     }
   },
   {
@@ -3809,8 +3399,7 @@
     "difficulty": "hard",
     "codeSnippet": "// a key that cannot collide\nconst hidden = ____('meta');",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "Symbol",
     "accept": [
@@ -3818,8 +3407,7 @@
       "Symbol()"
     ],
     "explanation": {
-      "en": "Every Symbol is unique, so it never clashes with another key.",
-      "ar": "كل Symbol فريد، فلا يتصادم مع مفتاح آخر أبدًا."
+      "en": "Every Symbol is unique, so it never clashes with another key."
     }
   },
   {
@@ -3828,8 +3416,7 @@
     "difficulty": "hard",
     "codeSnippet": "// produce values lazily\nfunction* ids() {\n  let i = 0;\n  while (true) ____ i++;\n}",
     "question": {
-      "en": "Complete the function",
-      "ar": "أكمل الدالة"
+      "en": "Complete the function"
     },
     "answer": "yield",
     "accept": [
@@ -3837,8 +3424,7 @@
       "yield()"
     ],
     "explanation": {
-      "en": "yield hands one value to the caller and pauses the generator.",
-      "ar": "‏yield تسلّم قيمة للمستدعي وتوقف المولّد مؤقتًا."
+      "en": "yield hands one value to the caller and pauses the generator."
     }
   },
   {
@@ -3847,8 +3433,7 @@
     "difficulty": "hard",
     "codeSnippet": "# a lightweight immutable record\nfrom typing import NamedTuple\nclass P(____):\n    x: int",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "NamedTuple",
     "accept": [
@@ -3856,8 +3441,7 @@
       "NamedTuple()"
     ],
     "explanation": {
-      "en": "Subclassing NamedTuple gives a small immutable class with named fields.",
-      "ar": "الوراثة من NamedTuple تعطي صنفًا صغيرًا غير قابل للتغيير بحقول مسمّاة."
+      "en": "Subclassing NamedTuple gives a small immutable class with named fields."
     }
   },
   {
@@ -3866,8 +3450,7 @@
     "difficulty": "hard",
     "codeSnippet": "# rebind a name from the enclosing function\ndef outer():\n    n = 0\n    def inner():\n        ____ n\n        n += 1",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "nonlocal",
     "accept": [
@@ -3875,8 +3458,7 @@
       "nonlocal()"
     ],
     "explanation": {
-      "en": "nonlocal targets the enclosing function's variable, not a global one.",
-      "ar": "‏nonlocal تستهدف متغيّر الدالة المحيطة لا متغيّرًا عامًا."
+      "en": "nonlocal targets the enclosing function's variable, not a global one."
     }
   },
   {
@@ -3885,8 +3467,7 @@
     "difficulty": "hard",
     "codeSnippet": "# expose a computed attribute\nclass Box:\n    @____\n    def area(self):\n        return self.w * self.h",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "property",
     "accept": [
@@ -3894,8 +3475,7 @@
       "property()"
     ],
     "explanation": {
-      "en": "@property lets the method be read like a plain attribute.",
-      "ar": "‏@property تجعل الدالة تُقرأ كخاصية عادية."
+      "en": "@property lets the method be read like a plain attribute."
     }
   },
   {
@@ -3904,8 +3484,7 @@
     "difficulty": "hard",
     "codeSnippet": "# generate a data class with __init__ for free\nfrom dataclasses import dataclass\n@____\nclass P:\n    x: int",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "dataclass",
     "accept": [
@@ -3913,8 +3492,7 @@
       "dataclass()"
     ],
     "explanation": {
-      "en": "@dataclass writes __init__, __repr__ and __eq__ for you.",
-      "ar": "‏@dataclass تكتب لك ‎__init__‎ و‎__repr__‎ و‎__eq__‎."
+      "en": "@dataclass writes __init__, __repr__ and __eq__ for you."
     }
   },
   {
@@ -3923,8 +3501,7 @@
     "difficulty": "hard",
     "codeSnippet": "// a value that may be absent\nlet name: string | ____ = undefined;",
     "question": {
-      "en": "Fill in the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill in the blank"
     },
     "answer": "undefined",
     "accept": [
@@ -3932,8 +3509,7 @@
       "undefined()"
     ],
     "explanation": {
-      "en": "The union must include undefined for the assignment to type-check.",
-      "ar": "يجب أن يشمل الاتحاد undefined ليجتاز الإسناد فحص الأنواع."
+      "en": "The union must include undefined for the assignment to type-check."
     }
   },
   {
@@ -3942,8 +3518,7 @@
     "difficulty": "hard",
     "codeSnippet": "// every field optional, none required\ntype Draft = ____<User>;",
     "question": {
-      "en": "What goes in the blank?",
-      "ar": "ما الذي يملأ الفراغ؟"
+      "en": "What goes in the blank?"
     },
     "answer": "Partial",
     "accept": [
@@ -3951,8 +3526,7 @@
       "Partial()"
     ],
     "explanation": {
-      "en": "Partial<T> maps every property of T to optional.",
-      "ar": "‏Partial<T> تجعل كل خصائص T اختيارية."
+      "en": "Partial<T> maps every property of T to optional."
     }
   },
   {
@@ -3961,8 +3535,7 @@
     "difficulty": "hard",
     "codeSnippet": "// nothing may be reassigned\ntype Frozen = ____<Config>;",
     "question": {
-      "en": "Fill the blank",
-      "ar": "املأ الفراغ"
+      "en": "Fill the blank"
     },
     "answer": "Readonly",
     "accept": [
@@ -3970,8 +3543,7 @@
       "Readonly()"
     ],
     "explanation": {
-      "en": "Readonly<T> marks every property of T as readonly.",
-      "ar": "‏Readonly<T> تجعل كل خصائص T للقراءة فقط."
+      "en": "Readonly<T> marks every property of T as readonly."
     }
   }
 ]

@@ -5,8 +5,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "How many layers are in the OSI model?",
-      "ar": "كم عدد طبقات نموذج OSI؟"
+      "en": "How many layers are in the OSI model?"
     },
     "options": [
       "7",
@@ -16,8 +15,7 @@
     ],
     "answer": "7",
     "explanation": {
-      "en": "The OSI model has 7 layers, from Physical (1) to Application (7).",
-      "ar": "يتكوّن نموذج OSI من 7 طبقات، من المادية (1) إلى التطبيق (7)."
+      "en": "The OSI model has 7 layers, from Physical (1) to Application (7)."
     }
   },
   {
@@ -26,8 +24,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Which OSI layer does IP operate at?",
-      "ar": "في أي طبقة OSI يعمل بروتوكول IP؟"
+      "en": "Which OSI layer does IP operate at?"
     },
     "options": [
       "Layer 3 (Network)",
@@ -37,8 +34,7 @@
     ],
     "answer": "Layer 3 (Network)",
     "explanation": {
-      "en": "IP is a Layer 3 (Network) protocol handling logical addressing/routing.",
-      "ar": "IP بروتوكول الطبقة الثالثة (الشبكة) ويتولّى العنونة المنطقية والتوجيه."
+      "en": "IP is a Layer 3 (Network) protocol handling logical addressing/routing."
     }
   },
   {
@@ -47,8 +43,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Which OSI layer do TCP and UDP operate at?",
-      "ar": "في أي طبقة OSI يعمل TCP و UDP؟"
+      "en": "Which OSI layer do TCP and UDP operate at?"
     },
     "options": [
       "Layer 4 (Transport)",
@@ -58,8 +53,7 @@
     ],
     "answer": "Layer 4 (Transport)",
     "explanation": {
-      "en": "TCP and UDP are Layer 4 (Transport) protocols.",
-      "ar": "TCP و UDP بروتوكولا الطبقة الرابعة (النقل)."
+      "en": "TCP and UDP are Layer 4 (Transport) protocols."
     }
   },
   {
@@ -68,8 +62,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "A MAC address operates at which OSI layer?",
-      "ar": "في أي طبقة OSI يعمل عنوان MAC؟"
+      "en": "A MAC address operates at which OSI layer?"
     },
     "options": [
       "Layer 2 (Data Link)",
@@ -79,8 +72,7 @@
     ],
     "answer": "Layer 2 (Data Link)",
     "explanation": {
-      "en": "MAC addresses are Layer 2 (Data Link) hardware addresses.",
-      "ar": "عناوين MAC عناوين عتاد في الطبقة الثانية (ربط البيانات)."
+      "en": "MAC addresses are Layer 2 (Data Link) hardware addresses."
     }
   },
   {
@@ -89,8 +81,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which protocol is connection-oriented and reliable?",
-      "ar": "أي بروتوكول موجّه بالاتصال وموثوق؟"
+      "en": "Which protocol is connection-oriented and reliable?"
     },
     "options": [
       "TCP",
@@ -100,8 +91,7 @@
     ],
     "answer": "TCP",
     "explanation": {
-      "en": "TCP is reliable and connection-oriented (handshake, ordering, retransmission).",
-      "ar": "TCP موثوق وموجّه بالاتصال (مصافحة وترتيب وإعادة إرسال)."
+      "en": "TCP is reliable and connection-oriented (handshake, ordering, retransmission)."
     }
   },
   {
@@ -110,8 +100,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which protocol is connectionless and best-effort?",
-      "ar": "أي بروتوكول بلا اتصال ويعمل بأفضل جهد؟"
+      "en": "Which protocol is connectionless and best-effort?"
     },
     "options": [
       "UDP",
@@ -121,8 +110,7 @@
     ],
     "answer": "UDP",
     "explanation": {
-      "en": "UDP is connectionless with no delivery guarantees — fast and lightweight.",
-      "ar": "UDP بلا اتصال ولا يضمن التسليم، وهو سريع وخفيف."
+      "en": "UDP is connectionless with no delivery guarantees — fast and lightweight."
     }
   },
   {
@@ -131,8 +119,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "The TCP three-way handshake is?",
-      "ar": "ما هي مصافحة TCP الثلاثية؟"
+      "en": "The TCP three-way handshake is?"
     },
     "options": [
       "SYN, SYN-ACK, ACK",
@@ -142,8 +129,7 @@
     ],
     "answer": "SYN, SYN-ACK, ACK",
     "explanation": {
-      "en": "TCP establishes a connection with SYN -> SYN-ACK -> ACK.",
-      "ar": "ينشئ TCP الاتصال عبر SYN ثم SYN-ACK ثم ACK."
+      "en": "TCP establishes a connection with SYN -> SYN-ACK -> ACK."
     }
   },
   {
@@ -152,8 +138,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which is the Application layer in the OSI model?",
-      "ar": "ما هي طبقة التطبيق في نموذج OSI؟"
+      "en": "Which is the Application layer in the OSI model?"
     },
     "options": [
       "Layer 7",
@@ -163,8 +148,7 @@
     ],
     "answer": "Layer 7",
     "explanation": {
-      "en": "Layer 7 is the Application layer (HTTP, DNS, SMTP...).",
-      "ar": "الطبقة السابعة هي طبقة التطبيق (HTTP وDNS وSMTP)."
+      "en": "Layer 7 is the Application layer (HTTP, DNS, SMTP...)."
     }
   },
   {
@@ -173,8 +157,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "How many bits are in an IPv4 address?",
-      "ar": "كم بِت في عنوان IPv4؟"
+      "en": "How many bits are in an IPv4 address?"
     },
     "options": [
       "32",
@@ -184,8 +167,7 @@
     ],
     "answer": "32",
     "explanation": {
-      "en": "IPv4 addresses are 32 bits (four 8-bit octets).",
-      "ar": "عناوين IPv4 من 32 بِت (أربع ثمانيات)."
+      "en": "IPv4 addresses are 32 bits (four 8-bit octets)."
     }
   },
   {
@@ -194,8 +176,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "How many bits are in an IPv6 address?",
-      "ar": "كم بِت في عنوان IPv6؟"
+      "en": "How many bits are in an IPv6 address?"
     },
     "options": [
       "128",
@@ -205,8 +186,7 @@
     ],
     "answer": "128",
     "explanation": {
-      "en": "IPv6 addresses are 128 bits.",
-      "ar": "عناوين IPv6 من 128 بِت."
+      "en": "IPv6 addresses are 128 bits."
     }
   },
   {
@@ -215,8 +195,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "The subnet mask 255.255.255.0 corresponds to?",
-      "ar": "قناع الشبكة 255.255.255.0 يقابل؟"
+      "en": "The subnet mask 255.255.255.0 corresponds to?"
     },
     "options": [
       "/24",
@@ -226,8 +205,7 @@
     ],
     "answer": "/24",
     "explanation": {
-      "en": "255.255.255.0 = 24 network bits = /24.",
-      "ar": "255.255.255.0 تساوي 24 بِت شبكة أي /24."
+      "en": "255.255.255.0 = 24 network bits = /24."
     }
   },
   {
@@ -236,8 +214,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Which is a private IP range?",
-      "ar": "أيّها نطاق IP خاص؟"
+      "en": "Which is a private IP range?"
     },
     "options": [
       "10.0.0.0/8",
@@ -247,8 +224,7 @@
     ],
     "answer": "10.0.0.0/8",
     "explanation": {
-      "en": "10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16 are private ranges.",
-      "ar": "النطاقات 10.0.0.0/8 و172.16.0.0/12 و192.168.0.0/16 خاصة."
+      "en": "10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16 are private ranges."
     }
   },
   {
@@ -257,8 +233,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "How many usable hosts are in a /24 network?",
-      "ar": "كم عدد المضيفين القابلين للاستخدام في شبكة /24؟"
+      "en": "How many usable hosts are in a /24 network?"
     },
     "options": [
       "254",
@@ -268,8 +243,7 @@
     ],
     "answer": "254",
     "explanation": {
-      "en": "A /24 has 256 addresses minus network and broadcast = 254 usable.",
-      "ar": "تحوي /24 على 256 عنواناً ناقص الشبكة والبث = 254 صالحاً."
+      "en": "A /24 has 256 addresses minus network and broadcast = 254 usable."
     }
   },
   {
@@ -278,8 +252,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "127.0.0.1 is the?",
-      "ar": "العنوان 127.0.0.1 هو؟"
+      "en": "127.0.0.1 is the?"
     },
     "options": [
       "Loopback (localhost) address",
@@ -289,8 +262,7 @@
     ],
     "answer": "Loopback (localhost) address",
     "explanation": {
-      "en": "127.0.0.1 is the IPv4 loopback (localhost).",
-      "ar": "127.0.0.1 هو عنوان الاسترجاع (localhost) في IPv4."
+      "en": "127.0.0.1 is the IPv4 loopback (localhost)."
     }
   },
   {
@@ -299,8 +271,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "In 192.168.1.0/24, the broadcast address is?",
-      "ar": "في 192.168.1.0/24 عنوان البث هو؟"
+      "en": "In 192.168.1.0/24, the broadcast address is?"
     },
     "options": [
       "192.168.1.255",
@@ -310,8 +281,7 @@
     ],
     "answer": "192.168.1.255",
     "explanation": {
-      "en": "The last address in a /24 (x.x.x.255) is the broadcast address.",
-      "ar": "آخر عنوان في /24 (x.x.x.255) هو عنوان البث."
+      "en": "The last address in a /24 (x.x.x.255) is the broadcast address."
     }
   },
   {
@@ -320,8 +290,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "DNS translates?",
-      "ar": "ماذا يترجم DNS؟"
+      "en": "DNS translates?"
     },
     "options": [
       "Domain names to IP addresses",
@@ -331,8 +300,7 @@
     ],
     "answer": "Domain names to IP addresses",
     "explanation": {
-      "en": "DNS resolves human-readable domain names to IP addresses.",
-      "ar": "يحوّل DNS أسماء النطاقات إلى عناوين IP."
+      "en": "DNS resolves human-readable domain names to IP addresses."
     }
   },
   {
@@ -341,8 +309,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "DHCP is used to?",
-      "ar": "فيمَ يُستخدم DHCP؟"
+      "en": "DHCP is used to?"
     },
     "options": [
       "Automatically assign IP addresses",
@@ -352,8 +319,7 @@
     ],
     "answer": "Automatically assign IP addresses",
     "explanation": {
-      "en": "DHCP automatically leases IP configuration to clients.",
-      "ar": "يمنح DHCP إعدادات IP للأجهزة تلقائياً."
+      "en": "DHCP automatically leases IP configuration to clients."
     }
   },
   {
@@ -362,8 +328,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "ARP resolves?",
-      "ar": "ماذا يحلّ ARP؟"
+      "en": "ARP resolves?"
     },
     "options": [
       "IP addresses to MAC addresses",
@@ -373,8 +338,7 @@
     ],
     "answer": "IP addresses to MAC addresses",
     "explanation": {
-      "en": "ARP maps an IP address to its MAC address on a LAN.",
-      "ar": "يربط ARP عنوان IP بعنوان MAC على الشبكة المحلية."
+      "en": "ARP maps an IP address to its MAC address on a LAN."
     }
   },
   {
@@ -383,8 +347,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Which DNS record maps a domain to an IPv4 address?",
-      "ar": "أي سجل DNS يربط النطاق بعنوان IPv4؟"
+      "en": "Which DNS record maps a domain to an IPv4 address?"
     },
     "options": [
       "A record",
@@ -394,8 +357,7 @@
     ],
     "answer": "A record",
     "explanation": {
-      "en": "An A record maps a name to an IPv4 address (AAAA for IPv6).",
-      "ar": "يربط سجل A الاسم بعنوان IPv4 (وAAAA لـ IPv6)."
+      "en": "An A record maps a name to an IPv4 address (AAAA for IPv6)."
     }
   },
   {
@@ -404,8 +366,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "An MX record specifies?",
-      "ar": "ماذا يحدّد سجل MX؟"
+      "en": "An MX record specifies?"
     },
     "options": [
       "Mail servers for a domain",
@@ -415,8 +376,7 @@
     ],
     "answer": "Mail servers for a domain",
     "explanation": {
-      "en": "MX records define the mail servers that accept email for a domain.",
-      "ar": "تحدّد سجلات MX خوادم البريد التي تستقبل رسائل النطاق."
+      "en": "MX records define the mail servers that accept email for a domain."
     }
   },
   {
@@ -425,8 +385,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which tool uses ICMP echo requests?",
-      "ar": "أي أداة تستخدم طلبات ICMP echo؟"
+      "en": "Which tool uses ICMP echo requests?"
     },
     "options": [
       "ping",
@@ -436,8 +395,7 @@
     ],
     "answer": "ping",
     "explanation": {
-      "en": "ping sends ICMP echo requests to test reachability.",
-      "ar": "ترسل ping طلبات ICMP echo لاختبار الوصول."
+      "en": "ping sends ICMP echo requests to test reachability."
     }
   },
   {
@@ -446,8 +404,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which port does HTTP use by default?",
-      "ar": "أي منفذ يستخدمه HTTP افتراضياً؟"
+      "en": "Which port does HTTP use by default?"
     },
     "options": [
       "80",
@@ -457,8 +414,7 @@
     ],
     "answer": "80",
     "explanation": {
-      "en": "HTTP uses TCP port 80; HTTPS uses 443.",
-      "ar": "يستخدم HTTP المنفذ 80 وHTTPS المنفذ 443."
+      "en": "HTTP uses TCP port 80; HTTPS uses 443."
     }
   },
   {
@@ -467,8 +423,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which port does DNS use?",
-      "ar": "أي منفذ يستخدمه DNS؟"
+      "en": "Which port does DNS use?"
     },
     "options": [
       "53",
@@ -478,8 +433,7 @@
     ],
     "answer": "53",
     "explanation": {
-      "en": "DNS uses port 53 (UDP for queries, TCP for zone transfers).",
-      "ar": "يستخدم DNS المنفذ 53 (UDP للاستعلامات وTCP لنقل المناطق)."
+      "en": "DNS uses port 53 (UDP for queries, TCP for zone transfers)."
     }
   },
   {
@@ -488,8 +442,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "A router operates primarily at OSI layer?",
-      "ar": "يعمل الموجّه أساساً في طبقة OSI؟"
+      "en": "A router operates primarily at OSI layer?"
     },
     "options": [
       "Layer 3 (Network)",
@@ -499,8 +452,7 @@
     ],
     "answer": "Layer 3 (Network)",
     "explanation": {
-      "en": "Routers forward packets between networks at Layer 3.",
-      "ar": "تمرّر الموجّهات الحزم بين الشبكات في الطبقة الثالثة."
+      "en": "Routers forward packets between networks at Layer 3."
     }
   },
   {
@@ -509,8 +461,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "A switch operates primarily at OSI layer?",
-      "ar": "يعمل المبدّل أساساً في طبقة OSI؟"
+      "en": "A switch operates primarily at OSI layer?"
     },
     "options": [
       "Layer 2 (Data Link)",
@@ -520,8 +471,7 @@
     ],
     "answer": "Layer 2 (Data Link)",
     "explanation": {
-      "en": "Switches forward frames using MAC addresses at Layer 2.",
-      "ar": "تمرّر المبدّلات الإطارات باستخدام عناوين MAC في الطبقة الثانية."
+      "en": "Switches forward frames using MAC addresses at Layer 2."
     }
   },
   {
@@ -530,8 +480,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does NAT do?",
-      "ar": "ماذا يفعل NAT؟"
+      "en": "What does NAT do?"
     },
     "options": [
       "Translate private IPs to a public IP",
@@ -541,8 +490,7 @@
     ],
     "answer": "Translate private IPs to a public IP",
     "explanation": {
-      "en": "NAT maps internal private addresses to one or more public addresses.",
-      "ar": "يربط NAT العناوين الخاصة الداخلية بعنوان عام أو أكثر."
+      "en": "NAT maps internal private addresses to one or more public addresses."
     }
   },
   {
@@ -551,8 +499,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "A VLAN is used to?",
-      "ar": "فيمَ تُستخدم VLAN؟"
+      "en": "A VLAN is used to?"
     },
     "options": [
       "Logically segment a network",
@@ -562,8 +509,7 @@
     ],
     "answer": "Logically segment a network",
     "explanation": {
-      "en": "VLANs segment one physical switch into isolated logical networks.",
-      "ar": "تقسّم VLAN مبدّلاً مادياً إلى شبكات منطقية معزولة."
+      "en": "VLANs segment one physical switch into isolated logical networks."
     }
   },
   {
@@ -572,8 +518,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Which is a link-state routing protocol?",
-      "ar": "أيّها بروتوكول توجيه حالة الوصلة؟"
+      "en": "Which is a link-state routing protocol?"
     },
     "options": [
       "OSPF",
@@ -583,8 +528,7 @@
     ],
     "answer": "OSPF",
     "explanation": {
-      "en": "OSPF is a link-state IGP; RIP is distance-vector; BGP is path-vector.",
-      "ar": "OSPF بروتوكول حالة وصلة، وRIP متجه مسافة، وBGP متجه مسار."
+      "en": "OSPF is a link-state IGP; RIP is distance-vector; BGP is path-vector."
     }
   },
   {
@@ -593,8 +537,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "BGP is the routing protocol of?",
-      "ar": "BGP هو بروتوكول توجيه؟"
+      "en": "BGP is the routing protocol of?"
     },
     "options": [
       "The internet (between autonomous systems)",
@@ -604,8 +547,7 @@
     ],
     "answer": "The internet (between autonomous systems)",
     "explanation": {
-      "en": "BGP exchanges routes between autonomous systems across the internet.",
-      "ar": "يتبادل BGP المسارات بين الأنظمة الذاتية عبر الإنترنت."
+      "en": "BGP exchanges routes between autonomous systems across the internet."
     }
   },
   {
@@ -614,8 +556,7 @@
     "difficulty": "easy",
     "codeSnippet": "traceroute example.com",
     "question": {
-      "en": "What does traceroute show?",
-      "ar": "ماذا يعرض traceroute؟"
+      "en": "What does traceroute show?"
     },
     "options": [
       "The path (hops) packets take to a host",
@@ -625,8 +566,7 @@
     ],
     "answer": "The path (hops) packets take to a host",
     "explanation": {
-      "en": "traceroute lists each router (hop) on the path to a destination.",
-      "ar": "يسرد traceroute كل موجّه (قفزة) على المسار إلى الوجهة."
+      "en": "traceroute lists each router (hop) on the path to a destination."
     }
   },
   {
@@ -635,8 +575,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "The default gateway is?",
-      "ar": "ما هي البوابة الافتراضية؟"
+      "en": "The default gateway is?"
     },
     "options": [
       "The router used to reach other networks",
@@ -646,8 +585,7 @@
     ],
     "answer": "The router used to reach other networks",
     "explanation": {
-      "en": "The default gateway is the router that forwards traffic to other networks.",
-      "ar": "البوابة الافتراضية هي الموجّه الذي يمرّر الحركة إلى الشبكات الأخرى."
+      "en": "The default gateway is the router that forwards traffic to other networks."
     }
   },
   {
@@ -656,8 +594,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Which protocol secures HTTP (as HTTPS)?",
-      "ar": "أي بروتوكول يؤمّن HTTP (كـ HTTPS)؟"
+      "en": "Which protocol secures HTTP (as HTTPS)?"
     },
     "options": [
       "TLS/SSL",
@@ -667,8 +604,7 @@
     ],
     "answer": "TLS/SSL",
     "explanation": {
-      "en": "TLS (formerly SSL) encrypts HTTP traffic, giving HTTPS.",
-      "ar": "يشفّر TLS (سابقاً SSL) حركة HTTP فينتج HTTPS."
+      "en": "TLS (formerly SSL) encrypts HTTP traffic, giving HTTPS."
     }
   },
   {
@@ -677,8 +613,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "A VPN provides?",
-      "ar": "ماذا توفّر VPN؟"
+      "en": "A VPN provides?"
     },
     "options": [
       "An encrypted tunnel over a public network",
@@ -688,8 +623,7 @@
     ],
     "answer": "An encrypted tunnel over a public network",
     "explanation": {
-      "en": "A VPN creates a secure, encrypted tunnel across an untrusted network.",
-      "ar": "تنشئ VPN نفقاً آمناً مشفّراً عبر شبكة غير موثوقة."
+      "en": "A VPN creates a secure, encrypted tunnel across an untrusted network."
     }
   },
   {
@@ -698,8 +632,7 @@
     "difficulty": "medium",
     "codeSnippet": "ip addr",
     "question": {
-      "en": "What does the 'ip addr' command show?",
-      "ar": "ماذا يعرض الأمر ip addr؟"
+      "en": "What does the 'ip addr' command show?"
     },
     "options": [
       "Network interfaces and their IP addresses",
@@ -709,8 +642,7 @@
     ],
     "answer": "Network interfaces and their IP addresses",
     "explanation": {
-      "en": "'ip addr' lists interfaces and assigned addresses on Linux.",
-      "ar": "يسرد ip addr الواجهات والعناوين المخصّصة على Linux."
+      "en": "'ip addr' lists interfaces and assigned addresses on Linux."
     }
   },
   {
@@ -719,8 +651,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "A firewall primarily?",
-      "ar": "ماذا يفعل الجدار الناري أساساً؟"
+      "en": "A firewall primarily?"
     },
     "options": [
       "Filters traffic by rules",
@@ -730,8 +661,7 @@
     ],
     "answer": "Filters traffic by rules",
     "explanation": {
-      "en": "A firewall permits or blocks traffic based on rules.",
-      "ar": "يسمح الجدار الناري بالحركة أو يحجبها وفق قواعد."
+      "en": "A firewall permits or blocks traffic based on rules."
     }
   },
   {
@@ -740,8 +670,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Latency is?",
-      "ar": "ما هو زمن الوصول (Latency)؟"
+      "en": "Latency is?"
     },
     "options": [
       "The delay for data to travel",
@@ -751,8 +680,7 @@
     ],
     "answer": "The delay for data to travel",
     "explanation": {
-      "en": "Latency is delay; bandwidth is throughput (data per second).",
-      "ar": "زمن الوصول هو التأخير، وعرض النطاق هو معدل النقل (بيانات/ثانية)."
+      "en": "Latency is delay; bandwidth is throughput (data per second)."
     }
   },
   {
@@ -761,8 +689,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Which protocol assigns IPv6 addresses statelessly?",
-      "ar": "أي بروتوكول يمنح عناوين IPv6 بلا حالة؟"
+      "en": "Which protocol assigns IPv6 addresses statelessly?"
     },
     "options": [
       "SLAAC",
@@ -772,8 +699,7 @@
     ],
     "answer": "SLAAC",
     "explanation": {
-      "en": "SLAAC lets hosts auto-configure IPv6 addresses without a DHCP server.",
-      "ar": "يتيح SLAAC للأجهزة تهيئة عناوين IPv6 ذاتياً دون خادم DHCP."
+      "en": "SLAAC lets hosts auto-configure IPv6 addresses without a DHCP server."
     }
   },
   {
@@ -782,8 +708,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "At which OSI layer does a router primarily operate?",
-      "ar": "في أي طبقة OSI يعمل الموجّه أساساً؟"
+      "en": "At which OSI layer does a router primarily operate?"
     },
     "options": [
       "Layer 3 (Network)",
@@ -793,8 +718,7 @@
     ],
     "answer": "Layer 3 (Network)",
     "explanation": {
-      "en": "Routers forward packets based on IP addresses at Layer 3, the Network layer.",
-      "ar": "توجّه الموجّهات الحزم بناءً على عناوين IP في الطبقة 3، طبقة الشبكة."
+      "en": "Routers forward packets based on IP addresses at Layer 3, the Network layer."
     }
   },
   {
@@ -803,8 +727,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Which OSI layer uses MAC addresses?",
-      "ar": "أي طبقة OSI تستخدم عناوين MAC؟"
+      "en": "Which OSI layer uses MAC addresses?"
     },
     "options": [
       "Layer 2 (Data Link)",
@@ -814,8 +737,7 @@
     ],
     "answer": "Layer 2 (Data Link)",
     "explanation": {
-      "en": "MAC addressing and switching happen at Layer 2, the Data Link layer.",
-      "ar": "تحدث عنونة MAC والتبديل في الطبقة 2، طبقة ربط البيانات."
+      "en": "MAC addressing and switching happen at Layer 2, the Data Link layer."
     }
   },
   {
@@ -824,8 +746,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is the correct order of the TCP three-way handshake?",
-      "ar": "ما الترتيب الصحيح لمصافحة TCP الثلاثية؟"
+      "en": "What is the correct order of the TCP three-way handshake?"
     },
     "options": [
       "SYN, SYN-ACK, ACK",
@@ -835,8 +756,7 @@
     ],
     "answer": "SYN, SYN-ACK, ACK",
     "explanation": {
-      "en": "TCP establishes a connection with SYN, then SYN-ACK, then ACK.",
-      "ar": "ينشئ TCP الاتصال عبر SYN ثم SYN-ACK ثم ACK."
+      "en": "TCP establishes a connection with SYN, then SYN-ACK, then ACK."
     }
   },
   {
@@ -845,8 +765,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "TCP is best described as?",
-      "ar": "كيف يُوصف TCP بدقّة؟"
+      "en": "TCP is best described as?"
     },
     "options": [
       "Connection-oriented and reliable",
@@ -856,8 +775,7 @@
     ],
     "answer": "Connection-oriented and reliable",
     "explanation": {
-      "en": "TCP is connection-oriented and guarantees ordered, reliable delivery.",
-      "ar": "TCP موجّه بالاتصال ويضمن تسليماً مرتّباً وموثوقاً."
+      "en": "TCP is connection-oriented and guarantees ordered, reliable delivery."
     }
   },
   {
@@ -866,8 +784,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What is the IPv4 loopback address?",
-      "ar": "ما عنوان الاسترجاع (loopback) في IPv4؟"
+      "en": "What is the IPv4 loopback address?"
     },
     "options": [
       "127.0.0.1",
@@ -877,8 +794,7 @@
     ],
     "answer": "127.0.0.1",
     "explanation": {
-      "en": "127.0.0.1 (localhost) always refers to the local machine.",
-      "ar": "يشير 127.0.0.1 (localhost) دائماً إلى الجهاز المحلي."
+      "en": "127.0.0.1 (localhost) always refers to the local machine."
     }
   },
   {
@@ -887,8 +803,7 @@
     "difficulty": "medium",
     "codeSnippet": "192.168.1.0/24",
     "question": {
-      "en": "How many usable host addresses does a /24 subnet have?",
-      "ar": "كم عدد عناوين المضيفات القابلة للاستخدام في شبكة /24؟"
+      "en": "How many usable host addresses does a /24 subnet have?"
     },
     "options": [
       "254",
@@ -898,8 +813,7 @@
     ],
     "answer": "254",
     "explanation": {
-      "en": "A /24 has 256 addresses; minus the network and broadcast addresses leaves 254 usable hosts.",
-      "ar": "تحوي /24 على 256 عنواناً؛ بطرح عنواني الشبكة والبث يتبقّى 254 مضيفاً قابلاً للاستخدام."
+      "en": "A /24 has 256 addresses; minus the network and broadcast addresses leaves 254 usable hosts."
     }
   },
   {
@@ -908,8 +822,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Which range is a private (RFC 1918) address block?",
-      "ar": "أي نطاق هو كتلة عناوين خاصة (RFC 1918)؟"
+      "en": "Which range is a private (RFC 1918) address block?"
     },
     "options": [
       "10.0.0.0/8",
@@ -919,8 +832,7 @@
     ],
     "answer": "10.0.0.0/8",
     "explanation": {
-      "en": "10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16 are the private RFC 1918 ranges.",
-      "ar": "النطاقات 10.0.0.0/8 و172.16.0.0/12 و192.168.0.0/16 هي نطاقات RFC 1918 الخاصة."
+      "en": "10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16 are the private RFC 1918 ranges."
     }
   },
   {
@@ -929,8 +841,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does a DNS A record map?",
-      "ar": "ماذا يربط سجل DNS من نوع A؟"
+      "en": "What does a DNS A record map?"
     },
     "options": [
       "A hostname to an IPv4 address",
@@ -940,8 +851,7 @@
     ],
     "answer": "A hostname to an IPv4 address",
     "explanation": {
-      "en": "An A record maps a domain name to an IPv4 address.",
-      "ar": "يربط سجل A اسم النطاق بعنوان IPv4."
+      "en": "An A record maps a domain name to an IPv4 address."
     }
   },
   {
@@ -950,8 +860,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does a CNAME record do?",
-      "ar": "ماذا يفعل سجل CNAME؟"
+      "en": "What does a CNAME record do?"
     },
     "options": [
       "Aliases one domain name to another",
@@ -961,8 +870,7 @@
     ],
     "answer": "Aliases one domain name to another",
     "explanation": {
-      "en": "A CNAME makes one hostname an alias of another canonical name.",
-      "ar": "يجعل CNAME اسم مضيف مرادفاً لاسم قانوني آخر."
+      "en": "A CNAME makes one hostname an alias of another canonical name."
     }
   },
   {
@@ -971,8 +879,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which protocol secures HTTPS connections?",
-      "ar": "أي بروتوكول يؤمّن اتصالات HTTPS؟"
+      "en": "Which protocol secures HTTPS connections?"
     },
     "options": [
       "TLS",
@@ -982,8 +889,7 @@
     ],
     "answer": "TLS",
     "explanation": {
-      "en": "HTTPS layers HTTP over TLS for encryption and authentication.",
-      "ar": "يضع HTTPS طبقة HTTP فوق TLS للتشفير والمصادقة."
+      "en": "HTTPS layers HTTP over TLS for encryption and authentication."
     }
   },
   {
@@ -992,8 +898,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is the default port for HTTPS?",
-      "ar": "ما المنفذ الافتراضي لـ HTTPS؟"
+      "en": "What is the default port for HTTPS?"
     },
     "options": [
       "443",
@@ -1003,8 +908,7 @@
     ],
     "answer": "443",
     "explanation": {
-      "en": "HTTPS uses TCP port 443 by default.",
-      "ar": "يستخدم HTTPS منفذ TCP رقم 443 افتراضياً."
+      "en": "HTTPS uses TCP port 443 by default."
     }
   },
   {
@@ -1013,8 +917,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does NAT (Network Address Translation) do?",
-      "ar": "ماذا يفعل NAT (ترجمة عناوين الشبكة)؟"
+      "en": "What does NAT (Network Address Translation) do?"
     },
     "options": [
       "Maps private IPs to a public IP",
@@ -1024,8 +927,7 @@
     ],
     "answer": "Maps private IPs to a public IP",
     "explanation": {
-      "en": "NAT lets many devices with private IPs share one public IP for internet access.",
-      "ar": "يتيح NAT لأجهزة كثيرة بعناوين خاصة مشاركة عنوان عام واحد للوصول إلى الإنترنت."
+      "en": "NAT lets many devices with private IPs share one public IP for internet access."
     }
   },
   {
@@ -1034,8 +936,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which port does HTTP use by default?",
-      "ar": "أي منفذ يستخدمه HTTP افتراضيًا؟"
+      "en": "Which port does HTTP use by default?"
     },
     "options": [
       "80",
@@ -1045,8 +946,7 @@
     ],
     "answer": "80",
     "explanation": {
-      "en": "HTTP runs on TCP port 80 by default.",
-      "ar": "يعمل HTTP على المنفذ 80 افتراضيًا."
+      "en": "HTTP runs on TCP port 80 by default."
     }
   },
   {
@@ -1055,8 +955,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which port does SSH use by default?",
-      "ar": "أي منفذ يستخدمه SSH افتراضيًا؟"
+      "en": "Which port does SSH use by default?"
     },
     "options": [
       "22",
@@ -1066,8 +965,7 @@
     ],
     "answer": "22",
     "explanation": {
-      "en": "SSH listens on TCP port 22.",
-      "ar": "يستمع SSH على المنفذ 22."
+      "en": "SSH listens on TCP port 22."
     }
   },
   {
@@ -1076,8 +974,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does a DNS A record map?",
-      "ar": "ماذا يربط سجل DNS من نوع A؟"
+      "en": "What does a DNS A record map?"
     },
     "options": [
       "A hostname to an IPv4 address",
@@ -1087,8 +984,7 @@
     ],
     "answer": "A hostname to an IPv4 address",
     "explanation": {
-      "en": "An A record resolves a name to an IPv4 address.",
-      "ar": "يحوّل سجل A الاسم إلى عنوان IPv4."
+      "en": "An A record resolves a name to an IPv4 address."
     }
   },
   {
@@ -1097,8 +993,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is a CNAME record?",
-      "ar": "ما سجل CNAME؟"
+      "en": "What is a CNAME record?"
     },
     "options": [
       "An alias pointing to another domain name",
@@ -1108,8 +1003,7 @@
     ],
     "answer": "An alias pointing to another domain name",
     "explanation": {
-      "en": "CNAME aliases one hostname to another.",
-      "ar": "يجعل CNAME اسمًا مستعارًا لاسم آخر."
+      "en": "CNAME aliases one hostname to another."
     }
   },
   {
@@ -1118,8 +1012,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "The TCP connection setup uses what?",
-      "ar": "ما الذي يستخدمه إنشاء اتصال TCP؟"
+      "en": "The TCP connection setup uses what?"
     },
     "options": [
       "A three-way handshake (SYN, SYN-ACK, ACK)",
@@ -1129,8 +1022,7 @@
     ],
     "answer": "A three-way handshake (SYN, SYN-ACK, ACK)",
     "explanation": {
-      "en": "TCP opens with SYN, SYN-ACK, then ACK.",
-      "ar": "يبدأ TCP بـ SYN ثم SYN-ACK ثم ACK."
+      "en": "TCP opens with SYN, SYN-ACK, then ACK."
     }
   },
   {
@@ -1139,8 +1031,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Compared with TCP, UDP is best described as?",
-      "ar": "مقارنةً بـ TCP، كيف يوصف UDP؟"
+      "en": "Compared with TCP, UDP is best described as?"
     },
     "options": [
       "Connectionless and faster with no delivery guarantee",
@@ -1150,8 +1041,7 @@
     ],
     "answer": "Connectionless and faster with no delivery guarantee",
     "explanation": {
-      "en": "UDP skips handshakes and acknowledgements.",
-      "ar": "يتخطى UDP المصافحة والإقرارات."
+      "en": "UDP skips handshakes and acknowledgements."
     }
   },
   {
@@ -1160,8 +1050,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "How many bits are in an IPv4 address?",
-      "ar": "كم عدد البتات في عنوان IPv4؟"
+      "en": "How many bits are in an IPv4 address?"
     },
     "options": [
       "32",
@@ -1171,8 +1060,7 @@
     ],
     "answer": "32",
     "explanation": {
-      "en": "IPv4 addresses are 32 bits (four octets).",
-      "ar": "عناوين IPv4 من 32 بت (أربعة ثمانيات)."
+      "en": "IPv4 addresses are 32 bits (four octets)."
     }
   },
   {
@@ -1181,8 +1069,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "How many bits are in an IPv6 address?",
-      "ar": "كم عدد البتات في عنوان IPv6؟"
+      "en": "How many bits are in an IPv6 address?"
     },
     "options": [
       "128",
@@ -1192,8 +1079,7 @@
     ],
     "answer": "128",
     "explanation": {
-      "en": "IPv6 addresses are 128 bits long.",
-      "ar": "طول عناوين IPv6 هو 128 بت."
+      "en": "IPv6 addresses are 128 bits long."
     }
   },
   {
@@ -1202,8 +1088,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "How many usable host addresses are in a /24 subnet?",
-      "ar": "كم عدد عناوين المضيفين القابلة للاستخدام في شبكة /24؟"
+      "en": "How many usable host addresses are in a /24 subnet?"
     },
     "options": [
       "254",
@@ -1213,8 +1098,7 @@
     ],
     "answer": "254",
     "explanation": {
-      "en": "A /24 has 256 addresses minus network and broadcast.",
-      "ar": "تحوي /24 عدد 256 عنوانًا ناقص الشبكة والبث."
+      "en": "A /24 has 256 addresses minus network and broadcast."
     }
   },
   {
@@ -1223,8 +1107,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is a default gateway?",
-      "ar": "ما البوابة الافتراضية؟"
+      "en": "What is a default gateway?"
     },
     "options": [
       "The router used to reach non-local networks",
@@ -1234,8 +1117,7 @@
     ],
     "answer": "The router used to reach non-local networks",
     "explanation": {
-      "en": "Traffic to other subnets goes via the default gateway.",
-      "ar": "تُرسَل حركة الشبكات الأخرى عبر البوابة الافتراضية."
+      "en": "Traffic to other subnets goes via the default gateway."
     }
   },
   {
@@ -1244,8 +1126,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does DHCP do?",
-      "ar": "ماذا يفعل DHCP؟"
+      "en": "What does DHCP do?"
     },
     "options": [
       "Automatically assigns IP addresses to hosts",
@@ -1255,8 +1136,7 @@
     ],
     "answer": "Automatically assigns IP addresses to hosts",
     "explanation": {
-      "en": "DHCP leases IP configuration to clients.",
-      "ar": "يمنح DHCP إعدادات IP للعملاء."
+      "en": "DHCP leases IP configuration to clients."
     }
   },
   {
@@ -1265,8 +1145,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does ARP resolve?",
-      "ar": "ماذا يحلّ بروتوكول ARP؟"
+      "en": "What does ARP resolve?"
     },
     "options": [
       "An IP address to a MAC address",
@@ -1276,8 +1155,7 @@
     ],
     "answer": "An IP address to a MAC address",
     "explanation": {
-      "en": "ARP maps IPv4 addresses to hardware MACs.",
-      "ar": "يربط ARP عناوين IPv4 بعناوين MAC العتادية."
+      "en": "ARP maps IPv4 addresses to hardware MACs."
     }
   },
   {
@@ -1286,8 +1164,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "At which OSI layer does a router primarily operate?",
-      "ar": "في أي طبقة OSI يعمل الموجّه أساسًا؟"
+      "en": "At which OSI layer does a router primarily operate?"
     },
     "options": [
       "Layer 3 (Network)",
@@ -1297,8 +1174,7 @@
     ],
     "answer": "Layer 3 (Network)",
     "explanation": {
-      "en": "Routers forward packets using Layer 3 IP addresses.",
-      "ar": "توجّه الموجّهات الحزم باستخدام عناوين IP في الطبقة 3."
+      "en": "Routers forward packets using Layer 3 IP addresses."
     }
   },
   {
@@ -1307,8 +1183,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "At which OSI layer does a switch primarily operate?",
-      "ar": "في أي طبقة OSI يعمل المبدّل أساسًا؟"
+      "en": "At which OSI layer does a switch primarily operate?"
     },
     "options": [
       "Layer 2 (Data Link)",
@@ -1318,8 +1193,7 @@
     ],
     "answer": "Layer 2 (Data Link)",
     "explanation": {
-      "en": "Switches forward frames using MAC addresses.",
-      "ar": "تمرّر المبدّلات الإطارات باستخدام عناوين MAC."
+      "en": "Switches forward frames using MAC addresses."
     }
   },
   {
@@ -1328,8 +1202,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which protocol does ping use?",
-      "ar": "أي بروتوكول يستخدمه ping؟"
+      "en": "Which protocol does ping use?"
     },
     "options": [
       "ICMP",
@@ -1339,8 +1212,7 @@
     ],
     "answer": "ICMP",
     "explanation": {
-      "en": "ping sends ICMP echo requests and replies.",
-      "ar": "يرسل ping طلبات وردود ICMP echo."
+      "en": "ping sends ICMP echo requests and replies."
     }
   },
   {
@@ -1349,8 +1221,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which port does DNS use by default?",
-      "ar": "أي منفذ يستخدمه DNS افتراضيًا؟"
+      "en": "Which port does DNS use by default?"
     },
     "options": [
       "53",
@@ -1360,8 +1231,7 @@
     ],
     "answer": "53",
     "explanation": {
-      "en": "DNS uses port 53 (UDP, and TCP for large replies).",
-      "ar": "يستخدم DNS المنفذ 53 (UDP وTCP للردود الكبيرة)."
+      "en": "DNS uses port 53 (UDP, and TCP for large replies)."
     }
   },
   {
@@ -1370,8 +1240,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does a port number identify?",
-      "ar": "ماذا يحدّد رقم المنفذ؟"
+      "en": "What does a port number identify?"
     },
     "options": [
       "A specific service or process on a host",
@@ -1381,8 +1250,7 @@
     ],
     "answer": "A specific service or process on a host",
     "explanation": {
-      "en": "Ports let one host run many networked services.",
-      "ar": "تتيح المنافذ لمضيف واحد تشغيل خدمات شبكية عديدة."
+      "en": "Ports let one host run many networked services."
     }
   },
   {
@@ -1391,8 +1259,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which port does SMTP use by default?",
-      "ar": "أي منفذ يستخدمه SMTP افتراضيًا؟"
+      "en": "Which port does SMTP use by default?"
     },
     "options": [
       "25",
@@ -1402,8 +1269,7 @@
     ],
     "answer": "25",
     "explanation": {
-      "en": "SMTP transfers mail over TCP port 25.",
-      "ar": "ينقل SMTP البريد عبر المنفذ 25."
+      "en": "SMTP transfers mail over TCP port 25."
     }
   },
   {
@@ -1412,8 +1278,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "At which OSI layer does a router operate?",
-      "ar": "في أي طبقة من OSI يعمل الموجّه؟"
+      "en": "At which OSI layer does a router operate?"
     },
     "options": [
       "Layer 3 (Network)",
@@ -1423,8 +1288,7 @@
     ],
     "answer": "Layer 3 (Network)",
     "explanation": {
-      "en": "Routers forward packets using layer-3 IP addresses.",
-      "ar": "تمرّر الموجّهات الحزم باستخدام عناوين IP في الطبقة الثالثة."
+      "en": "Routers forward packets using layer-3 IP addresses."
     }
   },
   {
@@ -1433,8 +1297,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which OSI layer do MAC addresses belong to?",
-      "ar": "إلى أي طبقة من OSI تنتمي عناوين MAC؟"
+      "en": "Which OSI layer do MAC addresses belong to?"
     },
     "options": [
       "Layer 2 (Data Link)",
@@ -1444,8 +1307,7 @@
     ],
     "answer": "Layer 2 (Data Link)",
     "explanation": {
-      "en": "MAC addressing is how switches identify hosts on a local segment.",
-      "ar": "عنونة MAC هي كيف تُعرِّف المبدّلات المضيفين في المقطع المحلي."
+      "en": "MAC addressing is how switches identify hosts on a local segment."
     }
   },
   {
@@ -1454,8 +1316,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Which OSI layer deals with cabling and voltages?",
-      "ar": "أي طبقة من OSI تتعامل مع الأسلاك والفولتية؟"
+      "en": "Which OSI layer deals with cabling and voltages?"
     },
     "options": [
       "Layer 1 (Physical)",
@@ -1465,8 +1326,7 @@
     ],
     "answer": "Layer 1 (Physical)",
     "explanation": {
-      "en": "The physical layer covers the medium and its electrical signalling.",
-      "ar": "تغطي الطبقة الفيزيائية الوسط والإشارات الكهربائية."
+      "en": "The physical layer covers the medium and its electrical signalling."
     }
   },
   {
@@ -1475,8 +1335,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Which layer does TLS sit directly above?",
-      "ar": "فوق أي طبقة يقع TLS مباشرة؟"
+      "en": "Which layer does TLS sit directly above?"
     },
     "options": [
       "Layer 4 (Transport)",
@@ -1486,8 +1345,7 @@
     ],
     "answer": "Layer 4 (Transport)",
     "explanation": {
-      "en": "TLS wraps a reliable transport stream, normally TCP.",
-      "ar": "يغلّف TLS تدفق نقل موثوقًا، عادةً TCP."
+      "en": "TLS wraps a reliable transport stream, normally TCP."
     }
   },
   {
@@ -1496,8 +1354,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which sequence forms the TCP three-way handshake?",
-      "ar": "أي تسلسل يشكّل مصافحة TCP الثلاثية؟"
+      "en": "Which sequence forms the TCP three-way handshake?"
     },
     "options": [
       "SYN, SYN-ACK, ACK",
@@ -1507,8 +1364,7 @@
     ],
     "answer": "SYN, SYN-ACK, ACK",
     "explanation": {
-      "en": "The client offers, the server answers, the client confirms.",
-      "ar": "يبدأ العميل، ويجيب الخادم، ثم يؤكّد العميل."
+      "en": "The client offers, the server answers, the client confirms."
     }
   },
   {
@@ -1517,8 +1373,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does TCP provide that UDP does not?",
-      "ar": "ما الذي يوفّره TCP ولا يوفّره UDP؟"
+      "en": "What does TCP provide that UDP does not?"
     },
     "options": [
       "Ordered, reliable delivery",
@@ -1528,8 +1383,7 @@
     ],
     "answer": "Ordered, reliable delivery",
     "explanation": {
-      "en": "TCP retransmits losses and reorders segments; UDP does neither.",
-      "ar": "يعيد TCP إرسال المفقود ويرتّب المقاطع، وUDP لا يفعل ذلك."
+      "en": "TCP retransmits losses and reorders segments; UDP does neither."
     }
   },
   {
@@ -1538,8 +1392,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is the TCP receive window used for?",
-      "ar": "لماذا تُستخدم نافذة الاستقبال في TCP؟"
+      "en": "What is the TCP receive window used for?"
     },
     "options": [
       "Flow control",
@@ -1549,8 +1402,7 @@
     ],
     "answer": "Flow control",
     "explanation": {
-      "en": "The window tells the sender how much unacknowledged data it may have in flight.",
-      "ar": "تخبر النافذة المُرسِل بحجم البيانات غير المؤكَّدة المسموح بها."
+      "en": "The window tells the sender how much unacknowledged data it may have in flight."
     }
   },
   {
@@ -1559,8 +1411,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Which protocol suits live video calls better?",
-      "ar": "أي بروتوكول أنسب لمكالمات الفيديو الحيّة؟"
+      "en": "Which protocol suits live video calls better?"
     },
     "options": [
       "UDP",
@@ -1570,8 +1421,7 @@
     ],
     "answer": "UDP",
     "explanation": {
-      "en": "Dropping a late frame beats waiting for a retransmission.",
-      "ar": "إسقاط إطار متأخر أفضل من انتظار إعادة الإرسال."
+      "en": "Dropping a late frame beats waiting for a retransmission."
     }
   },
   {
@@ -1580,8 +1430,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "How many usable host addresses does a /24 provide?",
-      "ar": "كم عنوان مضيف قابل للاستخدام يوفّره /24؟"
+      "en": "How many usable host addresses does a /24 provide?"
     },
     "options": [
       "254",
@@ -1591,8 +1440,7 @@
     ],
     "answer": "254",
     "explanation": {
-      "en": "256 addresses minus the network and broadcast address.",
-      "ar": "256 عنوانًا ناقص عنوان الشبكة وعنوان البث."
+      "en": "256 addresses minus the network and broadcast address."
     }
   },
   {
@@ -1601,8 +1449,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What is 255.255.255.0 in CIDR notation?",
-      "ar": "ما مكافئ 255.255.255.0 بصيغة CIDR؟"
+      "en": "What is 255.255.255.0 in CIDR notation?"
     },
     "options": [
       "/24",
@@ -1612,8 +1459,7 @@
     ],
     "answer": "/24",
     "explanation": {
-      "en": "Twenty-four leading one bits make up the mask.",
-      "ar": "أربع وعشرون بتًا أولى بقيمة واحد تشكّل القناع."
+      "en": "Twenty-four leading one bits make up the mask."
     }
   },
   {
@@ -1622,8 +1468,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Which range is reserved for private addressing?",
-      "ar": "أي مدى محجوز للعنونة الخاصة؟"
+      "en": "Which range is reserved for private addressing?"
     },
     "options": [
       "10.0.0.0/8",
@@ -1633,8 +1478,7 @@
     ],
     "answer": "10.0.0.0/8",
     "explanation": {
-      "en": "RFC 1918 reserves 10/8, 172.16/12 and 192.168/16.",
-      "ar": "يحجز RFC 1918 المدَيات 10/8 و172.16/12 و192.168/16."
+      "en": "RFC 1918 reserves 10/8, 172.16/12 and 192.168/16."
     }
   },
   {
@@ -1643,8 +1487,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which DNS record maps a name to an IPv4 address?",
-      "ar": "أي سجل DNS يربط اسمًا بعنوان IPv4؟"
+      "en": "Which DNS record maps a name to an IPv4 address?"
     },
     "options": [
       "A",
@@ -1654,8 +1497,7 @@
     ],
     "answer": "A",
     "explanation": {
-      "en": "An A record holds an IPv4 address; AAAA holds IPv6.",
-      "ar": "يحمل سجل A عنوان IPv4، وAAAA يحمل IPv6."
+      "en": "An A record holds an IPv4 address; AAAA holds IPv6."
     }
   },
   {
@@ -1664,8 +1506,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which DNS record points one name at another name?",
-      "ar": "أي سجل DNS يوجّه اسمًا إلى اسم آخر؟"
+      "en": "Which DNS record points one name at another name?"
     },
     "options": [
       "CNAME",
@@ -1675,8 +1516,7 @@
     ],
     "answer": "CNAME",
     "explanation": {
-      "en": "A CNAME is an alias that resolves through to its target.",
-      "ar": "سجل CNAME اسم مستعار يُحلّ عبر هدفه."
+      "en": "A CNAME is an alias that resolves through to its target."
     }
   },
   {
@@ -1685,8 +1525,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Which DNS record directs email for a domain?",
-      "ar": "أي سجل DNS يوجّه البريد لنطاق؟"
+      "en": "Which DNS record directs email for a domain?"
     },
     "options": [
       "MX",
@@ -1696,8 +1535,7 @@
     ],
     "answer": "MX",
     "explanation": {
-      "en": "MX records name the mail exchangers and their priorities.",
-      "ar": "تسمّي سجلات MX خوادم البريد وأولوياتها."
+      "en": "MX records name the mail exchangers and their priorities."
     }
   },
   {
@@ -1706,8 +1544,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does a DNS record's TTL control?",
-      "ar": "ماذا يتحكم فيه TTL في سجل DNS؟"
+      "en": "What does a DNS record's TTL control?"
     },
     "options": [
       "How long resolvers may cache the answer",
@@ -1717,8 +1554,7 @@
     ],
     "answer": "How long resolvers may cache the answer",
     "explanation": {
-      "en": "A low TTL speeds up changes at the cost of more lookups.",
-      "ar": "قيمة TTL منخفضة تسرّع التغييرات مقابل استعلامات أكثر."
+      "en": "A low TTL speeds up changes at the cost of more lookups."
     }
   },
   {
@@ -1727,8 +1563,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which port does HTTPS use by default?",
-      "ar": "أي منفذ يستخدمه HTTPS افتراضيًا؟"
+      "en": "Which port does HTTPS use by default?"
     },
     "options": [
       "443",
@@ -1738,8 +1573,7 @@
     ],
     "answer": "443",
     "explanation": {
-      "en": "HTTP over TLS listens on TCP 443.",
-      "ar": "يستمع HTTP عبر TLS على منفذ TCP 443."
+      "en": "HTTP over TLS listens on TCP 443."
     }
   },
   {
@@ -1748,8 +1582,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which protocol hands out IP addresses automatically?",
-      "ar": "أي بروتوكول يوزّع عناوين IP تلقائيًا؟"
+      "en": "Which protocol hands out IP addresses automatically?"
     },
     "options": [
       "DHCP",
@@ -1759,8 +1592,7 @@
     ],
     "answer": "DHCP",
     "explanation": {
-      "en": "A DHCP server leases addresses and options to clients.",
-      "ar": "يمنح خادم DHCP العناوين والخيارات للعملاء بالإيجار."
+      "en": "A DHCP server leases addresses and options to clients."
     }
   },
   {
@@ -1769,8 +1601,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Which protocol resolves an IP address to a MAC address?",
-      "ar": "أي بروتوكول يحوّل عنوان IP إلى عنوان MAC؟"
+      "en": "Which protocol resolves an IP address to a MAC address?"
     },
     "options": [
       "ARP",
@@ -1780,8 +1611,7 @@
     ],
     "answer": "ARP",
     "explanation": {
-      "en": "ARP asks the local segment who owns a given IP.",
-      "ar": "يسأل ARP المقطع المحلي عن مالك عنوان IP معيّن."
+      "en": "ARP asks the local segment who owns a given IP."
     }
   },
   {
@@ -1790,8 +1620,7 @@
     "difficulty": "medium",
     "codeSnippet": "ip route add 10.0.0.0/24 via 192.168.1.1",
     "question": {
-      "en": "What does this command do?",
-      "ar": "ماذا يفعل هذا الأمر؟"
+      "en": "What does this command do?"
     },
     "options": [
       "Adds a static route through a gateway",
@@ -1801,8 +1630,7 @@
     ],
     "answer": "Adds a static route through a gateway",
     "explanation": {
-      "en": "Traffic for 10.0.0.0/24 is sent to the next hop 192.168.1.1.",
-      "ar": "تُرسل حزم 10.0.0.0/24 إلى القفزة التالية 192.168.1.1."
+      "en": "Traffic for 10.0.0.0/24 is sent to the next hop 192.168.1.1."
     }
   },
   {
@@ -1811,8 +1639,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What is a default gateway for?",
-      "ar": "لماذا توجد البوابة الافتراضية؟"
+      "en": "What is a default gateway for?"
     },
     "options": [
       "Forwarding traffic to networks not in the routing table",
@@ -1822,8 +1649,7 @@
     ],
     "answer": "Forwarding traffic to networks not in the routing table",
     "explanation": {
-      "en": "It is the route of last resort for unknown destinations.",
-      "ar": "هي مسار الملاذ الأخير للمقاصد غير المعروفة."
+      "en": "It is the route of last resort for unknown destinations."
     }
   },
   {
@@ -1832,8 +1658,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does the IP TTL field prevent?",
-      "ar": "ماذا يمنع حقل TTL في IP؟"
+      "en": "What does the IP TTL field prevent?"
     },
     "options": [
       "Packets looping forever",
@@ -1843,8 +1668,7 @@
     ],
     "answer": "Packets looping forever",
     "explanation": {
-      "en": "Each hop decrements TTL and drops the packet at zero.",
-      "ar": "تُنقص كل قفزة قيمة TTL وتُسقط الحزمة عند الصفر."
+      "en": "Each hop decrements TTL and drops the packet at zero."
     }
   },
   {
@@ -1853,8 +1677,7 @@
     "difficulty": "medium",
     "codeSnippet": "traceroute example.com",
     "question": {
-      "en": "What does this show?",
-      "ar": "ماذا يعرض هذا؟"
+      "en": "What does this show?"
     },
     "options": [
       "The hops a packet passes through to the destination",
@@ -1864,8 +1687,7 @@
     ],
     "answer": "The hops a packet passes through to the destination",
     "explanation": {
-      "en": "It maps the path by eliciting a reply from each router along it.",
-      "ar": "يرسم المسار عبر انتزاع رد من كل موجّه على الطريق."
+      "en": "It maps the path by eliciting a reply from each router along it."
     }
   },
   {
@@ -1874,8 +1696,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "At which OSI layer does IP operate?",
-      "ar": "في أي طبقة OSI يعمل بروتوكول IP؟"
+      "en": "At which OSI layer does IP operate?"
     },
     "options": [
       "The network layer (layer 3)",
@@ -1885,8 +1706,7 @@
     ],
     "answer": "The network layer (layer 3)",
     "explanation": {
-      "en": "IP handles addressing and routing at layer 3; TCP/UDP sit above at layer 4.",
-      "ar": "يتولّى IP العنونة والتوجيه في الطبقة 3، وTCP/UDP فوقه في الطبقة 4."
+      "en": "IP handles addressing and routing at layer 3; TCP/UDP sit above at layer 4."
     }
   },
   {
@@ -1895,8 +1715,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does a subnet mask define?",
-      "ar": "ماذا يحدّد قناع الشبكة الفرعية؟"
+      "en": "What does a subnet mask define?"
     },
     "options": [
       "Which bits are network vs host",
@@ -1906,8 +1725,7 @@
     ],
     "answer": "Which bits are network vs host",
     "explanation": {
-      "en": "The mask splits an address into its network portion and its host portion.",
-      "ar": "يقسم القناع العنوان إلى جزء الشبكة وجزء المضيف."
+      "en": "The mask splits an address into its network portion and its host portion."
     }
   },
   {
@@ -1916,8 +1734,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is the purpose of a MAC address?",
-      "ar": "ما الغرض من عنوان MAC؟"
+      "en": "What is the purpose of a MAC address?"
     },
     "options": [
       "Identify a device on the local link",
@@ -1927,8 +1744,7 @@
     ],
     "answer": "Identify a device on the local link",
     "explanation": {
-      "en": "MAC addresses identify hardware on the same local network segment.",
-      "ar": "تعرّف عناوين MAC الأجهزة على نفس مقطع الشبكة المحلي."
+      "en": "MAC addresses identify hardware on the same local network segment."
     }
   },
   {
@@ -1937,8 +1753,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which port does HTTPS use by default?",
-      "ar": "أي منفذ يستخدمه HTTPS افتراضيًا؟"
+      "en": "Which port does HTTPS use by default?"
     },
     "options": [
       "443",
@@ -1948,8 +1763,7 @@
     ],
     "answer": "443",
     "explanation": {
-      "en": "HTTPS defaults to TCP 443; plain HTTP uses 80.",
-      "ar": "يستخدم HTTPS المنفذ 443 افتراضيًا، وHTTP العادي 80."
+      "en": "HTTPS defaults to TCP 443; plain HTTP uses 80."
     }
   },
   {
@@ -1958,8 +1772,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which port does SSH use by default?",
-      "ar": "أي منفذ يستخدمه SSH افتراضيًا؟"
+      "en": "Which port does SSH use by default?"
     },
     "options": [
       "22",
@@ -1969,8 +1782,7 @@
     ],
     "answer": "22",
     "explanation": {
-      "en": "SSH listens on TCP 22 by default; 21 is FTP, 25 is SMTP.",
-      "ar": "يستمع SSH على المنفذ 22 افتراضيًا، و21 لـ FTP و25 لـ SMTP."
+      "en": "SSH listens on TCP 22 by default; 21 is FTP, 25 is SMTP."
     }
   },
   {
@@ -1979,8 +1791,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "ICMP echo request/reply powers which tool?",
-      "ar": "أي أداة تعتمد على طلب/ردّ ICMP echo؟"
+      "en": "ICMP echo request/reply powers which tool?"
     },
     "options": [
       "The ping utility",
@@ -1990,8 +1801,7 @@
     ],
     "answer": "The ping utility",
     "explanation": {
-      "en": "ping sends ICMP echo requests and waits for echo replies.",
-      "ar": "يرسل ping طلبات ICMP echo وينتظر الردود."
+      "en": "ping sends ICMP echo requests and waits for echo replies."
     }
   },
   {
@@ -2000,8 +1810,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does a switch use to forward frames?",
-      "ar": "ماذا يستخدم المحوّل لتمرير الإطارات؟"
+      "en": "What does a switch use to forward frames?"
     },
     "options": [
       "A table of MAC addresses",
@@ -2011,8 +1820,7 @@
     ],
     "answer": "A table of MAC addresses",
     "explanation": {
-      "en": "A switch learns MAC addresses per port and forwards frames accordingly.",
-      "ar": "يتعلّم المحوّل عناوين MAC لكل منفذ ويمرّر الإطارات بناءً عليها."
+      "en": "A switch learns MAC addresses per port and forwards frames accordingly."
     }
   },
   {
@@ -2021,8 +1829,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "What problem does IPv6 mainly solve?",
-      "ar": "أي مشكلة يحلّها IPv6 أساسًا؟"
+      "en": "What problem does IPv6 mainly solve?"
     },
     "options": [
       "The shortage of IPv4 addresses",
@@ -2032,8 +1839,7 @@
     ],
     "answer": "The shortage of IPv4 addresses",
     "explanation": {
-      "en": "IPv6's huge address space removes the IPv4 exhaustion problem.",
-      "ar": "مساحة عناوين IPv6 الضخمة تزيل مشكلة نفاد عناوين IPv4."
+      "en": "IPv6's huge address space removes the IPv4 exhaustion problem."
     }
   },
   {
@@ -2042,8 +1848,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does the TTL field in an IP packet limit?",
-      "ar": "ماذا يحدّ حقل TTL في حزمة IP؟"
+      "en": "What does the TTL field in an IP packet limit?"
     },
     "options": [
       "How many hops before it is dropped",
@@ -2053,8 +1858,7 @@
     ],
     "answer": "How many hops before it is dropped",
     "explanation": {
-      "en": "Each router decrements TTL; at zero the packet is discarded, stopping loops.",
-      "ar": "كل موجّه ينقص TTL، وعند الصفر تُسقط الحزمة، ما يمنع الحلقات."
+      "en": "Each router decrements TTL; at zero the packet is discarded, stopping loops."
     }
   },
   {
@@ -2063,8 +1867,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does a router primarily do?",
-      "ar": "ماذا يفعل الموجّه أساسًا؟"
+      "en": "What does a router primarily do?"
     },
     "options": [
       "Forward packets between networks",
@@ -2074,8 +1877,7 @@
     ],
     "answer": "Forward packets between networks",
     "explanation": {
-      "en": "Routers move packets between separate networks using their routing table.",
-      "ar": "تنقل الموجّهات الحزم بين شبكات منفصلة عبر جدول التوجيه."
+      "en": "Routers move packets between separate networks using their routing table."
     }
   },
   {
@@ -2084,8 +1886,7 @@
     "difficulty": "easy",
     "codeSnippet": "GET /index.html HTTP/1.1",
     "question": {
-      "en": "Which layer does HTTP operate at?",
-      "ar": "في أي طبقة يعمل HTTP؟"
+      "en": "Which layer does HTTP operate at?"
     },
     "options": [
       "The application layer",
@@ -2095,8 +1896,7 @@
     ],
     "answer": "The application layer",
     "explanation": {
-      "en": "HTTP is an application-layer protocol carried over TCP.",
-      "ar": "HTTP بروتوكول في طبقة التطبيقات ويُنقَل فوق TCP."
+      "en": "HTTP is an application-layer protocol carried over TCP."
     }
   },
   {
@@ -2105,8 +1905,7 @@
     "difficulty": "medium",
     "codeSnippet": "SYN -> SYN/ACK -> ACK",
     "question": {
-      "en": "What does this exchange establish?",
-      "ar": "ماذا يؤسّس هذا التبادل؟"
+      "en": "What does this exchange establish?"
     },
     "options": [
       "A TCP connection handshake",
@@ -2116,8 +1915,7 @@
     ],
     "answer": "A TCP connection handshake",
     "explanation": {
-      "en": "The three-way SYN/SYN-ACK/ACK sequence opens a TCP connection.",
-      "ar": "تسلسل SYN/SYN-ACK/ACK الثلاثي يفتح اتصال TCP."
+      "en": "The three-way SYN/SYN-ACK/ACK sequence opens a TCP connection."
     }
   },
   {
@@ -2126,8 +1924,7 @@
     "difficulty": "easy",
     "codeSnippet": "192.168.1.10/24",
     "question": {
-      "en": "What does the /24 suffix indicate?",
-      "ar": "ماذا تعني اللاحقة /24؟"
+      "en": "What does the /24 suffix indicate?"
     },
     "options": [
       "A 24-bit network prefix",
@@ -2137,8 +1934,7 @@
     ],
     "answer": "A 24-bit network prefix",
     "explanation": {
-      "en": "/24 means the first 24 bits are the network portion (mask 255.255.255.0).",
-      "ar": "/24 تعني أن أول 24 بت هي جزء الشبكة (القناع 255.255.255.0)."
+      "en": "/24 means the first 24 bits are the network portion (mask 255.255.255.0)."
     }
   },
   {
@@ -2147,8 +1943,7 @@
     "difficulty": "medium",
     "codeSnippet": "example.com  A  93.184.216.34",
     "question": {
-      "en": "What does an A record map a name to?",
-      "ar": "إلى ماذا يربط سجل A الاسم؟"
+      "en": "What does an A record map a name to?"
     },
     "options": [
       "An IPv4 address",
@@ -2158,8 +1953,7 @@
     ],
     "answer": "An IPv4 address",
     "explanation": {
-      "en": "An A record resolves a hostname to an IPv4 address.",
-      "ar": "سجل A يحلّ اسم المضيف إلى عنوان IPv4."
+      "en": "An A record resolves a hostname to an IPv4 address."
     }
   },
   {
@@ -2168,8 +1962,7 @@
     "difficulty": "medium",
     "codeSnippet": "// live video call, some frame loss ok",
     "question": {
-      "en": "Which protocol suits low-latency streaming?",
-      "ar": "أي بروتوكول يناسب البث منخفض الكمون؟"
+      "en": "Which protocol suits low-latency streaming?"
     },
     "options": [
       "UDP for speed",
@@ -2179,8 +1972,7 @@
     ],
     "answer": "UDP for speed",
     "explanation": {
-      "en": "UDP trades reliability for low overhead, good for real-time media.",
-      "ar": "UDP يضحّي بالموثوقية مقابل خفة الحمل، ويناسب الوسائط اللحظية."
+      "en": "UDP trades reliability for low overhead, good for real-time media."
     }
   },
   {
@@ -2189,8 +1981,7 @@
     "difficulty": "easy",
     "codeSnippet": "https://bank.example.com",
     "question": {
-      "en": "What does HTTPS add over HTTP?",
-      "ar": "ماذا يضيف HTTPS على HTTP؟"
+      "en": "What does HTTPS add over HTTP?"
     },
     "options": [
       "Transport encryption with TLS",
@@ -2200,8 +1991,7 @@
     ],
     "answer": "Transport encryption with TLS",
     "explanation": {
-      "en": "HTTPS wraps HTTP in TLS for confidentiality and integrity.",
-      "ar": "HTTPS يغلّف HTTP بـTLS للسرية والسلامة."
+      "en": "HTTPS wraps HTTP in TLS for confidentiality and integrity."
     }
   },
   {
@@ -2210,8 +2000,7 @@
     "difficulty": "hard",
     "codeSnippet": "10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16",
     "question": {
-      "en": "What do these ranges have in common?",
-      "ar": "ما القاسم المشترك بين هذه النطاقات؟"
+      "en": "What do these ranges have in common?"
     },
     "options": [
       "They are private address ranges",
@@ -2221,8 +2010,7 @@
     ],
     "answer": "They are private address ranges",
     "explanation": {
-      "en": "RFC 1918 reserves these for private networks behind NAT.",
-      "ar": "معيار RFC 1918 يحجز هذه للشبكات الخاصة خلف NAT."
+      "en": "RFC 1918 reserves these for private networks behind NAT."
     }
   },
   {
@@ -2231,8 +2019,7 @@
     "difficulty": "medium",
     "codeSnippet": "// forwards packets between networks",
     "question": {
-      "en": "Which device routes between different networks?",
-      "ar": "أي جهاز يوجّه بين شبكات مختلفة؟"
+      "en": "Which device routes between different networks?"
     },
     "options": [
       "A router",
@@ -2242,8 +2029,7 @@
     ],
     "answer": "A router",
     "explanation": {
-      "en": "Routers forward packets between networks using layer-3 addresses.",
-      "ar": "الموجّهات تمرّر الحزم بين الشبكات باستخدام عناوين الطبقة الثالثة."
+      "en": "Routers forward packets between networks using layer-3 addresses."
     }
   },
   {
@@ -2252,8 +2038,7 @@
     "difficulty": "easy",
     "codeSnippet": "Listening on 0.0.0.0:443",
     "question": {
-      "en": "Which service typically uses port 443?",
-      "ar": "أي خدمة تستخدم عادةً المنفذ 443؟"
+      "en": "Which service typically uses port 443?"
     },
     "options": [
       "HTTPS web traffic",
@@ -2263,8 +2048,7 @@
     ],
     "answer": "HTTPS web traffic",
     "explanation": {
-      "en": "Port 443 is the default for HTTPS.",
-      "ar": "المنفذ 443 هو الافتراضي لـHTTPS."
+      "en": "Port 443 is the default for HTTPS."
     }
   },
   {
@@ -2273,8 +2057,7 @@
     "difficulty": "medium",
     "codeSnippet": "internal 192.168.0.5 -> public 203.0.113.7",
     "question": {
-      "en": "What service performs this translation?",
-      "ar": "أي خدمة تنفّذ هذه الترجمة؟"
+      "en": "What service performs this translation?"
     },
     "options": [
       "Network address translation",
@@ -2284,8 +2067,7 @@
     ],
     "answer": "Network address translation",
     "explanation": {
-      "en": "NAT rewrites private addresses to a public one for internet access.",
-      "ar": "NAT يعيد كتابة العناوين الخاصة إلى عنوان عام للوصول للإنترنت."
+      "en": "NAT rewrites private addresses to a public one for internet access."
     }
   },
   {
@@ -2294,8 +2076,7 @@
     "difficulty": "easy",
     "codeSnippet": "$ dig +short example.com",
     "question": {
-      "en": "What does this command look up?",
-      "ar": "ماذا يستعلم هذا الأمر؟"
+      "en": "What does this command look up?"
     },
     "options": [
       "DNS records for a domain",
@@ -2305,8 +2086,7 @@
     ],
     "answer": "DNS records for a domain",
     "explanation": {
-      "en": "dig queries DNS and prints the resolved records.",
-      "ar": "dig يستعلم DNS ويطبع السجلات المحلولة."
+      "en": "dig queries DNS and prints the resolved records."
     }
   },
   {
@@ -2315,8 +2095,7 @@
     "difficulty": "hard",
     "codeSnippet": "// stateless request carrying a token",
     "question": {
-      "en": "Why is HTTP called stateless?",
-      "ar": "لماذا يُوصف HTTP بأنه عديم الحالة؟"
+      "en": "Why is HTTP called stateless?"
     },
     "options": [
       "Each request is independent",
@@ -2326,8 +2105,7 @@
     ],
     "answer": "Each request is independent",
     "explanation": {
-      "en": "HTTP keeps no built-in memory between requests; state is added via tokens/cookies.",
-      "ar": "لا يحتفظ HTTP بذاكرة بين الطلبات، وتُضاف الحالة عبر الرموز/الكوكيز."
+      "en": "HTTP keeps no built-in memory between requests; state is added via tokens/cookies."
     }
   },
   {
@@ -2336,8 +2114,7 @@
     "difficulty": "medium",
     "codeSnippet": "// packets arrive out of order",
     "question": {
-      "en": "Which protocol reorders and retransmits data?",
-      "ar": "أي بروتوكول يعيد الترتيب وإعادة الإرسال؟"
+      "en": "Which protocol reorders and retransmits data?"
     },
     "options": [
       "TCP reliable delivery",
@@ -2347,8 +2124,7 @@
     ],
     "answer": "TCP reliable delivery",
     "explanation": {
-      "en": "TCP sequences segments and retransmits losses to deliver ordered data.",
-      "ar": "TCP يرقّم المقاطع ويعيد إرسال المفقود لتسليم بيانات مرتبة."
+      "en": "TCP sequences segments and retransmits losses to deliver ordered data."
     }
   },
   {
@@ -2357,8 +2133,7 @@
     "difficulty": "medium",
     "codeSnippet": "// filters traffic by rules at the edge",
     "question": {
-      "en": "Which device enforces allow/deny traffic rules?",
-      "ar": "أي جهاز يطبّق قواعد السماح/المنع للحركة؟"
+      "en": "Which device enforces allow/deny traffic rules?"
     },
     "options": [
       "A firewall",
@@ -2368,8 +2143,7 @@
     ],
     "answer": "A firewall",
     "explanation": {
-      "en": "Firewalls permit or block traffic based on configured rules.",
-      "ar": "الجدران النارية تسمح أو تمنع الحركة وفق قواعد معدّة."
+      "en": "Firewalls permit or block traffic based on configured rules."
     }
   },
   {
@@ -2378,8 +2152,7 @@
     "difficulty": "easy",
     "codeSnippet": "ping 127.0.0.1",
     "question": {
-      "en": "What is 127.0.0.1 known as?",
-      "ar": "بماذا يُعرَف العنوان 127.0.0.1؟"
+      "en": "What is 127.0.0.1 known as?"
     },
     "options": [
       "The loopback address",
@@ -2389,8 +2162,7 @@
     ],
     "answer": "The loopback address",
     "explanation": {
-      "en": "127.0.0.1 loops back to the local host itself.",
-      "ar": "127.0.0.1 يعود إلى المضيف المحلي نفسه."
+      "en": "127.0.0.1 loops back to the local host itself."
     }
   },
   {
@@ -2399,8 +2171,7 @@
     "difficulty": "hard",
     "codeSnippet": "Server: h2  (ALPN negotiated)",
     "question": {
-      "en": "What key benefit does HTTP/2 add?",
-      "ar": "ما الفائدة الأساسية التي يضيفها HTTP/2؟"
+      "en": "What key benefit does HTTP/2 add?"
     },
     "options": [
       "Multiplexed streams on one connection",
@@ -2410,8 +2181,7 @@
     ],
     "answer": "Multiplexed streams on one connection",
     "explanation": {
-      "en": "HTTP/2 multiplexes many requests over a single connection, cutting latency.",
-      "ar": "HTTP/2 يدمج طلبات كثيرة على اتصال واحد فيقلّل الكمون."
+      "en": "HTTP/2 multiplexes many requests over a single connection, cutting latency."
     }
   },
   {
@@ -2420,8 +2190,7 @@
     "difficulty": "easy",
     "codeSnippet": "// laptop gets an IP automatically",
     "question": {
-      "en": "Which protocol assigns IP addresses automatically?",
-      "ar": "أي بروتوكول يوزّع العناوين تلقائيًا؟"
+      "en": "Which protocol assigns IP addresses automatically?"
     },
     "options": [
       "DHCP address leasing",
@@ -2431,8 +2200,7 @@
     ],
     "answer": "DHCP address leasing",
     "explanation": {
-      "en": "DHCP leases IP configuration to clients automatically.",
-      "ar": "DHCP يؤجّر إعدادات IP للعملاء تلقائيًا."
+      "en": "DHCP leases IP configuration to clients automatically."
     }
   },
   {
@@ -2441,8 +2209,7 @@
     "difficulty": "medium",
     "codeSnippet": "TCP FIN -> ACK -> FIN -> ACK",
     "question": {
-      "en": "What does this sequence do?",
-      "ar": "ماذا يفعل هذا التسلسل؟"
+      "en": "What does this sequence do?"
     },
     "options": [
       "Gracefully close a connection",
@@ -2452,8 +2219,7 @@
     ],
     "answer": "Gracefully close a connection",
     "explanation": {
-      "en": "The FIN/ACK exchange tears down a TCP connection cleanly.",
-      "ar": "تبادل FIN/ACK يغلق اتصال TCP بشكل نظيف."
+      "en": "The FIN/ACK exchange tears down a TCP connection cleanly."
     }
   },
   {
@@ -2462,8 +2228,7 @@
     "difficulty": "hard",
     "codeSnippet": "Ethernet | IP | TCP | HTTP",
     "question": {
-      "en": "This nesting of headers is called what?",
-      "ar": "ماذا يُسمى تداخل الترويسات هذا؟"
+      "en": "This nesting of headers is called what?"
     },
     "options": [
       "Protocol encapsulation",
@@ -2473,8 +2238,7 @@
     ],
     "answer": "Protocol encapsulation",
     "explanation": {
-      "en": "Each layer wraps the layer above with its own header — encapsulation.",
-      "ar": "كل طبقة تغلّف ما فوقها بترويستها الخاصة، وهو التغليف."
+      "en": "Each layer wraps the layer above with its own header — encapsulation."
     }
   },
   {
@@ -2483,8 +2247,7 @@
     "difficulty": "medium",
     "codeSnippet": "$ traceroute example.com",
     "question": {
-      "en": "What does traceroute reveal?",
-      "ar": "ماذا يكشف traceroute؟"
+      "en": "What does traceroute reveal?"
     },
     "options": [
       "The hops along a path",
@@ -2494,8 +2257,7 @@
     ],
     "answer": "The hops along a path",
     "explanation": {
-      "en": "It lists each router hop packets pass through to a destination.",
-      "ar": "يسرد كل موجّه تمر عبره الحزم حتى الوجهة."
+      "en": "It lists each router hop packets pass through to a destination."
     }
   },
   {
@@ -2504,8 +2266,7 @@
     "difficulty": "hard",
     "codeSnippet": "// site cert signed by a trusted CA",
     "question": {
-      "en": "What does a valid TLS certificate primarily prove?",
-      "ar": "ماذا تثبت شهادة TLS الصالحة أساسًا؟"
+      "en": "What does a valid TLS certificate primarily prove?"
     },
     "options": [
       "The server's authenticated identity",
@@ -2515,8 +2276,7 @@
     ],
     "answer": "The server's authenticated identity",
     "explanation": {
-      "en": "A CA-signed certificate binds a public key to a verified identity.",
-      "ar": "الشهادة الموقّعة من CA تربط مفتاحًا عامًا بهوية مُتحقَّقة."
+      "en": "A CA-signed certificate binds a public key to a verified identity."
     }
   },
   {
@@ -2525,8 +2285,7 @@
     "difficulty": "medium",
     "codeSnippet": "2001:db8::1",
     "question": {
-      "en": "What kind of address is this?",
-      "ar": "أي نوع من العناوين هذا؟"
+      "en": "What kind of address is this?"
     },
     "options": [
       "An IPv6 address",
@@ -2536,8 +2295,7 @@
     ],
     "answer": "An IPv6 address",
     "explanation": {
-      "en": "The hexadecimal colon notation is IPv6.",
-      "ar": "الترميز الست عشري بالنقطتين هو IPv6."
+      "en": "The hexadecimal colon notation is IPv6."
     }
   },
   {
@@ -2546,8 +2304,7 @@
     "difficulty": "easy",
     "codeSnippet": "// forwards frames by MAC address",
     "question": {
-      "en": "Which device switches frames within a LAN?",
-      "ar": "أي جهاز يبدّل الإطارات داخل شبكة محلية؟"
+      "en": "Which device switches frames within a LAN?"
     },
     "options": [
       "A network switch",
@@ -2557,8 +2314,7 @@
     ],
     "answer": "A network switch",
     "explanation": {
-      "en": "A switch forwards layer-2 frames using MAC address tables.",
-      "ar": "المبدّل يمرّر إطارات الطبقة الثانية باستخدام جداول MAC."
+      "en": "A switch forwards layer-2 frames using MAC address tables."
     }
   },
   {
@@ -2567,8 +2323,7 @@
     "difficulty": "hard",
     "codeSnippet": "cwnd grows then halves on loss",
     "question": {
-      "en": "What TCP mechanism does this describe?",
-      "ar": "أي آلية في TCP يصف هذا؟"
+      "en": "What TCP mechanism does this describe?"
     },
     "options": [
       "Congestion control",
@@ -2578,8 +2333,7 @@
     ],
     "answer": "Congestion control",
     "explanation": {
-      "en": "TCP grows the congestion window and backs off on loss to avoid overload.",
-      "ar": "TCP يكبّر نافذة الازدحام ويتراجع عند الفقد لتجنب الإغراق."
+      "en": "TCP grows the congestion window and backs off on loss to avoid overload."
     }
   },
   {
@@ -2588,8 +2342,7 @@
     "difficulty": "medium",
     "codeSnippet": "ws://chat.example.com/socket",
     "question": {
-      "en": "What does the WebSocket protocol enable?",
-      "ar": "ماذا يتيح بروتوكول WebSocket؟"
+      "en": "What does the WebSocket protocol enable?"
     },
     "options": [
       "Full-duplex persistent messaging",
@@ -2599,8 +2352,7 @@
     ],
     "answer": "Full-duplex persistent messaging",
     "explanation": {
-      "en": "WebSocket keeps an open two-way channel for real-time messages.",
-      "ar": "WebSocket يبقي قناة ثنائية مفتوحة للرسائل اللحظية."
+      "en": "WebSocket keeps an open two-way channel for real-time messages."
     }
   }
 ]

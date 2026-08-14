@@ -5,8 +5,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log(2 + 3);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "5",
@@ -16,8 +15,7 @@
     ],
     "answer": "5",
     "explanation": {
-      "en": "Adding two numbers yields the numeric sum 5.",
-      "ar": "جمع عددين يعطي الناتج الرقمي 5."
+      "en": "Adding two numbers yields the numeric sum 5."
     }
   },
   {
@@ -26,8 +24,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(\"Hello\" + \" \" + \"World\")",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "HelloWorld",
@@ -37,8 +34,7 @@
     ],
     "answer": "Hello World",
     "explanation": {
-      "en": "String concatenation joins the pieces with a single space.",
-      "ar": "دمج النصوص يربط الأجزاء بمسافة واحدة."
+      "en": "String concatenation joins the pieces with a single space."
     }
   },
   {
@@ -47,8 +43,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(10 - 4 * 2)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "12",
@@ -58,8 +53,7 @@
     ],
     "answer": "2",
     "explanation": {
-      "en": "Multiplication happens first: 10 - 8 = 2.",
-      "ar": "الضرب يُنفَّذ أولًا: 10 - 8 = 2."
+      "en": "Multiplication happens first: 10 - 8 = 2."
     }
   },
   {
@@ -68,8 +62,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log(10 % 3);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "3",
@@ -79,8 +72,7 @@
     ],
     "answer": "1",
     "explanation": {
-      "en": "10 divided by 3 leaves a remainder of 1.",
-      "ar": "باقي قسمة 10 على 3 يساوي 1."
+      "en": "10 divided by 3 leaves a remainder of 1."
     }
   },
   {
@@ -89,8 +81,7 @@
     "difficulty": "easy",
     "codeSnippet": "const x: number = 4;\nconsole.log(x * x);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "8",
@@ -100,8 +91,7 @@
     ],
     "answer": "16",
     "explanation": {
-      "en": "4 multiplied by 4 is 16.",
-      "ar": "4 مضروبة في 4 تساوي 16."
+      "en": "4 multiplied by 4 is 16."
     }
   },
   {
@@ -110,8 +100,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(7 > 3)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "true",
@@ -121,8 +110,7 @@
     ],
     "answer": "True",
     "explanation": {
-      "en": "Python booleans print capitalized as True.",
-      "ar": "القيم المنطقية في بايثون تُطبع بحرف كبير True."
+      "en": "Python booleans print capitalized as True."
     }
   },
   {
@@ -131,8 +119,7 @@
     "difficulty": "easy",
     "codeSnippet": "const ok: boolean = 5 > 2;\nconsole.log(ok);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "true",
@@ -142,8 +129,7 @@
     ],
     "answer": "true",
     "explanation": {
-      "en": "JavaScript booleans print lowercase as true.",
-      "ar": "القيم المنطقية في جافاسكربت تُطبع بأحرف صغيرة true."
+      "en": "JavaScript booleans print lowercase as true."
     }
   },
   {
@@ -152,8 +138,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(len(\"apple\"))",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "4",
@@ -163,8 +148,7 @@
     ],
     "answer": "5",
     "explanation": {
-      "en": "The string \"apple\" has 5 characters.",
-      "ar": "النص \"apple\" مكوّن من 5 أحرف."
+      "en": "The string \"apple\" has 5 characters."
     }
   },
   {
@@ -173,8 +157,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log(\"JS\".length);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "2",
@@ -184,8 +167,7 @@
     ],
     "answer": "2",
     "explanation": {
-      "en": "The string \"JS\" has 2 characters.",
-      "ar": "النص \"JS\" مكوّن من حرفين."
+      "en": "The string \"JS\" has 2 characters."
     }
   },
   {
@@ -194,8 +176,7 @@
     "difficulty": "easy",
     "codeSnippet": "const arr = [1, 2, 3];\nconsole.log(arr.length);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "2",
@@ -205,8 +186,7 @@
     ],
     "answer": "3",
     "explanation": {
-      "en": "The array has 3 elements.",
-      "ar": "المصفوفة تحتوي 3 عناصر."
+      "en": "The array has 3 elements."
     }
   },
   {
@@ -215,8 +195,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(2 ** 3)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "6",
@@ -226,8 +205,7 @@
     ],
     "answer": "8",
     "explanation": {
-      "en": "** is exponentiation: 2 to the power 3 is 8.",
-      "ar": "المعامل ** للأُس: 2 أُس 3 يساوي 8."
+      "en": "** is exponentiation: 2 to the power 3 is 8."
     }
   },
   {
@@ -236,8 +214,7 @@
     "difficulty": "easy",
     "codeSnippet": "const biggest: number = Math.max(1, 9, 4);\nconsole.log(biggest);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "1",
@@ -247,8 +224,7 @@
     ],
     "answer": "9",
     "explanation": {
-      "en": "Math.max returns the largest argument, 9.",
-      "ar": "Math.max تُعيد أكبر وسيط، وهو 9."
+      "en": "Math.max returns the largest argument, 9."
     }
   },
   {
@@ -257,8 +233,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(True and False)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "True",
@@ -268,8 +243,7 @@
     ],
     "answer": "False",
     "explanation": {
-      "en": "and is True only if both sides are True.",
-      "ar": "and تكون True فقط إذا كان الطرفان True."
+      "en": "and is True only if both sides are True."
     }
   },
   {
@@ -278,8 +252,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log(\"5\" + 3);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "8",
@@ -289,8 +262,7 @@
     ],
     "answer": "53",
     "explanation": {
-      "en": "A string plus a number concatenates into the string 53.",
-      "ar": "نص زائد عدد يُدمجان في النص 53."
+      "en": "A string plus a number concatenates into the string 53."
     }
   },
   {
@@ -299,8 +271,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log(5 + \"3\");",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "8",
@@ -310,8 +281,7 @@
     ],
     "answer": "53",
     "explanation": {
-      "en": "Number plus string coerces the number to text, giving 53.",
-      "ar": "عدد زائد نص يحوّل العدد إلى نص فيعطي 53."
+      "en": "Number plus string coerces the number to text, giving 53."
     }
   },
   {
@@ -320,8 +290,7 @@
     "difficulty": "easy",
     "codeSnippet": "const r = (\"5\" as any) - 3;\nconsole.log(r);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "2",
@@ -331,8 +300,7 @@
     ],
     "answer": "2",
     "explanation": {
-      "en": "The minus operator forces numeric conversion: 5 - 3 = 2.",
-      "ar": "معامل الطرح يفرض التحويل الرقمي: 5 - 3 = 2."
+      "en": "The minus operator forces numeric conversion: 5 - 3 = 2."
     }
   },
   {
@@ -341,8 +309,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(\"ab\" * 3)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "ababab",
@@ -352,8 +319,7 @@
     ],
     "answer": "ababab",
     "explanation": {
-      "en": "Multiplying a string repeats it: \"ab\" three times.",
-      "ar": "ضرب نص يكرّره: \"ab\" ثلاث مرات."
+      "en": "Multiplying a string repeats it: \"ab\" three times."
     }
   },
   {
@@ -362,8 +328,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(7 / 2)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "3",
@@ -373,8 +338,7 @@
     ],
     "answer": "3.5",
     "explanation": {
-      "en": "In Python 3, / is float division giving 3.5.",
-      "ar": "في بايثون 3 يعطي / قسمة عشرية تساوي 3.5."
+      "en": "In Python 3, / is float division giving 3.5."
     }
   },
   {
@@ -383,8 +347,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(7 // 2)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "3",
@@ -394,8 +357,7 @@
     ],
     "answer": "3",
     "explanation": {
-      "en": "// is floor division, discarding the fractional part.",
-      "ar": "// قسمة صحيحة تُهمل الجزء الكسري."
+      "en": "// is floor division, discarding the fractional part."
     }
   },
   {
@@ -404,8 +366,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log(typeof 42);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "\"int\"",
@@ -415,8 +376,7 @@
     ],
     "answer": "\"number\"",
     "explanation": {
-      "en": "All JS numbers report the type \"number\".",
-      "ar": "كل الأعداد في جافاسكربت نوعها \"number\"."
+      "en": "All JS numbers report the type \"number\"."
     }
   },
   {
@@ -425,8 +385,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log(typeof \"hi\");",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "\"text\"",
@@ -436,8 +395,7 @@
     ],
     "answer": "\"string\"",
     "explanation": {
-      "en": "typeof of a string is \"string\".",
-      "ar": "نوع النص عبر typeof هو \"string\"."
+      "en": "typeof of a string is \"string\"."
     }
   },
   {
@@ -446,8 +404,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(10 % 4)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "2",
@@ -457,8 +414,7 @@
     ],
     "answer": "2",
     "explanation": {
-      "en": "10 divided by 4 leaves a remainder of 2.",
-      "ar": "باقي قسمة 10 على 4 يساوي 2."
+      "en": "10 divided by 4 leaves a remainder of 2."
     }
   },
   {
@@ -467,8 +423,7 @@
     "difficulty": "easy",
     "codeSnippet": "const s = \"hello\";\nconsole.log(s.toUpperCase());",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "hello",
@@ -478,8 +433,7 @@
     ],
     "answer": "HELLO",
     "explanation": {
-      "en": "toUpperCase converts every letter to uppercase.",
-      "ar": "toUpperCase تحوّل كل حرف إلى حالة كبيرة."
+      "en": "toUpperCase converts every letter to uppercase."
     }
   },
   {
@@ -488,8 +442,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(bool(0))",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "True",
@@ -499,8 +452,7 @@
     ],
     "answer": "False",
     "explanation": {
-      "en": "0 is falsy, so bool(0) is False.",
-      "ar": "القيمة 0 تُعدّ خاطئة، لذا bool(0) هي False."
+      "en": "0 is falsy, so bool(0) is False."
     }
   },
   {
@@ -509,8 +461,7 @@
     "difficulty": "easy",
     "codeSnippet": "const b: boolean = Boolean(\"\");\nconsole.log(b);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "true",
@@ -520,8 +471,7 @@
     ],
     "answer": "false",
     "explanation": {
-      "en": "The empty string is falsy, so it becomes false.",
-      "ar": "النص الفارغ يُعدّ خاطئًا، فيصبح false."
+      "en": "The empty string is falsy, so it becomes false."
     }
   },
   {
@@ -530,8 +480,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log([1, 2, 3].join(\"-\"));",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "1-2-3",
@@ -541,8 +490,7 @@
     ],
     "answer": "1-2-3",
     "explanation": {
-      "en": "join inserts the separator between elements.",
-      "ar": "join تُدرج الفاصل بين العناصر."
+      "en": "join inserts the separator between elements."
     }
   },
   {
@@ -551,8 +499,7 @@
     "difficulty": "medium",
     "codeSnippet": "print(0.1 + 0.2)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "0.3",
@@ -562,8 +509,7 @@
     ],
     "answer": "0.30000000000000004",
     "explanation": {
-      "en": "Floating point rounding gives 0.30000000000000004.",
-      "ar": "تقريب الفاصلة العائمة يعطي 0.30000000000000004."
+      "en": "Floating point rounding gives 0.30000000000000004."
     }
   },
   {
@@ -572,8 +518,7 @@
     "difficulty": "medium",
     "codeSnippet": "console.log(0.1 + 0.2 === 0.3);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "true",
@@ -583,8 +528,7 @@
     ],
     "answer": "false",
     "explanation": {
-      "en": "Float rounding makes 0.1 + 0.2 not exactly equal to 0.3.",
-      "ar": "تقريب الأعداد العشرية يجعل 0.1 + 0.2 غير مساوٍ تمامًا لـ 0.3."
+      "en": "Float rounding makes 0.1 + 0.2 not exactly equal to 0.3."
     }
   },
   {
@@ -593,8 +537,7 @@
     "difficulty": "medium",
     "codeSnippet": "console.log([] + []);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "\"[]\"",
@@ -604,8 +547,7 @@
     ],
     "answer": "\"\"",
     "explanation": {
-      "en": "Both arrays become empty strings, yielding \"\".",
-      "ar": "المصفوفتان تتحوّلان إلى نصين فارغين فينتج \"\"."
+      "en": "Both arrays become empty strings, yielding \"\"."
     }
   },
   {
@@ -614,8 +556,7 @@
     "difficulty": "medium",
     "codeSnippet": "console.log(typeof null);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "\"null\"",
@@ -625,8 +566,7 @@
     ],
     "answer": "\"object\"",
     "explanation": {
-      "en": "A historic JS quirk: typeof null is \"object\".",
-      "ar": "غرابة تاريخية في جافاسكربت: typeof null يساوي \"object\"."
+      "en": "A historic JS quirk: typeof null is \"object\"."
     }
   },
   {
@@ -635,8 +575,7 @@
     "difficulty": "medium",
     "codeSnippet": "print(True + True)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "True",
@@ -646,8 +585,7 @@
     ],
     "answer": "2",
     "explanation": {
-      "en": "Booleans act as integers, so True + True is 2.",
-      "ar": "القيم المنطقية تعمل كأعداد صحيحة، لذا True + True تساوي 2."
+      "en": "Booleans act as integers, so True + True is 2."
     }
   },
   {
@@ -656,8 +594,7 @@
     "difficulty": "medium",
     "codeSnippet": "a = [1, 2, 3]\nb = a\nb.append(4)\nprint(a)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "[1, 2, 3]",
@@ -667,8 +604,7 @@
     ],
     "answer": "[1, 2, 3, 4]",
     "explanation": {
-      "en": "b and a reference the same list, so a sees the append.",
-      "ar": "b و a تشيران إلى القائمة نفسها، لذا ترى a الإضافة."
+      "en": "b and a reference the same list, so a sees the append."
     }
   },
   {
@@ -677,8 +613,7 @@
     "difficulty": "medium",
     "codeSnippet": "nums = [0, 1, 2, 3, 4]\nprint(nums[1:4])",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "[1, 2, 3, 4]",
@@ -688,8 +623,7 @@
     ],
     "answer": "[1, 2, 3]",
     "explanation": {
-      "en": "Slicing [1:4] includes indices 1, 2, 3 but not 4.",
-      "ar": "التقطيع [1:4] يشمل الفهارس 1 و2 و3 دون 4."
+      "en": "Slicing [1:4] includes indices 1, 2, 3 but not 4."
     }
   },
   {
@@ -698,8 +632,7 @@
     "difficulty": "medium",
     "codeSnippet": "name = \"Sam\"\nprint(f\"Hi {name}, {2 + 2}\")",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "Hi Sam, 4",
@@ -709,8 +642,7 @@
     ],
     "answer": "Hi Sam, 4",
     "explanation": {
-      "en": "f-strings interpolate variables and evaluate expressions.",
-      "ar": "نصوص f تُدرج المتغيّرات وتُقيّم التعابير."
+      "en": "f-strings interpolate variables and evaluate expressions."
     }
   },
   {
@@ -719,8 +651,7 @@
     "difficulty": "medium",
     "codeSnippet": "const nums: number[] = [1, 2, 3];\nconsole.log(nums.map(x => x * 2));",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "[2, 4, 6]",
@@ -730,8 +661,7 @@
     ],
     "answer": "[2, 4, 6]",
     "explanation": {
-      "en": "map doubles each element producing [2, 4, 6].",
-      "ar": "map تضاعف كل عنصر فتنتج [2, 4, 6]."
+      "en": "map doubles each element producing [2, 4, 6]."
     }
   },
   {
@@ -740,8 +670,7 @@
     "difficulty": "medium",
     "codeSnippet": "console.log(\"abc\".indexOf(\"b\"));",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "0",
@@ -751,8 +680,7 @@
     ],
     "answer": "1",
     "explanation": {
-      "en": "\"b\" is at index 1 in zero-based indexing.",
-      "ar": "الحرف \"b\" في الفهرس 1 لأن الترقيم يبدأ من الصفر."
+      "en": "\"b\" is at index 1 in zero-based indexing."
     }
   },
   {
@@ -761,8 +689,7 @@
     "difficulty": "medium",
     "codeSnippet": "const n = 7;\nconsole.log(n % 2 === 0 ? \"even\" : \"odd\");",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "even",
@@ -772,8 +699,7 @@
     ],
     "answer": "odd",
     "explanation": {
-      "en": "7 is not divisible by 2, so the ternary returns \"odd\".",
-      "ar": "العدد 7 لا يقبل القسمة على 2، لذا يُعيد الشرط الثلاثي \"odd\"."
+      "en": "7 is not divisible by 2, so the ternary returns \"odd\"."
     }
   },
   {
@@ -782,8 +708,7 @@
     "difficulty": "medium",
     "codeSnippet": "print(2 == 2.0)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "True",
@@ -793,8 +718,7 @@
     ],
     "answer": "True",
     "explanation": {
-      "en": "Python compares int and float by value, so 2 equals 2.0.",
-      "ar": "بايثون تقارن int و float بالقيمة، لذا 2 تساوي 2.0."
+      "en": "Python compares int and float by value, so 2 equals 2.0."
     }
   },
   {
@@ -803,8 +727,7 @@
     "difficulty": "hard",
     "codeSnippet": "for (var i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 0);\n}",
     "question": {
-      "en": "What is logged?",
-      "ar": "ما الذي سيُسجَّل؟"
+      "en": "What is logged?"
     },
     "options": [
       "0 1 2",
@@ -814,8 +737,7 @@
     ],
     "answer": "3 3 3",
     "explanation": {
-      "en": "var is function-scoped, so all callbacks see the final i of 3.",
-      "ar": "var نطاقها الدالة، لذا ترى كل الدوال القيمة النهائية 3."
+      "en": "var is function-scoped, so all callbacks see the final i of 3."
     }
   },
   {
@@ -824,8 +746,7 @@
     "difficulty": "hard",
     "codeSnippet": "for (let i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 0);\n}",
     "question": {
-      "en": "What is logged?",
-      "ar": "ما الذي سيُسجَّل؟"
+      "en": "What is logged?"
     },
     "options": [
       "0 1 2",
@@ -835,8 +756,7 @@
     ],
     "answer": "0 1 2",
     "explanation": {
-      "en": "let creates a fresh binding per iteration, logging 0 1 2.",
-      "ar": "let تُنشئ ارتباطًا جديدًا كل دورة، فتُطبع 0 1 2."
+      "en": "let creates a fresh binding per iteration, logging 0 1 2."
     }
   },
   {
@@ -845,8 +765,7 @@
     "difficulty": "hard",
     "codeSnippet": "def add(x, lst=[]):\n    lst.append(x)\n    return lst\nprint(add(1))\nprint(add(2))",
     "question": {
-      "en": "What is printed after both calls?",
-      "ar": "ما الذي سيُطبع بعد الاستدعاءين؟"
+      "en": "What is printed after both calls?"
     },
     "options": [
       "[1]\n[2]",
@@ -856,8 +775,7 @@
     ],
     "answer": "[1]\n[1, 2]",
     "explanation": {
-      "en": "The default list is shared across calls, so it accumulates.",
-      "ar": "القائمة الافتراضية مشتركة بين الاستدعاءات فتتراكم."
+      "en": "The default list is shared across calls, so it accumulates."
     }
   },
   {
@@ -866,8 +784,7 @@
     "difficulty": "hard",
     "codeSnippet": "const xs: number[] = [1, 2, 10, 3];\nconsole.log(xs.sort());",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "[1, 2, 3, 10]",
@@ -877,8 +794,7 @@
     ],
     "answer": "[1, 10, 2, 3]",
     "explanation": {
-      "en": "Default sort compares strings, so \"10\" precedes \"2\".",
-      "ar": "الترتيب الافتراضي يقارن النصوص، لذا يسبق \"10\" الرقم \"2\"."
+      "en": "Default sort compares strings, so \"10\" precedes \"2\"."
     }
   },
   {
@@ -887,8 +803,7 @@
     "difficulty": "hard",
     "codeSnippet": "console.log(1 + 2 + \"3\" + 4 + 5);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "\"3345\"",
@@ -898,8 +813,7 @@
     ],
     "answer": "\"3345\"",
     "explanation": {
-      "en": "1+2 is 3, then concatenation gives \"33\", \"334\", \"3345\".",
-      "ar": "1+2 تساوي 3، ثم يعطي الدمج \"33\" ثم \"334\" ثم \"3345\"."
+      "en": "1+2 is 3, then concatenation gives \"33\", \"334\", \"3345\"."
     }
   },
   {
@@ -908,8 +822,7 @@
     "difficulty": "hard",
     "codeSnippet": "console.log(null == undefined, null === undefined);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "true true",
@@ -919,8 +832,7 @@
     ],
     "answer": "true false",
     "explanation": {
-      "en": "Loose equality treats them as equal; strict equality does not.",
-      "ar": "المساواة المرنة تعتبرهما متساويين، أما الصارمة فلا."
+      "en": "Loose equality treats them as equal; strict equality does not."
     }
   },
   {
@@ -929,8 +841,7 @@
     "difficulty": "hard",
     "codeSnippet": "print([1, 2, 3] * 2)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "[2, 4, 6]",
@@ -940,8 +851,7 @@
     ],
     "answer": "[1, 2, 3, 1, 2, 3]",
     "explanation": {
-      "en": "List multiplication repeats the elements, not doubles them.",
-      "ar": "ضرب القائمة يكرّر العناصر ولا يضاعف قيمها."
+      "en": "List multiplication repeats the elements, not doubles them."
     }
   },
   {
@@ -950,8 +860,7 @@
     "difficulty": "hard",
     "codeSnippet": "print(\"hello\"[::-1])",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "hello",
@@ -961,8 +870,7 @@
     ],
     "answer": "olleh",
     "explanation": {
-      "en": "A step of -1 reverses the string.",
-      "ar": "الخطوة -1 تعكس النص."
+      "en": "A step of -1 reverses the string."
     }
   },
   {
@@ -971,8 +879,7 @@
     "difficulty": "hard",
     "codeSnippet": "console.log(0.1 + 0.2);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "0.3",
@@ -982,8 +889,7 @@
     ],
     "answer": "0.30000000000000004",
     "explanation": {
-      "en": "JS uses IEEE 754 doubles, giving 0.30000000000000004.",
-      "ar": "جافاسكربت تستخدم IEEE 754 فينتج 0.30000000000000004."
+      "en": "JS uses IEEE 754 doubles, giving 0.30000000000000004."
     }
   },
   {
@@ -992,8 +898,7 @@
     "difficulty": "hard",
     "codeSnippet": "print(3 * \"5\" if False else 2 + 3)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "555",
@@ -1003,8 +908,7 @@
     ],
     "answer": "5",
     "explanation": {
-      "en": "The condition is False so the else branch 2 + 3 = 5 runs.",
-      "ar": "الشرط False لذا يُنفَّذ فرع else: 2 + 3 = 5."
+      "en": "The condition is False so the else branch 2 + 3 = 5 runs."
     }
   },
   {
@@ -1013,8 +917,7 @@
     "difficulty": "hard",
     "codeSnippet": "const x = [10, 20, 30];\nconsole.log(x.reduce((a, b) => a + b, 0));",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "60",
@@ -1024,8 +927,7 @@
     ],
     "answer": "60",
     "explanation": {
-      "en": "reduce sums all elements starting from 0, giving 60.",
-      "ar": "reduce تجمع كل العناصر بدءًا من 0 فتعطي 60."
+      "en": "reduce sums all elements starting from 0, giving 60."
     }
   },
   {
@@ -1034,8 +936,7 @@
     "difficulty": "hard",
     "codeSnippet": "console.log(!!\"false\");",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "false",
@@ -1045,8 +946,7 @@
     ],
     "answer": "true",
     "explanation": {
-      "en": "Any non-empty string is truthy, so it coerces to true.",
-      "ar": "أي نص غير فارغ يُعدّ صحيحًا، فيتحوّل إلى true."
+      "en": "Any non-empty string is truthy, so it coerces to true."
     }
   },
   {
@@ -1055,8 +955,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log([1, 2, 3].indexOf(4));",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "-1",
@@ -1066,8 +965,7 @@
     ],
     "answer": "-1",
     "explanation": {
-      "en": "indexOf returns -1 when the value is not present.",
-      "ar": "‏indexOf تُعيد -1 عندما لا توجد القيمة."
+      "en": "indexOf returns -1 when the value is not present."
     }
   },
   {
@@ -1076,8 +974,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log('5' * '2');",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "10",
@@ -1087,8 +984,7 @@
     ],
     "answer": "10",
     "explanation": {
-      "en": "The * operator has no string meaning, so both sides convert to numbers.",
-      "ar": "معامل الضرب لا معنى له مع النصوص، فيتحوّل الطرفان إلى أعداد."
+      "en": "The * operator has no string meaning, so both sides convert to numbers."
     }
   },
   {
@@ -1097,8 +993,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(len({\"a\": 1, \"b\": 2, \"a\": 3}))",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "2",
@@ -1108,8 +1003,7 @@
     ],
     "answer": "2",
     "explanation": {
-      "en": "The repeated key overwrites the earlier one, leaving two entries.",
-      "ar": "المفتاح المكرّر يستبدل السابق، فيتبقّى مدخلان."
+      "en": "The repeated key overwrites the earlier one, leaving two entries."
     }
   },
   {
@@ -1118,8 +1012,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(list(range(2, 10, 3)))",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "[2, 5, 8]",
@@ -1129,8 +1022,7 @@
     ],
     "answer": "[2, 5, 8]",
     "explanation": {
-      "en": "range starts at 2, steps by 3 and stops before 10.",
-      "ar": "‏range تبدأ من 2 وتزيد 3 وتتوقّف قبل 10."
+      "en": "range starts at 2, steps by 3 and stops before 10."
     }
   },
   {
@@ -1139,8 +1031,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log(Boolean([]));",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "true",
@@ -1150,8 +1041,7 @@
     ],
     "answer": "true",
     "explanation": {
-      "en": "Every object is truthy in JavaScript, including an empty array.",
-      "ar": "كل كائن في جافاسكربت يُعدّ صحيحًا، بما فيه المصفوفة الفارغة."
+      "en": "Every object is truthy in JavaScript, including an empty array."
     }
   },
   {
@@ -1160,8 +1050,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(bool([]))",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "False",
@@ -1171,8 +1060,7 @@
     ],
     "answer": "False",
     "explanation": {
-      "en": "An empty list is falsy in Python — the opposite of JavaScript.",
-      "ar": "القائمة الفارغة تُعدّ خاطئة في بايثون، عكس جافاسكربت."
+      "en": "An empty list is falsy in Python — the opposite of JavaScript."
     }
   },
   {
@@ -1181,8 +1069,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log([...'abc']);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "['a', 'b', 'c']",
@@ -1192,8 +1079,7 @@
     ],
     "answer": "['a', 'b', 'c']",
     "explanation": {
-      "en": "Spreading a string iterates its characters into an array.",
-      "ar": "نشر النص يمرّ على حروفه ويضعها في مصفوفة."
+      "en": "Spreading a string iterates its characters into an array."
     }
   },
   {
@@ -1202,8 +1088,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(\"ab\" in \"cabd\")",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "True",
@@ -1213,8 +1098,7 @@
     ],
     "answer": "True",
     "explanation": {
-      "en": "`in` on strings tests for a substring, and 'ab' appears inside 'cabd'.",
-      "ar": "‏in مع النصوص تفحص وجود نص فرعي، و'ab' موجودة داخل 'cabd'."
+      "en": "`in` on strings tests for a substring, and 'ab' appears inside 'cabd'."
     }
   },
   {
@@ -1223,8 +1107,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log('abc'.slice(-2));",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "bc",
@@ -1234,8 +1117,7 @@
     ],
     "answer": "bc",
     "explanation": {
-      "en": "A negative start counts from the end, giving the last two characters.",
-      "ar": "البداية السالبة تُحسب من النهاية، فتعطي آخر حرفين."
+      "en": "A negative start counts from the end, giving the last two characters."
     }
   },
   {
@@ -1244,8 +1126,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(sorted(\"banana\"))",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "['a', 'a', 'a', 'b', 'n', 'n']",
@@ -1255,8 +1136,7 @@
     ],
     "answer": "['a', 'a', 'a', 'b', 'n', 'n']",
     "explanation": {
-      "en": "sorted() always returns a list of the sorted characters, duplicates included.",
-      "ar": "‏sorted() تُعيد دائمًا قائمة بالحروف مرتّبة، مع التكرارات."
+      "en": "sorted() always returns a list of the sorted characters, duplicates included."
     }
   },
   {
@@ -1265,8 +1145,7 @@
     "difficulty": "medium",
     "codeSnippet": "console.log([3, 1, 20, 10].sort());",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "[1, 10, 20, 3]",
@@ -1276,8 +1155,7 @@
     ],
     "answer": "[1, 10, 20, 3]",
     "explanation": {
-      "en": "The default sort compares values as strings, so '10' sorts before '3'.",
-      "ar": "الترتيب الافتراضي يقارن القيم كنصوص، فتسبق '10' الرقم '3'."
+      "en": "The default sort compares values as strings, so '10' sorts before '3'."
     }
   },
   {
@@ -1286,8 +1164,7 @@
     "difficulty": "medium",
     "codeSnippet": "print(-7 // 2)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "-4",
@@ -1297,8 +1174,7 @@
     ],
     "answer": "-4",
     "explanation": {
-      "en": "Floor division rounds toward negative infinity, not toward zero.",
-      "ar": "القسمة الصحيحة تقرّب نحو سالب اللانهاية لا نحو الصفر."
+      "en": "Floor division rounds toward negative infinity, not toward zero."
     }
   },
   {
@@ -1307,8 +1183,7 @@
     "difficulty": "medium",
     "codeSnippet": "print(-7 % 3)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "2",
@@ -1318,8 +1193,7 @@
     ],
     "answer": "2",
     "explanation": {
-      "en": "Python's modulo takes the divisor's sign, so the result is positive.",
-      "ar": "باقي القسمة في بايثون يأخذ إشارة المقسوم عليه، فتكون النتيجة موجبة."
+      "en": "Python's modulo takes the divisor's sign, so the result is positive."
     }
   },
   {
@@ -1328,8 +1202,7 @@
     "difficulty": "medium",
     "codeSnippet": "console.log(-7 % 3);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "-1",
@@ -1339,8 +1212,7 @@
     ],
     "answer": "-1",
     "explanation": {
-      "en": "JavaScript's remainder keeps the dividend's sign — the opposite of Python.",
-      "ar": "باقي القسمة في جافاسكربت يحتفظ بإشارة المقسوم، عكس بايثون."
+      "en": "JavaScript's remainder keeps the dividend's sign — the opposite of Python."
     }
   },
   {
@@ -1349,8 +1221,7 @@
     "difficulty": "medium",
     "codeSnippet": "print(round(2.5), round(3.5))",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "2 4",
@@ -1360,8 +1231,7 @@
     ],
     "answer": "2 4",
     "explanation": {
-      "en": "Python rounds halves to the nearest EVEN number (banker's rounding).",
-      "ar": "بايثون تقرّب النصف إلى أقرب عدد زوجي (تقريب المصرفيين)."
+      "en": "Python rounds halves to the nearest EVEN number (banker's rounding)."
     }
   },
   {
@@ -1370,8 +1240,7 @@
     "difficulty": "medium",
     "codeSnippet": "console.log(Math.round(-0.5), Math.round(0.5));",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "-0 1",
@@ -1381,8 +1250,7 @@
     ],
     "answer": "-0 1",
     "explanation": {
-      "en": "Math.round breaks ties toward +Infinity, so -0.5 rounds up to -0.",
-      "ar": "‏Math.round تقرّب النصف نحو موجب اللانهاية، فتصبح -0.5 هي -0."
+      "en": "Math.round breaks ties toward +Infinity, so -0.5 rounds up to -0."
     }
   },
   {
@@ -1391,8 +1259,7 @@
     "difficulty": "medium",
     "codeSnippet": "console.log([1, [2, [3, [4]]]].flat());",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "[1, 2, [3, [4]]]",
@@ -1402,8 +1269,7 @@
     ],
     "answer": "[1, 2, [3, [4]]]",
     "explanation": {
-      "en": "flat() defaults to one level of depth.",
-      "ar": "‏flat() تفرد مستوى واحدًا افتراضيًا."
+      "en": "flat() defaults to one level of depth."
     }
   },
   {
@@ -1412,8 +1278,7 @@
     "difficulty": "medium",
     "codeSnippet": "console.log(Object.keys(['a', 'b']));",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "['0', '1']",
@@ -1423,8 +1288,7 @@
     ],
     "answer": "['0', '1']",
     "explanation": {
-      "en": "Array indices are object keys, and object keys are strings.",
-      "ar": "فهارس المصفوفة هي مفاتيح الكائن، ومفاتيح الكائن نصوص."
+      "en": "Array indices are object keys, and object keys are strings."
     }
   },
   {
@@ -1433,8 +1297,7 @@
     "difficulty": "medium",
     "codeSnippet": "print(\"%d\" % 3.9)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "3",
@@ -1444,8 +1307,7 @@
     ],
     "answer": "3",
     "explanation": {
-      "en": "%d truncates toward zero instead of rounding.",
-      "ar": "‏%d تقتطع نحو الصفر بدل التقريب."
+      "en": "%d truncates toward zero instead of rounding."
     }
   },
   {
@@ -1454,8 +1316,7 @@
     "difficulty": "medium",
     "codeSnippet": "print(f\"{3.14159:.2f}\")",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "3.14",
@@ -1465,8 +1326,7 @@
     ],
     "answer": "3.14",
     "explanation": {
-      "en": "The .2f format rounds to two decimal places.",
-      "ar": "تنسيق ‎.2f يقرّب إلى خانتين عشريتين."
+      "en": "The .2f format rounds to two decimal places."
     }
   },
   {
@@ -1475,8 +1335,7 @@
     "difficulty": "medium",
     "codeSnippet": "console.log([1, 2, 3, 4].slice(1, -1));",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "[2, 3]",
@@ -1486,8 +1345,7 @@
     ],
     "answer": "[2, 3]",
     "explanation": {
-      "en": "A negative end counts from the tail, so the last item is excluded.",
-      "ar": "النهاية السالبة تُحسب من الذيل، فيُستبعد آخر عنصر."
+      "en": "A negative end counts from the tail, so the last item is excluded."
     }
   },
   {
@@ -1496,8 +1354,7 @@
     "difficulty": "medium",
     "codeSnippet": "console.log(typeof NaN, typeof []);",
     "question": {
-      "en": "What is logged?",
-      "ar": "ما الذي سيُسجَّل؟"
+      "en": "What is logged?"
     },
     "options": [
       "number object",
@@ -1507,8 +1364,7 @@
     ],
     "answer": "number object",
     "explanation": {
-      "en": "NaN is a number, and every array reports the type 'object'.",
-      "ar": "‏NaN عدد، وكل مصفوفة نوعها 'object'."
+      "en": "NaN is a number, and every array reports the type 'object'."
     }
   },
   {
@@ -1517,8 +1373,7 @@
     "difficulty": "medium",
     "codeSnippet": "a = [1, 2, 3]\nprint(a[::-1], a[0:0])",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "[3, 2, 1] []",
@@ -1528,8 +1383,7 @@
     ],
     "answer": "[3, 2, 1] []",
     "explanation": {
-      "en": "A -1 step reverses the list, and an empty slice yields an empty list.",
-      "ar": "الخطوة -1 تعكس القائمة، والتقطيع الفارغ يعطي قائمة فارغة."
+      "en": "A -1 step reverses the list, and an empty slice yields an empty list."
     }
   },
   {
@@ -1538,8 +1392,7 @@
     "difficulty": "hard",
     "codeSnippet": "console.log([] + {});",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "[object Object]",
@@ -1549,8 +1402,7 @@
     ],
     "answer": "[object Object]",
     "explanation": {
-      "en": "Both convert to strings: '' plus '[object Object]'.",
-      "ar": "يتحوّل الطرفان إلى نصين: '' مع '[object Object]'."
+      "en": "Both convert to strings: '' plus '[object Object]'."
     }
   },
   {
@@ -1559,8 +1411,7 @@
     "difficulty": "hard",
     "codeSnippet": "console.log([1, 2] == '1,2');",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "true",
@@ -1570,8 +1421,7 @@
     ],
     "answer": "true",
     "explanation": {
-      "en": "Loose equality turns the array into the string '1,2' before comparing.",
-      "ar": "المساواة المرنة تحوّل المصفوفة إلى النص '1,2' قبل المقارنة."
+      "en": "Loose equality turns the array into the string '1,2' before comparing."
     }
   },
   {
@@ -1580,8 +1430,7 @@
     "difficulty": "hard",
     "codeSnippet": "print(0.1 + 0.2 == 0.3, round(0.1 + 0.2, 2) == 0.3)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "False True",
@@ -1591,8 +1440,7 @@
     ],
     "answer": "False True",
     "explanation": {
-      "en": "Binary floats make the raw sum slightly off; rounding to 2 places fixes the comparison.",
-      "ar": "الأعداد العشرية الثنائية تجعل المجموع مزاحًا قليلًا؛ التقريب لخانتين يصحّح المقارنة."
+      "en": "Binary floats make the raw sum slightly off; rounding to 2 places fixes the comparison."
     }
   },
   {
@@ -1601,8 +1449,7 @@
     "difficulty": "hard",
     "codeSnippet": "print([x for x in range(5) if x % 2][-1])",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "3",
@@ -1612,8 +1459,7 @@
     ],
     "answer": "3",
     "explanation": {
-      "en": "The comprehension keeps the odd numbers [1, 3]; index -1 is the last of them.",
-      "ar": "تُبقي الـ comprehension الأعداد الفردية [1, 3]، والفهرس -1 هو آخرها."
+      "en": "The comprehension keeps the odd numbers [1, 3]; index -1 is the last of them."
     }
   },
   {
@@ -1622,8 +1468,7 @@
     "difficulty": "hard",
     "codeSnippet": "const a = { n: 1 };\nconst b = { ...a };\nb.n = 2;\nconsole.log(a.n, b.n, a === b);",
     "question": {
-      "en": "What is logged?",
-      "ar": "ما الذي سيُسجَّل؟"
+      "en": "What is logged?"
     },
     "options": [
       "1 2 false",
@@ -1633,8 +1478,7 @@
     ],
     "answer": "1 2 false",
     "explanation": {
-      "en": "Spread makes a separate top-level object, so writing to b leaves a alone.",
-      "ar": "النشر ينشئ كائنًا منفصلًا في المستوى الأعلى، فلا تتأثّر a بالكتابة في b."
+      "en": "Spread makes a separate top-level object, so writing to b leaves a alone."
     }
   },
   {
@@ -1643,8 +1487,7 @@
     "difficulty": "hard",
     "codeSnippet": "const x = ['1', '2', '3'].map(parseInt);\nconsole.log(x);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "[1, NaN, NaN]",
@@ -1654,8 +1497,7 @@
     ],
     "answer": "[1, NaN, NaN]",
     "explanation": {
-      "en": "map passes the index as parseInt's radix, so it parses in base 1 and base 2.",
-      "ar": "تمرّر map الفهرس كأساس لـ parseInt، فيحلّل بالأساس 1 ثم 2."
+      "en": "map passes the index as parseInt's radix, so it parses in base 1 and base 2."
     }
   },
   {
@@ -1664,8 +1506,7 @@
     "difficulty": "hard",
     "codeSnippet": "d = {}\nd[1] = 'int'\nd[1.0] = 'float'\nd[True] = 'bool'\nprint(len(d), d[1])",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "1 bool",
@@ -1675,8 +1516,7 @@
     ],
     "answer": "1 bool",
     "explanation": {
-      "en": "1, 1.0 and True hash equal, so each write replaces the same single entry.",
-      "ar": "القيم 1 و1.0 وTrue تتساوى في التجزئة، فكل كتابة تستبدل المدخل نفسه."
+      "en": "1, 1.0 and True hash equal, so each write replaces the same single entry."
     }
   },
   {
@@ -1685,8 +1525,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log([1, 2, 3].reduce((a, b) => a + b));",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "6",
@@ -1696,8 +1535,7 @@
     ],
     "answer": "6",
     "explanation": {
-      "en": "With no seed, reduce starts from the first element and adds the rest.",
-      "ar": "بلا قيمة ابتدائية تبدأ reduce من أول عنصر وتجمع البقية."
+      "en": "With no seed, reduce starts from the first element and adds the rest."
     }
   },
   {
@@ -1706,8 +1544,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log([1, 2, 3].join(''));",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "123",
@@ -1717,8 +1554,7 @@
     ],
     "answer": "123",
     "explanation": {
-      "en": "An empty separator glues the elements together as text.",
-      "ar": "الفاصل الفارغ يلصق العناصر معًا كنص."
+      "en": "An empty separator glues the elements together as text."
     }
   },
   {
@@ -1727,8 +1563,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log('abc'.at(-1), [1, 2, 3].at(-1));",
     "question": {
-      "en": "What is logged?",
-      "ar": "ما الذي سيُسجَّل؟"
+      "en": "What is logged?"
     },
     "options": [
       "c 3",
@@ -1738,8 +1573,7 @@
     ],
     "answer": "c 3",
     "explanation": {
-      "en": "at() accepts a negative index counted from the end.",
-      "ar": "‏at() تقبل فهرسًا سالبًا يُحسب من النهاية."
+      "en": "at() accepts a negative index counted from the end."
     }
   },
   {
@@ -1748,8 +1582,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log(+true, +'', +'3');",
     "question": {
-      "en": "What is logged?",
-      "ar": "ما الذي سيُسجَّل؟"
+      "en": "What is logged?"
     },
     "options": [
       "1 0 3",
@@ -1759,8 +1592,7 @@
     ],
     "answer": "1 0 3",
     "explanation": {
-      "en": "Unary + converts to a number: true is 1 and the empty string is 0.",
-      "ar": "‏+ الأحادية تحوّل إلى عدد: true تساوي 1 والنص الفارغ صفر."
+      "en": "Unary + converts to a number: true is 1 and the empty string is 0."
     }
   },
   {
@@ -1769,8 +1601,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log('10' > '9', 10 > 9);",
     "question": {
-      "en": "What is logged?",
-      "ar": "ما الذي سيُسجَّل؟"
+      "en": "What is logged?"
     },
     "options": [
       "false true",
@@ -1780,8 +1611,7 @@
     ],
     "answer": "false true",
     "explanation": {
-      "en": "Two strings compare character by character, so '1' loses to '9'.",
-      "ar": "النصان يُقارنان حرفًا بحرف، فيخسر '1' أمام '9'."
+      "en": "Two strings compare character by character, so '1' loses to '9'."
     }
   },
   {
@@ -1790,8 +1620,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log(parseInt('08'), parseInt('0x1f'), parseInt('12px'));",
     "question": {
-      "en": "What is logged?",
-      "ar": "ما الذي سيُسجَّل؟"
+      "en": "What is logged?"
     },
     "options": [
       "8 31 12",
@@ -1801,8 +1630,7 @@
     ],
     "answer": "8 31 12",
     "explanation": {
-      "en": "parseInt reads a 0x prefix as hex and stops at the first character it cannot use.",
-      "ar": "‏parseInt تقرأ البادئة 0x كنظام ست عشري وتتوقّف عند أول حرف لا تستطيع استخدامه."
+      "en": "parseInt reads a 0x prefix as hex and stops at the first character it cannot use."
     }
   },
   {
@@ -1811,8 +1639,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log('aaa'.replace('a', 'b'));",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "baa",
@@ -1822,8 +1649,7 @@
     ],
     "answer": "baa",
     "explanation": {
-      "en": "A string pattern replaces only the first match; /a/g replaces them all.",
-      "ar": "النمط النصي يستبدل أول مطابقة فقط، أما ‎/a/g فتستبدلها كلها."
+      "en": "A string pattern replaces only the first match; /a/g replaces them all."
     }
   },
   {
@@ -1832,8 +1658,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(divmod(7, 2))",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "(3, 1)",
@@ -1843,8 +1668,7 @@
     ],
     "answer": "(3, 1)",
     "explanation": {
-      "en": "divmod returns the quotient and the remainder as a tuple.",
-      "ar": "‏divmod تُعيد الناتج والباقي في زوج."
+      "en": "divmod returns the quotient and the remainder as a tuple."
     }
   },
   {
@@ -1853,8 +1677,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(ord('A'), chr(66))",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "65 B",
@@ -1864,8 +1687,7 @@
     ],
     "answer": "65 B",
     "explanation": {
-      "en": "ord gives the code point, chr turns a code point back into a character.",
-      "ar": "‏ord تعطي رمز الحرف، وchr تُعيد الرمز إلى حرف."
+      "en": "ord gives the code point, chr turns a code point back into a character."
     }
   },
   {
@@ -1874,8 +1696,7 @@
     "difficulty": "easy",
     "codeSnippet": "print('5' * 3, [1, 2] * 2)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "555 [1, 2, 1, 2]",
@@ -1885,8 +1706,7 @@
     ],
     "answer": "555 [1, 2, 1, 2]",
     "explanation": {
-      "en": "Multiplying a sequence repeats it rather than doing arithmetic.",
-      "ar": "ضرب المتسلسلة يكرّرها بدل إجراء عملية حسابية."
+      "en": "Multiplying a sequence repeats it rather than doing arithmetic."
     }
   },
   {
@@ -1895,8 +1715,7 @@
     "difficulty": "easy",
     "codeSnippet": "print('abc'[::2])",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "ac",
@@ -1906,8 +1725,7 @@
     ],
     "answer": "ac",
     "explanation": {
-      "en": "A step of 2 takes every other character.",
-      "ar": "الخطوة 2 تأخذ حرفًا بعد حرف."
+      "en": "A step of 2 takes every other character."
     }
   },
   {
@@ -1916,8 +1734,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(sum([True, True, False]))",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "2",
@@ -1927,8 +1744,7 @@
     ],
     "answer": "2",
     "explanation": {
-      "en": "Booleans are integers in Python, so True adds 1.",
-      "ar": "القيم المنطقية أعداد صحيحة في بايثون، فتضيف True واحدًا."
+      "en": "Booleans are integers in Python, so True adds 1."
     }
   },
   {
@@ -1937,8 +1753,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(tuple('ab'), list({'a': 1}))",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "('a', 'b') ['a']",
@@ -1948,8 +1763,7 @@
     ],
     "answer": "('a', 'b') ['a']",
     "explanation": {
-      "en": "Both iterate their argument; iterating a dict yields its keys.",
-      "ar": "كلاهما يمرّ على وسيطه، والمرور على القاموس يعطي مفاتيحه."
+      "en": "Both iterate their argument; iterating a dict yields its keys."
     }
   },
   {
@@ -1958,8 +1772,7 @@
     "difficulty": "easy",
     "codeSnippet": "print(len(range(0, 10, 3)))",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "4",
@@ -1969,8 +1782,7 @@
     ],
     "answer": "4",
     "explanation": {
-      "en": "The range covers 0, 3, 6 and 9.",
-      "ar": "النطاق يشمل 0 و3 و6 و9."
+      "en": "The range covers 0, 3, 6 and 9."
     }
   },
   {
@@ -1979,8 +1791,7 @@
     "difficulty": "medium",
     "codeSnippet": "console.log(Math.max());",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "-Infinity",
@@ -1990,8 +1801,7 @@
     ],
     "answer": "-Infinity",
     "explanation": {
-      "en": "With no arguments Math.max returns its identity, -Infinity.",
-      "ar": "بلا وسائط تُعيد Math.max عنصرها المحايد وهو سالب اللانهاية."
+      "en": "With no arguments Math.max returns its identity, -Infinity."
     }
   },
   {
@@ -2000,8 +1810,7 @@
     "difficulty": "medium",
     "codeSnippet": "console.log([NaN].includes(NaN), [NaN].indexOf(NaN));",
     "question": {
-      "en": "What is logged?",
-      "ar": "ما الذي سيُسجَّل؟"
+      "en": "What is logged?"
     },
     "options": [
       "true -1",
@@ -2011,8 +1820,7 @@
     ],
     "answer": "true -1",
     "explanation": {
-      "en": "includes uses SameValueZero which matches NaN; indexOf uses === which never does.",
-      "ar": "‏includes تستخدم SameValueZero فتطابق NaN، أما indexOf فتستخدم === ولا تطابقها أبدًا."
+      "en": "includes uses SameValueZero which matches NaN; indexOf uses === which never does."
     }
   },
   {
@@ -2021,8 +1829,7 @@
     "difficulty": "medium",
     "codeSnippet": "console.log((0.1 * 3).toFixed(2), typeof (1).toFixed(1));",
     "question": {
-      "en": "What is logged?",
-      "ar": "ما الذي سيُسجَّل؟"
+      "en": "What is logged?"
     },
     "options": [
       "0.30 string",
@@ -2032,8 +1839,7 @@
     ],
     "answer": "0.30 string",
     "explanation": {
-      "en": "toFixed keeps trailing zeros and always returns a string.",
-      "ar": "‏toFixed تُبقي الأصفار اللاحقة وتُعيد نصًا دائمًا."
+      "en": "toFixed keeps trailing zeros and always returns a string."
     }
   },
   {
@@ -2042,8 +1848,7 @@
     "difficulty": "medium",
     "codeSnippet": "console.log(new Date(2026, 0, 15).getMonth());",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "0",
@@ -2053,8 +1858,7 @@
     ],
     "answer": "0",
     "explanation": {
-      "en": "Date months are zero-based, so January is 0.",
-      "ar": "أشهر Date تبدأ من الصفر، فيناير هو 0."
+      "en": "Date months are zero-based, so January is 0."
     }
   },
   {
@@ -2063,8 +1867,7 @@
     "difficulty": "medium",
     "codeSnippet": "console.log('a,b,,c'.split(',').length);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "4",
@@ -2074,8 +1877,7 @@
     ],
     "answer": "4",
     "explanation": {
-      "en": "The empty field between the two commas is kept as an empty string.",
-      "ar": "الحقل الفارغ بين الفاصلتين يبقى كنص فارغ."
+      "en": "The empty field between the two commas is kept as an empty string."
     }
   },
   {
@@ -2084,8 +1886,7 @@
     "difficulty": "medium",
     "codeSnippet": "console.log(String([1, [2, 3]]));",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "1,2,3",
@@ -2095,8 +1896,7 @@
     ],
     "answer": "1,2,3",
     "explanation": {
-      "en": "Array to string joins with commas and flattens nested arrays the same way.",
-      "ar": "تحويل المصفوفة إلى نص يربطها بفواصل ويعامل المتداخلة بالطريقة نفسها."
+      "en": "Array to string joins with commas and flattens nested arrays the same way."
     }
   },
   {
@@ -2105,8 +1905,7 @@
     "difficulty": "medium",
     "codeSnippet": "console.log([10, 9, 8].findIndex((x) => x < 9));",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "2",
@@ -2116,8 +1915,7 @@
     ],
     "answer": "2",
     "explanation": {
-      "en": "findIndex returns the position of the first match, not the value.",
-      "ar": "‏findIndex تُعيد موضع أول مطابقة لا قيمتها."
+      "en": "findIndex returns the position of the first match, not the value."
     }
   },
   {
@@ -2126,8 +1924,7 @@
     "difficulty": "medium",
     "codeSnippet": "print(list(zip([1, 2, 3], [4, 5])))",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "[(1, 4), (2, 5)]",
@@ -2137,8 +1934,7 @@
     ],
     "answer": "[(1, 4), (2, 5)]",
     "explanation": {
-      "en": "zip stops at the shortest iterable and drops the leftover.",
-      "ar": "‏zip تتوقّف عند أقصر متكرّر وتُهمل الزائد."
+      "en": "zip stops at the shortest iterable and drops the leftover."
     }
   },
   {
@@ -2147,8 +1943,7 @@
     "difficulty": "medium",
     "codeSnippet": "print('a-b-c'.split('-', 1))",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "['a', 'b-c']",
@@ -2158,8 +1953,7 @@
     ],
     "answer": "['a', 'b-c']",
     "explanation": {
-      "en": "The second argument caps how many splits are performed.",
-      "ar": "الوسيط الثاني يحدّ عدد مرات التقسيم."
+      "en": "The second argument caps how many splits are performed."
     }
   },
   {
@@ -2168,8 +1962,7 @@
     "difficulty": "medium",
     "codeSnippet": "print({1, 2} | {2, 3}, {1, 2} & {2, 3})",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "{1, 2, 3} {2}",
@@ -2179,8 +1972,7 @@
     ],
     "answer": "{1, 2, 3} {2}",
     "explanation": {
-      "en": "| is set union and & is set intersection.",
-      "ar": "‏| اتحاد المجموعتين و& تقاطعهما."
+      "en": "| is set union and & is set intersection."
     }
   },
   {
@@ -2189,8 +1981,7 @@
     "difficulty": "medium",
     "codeSnippet": "print(max('apple', 'banana'))",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "banana",
@@ -2200,8 +1991,7 @@
     ],
     "answer": "banana",
     "explanation": {
-      "en": "Two strings compare lexicographically, and 'b' beats 'a'.",
-      "ar": "النصان يُقارنان معجميًا، و'b' تسبق 'a'."
+      "en": "Two strings compare lexicographically, and 'b' beats 'a'."
     }
   },
   {
@@ -2210,8 +2000,7 @@
     "difficulty": "medium",
     "codeSnippet": "print('x'.join([]), len('x'.join([])))",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       " 0",
@@ -2221,8 +2010,7 @@
     ],
     "answer": " 0",
     "explanation": {
-      "en": "Joining nothing yields the empty string, so the length is zero.",
-      "ar": "دمج لا شيء يعطي نصًا فارغًا فيكون الطول صفرًا."
+      "en": "Joining nothing yields the empty string, so the length is zero."
     }
   },
   {
@@ -2231,8 +2019,7 @@
     "difficulty": "medium",
     "codeSnippet": "print(bin(5), hex(255))",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "0b101 0xff",
@@ -2242,8 +2029,7 @@
     ],
     "answer": "0b101 0xff",
     "explanation": {
-      "en": "Both keep their base prefix and hex uses lowercase digits.",
-      "ar": "كلاهما يحتفظ ببادئة الأساس، والست عشري يستخدم حروفًا صغيرة."
+      "en": "Both keep their base prefix and hex uses lowercase digits."
     }
   },
   {
@@ -2252,8 +2038,7 @@
     "difficulty": "medium",
     "codeSnippet": "const o = Object.freeze({ n: 1 });\no.n = 2;\nconsole.log(o.n);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "1",
@@ -2263,8 +2048,7 @@
     ],
     "answer": "1",
     "explanation": {
-      "en": "In non-strict code the write on a frozen object fails silently.",
-      "ar": "في الوضع غير الصارم تفشل الكتابة على كائن مجمّد بصمت."
+      "en": "In non-strict code the write on a frozen object fails silently."
     }
   },
   {
@@ -2273,8 +2057,7 @@
     "difficulty": "medium",
     "codeSnippet": "console.log(Object.entries({ a: 1 }).flat());",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "['a', 1]",
@@ -2284,8 +2067,7 @@
     ],
     "answer": "['a', 1]",
     "explanation": {
-      "en": "entries gives [['a',1]] and flat lifts the pair one level.",
-      "ar": "‏entries تعطي ‎[['a',1]]‎ وflat ترفع الزوج مستوى واحدًا."
+      "en": "entries gives [['a',1]] and flat lifts the pair one level."
     }
   },
   {
@@ -2294,8 +2076,7 @@
     "difficulty": "medium",
     "codeSnippet": "console.log([1, 2, 3].fill(0, 1));",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "[1, 0, 0]",
@@ -2305,8 +2086,7 @@
     ],
     "answer": "[1, 0, 0]",
     "explanation": {
-      "en": "fill overwrites from the given start index to the end.",
-      "ar": "‏fill تكتب من فهرس البداية المعطى حتى النهاية."
+      "en": "fill overwrites from the given start index to the end."
     }
   },
   {
@@ -2315,8 +2095,7 @@
     "difficulty": "medium",
     "codeSnippet": "d = {'a': 1}\nprint(d.get('b'), d.get('b', 0))",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "None 0",
@@ -2326,8 +2105,7 @@
     ],
     "answer": "None 0",
     "explanation": {
-      "en": "get returns None for a missing key unless a default is given.",
-      "ar": "‏get تُعيد None للمفتاح المفقود ما لم تُعطَ قيمة افتراضية."
+      "en": "get returns None for a missing key unless a default is given."
     }
   },
   {
@@ -2336,8 +2114,7 @@
     "difficulty": "medium",
     "codeSnippet": "print(sorted([3, 1, 2], reverse=True), [3, 1, 2].sort())",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "[3, 2, 1] None",
@@ -2347,8 +2124,7 @@
     ],
     "answer": "[3, 2, 1] None",
     "explanation": {
-      "en": "sorted returns a new list; list.sort() sorts in place and returns None.",
-      "ar": "‏sorted تُعيد قائمة جديدة، أما list.sort() فترتّب في مكانها وتُعيد None."
+      "en": "sorted returns a new list; list.sort() sorts in place and returns None."
     }
   },
   {
@@ -2357,8 +2133,7 @@
     "difficulty": "hard",
     "codeSnippet": "console.log([] == false, [] == 0, [0] == false);",
     "question": {
-      "en": "What is logged?",
-      "ar": "ما الذي سيُسجَّل؟"
+      "en": "What is logged?"
     },
     "options": [
       "true true true",
@@ -2368,8 +2143,7 @@
     ],
     "answer": "true true true",
     "explanation": {
-      "en": "Each side converts to a number, and both [] and [0] become 0.",
-      "ar": "يتحوّل كل طرف إلى عدد، وتصبح [] و[0] صفرًا."
+      "en": "Each side converts to a number, and both [] and [0] become 0."
     }
   },
   {
@@ -2378,8 +2152,7 @@
     "difficulty": "hard",
     "codeSnippet": "const re = /a/g;\nconsole.log(re.test('a'), re.test('a'));",
     "question": {
-      "en": "What is logged?",
-      "ar": "ما الذي سيُسجَّل؟"
+      "en": "What is logged?"
     },
     "options": [
       "true false",
@@ -2389,8 +2162,7 @@
     ],
     "answer": "true false",
     "explanation": {
-      "en": "A global regex keeps lastIndex between calls, so the second test starts past the match.",
-      "ar": "التعبير النمطي العام يحتفظ بـ lastIndex بين الاستدعاءات، فيبدأ الفحص الثاني بعد المطابقة."
+      "en": "A global regex keeps lastIndex between calls, so the second test starts past the match."
     }
   },
   {
@@ -2399,8 +2171,7 @@
     "difficulty": "hard",
     "codeSnippet": "function f() {\n  try { return 1; } finally { return 2; }\n}\nconsole.log(f());",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "2",
@@ -2410,8 +2181,7 @@
     ],
     "answer": "2",
     "explanation": {
-      "en": "A return inside finally overrides the one from try.",
-      "ar": "‏return داخل finally تتجاوز تلك التي في try."
+      "en": "A return inside finally overrides the one from try."
     }
   },
   {
@@ -2420,8 +2190,7 @@
     "difficulty": "hard",
     "codeSnippet": "console.log(typeof typeof 1);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "string",
@@ -2431,8 +2200,7 @@
     ],
     "answer": "string",
     "explanation": {
-      "en": "The inner typeof yields 'number', and the type of that string is 'string'.",
-      "ar": "‏typeof الداخلية تعطي 'number'، ونوع ذلك النص هو 'string'."
+      "en": "The inner typeof yields 'number', and the type of that string is 'string'."
     }
   },
   {
@@ -2441,8 +2209,7 @@
     "difficulty": "hard",
     "codeSnippet": "const a = [1, 2, 3];\na.length = 1;\nconsole.log(a);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "[1]",
@@ -2452,8 +2219,7 @@
     ],
     "answer": "[1]",
     "explanation": {
-      "en": "Assigning a shorter length truncates the array in place.",
-      "ar": "إسناد طول أقصر يقتطع المصفوفة في مكانها."
+      "en": "Assigning a shorter length truncates the array in place."
     }
   },
   {
@@ -2462,8 +2228,7 @@
     "difficulty": "hard",
     "codeSnippet": "console.log(0.1 + 0.2 + 0.3 === 0.3 + 0.2 + 0.1);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "false",
@@ -2473,8 +2238,7 @@
     ],
     "answer": "false",
     "explanation": {
-      "en": "Float addition is not associative, so the two orders round differently.",
-      "ar": "جمع الأعداد العشرية ليس تجميعيًا، فيختلف التقريب باختلاف الترتيب."
+      "en": "Float addition is not associative, so the two orders round differently."
     }
   },
   {
@@ -2483,8 +2247,7 @@
     "difficulty": "hard",
     "codeSnippet": "a = 256\nb = int('256')\nc = 1000\nd = int('1000')\nprint(a is b, c is d)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "True False",
@@ -2494,8 +2257,7 @@
     ],
     "answer": "True False",
     "explanation": {
-      "en": "CPython caches small integers up to 256, so 256 is reused while 1000 is a fresh object.",
-      "ar": "‏CPython تخزّن الأعداد الصغيرة حتى 256، فيُعاد استخدام 256 بينما 1000 كائن جديد."
+      "en": "CPython caches small integers up to 256, so 256 is reused while 1000 is a fresh object."
     }
   },
   {
@@ -2504,8 +2266,7 @@
     "difficulty": "hard",
     "codeSnippet": "x = [1, 2, 3]\ny = x[:]\ny[0] = 9\nprint(x[0], x is y, x == y)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "1 False False",
@@ -2515,8 +2276,7 @@
     ],
     "answer": "1 False False",
     "explanation": {
-      "en": "A slice copies, so x is unchanged; the lists are neither the same object nor equal now.",
-      "ar": "التقطيع ينسخ فتبقى x كما هي؛ والقائمتان ليستا الكائن نفسه ولا متساويتين الآن."
+      "en": "A slice copies, so x is unchanged; the lists are neither the same object nor equal now."
     }
   },
   {
@@ -2525,8 +2285,7 @@
     "difficulty": "hard",
     "codeSnippet": "print([x for x in 'abc'], [x for x in ''])",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "['a', 'b', 'c'] []",
@@ -2536,8 +2295,7 @@
     ],
     "answer": "['a', 'b', 'c'] []",
     "explanation": {
-      "en": "Iterating a string yields its characters; an empty string yields nothing.",
-      "ar": "المرور على النص يعطي حروفه، والنص الفارغ لا يعطي شيئًا."
+      "en": "Iterating a string yields its characters; an empty string yields nothing."
     }
   },
   {
@@ -2546,8 +2304,7 @@
     "difficulty": "hard",
     "codeSnippet": "def f(n, acc=0):\n    if n == 0: return acc\n    return f(n - 1, acc + n)\nprint(f(4))",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "10",
@@ -2557,8 +2314,7 @@
     ],
     "answer": "10",
     "explanation": {
-      "en": "The accumulator sums 4+3+2+1 before the base case returns it.",
-      "ar": "المُجمِّع يجمع 4+3+2+1 قبل أن تُعيده حالة الأساس."
+      "en": "The accumulator sums 4+3+2+1 before the base case returns it."
     }
   },
   {
@@ -2567,8 +2323,7 @@
     "difficulty": "hard",
     "codeSnippet": "s = {3, 1, 2}\nprint(sorted(s) == [1, 2, 3], list(s)[0] == 1)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "True True",
@@ -2578,8 +2333,7 @@
     ],
     "answer": "True True",
     "explanation": {
-      "en": "sorted always orders a set; for these small ints the iteration order also starts at 1.",
-      "ar": "‏sorted ترتّب المجموعة دائمًا، ومع هذه الأعداد الصغيرة يبدأ المرور أيضًا من 1."
+      "en": "sorted always orders a set; for these small ints the iteration order also starts at 1."
     }
   },
   {
@@ -2588,8 +2342,7 @@
     "difficulty": "hard",
     "codeSnippet": "enum Dir { Up = 1, Down }\nconsole.log(Dir.Down, Dir[2]);",
     "question": {
-      "en": "What is logged?",
-      "ar": "ما الذي سيُسجَّل؟"
+      "en": "What is logged?"
     },
     "options": [
       "2 Down",
@@ -2599,8 +2352,7 @@
     ],
     "answer": "2 Down",
     "explanation": {
-      "en": "Members auto-increment, and a numeric enum also maps values back to names.",
-      "ar": "الأعضاء تتزايد تلقائيًا، والـ enum الرقمي يربط القيم بأسمائها أيضًا."
+      "en": "Members auto-increment, and a numeric enum also maps values back to names."
     }
   },
   {
@@ -2609,8 +2361,7 @@
     "difficulty": "hard",
     "codeSnippet": "console.log([1, 2, 3].map((x, i, arr) => arr.length));",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "[3, 3, 3]",
@@ -2620,8 +2371,7 @@
     ],
     "answer": "[3, 3, 3]",
     "explanation": {
-      "en": "The third callback argument is the whole array, whose length is 3 each time.",
-      "ar": "الوسيط الثالث للاستدعاء هو المصفوفة كاملة، وطولها 3 في كل مرة."
+      "en": "The third callback argument is the whole array, whose length is 3 each time."
     }
   },
   {
@@ -2630,8 +2380,7 @@
     "difficulty": "hard",
     "codeSnippet": "let x = 0;\nconst y = x++ + ++x;\nconsole.log(x, y);",
     "question": {
-      "en": "What is logged?",
-      "ar": "ما الذي سيُسجَّل؟"
+      "en": "What is logged?"
     },
     "options": [
       "2 2",
@@ -2641,8 +2390,7 @@
     ],
     "answer": "2 2",
     "explanation": {
-      "en": "x++ contributes 0 then x becomes 1; ++x makes it 2 and contributes 2.",
-      "ar": "‏x++ تساهم بصفر ثم تصبح x واحدًا، و‎++x تجعلها 2 وتساهم بـ 2."
+      "en": "x++ contributes 0 then x becomes 1; ++x makes it 2 and contributes 2."
     }
   },
   {
@@ -2651,8 +2399,7 @@
     "difficulty": "hard",
     "codeSnippet": "print(float('inf') > 10 ** 100, int(True) + int(True))",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       "True 2",
@@ -2662,8 +2409,7 @@
     ],
     "answer": "True 2",
     "explanation": {
-      "en": "Infinity exceeds any finite integer, and int(True) is 1.",
-      "ar": "اللانهاية تتجاوز أي عدد صحيح منتهٍ، وint(True) تساوي 1."
+      "en": "Infinity exceeds any finite integer, and int(True) is 1."
     }
   },
   {
@@ -2672,8 +2418,7 @@
     "difficulty": "hard",
     "codeSnippet": "print('ab' * 0, len('ab' * 0), [] * 5)",
     "question": {
-      "en": "What is printed?",
-      "ar": "ما الذي سيُطبع؟"
+      "en": "What is printed?"
     },
     "options": [
       " 0 []",
@@ -2683,8 +2428,7 @@
     ],
     "answer": " 0 []",
     "explanation": {
-      "en": "Multiplying a sequence by zero empties it, so nothing is printed for it.",
-      "ar": "ضرب المتسلسلة في صفر يفرغها، فلا يُطبع لها شيء."
+      "en": "Multiplying a sequence by zero empties it, so nothing is printed for it."
     }
   },
   {
@@ -2693,8 +2437,7 @@
     "difficulty": "hard",
     "codeSnippet": "const s = new Set([1, '1', 1]);\nconsole.log(s.size);",
     "question": {
-      "en": "What is the output?",
-      "ar": "ما ناتج التنفيذ؟"
+      "en": "What is the output?"
     },
     "options": [
       "2",
@@ -2704,8 +2447,7 @@
     ],
     "answer": "2",
     "explanation": {
-      "en": "A Set compares without coercion, so 1 and '1' are different but the repeat 1 collapses.",
-      "ar": "‏Set تقارن بلا تحويل، فيختلف 1 عن '1' بينما يندمج التكرار."
+      "en": "A Set compares without coercion, so 1 and '1' are different but the repeat 1 collapses."
     }
   },
   {
@@ -2714,8 +2456,7 @@
     "difficulty": "hard",
     "codeSnippet": "console.log(['a', 'b'].forEach(() => {}), ['a'].map(() => {}));",
     "question": {
-      "en": "What is logged?",
-      "ar": "ما الذي سيُسجَّل؟"
+      "en": "What is logged?"
     },
     "options": [
       "undefined [undefined]",
@@ -2725,8 +2466,7 @@
     ],
     "answer": "undefined [undefined]",
     "explanation": {
-      "en": "forEach returns undefined; map returns an array of each callback's undefined result.",
-      "ar": "‏forEach تُعيد undefined، وmap تُعيد مصفوفة بنتائج الاستدعاء وهي undefined."
+      "en": "forEach returns undefined; map returns an array of each callback's undefined result."
     }
   }
 ]

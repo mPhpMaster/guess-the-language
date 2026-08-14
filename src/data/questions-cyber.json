@@ -5,8 +5,7 @@
     "difficulty": "easy",
     "codeSnippet": "nmap -sS 10.0.0.5",
     "question": {
-      "en": "What kind of scan does the -sS flag perform?",
-      "ar": "أي نوع من الفحص يقوم به الخيار sS-؟"
+      "en": "What kind of scan does the -sS flag perform?"
     },
     "options": [
       "TCP SYN (stealth) scan",
@@ -16,8 +15,7 @@
     ],
     "answer": "TCP SYN (stealth) scan",
     "explanation": {
-      "en": "-sS sends SYN packets without completing the handshake — a fast, stealthy scan.",
-      "ar": "يرسل sS- حزم SYN دون إكمال المصافحة، وهو فحص سريع وخفي."
+      "en": "-sS sends SYN packets without completing the handshake — a fast, stealthy scan."
     }
   },
   {
@@ -26,8 +24,7 @@
     "difficulty": "easy",
     "codeSnippet": "nmap -sV 10.0.0.5",
     "question": {
-      "en": "What does the -sV flag enable?",
-      "ar": "ماذا يُفعّل الخيار sV-؟"
+      "en": "What does the -sV flag enable?"
     },
     "options": [
       "Service/version detection",
@@ -37,8 +34,7 @@
     ],
     "answer": "Service/version detection",
     "explanation": {
-      "en": "-sV probes open ports to determine the service and version running.",
-      "ar": "يفحص sV- المنافذ المفتوحة لتحديد الخدمة وإصدارها."
+      "en": "-sV probes open ports to determine the service and version running."
     }
   },
   {
@@ -47,8 +43,7 @@
     "difficulty": "easy",
     "codeSnippet": "nmap -p- 10.0.0.5",
     "question": {
-      "en": "Which ports does -p- scan?",
-      "ar": "أي منافذ يفحصها p--؟"
+      "en": "Which ports does -p- scan?"
     },
     "options": [
       "All 65535 TCP ports",
@@ -58,8 +53,7 @@
     ],
     "answer": "All 65535 TCP ports",
     "explanation": {
-      "en": "-p- tells Nmap to scan every TCP port from 1 to 65535.",
-      "ar": "يطلب p-- من Nmap فحص كل منفذ TCP من 1 إلى 65535."
+      "en": "-p- tells Nmap to scan every TCP port from 1 to 65535."
     }
   },
   {
@@ -68,8 +62,7 @@
     "difficulty": "medium",
     "codeSnippet": "nmap -O 10.0.0.5",
     "question": {
-      "en": "What does the -O flag do?",
-      "ar": "ماذا يفعل الخيار O-؟"
+      "en": "What does the -O flag do?"
     },
     "options": [
       "OS detection",
@@ -79,8 +72,7 @@
     ],
     "answer": "OS detection",
     "explanation": {
-      "en": "-O enables operating-system fingerprinting.",
-      "ar": "يُفعّل O- بصمة نظام التشغيل."
+      "en": "-O enables operating-system fingerprinting."
     }
   },
   {
@@ -89,8 +81,7 @@
     "difficulty": "medium",
     "codeSnippet": "nmap -sU 10.0.0.5",
     "question": {
-      "en": "What does -sU perform?",
-      "ar": "ماذا يؤدي sU-؟"
+      "en": "What does -sU perform?"
     },
     "options": [
       "UDP scan",
@@ -100,8 +91,7 @@
     ],
     "answer": "UDP scan",
     "explanation": {
-      "en": "-sU scans UDP ports.",
-      "ar": "يفحص sU- منافذ UDP."
+      "en": "-sU scans UDP ports."
     }
   },
   {
@@ -110,8 +100,7 @@
     "difficulty": "medium",
     "codeSnippet": "nmap -A 10.0.0.5",
     "question": {
-      "en": "What does the -A flag enable?",
-      "ar": "ماذا يُفعّل الخيار A-؟"
+      "en": "What does the -A flag enable?"
     },
     "options": [
       "OS + version + scripts + traceroute",
@@ -121,8 +110,7 @@
     ],
     "answer": "OS + version + scripts + traceroute",
     "explanation": {
-      "en": "-A is aggressive: OS detection, version detection, NSE scripts, and traceroute.",
-      "ar": "A- عدواني: كشف النظام والإصدار وسكربتات NSE وتتبّع المسار."
+      "en": "-A is aggressive: OS detection, version detection, NSE scripts, and traceroute."
     }
   },
   {
@@ -131,8 +119,7 @@
     "difficulty": "hard",
     "codeSnippet": "nmap --script vuln 10.0.0.5",
     "question": {
-      "en": "What does this command run?",
-      "ar": "ماذا يُشغّل هذا الأمر؟"
+      "en": "What does this command run?"
     },
     "options": [
       "NSE vulnerability scripts",
@@ -142,8 +129,7 @@
     ],
     "answer": "NSE vulnerability scripts",
     "explanation": {
-      "en": "--script vuln runs the Nmap Scripting Engine's vulnerability-detection scripts.",
-      "ar": "يشغّل script vuln-- سكربتات كشف الثغرات في محرك Nmap (NSE)."
+      "en": "--script vuln runs the Nmap Scripting Engine's vulnerability-detection scripts."
     }
   },
   {
@@ -152,8 +138,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which tool is the de-facto standard network port scanner?",
-      "ar": "ما الأداة المعيارية لفحص منافذ الشبكة؟"
+      "en": "Which tool is the de-facto standard network port scanner?"
     },
     "options": [
       "Nmap",
@@ -163,8 +148,7 @@
     ],
     "answer": "Nmap",
     "explanation": {
-      "en": "Nmap is the most widely used network discovery and port-scanning tool.",
-      "ar": "Nmap هي الأداة الأكثر استخداماً لاكتشاف الشبكات وفحص المنافذ."
+      "en": "Nmap is the most widely used network discovery and port-scanning tool."
     }
   },
   {
@@ -173,8 +157,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Malware that encrypts your files and demands payment is called?",
-      "ar": "ما اسم البرمجية الخبيثة التي تشفّر ملفاتك وتطلب فدية؟"
+      "en": "Malware that encrypts your files and demands payment is called?"
     },
     "options": [
       "Ransomware",
@@ -184,8 +167,7 @@
     ],
     "answer": "Ransomware",
     "explanation": {
-      "en": "Ransomware encrypts data and demands a ransom for the decryption key.",
-      "ar": "تشفّر برمجيات الفدية البيانات وتطلب فدية مقابل مفتاح فك التشفير."
+      "en": "Ransomware encrypts data and demands a ransom for the decryption key."
     }
   },
   {
@@ -194,8 +176,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Self-replicating malware that spreads across networks on its own is a?",
-      "ar": "البرمجية الخبيثة ذاتية الانتشار عبر الشبكات بلا تدخل تُسمى؟"
+      "en": "Self-replicating malware that spreads across networks on its own is a?"
     },
     "options": [
       "Worm",
@@ -205,8 +186,7 @@
     ],
     "answer": "Worm",
     "explanation": {
-      "en": "A worm spreads independently without needing a host file or user action.",
-      "ar": "تنتشر الدودة ذاتياً دون الحاجة لملف مضيف أو تدخل المستخدم."
+      "en": "A worm spreads independently without needing a host file or user action."
     }
   },
   {
@@ -215,8 +195,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Malware disguised as legitimate software is a?",
-      "ar": "البرمجية الخبيثة المتنكّرة كبرنامج شرعي تُسمى؟"
+      "en": "Malware disguised as legitimate software is a?"
     },
     "options": [
       "Trojan",
@@ -226,8 +205,7 @@
     ],
     "answer": "Trojan",
     "explanation": {
-      "en": "A Trojan tricks the user into running it by appearing legitimate.",
-      "ar": "يخدع حصان طروادة المستخدم لتشغيله بالظهور كبرنامج شرعي."
+      "en": "A Trojan tricks the user into running it by appearing legitimate."
     }
   },
   {
@@ -236,8 +214,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Malware that hides itself and grants stealthy privileged access is a?",
-      "ar": "البرمجية التي تُخفي نفسها وتمنح وصولاً متميزاً خفياً تُسمى؟"
+      "en": "Malware that hides itself and grants stealthy privileged access is a?"
     },
     "options": [
       "Rootkit",
@@ -247,8 +224,7 @@
     ],
     "answer": "Rootkit",
     "explanation": {
-      "en": "A rootkit hides deep in the system and maintains privileged, stealthy access.",
-      "ar": "يختبئ الـ rootkit عميقاً في النظام ويحافظ على وصول متميز خفي."
+      "en": "A rootkit hides deep in the system and maintains privileged, stealthy access."
     }
   },
   {
@@ -257,8 +233,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Software that secretly records keystrokes to steal credentials is a?",
-      "ar": "البرنامج الذي يسجّل ضغطات المفاتيح سراً لسرقة بيانات الدخول هو؟"
+      "en": "Software that secretly records keystrokes to steal credentials is a?"
     },
     "options": [
       "Keylogger",
@@ -268,8 +243,7 @@
     ],
     "answer": "Keylogger",
     "explanation": {
-      "en": "A keylogger captures keystrokes, often to steal passwords.",
-      "ar": "يلتقط الـ keylogger ضغطات المفاتيح، غالباً لسرقة كلمات المرور."
+      "en": "A keylogger captures keystrokes, often to steal passwords."
     }
   },
   {
@@ -278,8 +252,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "A network of compromised machines remotely controlled by an attacker is a?",
-      "ar": "شبكة أجهزة مخترقة يتحكم بها المهاجم عن بُعد تُسمى؟"
+      "en": "A network of compromised machines remotely controlled by an attacker is a?"
     },
     "options": [
       "Botnet",
@@ -289,8 +262,7 @@
     ],
     "answer": "Botnet",
     "explanation": {
-      "en": "A botnet is a group of infected 'bot' machines under an attacker's control.",
-      "ar": "الـ botnet مجموعة أجهزة مصابة (bots) تحت سيطرة المهاجم."
+      "en": "A botnet is a group of infected 'bot' machines under an attacker's control."
     }
   },
   {
@@ -299,8 +271,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Malware that needs a host program and runs when that program executes is a?",
-      "ar": "البرمجية التي تحتاج برنامجاً مضيفاً وتعمل عند تشغيله تُسمى؟"
+      "en": "Malware that needs a host program and runs when that program executes is a?"
     },
     "options": [
       "Virus",
@@ -310,8 +281,7 @@
     ],
     "answer": "Virus",
     "explanation": {
-      "en": "A virus attaches to a host file and runs when the host is executed.",
-      "ar": "يرتبط الفيروس بملف مضيف ويعمل عند تشغيل المضيف."
+      "en": "A virus attaches to a host file and runs when the host is executed."
     }
   },
   {
@@ -320,8 +290,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Malicious code that triggers when a specific condition or date is met is a?",
-      "ar": "الشيفرة الخبيثة التي تنشط عند تحقق شرط أو تاريخ معيّن تُسمى؟"
+      "en": "Malicious code that triggers when a specific condition or date is met is a?"
     },
     "options": [
       "Logic bomb",
@@ -331,8 +300,7 @@
     ],
     "answer": "Logic bomb",
     "explanation": {
-      "en": "A logic bomb lies dormant until its trigger condition is satisfied.",
-      "ar": "تظل القنبلة المنطقية خاملة حتى يتحقق شرط تفعيلها."
+      "en": "A logic bomb lies dormant until its trigger condition is satisfied."
     }
   },
   {
@@ -341,8 +309,7 @@
     "difficulty": "easy",
     "codeSnippet": "msfconsole",
     "question": {
-      "en": "msfconsole is the main interface for which framework?",
-      "ar": "msfconsole هي الواجهة الرئيسية لأي إطار عمل؟"
+      "en": "msfconsole is the main interface for which framework?"
     },
     "options": [
       "Metasploit Framework",
@@ -352,8 +319,7 @@
     ],
     "answer": "Metasploit Framework",
     "explanation": {
-      "en": "msfconsole is the primary command-line interface to the Metasploit Framework.",
-      "ar": "msfconsole هي الواجهة الطرفية الأساسية لإطار Metasploit."
+      "en": "msfconsole is the primary command-line interface to the Metasploit Framework."
     }
   },
   {
@@ -362,8 +328,7 @@
     "difficulty": "medium",
     "codeSnippet": "use exploit/windows/smb/ms17_010_eternalblue",
     "question": {
-      "en": "Which vulnerability does this Metasploit module target?",
-      "ar": "أي ثغرة تستهدفها هذه الوحدة في Metasploit؟"
+      "en": "Which vulnerability does this Metasploit module target?"
     },
     "options": [
       "SMBv1 (EternalBlue)",
@@ -373,8 +338,7 @@
     ],
     "answer": "SMBv1 (EternalBlue)",
     "explanation": {
-      "en": "ms17_010 / EternalBlue exploits a flaw in Microsoft SMBv1.",
-      "ar": "تستغل ms17_010 / EternalBlue ثغرة في بروتوكول SMBv1 من مايكروسوفت."
+      "en": "ms17_010 / EternalBlue exploits a flaw in Microsoft SMBv1."
     }
   },
   {
@@ -383,8 +347,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "In Metasploit, what is a 'payload'?",
-      "ar": "في Metasploit، ما هو الـ payload؟"
+      "en": "In Metasploit, what is a 'payload'?"
     },
     "options": [
       "Code that runs after a successful exploit",
@@ -394,8 +357,7 @@
     ],
     "answer": "Code that runs after a successful exploit",
     "explanation": {
-      "en": "The payload is the code executed on the target after the exploit succeeds.",
-      "ar": "الـ payload هو الشيفرة التي تُنفَّذ على الهدف بعد نجاح الاستغلال."
+      "en": "The payload is the code executed on the target after the exploit succeeds."
     }
   },
   {
@@ -404,8 +366,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "What is Meterpreter?",
-      "ar": "ما هو Meterpreter؟"
+      "en": "What is Meterpreter?"
     },
     "options": [
       "An advanced in-memory Metasploit payload",
@@ -415,8 +376,7 @@
     ],
     "answer": "An advanced in-memory Metasploit payload",
     "explanation": {
-      "en": "Meterpreter is a powerful, in-memory Metasploit payload for post-exploitation.",
-      "ar": "Meterpreter هو payload قوي يعمل في الذاكرة لمرحلة ما بعد الاستغلال."
+      "en": "Meterpreter is a powerful, in-memory Metasploit payload for post-exploitation."
     }
   },
   {
@@ -425,8 +385,7 @@
     "difficulty": "medium",
     "codeSnippet": "set RHOSTS 10.0.0.5",
     "question": {
-      "en": "In Metasploit, what does RHOSTS set?",
-      "ar": "في Metasploit، ماذا يضبط RHOSTS؟"
+      "en": "In Metasploit, what does RHOSTS set?"
     },
     "options": [
       "The target host(s)",
@@ -436,8 +395,7 @@
     ],
     "answer": "The target host(s)",
     "explanation": {
-      "en": "RHOSTS specifies the remote/target host(s); LHOST is your local host.",
-      "ar": "يحدد RHOSTS الهدف البعيد، بينما LHOST هو جهازك المحلي."
+      "en": "RHOSTS specifies the remote/target host(s); LHOST is your local host."
     }
   },
   {
@@ -446,8 +404,7 @@
     "difficulty": "hard",
     "codeSnippet": "msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.0.0.2 -f exe",
     "question": {
-      "en": "What is msfvenom used for?",
-      "ar": "فيمَ يُستخدم msfvenom؟"
+      "en": "What is msfvenom used for?"
     },
     "options": [
       "Generating payloads / shellcode",
@@ -457,8 +414,7 @@
     ],
     "answer": "Generating payloads / shellcode",
     "explanation": {
-      "en": "msfvenom generates and encodes standalone payloads/shellcode.",
-      "ar": "يولّد msfvenom ويُرمّز payloads/shellcode مستقلة."
+      "en": "msfvenom generates and encodes standalone payloads/shellcode."
     }
   },
   {
@@ -467,8 +423,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which tool captures and analyzes network packets with a GUI?",
-      "ar": "أي أداة تلتقط وتحلّل حزم الشبكة بواجهة رسومية؟"
+      "en": "Which tool captures and analyzes network packets with a GUI?"
     },
     "options": [
       "Wireshark",
@@ -478,8 +433,7 @@
     ],
     "answer": "Wireshark",
     "explanation": {
-      "en": "Wireshark is the standard GUI packet analyzer.",
-      "ar": "Wireshark هي المحلّل الرسومي القياسي للحزم."
+      "en": "Wireshark is the standard GUI packet analyzer."
     }
   },
   {
@@ -488,8 +442,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Which tool is an intercepting proxy/scanner for web application testing?",
-      "ar": "أي أداة تعمل كبروكسي اعتراضي وماسح لاختبار تطبيقات الويب؟"
+      "en": "Which tool is an intercepting proxy/scanner for web application testing?"
     },
     "options": [
       "Burp Suite",
@@ -499,8 +452,7 @@
     ],
     "answer": "Burp Suite",
     "explanation": {
-      "en": "Burp Suite proxies and manipulates web traffic for security testing.",
-      "ar": "يعترض Burp Suite حركة الويب ويعدّلها لأغراض اختبار الأمان."
+      "en": "Burp Suite proxies and manipulates web traffic for security testing."
     }
   },
   {
@@ -509,8 +461,7 @@
     "difficulty": "medium",
     "codeSnippet": "sqlmap -u \"http://site/?id=1\" --dbs",
     "question": {
-      "en": "What does sqlmap automate?",
-      "ar": "ماذا يُؤتمت sqlmap؟"
+      "en": "What does sqlmap automate?"
     },
     "options": [
       "SQL injection detection & exploitation",
@@ -520,8 +471,7 @@
     ],
     "answer": "SQL injection detection & exploitation",
     "explanation": {
-      "en": "sqlmap automatically finds and exploits SQL injection flaws.",
-      "ar": "يكتشف sqlmap ثغرات حقن SQL ويستغلها آلياً."
+      "en": "sqlmap automatically finds and exploits SQL injection flaws."
     }
   },
   {
@@ -530,8 +480,7 @@
     "difficulty": "medium",
     "codeSnippet": "john --wordlist=rockyou.txt hashes.txt",
     "question": {
-      "en": "What is John the Ripper used for?",
-      "ar": "فيمَ يُستخدم John the Ripper؟"
+      "en": "What is John the Ripper used for?"
     },
     "options": [
       "Cracking password hashes offline",
@@ -541,8 +490,7 @@
     ],
     "answer": "Cracking password hashes offline",
     "explanation": {
-      "en": "John the Ripper is a popular offline password-hash cracker.",
-      "ar": "John the Ripper أداة شهيرة لكسر تجزئات كلمات المرور دون اتصال."
+      "en": "John the Ripper is a popular offline password-hash cracker."
     }
   },
   {
@@ -551,8 +499,7 @@
     "difficulty": "medium",
     "codeSnippet": "hydra -l admin -P pass.txt ssh://10.0.0.5",
     "question": {
-      "en": "What does Hydra do?",
-      "ar": "ماذا يفعل Hydra؟"
+      "en": "What does Hydra do?"
     },
     "options": [
       "Online brute-force login attacks",
@@ -562,8 +509,7 @@
     ],
     "answer": "Online brute-force login attacks",
     "explanation": {
-      "en": "Hydra brute-forces logins across many protocols (SSH, FTP, HTTP...).",
-      "ar": "ينفّذ Hydra هجمات تخمين تسجيل الدخول عبر بروتوكولات متعددة."
+      "en": "Hydra brute-forces logins across many protocols (SSH, FTP, HTTP...)."
     }
   },
   {
@@ -572,8 +518,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Which suite assesses Wi-Fi (WEP/WPA) security?",
-      "ar": "أي حزمة تُستخدم لتقييم أمان شبكات Wi-Fi؟"
+      "en": "Which suite assesses Wi-Fi (WEP/WPA) security?"
     },
     "options": [
       "Aircrack-ng",
@@ -583,8 +528,7 @@
     ],
     "answer": "Aircrack-ng",
     "explanation": {
-      "en": "Aircrack-ng is a suite for auditing wireless network security.",
-      "ar": "Aircrack-ng حزمة لتدقيق أمان الشبكات اللاسلكية."
+      "en": "Aircrack-ng is a suite for auditing wireless network security."
     }
   },
   {
@@ -593,8 +537,7 @@
     "difficulty": "hard",
     "codeSnippet": "hashcat -m 0 hash.txt rockyou.txt",
     "question": {
-      "en": "What is hashcat?",
-      "ar": "ما هو hashcat؟"
+      "en": "What is hashcat?"
     },
     "options": [
       "A GPU-accelerated password cracker",
@@ -604,8 +547,7 @@
     ],
     "answer": "A GPU-accelerated password cracker",
     "explanation": {
-      "en": "hashcat is a fast, GPU-based password/hash recovery tool.",
-      "ar": "hashcat أداة سريعة لاستعادة كلمات المرور تعتمد على بطاقة الرسوميات."
+      "en": "hashcat is a fast, GPU-based password/hash recovery tool."
     }
   },
   {
@@ -614,8 +556,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which Linux distribution is purpose-built for penetration testing?",
-      "ar": "أي توزيعة Linux مُصمّمة خصيصاً لاختبار الاختراق؟"
+      "en": "Which Linux distribution is purpose-built for penetration testing?"
     },
     "options": [
       "Kali Linux",
@@ -625,8 +566,7 @@
     ],
     "answer": "Kali Linux",
     "explanation": {
-      "en": "Kali Linux ships with hundreds of pre-installed security tools.",
-      "ar": "تأتي Kali Linux بمئات أدوات الأمان المثبتة مسبقاً."
+      "en": "Kali Linux ships with hundreds of pre-installed security tools."
     }
   },
   {
@@ -635,8 +575,7 @@
     "difficulty": "medium",
     "codeSnippet": "tcpdump -i eth0 port 80",
     "question": {
-      "en": "What does tcpdump do?",
-      "ar": "ماذا يفعل tcpdump؟"
+      "en": "What does tcpdump do?"
     },
     "options": [
       "Capture packets from the command line",
@@ -646,8 +585,7 @@
     ],
     "answer": "Capture packets from the command line",
     "explanation": {
-      "en": "tcpdump is a CLI packet capture/analysis tool.",
-      "ar": "tcpdump أداة طرفية لالتقاط وتحليل الحزم."
+      "en": "tcpdump is a CLI packet capture/analysis tool."
     }
   },
   {
@@ -656,8 +594,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Which is an open-source vulnerability scanner (Nessus-like)?",
-      "ar": "أيّها ماسح ثغرات مفتوح المصدر (شبيه بـ Nessus)؟"
+      "en": "Which is an open-source vulnerability scanner (Nessus-like)?"
     },
     "options": [
       "OpenVAS",
@@ -667,8 +604,7 @@
     ],
     "answer": "OpenVAS",
     "explanation": {
-      "en": "OpenVAS (Greenbone) is an open-source vulnerability scanner.",
-      "ar": "OpenVAS ماسح ثغرات مفتوح المصدر."
+      "en": "OpenVAS (Greenbone) is an open-source vulnerability scanner."
     }
   },
   {
@@ -677,8 +613,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Injecting malicious SQL through user input to manipulate a database is?",
-      "ar": "حقن SQL خبيث عبر مدخلات المستخدم للتلاعب بقاعدة البيانات هو؟"
+      "en": "Injecting malicious SQL through user input to manipulate a database is?"
     },
     "options": [
       "SQL injection",
@@ -688,8 +623,7 @@
     ],
     "answer": "SQL injection",
     "explanation": {
-      "en": "SQL injection abuses unsanitized input to alter database queries.",
-      "ar": "يستغل حقن SQL المدخلات غير المُنقّاة لتغيير استعلامات قاعدة البيانات."
+      "en": "SQL injection abuses unsanitized input to alter database queries."
     }
   },
   {
@@ -698,8 +632,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Injecting client-side scripts into pages viewed by other users is?",
-      "ar": "حقن سكربتات تعمل لدى المستخدمين الآخرين في صفحات الويب هو؟"
+      "en": "Injecting client-side scripts into pages viewed by other users is?"
     },
     "options": [
       "Cross-Site Scripting (XSS)",
@@ -709,8 +642,7 @@
     ],
     "answer": "Cross-Site Scripting (XSS)",
     "explanation": {
-      "en": "XSS injects scripts that run in other users' browsers.",
-      "ar": "يحقن XSS سكربتات تعمل في متصفحات المستخدمين الآخرين."
+      "en": "XSS injects scripts that run in other users' browsers."
     }
   },
   {
@@ -719,8 +651,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Tricking a victim's browser into making unwanted authenticated requests is?",
-      "ar": "خداع متصفح الضحية لإرسال طلبات مُصادَق عليها دون رغبته هو؟"
+      "en": "Tricking a victim's browser into making unwanted authenticated requests is?"
     },
     "options": [
       "CSRF",
@@ -730,8 +661,7 @@
     ],
     "answer": "CSRF",
     "explanation": {
-      "en": "CSRF abuses a user's existing session to perform actions they didn't intend.",
-      "ar": "يستغل CSRF جلسة المستخدم القائمة لتنفيذ أفعال لم يقصدها."
+      "en": "CSRF abuses a user's existing session to perform actions they didn't intend."
     }
   },
   {
@@ -740,8 +670,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Secretly intercepting communication between two parties is a ... attack?",
-      "ar": "اعتراض الاتصال بين طرفين سراً هو هجوم؟"
+      "en": "Secretly intercepting communication between two parties is a ... attack?"
     },
     "options": [
       "Man-in-the-Middle (MITM)",
@@ -751,8 +680,7 @@
     ],
     "answer": "Man-in-the-Middle (MITM)",
     "explanation": {
-      "en": "A MITM attacker sits between two parties and can read/alter traffic.",
-      "ar": "يجلس مهاجم MITM بين طرفين ويستطيع قراءة وتعديل الحركة."
+      "en": "A MITM attacker sits between two parties and can read/alter traffic."
     }
   },
   {
@@ -761,8 +689,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Flooding a service with traffic from many sources to take it offline is?",
-      "ar": "إغراق خدمة بحركة من مصادر كثيرة لإسقاطها هو؟"
+      "en": "Flooding a service with traffic from many sources to take it offline is?"
     },
     "options": [
       "DDoS",
@@ -772,8 +699,7 @@
     ],
     "answer": "DDoS",
     "explanation": {
-      "en": "A Distributed Denial of Service overwhelms a target from many machines.",
-      "ar": "يُغرق هجوم الحرمان الموزّع الهدف من أجهزة كثيرة."
+      "en": "A Distributed Denial of Service overwhelms a target from many machines."
     }
   },
   {
@@ -782,8 +708,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "A deceptive email that tricks users into revealing credentials is?",
-      "ar": "بريد خادع يخدع المستخدمين للكشف عن بياناتهم هو؟"
+      "en": "A deceptive email that tricks users into revealing credentials is?"
     },
     "options": [
       "Phishing",
@@ -793,8 +718,7 @@
     ],
     "answer": "Phishing",
     "explanation": {
-      "en": "Phishing uses deceptive messages to harvest credentials or data.",
-      "ar": "يستخدم التصيّد رسائل خادعة لجمع بيانات الاعتماد."
+      "en": "Phishing uses deceptive messages to harvest credentials or data."
     }
   },
   {
@@ -803,8 +727,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Which is a SECURE choice for password storage?",
-      "ar": "أيّها خيار آمن لتخزين كلمات المرور؟"
+      "en": "Which is a SECURE choice for password storage?"
     },
     "options": [
       "bcrypt",
@@ -814,8 +737,7 @@
     ],
     "answer": "bcrypt",
     "explanation": {
-      "en": "bcrypt is a slow, salted password hash; MD5/SHA-1 are weak and Base64 isn't hashing.",
-      "ar": "bcrypt تجزئة بطيئة ومملّحة؛ أما MD5/SHA-1 فضعيفتان وBase64 ليست تجزئة."
+      "en": "bcrypt is a slow, salted password hash; MD5/SHA-1 are weak and Base64 isn't hashing."
     }
   },
   {
@@ -824,8 +746,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Giving users only the access they need is the principle of?",
-      "ar": "منح المستخدمين الحد الأدنى من الصلاحيات هو مبدأ؟"
+      "en": "Giving users only the access they need is the principle of?"
     },
     "options": [
       "Least privilege",
@@ -835,8 +756,7 @@
     ],
     "answer": "Least privilege",
     "explanation": {
-      "en": "Least privilege limits each account to the minimum access required.",
-      "ar": "يقصُر مبدأ أقل امتياز كل حساب على الحد الأدنى من الوصول اللازم."
+      "en": "Least privilege limits each account to the minimum access required."
     }
   },
   {
@@ -845,8 +765,7 @@
     "difficulty": "medium",
     "codeSnippet": "nmap -Pn 10.0.0.5",
     "question": {
-      "en": "What does the -Pn flag do?",
-      "ar": "ماذا يفعل الخيار Pn-؟"
+      "en": "What does the -Pn flag do?"
     },
     "options": [
       "Skip host discovery (treat host as online)",
@@ -856,8 +775,7 @@
     ],
     "answer": "Skip host discovery (treat host as online)",
     "explanation": {
-      "en": "-Pn skips the ping/host-discovery phase and scans as if the host is up.",
-      "ar": "يتخطّى Pn- مرحلة اكتشاف المضيف ويفحص كأنه متصل."
+      "en": "-Pn skips the ping/host-discovery phase and scans as if the host is up."
     }
   },
   {
@@ -866,8 +784,7 @@
     "difficulty": "medium",
     "codeSnippet": "nmap -sn 10.0.0.0/24",
     "question": {
-      "en": "What does -sn perform?",
-      "ar": "ماذا يؤدي sn-؟"
+      "en": "What does -sn perform?"
     },
     "options": [
       "Host discovery only (no port scan)",
@@ -877,8 +794,7 @@
     ],
     "answer": "Host discovery only (no port scan)",
     "explanation": {
-      "en": "-sn is a ping sweep: it finds live hosts without scanning ports.",
-      "ar": "sn- مسح ping: يكتشف المضيفين الأحياء دون فحص المنافذ."
+      "en": "-sn is a ping sweep: it finds live hosts without scanning ports."
     }
   },
   {
@@ -887,8 +803,7 @@
     "difficulty": "medium",
     "codeSnippet": "nmap -T4 10.0.0.5",
     "question": {
-      "en": "What does -T4 control?",
-      "ar": "ماذا يضبط T4-؟"
+      "en": "What does -T4 control?"
     },
     "options": [
       "Timing/speed template",
@@ -898,8 +813,7 @@
     ],
     "answer": "Timing/speed template",
     "explanation": {
-      "en": "-T0..-T5 set timing templates; -T4 is fast/aggressive.",
-      "ar": "تضبط T0..T5- قوالب التوقيت؛ وT4- سريع/عدواني."
+      "en": "-T0..-T5 set timing templates; -T4 is fast/aggressive."
     }
   },
   {
@@ -908,8 +822,7 @@
     "difficulty": "easy",
     "codeSnippet": "nmap -F 10.0.0.5",
     "question": {
-      "en": "What does -F do?",
-      "ar": "ماذا يفعل F-؟"
+      "en": "What does -F do?"
     },
     "options": [
       "Fast scan (top 100 ports)",
@@ -919,8 +832,7 @@
     ],
     "answer": "Fast scan (top 100 ports)",
     "explanation": {
-      "en": "-F scans only the 100 most common ports.",
-      "ar": "يفحص F- أكثر 100 منفذ شيوعاً فقط."
+      "en": "-F scans only the 100 most common ports."
     }
   },
   {
@@ -929,8 +841,7 @@
     "difficulty": "easy",
     "codeSnippet": "nmap -oN scan.txt 10.0.0.5",
     "question": {
-      "en": "What does -oN do?",
-      "ar": "ماذا يفعل oN-؟"
+      "en": "What does -oN do?"
     },
     "options": [
       "Save normal output to a file",
@@ -940,8 +851,7 @@
     ],
     "answer": "Save normal output to a file",
     "explanation": {
-      "en": "-oN writes results in normal format to the given file.",
-      "ar": "يكتب oN- النتائج بصيغة عادية إلى الملف المحدد."
+      "en": "-oN writes results in normal format to the given file."
     }
   },
   {
@@ -950,8 +860,7 @@
     "difficulty": "medium",
     "codeSnippet": "nc -lvnp 4444",
     "question": {
-      "en": "What is netcat (nc) doing here?",
-      "ar": "ماذا يفعل netcat هنا؟"
+      "en": "What is netcat (nc) doing here?"
     },
     "options": [
       "Listening for a reverse shell",
@@ -961,8 +870,7 @@
     ],
     "answer": "Listening for a reverse shell",
     "explanation": {
-      "en": "nc -lvnp opens a listener, commonly to catch a reverse shell.",
-      "ar": "يفتح nc -lvnp مستمعاً، غالباً لاستقبال reverse shell."
+      "en": "nc -lvnp opens a listener, commonly to catch a reverse shell."
     }
   },
   {
@@ -971,8 +879,7 @@
     "difficulty": "medium",
     "codeSnippet": "gobuster dir -u http://site -w words.txt",
     "question": {
-      "en": "What does gobuster do here?",
-      "ar": "ماذا يفعل gobuster هنا؟"
+      "en": "What does gobuster do here?"
     },
     "options": [
       "Brute-force directories/files",
@@ -982,8 +889,7 @@
     ],
     "answer": "Brute-force directories/files",
     "explanation": {
-      "en": "gobuster dir brute-forces web paths from a wordlist.",
-      "ar": "يخمّن gobuster dir مسارات الويب من قائمة كلمات."
+      "en": "gobuster dir brute-forces web paths from a wordlist."
     }
   },
   {
@@ -992,8 +898,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Which tool scans web servers for known vulnerabilities/misconfigurations?",
-      "ar": "أي أداة تفحص خوادم الويب بحثاً عن ثغرات وأخطاء إعداد معروفة؟"
+      "en": "Which tool scans web servers for known vulnerabilities/misconfigurations?"
     },
     "options": [
       "Nikto",
@@ -1003,8 +908,7 @@
     ],
     "answer": "Nikto",
     "explanation": {
-      "en": "Nikto scans web servers for thousands of known issues.",
-      "ar": "يفحص Nikto خوادم الويب بحثاً عن آلاف المشاكل المعروفة."
+      "en": "Nikto scans web servers for thousands of known issues."
     }
   },
   {
@@ -1013,8 +917,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Mimikatz is primarily used to?",
-      "ar": "فيمَ يُستخدم Mimikatz أساساً؟"
+      "en": "Mimikatz is primarily used to?"
     },
     "options": [
       "Extract Windows credentials from memory",
@@ -1024,8 +927,7 @@
     ],
     "answer": "Extract Windows credentials from memory",
     "explanation": {
-      "en": "Mimikatz dumps plaintext passwords, hashes and tickets from memory.",
-      "ar": "يستخرج Mimikatz كلمات المرور والتجزئات والتذاكر من الذاكرة."
+      "en": "Mimikatz dumps plaintext passwords, hashes and tickets from memory."
     }
   },
   {
@@ -1034,8 +936,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "BloodHound is used to?",
-      "ar": "فيمَ يُستخدم BloodHound؟"
+      "en": "BloodHound is used to?"
     },
     "options": [
       "Map Active Directory attack paths",
@@ -1045,8 +946,7 @@
     ],
     "answer": "Map Active Directory attack paths",
     "explanation": {
-      "en": "BloodHound graphs AD relationships to find privilege-escalation paths.",
-      "ar": "يرسم BloodHound علاقات Active Directory لإيجاد مسارات تصعيد الصلاحيات."
+      "en": "BloodHound graphs AD relationships to find privilege-escalation paths."
     }
   },
   {
@@ -1055,8 +955,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Responder is used to?",
-      "ar": "فيمَ يُستخدم Responder؟"
+      "en": "Responder is used to?"
     },
     "options": [
       "Poison LLMNR/NBT-NS to capture hashes",
@@ -1066,8 +965,7 @@
     ],
     "answer": "Poison LLMNR/NBT-NS to capture hashes",
     "explanation": {
-      "en": "Responder spoofs LLMNR/NBT-NS responses to capture NetNTLM hashes.",
-      "ar": "يزوّر Responder ردود LLMNR/NBT-NS لالتقاط تجزئات NetNTLM."
+      "en": "Responder spoofs LLMNR/NBT-NS responses to capture NetNTLM hashes."
     }
   },
   {
@@ -1076,8 +974,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Which is a commercial command-and-control / adversary-simulation framework?",
-      "ar": "أيّها إطار قيادة وتحكم / محاكاة خصوم تجاري؟"
+      "en": "Which is a commercial command-and-control / adversary-simulation framework?"
     },
     "options": [
       "Cobalt Strike",
@@ -1087,8 +984,7 @@
     ],
     "answer": "Cobalt Strike",
     "explanation": {
-      "en": "Cobalt Strike is a commercial C2 and red-team platform.",
-      "ar": "Cobalt Strike منصة قيادة وتحكم واختبار أحمر تجارية."
+      "en": "Cobalt Strike is a commercial C2 and red-team platform."
     }
   },
   {
@@ -1097,8 +993,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Ghidra and IDA are tools for?",
-      "ar": "Ghidra و IDA أدوات لـ؟"
+      "en": "Ghidra and IDA are tools for?"
     },
     "options": [
       "Reverse engineering / disassembly",
@@ -1108,8 +1003,7 @@
     ],
     "answer": "Reverse engineering / disassembly",
     "explanation": {
-      "en": "Ghidra and IDA disassemble/decompile binaries for analysis.",
-      "ar": "يفكّك Ghidra و IDA الملفات الثنائية لتحليلها."
+      "en": "Ghidra and IDA disassemble/decompile binaries for analysis."
     }
   },
   {
@@ -1118,8 +1012,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Volatility is used for?",
-      "ar": "فيمَ يُستخدم Volatility؟"
+      "en": "Volatility is used for?"
     },
     "options": [
       "Memory (RAM) forensics",
@@ -1129,8 +1022,7 @@
     ],
     "answer": "Memory (RAM) forensics",
     "explanation": {
-      "en": "Volatility analyzes RAM dumps to investigate compromises.",
-      "ar": "يحلّل Volatility صور الذاكرة للتحقيق في الاختراقات."
+      "en": "Volatility analyzes RAM dumps to investigate compromises."
     }
   },
   {
@@ -1139,8 +1031,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Which tool enumerates SMB shares and users on Windows?",
-      "ar": "أي أداة تعدّد مشاركات ومستخدمي SMB على ويندوز؟"
+      "en": "Which tool enumerates SMB shares and users on Windows?"
     },
     "options": [
       "enum4linux",
@@ -1150,8 +1041,7 @@
     ],
     "answer": "enum4linux",
     "explanation": {
-      "en": "enum4linux enumerates SMB shares, users and policies.",
-      "ar": "يعدّد enum4linux مشاركات ومستخدمي وسياسات SMB."
+      "en": "enum4linux enumerates SMB shares, users and policies."
     }
   },
   {
@@ -1160,8 +1050,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Burp Suite's 'Intruder' is used for?",
-      "ar": "فيمَ يُستخدم Intruder في Burp Suite؟"
+      "en": "Burp Suite's 'Intruder' is used for?"
     },
     "options": [
       "Automated/customized request attacks (fuzzing, brute force)",
@@ -1171,8 +1060,7 @@
     ],
     "answer": "Automated/customized request attacks (fuzzing, brute force)",
     "explanation": {
-      "en": "Intruder automates customized HTTP request attacks.",
-      "ar": "يؤتمت Intruder هجمات طلبات HTTP المخصّصة."
+      "en": "Intruder automates customized HTTP request attacks."
     }
   },
   {
@@ -1181,8 +1069,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Malware that secretly collects a user's information/activity is?",
-      "ar": "البرمجية التي تجمع معلومات/نشاط المستخدم سراً تُسمى؟"
+      "en": "Malware that secretly collects a user's information/activity is?"
     },
     "options": [
       "Spyware",
@@ -1192,8 +1079,7 @@
     ],
     "answer": "Spyware",
     "explanation": {
-      "en": "Spyware covertly gathers information about the user.",
-      "ar": "تجمع برامج التجسس معلومات المستخدم خفية."
+      "en": "Spyware covertly gathers information about the user."
     }
   },
   {
@@ -1202,8 +1088,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Malware that gives an attacker full remote control of a host is a?",
-      "ar": "البرمجية التي تمنح المهاجم تحكّماً كاملاً عن بُعد هي؟"
+      "en": "Malware that gives an attacker full remote control of a host is a?"
     },
     "options": [
       "RAT (Remote Access Trojan)",
@@ -1213,8 +1098,7 @@
     ],
     "answer": "RAT (Remote Access Trojan)",
     "explanation": {
-      "en": "A RAT gives covert, full remote control of the victim machine.",
-      "ar": "يمنح RAT تحكّماً كاملاً خفياً بجهاز الضحية."
+      "en": "A RAT gives covert, full remote control of the victim machine."
     }
   },
   {
@@ -1223,8 +1107,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Malware that runs entirely in memory, leaving little on disk, is?",
-      "ar": "البرمجية التي تعمل في الذاكرة دون أثر يُذكر على القرص هي؟"
+      "en": "Malware that runs entirely in memory, leaving little on disk, is?"
     },
     "options": [
       "Fileless malware",
@@ -1234,8 +1117,7 @@
     ],
     "answer": "Fileless malware",
     "explanation": {
-      "en": "Fileless malware lives in memory to evade file-based detection.",
-      "ar": "تعيش البرمجيات عديمة الملفات في الذاكرة لتفادي الكشف."
+      "en": "Fileless malware lives in memory to evade file-based detection."
     }
   },
   {
@@ -1244,8 +1126,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Malware whose only goal is to destroy data is a?",
-      "ar": "البرمجية التي هدفها الوحيد تدمير البيانات هي؟"
+      "en": "Malware whose only goal is to destroy data is a?"
     },
     "options": [
       "Wiper",
@@ -1255,8 +1136,7 @@
     ],
     "answer": "Wiper",
     "explanation": {
-      "en": "A wiper irreversibly destroys data (no ransom involved).",
-      "ar": "يُدمّر الـ wiper البيانات نهائياً دون فدية."
+      "en": "A wiper irreversibly destroys data (no ransom involved)."
     }
   },
   {
@@ -1265,8 +1145,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "A small program that downloads and installs other malware is a?",
-      "ar": "البرنامج الصغير الذي ينزّل ويثبّت برمجيات أخرى هو؟"
+      "en": "A small program that downloads and installs other malware is a?"
     },
     "options": [
       "Dropper",
@@ -1276,8 +1155,7 @@
     ],
     "answer": "Dropper",
     "explanation": {
-      "en": "A dropper delivers and installs additional malware payloads.",
-      "ar": "يوصل الـ dropper ويثبّت حمولات خبيثة إضافية."
+      "en": "A dropper delivers and installs additional malware payloads."
     }
   },
   {
@@ -1286,8 +1164,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Hijacking a victim's resources to secretly mine cryptocurrency is?",
-      "ar": "اختطاف موارد الضحية لتعدين العملات سراً هو؟"
+      "en": "Hijacking a victim's resources to secretly mine cryptocurrency is?"
     },
     "options": [
       "Cryptojacking",
@@ -1297,8 +1174,7 @@
     ],
     "answer": "Cryptojacking",
     "explanation": {
-      "en": "Cryptojacking abuses a victim's CPU/GPU to mine cryptocurrency.",
-      "ar": "يستغل Cryptojacking معالج الضحية لتعدين العملات."
+      "en": "Cryptojacking abuses a victim's CPU/GPU to mine cryptocurrency."
     }
   },
   {
@@ -1307,8 +1183,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Gaining higher permissions than originally granted is?",
-      "ar": "الحصول على صلاحيات أعلى مما مُنح أصلاً هو؟"
+      "en": "Gaining higher permissions than originally granted is?"
     },
     "options": [
       "Privilege escalation",
@@ -1318,8 +1193,7 @@
     ],
     "answer": "Privilege escalation",
     "explanation": {
-      "en": "Privilege escalation raises an attacker's access level.",
-      "ar": "يرفع تصعيد الامتيازات مستوى وصول المهاجم."
+      "en": "Privilege escalation raises an attacker's access level."
     }
   },
   {
@@ -1328,8 +1202,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Moving from one compromised host to others on the network is?",
-      "ar": "الانتقال من مضيف مخترق إلى آخر في الشبكة هو؟"
+      "en": "Moving from one compromised host to others on the network is?"
     },
     "options": [
       "Lateral movement",
@@ -1339,8 +1212,7 @@
     ],
     "answer": "Lateral movement",
     "explanation": {
-      "en": "Lateral movement spreads access across the network.",
-      "ar": "تنشر الحركة الجانبية الوصول عبر الشبكة."
+      "en": "Lateral movement spreads access across the network."
     }
   },
   {
@@ -1349,8 +1221,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Writing past the end of a memory buffer to corrupt memory is a?",
-      "ar": "الكتابة بعد نهاية مخزن في الذاكرة لإفسادها هو؟"
+      "en": "Writing past the end of a memory buffer to corrupt memory is a?"
     },
     "options": [
       "Buffer overflow",
@@ -1360,8 +1231,7 @@
     ],
     "answer": "Buffer overflow",
     "explanation": {
-      "en": "A buffer overflow overwrites adjacent memory, often enabling code execution.",
-      "ar": "يُفسد تجاوز سعة المخزن الذاكرة المجاورة وقد يسمح بتنفيذ شيفرة."
+      "en": "A buffer overflow overwrites adjacent memory, often enabling code execution."
     }
   },
   {
@@ -1370,8 +1240,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Using ../ sequences to read files outside the web root is?",
-      "ar": "استخدام ../ لقراءة ملفات خارج جذر الموقع هو؟"
+      "en": "Using ../ sequences to read files outside the web root is?"
     },
     "options": [
       "Directory (path) traversal",
@@ -1381,8 +1250,7 @@
     ],
     "answer": "Directory (path) traversal",
     "explanation": {
-      "en": "Path traversal escapes the intended directory to read arbitrary files.",
-      "ar": "يتجاوز اجتياز المسارات المجلد المقصود لقراءة ملفات عشوائية."
+      "en": "Path traversal escapes the intended directory to read arbitrary files."
     }
   },
   {
@@ -1391,8 +1259,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Injecting operating-system commands through application input is?",
-      "ar": "حقن أوامر نظام التشغيل عبر مدخلات التطبيق هو؟"
+      "en": "Injecting operating-system commands through application input is?"
     },
     "options": [
       "Command injection",
@@ -1402,8 +1269,7 @@
     ],
     "answer": "Command injection",
     "explanation": {
-      "en": "Command injection runs OS commands via unsanitized input.",
-      "ar": "ينفّذ حقن الأوامر أوامر النظام عبر مدخلات غير مُنقّاة."
+      "en": "Command injection runs OS commands via unsanitized input."
     }
   },
   {
@@ -1412,8 +1278,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Accessing another user's record by changing an id parameter is?",
-      "ar": "الوصول لسجل مستخدم آخر بتغيير معرّف هو؟"
+      "en": "Accessing another user's record by changing an id parameter is?"
     },
     "options": [
       "IDOR",
@@ -1423,8 +1288,7 @@
     ],
     "answer": "IDOR",
     "explanation": {
-      "en": "IDOR exposes objects directly by a guessable reference with no access check.",
-      "ar": "يكشف IDOR الكائنات عبر معرّف يمكن تخمينه دون تحقق من الصلاحية."
+      "en": "IDOR exposes objects directly by a guessable reference with no access check."
     }
   },
   {
@@ -1433,8 +1297,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Forcing a server to make requests to internal resources is?",
-      "ar": "إجبار الخادم على إرسال طلبات لموارد داخلية هو؟"
+      "en": "Forcing a server to make requests to internal resources is?"
     },
     "options": [
       "SSRF",
@@ -1444,8 +1307,7 @@
     ],
     "answer": "SSRF",
     "explanation": {
-      "en": "SSRF makes the server fetch attacker-chosen (often internal) URLs.",
-      "ar": "يجعل SSRF الخادم يجلب روابط يحددها المهاجم (غالباً داخلية)."
+      "en": "SSRF makes the server fetch attacker-chosen (often internal) URLs."
     }
   },
   {
@@ -1454,8 +1316,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "The C-I-A triad stands for?",
-      "ar": "ماذا يعني ثالوث C-I-A؟"
+      "en": "The C-I-A triad stands for?"
     },
     "options": [
       "Confidentiality, Integrity, Availability",
@@ -1465,8 +1326,7 @@
     ],
     "answer": "Confidentiality, Integrity, Availability",
     "explanation": {
-      "en": "The CIA triad is the core model of information security.",
-      "ar": "ثالوث CIA هو النموذج الأساسي لأمن المعلومات."
+      "en": "The CIA triad is the core model of information security."
     }
   },
   {
@@ -1475,8 +1335,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Adding random data to a password before hashing is called?",
-      "ar": "إضافة بيانات عشوائية لكلمة المرور قبل التجزئة تُسمى؟"
+      "en": "Adding random data to a password before hashing is called?"
     },
     "options": [
       "Salting",
@@ -1486,8 +1345,7 @@
     ],
     "answer": "Salting",
     "explanation": {
-      "en": "A salt makes identical passwords hash differently, defeating rainbow tables.",
-      "ar": "يجعل التمليح كلمات المرور المتطابقة تُجزّأ مختلفة، ويُبطل جداول قوس قزح."
+      "en": "A salt makes identical passwords hash differently, defeating rainbow tables."
     }
   },
   {
@@ -1496,8 +1354,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Which uses a public/private key pair?",
-      "ar": "أيّها يستخدم زوج مفاتيح عام/خاص؟"
+      "en": "Which uses a public/private key pair?"
     },
     "options": [
       "Asymmetric encryption (RSA)",
@@ -1507,8 +1364,7 @@
     ],
     "answer": "Asymmetric encryption (RSA)",
     "explanation": {
-      "en": "Asymmetric crypto (e.g. RSA) uses a public and a private key.",
-      "ar": "يستخدم التشفير غير المتماثل (مثل RSA) مفتاحاً عاماً وآخر خاصاً."
+      "en": "Asymmetric crypto (e.g. RSA) uses a public and a private key."
     }
   },
   {
@@ -1517,8 +1373,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which port does HTTPS use by default?",
-      "ar": "أي منفذ يستخدمه HTTPS افتراضياً؟"
+      "en": "Which port does HTTPS use by default?"
     },
     "options": [
       "443",
@@ -1528,8 +1383,7 @@
     ],
     "answer": "443",
     "explanation": {
-      "en": "HTTPS uses TCP port 443.",
-      "ar": "يستخدم HTTPS المنفذ 443."
+      "en": "HTTPS uses TCP port 443."
     }
   },
   {
@@ -1538,8 +1392,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which port does SSH use by default?",
-      "ar": "أي منفذ يستخدمه SSH افتراضياً؟"
+      "en": "Which port does SSH use by default?"
     },
     "options": [
       "22",
@@ -1549,8 +1402,7 @@
     ],
     "answer": "22",
     "explanation": {
-      "en": "SSH listens on TCP port 22.",
-      "ar": "يستمع SSH على المنفذ 22."
+      "en": "SSH listens on TCP port 22."
     }
   },
   {
@@ -1559,8 +1411,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Which port does RDP use by default?",
-      "ar": "أي منفذ يستخدمه RDP افتراضياً؟"
+      "en": "Which port does RDP use by default?"
     },
     "options": [
       "3389",
@@ -1570,8 +1421,7 @@
     ],
     "answer": "3389",
     "explanation": {
-      "en": "Remote Desktop (RDP) uses TCP port 3389.",
-      "ar": "يستخدم سطح المكتب البعيد RDP المنفذ 3389."
+      "en": "Remote Desktop (RDP) uses TCP port 3389."
     }
   },
   {
@@ -1580,8 +1430,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Which port does DNS primarily use?",
-      "ar": "أي منفذ يستخدمه DNS أساساً؟"
+      "en": "Which port does DNS primarily use?"
     },
     "options": [
       "53",
@@ -1591,8 +1440,7 @@
     ],
     "answer": "53",
     "explanation": {
-      "en": "DNS primarily uses port 53 (UDP/TCP).",
-      "ar": "يستخدم DNS المنفذ 53 أساساً."
+      "en": "DNS primarily uses port 53 (UDP/TCP)."
     }
   },
   {
@@ -1601,8 +1449,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "SMB (exploited by EternalBlue) commonly runs on which port?",
-      "ar": "على أي منفذ يعمل SMB (الذي استغلّه EternalBlue) عادةً؟"
+      "en": "SMB (exploited by EternalBlue) commonly runs on which port?"
     },
     "options": [
       "445",
@@ -1612,8 +1459,7 @@
     ],
     "answer": "445",
     "explanation": {
-      "en": "Modern SMB runs on TCP port 445.",
-      "ar": "يعمل SMB الحديث على المنفذ 445."
+      "en": "Modern SMB runs on TCP port 445."
     }
   },
   {
@@ -1622,8 +1468,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "An IPS differs from an IDS because it?",
-      "ar": "كيف يختلف IPS عن IDS؟"
+      "en": "An IPS differs from an IDS because it?"
     },
     "options": [
       "Actively blocks/prevents threats",
@@ -1633,8 +1478,7 @@
     ],
     "answer": "Actively blocks/prevents threats",
     "explanation": {
-      "en": "An IDS only detects/alerts; an IPS can block traffic inline.",
-      "ar": "يكتشف IDS وينبّه فقط، بينما يستطيع IPS حظر الحركة."
+      "en": "An IDS only detects/alerts; an IPS can block traffic inline."
     }
   },
   {
@@ -1643,8 +1487,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "A decoy system designed to lure and study attackers is a?",
-      "ar": "النظام الفخّ المصمّم لجذب المهاجمين ودراستهم هو؟"
+      "en": "A decoy system designed to lure and study attackers is a?"
     },
     "options": [
       "Honeypot",
@@ -1654,8 +1497,7 @@
     ],
     "answer": "Honeypot",
     "explanation": {
-      "en": "A honeypot is a decoy that attracts and observes attackers.",
-      "ar": "Honeypot نظام خداع يجذب المهاجمين ويراقبهم."
+      "en": "A honeypot is a decoy that attracts and observes attackers."
     }
   },
   {
@@ -1664,8 +1506,7 @@
     "difficulty": "medium",
     "codeSnippet": "nmap -p- 10.0.0.1",
     "question": {
-      "en": "What does the -p- flag scan?",
-      "ar": "ماذا يفحص الخيار -p-؟"
+      "en": "What does the -p- flag scan?"
     },
     "options": [
       "All 65535 TCP ports",
@@ -1675,8 +1516,7 @@
     ],
     "answer": "All 65535 TCP ports",
     "explanation": {
-      "en": "-p- tells Nmap to scan every TCP port from 1 to 65535.",
-      "ar": "يطلب -p- من Nmap فحص كل منافذ TCP من 1 إلى 65535."
+      "en": "-p- tells Nmap to scan every TCP port from 1 to 65535."
     }
   },
   {
@@ -1685,8 +1525,7 @@
     "difficulty": "medium",
     "codeSnippet": "nmap -sn 192.168.1.0/24",
     "question": {
-      "en": "What does the -sn option do?",
-      "ar": "ماذا يفعل الخيار -sn؟"
+      "en": "What does the -sn option do?"
     },
     "options": [
       "Host discovery without a port scan",
@@ -1696,8 +1535,7 @@
     ],
     "answer": "Host discovery without a port scan",
     "explanation": {
-      "en": "-sn performs a ping sweep to find live hosts and skips port scanning.",
-      "ar": "ينفّذ -sn مسحاً بالـ ping لاكتشاف المضيفات الحيّة دون فحص المنافذ."
+      "en": "-sn performs a ping sweep to find live hosts and skips port scanning."
     }
   },
   {
@@ -1706,8 +1544,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which tool captures and inspects network packets?",
-      "ar": "أي أداة تلتقط وتحلّل حزم الشبكة؟"
+      "en": "Which tool captures and inspects network packets?"
     },
     "options": [
       "Wireshark",
@@ -1717,8 +1554,7 @@
     ],
     "answer": "Wireshark",
     "explanation": {
-      "en": "Wireshark is the standard packet capture and protocol analysis tool.",
-      "ar": "Wireshark هي الأداة المعيارية لالتقاط الحزم وتحليل البروتوكولات."
+      "en": "Wireshark is the standard packet capture and protocol analysis tool."
     }
   },
   {
@@ -1727,8 +1563,7 @@
     "difficulty": "medium",
     "codeSnippet": "hydra -l admin -P rockyou.txt ssh://10.0.0.5",
     "question": {
-      "en": "What is hydra doing in this command?",
-      "ar": "ماذا تفعل hydra في هذا الأمر؟"
+      "en": "What is hydra doing in this command?"
     },
     "options": [
       "Brute-forcing the SSH login",
@@ -1738,8 +1573,7 @@
     ],
     "answer": "Brute-forcing the SSH login",
     "explanation": {
-      "en": "hydra tries passwords from rockyou.txt against the SSH service for user admin.",
-      "ar": "تجرّب hydra كلمات مرور من rockyou.txt ضد خدمة SSH للمستخدم admin."
+      "en": "hydra tries passwords from rockyou.txt against the SSH service for user admin."
     }
   },
   {
@@ -1748,8 +1582,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does the CIA triad stand for in security?",
-      "ar": "ماذا يعني ثالوث CIA في الأمن؟"
+      "en": "What does the CIA triad stand for in security?"
     },
     "options": [
       "Confidentiality, Integrity, Availability",
@@ -1759,8 +1592,7 @@
     ],
     "answer": "Confidentiality, Integrity, Availability",
     "explanation": {
-      "en": "The CIA triad — Confidentiality, Integrity, Availability — is the core model of information security.",
-      "ar": "ثالوث CIA — السرية والسلامة والتوافر — هو النموذج الأساسي لأمن المعلومات."
+      "en": "The CIA triad — Confidentiality, Integrity, Availability — is the core model of information security."
     }
   },
   {
@@ -1769,8 +1601,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is a zero-day vulnerability?",
-      "ar": "ما هي ثغرة اليوم صفر (zero-day)؟"
+      "en": "What is a zero-day vulnerability?"
     },
     "options": [
       "A flaw unknown to the vendor with no patch yet",
@@ -1780,8 +1611,7 @@
     ],
     "answer": "A flaw unknown to the vendor with no patch yet",
     "explanation": {
-      "en": "A zero-day is a vulnerability unknown to the vendor, so no patch exists when it is exploited.",
-      "ar": "ثغرة اليوم صفر غير معروفة للمطوّر، فلا يوجد تصحيح لها وقت استغلالها."
+      "en": "A zero-day is a vulnerability unknown to the vendor, so no patch exists when it is exploited."
     }
   },
   {
@@ -1790,8 +1620,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Why is a salt added when hashing passwords?",
-      "ar": "لماذا يُضاف salt عند تجزئة كلمات المرور؟"
+      "en": "Why is a salt added when hashing passwords?"
     },
     "options": [
       "To defeat precomputed rainbow-table attacks",
@@ -1801,8 +1630,7 @@
     ],
     "answer": "To defeat precomputed rainbow-table attacks",
     "explanation": {
-      "en": "A unique random salt makes identical passwords hash differently, defeating rainbow tables.",
-      "ar": "يجعل الـ salt العشوائي كلمات المرور المتطابقة تُجزّأ بشكل مختلف، ما يبطل جداول rainbow."
+      "en": "A unique random salt makes identical passwords hash differently, defeating rainbow tables."
     }
   },
   {
@@ -1811,8 +1639,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What distinguishes a worm from a virus?",
-      "ar": "ما الذي يميّز الدودة عن الفيروس؟"
+      "en": "What distinguishes a worm from a virus?"
     },
     "options": [
       "A worm self-replicates across networks without a host file",
@@ -1822,8 +1649,7 @@
     ],
     "answer": "A worm self-replicates across networks without a host file",
     "explanation": {
-      "en": "Worms propagate on their own across networks; viruses attach to and need a host file.",
-      "ar": "تنتشر الديدان ذاتياً عبر الشبكات، بينما يلتصق الفيروس بملف مضيف ويحتاجه."
+      "en": "Worms propagate on their own across networks; viruses attach to and need a host file."
     }
   },
   {
@@ -1832,8 +1658,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is the primary goal of ransomware?",
-      "ar": "ما الهدف الأساسي لبرمجيات الفدية؟"
+      "en": "What is the primary goal of ransomware?"
     },
     "options": [
       "Encrypt files and demand payment to decrypt them",
@@ -1843,8 +1668,7 @@
     ],
     "answer": "Encrypt files and demand payment to decrypt them",
     "explanation": {
-      "en": "Ransomware encrypts the victim’s data and demands payment for the decryption key.",
-      "ar": "تشفّر برمجيات الفدية بيانات الضحية وتطلب فدية مقابل مفتاح فك التشفير."
+      "en": "Ransomware encrypts the victim’s data and demands payment for the decryption key."
     }
   },
   {
@@ -1853,8 +1677,7 @@
     "difficulty": "medium",
     "codeSnippet": "use exploit/windows/smb/ms17_010_eternalblue",
     "question": {
-      "en": "Which vulnerability does this Metasploit module exploit?",
-      "ar": "أي ثغرة تستغلها وحدة Metasploit هذه؟"
+      "en": "Which vulnerability does this Metasploit module exploit?"
     },
     "options": [
       "EternalBlue (SMBv1)",
@@ -1864,8 +1687,7 @@
     ],
     "answer": "EternalBlue (SMBv1)",
     "explanation": {
-      "en": "ms17_010 is the EternalBlue exploit against the SMBv1 protocol.",
-      "ar": "ms17_010 هي ثغرة EternalBlue ضد بروتوكول SMBv1."
+      "en": "ms17_010 is the EternalBlue exploit against the SMBv1 protocol."
     }
   },
   {
@@ -1874,8 +1696,7 @@
     "difficulty": "easy",
     "codeSnippet": "msfconsole",
     "question": {
-      "en": "What does msfconsole start?",
-      "ar": "ماذا يشغّل msfconsole؟"
+      "en": "What does msfconsole start?"
     },
     "options": [
       "The Metasploit Framework console",
@@ -1885,8 +1706,7 @@
     ],
     "answer": "The Metasploit Framework console",
     "explanation": {
-      "en": "msfconsole is the main command-line interface to the Metasploit Framework.",
-      "ar": "msfconsole هي الواجهة الرئيسية لسطر أوامر إطار Metasploit."
+      "en": "msfconsole is the main command-line interface to the Metasploit Framework."
     }
   },
   {
@@ -1895,8 +1715,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "In TLS, what is the role of a Certificate Authority (CA)?",
-      "ar": "في TLS، ما دور سلطة الشهادات (CA)؟"
+      "en": "In TLS, what is the role of a Certificate Authority (CA)?"
     },
     "options": [
       "It signs certificates to vouch for a server’s public key",
@@ -1906,8 +1725,7 @@
     ],
     "answer": "It signs certificates to vouch for a server’s public key",
     "explanation": {
-      "en": "A CA digitally signs a server’s certificate, letting clients trust its public key.",
-      "ar": "توقّع سلطة الشهادات شهادة الخادم رقمياً ليثق العملاء بمفتاحه العام."
+      "en": "A CA digitally signs a server’s certificate, letting clients trust its public key."
     }
   },
   {
@@ -1916,8 +1734,7 @@
     "difficulty": "medium",
     "codeSnippet": "john --wordlist=rockyou.txt hashes.txt",
     "question": {
-      "en": "What is John the Ripper doing here?",
-      "ar": "ماذا تفعل John the Ripper هنا؟"
+      "en": "What is John the Ripper doing here?"
     },
     "options": [
       "Cracking password hashes using a wordlist",
@@ -1927,8 +1744,7 @@
     ],
     "answer": "Cracking password hashes using a wordlist",
     "explanation": {
-      "en": "John tries each word in rockyou.txt against the hashes to recover passwords.",
-      "ar": "تجرّب John كل كلمة في rockyou.txt ضد التجزئات لاستعادة كلمات المرور."
+      "en": "John tries each word in rockyou.txt against the hashes to recover passwords."
     }
   },
   {
@@ -1937,8 +1753,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What do the three letters in the CIA triad stand for?",
-      "ar": "ماذا تعني الأحرف الثلاثة في ثالوث CIA؟"
+      "en": "What do the three letters in the CIA triad stand for?"
     },
     "options": [
       "Confidentiality, Integrity, Availability",
@@ -1948,8 +1763,7 @@
     ],
     "answer": "Confidentiality, Integrity, Availability",
     "explanation": {
-      "en": "The CIA triad is the core model of information security.",
-      "ar": "ثالوث CIA هو النموذج الأساسي لأمن المعلومات."
+      "en": "The CIA triad is the core model of information security."
     }
   },
   {
@@ -1958,8 +1772,7 @@
     "difficulty": "easy",
     "codeSnippet": "' OR '1'='1",
     "question": {
-      "en": "This input in a login form is a classic example of which attack?",
-      "ar": "هذا الإدخال في نموذج تسجيل الدخول مثال كلاسيكي لأي هجوم؟"
+      "en": "This input in a login form is a classic example of which attack?"
     },
     "options": [
       "SQL injection",
@@ -1969,8 +1782,7 @@
     ],
     "answer": "SQL injection",
     "explanation": {
-      "en": "It manipulates the SQL query to always evaluate true.",
-      "ar": "يتلاعب باستعلام SQL ليصبح صحيحًا دائمًا."
+      "en": "It manipulates the SQL query to always evaluate true."
     }
   },
   {
@@ -1979,8 +1791,7 @@
     "difficulty": "medium",
     "codeSnippet": "<script>alert(1)</script>",
     "question": {
-      "en": "Storing this in a comment field to run in the browsers of other users is which attack?",
-      "ar": "تخزين هذا في حقل تعليق ليُنفَّذ في متصفحات آخرين هو أي هجوم؟"
+      "en": "Storing this in a comment field to run in the browsers of other users is which attack?"
     },
     "options": [
       "Cross-site scripting (XSS)",
@@ -1990,8 +1801,7 @@
     ],
     "answer": "Cross-site scripting (XSS)",
     "explanation": {
-      "en": "Stored XSS injects script that runs for other visitors.",
-      "ar": "XSS المخزّن يحقن سكربتًا يعمل لدى زوار آخرين."
+      "en": "Stored XSS injects script that runs for other visitors."
     }
   },
   {
@@ -2000,8 +1810,7 @@
     "difficulty": "easy",
     "codeSnippet": "hashcat -m 0 hash.txt words.txt",
     "question": {
-      "en": "The -m 0 mode tells hashcat the hashes are which type?",
-      "ar": "الوضع m 0- يخبر hashcat أن التجزئات من أي نوع؟"
+      "en": "The -m 0 mode tells hashcat the hashes are which type?"
     },
     "options": [
       "MD5",
@@ -2011,8 +1820,7 @@
     ],
     "answer": "MD5",
     "explanation": {
-      "en": "Mode 0 in hashcat targets raw MD5 hashes.",
-      "ar": "الوضع 0 في hashcat يستهدف تجزئات MD5 الخام."
+      "en": "Mode 0 in hashcat targets raw MD5 hashes."
     }
   },
   {
@@ -2021,8 +1829,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Adding a random salt to passwords before hashing mainly defeats what?",
-      "ar": "إضافة ملح عشوائي لكلمات المرور قبل التجزئة يُبطل ماذا أساسًا؟"
+      "en": "Adding a random salt to passwords before hashing mainly defeats what?"
     },
     "options": [
       "Precomputed rainbow-table attacks",
@@ -2032,8 +1839,7 @@
     ],
     "answer": "Precomputed rainbow-table attacks",
     "explanation": {
-      "en": "Unique salts make precomputed hash tables useless.",
-      "ar": "الأملاح الفريدة تجعل جداول التجزئة المحسوبة مسبقًا عديمة الفائدة."
+      "en": "Unique salts make precomputed hash tables useless."
     }
   },
   {
@@ -2042,8 +1848,7 @@
     "difficulty": "medium",
     "codeSnippet": "nmap -p- 10.0.0.1",
     "question": {
-      "en": "What does the -p- flag scan?",
-      "ar": "ماذا يفحص الخيار p-؟"
+      "en": "What does the -p- flag scan?"
     },
     "options": [
       "All 65535 TCP ports",
@@ -2053,8 +1858,7 @@
     ],
     "answer": "All 65535 TCP ports",
     "explanation": {
-      "en": "-p- expands the scan to every TCP port.",
-      "ar": "p- يوسّع الفحص ليشمل كل منافذ TCP."
+      "en": "-p- expands the scan to every TCP port."
     }
   },
   {
@@ -2063,8 +1867,7 @@
     "difficulty": "easy",
     "codeSnippet": "set RHOSTS 10.0.0.5",
     "question": {
-      "en": "In Metasploit, what does RHOSTS specify?",
-      "ar": "في Metasploit ماذا يحدّد RHOSTS؟"
+      "en": "In Metasploit, what does RHOSTS specify?"
     },
     "options": [
       "The target host(s)",
@@ -2074,8 +1877,7 @@
     ],
     "answer": "The target host(s)",
     "explanation": {
-      "en": "RHOSTS sets the remote target address(es).",
-      "ar": "RHOSTS يضبط عنوان الهدف البعيد."
+      "en": "RHOSTS sets the remote target address(es)."
     }
   },
   {
@@ -2084,8 +1886,7 @@
     "difficulty": "medium",
     "codeSnippet": "hydra -l admin -P pass.txt ssh://10.0.0.1",
     "question": {
-      "en": "What is this command doing?",
-      "ar": "ماذا يفعل هذا الأمر؟"
+      "en": "What is this command doing?"
     },
     "options": [
       "Brute-forcing an SSH login",
@@ -2095,8 +1896,7 @@
     ],
     "answer": "Brute-forcing an SSH login",
     "explanation": {
-      "en": "Hydra tries each password against the SSH service.",
-      "ar": "تجرّب Hydra كل كلمة مرور ضد خدمة SSH."
+      "en": "Hydra tries each password against the SSH service."
     }
   },
   {
@@ -2105,8 +1905,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What best describes phishing?",
-      "ar": "ما الوصف الأدق للتصيّد الاحتيالي؟"
+      "en": "What best describes phishing?"
     },
     "options": [
       "Tricking users into revealing credentials",
@@ -2116,8 +1915,7 @@
     ],
     "answer": "Tricking users into revealing credentials",
     "explanation": {
-      "en": "Phishing uses deception to steal sensitive info.",
-      "ar": "التصيّد يستخدم الخداع لسرقة معلومات حساسة."
+      "en": "Phishing uses deception to steal sensitive info."
     }
   },
   {
@@ -2126,8 +1924,7 @@
     "difficulty": "medium",
     "codeSnippet": "GET /files?name=../../etc/passwd",
     "question": {
-      "en": "This request is attempting which attack?",
-      "ar": "هذا الطلب يحاول أي هجوم؟"
+      "en": "This request is attempting which attack?"
     },
     "options": [
       "Path (directory) traversal",
@@ -2137,8 +1934,7 @@
     ],
     "answer": "Path (directory) traversal",
     "explanation": {
-      "en": "../ sequences escape the intended directory.",
-      "ar": "تسلسلات ../ تتجاوز المجلد المقصود."
+      "en": "../ sequences escape the intended directory."
     }
   },
   {
@@ -2147,8 +1943,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Symmetric encryption is defined by what property?",
-      "ar": "ما الخاصية التي تُعرّف التشفير المتماثل؟"
+      "en": "Symmetric encryption is defined by what property?"
     },
     "options": [
       "The same key encrypts and decrypts",
@@ -2158,8 +1953,7 @@
     ],
     "answer": "The same key encrypts and decrypts",
     "explanation": {
-      "en": "Symmetric ciphers share one secret key.",
-      "ar": "الشيفرات المتماثلة تتشارك مفتاحًا سريًا واحدًا."
+      "en": "Symmetric ciphers share one secret key."
     }
   },
   {
@@ -2168,8 +1962,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Wireshark is primarily used to do what?",
-      "ar": "لأي غرض يُستخدم Wireshark أساسًا؟"
+      "en": "Wireshark is primarily used to do what?"
     },
     "options": [
       "Capture and analyze network packets",
@@ -2179,8 +1972,7 @@
     ],
     "answer": "Capture and analyze network packets",
     "explanation": {
-      "en": "Wireshark is a packet capture and analysis tool.",
-      "ar": "Wireshark أداة لالتقاط وتحليل الحزم."
+      "en": "Wireshark is a packet capture and analysis tool."
     }
   },
   {
@@ -2189,8 +1981,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is a zero-day vulnerability?",
-      "ar": "ما ثغرة اليوم صفر؟"
+      "en": "What is a zero-day vulnerability?"
     },
     "options": [
       "A flaw with no available patch yet",
@@ -2200,8 +1991,7 @@
     ],
     "answer": "A flaw with no available patch yet",
     "explanation": {
-      "en": "Zero-days are unknown to the vendor and unpatched.",
-      "ar": "ثغرات اليوم صفر مجهولة للمزوّد وبلا رقعة."
+      "en": "Zero-days are unknown to the vendor and unpatched."
     }
   },
   {
@@ -2210,8 +2000,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does ransomware typically do?",
-      "ar": "ماذا تفعل برامج الفدية عادةً؟"
+      "en": "What does ransomware typically do?"
     },
     "options": [
       "Encrypt files and demand payment",
@@ -2221,8 +2010,7 @@
     ],
     "answer": "Encrypt files and demand payment",
     "explanation": {
-      "en": "Ransomware encrypts data and extorts a ransom.",
-      "ar": "تشفّر برامج الفدية البيانات وتبتزّ فدية."
+      "en": "Ransomware encrypts data and extorts a ransom."
     }
   },
   {
@@ -2231,8 +2019,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does two-factor authentication add?",
-      "ar": "ماذا تضيف المصادقة الثنائية؟"
+      "en": "What does two-factor authentication add?"
     },
     "options": [
       "A second, independent verification factor",
@@ -2242,8 +2029,7 @@
     ],
     "answer": "A second, independent verification factor",
     "explanation": {
-      "en": "2FA requires something you have in addition to a password.",
-      "ar": "تتطلب 2FA شيئًا تملكه إضافة لكلمة المرور."
+      "en": "2FA requires something you have in addition to a password."
     }
   },
   {
@@ -2252,8 +2038,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which port does HTTPS use by default?",
-      "ar": "أي منفذ يستخدمه HTTPS افتراضيًا؟"
+      "en": "Which port does HTTPS use by default?"
     },
     "options": [
       "443",
@@ -2263,8 +2048,7 @@
     ],
     "answer": "443",
     "explanation": {
-      "en": "HTTPS runs over TLS on TCP port 443.",
-      "ar": "يعمل HTTPS عبر TLS على المنفذ 443."
+      "en": "HTTPS runs over TLS on TCP port 443."
     }
   },
   {
@@ -2273,8 +2057,7 @@
     "difficulty": "medium",
     "codeSnippet": "openssl req -new -x509 -days 365 -key key.pem",
     "question": {
-      "en": "What does this openssl command create?",
-      "ar": "ماذا ينشئ أمر openssl هذا؟"
+      "en": "What does this openssl command create?"
     },
     "options": [
       "A self-signed certificate",
@@ -2284,8 +2067,7 @@
     ],
     "answer": "A self-signed certificate",
     "explanation": {
-      "en": "-x509 produces a self-signed X.509 certificate.",
-      "ar": "x509- ينتج شهادة X.509 موقّعة ذاتيًا."
+      "en": "-x509 produces a self-signed X.509 certificate."
     }
   },
   {
@@ -2294,8 +2076,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Unlike encryption, hashing is primarily used for what?",
-      "ar": "بخلاف التشفير، لأي غرض تُستخدم التجزئة أساسًا؟"
+      "en": "Unlike encryption, hashing is primarily used for what?"
     },
     "options": [
       "One-way integrity verification",
@@ -2305,8 +2086,7 @@
     ],
     "answer": "One-way integrity verification",
     "explanation": {
-      "en": "Hashes are one-way and verify data integrity.",
-      "ar": "التجزئات أحادية الاتجاه وتتحقق من سلامة البيانات."
+      "en": "Hashes are one-way and verify data integrity."
     }
   },
   {
@@ -2315,8 +2095,7 @@
     "difficulty": "easy",
     "codeSnippet": "nmap -sV 10.0.0.5",
     "question": {
-      "en": "What does the -sV flag add to this scan?",
-      "ar": "ماذا تضيف الراية -sV إلى هذا الفحص؟"
+      "en": "What does the -sV flag add to this scan?"
     },
     "options": [
       "Service and version detection",
@@ -2326,8 +2105,7 @@
     ],
     "answer": "Service and version detection",
     "explanation": {
-      "en": "-sV probes open ports to identify the service and its version.",
-      "ar": "تستكشف -sV المنافذ المفتوحة لتحديد الخدمة وإصدارها."
+      "en": "-sV probes open ports to identify the service and its version."
     }
   },
   {
@@ -2336,8 +2114,7 @@
     "difficulty": "medium",
     "codeSnippet": "nmap -p- 10.0.0.5",
     "question": {
-      "en": "How many TCP ports does -p- scan?",
-      "ar": "كم منفذ TCP يفحصه الخيار -p-؟"
+      "en": "How many TCP ports does -p- scan?"
     },
     "options": [
       "All 65535 ports",
@@ -2347,8 +2124,7 @@
     ],
     "answer": "All 65535 ports",
     "explanation": {
-      "en": "-p- is shorthand for the full 1-65535 TCP range.",
-      "ar": "الخيار -p- اختصار للمدى الكامل 1-65535 من منافذ TCP."
+      "en": "-p- is shorthand for the full 1-65535 TCP range."
     }
   },
   {
@@ -2357,8 +2133,7 @@
     "difficulty": "medium",
     "codeSnippet": "nmap -sn 192.168.1.0/24",
     "question": {
-      "en": "What is this command doing?",
-      "ar": "ماذا يفعل هذا الأمر؟"
+      "en": "What is this command doing?"
     },
     "options": [
       "Discovering live hosts without scanning ports",
@@ -2368,8 +2143,7 @@
     ],
     "answer": "Discovering live hosts without scanning ports",
     "explanation": {
-      "en": "-sn is a host-discovery (ping) sweep with the port scan disabled.",
-      "ar": "الخيار -sn مسح لاكتشاف المضيفين مع تعطيل فحص المنافذ."
+      "en": "-sn is a host-discovery (ping) sweep with the port scan disabled."
     }
   },
   {
@@ -2378,8 +2152,7 @@
     "difficulty": "medium",
     "codeSnippet": "nmap -O 10.0.0.5",
     "question": {
-      "en": "What does -O attempt?",
-      "ar": "ماذا يحاول الخيار -O؟"
+      "en": "What does -O attempt?"
     },
     "options": [
       "Operating system fingerprinting",
@@ -2389,8 +2162,7 @@
     ],
     "answer": "Operating system fingerprinting",
     "explanation": {
-      "en": "-O guesses the OS from TCP/IP stack behaviour.",
-      "ar": "يخمّن -O نظام التشغيل من سلوك حزمة TCP/IP."
+      "en": "-O guesses the OS from TCP/IP stack behaviour."
     }
   },
   {
@@ -2399,8 +2171,7 @@
     "difficulty": "medium",
     "codeSnippet": "hydra -l admin -P rockyou.txt ssh://10.0.0.5",
     "question": {
-      "en": "What is this command doing?",
-      "ar": "ماذا يفعل هذا الأمر؟"
+      "en": "What is this command doing?"
     },
     "options": [
       "Brute-forcing SSH credentials from a wordlist",
@@ -2410,8 +2181,7 @@
     ],
     "answer": "Brute-forcing SSH credentials from a wordlist",
     "explanation": {
-      "en": "hydra tries each password in the list against the SSH service.",
-      "ar": "يجرّب hydra كل كلمة مرور في القائمة على خدمة SSH."
+      "en": "hydra tries each password in the list against the SSH service."
     }
   },
   {
@@ -2420,8 +2190,7 @@
     "difficulty": "medium",
     "codeSnippet": "john --wordlist=rockyou.txt hashes.txt",
     "question": {
-      "en": "What does John the Ripper do here?",
-      "ar": "ماذا يفعل John the Ripper هنا؟"
+      "en": "What does John the Ripper do here?"
     },
     "options": [
       "Cracks password hashes offline",
@@ -2431,8 +2200,7 @@
     ],
     "answer": "Cracks password hashes offline",
     "explanation": {
-      "en": "It hashes each candidate word and compares it to the stored hashes.",
-      "ar": "يجزّئ كل كلمة مرشّحة ويقارنها بالتجزئات المخزّنة."
+      "en": "It hashes each candidate word and compares it to the stored hashes."
     }
   },
   {
@@ -2441,8 +2209,7 @@
     "difficulty": "medium",
     "codeSnippet": "tcpdump -i eth0 port 80 -w capture.pcap",
     "question": {
-      "en": "What is captured here?",
-      "ar": "ما الذي يُلتقط هنا؟"
+      "en": "What is captured here?"
     },
     "options": [
       "Port 80 traffic on eth0, saved to a file",
@@ -2452,8 +2219,7 @@
     ],
     "answer": "Port 80 traffic on eth0, saved to a file",
     "explanation": {
-      "en": "-i picks the interface, the filter limits it to port 80, -w writes a pcap.",
-      "ar": "يحدّد -i الواجهة، والمُرشِّح يقصره على المنفذ 80، و-w يكتب ملف pcap."
+      "en": "-i picks the interface, the filter limits it to port 80, -w writes a pcap."
     }
   },
   {
@@ -2462,8 +2228,7 @@
     "difficulty": "hard",
     "codeSnippet": "openssl s_client -connect example.com:443",
     "question": {
-      "en": "What does this command inspect?",
-      "ar": "ماذا يفحص هذا الأمر؟"
+      "en": "What does this command inspect?"
     },
     "options": [
       "The TLS handshake and certificate chain",
@@ -2473,8 +2238,7 @@
     ],
     "answer": "The TLS handshake and certificate chain",
     "explanation": {
-      "en": "s_client opens a TLS connection and prints the negotiated certificate chain.",
-      "ar": "يفتح s_client اتصال TLS ويطبع سلسلة الشهادات المتفاوض عليها."
+      "en": "s_client opens a TLS connection and prints the negotiated certificate chain."
     }
   },
   {
@@ -2483,8 +2247,7 @@
     "difficulty": "easy",
     "codeSnippet": "' OR '1'='1' --",
     "question": {
-      "en": "Which attack does this payload represent?",
-      "ar": "أي هجوم يمثّله هذا الحمل؟"
+      "en": "Which attack does this payload represent?"
     },
     "options": [
       "SQL injection",
@@ -2494,8 +2257,7 @@
     ],
     "answer": "SQL injection",
     "explanation": {
-      "en": "It closes the quote and appends an always-true condition to the query.",
-      "ar": "يغلق علامة التنصيص ويضيف شرطًا صحيحًا دائمًا إلى الاستعلام."
+      "en": "It closes the quote and appends an always-true condition to the query."
     }
   },
   {
@@ -2504,8 +2266,7 @@
     "difficulty": "easy",
     "codeSnippet": "<script>alert(1)</script>",
     "question": {
-      "en": "Which vulnerability does this test for?",
-      "ar": "عن أي ثغرة يختبر هذا؟"
+      "en": "Which vulnerability does this test for?"
     },
     "options": [
       "Cross-site scripting (XSS)",
@@ -2515,8 +2276,7 @@
     ],
     "answer": "Cross-site scripting (XSS)",
     "explanation": {
-      "en": "Unescaped output lets attacker script run in the victim's browser.",
-      "ar": "الإخراج غير المُهرَّب يسمح بتشغيل سكربت المهاجم في متصفح الضحية."
+      "en": "Unescaped output lets attacker script run in the victim's browser."
     }
   },
   {
@@ -2525,8 +2285,7 @@
     "difficulty": "medium",
     "codeSnippet": "GET /download?file=../../etc/passwd",
     "question": {
-      "en": "Which attack is this?",
-      "ar": "ما هذا الهجوم؟"
+      "en": "Which attack is this?"
     },
     "options": [
       "Path traversal",
@@ -2536,8 +2295,7 @@
     ],
     "answer": "Path traversal",
     "explanation": {
-      "en": "../ sequences escape the intended directory to read arbitrary files.",
-      "ar": "تتيح تسلسلات ../ الخروج من المجلد المقصود لقراءة ملفات عشوائية."
+      "en": "../ sequences escape the intended directory to read arbitrary files."
     }
   },
   {
@@ -2546,8 +2304,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Which response header forces browsers to use HTTPS only?",
-      "ar": "أي ترويسة استجابة تُلزم المتصفح باستخدام HTTPS فقط؟"
+      "en": "Which response header forces browsers to use HTTPS only?"
     },
     "options": [
       "Strict-Transport-Security",
@@ -2557,8 +2314,7 @@
     ],
     "answer": "Strict-Transport-Security",
     "explanation": {
-      "en": "HSTS tells the browser to refuse plaintext HTTP for the domain.",
-      "ar": "تخبر HSTS المتصفح برفض HTTP غير المشفّر لهذا النطاق."
+      "en": "HSTS tells the browser to refuse plaintext HTTP for the domain."
     }
   },
   {
@@ -2567,8 +2323,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does a CSRF attack abuse?",
-      "ar": "ما الذي يستغله هجوم CSRF؟"
+      "en": "What does a CSRF attack abuse?"
     },
     "options": [
       "The victim's already-authenticated session",
@@ -2578,8 +2333,7 @@
     ],
     "answer": "The victim's already-authenticated session",
     "explanation": {
-      "en": "The browser attaches the victim's cookies to the attacker's forged request.",
-      "ar": "يُرفق المتصفح كوكيز الضحية بالطلب المزيّف الذي أعدّه المهاجم."
+      "en": "The browser attaches the victim's cookies to the attacker's forged request."
     }
   },
   {
@@ -2588,8 +2342,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What is the principle of least privilege?",
-      "ar": "ما مبدأ الحد الأدنى من الصلاحيات؟"
+      "en": "What is the principle of least privilege?"
     },
     "options": [
       "Grant only the access a task requires",
@@ -2599,8 +2352,7 @@
     ],
     "answer": "Grant only the access a task requires",
     "explanation": {
-      "en": "Least privilege limits the damage a compromised account can do.",
-      "ar": "يحدّ المبدأ من الضرر الذي يسببه حساب مُخترق."
+      "en": "Least privilege limits the damage a compromised account can do."
     }
   },
   {
@@ -2609,8 +2361,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Which of these is asymmetric encryption?",
-      "ar": "أي من هذه تشفير غير متماثل؟"
+      "en": "Which of these is asymmetric encryption?"
     },
     "options": [
       "RSA",
@@ -2620,8 +2371,7 @@
     ],
     "answer": "RSA",
     "explanation": {
-      "en": "RSA uses a public/private key pair; AES is symmetric and SHA-256 is a hash.",
-      "ar": "يستخدم RSA زوج مفاتيح عام وخاص، أما AES متماثل وSHA-256 دالة تجزئة."
+      "en": "RSA uses a public/private key pair; AES is symmetric and SHA-256 is a hash."
     }
   },
   {
@@ -2630,8 +2380,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does salting a password hash prevent?",
-      "ar": "ماذا يمنع إضافة مِلح لتجزئة كلمة المرور؟"
+      "en": "What does salting a password hash prevent?"
     },
     "options": [
       "Precomputed rainbow-table lookups",
@@ -2641,8 +2390,7 @@
     ],
     "answer": "Precomputed rainbow-table lookups",
     "explanation": {
-      "en": "A unique salt per user makes precomputed hash tables useless.",
-      "ar": "المِلح الفريد لكل مستخدم يجعل جداول التجزئة المحسوبة مسبقًا بلا فائدة."
+      "en": "A unique salt per user makes precomputed hash tables useless."
     }
   },
   {
@@ -2651,8 +2399,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is privilege escalation?",
-      "ar": "ما تصعيد الصلاحيات؟"
+      "en": "What is privilege escalation?"
     },
     "options": [
       "Gaining permissions beyond those granted",
@@ -2662,8 +2409,7 @@
     ],
     "answer": "Gaining permissions beyond those granted",
     "explanation": {
-      "en": "An attacker moves from a limited account to an administrative one.",
-      "ar": "ينتقل المهاجم من حساب محدود إلى حساب إداري."
+      "en": "An attacker moves from a limited account to an administrative one."
     }
   },
   {
@@ -2672,8 +2418,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does a web application firewall do?",
-      "ar": "ماذا يفعل جدار حماية تطبيقات الويب؟"
+      "en": "What does a web application firewall do?"
     },
     "options": [
       "Inspects and filters malicious HTTP requests",
@@ -2683,8 +2428,7 @@
     ],
     "answer": "Inspects and filters malicious HTTP requests",
     "explanation": {
-      "en": "A WAF sits in front of the app and blocks known attack patterns.",
-      "ar": "يقف WAF أمام التطبيق ويحجب أنماط الهجوم المعروفة."
+      "en": "A WAF sits in front of the app and blocks known attack patterns."
     }
   },
   {
@@ -2693,8 +2437,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What defines ransomware?",
-      "ar": "ما الذي يُعرِّف برامج الفدية؟"
+      "en": "What defines ransomware?"
     },
     "options": [
       "It encrypts data and demands payment",
@@ -2704,8 +2447,7 @@
     ],
     "answer": "It encrypts data and demands payment",
     "explanation": {
-      "en": "Ransomware denies access to your own files until a ransom is paid.",
-      "ar": "تمنع برامج الفدية الوصول إلى ملفاتك حتى تُدفع الفدية."
+      "en": "Ransomware denies access to your own files until a ransom is paid."
     }
   },
   {
@@ -2714,8 +2456,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is a rootkit's main goal?",
-      "ar": "ما الهدف الرئيسي للـ rootkit؟"
+      "en": "What is a rootkit's main goal?"
     },
     "options": [
       "Hide its presence while keeping privileged access",
@@ -2725,8 +2466,7 @@
     ],
     "answer": "Hide its presence while keeping privileged access",
     "explanation": {
-      "en": "Rootkits tamper with the OS so tools no longer report them.",
-      "ar": "تتلاعب الـ rootkits بنظام التشغيل حتى لا تُظهرها الأدوات."
+      "en": "Rootkits tamper with the OS so tools no longer report them."
     }
   },
   {
@@ -2735,8 +2475,7 @@
     "difficulty": "medium",
     "codeSnippet": "use exploit/windows/smb/ms17_010_eternalblue",
     "question": {
-      "en": "What does this line do in msfconsole?",
-      "ar": "ماذا يفعل هذا السطر في msfconsole؟"
+      "en": "What does this line do in msfconsole?"
     },
     "options": [
       "Selects an SMB exploit module",
@@ -2746,8 +2485,7 @@
     ],
     "answer": "Selects an SMB exploit module",
     "explanation": {
-      "en": "`use` loads a module so its options can be configured and run.",
-      "ar": "يحمّل `use` وحدة لتهيئة خياراتها وتشغيلها."
+      "en": "`use` loads a module so its options can be configured and run."
     }
   },
   {
@@ -2756,8 +2494,7 @@
     "difficulty": "medium",
     "codeSnippet": "set LHOST 10.0.0.2",
     "question": {
-      "en": "What is LHOST?",
-      "ar": "ما هو LHOST؟"
+      "en": "What is LHOST?"
     },
     "options": [
       "The attacker address the payload connects back to",
@@ -2767,8 +2504,7 @@
     ],
     "answer": "The attacker address the payload connects back to",
     "explanation": {
-      "en": "LHOST is the local listener address for a reverse connection.",
-      "ar": "LHOST هو عنوان المستقبل المحلي للاتصال العكسي."
+      "en": "LHOST is the local listener address for a reverse connection."
     }
   },
   {
@@ -2777,8 +2513,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is the principle of least privilege?",
-      "ar": "ما مبدأ الحدّ الأدنى من الصلاحيات؟"
+      "en": "What is the principle of least privilege?"
     },
     "options": [
       "Grant only the access that is needed",
@@ -2788,8 +2523,7 @@
     ],
     "answer": "Grant only the access that is needed",
     "explanation": {
-      "en": "Each user or process gets the minimum rights required, limiting damage.",
-      "ar": "كل مستخدم أو عملية يأخذ أقل الصلاحيات اللازمة، فيقلّ الضرر."
+      "en": "Each user or process gets the minimum rights required, limiting damage."
     }
   },
   {
@@ -2798,8 +2532,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does a firewall's default-deny rule do?",
-      "ar": "ماذا تفعل قاعدة \"المنع الافتراضي\" في الجدار الناري؟"
+      "en": "What does a firewall's default-deny rule do?"
     },
     "options": [
       "Block anything not explicitly allowed",
@@ -2809,8 +2542,7 @@
     ],
     "answer": "Block anything not explicitly allowed",
     "explanation": {
-      "en": "A default-deny stance only permits traffic that matches an allow rule.",
-      "ar": "المنع الافتراضي يسمح فقط بحركة تطابق قاعدة سماح."
+      "en": "A default-deny stance only permits traffic that matches an allow rule."
     }
   },
   {
@@ -2819,8 +2551,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is a brute-force attack?",
-      "ar": "ما هجوم القوة الغاشمة؟"
+      "en": "What is a brute-force attack?"
     },
     "options": [
       "Trying many guesses until one works",
@@ -2830,8 +2561,7 @@
     ],
     "answer": "Trying many guesses until one works",
     "explanation": {
-      "en": "It systematically tries passwords or keys until it finds a valid one.",
-      "ar": "يجرّب كلمات المرور أو المفاتيح بشكل منهجي حتى يجد صحيحًا."
+      "en": "It systematically tries passwords or keys until it finds a valid one."
     }
   },
   {
@@ -2840,8 +2570,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does hashing a password store?",
-      "ar": "ماذا يخزّن تجزئة كلمة المرور؟"
+      "en": "What does hashing a password store?"
     },
     "options": [
       "A one-way digest, not the password",
@@ -2851,8 +2580,7 @@
     ],
     "answer": "A one-way digest, not the password",
     "explanation": {
-      "en": "A good hash can't be reversed, so the original password isn't stored.",
-      "ar": "التجزئة الجيدة لا يمكن عكسها، فلا تُخزّن كلمة المرور الأصلية."
+      "en": "A good hash can't be reversed, so the original password isn't stored."
     }
   },
   {
@@ -2861,8 +2589,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "What is a supply-chain attack?",
-      "ar": "ما هجوم سلسلة التوريد؟"
+      "en": "What is a supply-chain attack?"
     },
     "options": [
       "Compromising a trusted dependency",
@@ -2872,8 +2599,7 @@
     ],
     "answer": "Compromising a trusted dependency",
     "explanation": {
-      "en": "Attackers poison a library or update that many victims already trust.",
-      "ar": "يسمّم المهاجمون مكتبة أو تحديثًا يثق به كثير من الضحايا مسبقًا."
+      "en": "Attackers poison a library or update that many victims already trust."
     }
   },
   {
@@ -2882,8 +2608,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does two-factor authentication protect against?",
-      "ar": "ممّ تحمي المصادقة الثنائية؟"
+      "en": "What does two-factor authentication protect against?"
     },
     "options": [
       "A stolen password on its own",
@@ -2893,8 +2618,7 @@
     ],
     "answer": "A stolen password on its own",
     "explanation": {
-      "en": "Even with the password, an attacker still lacks the second factor.",
-      "ar": "حتى مع كلمة المرور، يبقى المهاجم بلا العامل الثاني."
+      "en": "Even with the password, an attacker still lacks the second factor."
     }
   },
   {
@@ -2903,8 +2627,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is phishing aimed at?",
-      "ar": "إلامَ يهدف التصيّد (phishing)؟"
+      "en": "What is phishing aimed at?"
     },
     "options": [
       "Tricking people into leaking secrets",
@@ -2914,8 +2637,7 @@
     ],
     "answer": "Tricking people into leaking secrets",
     "explanation": {
-      "en": "Phishing manipulates people, not machines, into revealing credentials.",
-      "ar": "يتلاعب التصيّد بالبشر لا بالأجهزة ليكشفوا بياناتهم."
+      "en": "Phishing manipulates people, not machines, into revealing credentials."
     }
   },
   {
@@ -2924,8 +2646,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is a CVE identifier?",
-      "ar": "ما معرّف CVE؟"
+      "en": "What is a CVE identifier?"
     },
     "options": [
       "A public id for a known vulnerability",
@@ -2935,8 +2656,7 @@
     ],
     "answer": "A public id for a known vulnerability",
     "explanation": {
-      "en": "CVE ids give everyone a shared reference for a specific disclosed flaw.",
-      "ar": "تمنح معرّفات CVE الجميع مرجعًا موحّدًا لثغرة مُعلَنة محددة."
+      "en": "CVE ids give everyone a shared reference for a specific disclosed flaw."
     }
   },
   {
@@ -2945,8 +2665,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "What is 'lateral movement'?",
-      "ar": "ما \"الحركة الجانبية\"؟"
+      "en": "What is 'lateral movement'?"
     },
     "options": [
       "Spreading to other hosts after entry",
@@ -2956,8 +2675,7 @@
     ],
     "answer": "Spreading to other hosts after entry",
     "explanation": {
-      "en": "After a foothold, the attacker pivots across the network to more systems.",
-      "ar": "بعد موطئ القدم، ينتقل المهاجم عبر الشبكة إلى أنظمة أخرى."
+      "en": "After a foothold, the attacker pivots across the network to more systems."
     }
   },
   {
@@ -2966,8 +2684,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does encryption primarily protect?",
-      "ar": "ماذا تحمي التعمية (encryption) أساسًا؟"
+      "en": "What does encryption primarily protect?"
     },
     "options": [
       "The confidentiality of the data",
@@ -2977,8 +2694,7 @@
     ],
     "answer": "The confidentiality of the data",
     "explanation": {
-      "en": "Encryption keeps data unreadable to anyone without the key.",
-      "ar": "تُبقي التعمية البيانات غير مقروءة لمن لا يملك المفتاح."
+      "en": "Encryption keeps data unreadable to anyone without the key."
     }
   },
   {
@@ -2987,8 +2703,7 @@
     "difficulty": "medium",
     "codeSnippet": "\"<script>alert(1)</script>\" stored and shown",
     "question": {
-      "en": "Which vulnerability does this demonstrate?",
-      "ar": "أي ثغرة يوضّحها هذا؟"
+      "en": "Which vulnerability does this demonstrate?"
     },
     "options": [
       "Cross-site scripting",
@@ -2998,8 +2713,7 @@
     ],
     "answer": "Cross-site scripting",
     "explanation": {
-      "en": "Rendering unescaped user input lets injected script run in the browser (XSS).",
-      "ar": "عرض مدخلات المستخدم دون تهريب يسمح بتنفيذ سكربت محقون في المتصفح (XSS)."
+      "en": "Rendering unescaped user input lets injected script run in the browser (XSS)."
     }
   },
   {
@@ -3008,8 +2722,7 @@
     "difficulty": "medium",
     "codeSnippet": "store: bcrypt(password + salt)",
     "question": {
-      "en": "Why store a salted bcrypt hash?",
-      "ar": "لماذا نخزّن تجزئة bcrypt مملّحة؟"
+      "en": "Why store a salted bcrypt hash?"
     },
     "options": [
       "Slow, unique per-user hashing",
@@ -3019,8 +2732,7 @@
     ],
     "answer": "Slow, unique per-user hashing",
     "explanation": {
-      "en": "bcrypt is deliberately slow and salted, resisting brute force and rainbow tables.",
-      "ar": "bcrypt بطيء ومملّح عمدًا فيقاوم التخمين وجداول قوس قزح."
+      "en": "bcrypt is deliberately slow and salted, resisting brute force and rainbow tables."
     }
   },
   {
@@ -3029,8 +2741,7 @@
     "difficulty": "hard",
     "codeSnippet": "query = \"SELECT * FROM u WHERE id=\" + input",
     "question": {
-      "en": "How is this best fixed?",
-      "ar": "ما أفضل إصلاح لهذا؟"
+      "en": "How is this best fixed?"
     },
     "options": [
       "Use parameterized queries",
@@ -3040,8 +2751,7 @@
     ],
     "answer": "Use parameterized queries",
     "explanation": {
-      "en": "Prepared statements separate code from data, preventing SQL injection.",
-      "ar": "الاستعلامات المُعدّة تفصل الشيفرة عن البيانات فتمنع حقن SQL."
+      "en": "Prepared statements separate code from data, preventing SQL injection."
     }
   },
   {
@@ -3050,8 +2760,7 @@
     "difficulty": "medium",
     "codeSnippet": "// login asks password + phone code",
     "question": {
-      "en": "What security control is this?",
-      "ar": "أي ضابط أمني هذا؟"
+      "en": "What security control is this?"
     },
     "options": [
       "Multi-factor authentication",
@@ -3061,8 +2770,7 @@
     ],
     "answer": "Multi-factor authentication",
     "explanation": {
-      "en": "Combining something you know and have is multi-factor authentication.",
-      "ar": "الجمع بين شيء تعرفه وشيء تملكه هو المصادقة متعددة العوامل."
+      "en": "Combining something you know and have is multi-factor authentication."
     }
   },
   {
@@ -3071,8 +2779,7 @@
     "difficulty": "hard",
     "codeSnippet": "// attacker relays traffic between two parties",
     "question": {
-      "en": "What attack is being described?",
-      "ar": "أي هجوم يُوصَف هنا؟"
+      "en": "What attack is being described?"
     },
     "options": [
       "A man-in-the-middle attack",
@@ -3082,8 +2789,7 @@
     ],
     "answer": "A man-in-the-middle attack",
     "explanation": {
-      "en": "Intercepting and relaying traffic between two ends is a man-in-the-middle attack.",
-      "ar": "اعتراض وتمرير الحركة بين طرفين هو هجوم الوسيط."
+      "en": "Intercepting and relaying traffic between two ends is a man-in-the-middle attack."
     }
   },
   {
@@ -3092,8 +2798,7 @@
     "difficulty": "medium",
     "codeSnippet": "// form submits without an anti-forgery token",
     "question": {
-      "en": "Which attack does a missing token enable?",
-      "ar": "أي هجوم يتيحه غياب الرمز؟"
+      "en": "Which attack does a missing token enable?"
     },
     "options": [
       "Cross-site request forgery",
@@ -3103,8 +2808,7 @@
     ],
     "answer": "Cross-site request forgery",
     "explanation": {
-      "en": "Without a CSRF token an attacker site can forge authenticated requests.",
-      "ar": "بدون رمز CSRF يمكن لموقع مهاجم تزوير طلبات مُصادَقة."
+      "en": "Without a CSRF token an attacker site can forge authenticated requests."
     }
   },
   {
@@ -3113,8 +2817,7 @@
     "difficulty": "easy",
     "codeSnippet": "// give each account only what it needs",
     "question": {
-      "en": "Which principle is this?",
-      "ar": "أي مبدأ هذا؟"
+      "en": "Which principle is this?"
     },
     "options": [
       "Least privilege access",
@@ -3124,8 +2827,7 @@
     ],
     "answer": "Least privilege access",
     "explanation": {
-      "en": "Least privilege grants the minimum rights required, limiting damage.",
-      "ar": "أقل صلاحية تمنح الحد الأدنى من الحقوق فتحدّ من الضرر."
+      "en": "Least privilege grants the minimum rights required, limiting damage."
     }
   },
   {
@@ -3134,8 +2836,7 @@
     "difficulty": "hard",
     "codeSnippet": "// same key encrypts and decrypts",
     "question": {
-      "en": "What type of encryption is this?",
-      "ar": "أي نوع تشفير هذا؟"
+      "en": "What type of encryption is this?"
     },
     "options": [
       "Symmetric key encryption",
@@ -3145,8 +2846,7 @@
     ],
     "answer": "Symmetric key encryption",
     "explanation": {
-      "en": "Symmetric ciphers like AES use one shared key for both directions.",
-      "ar": "الشفرات المتماثلة مثل AES تستخدم مفتاحًا مشتركًا للاتجاهين."
+      "en": "Symmetric ciphers like AES use one shared key for both directions."
     }
   },
   {
@@ -3155,8 +2855,7 @@
     "difficulty": "medium",
     "codeSnippet": "// files encrypted, ransom note appears",
     "question": {
-      "en": "What malware category is this?",
-      "ar": "أي فئة برمجيات خبيثة هذه؟"
+      "en": "What malware category is this?"
     },
     "options": [
       "Ransomware",
@@ -3166,8 +2865,7 @@
     ],
     "answer": "Ransomware",
     "explanation": {
-      "en": "Ransomware encrypts data and demands payment for the key.",
-      "ar": "برمجية الفدية تشفّر البيانات وتطلب دفعًا مقابل المفتاح."
+      "en": "Ransomware encrypts data and demands payment for the key."
     }
   },
   {
@@ -3176,8 +2874,7 @@
     "difficulty": "hard",
     "codeSnippet": "Authorization: Bearer eyJhbGci...",
     "question": {
-      "en": "What is this bearer token typically?",
-      "ar": "ما هذا الرمز (bearer) عادةً؟"
+      "en": "What is this bearer token typically?"
     },
     "options": [
       "A signed JSON web token",
@@ -3187,8 +2884,7 @@
     ],
     "answer": "A signed JSON web token",
     "explanation": {
-      "en": "Bearer tokens are often JWTs whose signature the server verifies.",
-      "ar": "رموز الحامل غالبًا JWT يتحقق الخادم من توقيعها."
+      "en": "Bearer tokens are often JWTs whose signature the server verifies."
     }
   },
   {
@@ -3197,8 +2893,7 @@
     "difficulty": "easy",
     "codeSnippet": "// email: 'verify your bank now' fake link",
     "question": {
-      "en": "This is an example of what?",
-      "ar": "هذا مثال على ماذا؟"
+      "en": "This is an example of what?"
     },
     "options": [
       "A phishing attempt",
@@ -3208,8 +2903,7 @@
     ],
     "answer": "A phishing attempt",
     "explanation": {
-      "en": "Phishing tricks users into revealing credentials via fake messages.",
-      "ar": "التصيّد يخدع المستخدمين للكشف عن بياناتهم عبر رسائل مزيفة."
+      "en": "Phishing tricks users into revealing credentials via fake messages."
     }
   },
   {
@@ -3218,8 +2912,7 @@
     "difficulty": "medium",
     "codeSnippet": "// huge traffic floods the site offline",
     "question": {
-      "en": "Which attack overwhelms a service with traffic?",
-      "ar": "أي هجوم يُغرق الخدمة بالحركة؟"
+      "en": "Which attack overwhelms a service with traffic?"
     },
     "options": [
       "Distributed denial of service",
@@ -3229,8 +2922,7 @@
     ],
     "answer": "Distributed denial of service",
     "explanation": {
-      "en": "A DDoS floods a target from many sources to exhaust its resources.",
-      "ar": "هجوم DDoS يُغرق الهدف من مصادر كثيرة لاستنزاف موارده."
+      "en": "A DDoS floods a target from many sources to exhaust its resources."
     }
   },
   {
@@ -3239,8 +2931,7 @@
     "difficulty": "hard",
     "codeSnippet": "Set-Cookie: session=abc; HttpOnly; Secure",
     "question": {
-      "en": "What does the HttpOnly flag do?",
-      "ar": "ماذا يفعل الوسم HttpOnly؟"
+      "en": "What does the HttpOnly flag do?"
     },
     "options": [
       "Blocks JavaScript cookie access",
@@ -3250,8 +2941,7 @@
     ],
     "answer": "Blocks JavaScript cookie access",
     "explanation": {
-      "en": "HttpOnly hides the cookie from document.cookie, mitigating XSS theft.",
-      "ar": "HttpOnly يخفي الكوكي عن document.cookie فيقلّل سرقتها عبر XSS."
+      "en": "HttpOnly hides the cookie from document.cookie, mitigating XSS theft."
     }
   },
   {
@@ -3260,8 +2950,7 @@
     "difficulty": "medium",
     "codeSnippet": "// firewall + MFA + backups + training",
     "question": {
-      "en": "What strategy layers many defenses?",
-      "ar": "أي استراتيجية تُراكم دفاعات متعددة؟"
+      "en": "What strategy layers many defenses?"
     },
     "options": [
       "Defense in depth",
@@ -3271,8 +2960,7 @@
     ],
     "answer": "Defense in depth",
     "explanation": {
-      "en": "Defense in depth uses overlapping controls so one failure isn't fatal.",
-      "ar": "الدفاع المتعمّق يستخدم ضوابط متداخلة فلا يكون فشل واحد قاتلًا."
+      "en": "Defense in depth uses overlapping controls so one failure isn't fatal."
     }
   },
   {
@@ -3281,8 +2969,7 @@
     "difficulty": "easy",
     "codeSnippet": "sha256(file) == published_hash",
     "question": {
-      "en": "What does matching the hash verify?",
-      "ar": "ماذا تتحقق مطابقة التجزئة؟"
+      "en": "What does matching the hash verify?"
     },
     "options": [
       "The file's integrity",
@@ -3292,8 +2979,7 @@
     ],
     "answer": "The file's integrity",
     "explanation": {
-      "en": "A matching hash shows the file was not altered in transit.",
-      "ar": "تطابق التجزئة يدل على أن الملف لم يُعدَّل أثناء النقل."
+      "en": "A matching hash shows the file was not altered in transit."
     }
   }
 ]

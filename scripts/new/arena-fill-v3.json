@@ -1,201 +1,602 @@
 [
-  { "category": "python", "difficulty": "easy", "codeSnippet": "# \"ana\" -> \"Ana\"\nname = raw.____()",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "capitalize",
-    "explanation": { "en": "capitalize() upper-cases the first character only.", "ar": "‏capitalize() ترفع أول حرف فقط." } },
-
-  { "category": "python", "difficulty": "easy", "codeSnippet": "# \"HELLO\" -> \"hello\"\nq = text.____()",
-    "question": { "en": "Fill in the blank", "ar": "املأ الفراغ" }, "answer": "lower",
-    "explanation": { "en": "lower() converts every letter to lowercase.", "ar": "‏lower() تحوّل كل حرف إلى صغير." } },
-
-  { "category": "python", "difficulty": "easy", "codeSnippet": "# \"7\" -> \"007\"\ncode = num.____(3, \"0\")",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "rjust",
-    "explanation": { "en": "rjust pads on the left until the string reaches the width.", "ar": "‏rjust تحشو من اليسار حتى يبلغ النص العرض المطلوب." } },
-
-  { "category": "python", "difficulty": "easy", "codeSnippet": "# does the file end in .csv?\nok = path.____(\".csv\")",
-    "question": { "en": "Complete the function", "ar": "أكمل الدالة" }, "answer": "endswith",
-    "explanation": { "en": "endswith() tests a suffix and returns a boolean.", "ar": "‏endswith() تفحص اللاحقة وتُعيد قيمة منطقية." } },
-
-  { "category": "python", "difficulty": "easy", "codeSnippet": "# add a key only if it is missing\ncfg.____(\"port\", 8080)",
-    "question": { "en": "Fill the blank", "ar": "املأ الفراغ" }, "answer": "setdefault",
-    "explanation": { "en": "setdefault inserts the value only when the key is absent.", "ar": "‏setdefault تُدرج القيمة فقط عند غياب المفتاح." } },
-
-  { "category": "python", "difficulty": "easy", "codeSnippet": "# merge another dict into this one\nbase.____(extra)",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "update",
-    "explanation": { "en": "update() copies the other mapping's pairs in.", "ar": "‏update() تنسخ أزواج القاموس الآخر إليه." } },
-
-  { "category": "python", "difficulty": "easy", "codeSnippet": "# walk the list from last to first\nfor x in ____(items):\n    print(x)",
-    "question": { "en": "Complete the loop", "ar": "أكمل الحلقة" }, "answer": "reversed",
-    "explanation": { "en": "reversed() iterates a sequence backwards without copying it.", "ar": "‏reversed() تمرّ على المتسلسلة عكسيًا دون نسخها." } },
-
-  { "category": "python", "difficulty": "easy", "codeSnippet": "# stop with a clear error\nif v < 0:\n    ____ ValueError(\"negative\")",
-    "question": { "en": "Fill in the blank", "ar": "املأ الفراغ" }, "answer": "raise",
-    "explanation": { "en": "raise throws the exception you construct.", "ar": "‏raise ترمي الاستثناء الذي تنشئه." } },
-
-  { "category": "javascript", "difficulty": "easy", "codeSnippet": "// add an item to the FRONT\nqueue.____('first');",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "unshift",
-    "explanation": { "en": "unshift() inserts at the start of an array.", "ar": "‏unshift() تُدرج في بداية المصفوفة." } },
-
-  { "category": "javascript", "difficulty": "easy", "codeSnippet": "// position of the LAST match\nconst i = list.____('a');",
-    "question": { "en": "Fill the blank", "ar": "املأ الفراغ" }, "answer": "lastIndexOf",
-    "explanation": { "en": "lastIndexOf() searches from the end backwards.", "ar": "‏lastIndexOf() تبحث من النهاية إلى البداية." } },
-
-  { "category": "javascript", "difficulty": "easy", "codeSnippet": "// index of the first match, or -1\nconst i = rows.____((r) => r.ok);",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "findIndex",
-    "explanation": { "en": "findIndex() returns the position, while find() returns the element.", "ar": "‏findIndex() تُعيد الموضع، وfind() تُعيد العنصر." } },
-
-  { "category": "javascript", "difficulty": "easy", "codeSnippet": "// object -> [[key, value], ...]\nconst pairs = Object.____(user);",
-    "question": { "en": "Fill in the blank", "ar": "املأ الفراغ" }, "answer": "entries",
-    "explanation": { "en": "Object.entries() returns key/value pairs.", "ar": "‏Object.entries() تُعيد أزواج المفتاح والقيمة." } },
-
-  { "category": "javascript", "difficulty": "easy", "codeSnippet": "// [[k, v], ...] -> object\nconst obj = Object.____(pairs);",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "fromEntries",
-    "explanation": { "en": "Object.fromEntries() is the inverse of entries().", "ar": "‏Object.fromEntries() عكس entries()." } },
-
-  { "category": "javascript", "difficulty": "easy", "codeSnippet": "// object -> array of its values\nconst vals = Object.____(scores);",
-    "question": { "en": "Fill the blank", "ar": "املأ الفراغ" }, "answer": "values",
-    "explanation": { "en": "Object.values() collects the values into an array.", "ar": "‏Object.values() تجمع القيم في مصفوفة." } },
-
-  { "category": "javascript", "difficulty": "easy", "codeSnippet": "// object -> JSON text\nconst body = JSON.____(payload);",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "stringify",
-    "explanation": { "en": "JSON.stringify() serialises a value to text.", "ar": "‏JSON.stringify() تُسلسل القيمة إلى نص." } },
-
-  { "category": "javascript", "difficulty": "medium", "codeSnippet": "// block the default form submit\nform.addEventListener('submit', (e) => {\n  e.____();\n});",
-    "question": { "en": "Complete the function", "ar": "أكمل الدالة" }, "answer": "preventDefault",
-    "explanation": { "en": "preventDefault() stops the browser's built-in action.", "ar": "‏preventDefault() توقف السلوك الافتراضي للمتصفح." } },
-
-  { "category": "javascript", "difficulty": "medium", "codeSnippet": "// stop the event reaching the parent\nchild.addEventListener('click', (e) => {\n  e.____();\n});",
-    "question": { "en": "Fill in the blank", "ar": "املأ الفراغ" }, "answer": "stopPropagation",
-    "explanation": { "en": "stopPropagation() keeps the event from bubbling up.", "ar": "‏stopPropagation() تمنع الحدث من الصعود للأب." } },
-
-  { "category": "javascript", "difficulty": "medium", "codeSnippet": "// is it an array?\nif (Array.____(v)) {\n  walk(v);\n}",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "isArray",
-    "explanation": { "en": "Array.isArray() is the reliable test — typeof reports 'object'.", "ar": "‏Array.isArray() هي الفحص الموثوق، إذ يعطي typeof القيمة 'object'." } },
-
-  { "category": "javascript", "difficulty": "medium", "codeSnippet": "// class check for a Date\nif (d ____ Date) {\n  fmt(d);\n}",
-    "question": { "en": "Fill the blank", "ar": "املأ الفراغ" }, "answer": "instanceof",
-    "explanation": { "en": "instanceof walks the prototype chain to test the constructor.", "ar": "‏instanceof تمشي على سلسلة النماذج لفحص الباني." } },
-
-  { "category": "javascript", "difficulty": "medium", "codeSnippet": "// make the method keep its object\nconst bound = obj.run.____(obj);",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "bind",
-    "explanation": { "en": "bind() returns a copy whose `this` is fixed.", "ar": "‏bind() تُعيد نسخة بـ this مثبّتة." } },
-
-  { "category": "javascript", "difficulty": "medium", "codeSnippet": "// keep only the truthy values\nconst clean = rows.filter(____);",
-    "question": { "en": "Fill in the blank", "ar": "املأ الفراغ" }, "answer": "Boolean",
-    "explanation": { "en": "Passing Boolean as the predicate drops every falsy entry.", "ar": "تمرير Boolean كشرط يحذف كل قيمة خاطئة." } },
-
-  { "category": "javascript", "difficulty": "medium", "codeSnippet": "// wait, then continue\nawait new Promise((r) => ____(r, 500));",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "setTimeout",
-    "explanation": { "en": "setTimeout resolves the promise after the delay.", "ar": "‏setTimeout تحلّ الوعد بعد المهلة." } },
-
-  { "category": "javascript", "difficulty": "medium", "codeSnippet": "// read the id written in the markup\nconst id = el.____.userId;",
-    "question": { "en": "Fill the blank", "ar": "املأ الفراغ" }, "answer": "dataset",
-    "explanation": { "en": "dataset exposes every data-* attribute in camelCase.", "ar": "‏dataset تُظهر كل سمات ‎data-*‎ بصيغة camelCase." } },
-
-  { "category": "javascript", "difficulty": "medium", "codeSnippet": "// toggle a css class safely\nel.____.toggle('active');",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "classList",
-    "explanation": { "en": "classList gives add/remove/toggle without touching the whole class string.", "ar": "‏classList تتيح الإضافة والحذف والتبديل دون المساس بسلسلة الأصناف كاملة." } },
-
-  { "category": "python", "difficulty": "medium", "codeSnippet": "# every value that is in BOTH sets\nboth = a.____(b)",
-    "question": { "en": "Fill in the blank", "ar": "املأ الفراغ" }, "answer": "intersection",
-    "explanation": { "en": "intersection() keeps the members present in both sets.", "ar": "‏intersection() تُبقي العناصر الموجودة في المجموعتين." } },
-
-  { "category": "python", "difficulty": "medium", "codeSnippet": "# values in a but NOT in b\nonly = a.____(b)",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "difference",
-    "explanation": { "en": "difference() removes anything also found in the other set.", "ar": "‏difference() تحذف كل ما يوجد في المجموعة الأخرى." } },
-
-  { "category": "python", "difficulty": "medium", "codeSnippet": "# remove if present, ignore if not\ntags.____(\"old\")",
-    "question": { "en": "Fill the blank", "ar": "املأ الفراغ" }, "answer": "discard",
-    "explanation": { "en": "discard() never raises, unlike remove() on a missing member.", "ar": "‏discard() لا ترمي خطأً أبدًا، بخلاف remove() مع عنصر مفقود." } },
-
-  { "category": "python", "difficulty": "medium", "codeSnippet": "# group values under a key, no KeyError\nfrom collections import defaultdict\nby = ____(list)",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "defaultdict",
-    "explanation": { "en": "defaultdict(list) creates an empty list on first access to a key.", "ar": "‏defaultdict(list) تنشئ قائمة فارغة عند أول وصول لمفتاح." } },
-
-  { "category": "python", "difficulty": "medium", "codeSnippet": "# pull the next item from an iterator\nfirst = ____(it)",
-    "question": { "en": "Fill in the blank", "ar": "املأ الفراغ" }, "answer": "next",
-    "explanation": { "en": "next() advances an iterator by one step.", "ar": "‏next() تتقدّم بالمكرّر خطوة واحدة." } },
-
-  { "category": "python", "difficulty": "medium", "codeSnippet": "# 3.7 -> 3 (toward zero)\nn = ____(3.7)",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "int",
-    "explanation": { "en": "int() truncates the fraction instead of rounding.", "ar": "‏int() تقتطع الكسر بدل التقريب." } },
-
-  { "category": "python", "difficulty": "medium", "codeSnippet": "# reuse the file handle safely\n____ open(path) as f:\n    data = f.read()",
-    "question": { "en": "Fill the blank", "ar": "املأ الفراغ" }, "answer": "with",
-    "explanation": { "en": "A with block closes the file even if the body raises.", "ar": "كتلة with تغلق الملف حتى لو رمى الجسم استثناءً." } },
-
-  { "category": "python", "difficulty": "medium", "codeSnippet": "# skip this row and keep looping\nfor r in rows:\n    if not r.ok:\n        ____",
-    "question": { "en": "Complete the loop", "ar": "أكمل الحلقة" }, "answer": "continue",
-    "explanation": { "en": "continue jumps straight to the next iteration.", "ar": "‏continue تقفز مباشرة إلى الدورة التالية." } },
-
-  { "category": "python", "difficulty": "medium", "codeSnippet": "# call the parent constructor\nclass Admin(User):\n    def __init__(self, n):\n        ____().__init__(n)",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "super",
-    "explanation": { "en": "super() reaches the parent class implementation.", "ar": "‏super() تصل إلى تنفيذ الصنف الأب." } },
-
-  { "category": "python", "difficulty": "medium", "codeSnippet": "# the constructor of a class\nclass Point:\n    def ____(self, x):\n        self.x = x",
-    "question": { "en": "Complete the function", "ar": "أكمل الدالة" }, "answer": "__init__",
-    "explanation": { "en": "__init__ runs when the instance is created.", "ar": "‏__init__ تُنفَّذ عند إنشاء الكائن." } },
-
-  { "category": "javascript", "difficulty": "medium", "codeSnippet": "// inherit from a base class\nclass Admin ____ User {\n  constructor(n) { super(n); }\n}",
-    "question": { "en": "Fill in the blank", "ar": "املأ الفراغ" }, "answer": "extends",
-    "explanation": { "en": "extends sets up the prototype chain to the base class.", "ar": "‏extends تُنشئ سلسلة النماذج إلى الصنف الأساس." } },
-
-  { "category": "javascript", "difficulty": "medium", "codeSnippet": "// a method callable without an instance\nclass MathUtil {\n  ____ square(n) { return n * n; }\n}",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "static",
-    "explanation": { "en": "static puts the method on the class itself.", "ar": "‏static تضع الدالة على الصنف نفسه." } },
-
-  { "category": "javascript", "difficulty": "medium", "codeSnippet": "// signal a failure to the caller\nif (!ok) {\n  ____ new Error('failed');\n}",
-    "question": { "en": "Fill the blank", "ar": "املأ الفراغ" }, "answer": "throw",
-    "explanation": { "en": "throw raises the error for the nearest catch.", "ar": "‏throw ترمي الخطأ إلى أقرب catch." } },
-
-  { "category": "javascript", "difficulty": "hard", "codeSnippet": "// collect the remaining arguments\nfunction log(first, ____rest) {\n  console.log(rest.length);\n}",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "...",
-    "explanation": { "en": "The rest parameter gathers the extra arguments into an array.", "ar": "معامل الباقي يجمع الوسائط الزائدة في مصفوفة." } },
-
-  { "category": "javascript", "difficulty": "hard", "codeSnippet": "// read a nested value without crashing\nconst city = user____.address?.city;",
-    "question": { "en": "Fill in the blank", "ar": "املأ الفراغ" }, "answer": "?.",
-    "explanation": { "en": "Optional chaining short-circuits to undefined instead of throwing.", "ar": "التسلسل الاختياري يعيد undefined بدل رمي خطأ." } },
-
-  { "category": "javascript", "difficulty": "hard", "codeSnippet": "// keep 0 but default null/undefined\nconst n = input ____ 10;",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "??",
-    "explanation": { "en": "?? only falls back on null or undefined, unlike ||.", "ar": "‏?? لا تتدخّل إلا مع null أو undefined، بخلاف ||." } },
-
-  { "category": "javascript", "difficulty": "hard", "codeSnippet": "// wait for all, keep failures too\nconst res = await Promise.____(tasks);",
-    "question": { "en": "Fill the blank", "ar": "املأ الفراغ" }, "answer": "allSettled",
-    "explanation": { "en": "allSettled resolves with every outcome instead of rejecting on the first failure.", "ar": "‏allSettled تُعيد كل النتائج بدل الرفض عند أول فشل." } },
-
-  { "category": "javascript", "difficulty": "hard", "codeSnippet": "// a key that cannot collide\nconst hidden = ____('meta');",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "Symbol",
-    "explanation": { "en": "Every Symbol is unique, so it never clashes with another key.", "ar": "كل Symbol فريد، فلا يتصادم مع مفتاح آخر أبدًا." } },
-
-  { "category": "javascript", "difficulty": "hard", "codeSnippet": "// produce values lazily\nfunction* ids() {\n  let i = 0;\n  while (true) ____ i++;\n}",
-    "question": { "en": "Complete the function", "ar": "أكمل الدالة" }, "answer": "yield",
-    "explanation": { "en": "yield hands one value to the caller and pauses the generator.", "ar": "‏yield تسلّم قيمة للمستدعي وتوقف المولّد مؤقتًا." } },
-
-  { "category": "python", "difficulty": "hard", "codeSnippet": "# a lightweight immutable record\nfrom typing import NamedTuple\nclass P(____):\n    x: int",
-    "question": { "en": "Fill in the blank", "ar": "املأ الفراغ" }, "answer": "NamedTuple",
-    "explanation": { "en": "Subclassing NamedTuple gives a small immutable class with named fields.", "ar": "الوراثة من NamedTuple تعطي صنفًا صغيرًا غير قابل للتغيير بحقول مسمّاة." } },
-
-  { "category": "python", "difficulty": "hard", "codeSnippet": "# rebind a name from the enclosing function\ndef outer():\n    n = 0\n    def inner():\n        ____ n\n        n += 1",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "nonlocal",
-    "explanation": { "en": "nonlocal targets the enclosing function's variable, not a global one.", "ar": "‏nonlocal تستهدف متغيّر الدالة المحيطة لا متغيّرًا عامًا." } },
-
-  { "category": "python", "difficulty": "hard", "codeSnippet": "# expose a computed attribute\nclass Box:\n    @____\n    def area(self):\n        return self.w * self.h",
-    "question": { "en": "Fill the blank", "ar": "املأ الفراغ" }, "answer": "property",
-    "explanation": { "en": "@property lets the method be read like a plain attribute.", "ar": "‏@property تجعل الدالة تُقرأ كخاصية عادية." } },
-
-  { "category": "python", "difficulty": "hard", "codeSnippet": "# generate a data class with __init__ for free\nfrom dataclasses import dataclass\n@____\nclass P:\n    x: int",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "dataclass",
-    "explanation": { "en": "@dataclass writes __init__, __repr__ and __eq__ for you.", "ar": "‏@dataclass تكتب لك ‎__init__‎ و‎__repr__‎ و‎__eq__‎." } },
-
-  { "category": "typescript", "difficulty": "hard", "codeSnippet": "// a value that may be absent\nlet name: string | ____ = undefined;",
-    "question": { "en": "Fill in the blank", "ar": "املأ الفراغ" }, "answer": "undefined",
-    "explanation": { "en": "The union must include undefined for the assignment to type-check.", "ar": "يجب أن يشمل الاتحاد undefined ليجتاز الإسناد فحص الأنواع." } },
-
-  { "category": "typescript", "difficulty": "hard", "codeSnippet": "// every field optional, none required\ntype Draft = ____<User>;",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" }, "answer": "Partial",
-    "explanation": { "en": "Partial<T> maps every property of T to optional.", "ar": "‏Partial<T> تجعل كل خصائص T اختيارية." } },
-
-  { "category": "typescript", "difficulty": "hard", "codeSnippet": "// nothing may be reassigned\ntype Frozen = ____<Config>;",
-    "question": { "en": "Fill the blank", "ar": "املأ الفراغ" }, "answer": "Readonly",
-    "explanation": { "en": "Readonly<T> marks every property of T as readonly.", "ar": "‏Readonly<T> تجعل كل خصائص T للقراءة فقط." } }
+  {
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# \"ana\" -> \"Ana\"\nname = raw.____()",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "capitalize",
+    "explanation": {
+      "en": "capitalize() upper-cases the first character only."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# \"HELLO\" -> \"hello\"\nq = text.____()",
+    "question": {
+      "en": "Fill in the blank"
+    },
+    "answer": "lower",
+    "explanation": {
+      "en": "lower() converts every letter to lowercase."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# \"7\" -> \"007\"\ncode = num.____(3, \"0\")",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "rjust",
+    "explanation": {
+      "en": "rjust pads on the left until the string reaches the width."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# does the file end in .csv?\nok = path.____(\".csv\")",
+    "question": {
+      "en": "Complete the function"
+    },
+    "answer": "endswith",
+    "explanation": {
+      "en": "endswith() tests a suffix and returns a boolean."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# add a key only if it is missing\ncfg.____(\"port\", 8080)",
+    "question": {
+      "en": "Fill the blank"
+    },
+    "answer": "setdefault",
+    "explanation": {
+      "en": "setdefault inserts the value only when the key is absent."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# merge another dict into this one\nbase.____(extra)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "update",
+    "explanation": {
+      "en": "update() copies the other mapping's pairs in."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# walk the list from last to first\nfor x in ____(items):\n    print(x)",
+    "question": {
+      "en": "Complete the loop"
+    },
+    "answer": "reversed",
+    "explanation": {
+      "en": "reversed() iterates a sequence backwards without copying it."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# stop with a clear error\nif v < 0:\n    ____ ValueError(\"negative\")",
+    "question": {
+      "en": "Fill in the blank"
+    },
+    "answer": "raise",
+    "explanation": {
+      "en": "raise throws the exception you construct."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// add an item to the FRONT\nqueue.____('first');",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "unshift",
+    "explanation": {
+      "en": "unshift() inserts at the start of an array."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// position of the LAST match\nconst i = list.____('a');",
+    "question": {
+      "en": "Fill the blank"
+    },
+    "answer": "lastIndexOf",
+    "explanation": {
+      "en": "lastIndexOf() searches from the end backwards."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// index of the first match, or -1\nconst i = rows.____((r) => r.ok);",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "findIndex",
+    "explanation": {
+      "en": "findIndex() returns the position, while find() returns the element."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// object -> [[key, value], ...]\nconst pairs = Object.____(user);",
+    "question": {
+      "en": "Fill in the blank"
+    },
+    "answer": "entries",
+    "explanation": {
+      "en": "Object.entries() returns key/value pairs."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// [[k, v], ...] -> object\nconst obj = Object.____(pairs);",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "fromEntries",
+    "explanation": {
+      "en": "Object.fromEntries() is the inverse of entries()."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// object -> array of its values\nconst vals = Object.____(scores);",
+    "question": {
+      "en": "Fill the blank"
+    },
+    "answer": "values",
+    "explanation": {
+      "en": "Object.values() collects the values into an array."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// object -> JSON text\nconst body = JSON.____(payload);",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "stringify",
+    "explanation": {
+      "en": "JSON.stringify() serialises a value to text."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// block the default form submit\nform.addEventListener('submit', (e) => {\n  e.____();\n});",
+    "question": {
+      "en": "Complete the function"
+    },
+    "answer": "preventDefault",
+    "explanation": {
+      "en": "preventDefault() stops the browser's built-in action."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// stop the event reaching the parent\nchild.addEventListener('click', (e) => {\n  e.____();\n});",
+    "question": {
+      "en": "Fill in the blank"
+    },
+    "answer": "stopPropagation",
+    "explanation": {
+      "en": "stopPropagation() keeps the event from bubbling up."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// is it an array?\nif (Array.____(v)) {\n  walk(v);\n}",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "isArray",
+    "explanation": {
+      "en": "Array.isArray() is the reliable test — typeof reports 'object'."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// class check for a Date\nif (d ____ Date) {\n  fmt(d);\n}",
+    "question": {
+      "en": "Fill the blank"
+    },
+    "answer": "instanceof",
+    "explanation": {
+      "en": "instanceof walks the prototype chain to test the constructor."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// make the method keep its object\nconst bound = obj.run.____(obj);",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "bind",
+    "explanation": {
+      "en": "bind() returns a copy whose `this` is fixed."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// keep only the truthy values\nconst clean = rows.filter(____);",
+    "question": {
+      "en": "Fill in the blank"
+    },
+    "answer": "Boolean",
+    "explanation": {
+      "en": "Passing Boolean as the predicate drops every falsy entry."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// wait, then continue\nawait new Promise((r) => ____(r, 500));",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "setTimeout",
+    "explanation": {
+      "en": "setTimeout resolves the promise after the delay."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// read the id written in the markup\nconst id = el.____.userId;",
+    "question": {
+      "en": "Fill the blank"
+    },
+    "answer": "dataset",
+    "explanation": {
+      "en": "dataset exposes every data-* attribute in camelCase."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// toggle a css class safely\nel.____.toggle('active');",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "classList",
+    "explanation": {
+      "en": "classList gives add/remove/toggle without touching the whole class string."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "# every value that is in BOTH sets\nboth = a.____(b)",
+    "question": {
+      "en": "Fill in the blank"
+    },
+    "answer": "intersection",
+    "explanation": {
+      "en": "intersection() keeps the members present in both sets."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "# values in a but NOT in b\nonly = a.____(b)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "difference",
+    "explanation": {
+      "en": "difference() removes anything also found in the other set."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "# remove if present, ignore if not\ntags.____(\"old\")",
+    "question": {
+      "en": "Fill the blank"
+    },
+    "answer": "discard",
+    "explanation": {
+      "en": "discard() never raises, unlike remove() on a missing member."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "# group values under a key, no KeyError\nfrom collections import defaultdict\nby = ____(list)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "defaultdict",
+    "explanation": {
+      "en": "defaultdict(list) creates an empty list on first access to a key."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "# pull the next item from an iterator\nfirst = ____(it)",
+    "question": {
+      "en": "Fill in the blank"
+    },
+    "answer": "next",
+    "explanation": {
+      "en": "next() advances an iterator by one step."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "# 3.7 -> 3 (toward zero)\nn = ____(3.7)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "int",
+    "explanation": {
+      "en": "int() truncates the fraction instead of rounding."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "# reuse the file handle safely\n____ open(path) as f:\n    data = f.read()",
+    "question": {
+      "en": "Fill the blank"
+    },
+    "answer": "with",
+    "explanation": {
+      "en": "A with block closes the file even if the body raises."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "# skip this row and keep looping\nfor r in rows:\n    if not r.ok:\n        ____",
+    "question": {
+      "en": "Complete the loop"
+    },
+    "answer": "continue",
+    "explanation": {
+      "en": "continue jumps straight to the next iteration."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "# call the parent constructor\nclass Admin(User):\n    def __init__(self, n):\n        ____().__init__(n)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "super",
+    "explanation": {
+      "en": "super() reaches the parent class implementation."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "# the constructor of a class\nclass Point:\n    def ____(self, x):\n        self.x = x",
+    "question": {
+      "en": "Complete the function"
+    },
+    "answer": "__init__",
+    "explanation": {
+      "en": "__init__ runs when the instance is created."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// inherit from a base class\nclass Admin ____ User {\n  constructor(n) { super(n); }\n}",
+    "question": {
+      "en": "Fill in the blank"
+    },
+    "answer": "extends",
+    "explanation": {
+      "en": "extends sets up the prototype chain to the base class."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// a method callable without an instance\nclass MathUtil {\n  ____ square(n) { return n * n; }\n}",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "static",
+    "explanation": {
+      "en": "static puts the method on the class itself."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// signal a failure to the caller\nif (!ok) {\n  ____ new Error('failed');\n}",
+    "question": {
+      "en": "Fill the blank"
+    },
+    "answer": "throw",
+    "explanation": {
+      "en": "throw raises the error for the nearest catch."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "// collect the remaining arguments\nfunction log(first, ____rest) {\n  console.log(rest.length);\n}",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "...",
+    "explanation": {
+      "en": "The rest parameter gathers the extra arguments into an array."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "// read a nested value without crashing\nconst city = user____.address?.city;",
+    "question": {
+      "en": "Fill in the blank"
+    },
+    "answer": "?.",
+    "explanation": {
+      "en": "Optional chaining short-circuits to undefined instead of throwing."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "// keep 0 but default null/undefined\nconst n = input ____ 10;",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "??",
+    "explanation": {
+      "en": "?? only falls back on null or undefined, unlike ||."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "// wait for all, keep failures too\nconst res = await Promise.____(tasks);",
+    "question": {
+      "en": "Fill the blank"
+    },
+    "answer": "allSettled",
+    "explanation": {
+      "en": "allSettled resolves with every outcome instead of rejecting on the first failure."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "// a key that cannot collide\nconst hidden = ____('meta');",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "Symbol",
+    "explanation": {
+      "en": "Every Symbol is unique, so it never clashes with another key."
+    }
+  },
+  {
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "// produce values lazily\nfunction* ids() {\n  let i = 0;\n  while (true) ____ i++;\n}",
+    "question": {
+      "en": "Complete the function"
+    },
+    "answer": "yield",
+    "explanation": {
+      "en": "yield hands one value to the caller and pauses the generator."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "# a lightweight immutable record\nfrom typing import NamedTuple\nclass P(____):\n    x: int",
+    "question": {
+      "en": "Fill in the blank"
+    },
+    "answer": "NamedTuple",
+    "explanation": {
+      "en": "Subclassing NamedTuple gives a small immutable class with named fields."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "# rebind a name from the enclosing function\ndef outer():\n    n = 0\n    def inner():\n        ____ n\n        n += 1",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "nonlocal",
+    "explanation": {
+      "en": "nonlocal targets the enclosing function's variable, not a global one."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "# expose a computed attribute\nclass Box:\n    @____\n    def area(self):\n        return self.w * self.h",
+    "question": {
+      "en": "Fill the blank"
+    },
+    "answer": "property",
+    "explanation": {
+      "en": "@property lets the method be read like a plain attribute."
+    }
+  },
+  {
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "# generate a data class with __init__ for free\nfrom dataclasses import dataclass\n@____\nclass P:\n    x: int",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "dataclass",
+    "explanation": {
+      "en": "@dataclass writes __init__, __repr__ and __eq__ for you."
+    }
+  },
+  {
+    "category": "typescript",
+    "difficulty": "hard",
+    "codeSnippet": "// a value that may be absent\nlet name: string | ____ = undefined;",
+    "question": {
+      "en": "Fill in the blank"
+    },
+    "answer": "undefined",
+    "explanation": {
+      "en": "The union must include undefined for the assignment to type-check."
+    }
+  },
+  {
+    "category": "typescript",
+    "difficulty": "hard",
+    "codeSnippet": "// every field optional, none required\ntype Draft = ____<User>;",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "Partial",
+    "explanation": {
+      "en": "Partial<T> maps every property of T to optional."
+    }
+  },
+  {
+    "category": "typescript",
+    "difficulty": "hard",
+    "codeSnippet": "// nothing may be reassigned\ntype Frozen = ____<Config>;",
+    "question": {
+      "en": "Fill the blank"
+    },
+    "answer": "Readonly",
+    "explanation": {
+      "en": "Readonly<T> marks every property of T as readonly."
+    }
+  }
 ]

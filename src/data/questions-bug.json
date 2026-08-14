@@ -5,8 +5,7 @@
     "difficulty": "easy",
     "codeSnippet": "function add(a, b) {\n  a + b;\n}",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Change `+` to `*`",
@@ -16,8 +15,7 @@
     ],
     "answer": "Add `return` before `a + b`",
     "explanation": {
-      "en": "The function computes the sum but never returns it.",
-      "ar": "الدالة تحسب المجموع لكنها لا تُعيده أبدًا."
+      "en": "The function computes the sum but never returns it."
     }
   },
   {
@@ -26,8 +24,7 @@
     "difficulty": "easy",
     "codeSnippet": "def greet(name):\nprint(\"Hi \" + name)",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Indent the `print` line",
@@ -37,8 +34,7 @@
     ],
     "answer": "Indent the `print` line",
     "explanation": {
-      "en": "The body of the function must be indented under the def.",
-      "ar": "يجب أن يكون جسم الدالة مُزاحًا تحت def."
+      "en": "The body of the function must be indented under the def."
     }
   },
   {
@@ -47,8 +43,7 @@
     "difficulty": "easy",
     "codeSnippet": "const nums = [1, 2, 3];\nconsole.log(nums.length());",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Use `nums.size` without ()",
@@ -58,8 +53,7 @@
     ],
     "answer": "Use `nums.length` without ()",
     "explanation": {
-      "en": "`length` is a property, not a method, so drop the parentheses.",
-      "ar": "length خاصية وليست دالة، لذا احذف القوسين."
+      "en": "`length` is a property, not a method, so drop the parentheses."
     }
   },
   {
@@ -68,8 +62,7 @@
     "difficulty": "easy",
     "codeSnippet": "nums = [10, 20, 30]\nprint(nums[3])",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Change `nums[3]` to `nums(3)`",
@@ -79,8 +72,7 @@
     ],
     "answer": "Change `nums[3]` to `nums[2]`",
     "explanation": {
-      "en": "Valid indices are 0..2; index 3 is out of range.",
-      "ar": "الفهارس الصالحة 0..2، والفهرس 3 خارج النطاق."
+      "en": "Valid indices are 0..2; index 3 is out of range."
     }
   },
   {
@@ -89,8 +81,7 @@
     "difficulty": "easy",
     "codeSnippet": "let x = 5\nif (x = 10) {\n  console.log(\"ten\");\n}",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Change `x = 10` to `x => 10`",
@@ -100,8 +91,7 @@
     ],
     "answer": "Change `x = 10` to `x == 10`",
     "explanation": {
-      "en": "A single `=` assigns; use `==` (or `===`) to compare.",
-      "ar": "علامة = واحدة تُسنِد؛ استخدم == (أو ===) للمقارنة."
+      "en": "A single `=` assigns; use `==` (or `===`) to compare."
     }
   },
   {
@@ -110,8 +100,7 @@
     "difficulty": "easy",
     "codeSnippet": "total = 0\nfor i in range(5)\n  total += i",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Remove `range` from the header",
@@ -121,8 +110,7 @@
     ],
     "answer": "Add a colon after `range(5)`",
     "explanation": {
-      "en": "A `for` statement header must end with a colon.",
-      "ar": "يجب أن ينتهي رأس جملة for بنقطتين."
+      "en": "A `for` statement header must end with a colon."
     }
   },
   {
@@ -131,8 +119,7 @@
     "difficulty": "easy",
     "codeSnippet": "const name = \"Ada\";\nconsole.log(\"Hello, \" + Name);",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Add `let Name`",
@@ -142,8 +129,7 @@
     ],
     "answer": "Change `Name` to `name`",
     "explanation": {
-      "en": "JavaScript is case-sensitive; the variable is `name`.",
-      "ar": "جافاسكربت حسّاسة لحالة الأحرف، والمتغيّر اسمه name."
+      "en": "JavaScript is case-sensitive; the variable is `name`."
     }
   },
   {
@@ -152,8 +138,7 @@
     "difficulty": "easy",
     "codeSnippet": "def square(n):\n    return n ** 2\n\nprint(squere(4))",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Change `squere(4)` to `square(4)`",
@@ -163,8 +148,7 @@
     ],
     "answer": "Change `squere(4)` to `square(4)`",
     "explanation": {
-      "en": "The call misspells the function name `square`.",
-      "ar": "الاستدعاء يكتب اسم الدالة square بشكل خاطئ."
+      "en": "The call misspells the function name `square`."
     }
   },
   {
@@ -173,8 +157,7 @@
     "difficulty": "easy",
     "codeSnippet": "const arr = [1, 2, 3];\narr.push;",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Use `arr.add(4)` instead of push",
@@ -184,8 +167,7 @@
     ],
     "answer": "Change `arr.push;` to `arr.push(4);`",
     "explanation": {
-      "en": "`push` must be called with parentheses and a value.",
-      "ar": "يجب استدعاء push بقوسين مع تمرير قيمة."
+      "en": "`push` must be called with parentheses and a value."
     }
   },
   {
@@ -194,8 +176,7 @@
     "difficulty": "easy",
     "codeSnippet": "age = \"20\"\nnext_year = age + 1",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Change `+ 1` to `+ \"1\"`",
@@ -205,8 +186,7 @@
     ],
     "answer": "Wrap age with `int(age)`",
     "explanation": {
-      "en": "A string cannot be added to an int; convert with `int()`.",
-      "ar": "لا يمكن جمع نص مع عدد صحيح؛ حوّله بـ int()."
+      "en": "A string cannot be added to an int; convert with `int()`."
     }
   },
   {
@@ -215,8 +195,7 @@
     "difficulty": "easy",
     "codeSnippet": "function isEven(n) {\n  return n % 2 = 0;\n}",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Change `% 2` to `/ 2`",
@@ -226,8 +205,7 @@
     ],
     "answer": "Change `= 0` to `=== 0`",
     "explanation": {
-      "en": "Comparison needs `===`, not the assignment operator `=`.",
-      "ar": "المقارنة تحتاج === وليس معامل الإسناد =."
+      "en": "Comparison needs `===`, not the assignment operator `=`."
     }
   },
   {
@@ -236,8 +214,7 @@
     "difficulty": "easy",
     "codeSnippet": "fruits = [\"apple\", \"pear\"]\nprint(len(fruits)",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Use `fruits.length`",
@@ -247,8 +224,7 @@
     ],
     "answer": "Add a closing `)`",
     "explanation": {
-      "en": "The `print` call is missing its closing parenthesis.",
-      "ar": "استدعاء print ينقصه القوس المغلق."
+      "en": "The `print` call is missing its closing parenthesis."
     }
   },
   {
@@ -257,8 +233,7 @@
     "difficulty": "easy",
     "codeSnippet": "let count = 0;\nwhile (count < 3) {\n  console.log(count);\n}",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Add `count++` inside the loop",
@@ -268,8 +243,7 @@
     ],
     "answer": "Add `count++` inside the loop",
     "explanation": {
-      "en": "Without incrementing count, the loop never ends.",
-      "ar": "بدون زيادة count لن تنتهي الحلقة أبدًا."
+      "en": "Without incrementing count, the loop never ends."
     }
   },
   {
@@ -278,8 +252,7 @@
     "difficulty": "easy",
     "codeSnippet": "const arr = [1, 2, 3];\nfor (let i = 0; i <= arr.length; i++) {\n  console.log(arr[i]);\n}",
     "question": {
-      "en": "Which fix removes the off-by-one bug?",
-      "ar": "أي إصلاح يزيل خطأ الفرق بواحد؟"
+      "en": "Which fix removes the off-by-one bug?"
     },
     "options": [
       "Change `i = 0` to `i = 1` in the header",
@@ -289,8 +262,7 @@
     ],
     "answer": "Change `i <= arr.length` to `i < arr.length`",
     "explanation": {
-      "en": "The loop must stop before length to avoid reading undefined.",
-      "ar": "يجب أن تتوقف الحلقة قبل length لتجنّب قراءة undefined."
+      "en": "The loop must stop before length to avoid reading undefined."
     }
   },
   {
@@ -299,8 +271,7 @@
     "difficulty": "easy",
     "codeSnippet": "def average(nums):\n    total = sum(nums)\n    return total / len(num)",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Change `/` to `//`",
@@ -310,8 +281,7 @@
     ],
     "answer": "Change `len(num)` to `len(nums)`",
     "explanation": {
-      "en": "The parameter is `nums`; `num` is undefined.",
-      "ar": "المعامل اسمه nums، أما num فغير مُعرَّف."
+      "en": "The parameter is `nums`; `num` is undefined."
     }
   },
   {
@@ -320,8 +290,7 @@
     "difficulty": "easy",
     "codeSnippet": "function double(arr) {\n  return arr.map(x => x * 2)\n}\nconsole.log(double(5));",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Change `x * 2` to `x + 2`",
@@ -331,8 +300,7 @@
     ],
     "answer": "Pass an array like `double([5])`",
     "explanation": {
-      "en": "`map` works on arrays, so pass `[5]` not the number 5.",
-      "ar": "map تعمل على المصفوفات، لذا مرّر [5] لا العدد 5."
+      "en": "`map` works on arrays, so pass `[5]` not the number 5."
     }
   },
   {
@@ -341,8 +309,7 @@
     "difficulty": "easy",
     "codeSnippet": "def first_upper(words):\n    for w in words:\n        if w[0].isupper:\n            return w",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Change `w[0]` to `w[1]` in the test",
@@ -352,8 +319,7 @@
     ],
     "answer": "Change `isupper` to `isupper()`",
     "explanation": {
-      "en": "`isupper` is a method and must be called with `()`.",
-      "ar": "isupper دالة ويجب استدعاؤها بقوسين ()."
+      "en": "`isupper` is a method and must be called with `()`."
     }
   },
   {
@@ -362,8 +328,7 @@
     "difficulty": "easy",
     "codeSnippet": "function getLen(s: string): number {\n  return s.length;\n}\nconst n: number = getLen(42);",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Change return type to `string`",
@@ -373,8 +338,7 @@
     ],
     "answer": "Pass a string, e.g. `getLen(\"42\")`",
     "explanation": {
-      "en": "The argument must be a string to match the parameter type.",
-      "ar": "يجب أن يكون الوسيط نصًا ليطابق نوع المعامل."
+      "en": "The argument must be a string to match the parameter type."
     }
   },
   {
@@ -383,8 +347,7 @@
     "difficulty": "easy",
     "codeSnippet": "const obj = { a: 1, b: 2 };\nfor (const key in obj) {\n  console.log(obj.key);\n}",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Change `in` to `of`",
@@ -394,8 +357,7 @@
     ],
     "answer": "Change `obj.key` to `obj[key]`",
     "explanation": {
-      "en": "Dynamic property access needs bracket notation `obj[key]`.",
-      "ar": "الوصول الديناميكي للخصائص يحتاج صيغة الأقواس obj[key]."
+      "en": "Dynamic property access needs bracket notation `obj[key]`."
     }
   },
   {
@@ -404,8 +366,7 @@
     "difficulty": "easy",
     "codeSnippet": "def count_evens(nums):\n    c = 0\n    for n in nums:\n        if n % 2 == 1:\n            c += 1\n    return c",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Change `c += 1` to `c += n`",
@@ -415,8 +376,7 @@
     ],
     "answer": "Change `== 1` to `== 0`",
     "explanation": {
-      "en": "Even numbers have remainder 0, so compare against 0.",
-      "ar": "الأعداد الزوجية باقيها 0، لذا قارن بـ 0."
+      "en": "Even numbers have remainder 0, so compare against 0."
     }
   },
   {
@@ -425,8 +385,7 @@
     "difficulty": "easy",
     "codeSnippet": "function greet(name) {\n  return \"Hi \" + name;\n}\ngreet(\"Sam\")\nconsole.log(result);",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Change `+` to `,` in the greeting string",
@@ -436,8 +395,7 @@
     ],
     "answer": "Store the return: `const result = greet(\"Sam\")`",
     "explanation": {
-      "en": "The result is never captured; assign the call to `result`.",
-      "ar": "النتيجة لا تُلتقط أبدًا؛ أسنِد الاستدعاء إلى result."
+      "en": "The result is never captured; assign the call to `result`."
     }
   },
   {
@@ -446,8 +404,7 @@
     "difficulty": "easy",
     "codeSnippet": "def repeat(text, times):\n    return text * time",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Change `time` to `times`",
@@ -457,8 +414,7 @@
     ],
     "answer": "Change `time` to `times`",
     "explanation": {
-      "en": "The parameter is `times`; `time` is not defined.",
-      "ar": "المعامل اسمه times، أما time فغير مُعرَّف."
+      "en": "The parameter is `times`; `time` is not defined."
     }
   },
   {
@@ -467,8 +423,7 @@
     "difficulty": "easy",
     "codeSnippet": "const ids: number[] = [];\nids.push(\"3\");",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Change `number[]` to `string[]`",
@@ -478,8 +433,7 @@
     ],
     "answer": "Push a number: `ids.push(3)`",
     "explanation": {
-      "en": "A `number[]` can only hold numbers, so push `3` not \"3\".",
-      "ar": "المصفوفة number[] تقبل أعدادًا فقط، لذا أضِف 3 لا \"3\"."
+      "en": "A `number[]` can only hold numbers, so push `3` not \"3\"."
     }
   },
   {
@@ -488,8 +442,7 @@
     "difficulty": "easy",
     "codeSnippet": "const max = Math.max([4, 9, 1]);",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Use `Math.maximum`",
@@ -499,8 +452,7 @@
     ],
     "answer": "Use `Math.max(...[4, 9, 1])`",
     "explanation": {
-      "en": "`Math.max` takes individual args; spread the array.",
-      "ar": "Math.max تأخذ وسائط منفردة، لذا انشر المصفوفة."
+      "en": "`Math.max` takes individual args; spread the array."
     }
   },
   {
@@ -509,8 +461,7 @@
     "difficulty": "easy",
     "codeSnippet": "def safe_div(a, b):\n    if b == 0:\n        return None\n    return a / b\nprint(safe_div(10))",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Pass two args: `safe_div(10, 2)`",
@@ -520,8 +471,7 @@
     ],
     "answer": "Pass two args: `safe_div(10, 2)`",
     "explanation": {
-      "en": "`safe_div` requires two arguments but only one was given.",
-      "ar": "safe_div تتطلب وسيطين ولم يُمرَّر إلا واحد."
+      "en": "`safe_div` requires two arguments but only one was given."
     }
   },
   {
@@ -530,8 +480,7 @@
     "difficulty": "easy",
     "codeSnippet": "const s = \"racecar\";\nconst rev = s.split(\"\").reverse().join;",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Change `join` to `join(\"\")`",
@@ -541,8 +490,7 @@
     ],
     "answer": "Change `join` to `join(\"\")`",
     "explanation": {
-      "en": "`join` must be called with parentheses to produce a string.",
-      "ar": "يجب استدعاء join بقوسين لإنتاج نص."
+      "en": "`join` must be called with parentheses to produce a string."
     }
   },
   {
@@ -551,8 +499,7 @@
     "difficulty": "medium",
     "codeSnippet": "const nums = [1, 2, 3, 4];\nnums.forEach((n, i) => {\n  if (n % 2 === 0) nums.splice(i, 1);\n});",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Change `splice` to `slice` in the loop",
@@ -562,8 +509,7 @@
     ],
     "answer": "Filter instead: `nums.filter(n => n % 2 !== 0)`",
     "explanation": {
-      "en": "Mutating an array while iterating skips elements; use filter.",
-      "ar": "تعديل مصفوفة أثناء المرور عليها يتخطّى عناصر؛ استخدم filter."
+      "en": "Mutating an array while iterating skips elements; use filter."
     }
   },
   {
@@ -572,8 +518,7 @@
     "difficulty": "medium",
     "codeSnippet": "def add_item(item, bag=[]):\n    bag.append(item)\n    return bag",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Change default to `bag=None` and init inside",
@@ -583,8 +528,7 @@
     ],
     "answer": "Change default to `bag=None` and init inside",
     "explanation": {
-      "en": "A mutable default is shared across calls; use None then init.",
-      "ar": "القيمة الافتراضية القابلة للتغيير مشتركة بين الاستدعاءات؛ استخدم None ثم هيّئها."
+      "en": "A mutable default is shared across calls; use None then init."
     }
   },
   {
@@ -593,8 +537,7 @@
     "difficulty": "medium",
     "codeSnippet": "async function getData() {\n  const res = fetch(\"/api\");\n  return res.json();\n}",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Remove `async` from the function",
@@ -604,8 +547,7 @@
     ],
     "answer": "Add `await` before `fetch(\"/api\")`",
     "explanation": {
-      "en": "`fetch` returns a promise that must be awaited first.",
-      "ar": "fetch تُعيد وعدًا يجب انتظاره بـ await أولًا."
+      "en": "`fetch` returns a promise that must be awaited first."
     }
   },
   {
@@ -614,8 +556,7 @@
     "difficulty": "medium",
     "codeSnippet": "var fns = [];\nfor (var i = 0; i < 3; i++) {\n  fns.push(() => i);\n}\nconsole.log(fns.map(f => f()));",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Change `() => i` to `() => i++`",
@@ -625,8 +566,7 @@
     ],
     "answer": "Change `var i` to `let i`",
     "explanation": {
-      "en": "`let` gives each iteration its own `i`; `var` shares one.",
-      "ar": "let تمنح كل دورة نسختها من i، بينما var تتشارك واحدة."
+      "en": "`let` gives each iteration its own `i`; `var` shares one."
     }
   },
   {
@@ -635,8 +575,7 @@
     "difficulty": "medium",
     "codeSnippet": "def dedupe(items):\n    seen = []\n    for x in items:\n        if x not in seen:\n            seen.append\n    return seen",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Change `not in` to `in` in the test",
@@ -646,8 +585,7 @@
     ],
     "answer": "Change `seen.append` to `seen.append(x)`",
     "explanation": {
-      "en": "`append` is referenced but never called with `x`.",
-      "ar": "append مُشار إليها لكن لم تُستدعَ أبدًا بـ x."
+      "en": "`append` is referenced but never called with `x`."
     }
   },
   {
@@ -656,8 +594,7 @@
     "difficulty": "medium",
     "codeSnippet": "function findUser(id: number, users: {id: number}[]) {\n  return users.find(u => u.id = id);\n}",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Change `find` to `filter`",
@@ -667,8 +604,7 @@
     ],
     "answer": "Change `u.id = id` to `u.id === id`",
     "explanation": {
-      "en": "The predicate assigns instead of comparing; use `===`.",
-      "ar": "الشرط يُسنِد بدل أن يقارن؛ استخدم ===."
+      "en": "The predicate assigns instead of comparing; use `===`."
     }
   },
   {
@@ -677,8 +613,7 @@
     "difficulty": "medium",
     "codeSnippet": "function sum(arr) {\n  let total;\n  for (const n of arr) total += n;\n  return total;\n}",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Change `of` to `in`",
@@ -688,8 +623,7 @@
     ],
     "answer": "Initialize `total = 0`",
     "explanation": {
-      "en": "`total` starts as undefined, so adding yields NaN; start at 0.",
-      "ar": "total يبدأ undefined فيعطي الجمع NaN؛ ابدأ من 0."
+      "en": "`total` starts as undefined, so adding yields NaN; start at 0."
     }
   },
   {
@@ -698,8 +632,7 @@
     "difficulty": "medium",
     "codeSnippet": "nums = [3, 1, 2]\nsorted_nums = nums.sort()\nprint(sorted_nums)",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Use `sorted_nums = sorted(nums)`",
@@ -709,8 +642,7 @@
     ],
     "answer": "Use `sorted_nums = sorted(nums)`",
     "explanation": {
-      "en": "`list.sort()` returns None; `sorted()` returns a new list.",
-      "ar": "list.sort() تُعيد None، أما sorted() فتُعيد قائمة جديدة."
+      "en": "`list.sort()` returns None; `sorted()` returns a new list."
     }
   },
   {
@@ -719,8 +651,7 @@
     "difficulty": "medium",
     "codeSnippet": "const counts = {};\nfor (const c of \"hello\") {\n  counts[c]++;\n}",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Change `++` to `+= 2` in the body",
@@ -730,8 +661,7 @@
     ],
     "answer": "Use `counts[c] = (counts[c] || 0) + 1`",
     "explanation": {
-      "en": "Incrementing undefined gives NaN; default to 0 first.",
-      "ar": "زيادة قيمة undefined تعطي NaN؛ اجعل الافتراضي 0 أولًا."
+      "en": "Incrementing undefined gives NaN; default to 0 first."
     }
   },
   {
@@ -740,8 +670,7 @@
     "difficulty": "medium",
     "codeSnippet": "def factorial(n):\n    if n == 0:\n        return 1\n    return n * factorial(n)",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Change `factorial(n)` to `factorial(n - 1)`",
@@ -751,8 +680,7 @@
     ],
     "answer": "Change `factorial(n)` to `factorial(n - 1)`",
     "explanation": {
-      "en": "The recursive call must shrink n, otherwise it never ends.",
-      "ar": "يجب أن يُقلّص الاستدعاء الذاتي قيمة n وإلا لن ينتهي."
+      "en": "The recursive call must shrink n, otherwise it never ends."
     }
   },
   {
@@ -761,8 +689,7 @@
     "difficulty": "medium",
     "codeSnippet": "function parseFlag(v?: string): boolean {\n  return v.toLowerCase() === \"true\";\n}",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Guard: `return v?.toLowerCase() === \"true\"`",
@@ -772,8 +699,7 @@
     ],
     "answer": "Guard: `return v?.toLowerCase() === \"true\"`",
     "explanation": {
-      "en": "`v` may be undefined; use optional chaining before calling.",
-      "ar": "قد تكون v غير مُعرَّفة؛ استخدم ?. قبل الاستدعاء."
+      "en": "`v` may be undefined; use optional chaining before calling."
     }
   },
   {
@@ -782,8 +708,7 @@
     "difficulty": "medium",
     "codeSnippet": "function clone(obj) {\n  const copy = obj;\n  copy.x = 99;\n  return copy;\n}",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Change `copy.x` to `obj.x`",
@@ -793,8 +718,7 @@
     ],
     "answer": "Use `const copy = { ...obj }`",
     "explanation": {
-      "en": "Assigning shares the reference; spread to make a real copy.",
-      "ar": "الإسناد يشارك المرجع؛ انشر العناصر لعمل نسخة حقيقية."
+      "en": "Assigning shares the reference; spread to make a real copy."
     }
   },
   {
@@ -803,8 +727,7 @@
     "difficulty": "hard",
     "codeSnippet": "function binarySearch(a, t) {\n  let lo = 0, hi = a.length;\n  while (lo < hi) {\n    const mid = (lo + hi) >> 1;\n    if (a[mid] === t) return mid;\n    if (a[mid] < t) lo = mid;\n    else hi = mid;\n  }\n  return -1;\n}",
     "question": {
-      "en": "Which fix removes the subtle bug?",
-      "ar": "أي إصلاح يزيل الخطأ الخفي؟"
+      "en": "Which fix removes the subtle bug?"
     },
     "options": [
       "Change `hi = a.length` to `a.length - 1`",
@@ -814,8 +737,7 @@
     ],
     "answer": "Change `lo = mid` to `lo = mid + 1`",
     "explanation": {
-      "en": "Without `mid + 1`, lo can stall and loop forever.",
-      "ar": "بدون mid + 1 قد تتوقف lo وتدور الحلقة بلا نهاية."
+      "en": "Without `mid + 1`, lo can stall and loop forever."
     }
   },
   {
@@ -824,8 +746,7 @@
     "difficulty": "hard",
     "codeSnippet": "def chunk(lst, n):\n    result = []\n    for i in range(0, len(lst)):\n        result.append(lst[i:i + n])\n    return result",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Change `lst[i:i + n]` to `lst[i:n]` in body",
@@ -835,8 +756,7 @@
     ],
     "answer": "Change `range(0, len(lst))` to `range(0, len(lst), n)`",
     "explanation": {
-      "en": "The step must be `n` so chunks do not overlap.",
-      "ar": "يجب أن تكون الخطوة n حتى لا تتداخل القطع."
+      "en": "The step must be `n` so chunks do not overlap."
     }
   },
   {
@@ -845,8 +765,7 @@
     "difficulty": "hard",
     "codeSnippet": "function debounce(fn, ms) {\n  let t;\n  return function (...args) {\n    clearTimeout(t);\n    t = setTimeout(fn(...args), ms);\n  };\n}",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Remove `clearTimeout(t)` from the body",
@@ -856,8 +775,7 @@
     ],
     "answer": "Change to `setTimeout(() => fn(...args), ms)`",
     "explanation": {
-      "en": "`fn(...args)` runs immediately; pass a function instead.",
-      "ar": "fn(...args) تُنفَّذ فورًا؛ مرّر دالة بدلًا من ذلك."
+      "en": "`fn(...args)` runs immediately; pass a function instead."
     }
   },
   {
@@ -866,8 +784,7 @@
     "difficulty": "hard",
     "codeSnippet": "async function loadAll(urls: string[]) {\n  const out = [];\n  urls.forEach(async (u) => {\n    out.push(await fetch(u));\n  });\n  return out;\n}",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Remove `async` from the callback",
@@ -877,8 +794,7 @@
     ],
     "answer": "Use `await Promise.all(urls.map(u => fetch(u)))`",
     "explanation": {
-      "en": "`forEach` does not await; collect promises with Promise.all.",
-      "ar": "forEach لا تنتظر await؛ اجمع الوعود بـ Promise.all."
+      "en": "`forEach` does not await; collect promises with Promise.all."
     }
   },
   {
@@ -887,8 +803,7 @@
     "difficulty": "hard",
     "codeSnippet": "def merge(d1, d2):\n    merged = d1\n    for k, v in d2.items():\n        merged[k] = v\n    return merged",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Change `d2.items()` to `d2.keys()` in loop",
@@ -898,8 +813,7 @@
     ],
     "answer": "Change `merged = d1` to `merged = dict(d1)`",
     "explanation": {
-      "en": "`merged = d1` aliases d1; copy it so d1 is not mutated.",
-      "ar": "merged = d1 يجعلها اسمًا آخر لـ d1؛ انسخها كي لا تتغيّر d1."
+      "en": "`merged = d1` aliases d1; copy it so d1 is not mutated."
     }
   },
   {
@@ -908,8 +822,7 @@
     "difficulty": "hard",
     "codeSnippet": "const obj = {\n  value: 10,\n  getValue: () => {\n    return this.value;\n  },\n};\nconsole.log(obj.getValue());",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Use a method shorthand `getValue() { return this.value; }`",
@@ -919,8 +832,7 @@
     ],
     "answer": "Use a method shorthand `getValue() { return this.value; }`",
     "explanation": {
-      "en": "Arrow functions have no own `this`; use a normal method.",
-      "ar": "الدوال السهمية لا تملك this خاصًا بها؛ استخدم دالة عادية."
+      "en": "Arrow functions have no own `this`; use a normal method."
     }
   },
   {
@@ -929,8 +841,7 @@
     "difficulty": "hard",
     "codeSnippet": "def fib(n, memo={}):\n    if n <= 1:\n        return n\n    if n in memo:\n        return memo[n]\n    return fib(n - 1) + fib(n - 2)",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Change `n <= 1` to `n < 1` in the base case",
@@ -940,8 +851,7 @@
     ],
     "answer": "Store result: `memo[n] = fib(n-1)+fib(n-2); return memo[n]`",
     "explanation": {
-      "en": "Results are read from memo but never written, so it never caches.",
-      "ar": "النتائج تُقرأ من memo لكنها لا تُكتب فيه، فلا يحدث تخزين."
+      "en": "Results are read from memo but never written, so it never caches."
     }
   },
   {
@@ -950,8 +860,7 @@
     "difficulty": "hard",
     "codeSnippet": "function flatten(arr) {\n  return arr.reduce((acc, x) =>\n    Array.isArray(x) ? acc.concat(x) : acc.push(x), []);\n}",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Change the initial value to `{}` instead",
@@ -961,8 +870,7 @@
     ],
     "answer": "Replace `acc.push(x)` with `acc.concat(x)`",
     "explanation": {
-      "en": "`push` returns a length, not the accumulator; use concat.",
-      "ar": "push تُعيد الطول لا المُجمِّع؛ استخدم concat."
+      "en": "`push` returns a length, not the accumulator; use concat."
     }
   },
   {
@@ -971,8 +879,7 @@
     "difficulty": "hard",
     "codeSnippet": "function uniq<T>(items: T[]): T[] {\n  const seen = new Set<T>();\n  return items.filter((x) => {\n    seen.add(x);\n    return !seen.has(x);\n  });\n}",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Change `Set<T>` to `Array<T>` in the type",
@@ -982,8 +889,7 @@
     ],
     "answer": "Return `!seen.has(x)` BEFORE calling `seen.add(x)`",
     "explanation": {
-      "en": "Adding before checking makes `has` always true; check first.",
-      "ar": "الإضافة قبل الفحص تجعل has صحيحة دائمًا؛ افحص أولًا."
+      "en": "Adding before checking makes `has` always true; check first."
     }
   },
   {
@@ -992,8 +898,7 @@
     "difficulty": "hard",
     "codeSnippet": "def remove_evens(nums):\n    for n in nums:\n        if n % 2 == 0:\n            nums.remove(n)\n    return nums",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Change `remove(n)` to `pop(n)`",
@@ -1003,8 +908,7 @@
     ],
     "answer": "Iterate a copy: `for n in nums[:]:`",
     "explanation": {
-      "en": "Removing while iterating skips items; loop over a copy.",
-      "ar": "الحذف أثناء المرور يتخطّى عناصر؛ مُرّ على نسخة."
+      "en": "Removing while iterating skips items; loop over a copy."
     }
   },
   {
@@ -1013,8 +917,7 @@
     "difficulty": "hard",
     "codeSnippet": "function range(start, end) {\n  const out = [];\n  for (let i = start; i < end; i++) out.push(i);\n  return out;\n}\nconsole.log(range(1, 5).includes(5));",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Change `i < end` to `i <= end`",
@@ -1024,8 +927,7 @@
     ],
     "answer": "Change `i < end` to `i <= end`",
     "explanation": {
-      "en": "To include `end`, the loop condition must be `i <= end`.",
-      "ar": "لتضمين end يجب أن يكون شرط الحلقة i <= end."
+      "en": "To include `end`, the loop condition must be `i <= end`."
     }
   },
   {
@@ -1034,8 +936,7 @@
     "difficulty": "hard",
     "codeSnippet": "function groupBy<T>(arr: T[], key: keyof T) {\n  const map: Record<string, T[]> = {};\n  for (const item of arr) {\n    const k = String(item[key]);\n    map[k].push(item);\n  }\n  return map;\n}",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Change `Record<string, T[]>` to `T[]` type",
@@ -1045,8 +946,7 @@
     ],
     "answer": "Init the bucket: `(map[k] ??= []).push(item)`",
     "explanation": {
-      "en": "The bucket array must exist before pushing into it.",
-      "ar": "يجب أن توجد مصفوفة السلة قبل الإضافة إليها."
+      "en": "The bucket array must exist before pushing into it."
     }
   },
   {
@@ -1055,8 +955,7 @@
     "difficulty": "easy",
     "codeSnippet": "const nums = [10, 20, 30];\nfor (const i in nums) {\n  console.log(i * 2);\n}",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Use `for (const n of nums)` to get values",
@@ -1066,8 +965,7 @@
     ],
     "answer": "Use `for (const n of nums)` to get values",
     "explanation": {
-      "en": "`for...in` yields string keys ('0','1'), so the multiply is wrong; `for...of` yields the values.",
-      "ar": "‏for...in تُعطي المفاتيح كنصوص ('0','1') فيفسد الضرب، بينما for...of تُعطي القيم."
+      "en": "`for...in` yields string keys ('0','1'), so the multiply is wrong; `for...of` yields the values."
     }
   },
   {
@@ -1076,8 +974,7 @@
     "difficulty": "easy",
     "codeSnippet": "function half(s) {\n  return parseInt(s) / 2;\n}\nhalf('08');",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Pass the radix: `parseInt(s, 10)`",
@@ -1087,8 +984,7 @@
     ],
     "answer": "Pass the radix: `parseInt(s, 10)`",
     "explanation": {
-      "en": "Always give parseInt a radix; without it the base is implementation-dependent for odd input.",
-      "ar": "مرّر الأساس دائمًا إلى parseInt؛ بدونه يعتمد الأساس على التنفيذ مع المدخلات الغريبة."
+      "en": "Always give parseInt a radix; without it the base is implementation-dependent for odd input."
     }
   },
   {
@@ -1097,8 +993,7 @@
     "difficulty": "easy",
     "codeSnippet": "def greet(self, name):\n    return \"Hi \" + name\n\nclass Greeter:\n    greet = greet",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Define `greet` inside the class body",
@@ -1108,8 +1003,7 @@
     ],
     "answer": "Define `greet` inside the class body",
     "explanation": {
-      "en": "A method belongs in the class body; assigning a stray function is fragile and confusing.",
-      "ar": "الدالة العضو تُعرَّف داخل جسم الصنف؛ إسناد دالة خارجية هشّ ومربك."
+      "en": "A method belongs in the class body; assigning a stray function is fragile and confusing."
     }
   },
   {
@@ -1118,8 +1012,7 @@
     "difficulty": "easy",
     "codeSnippet": "switch (kind) {\n  case 'a':\n    total += 1;\n  case 'b':\n    total += 10;\n}",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Add `break;` at the end of each case",
@@ -1129,8 +1022,7 @@
     ],
     "answer": "Add `break;` at the end of each case",
     "explanation": {
-      "en": "Without break the cases fall through, so 'a' also runs the 'b' branch.",
-      "ar": "بدون break تتسرّب الحالات، فتُنفَّذ 'b' أيضًا عند اختيار 'a'."
+      "en": "Without break the cases fall through, so 'a' also runs the 'b' branch."
     }
   },
   {
@@ -1139,8 +1031,7 @@
     "difficulty": "easy",
     "codeSnippet": "s = \"hello\"\ns[0] = \"H\"\nprint(s)",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Rebuild it: `s = \"H\" + s[1:]`",
@@ -1150,8 +1041,7 @@
     ],
     "answer": "Rebuild it: `s = \"H\" + s[1:]`",
     "explanation": {
-      "en": "Python strings are immutable, so build a new string instead of assigning to an index.",
-      "ar": "النصوص في بايثون غير قابلة للتغيير، فابنِ نصًا جديدًا بدل الإسناد إلى فهرس."
+      "en": "Python strings are immutable, so build a new string instead of assigning to an index."
     }
   },
   {
@@ -1160,8 +1050,7 @@
     "difficulty": "easy",
     "codeSnippet": "const items = [3, 1, 2];\nconst sorted = items.sort();\nconsole.log(items);",
     "question": {
-      "en": "Which fix removes the subtle bug?",
-      "ar": "أي إصلاح يزيل الخطأ الخفي؟"
+      "en": "Which fix removes the subtle bug?"
     },
     "options": [
       "Copy first: `[...items].sort((a,b)=>a-b)`",
@@ -1171,8 +1060,7 @@
     ],
     "answer": "Copy first: `[...items].sort((a,b)=>a-b)`",
     "explanation": {
-      "en": "sort() mutates the original array in place; spread into a copy to leave `items` untouched.",
-      "ar": "‏sort() تعدّل المصفوفة الأصلية؛ انسخها بالنشر كي تبقى items كما هي."
+      "en": "sort() mutates the original array in place; spread into a copy to leave `items` untouched."
     }
   },
   {
@@ -1181,8 +1069,7 @@
     "difficulty": "easy",
     "codeSnippet": "a = [1, 2, 3]\nb = a\nb.append(4)\nprint(len(a))",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Copy it with `b = a[:]` instead",
@@ -1192,8 +1079,7 @@
     ],
     "answer": "Copy it with `b = a[:]` instead",
     "explanation": {
-      "en": "`b = a` binds the same list, so appending is visible through `a`; slice to copy it.",
-      "ar": "‏b = a تربط القائمة نفسها فتظهر الإضافة عبر a؛ استخدم التقطيع لنسخها."
+      "en": "`b = a` binds the same list, so appending is visible through `a`; slice to copy it."
     }
   },
   {
@@ -1202,8 +1088,7 @@
     "difficulty": "easy",
     "codeSnippet": "const found = [1, 2, 3].forEach((n) => {\n  if (n === 2) return n;\n});",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Use `find` so the match is returned",
@@ -1213,8 +1098,7 @@
     ],
     "answer": "Use `find` so the match is returned",
     "explanation": {
-      "en": "forEach always returns undefined and a return inside it only exits that callback; find returns the match.",
-      "ar": "‏forEach تُعيد undefined دائمًا، وreturn بداخلها تُنهي الاستدعاء فقط؛ find تُعيد المطابق."
+      "en": "forEach always returns undefined and a return inside it only exits that callback; find returns the match."
     }
   },
   {
@@ -1223,8 +1107,7 @@
     "difficulty": "medium",
     "codeSnippet": "counts = {\"a\": 1, \"b\": 0}\nfor k in counts:\n    if counts[k] == 0:\n        del counts[k]",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Iterate a copy: `for k in list(counts)`",
@@ -1234,8 +1117,7 @@
     ],
     "answer": "Iterate a copy: `for k in list(counts)`",
     "explanation": {
-      "en": "Deleting while iterating a dict raises RuntimeError; iterate over a snapshot of the keys.",
-      "ar": "الحذف أثناء المرور على القاموس يرفع RuntimeError؛ مُرّ على نسخة من المفاتيح."
+      "en": "Deleting while iterating a dict raises RuntimeError; iterate over a snapshot of the keys."
     }
   },
   {
@@ -1244,8 +1126,7 @@
     "difficulty": "medium",
     "codeSnippet": "async function total(): Promise<number> {\n  const res = fetch('/api/sum');\n  return (await res).ok ? 1 : 0;\n}",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Await at the call: `await fetch('/api/sum')`",
@@ -1255,8 +1136,7 @@
     ],
     "answer": "Await at the call: `await fetch('/api/sum')`",
     "explanation": {
-      "en": "Await the promise where it is created so `res` is the response, not a pending promise.",
-      "ar": "انتظر الوعد عند إنشائه ليكون res هو الاستجابة لا وعدًا معلّقًا."
+      "en": "Await the promise where it is created so `res` is the response, not a pending promise."
     }
   },
   {
@@ -1265,8 +1145,7 @@
     "difficulty": "medium",
     "codeSnippet": "const obj = {\n  count: 0,\n  start() {\n    setTimeout(function () {\n      this.count++;\n    }, 10);\n  }\n};",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Use an arrow callback so `this` is kept",
@@ -1276,8 +1155,7 @@
     ],
     "answer": "Use an arrow callback so `this` is kept",
     "explanation": {
-      "en": "A normal function gets its own `this`; an arrow keeps the enclosing method's `this`.",
-      "ar": "الدالة العادية تملك this خاصًا بها، أما السهمية فتحتفظ بـ this الخاص بالدالة المحيطة."
+      "en": "A normal function gets its own `this`; an arrow keeps the enclosing method's `this`."
     }
   },
   {
@@ -1286,8 +1164,7 @@
     "difficulty": "medium",
     "codeSnippet": "def rate(a, b):\n    if b is 0:\n        return 0\n    return a / b",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Compare by value with `if b == 0:`",
@@ -1297,8 +1174,7 @@
     ],
     "answer": "Compare by value with `if b == 0:`",
     "explanation": {
-      "en": "`is` compares identity, not value; use == for numeric comparison.",
-      "ar": "‏is تقارن الهوية لا القيمة؛ استخدم == لمقارنة الأعداد."
+      "en": "`is` compares identity, not value; use == for numeric comparison."
     }
   },
   {
@@ -1307,8 +1183,7 @@
     "difficulty": "medium",
     "codeSnippet": "function tag(name) {\n  this.name = name;\n}\nconst t = tag('box');\nconsole.log(t.name);",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Construct it: `const t = new tag('box')`",
@@ -1318,8 +1193,7 @@
     ],
     "answer": "Construct it: `const t = new tag('box')`",
     "explanation": {
-      "en": "Without `new` the call has no fresh `this`, so it returns undefined.",
-      "ar": "بدون new لا يوجد this جديد للاستدعاء، فتكون النتيجة undefined."
+      "en": "Without `new` the call has no fresh `this`, so it returns undefined."
     }
   },
   {
@@ -1328,8 +1202,7 @@
     "difficulty": "medium",
     "codeSnippet": "try:\n    value = int(raw)\nexcept:\n    value = 0",
     "question": {
-      "en": "Which fix removes the subtle bug?",
-      "ar": "أي إصلاح يزيل الخطأ الخفي؟"
+      "en": "Which fix removes the subtle bug?"
     },
     "options": [
       "Catch narrowly: `except ValueError:`",
@@ -1339,8 +1212,7 @@
     ],
     "answer": "Catch narrowly: `except ValueError:`",
     "explanation": {
-      "en": "A bare except also swallows KeyboardInterrupt and real errors; catch the specific one.",
-      "ar": "‏except المجرّدة تبتلع KeyboardInterrupt والأخطاء الحقيقية؛ التقط الاستثناء المحدّد."
+      "en": "A bare except also swallows KeyboardInterrupt and real errors; catch the specific one."
     }
   },
   {
@@ -1349,8 +1221,7 @@
     "difficulty": "medium",
     "codeSnippet": "const a = [1, 2];\nconst b = [1, 2];\nif (a === b) {\n  console.log('same');\n}",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Compare contents element by element",
@@ -1360,8 +1231,7 @@
     ],
     "answer": "Compare contents element by element",
     "explanation": {
-      "en": "=== compares references for arrays, so two distinct arrays are never equal; compare contents.",
-      "ar": "‏=== تقارن المراجع للمصفوفات فلا تتساوى مصفوفتان مختلفتان؛ قارن المحتوى."
+      "en": "=== compares references for arrays, so two distinct arrays are never equal; compare contents."
     }
   },
   {
@@ -1370,8 +1240,7 @@
     "difficulty": "medium",
     "codeSnippet": "def top(words):\n    return sorted(words, key=len(words))",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Pass the function itself: `key=len`",
@@ -1381,8 +1250,7 @@
     ],
     "answer": "Pass the function itself: `key=len`",
     "explanation": {
-      "en": "key takes a function to call per item; `len(words)` passes a number instead.",
-      "ar": "‏key تأخذ دالة تُستدعى لكل عنصر، أما len(words) فتمرّر عددًا."
+      "en": "key takes a function to call per item; `len(words)` passes a number instead."
     }
   },
   {
@@ -1391,8 +1259,7 @@
     "difficulty": "medium",
     "codeSnippet": "let total = 0;\n[1, 2, 3].forEach((n) => {\n  total = total + n;\n});\nconst avg = total / 0;",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Divide by the count: `total / 3`",
@@ -1402,8 +1269,7 @@
     ],
     "answer": "Divide by the count: `total / 3`",
     "explanation": {
-      "en": "Dividing by zero gives Infinity; divide by the number of elements.",
-      "ar": "القسمة على صفر تعطي Infinity؛ اقسم على عدد العناصر."
+      "en": "Dividing by zero gives Infinity; divide by the number of elements."
     }
   },
   {
@@ -1412,8 +1278,7 @@
     "difficulty": "medium",
     "codeSnippet": "const seen: Map<string, number> = new Map();\nseen['a'] = 1;\nconsole.log(seen.size);",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Store it with `seen.set('a', 1)`",
@@ -1423,8 +1288,7 @@
     ],
     "answer": "Store it with `seen.set('a', 1)`",
     "explanation": {
-      "en": "Bracket assignment adds a plain property and never touches the Map, so size stays 0.",
-      "ar": "الإسناد بالأقواس يضيف خاصية عادية ولا يمسّ الـ Map، فيبقى size صفرًا."
+      "en": "Bracket assignment adds a plain property and never touches the Map, so size stays 0."
     }
   },
   {
@@ -1433,8 +1297,7 @@
     "difficulty": "medium",
     "codeSnippet": "total = 0\nfor row in rows:\n    total += row\nprint(\"total: \" + total)",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Convert it: `\"total: \" + str(total)`",
@@ -1444,8 +1307,7 @@
     ],
     "answer": "Convert it: `\"total: \" + str(total)`",
     "explanation": {
-      "en": "A str and an int cannot be concatenated; convert the number with str().",
-      "ar": "لا يمكن دمج نص مع عدد صحيح؛ حوّل العدد بـ str()."
+      "en": "A str and an int cannot be concatenated; convert the number with str()."
     }
   },
   {
@@ -1454,8 +1316,7 @@
     "difficulty": "medium",
     "codeSnippet": "const cfg = { retries: 0 };\nconst retries = cfg.retries || 3;\nconsole.log(retries);",
     "question": {
-      "en": "Which fix removes the subtle bug?",
-      "ar": "أي إصلاح يزيل الخطأ الخفي؟"
+      "en": "Which fix removes the subtle bug?"
     },
     "options": [
       "Use `??` so only null/undefined default",
@@ -1465,8 +1326,7 @@
     ],
     "answer": "Use `??` so only null/undefined default",
     "explanation": {
-      "en": "0 is falsy so || replaces a valid value; ?? only falls back on null or undefined.",
-      "ar": "الصفر يُعدّ خاطئًا فتستبدله ||؛ أما ?? فلا تتدخّل إلا مع null أو undefined."
+      "en": "0 is falsy so || replaces a valid value; ?? only falls back on null or undefined."
     }
   },
   {
@@ -1475,8 +1335,7 @@
     "difficulty": "hard",
     "codeSnippet": "grid = [[0] * 3] * 3\ngrid[0][0] = 5\nprint(grid[1][0])",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Build rows: `[[0] * 3 for _ in range(3)]`",
@@ -1486,8 +1345,7 @@
     ],
     "answer": "Build rows: `[[0] * 3 for _ in range(3)]`",
     "explanation": {
-      "en": "`* 3` repeats the SAME inner list three times, so one write appears in every row.",
-      "ar": "‏* 3 تكرّر القائمة الداخلية نفسها ثلاث مرات، فتظهر أي كتابة في كل الصفوف."
+      "en": "`* 3` repeats the SAME inner list three times, so one write appears in every row."
     }
   },
   {
@@ -1496,8 +1354,7 @@
     "difficulty": "hard",
     "codeSnippet": "async function all(ids) {\n  const out = [];\n  ids.forEach(async (id) => {\n    out.push(await load(id));\n  });\n  return out;\n}",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Use `await Promise.all(ids.map(load))`",
@@ -1507,8 +1364,7 @@
     ],
     "answer": "Use `await Promise.all(ids.map(load))`",
     "explanation": {
-      "en": "forEach ignores the async callbacks, so `out` is still empty at the return; Promise.all waits.",
-      "ar": "‏forEach تتجاهل الاستدعاءات غير المتزامنة فتبقى out فارغة عند الإرجاع؛ Promise.all تنتظرها."
+      "en": "forEach ignores the async callbacks, so `out` is still empty at the return; Promise.all waits."
     }
   },
   {
@@ -1517,8 +1373,7 @@
     "difficulty": "hard",
     "codeSnippet": "fns = []\nfor i in range(3):\n    fns.append(lambda: i)\nprint(fns[0]())",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Bind it now: `lambda i=i: i` in append",
@@ -1528,8 +1383,7 @@
     ],
     "answer": "Bind it now: `lambda i=i: i` in append",
     "explanation": {
-      "en": "The lambdas close over the variable, not its value, so all see the final i; a default binds it.",
-      "ar": "تغلق اللامدا على المتغيّر لا قيمته فترى كلها i الأخيرة؛ القيمة الافتراضية تثبّتها."
+      "en": "The lambdas close over the variable, not its value, so all see the final i; a default binds it."
     }
   },
   {
@@ -1538,8 +1392,7 @@
     "difficulty": "hard",
     "codeSnippet": "const clone = { ...user };\nclone.address.city = 'Riyadh';\nconsole.log(user.address.city);",
     "question": {
-      "en": "Which fix removes the subtle bug?",
-      "ar": "أي إصلاح يزيل الخطأ الخفي؟"
+      "en": "Which fix removes the subtle bug?"
     },
     "options": [
       "Deep copy: `structuredClone(user)` first",
@@ -1549,8 +1402,7 @@
     ],
     "answer": "Deep copy: `structuredClone(user)` first",
     "explanation": {
-      "en": "Spread copies one level, so `address` is shared and the write leaks into `user`.",
-      "ar": "النشر ينسخ مستوى واحدًا، فتبقى address مشتركة وتتسرّب الكتابة إلى user."
+      "en": "Spread copies one level, so `address` is shared and the write leaks into `user`."
     }
   },
   {
@@ -1559,8 +1411,7 @@
     "difficulty": "hard",
     "codeSnippet": "function pick<T>(list: T[], i: number): T {\n  return list[i];\n}\nconst v = pick([1, 2], 9);",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Return `T | undefined` and guard the index",
@@ -1570,8 +1421,7 @@
     ],
     "answer": "Return `T | undefined` and guard the index",
     "explanation": {
-      "en": "An out-of-range index yields undefined, which the declared return type wrongly denies.",
-      "ar": "الفهرس خارج النطاق يعطي undefined، وهو ما ينفيه نوع الإرجاع المعلن خطأً."
+      "en": "An out-of-range index yields undefined, which the declared return type wrongly denies."
     }
   },
   {
@@ -1580,8 +1430,7 @@
     "difficulty": "hard",
     "codeSnippet": "def add_tag(tag, tags=[]):\n    tags.append(tag)\n    return tags\n\nprint(add_tag(\"a\"), add_tag(\"b\"))",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Default to `None` and build inside",
@@ -1591,8 +1440,7 @@
     ],
     "answer": "Default to `None` and build inside",
     "explanation": {
-      "en": "A mutable default is created once and shared by every call, so the list keeps growing.",
-      "ar": "القيمة الافتراضية القابلة للتغيير تُنشأ مرة وتُشارك كل الاستدعاءات، فتتراكم القائمة."
+      "en": "A mutable default is created once and shared by every call, so the list keeps growing."
     }
   },
   {
@@ -1601,8 +1449,7 @@
     "difficulty": "hard",
     "codeSnippet": "const ids = rows.map((r) => r.id);\nconst uniq = ids.filter((id, i) => ids.indexOf(id) === i);\nconst missing = uniq.filter((id) => !id);",
     "question": {
-      "en": "Which fix removes the subtle bug?",
-      "ar": "أي إصلاح يزيل الخطأ الخفي؟"
+      "en": "Which fix removes the subtle bug?"
     },
     "options": [
       "Test with `id == null` so 0 is kept",
@@ -1612,8 +1459,7 @@
     ],
     "answer": "Test with `id == null` so 0 is kept",
     "explanation": {
-      "en": "`!id` also matches the valid id 0 and an empty string; test for null/undefined explicitly.",
-      "ar": "‏!id تطابق أيضًا المعرّف 0 والنص الفارغ؛ افحص null/undefined صراحةً."
+      "en": "`!id` also matches the valid id 0 and an empty string; test for null/undefined explicitly."
     }
   },
   {
@@ -1622,8 +1468,7 @@
     "difficulty": "hard",
     "codeSnippet": "with open(path) as f:\n    data = f.read()\nprint(f.closed)\nrows = data.split(\"\\n\")[1:]",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Strip first so a trailing blank line goes",
@@ -1633,8 +1478,7 @@
     ],
     "answer": "Strip first so a trailing blank line goes",
     "explanation": {
-      "en": "A file usually ends with a newline, so split leaves an empty final row; strip it first.",
-      "ar": "ينتهي الملف عادةً بسطر جديد فيترك التقسيم صفًا فارغًا في آخره؛ احذفه أولًا."
+      "en": "A file usually ends with a newline, so split leaves an empty final row; strip it first."
     }
   },
   {
@@ -1643,8 +1487,7 @@
     "difficulty": "hard",
     "codeSnippet": "let timer;\nfunction poll() {\n  timer = setInterval(fetchNow, 1000);\n}\npoll();\npoll();",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Call `clearInterval(timer)` before setting",
@@ -1654,8 +1497,7 @@
     ],
     "answer": "Call `clearInterval(timer)` before setting",
     "explanation": {
-      "en": "The second call orphans the first interval, which keeps firing forever; clear it first.",
-      "ar": "الاستدعاء الثاني يتيم المؤقّت الأول فيظلّ يعمل بلا نهاية؛ ألغِه أولًا."
+      "en": "The second call orphans the first interval, which keeps firing forever; clear it first."
     }
   },
   {
@@ -1664,8 +1506,7 @@
     "difficulty": "hard",
     "codeSnippet": "enum Role { User, Admin }\nfunction isAdmin(r: Role) {\n  return r == Role.Admin || r;\n}",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Return `r === Role.Admin` on its own",
@@ -1675,8 +1516,7 @@
     ],
     "answer": "Return `r === Role.Admin` on its own",
     "explanation": {
-      "en": "The trailing `|| r` makes any non-zero role truthy; the comparison alone is the answer.",
-      "ar": "‏|| r في آخر السطر تجعل أي دور غير صفري صحيحًا؛ المقارنة وحدها هي المطلوب."
+      "en": "The trailing `|| r` makes any non-zero role truthy; the comparison alone is the answer."
     }
   },
   {
@@ -1685,8 +1525,7 @@
     "difficulty": "easy",
     "codeSnippet": "const rows = Array(3).fill([]);\nrows[0].push('a');\nconsole.log(rows[1].length);",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Build each row: `Array.from({length:3}, () => [])`",
@@ -1696,8 +1535,7 @@
     ],
     "answer": "Build each row: `Array.from({length:3}, () => [])`",
     "explanation": {
-      "en": "fill puts the SAME array in every slot, so one push shows up in all rows.",
-      "ar": "‏fill تضع المصفوفة نفسها في كل خانة، فتظهر إضافة واحدة في كل الصفوف."
+      "en": "fill puts the SAME array in every slot, so one push shows up in all rows."
     }
   },
   {
@@ -1706,8 +1544,7 @@
     "difficulty": "easy",
     "codeSnippet": "const nums = [5, 1, 10];\nnums.sort((a, b) => a > b);",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Return a number: `(a, b) => a - b`",
@@ -1717,8 +1554,7 @@
     ],
     "answer": "Return a number: `(a, b) => a - b`",
     "explanation": {
-      "en": "A comparator must return a negative, zero or positive number, not a boolean.",
-      "ar": "دالة المقارنة يجب أن تُعيد عددًا سالبًا أو صفرًا أو موجبًا، لا قيمة منطقية."
+      "en": "A comparator must return a negative, zero or positive number, not a boolean."
     }
   },
   {
@@ -1727,8 +1563,7 @@
     "difficulty": "easy",
     "codeSnippet": "const price = 19.99;\nconst label = price.toFixed(2) + 5;\nconsole.log(label);",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Add first: `(price + 5).toFixed(2)` instead",
@@ -1738,8 +1573,7 @@
     ],
     "answer": "Add first: `(price + 5).toFixed(2)` instead",
     "explanation": {
-      "en": "toFixed returns a string, so + 5 concatenates instead of adding.",
-      "ar": "‏toFixed تُعيد نصًا، فتُدمج 5 بدل أن تُجمع."
+      "en": "toFixed returns a string, so + 5 concatenates instead of adding."
     }
   },
   {
@@ -1748,8 +1582,7 @@
     "difficulty": "easy",
     "codeSnippet": "const list = ['a', 'b'];\nif ('a' in list) {\n  console.log('found');\n}",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Test membership with `list.includes('a')`",
@@ -1759,8 +1592,7 @@
     ],
     "answer": "Test membership with `list.includes('a')`",
     "explanation": {
-      "en": "`in` tests keys ('0','1') on an array, not the values stored in it.",
-      "ar": "‏in تفحص المفاتيح ('0','1') في المصفوفة لا القيم المخزّنة فيها."
+      "en": "`in` tests keys ('0','1') on an array, not the values stored in it."
     }
   },
   {
@@ -1769,8 +1601,7 @@
     "difficulty": "easy",
     "codeSnippet": "def total(items):\n    sum = 0\n    for i in items:\n        sum += i\n    return sum(items)",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Return the accumulator, not `sum(items)`",
@@ -1780,8 +1611,7 @@
     ],
     "answer": "Return the accumulator, not `sum(items)`",
     "explanation": {
-      "en": "The local `sum` shadows the builtin, so calling it raises TypeError.",
-      "ar": "المتغيّر المحلي sum يحجب الدالة المدمجة، فيرفع استدعاؤه TypeError."
+      "en": "The local `sum` shadows the builtin, so calling it raises TypeError."
     }
   },
   {
@@ -1790,8 +1620,7 @@
     "difficulty": "easy",
     "codeSnippet": "count = 0\ndef bump():\n    count += 1\nbump()",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Declare `global count` inside the function",
@@ -1801,8 +1630,7 @@
     ],
     "answer": "Declare `global count` inside the function",
     "explanation": {
-      "en": "Assigning makes `count` local; `global` binds it to the module-level name.",
-      "ar": "الإسناد يجعل count محليًا؛ وglobal تربطه بالاسم على مستوى الوحدة."
+      "en": "Assigning makes `count` local; `global` binds it to the module-level name."
     }
   },
   {
@@ -1811,8 +1639,7 @@
     "difficulty": "easy",
     "codeSnippet": "cfg = {'host': 'x'}\nport = cfg['port']",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Read it safely: `cfg.get('port', 80)`",
@@ -1822,8 +1649,7 @@
     ],
     "answer": "Read it safely: `cfg.get('port', 80)`",
     "explanation": {
-      "en": "Bracket access raises KeyError for a missing key; get() returns a default.",
-      "ar": "الوصول بالأقواس يرفع KeyError للمفتاح المفقود، أما get() فتُعيد قيمة افتراضية."
+      "en": "Bracket access raises KeyError for a missing key; get() returns a default."
     }
   },
   {
@@ -1832,8 +1658,7 @@
     "difficulty": "easy",
     "codeSnippet": "const raw = '{bad json}';\nconst cfg = JSON.parse(raw);",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Wrap the parse in a `try/catch` block",
@@ -1843,8 +1668,7 @@
     ],
     "answer": "Wrap the parse in a `try/catch` block",
     "explanation": {
-      "en": "JSON.parse throws on malformed input; catch it instead of crashing.",
-      "ar": "‏JSON.parse ترمي استثناءً مع مدخل تالف؛ التقطه بدل الانهيار."
+      "en": "JSON.parse throws on malformed input; catch it instead of crashing."
     }
   },
   {
@@ -1853,8 +1677,7 @@
     "difficulty": "easy",
     "codeSnippet": "const name = ' Sara ';\nif (name === 'Sara') {\n  greet();\n}",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Compare `name.trim() === 'Sara'` instead",
@@ -1864,8 +1687,7 @@
     ],
     "answer": "Compare `name.trim() === 'Sara'` instead",
     "explanation": {
-      "en": "The surrounding spaces make the strings differ; trim before comparing.",
-      "ar": "المسافات المحيطة تجعل النصين مختلفين؛ احذفها قبل المقارنة."
+      "en": "The surrounding spaces make the strings differ; trim before comparing."
     }
   },
   {
@@ -1874,8 +1696,7 @@
     "difficulty": "easy",
     "codeSnippet": "names = ['ana', 'bob']\nfor i in range(1, len(names)):\n    print(names[i])",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Start at zero: `range(0, len(names))`",
@@ -1885,8 +1706,7 @@
     ],
     "answer": "Start at zero: `range(0, len(names))`",
     "explanation": {
-      "en": "Indexes start at 0, so starting at 1 silently skips the first name.",
-      "ar": "الفهارس تبدأ من الصفر، فالبدء من 1 يتخطّى الاسم الأول بصمت."
+      "en": "Indexes start at 0, so starting at 1 silently skips the first name."
     }
   },
   {
@@ -1895,8 +1715,7 @@
     "difficulty": "medium",
     "codeSnippet": "class Counter {\n  n = 0;\n  inc() { this.n++; }\n}\nbtn.addEventListener('click', new Counter().inc);",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Wrap it: `() => counter.inc()` as handler",
@@ -1906,8 +1725,7 @@
     ],
     "answer": "Wrap it: `() => counter.inc()` as handler",
     "explanation": {
-      "en": "Passing the method loses its receiver, so `this` is undefined when it runs.",
-      "ar": "تمرير الدالة العضو يفقدها كائنها، فتكون this غير معرّفة عند التنفيذ."
+      "en": "Passing the method loses its receiver, so `this` is undefined when it runs."
     }
   },
   {
@@ -1916,8 +1734,7 @@
     "difficulty": "medium",
     "codeSnippet": "const users = {};\nif (users.hasOwnProperty('toString')) {\n  console.log('custom');\n}",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Use `Object.hasOwn(users, 'toString')`",
@@ -1927,8 +1744,7 @@
     ],
     "answer": "Use `Object.hasOwn(users, 'toString')`",
     "explanation": {
-      "en": "hasOwnProperty can be shadowed by a key of the same name; Object.hasOwn is safe.",
-      "ar": "‏hasOwnProperty قد يحجبها مفتاح بالاسم نفسه، وObject.hasOwn آمنة."
+      "en": "hasOwnProperty can be shadowed by a key of the same name; Object.hasOwn is safe."
     }
   },
   {
@@ -1937,8 +1753,7 @@
     "difficulty": "medium",
     "codeSnippet": "const merged = Object.assign({}, base);\nmerged.opts.debug = true;\nconsole.log(base.opts.debug);",
     "question": {
-      "en": "Which fix removes the subtle bug?",
-      "ar": "أي إصلاح يزيل الخطأ الخفي؟"
+      "en": "Which fix removes the subtle bug?"
     },
     "options": [
       "Copy deeply with `structuredClone(base)`",
@@ -1948,8 +1763,7 @@
     ],
     "answer": "Copy deeply with `structuredClone(base)`",
     "explanation": {
-      "en": "Object.assign copies one level, so `opts` is shared and the write leaks into base.",
-      "ar": "‏Object.assign تنسخ مستوى واحدًا، فتبقى opts مشتركة وتتسرّب الكتابة إلى base."
+      "en": "Object.assign copies one level, so `opts` is shared and the write leaks into base."
     }
   },
   {
@@ -1958,8 +1772,7 @@
     "difficulty": "medium",
     "codeSnippet": "try:\n    run()\nexcept Exception:\n    log('general')\nexcept ValueError:\n    log('value')",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Put `except ValueError` before Exception",
@@ -1969,8 +1782,7 @@
     ],
     "answer": "Put `except ValueError` before Exception",
     "explanation": {
-      "en": "The first matching handler wins, so the broad one makes the specific one unreachable.",
-      "ar": "أول معالج مطابق يفوز، فالمعالج العام يجعل المحدّد غير قابل للوصول."
+      "en": "The first matching handler wins, so the broad one makes the specific one unreachable."
     }
   },
   {
@@ -1979,8 +1791,7 @@
     "difficulty": "medium",
     "codeSnippet": "import copy\na = {'x': [1, 2]}\nb = copy.copy(a)\nb['x'].append(3)\nprint(len(a['x']))",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Use `copy.deepcopy(a)` for the copy",
@@ -1990,8 +1801,7 @@
     ],
     "answer": "Use `copy.deepcopy(a)` for the copy",
     "explanation": {
-      "en": "A shallow copy shares the inner list, so appending is visible through `a`.",
-      "ar": "النسخ السطحي يشارك القائمة الداخلية، فتظهر الإضافة عبر a."
+      "en": "A shallow copy shares the inner list, so appending is visible through `a`."
     }
   },
   {
@@ -2000,8 +1810,7 @@
     "difficulty": "medium",
     "codeSnippet": "const ok = [1, 2, 3].reduce((a, b) => a + b);\nconst bad = [].reduce((a, b) => a + b);",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Give a seed: `.reduce((a, b) => a + b, 0)`",
@@ -2011,8 +1820,7 @@
     ],
     "answer": "Give a seed: `.reduce((a, b) => a + b, 0)`",
     "explanation": {
-      "en": "reduce on an empty array without an initial value throws a TypeError.",
-      "ar": "‏reduce على مصفوفة فارغة بلا قيمة ابتدائية ترمي TypeError."
+      "en": "reduce on an empty array without an initial value throws a TypeError."
     }
   },
   {
@@ -2021,8 +1829,7 @@
     "difficulty": "medium",
     "codeSnippet": "async function loadAll(ids) {\n  const out = [];\n  for (const id of ids) {\n    out.push(await fetchOne(id));\n  }\n  return out;\n}",
     "question": {
-      "en": "Which fix removes the inefficiency?",
-      "ar": "أي إصلاح يزيل البطء؟"
+      "en": "Which fix removes the inefficiency?"
     },
     "options": [
       "Run them together with `Promise.all(map)`",
@@ -2032,8 +1839,7 @@
     ],
     "answer": "Run them together with `Promise.all(map)`",
     "explanation": {
-      "en": "Awaiting inside the loop serialises the requests; Promise.all runs them in parallel.",
-      "ar": "الانتظار داخل الحلقة يجعل الطلبات متتابعة، وPromise.all تُشغّلها بالتوازي."
+      "en": "Awaiting inside the loop serialises the requests; Promise.all runs them in parallel."
     }
   },
   {
@@ -2042,8 +1848,7 @@
     "difficulty": "medium",
     "codeSnippet": "fetchUser().then((u) => render(u));",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Add a `.catch((e) => report(e))` handler",
@@ -2053,8 +1858,7 @@
     ],
     "answer": "Add a `.catch((e) => report(e))` handler",
     "explanation": {
-      "en": "Without catch a rejection becomes an unhandled promise rejection.",
-      "ar": "بدون catch يصبح الرفض رفضًا غير معالَج للوعد."
+      "en": "Without catch a rejection becomes an unhandled promise rejection."
     }
   },
   {
@@ -2063,8 +1867,7 @@
     "difficulty": "medium",
     "codeSnippet": "def price(v):\n    assert v > 0, 'must be positive'\n    return v * 2",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Raise explicitly: `if v <= 0: raise ValueError`",
@@ -2074,8 +1877,7 @@
     ],
     "answer": "Raise explicitly: `if v <= 0: raise ValueError`",
     "explanation": {
-      "en": "Assertions are stripped when Python runs with -O, so the check silently disappears.",
-      "ar": "تُحذف الـ assert عند تشغيل بايثون بـ ‎-O، فيختفي الفحص بصمت."
+      "en": "Assertions are stripped when Python runs with -O, so the check silently disappears."
     }
   },
   {
@@ -2084,8 +1886,7 @@
     "difficulty": "medium",
     "codeSnippet": "out = ''\nfor row in rows:\n    out += row + ','",
     "question": {
-      "en": "Which fix removes the inefficiency?",
-      "ar": "أي إصلاح يزيل البطء؟"
+      "en": "Which fix removes the inefficiency?"
     },
     "options": [
       "Build once with `','.join(rows)` instead",
@@ -2095,8 +1896,7 @@
     ],
     "answer": "Build once with `','.join(rows)` instead",
     "explanation": {
-      "en": "Strings are immutable, so += rebuilds the whole string each pass; join builds it once.",
-      "ar": "النصوص غير قابلة للتغيير، فـ ‎+=‎ تعيد بناء النص كل دورة، وjoin تبنيه مرة واحدة."
+      "en": "Strings are immutable, so += rebuilds the whole string each pass; join builds it once."
     }
   },
   {
@@ -2105,8 +1905,7 @@
     "difficulty": "medium",
     "codeSnippet": "function len(v: any) {\n  return v.length;\n}\nlen(42);",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Type it as `string | unknown[]` instead",
@@ -2116,8 +1915,7 @@
     ],
     "answer": "Type it as `string | unknown[]` instead",
     "explanation": {
-      "en": "`any` disables checking entirely, so a number slips through; narrow the parameter type.",
-      "ar": "‏any تُعطّل الفحص تمامًا فيتسلّل عدد؛ ضيّق نوع المعامل."
+      "en": "`any` disables checking entirely, so a number slips through; narrow the parameter type."
     }
   },
   {
@@ -2126,8 +1924,7 @@
     "difficulty": "medium",
     "codeSnippet": "const el = document.querySelector('.box')!;\nel.classList.add('on');",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Guard it: `if (el) el.classList.add('on')`",
@@ -2137,8 +1934,7 @@
     ],
     "answer": "Guard it: `if (el) el.classList.add('on')`",
     "explanation": {
-      "en": "The ! only silences the type error; at runtime a missing element still throws.",
-      "ar": "علامة ! تُسكت خطأ النوع فقط، أما وقت التنفيذ فالعنصر المفقود يرمي خطأً."
+      "en": "The ! only silences the type error; at runtime a missing element still throws."
     }
   },
   {
@@ -2147,8 +1943,7 @@
     "difficulty": "medium",
     "codeSnippet": "const page = 2, size = 10;\nconst rows = all.slice(page * size, page * size + size);",
     "question": {
-      "en": "Which fix removes the off-by-one bug?",
-      "ar": "أي إصلاح يزيل خطأ الفرق بواحد؟"
+      "en": "Which fix removes the off-by-one bug?"
     },
     "options": [
       "Offset from zero: `(page - 1) * size`",
@@ -2158,8 +1953,7 @@
     ],
     "answer": "Offset from zero: `(page - 1) * size`",
     "explanation": {
-      "en": "With 1-based page numbers, page 2 must start at offset 10, not 20 — a whole page is skipped.",
-      "ar": "مع ترقيم الصفحات من 1، تبدأ الصفحة 2 عند الإزاحة 10 لا 20، وإلا تُتخطّى صفحة كاملة."
+      "en": "With 1-based page numbers, page 2 must start at offset 10, not 20 — a whole page is skipped."
     }
   },
   {
@@ -2168,8 +1962,7 @@
     "difficulty": "medium",
     "codeSnippet": "const versions = ['1.10.0', '1.9.0'];\nversions.sort();\nconsole.log(versions[0]);",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Compare each numeric part separately",
@@ -2179,8 +1972,7 @@
     ],
     "answer": "Compare each numeric part separately",
     "explanation": {
-      "en": "String order puts '1.10.0' before '1.9.0'; compare the numbers segment by segment.",
-      "ar": "الترتيب النصي يضع '1.10.0' قبل '1.9.0'؛ قارن الأعداد جزءًا جزءًا."
+      "en": "String order puts '1.10.0' before '1.9.0'; compare the numbers segment by segment."
     }
   },
   {
@@ -2189,8 +1981,7 @@
     "difficulty": "medium",
     "codeSnippet": "if user.get('role') is 'admin':\n    grant()",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Compare by value: `== 'admin'` instead",
@@ -2200,8 +1991,7 @@
     ],
     "answer": "Compare by value: `== 'admin'` instead",
     "explanation": {
-      "en": "`is` compares object identity, which is unreliable for strings built at runtime.",
-      "ar": "‏is تقارن هوية الكائن، وهي غير موثوقة للنصوص المُنشأة وقت التنفيذ."
+      "en": "`is` compares object identity, which is unreliable for strings built at runtime."
     }
   },
   {
@@ -2210,8 +2000,7 @@
     "difficulty": "medium",
     "codeSnippet": "for i in range(0, 1, 0.1):\n    print(i)",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Scale to ints: `range(0, 10)` then divide",
@@ -2221,8 +2010,7 @@
     ],
     "answer": "Scale to ints: `range(0, 10)` then divide",
     "explanation": {
-      "en": "range only accepts integers; iterate whole numbers and divide inside the loop.",
-      "ar": "‏range تقبل الأعداد الصحيحة فقط؛ مُرّ على أعداد صحيحة واقسم داخل الحلقة."
+      "en": "range only accepts integers; iterate whole numbers and divide inside the loop."
     }
   },
   {
@@ -2231,8 +2019,7 @@
     "difficulty": "medium",
     "codeSnippet": "const emails = rows.map((r) => r.email.toLowerCase());",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Guard it: `r.email?.toLowerCase() ?? ''`",
@@ -2242,8 +2029,7 @@
     ],
     "answer": "Guard it: `r.email?.toLowerCase() ?? ''`",
     "explanation": {
-      "en": "One row without an email throws and kills the whole map; guard the access.",
-      "ar": "صفّ واحد بلا بريد يرمي خطأً ويُسقط الـ map كلها؛ احمِ الوصول."
+      "en": "One row without an email throws and kills the whole map; guard the access."
     }
   },
   {
@@ -2252,8 +2038,7 @@
     "difficulty": "hard",
     "codeSnippet": "const cache = {};\nfunction get(key) {\n  if (cache[key]) return cache[key];\n  cache[key] = compute(key);\n  return cache[key];\n}",
     "question": {
-      "en": "Which fix removes the subtle bug?",
-      "ar": "أي إصلاح يزيل الخطأ الخفي؟"
+      "en": "Which fix removes the subtle bug?"
     },
     "options": [
       "Test presence with `key in cache` instead",
@@ -2263,8 +2048,7 @@
     ],
     "answer": "Test presence with `key in cache` instead",
     "explanation": {
-      "en": "A cached 0, '' or false is falsy, so the value is recomputed every call.",
-      "ar": "القيمة المخزّنة 0 أو '' أو false تُعدّ خاطئة، فيُعاد الحساب في كل استدعاء."
+      "en": "A cached 0, '' or false is falsy, so the value is recomputed every call."
     }
   },
   {
@@ -2273,8 +2057,7 @@
     "difficulty": "hard",
     "codeSnippet": "let seq = 0;\nasync function next() {\n  const v = seq;\n  await tick();\n  seq = v + 1;\n  return seq;\n}",
     "question": {
-      "en": "Which fix removes the race?",
-      "ar": "أي إصلاح يزيل التسابق؟"
+      "en": "Which fix removes the race?"
     },
     "options": [
       "Increment before awaiting: `seq += 1` first",
@@ -2284,8 +2067,7 @@
     ],
     "answer": "Increment before awaiting: `seq += 1` first",
     "explanation": {
-      "en": "Two concurrent calls both read the old value across the await and write the same number.",
-      "ar": "استدعاءان متزامنان يقرآن القيمة القديمة عبر الانتظار فيكتبان العدد نفسه."
+      "en": "Two concurrent calls both read the old value across the await and write the same number."
     }
   },
   {
@@ -2294,8 +2076,7 @@
     "difficulty": "hard",
     "codeSnippet": "class Node:\n    children = []\n    def add(self, c):\n        self.children.append(c)",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Create it per instance in `__init__`",
@@ -2305,8 +2086,7 @@
     ],
     "answer": "Create it per instance in `__init__`",
     "explanation": {
-      "en": "A class attribute is shared by every instance, so all nodes get the same children list.",
-      "ar": "خاصية الصنف مشتركة بين كل الكائنات، فتتشارك كل العقد قائمة الأبناء نفسها."
+      "en": "A class attribute is shared by every instance, so all nodes get the same children list."
     }
   },
   {
@@ -2315,8 +2095,7 @@
     "difficulty": "hard",
     "codeSnippet": "def walk(node, seen=set()):\n    seen.add(node.id)\n    for c in node.children:\n        walk(c, seen)",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Default to `None` and create it inside",
@@ -2326,8 +2105,7 @@
     ],
     "answer": "Default to `None` and create it inside",
     "explanation": {
-      "en": "The default set is created once, so a second top-level walk still sees the first one's ids.",
-      "ar": "تُنشأ المجموعة الافتراضية مرة واحدة، فترى الجولة الثانية معرّفات الأولى."
+      "en": "The default set is created once, so a second top-level walk still sees the first one's ids."
     }
   },
   {
@@ -2336,8 +2114,7 @@
     "difficulty": "hard",
     "codeSnippet": "el.addEventListener('scroll', () => heavy());\n// later\nel.removeEventListener('scroll', () => heavy());",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Keep one named handler and remove that",
@@ -2347,8 +2124,7 @@
     ],
     "answer": "Keep one named handler and remove that",
     "explanation": {
-      "en": "The two arrows are different function objects, so the listener is never removed.",
-      "ar": "الدالتان السهميتان كائنان مختلفان، فلا يُزال المستمع أبدًا."
+      "en": "The two arrows are different function objects, so the listener is never removed."
     }
   },
   {
@@ -2357,8 +2133,7 @@
     "difficulty": "hard",
     "codeSnippet": "const total = items.reduce((sum, i) => sum + i.price, 0);\nconst cents = total * 100;\nsave(Math.round(cents));",
     "question": {
-      "en": "Which fix removes the subtle bug?",
-      "ar": "أي إصلاح يزيل الخطأ الخفي؟"
+      "en": "Which fix removes the subtle bug?"
     },
     "options": [
       "Round each price to cents before summing",
@@ -2368,8 +2143,7 @@
     ],
     "answer": "Round each price to cents before summing",
     "explanation": {
-      "en": "Summing binary floats accumulates error; convert to integer cents first and add those.",
-      "ar": "جمع الأعداد العشرية يراكم الخطأ؛ حوّل إلى سنتات صحيحة أولًا ثم اجمعها."
+      "en": "Summing binary floats accumulates error; convert to integer cents first and add those."
     }
   },
   {
@@ -2378,8 +2152,7 @@
     "difficulty": "hard",
     "codeSnippet": "rows = [r for r in rows if r.ok]\nfor i, r in enumerate(rows):\n    if not r.keep:\n        del rows[i]",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Rebuild it: `[r for r in rows if r.keep]`",
@@ -2389,8 +2162,7 @@
     ],
     "answer": "Rebuild it: `[r for r in rows if r.keep]`",
     "explanation": {
-      "en": "Deleting during enumerate shifts later items and skips them; build a new list instead.",
-      "ar": "الحذف أثناء enumerate يزيح العناصر التالية فيتخطّاها؛ ابنِ قائمة جديدة بدلًا من ذلك."
+      "en": "Deleting during enumerate shifts later items and skips them; build a new list instead."
     }
   },
   {
@@ -2399,8 +2171,7 @@
     "difficulty": "hard",
     "codeSnippet": "const idx = {};\nfor (const r of rows) idx[r.id] = r;\nconst ordered = Object.keys(idx);",
     "question": {
-      "en": "Which fix removes the subtle bug?",
-      "ar": "أي إصلاح يزيل الخطأ الخفي؟"
+      "en": "Which fix removes the subtle bug?"
     },
     "options": [
       "Use a `Map` to keep insertion order",
@@ -2410,8 +2181,7 @@
     ],
     "answer": "Use a `Map` to keep insertion order",
     "explanation": {
-      "en": "Integer-like object keys are ordered numerically, not by insertion; a Map preserves order.",
-      "ar": "مفاتيح الكائن الشبيهة بالأعداد تُرتَّب رقميًا لا بترتيب الإدخال، والـ Map تحفظ الترتيب."
+      "en": "Integer-like object keys are ordered numerically, not by insertion; a Map preserves order."
     }
   },
   {
@@ -2420,8 +2190,7 @@
     "difficulty": "hard",
     "codeSnippet": "interface Opts { retries?: number }\nfunction run(o: Opts) {\n  const r = o.retries || 3;\n  return r;\n}",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Default with `o.retries ?? 3` instead",
@@ -2431,8 +2200,7 @@
     ],
     "answer": "Default with `o.retries ?? 3` instead",
     "explanation": {
-      "en": "An explicit 0 is falsy and gets replaced by 3; ?? only defaults on null or undefined.",
-      "ar": "القيمة 0 الصريحة تُعدّ خاطئة فتُستبدل بـ 3، أما ?? فلا تتدخّل إلا مع null أو undefined."
+      "en": "An explicit 0 is falsy and gets replaced by 3; ?? only defaults on null or undefined."
     }
   },
   {
@@ -2441,8 +2209,7 @@
     "difficulty": "hard",
     "codeSnippet": "import re\nif re.match(r'\\d+', value):\n    accept(value)",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Anchor the whole value: `r'\\d+$'`",
@@ -2452,8 +2219,7 @@
     ],
     "answer": "Anchor the whole value: `r'\\d+$'`",
     "explanation": {
-      "en": "match only anchors the start, so '12abc' is accepted; add $ to require the full string.",
-      "ar": "‏match تثبّت البداية فقط فتُقبل '12abc'؛ أضِف $ لاشتراط النص كاملًا."
+      "en": "match only anchors the start, so '12abc' is accepted; add $ to require the full string."
     }
   },
   {
@@ -2462,8 +2228,7 @@
     "difficulty": "hard",
     "codeSnippet": "const first = 'e\\u0301'.charAt(0);\nconsole.log('🙂'.length);",
     "question": {
-      "en": "Which fix handles the text correctly?",
-      "ar": "أي إصلاح يعالج النص بشكل صحيح؟"
+      "en": "Which fix handles the text correctly?"
     },
     "options": [
       "Iterate code points: `[...str]` instead",
@@ -2473,8 +2238,7 @@
     ],
     "answer": "Iterate code points: `[...str]` instead",
     "explanation": {
-      "en": "length and charAt count UTF-16 units, so an emoji counts as 2; spreading walks code points.",
-      "ar": "‏length وcharAt تعدّان وحدات UTF-16 فيُحسب الإيموجي وحدتين، والنشر يمرّ على النقاط البرمجية."
+      "en": "length and charAt count UTF-16 units, so an emoji counts as 2; spreading walks code points."
     }
   },
   {
@@ -2483,8 +2247,7 @@
     "difficulty": "hard",
     "codeSnippet": "with open(path) as f:\n    for line in f:\n        rows.append(line)\nprint(rows[0] == rows[0].strip())",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Append `line.rstrip('\\n')` to the rows",
@@ -2494,8 +2257,7 @@
     ],
     "answer": "Append `line.rstrip('\\n')` to the rows",
     "explanation": {
-      "en": "Iterating a file keeps the trailing newline on every line; strip it as you append.",
-      "ar": "المرور على الملف يُبقي سطر الإنهاء في كل سطر؛ احذفه أثناء الإضافة."
+      "en": "Iterating a file keeps the trailing newline on every line; strip it as you append."
     }
   },
   {
@@ -2504,8 +2266,7 @@
     "difficulty": "hard",
     "codeSnippet": "function debounce(fn, ms) {\n  let t;\n  return (...a) => {\n    t = setTimeout(fn(...a), ms);\n  };\n}",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Clear then defer: `clearTimeout(t)` and wrap",
@@ -2515,8 +2276,7 @@
     ],
     "answer": "Clear then defer: `clearTimeout(t)` and wrap",
     "explanation": {
-      "en": "fn(...a) runs immediately and nothing cancels the previous timer, so it never debounces.",
-      "ar": "‏fn(...a) تُنفَّذ فورًا ولا شيء يلغي المؤقّت السابق، فلا يحدث تأجيل أصلًا."
+      "en": "fn(...a) runs immediately and nothing cancels the previous timer, so it never debounces."
     }
   },
   {
@@ -2525,8 +2285,7 @@
     "difficulty": "hard",
     "codeSnippet": "def parse(rows):\n    return [int(r) for r in rows]\n\nparse(['1', 'x', '3'])",
     "question": {
-      "en": "Which fix removes the crash?",
-      "ar": "أي إصلاح يزيل الانهيار؟"
+      "en": "Which fix removes the crash?"
     },
     "options": [
       "Keep only digits: filter with `r.isdigit()`",
@@ -2536,8 +2295,7 @@
     ],
     "answer": "Keep only digits: filter with `r.isdigit()`",
     "explanation": {
-      "en": "int() raises on a non-numeric string, which aborts the whole comprehension.",
-      "ar": "‏int() ترمي استثناءً مع نص غير رقمي فتُجهض الـ comprehension كلها."
+      "en": "int() raises on a non-numeric string, which aborts the whole comprehension."
     }
   },
   {
@@ -2546,8 +2304,7 @@
     "difficulty": "hard",
     "codeSnippet": "const out = rows\n  .filter((r) => r.ok)\n  .map((r) => r.v)\n  .sort()\n  .slice(0, 3);",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Sort numerically with `(a, b) => a - b`",
@@ -2557,8 +2314,7 @@
     ],
     "answer": "Sort numerically with `(a, b) => a - b`",
     "explanation": {
-      "en": "The default sort compares as strings, so the top three are wrong for numbers.",
-      "ar": "الترتيب الافتراضي يقارن كنصوص، فتخرج الثلاثة الأولى خاطئة مع الأعداد."
+      "en": "The default sort compares as strings, so the top three are wrong for numbers."
     }
   },
   {
@@ -2567,8 +2323,7 @@
     "difficulty": "hard",
     "codeSnippet": "type Cfg = { a: number } | { b: number };\nfunction read(c: Cfg) {\n  return c.a;\n}",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Narrow it: `if ('a' in c) return c.a;`",
@@ -2578,8 +2333,7 @@
     ],
     "answer": "Narrow it: `if ('a' in c) return c.a;`",
     "explanation": {
-      "en": "Only properties common to every union member are accessible until the type is narrowed.",
-      "ar": "لا يمكن الوصول إلا للخصائص المشتركة بين كل أعضاء الاتحاد حتى يُضيَّق النوع."
+      "en": "Only properties common to every union member are accessible until the type is narrowed."
     }
   },
   {
@@ -2588,8 +2342,7 @@
     "difficulty": "medium",
     "codeSnippet": "const set = new Set([1, 2, 3]);\nconsole.log(set.length);",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Read the count with `set.size` instead",
@@ -2599,8 +2352,7 @@
     ],
     "answer": "Read the count with `set.size` instead",
     "explanation": {
-      "en": "A Set exposes size; length is undefined on it.",
-      "ar": "‏Set تُظهر size، أما length فغير معرّفة عليها."
+      "en": "A Set exposes size; length is undefined on it."
     }
   },
   {
@@ -2609,8 +2361,7 @@
     "difficulty": "medium",
     "codeSnippet": "items = ['b', 'a']\nsorted(items)\nprint(items[0])",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Assign it: `items = sorted(items)` instead",
@@ -2620,8 +2371,7 @@
     ],
     "answer": "Assign it: `items = sorted(items)` instead",
     "explanation": {
-      "en": "sorted() returns a new list and leaves the original untouched; the result was discarded.",
-      "ar": "‏sorted() تُعيد قائمة جديدة ولا تمسّ الأصل، والنتيجة أُهملت."
+      "en": "sorted() returns a new list and leaves the original untouched; the result was discarded."
     }
   },
   {
@@ -2630,8 +2380,7 @@
     "difficulty": "medium",
     "codeSnippet": "for (var i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 0);\n}",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Declare the counter with `let i` instead",
@@ -2641,8 +2390,7 @@
     ],
     "answer": "Declare the counter with `let i` instead",
     "explanation": {
-      "en": "var is function-scoped so every callback sees the final 3; let binds a fresh i per iteration.",
-      "ar": "‏var نطاقها الدالة فترى كل الاستدعاءات 3، بينما let تربط i جديدة كل دورة."
+      "en": "var is function-scoped so every callback sees the final 3; let binds a fresh i per iteration."
     }
   },
   {
@@ -2651,8 +2399,7 @@
     "difficulty": "easy",
     "codeSnippet": "nums = [1, 2, 3]\nprint(nums.index(9))",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Check first: `if 9 in nums:` before index",
@@ -2662,8 +2409,7 @@
     ],
     "answer": "Check first: `if 9 in nums:` before index",
     "explanation": {
-      "en": "list.index raises ValueError when the value is absent — unlike JS indexOf, it never returns -1.",
-      "ar": "‏list.index ترفع ValueError عند غياب القيمة، وبخلاف indexOf لا تُعيد -1 أبدًا."
+      "en": "list.index raises ValueError when the value is absent — unlike JS indexOf, it never returns -1."
     }
   },
   {
@@ -2672,8 +2418,7 @@
     "difficulty": "easy",
     "codeSnippet": "const n = '7';\nif (n === 7) {\n  run();\n}",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Convert first: `Number(n) === 7` in the test",
@@ -2683,8 +2428,7 @@
     ],
     "answer": "Convert first: `Number(n) === 7` in the test",
     "explanation": {
-      "en": "Strict equality never matches across types; convert the string to a number.",
-      "ar": "المساواة الصارمة لا تطابق بين نوعين مختلفين؛ حوّل النص إلى عدد."
+      "en": "Strict equality never matches across types; convert the string to a number."
     }
   },
   {
@@ -2693,8 +2437,7 @@
     "difficulty": "medium",
     "codeSnippet": "def scale(v, factor):\n    return v * factor\n\nprint(scale(factor=2))",
     "question": {
-      "en": "What is the correct fix?",
-      "ar": "ما الإصلاح الصحيح؟"
+      "en": "What is the correct fix?"
     },
     "options": [
       "Pass both: `scale(3, factor=2)` in the call",
@@ -2704,8 +2447,7 @@
     ],
     "answer": "Pass both: `scale(3, factor=2)` in the call",
     "explanation": {
-      "en": "`v` has no default, so omitting it raises TypeError for a missing argument.",
-      "ar": "‏v بلا قيمة افتراضية، فإغفالها يرفع TypeError لوسيط مفقود."
+      "en": "`v` has no default, so omitting it raises TypeError for a missing argument."
     }
   },
   {
@@ -2714,8 +2456,7 @@
     "difficulty": "medium",
     "codeSnippet": "const copy = rows;\ncopy.length = 0;\nconsole.log(rows.length);",
     "question": {
-      "en": "Which fix removes the bug?",
-      "ar": "أي إصلاح يزيل الخطأ؟"
+      "en": "Which fix removes the bug?"
     },
     "options": [
       "Copy it first with `const copy = [...rows]`",
@@ -2725,8 +2466,7 @@
     ],
     "answer": "Copy it first with `const copy = [...rows]`",
     "explanation": {
-      "en": "Assignment shares the same array, so clearing the copy clears the original too.",
-      "ar": "الإسناد يشارك المصفوفة نفسها، فإفراغ النسخة يُفرغ الأصل أيضًا."
+      "en": "Assignment shares the same array, so clearing the copy clears the original too."
     }
   }
 ]

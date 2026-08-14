@@ -3,330 +3,360 @@
     "category": "python",
     "difficulty": "easy",
     "codeSnippet": "# split a sentence into words\nwords = \"a b c\".____()",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" },
+    "question": {
+      "en": "What goes in the blank?"
+    },
     "answer": "split",
     "explanation": {
-      "en": "split() breaks a string on whitespace by default.",
-      "ar": "‏split() تُقسّم النص عند المسافات افتراضيًا."
+      "en": "split() breaks a string on whitespace by default."
     }
   },
   {
     "category": "python",
     "difficulty": "easy",
     "codeSnippet": "# total of a list of numbers\ntotal = ____(nums)",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" },
+    "question": {
+      "en": "What goes in the blank?"
+    },
     "answer": "sum",
     "explanation": {
-      "en": "sum() adds every item of an iterable.",
-      "ar": "‏sum() تجمع كل عناصر المتكرّر."
+      "en": "sum() adds every item of an iterable."
     }
   },
   {
     "category": "python",
     "difficulty": "easy",
     "codeSnippet": "# smallest value in the list\nlowest = ____(nums)",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" },
+    "question": {
+      "en": "What goes in the blank?"
+    },
     "answer": "min",
     "explanation": {
-      "en": "min() returns the smallest element.",
-      "ar": "‏min() تُعيد أصغر عنصر."
+      "en": "min() returns the smallest element."
     }
   },
   {
     "category": "python",
     "difficulty": "easy",
     "codeSnippet": "# does the name start with \"Mr\"?\nflag = name.____(\"Mr\")",
-    "question": { "en": "Complete the function", "ar": "أكمل الدالة" },
+    "question": {
+      "en": "Complete the function"
+    },
     "answer": "startswith",
     "explanation": {
-      "en": "startswith() tests a prefix and returns a boolean.",
-      "ar": "‏startswith() تفحص البادئة وتُعيد قيمة منطقية."
+      "en": "startswith() tests a prefix and returns a boolean."
     }
   },
   {
     "category": "python",
     "difficulty": "easy",
     "codeSnippet": "# drop surrounding whitespace\nclean = raw.____()",
-    "question": { "en": "Fill in the blank", "ar": "املأ الفراغ" },
+    "question": {
+      "en": "Fill in the blank"
+    },
     "answer": "strip",
     "explanation": {
-      "en": "strip() removes whitespace from both ends of a string.",
-      "ar": "‏strip() تحذف المسافات من طرفي النص."
+      "en": "strip() removes whitespace from both ends of a string."
     }
   },
   {
     "category": "python",
     "difficulty": "easy",
     "codeSnippet": "# swap every comma for a space\nout = text.____(\",\", \" \")",
-    "question": { "en": "Fill the blank", "ar": "املأ الفراغ" },
+    "question": {
+      "en": "Fill the blank"
+    },
     "answer": "replace",
     "explanation": {
-      "en": "replace(old, new) substitutes every occurrence.",
-      "ar": "‏replace(old, new) تستبدل كل التكرارات."
+      "en": "replace(old, new) substitutes every occurrence."
     }
   },
   {
     "category": "javascript",
     "difficulty": "easy",
     "codeSnippet": "// add an item to the end\nconst list = [1, 2];\nlist.____(3);",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" },
+    "question": {
+      "en": "What goes in the blank?"
+    },
     "answer": "push",
     "explanation": {
-      "en": "push() appends to the end of an array.",
-      "ar": "‏push() تضيف إلى نهاية المصفوفة."
+      "en": "push() appends to the end of an array."
     }
   },
   {
     "category": "javascript",
     "difficulty": "easy",
     "codeSnippet": "// remove and return the FIRST item\nconst first = queue.____();",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" },
+    "question": {
+      "en": "What goes in the blank?"
+    },
     "answer": "shift",
     "explanation": {
-      "en": "shift() removes the first element and returns it.",
-      "ar": "‏shift() تحذف أول عنصر وتُعيده."
+      "en": "shift() removes the first element and returns it."
     }
   },
   {
     "category": "javascript",
     "difficulty": "easy",
     "codeSnippet": "// is ANY score above 90?\nconst high = scores.____((s) => s > 90);",
-    "question": { "en": "Fill in the blank", "ar": "املأ الفراغ" },
+    "question": {
+      "en": "Fill in the blank"
+    },
     "answer": "some",
     "explanation": {
-      "en": "some() returns true when at least one element passes the test.",
-      "ar": "‏some() تُعيد true إذا اجتاز عنصر واحد على الأقل الاختبار."
+      "en": "some() returns true when at least one element passes the test."
     }
   },
   {
     "category": "python",
     "difficulty": "easy",
     "codeSnippet": "# True when EVERY value is positive\nok = ____(v > 0 for v in nums)",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" },
+    "question": {
+      "en": "What goes in the blank?"
+    },
     "answer": "all",
     "explanation": {
-      "en": "all() is True only when every item is truthy.",
-      "ar": "‏all() تكون True فقط إذا كان كل عنصر صحيحًا."
+      "en": "all() is True only when every item is truthy."
     }
   },
   {
     "category": "python",
     "difficulty": "medium",
     "codeSnippet": "# True when AT LEAST ONE value is negative\nbad = ____(v < 0 for v in nums)",
-    "question": { "en": "Fill the blank", "ar": "املأ الفراغ" },
+    "question": {
+      "en": "Fill the blank"
+    },
     "answer": "any",
     "explanation": {
-      "en": "any() is True as soon as one item is truthy.",
-      "ar": "‏any() تكون True بمجرّد أن يكون عنصر واحد صحيحًا."
+      "en": "any() is True as soon as one item is truthy."
     }
   },
   {
     "category": "javascript",
     "difficulty": "medium",
     "codeSnippet": "// sum the array into one value\nconst total = nums.____((a, b) => a + b, 0);",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" },
+    "question": {
+      "en": "What goes in the blank?"
+    },
     "answer": "reduce",
     "explanation": {
-      "en": "reduce() folds an array down to a single value.",
-      "ar": "‏reduce() تطوي المصفوفة إلى قيمة واحدة."
+      "en": "reduce() folds an array down to a single value."
     }
   },
   {
     "category": "python",
     "difficulty": "medium",
     "codeSnippet": "# walk the dictionary as key/value pairs\nfor k, v in scores.____():\n    print(k, v)",
-    "question": { "en": "Complete the loop", "ar": "أكمل الحلقة" },
+    "question": {
+      "en": "Complete the loop"
+    },
     "answer": "items",
     "explanation": {
-      "en": "items() yields (key, value) tuples.",
-      "ar": "‏items() تُنتج أزواج (المفتاح، القيمة)."
+      "en": "items() yields (key, value) tuples."
     }
   },
   {
     "category": "python",
     "difficulty": "medium",
     "codeSnippet": "# longest word first\nwords.sort(____=len, reverse=True)",
-    "question": { "en": "Fill in the blank", "ar": "املأ الفراغ" },
+    "question": {
+      "en": "Fill in the blank"
+    },
     "answer": "key",
     "explanation": {
-      "en": "The key argument names the function used to rank each item.",
-      "ar": "المعامل key يحدّد الدالة المستخدمة لترتيب كل عنصر."
+      "en": "The key argument names the function used to rank each item."
     }
   },
   {
     "category": "python",
     "difficulty": "medium",
     "codeSnippet": "# sort pairs by the second field\npairs.sort(key=____ p: p[1])",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" },
+    "question": {
+      "en": "What goes in the blank?"
+    },
     "answer": "lambda",
     "explanation": {
-      "en": "lambda builds a small anonymous function inline.",
-      "ar": "‏lambda تبني دالة مجهولة صغيرة في المكان."
+      "en": "lambda builds a small anonymous function inline."
     }
   },
   {
     "category": "python",
     "difficulty": "medium",
     "codeSnippet": "# guard: only numbers allowed\nif not ____(v, (int, float)):\n    raise TypeError",
-    "question": { "en": "Fill the blank", "ar": "املأ الفراغ" },
+    "question": {
+      "en": "Fill the blank"
+    },
     "answer": "isinstance",
     "explanation": {
-      "en": "isinstance() checks a value against a type or tuple of types.",
-      "ar": "‏isinstance() تفحص القيمة مقابل نوع أو مجموعة أنواع."
+      "en": "isinstance() checks a value against a type or tuple of types."
     }
   },
   {
     "category": "python",
     "difficulty": "medium",
     "codeSnippet": "# add every item of another list\nbase.____(extra)",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" },
+    "question": {
+      "en": "What goes in the blank?"
+    },
     "answer": "extend",
     "explanation": {
-      "en": "extend() appends each element, unlike append() which adds the list itself.",
-      "ar": "‏extend() تضيف كل عنصر، بخلاف append() التي تضيف القائمة نفسها."
+      "en": "extend() appends each element, unlike append() which adds the list itself."
     }
   },
   {
     "category": "javascript",
     "difficulty": "medium",
     "codeSnippet": "// map then flatten one level\nconst tags = posts.____((p) => p.tags);",
-    "question": { "en": "Fill in the blank", "ar": "املأ الفراغ" },
+    "question": {
+      "en": "Fill in the blank"
+    },
     "answer": "flatMap",
     "explanation": {
-      "en": "flatMap() maps each item then flattens the result one level.",
-      "ar": "‏flatMap() تحوّل كل عنصر ثم تفرد النتيجة مستوى واحدًا."
+      "en": "flatMap() maps each item then flattens the result one level."
     }
   },
   {
     "category": "javascript",
     "difficulty": "medium",
     "codeSnippet": "// always two digits: \"7\" -> \"07\"\nconst mm = String(m).____(2, '0');",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" },
+    "question": {
+      "en": "What goes in the blank?"
+    },
     "answer": "padStart",
     "explanation": {
-      "en": "padStart() pads the front until the string reaches the given length.",
-      "ar": "‏padStart() تحشو البداية حتى يبلغ النص الطول المطلوب."
+      "en": "padStart() pads the front until the string reaches the given length."
     }
   },
   {
     "category": "javascript",
     "difficulty": "medium",
     "codeSnippet": "// a divider line of 20 dashes\nconst line = '-'.____(20);",
-    "question": { "en": "Fill the blank", "ar": "املأ الفراغ" },
+    "question": {
+      "en": "Fill the blank"
+    },
     "answer": "repeat",
     "explanation": {
-      "en": "repeat(n) returns the string joined to itself n times.",
-      "ar": "‏repeat(n) تُعيد النص مكرّرًا n مرة."
+      "en": "repeat(n) returns the string joined to itself n times."
     }
   },
   {
     "category": "javascript",
     "difficulty": "medium",
     "codeSnippet": "// remove 2 items starting at index 1\nlist.____(1, 2);",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" },
+    "question": {
+      "en": "What goes in the blank?"
+    },
     "answer": "splice",
     "explanation": {
-      "en": "splice(start, count) removes items in place.",
-      "ar": "‏splice(start, count) تحذف عناصر من المصفوفة نفسها."
+      "en": "splice(start, count) removes items in place."
     }
   },
   {
     "category": "python",
     "difficulty": "medium",
     "codeSnippet": "# how many times does 'a' appear?\nn = letters.____(\"a\")",
-    "question": { "en": "Fill in the blank", "ar": "املأ الفراغ" },
+    "question": {
+      "en": "Fill in the blank"
+    },
     "answer": "count",
     "explanation": {
-      "en": "count() returns the number of occurrences.",
-      "ar": "‏count() تُعيد عدد مرات التكرار."
+      "en": "count() returns the number of occurrences."
     }
   },
   {
     "category": "javascript",
     "difficulty": "medium",
     "codeSnippet": "// parse a JSON string into an object\nconst cfg = JSON.____(raw);",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" },
+    "question": {
+      "en": "What goes in the blank?"
+    },
     "answer": "parse",
     "explanation": {
-      "en": "JSON.parse() turns text into a value; stringify goes the other way.",
-      "ar": "‏JSON.parse() تحوّل النص إلى قيمة، وstringify تفعل العكس."
+      "en": "JSON.parse() turns text into a value; stringify goes the other way."
     }
   },
   {
     "category": "javascript",
     "difficulty": "medium",
     "codeSnippet": "// run no matter what happened above\ntry { save(); } catch (e) { log(e); } ____ { close(); }",
-    "question": { "en": "Fill the blank", "ar": "املأ الفراغ" },
+    "question": {
+      "en": "Fill the blank"
+    },
     "answer": "finally",
     "explanation": {
-      "en": "finally runs whether or not an exception was thrown.",
-      "ar": "‏finally تُنفَّذ سواء وقع استثناء أم لا."
+      "en": "finally runs whether or not an exception was thrown."
     }
   },
   {
     "category": "python",
     "difficulty": "hard",
     "codeSnippet": "# {'a': 1, 'b': 2} -> {1: 'a', 2: 'b'}\nflipped = {v: k for k, v in d.____()}",
-    "question": { "en": "Complete the comprehension", "ar": "أكمل الـ comprehension" },
+    "question": {
+      "en": "Complete the comprehension"
+    },
     "answer": "items",
     "explanation": {
-      "en": "items() gives the pairs the comprehension swaps.",
-      "ar": "‏items() تعطي الأزواج التي يقلبها الـ comprehension."
+      "en": "items() gives the pairs the comprehension swaps."
     }
   },
   {
     "category": "python",
     "difficulty": "hard",
     "codeSnippet": "# yield a running total\ndef running(nums):\n    t = 0\n    for n in nums:\n        t += n\n        ____ t",
-    "question": { "en": "Complete the function", "ar": "أكمل الدالة" },
+    "question": {
+      "en": "Complete the function"
+    },
     "answer": "yield",
     "explanation": {
-      "en": "yield turns the function into a generator producing each running total.",
-      "ar": "‏yield تحوّل الدالة إلى مولّد يُنتج كل مجموع تراكمي."
+      "en": "yield turns the function into a generator producing each running total."
     }
   },
   {
     "category": "javascript",
     "difficulty": "hard",
     "codeSnippet": "// wait for every request together\nconst all = await Promise.____(ids.map(load));",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" },
+    "question": {
+      "en": "What goes in the blank?"
+    },
     "answer": "all",
     "explanation": {
-      "en": "Promise.all waits for every promise and keeps their order.",
-      "ar": "‏Promise.all تنتظر كل الوعود وتحافظ على ترتيبها."
+      "en": "Promise.all waits for every promise and keeps their order."
     }
   },
   {
     "category": "javascript",
     "difficulty": "hard",
     "codeSnippet": "// first one to settle wins\nconst fastest = await Promise.____([a, b]);",
-    "question": { "en": "Fill in the blank", "ar": "املأ الفراغ" },
+    "question": {
+      "en": "Fill in the blank"
+    },
     "answer": "race",
     "explanation": {
-      "en": "Promise.race settles as soon as the first promise does.",
-      "ar": "‏Promise.race تنتهي بمجرّد انتهاء أول وعد."
+      "en": "Promise.race settles as soon as the first promise does."
     }
   },
   {
     "category": "python",
     "difficulty": "hard",
     "codeSnippet": "# count each word in one line\nfrom collections import Counter\ntally = ____(words)",
-    "question": { "en": "What goes in the blank?", "ar": "ما الذي يملأ الفراغ؟" },
+    "question": {
+      "en": "What goes in the blank?"
+    },
     "answer": "Counter",
     "explanation": {
-      "en": "Counter builds a dict of element counts in one call.",
-      "ar": "‏Counter تبني قاموس تكرارات العناصر باستدعاء واحد."
+      "en": "Counter builds a dict of element counts in one call."
     }
   },
   {
     "category": "typescript",
     "difficulty": "hard",
     "codeSnippet": "// narrow away null before using it\nif (v ____ null) {\n  return v.trim();\n}",
-    "question": { "en": "Fill the blank", "ar": "املأ الفراغ" },
+    "question": {
+      "en": "Fill the blank"
+    },
     "answer": "!==",
     "explanation": {
-      "en": "A strict !== null check narrows the type so the call is safe.",
-      "ar": "فحص ‎!== null الصارم يضيّق النوع فيصبح الاستدعاء آمنًا."
+      "en": "A strict !== null check narrows the type so the call is safe."
     }
   }
 ]

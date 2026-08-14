@@ -4,299 +4,569 @@
     "category": "gameplay",
     "difficulty": "easy",
     "codeSnippet": "transform.Translate(Vector3.forward * speed * Time.deltaTime);",
-    "question": { "en": "Why multiply by Time.deltaTime here?", "ar": "لماذا الضرب في Time.deltaTime هنا؟" },
-    "options": ["Make movement frame-rate independent", "Double the movement speed value", "Convert the vector into degrees", "Cache the transform component"],
+    "question": {
+      "en": "Why multiply by Time.deltaTime here?"
+    },
+    "options": [
+      "Make movement frame-rate independent",
+      "Double the movement speed value",
+      "Convert the vector into degrees",
+      "Cache the transform component"
+    ],
     "answer": "Make movement frame-rate independent",
-    "explanation": { "en": "deltaTime scales motion by elapsed time so speed is consistent across frame rates.", "ar": "deltaTime يضبط الحركة حسب الزمن المنقضي فتبقى السرعة ثابتة مهما اختلف معدل الإطارات." }
+    "explanation": {
+      "en": "deltaTime scales motion by elapsed time so speed is consistent across frame rates."
+    }
   },
   {
     "id": 85,
     "category": "physics",
     "difficulty": "medium",
     "codeSnippet": "rb.AddForce(Vector3.up * jump, ForceMode.Impulse);",
-    "question": { "en": "What does ForceMode.Impulse apply?", "ar": "ماذا يطبّق ForceMode.Impulse؟" },
-    "options": ["An instant change in momentum", "A slow continuous acceleration", "A rotation around the up axis", "A constant downward gravity"],
+    "question": {
+      "en": "What does ForceMode.Impulse apply?"
+    },
+    "options": [
+      "An instant change in momentum",
+      "A slow continuous acceleration",
+      "A rotation around the up axis",
+      "A constant downward gravity"
+    ],
     "answer": "An instant change in momentum",
-    "explanation": { "en": "Impulse applies the force instantly, ignoring mass-over-time, ideal for jumps.", "ar": "Impulse يطبّق القوة فورًا متجاهلًا الزمن، وهو مثالي للقفز." }
+    "explanation": {
+      "en": "Impulse applies the force instantly, ignoring mass-over-time, ideal for jumps."
+    }
   },
   {
     "id": 86,
     "category": "rendering",
     "difficulty": "medium",
     "codeSnippet": "// many identical trees drawn each frame",
-    "question": { "en": "Which technique best reduces draw calls for identical meshes?", "ar": "أي تقنية تقلل نداءات الرسم لنماذج متطابقة؟" },
-    "options": ["GPU instancing of the mesh", "Increasing the texture size", "Adding more light sources", "Disabling frustum culling now"],
+    "question": {
+      "en": "Which technique best reduces draw calls for identical meshes?"
+    },
+    "options": [
+      "GPU instancing of the mesh",
+      "Increasing the texture size",
+      "Adding more light sources",
+      "Disabling frustum culling now"
+    ],
     "answer": "GPU instancing of the mesh",
-    "explanation": { "en": "Instancing draws many copies of one mesh in a single call.", "ar": "التنفيذ المتعدد (instancing) يرسم نسخًا كثيرة من نموذج واحد بنداء واحد." }
+    "explanation": {
+      "en": "Instancing draws many copies of one mesh in a single call."
+    }
   },
   {
     "id": 87,
     "category": "gameplay",
     "difficulty": "easy",
     "codeSnippet": "void Update() { /* ... */ }",
-    "question": { "en": "How often does Unity call Update by default?", "ar": "كم مرة يستدعي Unity الدالة Update افتراضيًا؟" },
-    "options": ["Once per rendered frame", "Once per fixed physics step", "Only when the scene loads", "Exactly sixty times a second"],
+    "question": {
+      "en": "How often does Unity call Update by default?"
+    },
+    "options": [
+      "Once per rendered frame",
+      "Once per fixed physics step",
+      "Only when the scene loads",
+      "Exactly sixty times a second"
+    ],
     "answer": "Once per rendered frame",
-    "explanation": { "en": "Update runs each frame; FixedUpdate runs on the physics timestep.", "ar": "Update يعمل كل إطار، بينما FixedUpdate يعمل على خطوة الفيزياء." }
+    "explanation": {
+      "en": "Update runs each frame; FixedUpdate runs on the physics timestep."
+    }
   },
   {
     "id": 88,
     "category": "physics",
     "difficulty": "medium",
     "codeSnippet": "void FixedUpdate() { rb.velocity = move; }",
-    "question": { "en": "Why put physics code in FixedUpdate?", "ar": "لماذا يوضع كود الفيزياء في FixedUpdate؟" },
-    "options": ["It runs on a fixed timestep", "It runs before every render", "It only runs while paused", "It skips the physics engine"],
+    "question": {
+      "en": "Why put physics code in FixedUpdate?"
+    },
+    "options": [
+      "It runs on a fixed timestep",
+      "It runs before every render",
+      "It only runs while paused",
+      "It skips the physics engine"
+    ],
     "answer": "It runs on a fixed timestep",
-    "explanation": { "en": "FixedUpdate uses a constant interval, keeping physics stable and deterministic.", "ar": "FixedUpdate يستخدم فترة ثابتة تحافظ على استقرار الفيزياء." }
+    "explanation": {
+      "en": "FixedUpdate uses a constant interval, keeping physics stable and deterministic."
+    }
   },
   {
     "id": 89,
     "category": "math",
     "difficulty": "medium",
     "codeSnippet": "float d = Vector3.Dot(a.normalized, b.normalized);",
-    "question": { "en": "What does a dot product of normalized vectors give?", "ar": "ماذا يعطي الجداء النقطي لمتجهين موحّدين؟" },
-    "options": ["The cosine of the angle between them", "The distance separating both points", "A vector perpendicular to both", "The total length of both vectors"],
+    "question": {
+      "en": "What does a dot product of normalized vectors give?"
+    },
+    "options": [
+      "The cosine of the angle between them",
+      "The distance separating both points",
+      "A vector perpendicular to both",
+      "The total length of both vectors"
+    ],
     "answer": "The cosine of the angle between them",
-    "explanation": { "en": "For unit vectors the dot product equals cos(theta), useful for facing checks.", "ar": "للمتجهات الموحّدة يساوي الجداء النقطي جيب تمام الزاوية، مفيد لفحص الاتجاه." }
+    "explanation": {
+      "en": "For unit vectors the dot product equals cos(theta), useful for facing checks."
+    }
   },
   {
     "id": 90,
     "category": "math",
     "difficulty": "hard",
     "codeSnippet": "Vector3 n = Vector3.Cross(edge1, edge2);",
-    "question": { "en": "The cross product of two triangle edges yields what?", "ar": "ماذا ينتج الجداء الاتجاهي لحافتي مثلث؟" },
-    "options": ["A vector normal to the surface", "The area value as a scalar", "The midpoint between edges", "A normalized facing angle"],
+    "question": {
+      "en": "The cross product of two triangle edges yields what?"
+    },
+    "options": [
+      "A vector normal to the surface",
+      "The area value as a scalar",
+      "The midpoint between edges",
+      "A normalized facing angle"
+    ],
     "answer": "A vector normal to the surface",
-    "explanation": { "en": "Cross gives a perpendicular vector; its direction is the surface normal.", "ar": "الجداء الاتجاهي يعطي متجهًا عموديًا، واتجاهه هو عمودي السطح." }
+    "explanation": {
+      "en": "Cross gives a perpendicular vector; its direction is the surface normal."
+    }
   },
   {
     "id": 91,
     "category": "gameplay",
     "difficulty": "easy",
     "codeSnippet": "if (Input.GetKeyDown(KeyCode.Space)) Jump();",
-    "question": { "en": "When does GetKeyDown return true?", "ar": "متى تُرجع GetKeyDown القيمة true؟" },
-    "options": ["On the frame the key is pressed", "Every frame the key is held", "On the frame the key releases", "Only after two quick presses"],
+    "question": {
+      "en": "When does GetKeyDown return true?"
+    },
+    "options": [
+      "On the frame the key is pressed",
+      "Every frame the key is held",
+      "On the frame the key releases",
+      "Only after two quick presses"
+    ],
     "answer": "On the frame the key is pressed",
-    "explanation": { "en": "GetKeyDown is true only on the initial press frame; GetKey is true while held.", "ar": "GetKeyDown تكون true في إطار الضغط الأول فقط، وGetKey أثناء الاستمرار." }
+    "explanation": {
+      "en": "GetKeyDown is true only on the initial press frame; GetKey is true while held."
+    }
   },
   {
     "id": 92,
     "category": "optimization",
     "difficulty": "medium",
     "codeSnippet": "GameObject.Instantiate(bullet); // every shot",
-    "question": { "en": "What pattern avoids constant instantiate/destroy cost?", "ar": "أي نمط يتجنب كلفة الإنشاء والحذف المستمرة؟" },
-    "options": ["Object pooling of bullets", "Loading a bigger texture", "Raising the physics rate", "Merging every collider"],
+    "question": {
+      "en": "What pattern avoids constant instantiate/destroy cost?"
+    },
+    "options": [
+      "Object pooling of bullets",
+      "Loading a bigger texture",
+      "Raising the physics rate",
+      "Merging every collider"
+    ],
     "answer": "Object pooling of bullets",
-    "explanation": { "en": "Pooling reuses inactive objects instead of allocating and freeing each time.", "ar": "التجميع (pooling) يعيد استخدام الكائنات بدل تخصيصها وحذفها كل مرة." }
+    "explanation": {
+      "en": "Pooling reuses inactive objects instead of allocating and freeing each time."
+    }
   },
   {
     "id": 93,
     "category": "rendering",
     "difficulty": "hard",
     "codeSnippet": "// object hidden behind the camera still processed",
-    "question": { "en": "What removes objects outside the camera view before drawing?", "ar": "ما الذي يستبعد الكائنات خارج مجال الكاميرا قبل الرسم؟" },
-    "options": ["Frustum culling of objects", "Bilinear texture filtering", "Additive alpha blending", "Vertex position skinning"],
+    "question": {
+      "en": "What removes objects outside the camera view before drawing?"
+    },
+    "options": [
+      "Frustum culling of objects",
+      "Bilinear texture filtering",
+      "Additive alpha blending",
+      "Vertex position skinning"
+    ],
     "answer": "Frustum culling of objects",
-    "explanation": { "en": "Frustum culling skips rendering anything outside the camera frustum.", "ar": "إقصاء الهرم (frustum culling) يتخطى رسم ما هو خارج مجال الكاميرا." }
+    "explanation": {
+      "en": "Frustum culling skips rendering anything outside the camera frustum."
+    }
   },
   {
     "id": 94,
     "category": "animation",
     "difficulty": "medium",
     "codeSnippet": "float t = Mathf.Lerp(a, b, 0.5f);",
-    "question": { "en": "What is the result of Lerp(a, b, 0.5)?", "ar": "ما نتيجة Lerp(a, b, 0.5)؟" },
-    "options": ["The midpoint between a and b", "The larger of a and b", "The difference of b and a", "The value a left unchanged"],
+    "question": {
+      "en": "What is the result of Lerp(a, b, 0.5)?"
+    },
+    "options": [
+      "The midpoint between a and b",
+      "The larger of a and b",
+      "The difference of b and a",
+      "The value a left unchanged"
+    ],
     "answer": "The midpoint between a and b",
-    "explanation": { "en": "Linear interpolation at 0.5 returns the halfway value between a and b.", "ar": "الاستيفاء الخطي عند 0.5 يعيد القيمة المنتصفة بين a وb." }
+    "explanation": {
+      "en": "Linear interpolation at 0.5 returns the halfway value between a and b."
+    }
   },
   {
     "id": 95,
     "category": "gameplay",
     "difficulty": "easy",
     "codeSnippet": "void OnCollisionEnter(Collision c) { }",
-    "question": { "en": "When is OnCollisionEnter invoked?", "ar": "متى تُستدعى OnCollisionEnter؟" },
-    "options": ["When two colliders first touch", "Every frame while overlapping", "When a trigger is exited", "When the object is created"],
+    "question": {
+      "en": "When is OnCollisionEnter invoked?"
+    },
+    "options": [
+      "When two colliders first touch",
+      "Every frame while overlapping",
+      "When a trigger is exited",
+      "When the object is created"
+    ],
     "answer": "When two colliders first touch",
-    "explanation": { "en": "It fires once at the start of a physical collision between colliders.", "ar": "تُستدعى مرة عند بداية التصادم الفيزيائي بين المصادمات." }
+    "explanation": {
+      "en": "It fires once at the start of a physical collision between colliders."
+    }
   },
   {
     "id": 96,
     "category": "architecture",
     "difficulty": "medium",
     "codeSnippet": "enum State { Idle, Run, Jump, Fall }",
-    "question": { "en": "This enum most likely drives which pattern?", "ar": "هذا التعداد يقود على الأرجح أي نمط؟" },
-    "options": ["A finite state machine", "A binary search tree", "A publish subscribe bus", "A dependency injector"],
+    "question": {
+      "en": "This enum most likely drives which pattern?"
+    },
+    "options": [
+      "A finite state machine",
+      "A binary search tree",
+      "A publish subscribe bus",
+      "A dependency injector"
+    ],
     "answer": "A finite state machine",
-    "explanation": { "en": "Discrete states like Idle/Run/Jump are the core of a state machine.", "ar": "حالات منفصلة مثل Idle/Run/Jump هي جوهر آلة الحالات." }
+    "explanation": {
+      "en": "Discrete states like Idle/Run/Jump are the core of a state machine."
+    }
   },
   {
     "id": 97,
     "category": "math",
     "difficulty": "hard",
     "codeSnippet": "Quaternion q = Quaternion.Slerp(from, to, t);",
-    "question": { "en": "Why use Slerp instead of Lerp for rotations?", "ar": "لماذا نستخدم Slerp بدل Lerp للدوران؟" },
-    "options": ["It keeps constant angular speed", "It runs faster on the GPU", "It avoids using quaternions", "It clamps the result to zero"],
+    "question": {
+      "en": "Why use Slerp instead of Lerp for rotations?"
+    },
+    "options": [
+      "It keeps constant angular speed",
+      "It runs faster on the GPU",
+      "It avoids using quaternions",
+      "It clamps the result to zero"
+    ],
     "answer": "It keeps constant angular speed",
-    "explanation": { "en": "Spherical interpolation rotates at a steady rate, avoiding wobble.", "ar": "الاستيفاء الكروي يدور بمعدل ثابت ويتجنب الاهتزاز." }
+    "explanation": {
+      "en": "Spherical interpolation rotates at a steady rate, avoiding wobble."
+    }
   },
   {
     "id": 98,
     "category": "rendering",
     "difficulty": "medium",
     "codeSnippet": "// UI text blurry on high-DPI screens",
-    "question": { "en": "Which asset stays sharp at any scale for icons?", "ar": "أي أصل يبقى حادًا بأي حجم للأيقونات؟" },
-    "options": ["Vector or SDF graphics", "A small raster bitmap", "A compressed JPEG file", "A single mipmap level"],
+    "question": {
+      "en": "Which asset stays sharp at any scale for icons?"
+    },
+    "options": [
+      "Vector or SDF graphics",
+      "A small raster bitmap",
+      "A compressed JPEG file",
+      "A single mipmap level"
+    ],
     "answer": "Vector or SDF graphics",
-    "explanation": { "en": "Vector/signed-distance-field art scales without pixelation.", "ar": "الرسوم المتجهة أو SDF تتكبر دون تحبب." }
+    "explanation": {
+      "en": "Vector/signed-distance-field art scales without pixelation."
+    }
   },
   {
     "id": 99,
     "category": "gameplay",
     "difficulty": "easy",
     "codeSnippet": "Debug.Log(\"reached checkpoint\");",
-    "question": { "en": "What is Debug.Log mainly used for?", "ar": "فيمَ تُستخدم Debug.Log أساسًا؟" },
-    "options": ["Printing messages to the console", "Saving the player progress", "Rendering text on the HUD", "Building the release package"],
+    "question": {
+      "en": "What is Debug.Log mainly used for?"
+    },
+    "options": [
+      "Printing messages to the console",
+      "Saving the player progress",
+      "Rendering text on the HUD",
+      "Building the release package"
+    ],
     "answer": "Printing messages to the console",
-    "explanation": { "en": "It writes diagnostic text to the editor/player console.", "ar": "تكتب نصًا تشخيصيًا إلى وحدة تحكم المحرر/اللاعب." }
+    "explanation": {
+      "en": "It writes diagnostic text to the editor/player console."
+    }
   },
   {
     "id": 100,
     "category": "optimization",
     "difficulty": "hard",
     "codeSnippet": "for (int i=0;i<1000;i++) GetComponent<Rigidbody>();",
-    "question": { "en": "What is the main problem with this loop?", "ar": "ما المشكلة الأساسية في هذه الحلقة؟" },
-    "options": ["Repeated component lookups are costly", "Rigidbody cannot be fetched twice", "The loop never actually terminates", "GetComponent returns a new object"],
+    "question": {
+      "en": "What is the main problem with this loop?"
+    },
+    "options": [
+      "Repeated component lookups are costly",
+      "Rigidbody cannot be fetched twice",
+      "The loop never actually terminates",
+      "GetComponent returns a new object"
+    ],
     "answer": "Repeated component lookups are costly",
-    "explanation": { "en": "Cache the reference once instead of calling GetComponent every iteration.", "ar": "خزّن المرجع مرة واحدة بدل استدعاء GetComponent في كل تكرار." }
+    "explanation": {
+      "en": "Cache the reference once instead of calling GetComponent every iteration."
+    }
   },
   {
     "id": 101,
     "category": "audio",
     "difficulty": "easy",
     "codeSnippet": "audioSource.PlayOneShot(clip);",
-    "question": { "en": "What does PlayOneShot allow that Play does not?", "ar": "ما الذي تتيحه PlayOneShot ولا تتيحه Play؟" },
-    "options": ["Overlapping multiple sounds at once", "Looping the clip forever", "Muting all other audio", "Streaming from the network"],
+    "question": {
+      "en": "What does PlayOneShot allow that Play does not?"
+    },
+    "options": [
+      "Overlapping multiple sounds at once",
+      "Looping the clip forever",
+      "Muting all other audio",
+      "Streaming from the network"
+    ],
     "answer": "Overlapping multiple sounds at once",
-    "explanation": { "en": "PlayOneShot mixes a clip without cutting the current one, so sounds overlap.", "ar": "PlayOneShot تمزج مقطعًا دون قطع الحالي فتتراكب الأصوات." }
+    "explanation": {
+      "en": "PlayOneShot mixes a clip without cutting the current one, so sounds overlap."
+    }
   },
   {
     "id": 102,
     "category": "networking",
     "difficulty": "hard",
     "codeSnippet": "// player teleports when lag spikes",
-    "question": { "en": "Which technique hides latency by predicting local moves?", "ar": "أي تقنية تخفي زمن الاستجابة بتوقع الحركة محليًا؟" },
-    "options": ["Client-side prediction", "Server memory pooling", "Texture atlas packing", "Ambient occlusion pass"],
+    "question": {
+      "en": "Which technique hides latency by predicting local moves?"
+    },
+    "options": [
+      "Client-side prediction",
+      "Server memory pooling",
+      "Texture atlas packing",
+      "Ambient occlusion pass"
+    ],
     "answer": "Client-side prediction",
-    "explanation": { "en": "The client predicts movement immediately and reconciles with the server later.", "ar": "يتوقع العميل الحركة فورًا ثم يوفّق مع الخادم لاحقًا." }
+    "explanation": {
+      "en": "The client predicts movement immediately and reconciles with the server later."
+    }
   },
   {
     "id": 103,
     "category": "gameplay",
     "difficulty": "medium",
     "codeSnippet": "coroutine: yield return new WaitForSeconds(2f);",
-    "question": { "en": "What does this coroutine line do?", "ar": "ماذا يفعل سطر الكوروتين هذا؟" },
-    "options": ["Pause the routine for two seconds", "Destroy the object after delay", "Run the code twice in a row", "Block the entire main thread"],
+    "question": {
+      "en": "What does this coroutine line do?"
+    },
+    "options": [
+      "Pause the routine for two seconds",
+      "Destroy the object after delay",
+      "Run the code twice in a row",
+      "Block the entire main thread"
+    ],
     "answer": "Pause the routine for two seconds",
-    "explanation": { "en": "The coroutine suspends and resumes after two seconds without blocking the game.", "ar": "يعلّق الكوروتين ويستأنف بعد ثانيتين دون تجميد اللعبة." }
+    "explanation": {
+      "en": "The coroutine suspends and resumes after two seconds without blocking the game."
+    }
   },
   {
     "id": 104,
     "category": "math",
     "difficulty": "easy",
     "codeSnippet": "float dist = Vector3.Distance(a, b);",
-    "question": { "en": "For many comparisons, what is a faster alternative?", "ar": "لكثرة المقارنات، ما البديل الأسرع؟" },
-    "options": ["Compare squared magnitudes", "Normalize both vectors first", "Convert them to integers", "Use the cross product norm"],
+    "question": {
+      "en": "For many comparisons, what is a faster alternative?"
+    },
+    "options": [
+      "Compare squared magnitudes",
+      "Normalize both vectors first",
+      "Convert them to integers",
+      "Use the cross product norm"
+    ],
     "answer": "Compare squared magnitudes",
-    "explanation": { "en": "sqrMagnitude avoids the costly square root when only ordering matters.", "ar": "sqrMagnitude يتجنب الجذر التربيعي المكلف عند الحاجة للترتيب فقط." }
+    "explanation": {
+      "en": "sqrMagnitude avoids the costly square root when only ordering matters."
+    }
   },
   {
     "id": 105,
     "category": "rendering",
     "difficulty": "medium",
     "codeSnippet": "material.SetFloat(\"_Metallic\", 1f);",
-    "question": { "en": "Which shading model uses metallic/roughness inputs?", "ar": "أي نموذج تظليل يستخدم مدخلات معدنية/خشونة؟" },
-    "options": ["Physically based rendering", "Flat gouraud shading", "Fixed function pipeline", "Immediate mode drawing"],
+    "question": {
+      "en": "Which shading model uses metallic/roughness inputs?"
+    },
+    "options": [
+      "Physically based rendering",
+      "Flat gouraud shading",
+      "Fixed function pipeline",
+      "Immediate mode drawing"
+    ],
     "answer": "Physically based rendering",
-    "explanation": { "en": "PBR parameterizes surfaces with metallic and roughness for realistic light.", "ar": "PBR يصف الأسطح بالمعدنية والخشونة لإضاءة واقعية." }
+    "explanation": {
+      "en": "PBR parameterizes surfaces with metallic and roughness for realistic light."
+    }
   },
   {
     "id": 106,
     "category": "gameplay",
     "difficulty": "hard",
     "codeSnippet": "// enemy chases player around walls",
-    "question": { "en": "Which algorithm finds a path around obstacles?", "ar": "أي خوارزمية تجد مسارًا حول العوائق؟" },
-    "options": ["A* pathfinding search", "Bubble sort ordering", "Gamma color correction", "Delta time smoothing"],
+    "question": {
+      "en": "Which algorithm finds a path around obstacles?"
+    },
+    "options": [
+      "A* pathfinding search",
+      "Bubble sort ordering",
+      "Gamma color correction",
+      "Delta time smoothing"
+    ],
     "answer": "A* pathfinding search",
-    "explanation": { "en": "A* searches a navigation graph using cost plus a heuristic to reach the goal.", "ar": "A* يبحث في رسم التنقل مستخدمًا الكلفة مع تقدير للوصول للهدف." }
+    "explanation": {
+      "en": "A* searches a navigation graph using cost plus a heuristic to reach the goal."
+    }
   },
   {
     "id": 107,
     "category": "architecture",
     "difficulty": "medium",
     "codeSnippet": "[SerializeField] private int lives = 3;",
-    "question": { "en": "Why use [SerializeField] on a private field?", "ar": "لماذا نستخدم [SerializeField] على حقل خاص؟" },
-    "options": ["Expose it in the Inspector safely", "Make it public to all scripts", "Run it before the scene loads", "Compile it out of the build"],
+    "question": {
+      "en": "Why use [SerializeField] on a private field?"
+    },
+    "options": [
+      "Expose it in the Inspector safely",
+      "Make it public to all scripts",
+      "Run it before the scene loads",
+      "Compile it out of the build"
+    ],
     "answer": "Expose it in the Inspector safely",
-    "explanation": { "en": "It lets the editor edit a private field without widening its code access.", "ar": "يتيح للمحرر تعديل حقل خاص دون توسيع وصوله البرمجي." }
+    "explanation": {
+      "en": "It lets the editor edit a private field without widening its code access."
+    }
   },
   {
     "id": 108,
     "category": "optimization",
     "difficulty": "hard",
     "codeSnippet": "// GC spikes cause frame hitches",
-    "question": { "en": "What commonly triggers garbage-collection hitches?", "ar": "ما الذي يسبب عادةً تلعثم جمع المهملات؟" },
-    "options": ["Per-frame heap allocations", "Reusing a cached array", "Using struct value types", "Batching all draw calls"],
+    "question": {
+      "en": "What commonly triggers garbage-collection hitches?"
+    },
+    "options": [
+      "Per-frame heap allocations",
+      "Reusing a cached array",
+      "Using struct value types",
+      "Batching all draw calls"
+    ],
     "answer": "Per-frame heap allocations",
-    "explanation": { "en": "Allocating managed memory every frame builds garbage that the GC must collect.", "ar": "تخصيص ذاكرة مُدارة كل إطار يولّد مهملات يجب جمعها." }
+    "explanation": {
+      "en": "Allocating managed memory every frame builds garbage that the GC must collect."
+    }
   },
   {
     "id": 109,
     "category": "gameplay",
     "difficulty": "easy",
     "codeSnippet": "void OnTriggerEnter(Collider o) { }",
-    "question": { "en": "A collider marked 'Is Trigger' does what?", "ar": "ماذا يفعل مصادم موسوم 'Is Trigger'؟" },
-    "options": ["Detects overlap without physical push", "Blocks other objects completely", "Adds gravity to the object", "Renders a debug wire mesh"],
+    "question": {
+      "en": "A collider marked 'Is Trigger' does what?"
+    },
+    "options": [
+      "Detects overlap without physical push",
+      "Blocks other objects completely",
+      "Adds gravity to the object",
+      "Renders a debug wire mesh"
+    ],
     "answer": "Detects overlap without physical push",
-    "explanation": { "en": "Triggers report overlaps but do not produce collision response.", "ar": "المشغلات تبلّغ عن التداخل دون استجابة تصادم فيزيائية." }
+    "explanation": {
+      "en": "Triggers report overlaps but do not produce collision response."
+    }
   },
   {
     "id": 110,
     "category": "rendering",
     "difficulty": "medium",
     "codeSnippet": "// 2D sprites sort incorrectly",
-    "question": { "en": "What usually controls 2D sprite draw order?", "ar": "ما الذي يتحكم عادةً بترتيب رسم الأشكال ثنائية الأبعاد؟" },
-    "options": ["Sorting layer and order", "Ambient light intensity", "Rigidbody mass value", "Texture wrap setting"],
+    "question": {
+      "en": "What usually controls 2D sprite draw order?"
+    },
+    "options": [
+      "Sorting layer and order",
+      "Ambient light intensity",
+      "Rigidbody mass value",
+      "Texture wrap setting"
+    ],
     "answer": "Sorting layer and order",
-    "explanation": { "en": "Sprite renderers sort by sorting layer, then order-in-layer.", "ar": "تُرتَّب الأشكال حسب طبقة الفرز ثم الترتيب داخلها." }
+    "explanation": {
+      "en": "Sprite renderers sort by sorting layer, then order-in-layer."
+    }
   },
   {
     "id": 111,
     "category": "math",
     "difficulty": "medium",
     "codeSnippet": "angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;",
-    "question": { "en": "What does Atan2 compute here?", "ar": "ماذا تحسب Atan2 هنا؟" },
-    "options": ["The heading angle of a vector", "The length of the vector", "The dot product result", "A random spread offset"],
+    "question": {
+      "en": "What does Atan2 compute here?"
+    },
+    "options": [
+      "The heading angle of a vector",
+      "The length of the vector",
+      "The dot product result",
+      "A random spread offset"
+    ],
     "answer": "The heading angle of a vector",
-    "explanation": { "en": "Atan2(y, x) returns the direction angle, handling all quadrants.", "ar": "Atan2(y, x) تعيد زاوية الاتجاه مع مراعاة كل الأرباع." }
+    "explanation": {
+      "en": "Atan2(y, x) returns the direction angle, handling all quadrants."
+    }
   },
   {
     "id": 112,
     "category": "optimization",
     "difficulty": "easy",
     "codeSnippet": "// build ships with 4K textures everywhere",
-    "question": { "en": "Which setting most reduces GPU memory use here?", "ar": "أي إعداد يقلل استهلاك ذاكرة الرسوميات هنا؟" },
-    "options": ["Lower texture import size", "More real-time lights", "Higher shadow distance", "Extra post-processing"],
+    "question": {
+      "en": "Which setting most reduces GPU memory use here?"
+    },
+    "options": [
+      "Lower texture import size",
+      "More real-time lights",
+      "Higher shadow distance",
+      "Extra post-processing"
+    ],
     "answer": "Lower texture import size",
-    "explanation": { "en": "Reducing max texture size cuts VRAM usage substantially.", "ar": "خفض الحجم الأقصى للنسيج يقلل استهلاك ذاكرة الرسوميات كثيرًا." }
+    "explanation": {
+      "en": "Reducing max texture size cuts VRAM usage substantially."
+    }
   },
   {
     "id": 113,
     "category": "gameplay",
     "difficulty": "medium",
     "codeSnippet": "Physics.Raycast(origin, dir, out hit, range);",
-    "question": { "en": "What does a raycast primarily do?", "ar": "ماذا يفعل الشعاع (raycast) أساسًا؟" },
-    "options": ["Test what a ray hits first", "Move the object forward", "Play a targeting sound", "Spawn a particle burst"],
+    "question": {
+      "en": "What does a raycast primarily do?"
+    },
+    "options": [
+      "Test what a ray hits first",
+      "Move the object forward",
+      "Play a targeting sound",
+      "Spawn a particle burst"
+    ],
     "answer": "Test what a ray hits first",
-    "explanation": { "en": "A raycast reports the first collider a ray intersects, used for aiming and detection.", "ar": "يبلّغ الشعاع عن أول مصادم يقطعه، ويُستخدم للتصويب والكشف." }
+    "explanation": {
+      "en": "A raycast reports the first collider a ray intersects, used for aiming and detection."
+    }
   }
 ]

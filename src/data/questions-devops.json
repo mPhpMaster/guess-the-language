@@ -5,8 +5,7 @@
     "difficulty": "easy",
     "codeSnippet": "docker build -t myapp .",
     "question": {
-      "en": "What does this command do?",
-      "ar": "ماذا يفعل هذا الأمر؟"
+      "en": "What does this command do?"
     },
     "options": [
       "Build an image from the Dockerfile",
@@ -16,8 +15,7 @@
     ],
     "answer": "Build an image from the Dockerfile",
     "explanation": {
-      "en": "docker build creates an image from the Dockerfile in the current directory.",
-      "ar": "ينشئ docker build صورة من ملف Dockerfile في المجلد الحالي."
+      "en": "docker build creates an image from the Dockerfile in the current directory."
     }
   },
   {
@@ -26,8 +24,7 @@
     "difficulty": "easy",
     "codeSnippet": "docker ps",
     "question": {
-      "en": "What does 'docker ps' show?",
-      "ar": "ماذا يعرض docker ps؟"
+      "en": "What does 'docker ps' show?"
     },
     "options": [
       "Running containers",
@@ -37,8 +34,7 @@
     ],
     "answer": "Running containers",
     "explanation": {
-      "en": "docker ps lists currently running containers (add -a for all).",
-      "ar": "يسرد docker ps الحاويات العاملة حالياً (a- لعرض الكل)."
+      "en": "docker ps lists currently running containers (add -a for all)."
     }
   },
   {
@@ -47,8 +43,7 @@
     "difficulty": "medium",
     "codeSnippet": "docker run -d -p 8080:80 nginx",
     "question": {
-      "en": "What does the -d flag do here?",
-      "ar": "ماذا يفعل الخيار d- هنا؟"
+      "en": "What does the -d flag do here?"
     },
     "options": [
       "Run detached (in the background)",
@@ -58,8 +53,7 @@
     ],
     "answer": "Run detached (in the background)",
     "explanation": {
-      "en": "-d runs the container detached; -p maps host:container ports.",
-      "ar": "يشغّل d- الحاوية في الخلفية، وp- يربط منافذ المضيف بالحاوية."
+      "en": "-d runs the container detached; -p maps host:container ports."
     }
   },
   {
@@ -68,8 +62,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "A Dockerfile is?",
-      "ar": "ما هو Dockerfile؟"
+      "en": "A Dockerfile is?"
     },
     "options": [
       "Instructions to build an image",
@@ -79,8 +72,7 @@
     ],
     "answer": "Instructions to build an image",
     "explanation": {
-      "en": "A Dockerfile is a script of instructions to assemble an image.",
-      "ar": "Dockerfile سكربت تعليمات لبناء صورة."
+      "en": "A Dockerfile is a script of instructions to assemble an image."
     }
   },
   {
@@ -89,8 +81,7 @@
     "difficulty": "medium",
     "codeSnippet": "docker compose up",
     "question": {
-      "en": "What is Docker Compose for?",
-      "ar": "فيمَ يُستخدم Docker Compose؟"
+      "en": "What is Docker Compose for?"
     },
     "options": [
       "Defining and running multi-container apps",
@@ -100,8 +91,7 @@
     ],
     "answer": "Defining and running multi-container apps",
     "explanation": {
-      "en": "Compose defines multi-container apps in one YAML file.",
-      "ar": "يعرّف Compose تطبيقات متعددة الحاويات في ملف YAML واحد."
+      "en": "Compose defines multi-container apps in one YAML file."
     }
   },
   {
@@ -110,8 +100,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "A Docker image is?",
-      "ar": "ما هي صورة Docker؟"
+      "en": "A Docker image is?"
     },
     "options": [
       "A read-only template for containers",
@@ -121,8 +110,7 @@
     ],
     "answer": "A read-only template for containers",
     "explanation": {
-      "en": "An image is an immutable template; containers are running instances of it.",
-      "ar": "الصورة قالب غير قابل للتعديل، والحاويات نسخ عاملة منها."
+      "en": "An image is an immutable template; containers are running instances of it."
     }
   },
   {
@@ -131,8 +119,7 @@
     "difficulty": "medium",
     "codeSnippet": "docker exec -it web bash",
     "question": {
-      "en": "What does this command do?",
-      "ar": "ماذا يفعل هذا الأمر؟"
+      "en": "What does this command do?"
     },
     "options": [
       "Open an interactive shell in a running container",
@@ -142,8 +129,7 @@
     ],
     "answer": "Open an interactive shell in a running container",
     "explanation": {
-      "en": "docker exec -it runs an interactive command inside a running container.",
-      "ar": "يشغّل docker exec -it أمراً تفاعلياً داخل حاوية عاملة."
+      "en": "docker exec -it runs an interactive command inside a running container."
     }
   },
   {
@@ -152,8 +138,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "A container differs from a VM because it?",
-      "ar": "تختلف الحاوية عن الجهاز الافتراضي لأنها؟"
+      "en": "A container differs from a VM because it?"
     },
     "options": [
       "Shares the host OS kernel (lightweight)",
@@ -163,8 +148,7 @@
     ],
     "answer": "Shares the host OS kernel (lightweight)",
     "explanation": {
-      "en": "Containers share the host kernel, making them lighter than VMs.",
-      "ar": "تشارك الحاويات نواة المضيف فتكون أخف من الأجهزة الافتراضية."
+      "en": "Containers share the host kernel, making them lighter than VMs."
     }
   },
   {
@@ -173,8 +157,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Kubernetes is?",
-      "ar": "ما هو Kubernetes؟"
+      "en": "Kubernetes is?"
     },
     "options": [
       "A container orchestration platform",
@@ -184,8 +167,7 @@
     ],
     "answer": "A container orchestration platform",
     "explanation": {
-      "en": "Kubernetes automates deployment, scaling and management of containers.",
-      "ar": "يؤتمت Kubernetes نشر الحاويات وتوسيعها وإدارتها."
+      "en": "Kubernetes automates deployment, scaling and management of containers."
     }
   },
   {
@@ -194,8 +176,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "The smallest deployable unit in Kubernetes is a?",
-      "ar": "أصغر وحدة قابلة للنشر في Kubernetes هي؟"
+      "en": "The smallest deployable unit in Kubernetes is a?"
     },
     "options": [
       "Pod",
@@ -205,8 +186,7 @@
     ],
     "answer": "Pod",
     "explanation": {
-      "en": "A Pod wraps one or more containers and is the smallest deployable unit.",
-      "ar": "الـ Pod يغلّف حاوية أو أكثر وهو أصغر وحدة قابلة للنشر."
+      "en": "A Pod wraps one or more containers and is the smallest deployable unit."
     }
   },
   {
@@ -215,8 +195,7 @@
     "difficulty": "easy",
     "codeSnippet": "kubectl get pods",
     "question": {
-      "en": "What does this command do?",
-      "ar": "ماذا يفعل هذا الأمر؟"
+      "en": "What does this command do?"
     },
     "options": [
       "List pods",
@@ -226,8 +205,7 @@
     ],
     "answer": "List pods",
     "explanation": {
-      "en": "kubectl get pods lists pods in the current namespace.",
-      "ar": "يسرد kubectl get pods الـ pods في مجال الأسماء الحالي."
+      "en": "kubectl get pods lists pods in the current namespace."
     }
   },
   {
@@ -236,8 +214,7 @@
     "difficulty": "medium",
     "codeSnippet": "kubectl apply -f deploy.yaml",
     "question": {
-      "en": "What does this command do?",
-      "ar": "ماذا يفعل هذا الأمر؟"
+      "en": "What does this command do?"
     },
     "options": [
       "Create/update resources from a manifest",
@@ -247,8 +224,7 @@
     ],
     "answer": "Create/update resources from a manifest",
     "explanation": {
-      "en": "kubectl apply declaratively creates or updates resources from a YAML manifest.",
-      "ar": "ينشئ kubectl apply أو يحدّث الموارد إعلانياً من ملف YAML."
+      "en": "kubectl apply declaratively creates or updates resources from a YAML manifest."
     }
   },
   {
@@ -257,8 +233,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "A Kubernetes Service provides?",
-      "ar": "ماذا يوفّر Kubernetes Service؟"
+      "en": "A Kubernetes Service provides?"
     },
     "options": [
       "Stable networking/load balancing to pods",
@@ -268,8 +243,7 @@
     ],
     "answer": "Stable networking/load balancing to pods",
     "explanation": {
-      "en": "A Service gives a stable endpoint and load-balances across pods.",
-      "ar": "يمنح الـ Service نقطة وصول ثابتة ويوزّع الحمل بين الـ pods."
+      "en": "A Service gives a stable endpoint and load-balances across pods."
     }
   },
   {
@@ -278,8 +252,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "A Kubernetes Deployment manages?",
-      "ar": "ماذا يدير Kubernetes Deployment؟"
+      "en": "A Kubernetes Deployment manages?"
     },
     "options": [
       "ReplicaSets/Pods and rollouts",
@@ -289,8 +262,7 @@
     ],
     "answer": "ReplicaSets/Pods and rollouts",
     "explanation": {
-      "en": "A Deployment manages ReplicaSets and handles rolling updates/rollbacks.",
-      "ar": "يدير الـ Deployment الـ ReplicaSets ويتولّى التحديثات المتدرّجة والتراجع."
+      "en": "A Deployment manages ReplicaSets and handles rolling updates/rollbacks."
     }
   },
   {
@@ -299,8 +271,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "A worker machine in a Kubernetes cluster is a?",
-      "ar": "الجهاز العامل في عنقود Kubernetes يُسمى؟"
+      "en": "A worker machine in a Kubernetes cluster is a?"
     },
     "options": [
       "Node",
@@ -310,8 +281,7 @@
     ],
     "answer": "Node",
     "explanation": {
-      "en": "A Node is a worker machine (VM or physical) that runs pods.",
-      "ar": "الـ Node جهاز عامل (افتراضي أو فعلي) يشغّل الـ pods."
+      "en": "A Node is a worker machine (VM or physical) that runs pods."
     }
   },
   {
@@ -320,8 +290,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Helm is?",
-      "ar": "ما هو Helm؟"
+      "en": "Helm is?"
     },
     "options": [
       "A Kubernetes package manager",
@@ -331,8 +300,7 @@
     ],
     "answer": "A Kubernetes package manager",
     "explanation": {
-      "en": "Helm packages Kubernetes apps as reusable 'charts'.",
-      "ar": "يحزم Helm تطبيقات Kubernetes كـ charts قابلة لإعادة الاستخدام."
+      "en": "Helm packages Kubernetes apps as reusable 'charts'."
     }
   },
   {
@@ -341,8 +309,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "A rolling update in Kubernetes?",
-      "ar": "التحديث المتدرّج في Kubernetes؟"
+      "en": "A rolling update in Kubernetes?"
     },
     "options": [
       "Gradually replaces pods with no downtime",
@@ -352,8 +319,7 @@
     ],
     "answer": "Gradually replaces pods with no downtime",
     "explanation": {
-      "en": "Rolling updates replace pods incrementally to avoid downtime.",
-      "ar": "تستبدل التحديثات المتدرّجة الـ pods تدريجياً لتفادي التوقف."
+      "en": "Rolling updates replace pods incrementally to avoid downtime."
     }
   },
   {
@@ -362,8 +328,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "CI/CD stands for?",
-      "ar": "ماذا يعني CI/CD؟"
+      "en": "CI/CD stands for?"
     },
     "options": [
       "Continuous Integration / Continuous Delivery",
@@ -373,8 +338,7 @@
     ],
     "answer": "Continuous Integration / Continuous Delivery",
     "explanation": {
-      "en": "CI/CD = Continuous Integration and Continuous Delivery/Deployment.",
-      "ar": "CI/CD تعني التكامل المستمر والتسليم/النشر المستمر."
+      "en": "CI/CD = Continuous Integration and Continuous Delivery/Deployment."
     }
   },
   {
@@ -383,8 +347,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "A GitHub Actions workflow is defined in?",
-      "ar": "أين يُعرّف سير عمل GitHub Actions؟"
+      "en": "A GitHub Actions workflow is defined in?"
     },
     "options": [
       ".github/workflows/*.yml",
@@ -394,8 +357,7 @@
     ],
     "answer": ".github/workflows/*.yml",
     "explanation": {
-      "en": "GitHub Actions workflows live in .github/workflows/ as YAML.",
-      "ar": "توضع سير عمل GitHub Actions في .github/workflows بصيغة YAML."
+      "en": "GitHub Actions workflows live in .github/workflows/ as YAML."
     }
   },
   {
@@ -404,8 +366,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Jenkins is?",
-      "ar": "ما هو Jenkins؟"
+      "en": "Jenkins is?"
     },
     "options": [
       "An automation / CI server",
@@ -415,8 +376,7 @@
     ],
     "answer": "An automation / CI server",
     "explanation": {
-      "en": "Jenkins is a popular open-source CI/CD automation server.",
-      "ar": "Jenkins خادم أتمتة CI/CD مفتوح المصدر شائع."
+      "en": "Jenkins is a popular open-source CI/CD automation server."
     }
   },
   {
@@ -425,8 +385,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "GitLab CI is configured in which file?",
-      "ar": "في أي ملف يُضبط GitLab CI؟"
+      "en": "GitLab CI is configured in which file?"
     },
     "options": [
       ".gitlab-ci.yml",
@@ -436,8 +395,7 @@
     ],
     "answer": ".gitlab-ci.yml",
     "explanation": {
-      "en": "GitLab CI reads pipeline config from .gitlab-ci.yml.",
-      "ar": "يقرأ GitLab CI إعداد الأنبوب من .gitlab-ci.yml."
+      "en": "GitLab CI reads pipeline config from .gitlab-ci.yml."
     }
   },
   {
@@ -446,8 +404,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "'Continuous Deployment' means?",
-      "ar": "ماذا يعني النشر المستمر؟"
+      "en": "'Continuous Deployment' means?"
     },
     "options": [
       "Every passing change auto-releases to production",
@@ -457,8 +414,7 @@
     ],
     "answer": "Every passing change auto-releases to production",
     "explanation": {
-      "en": "Continuous Deployment auto-releases every change that passes the pipeline.",
-      "ar": "ينشر النشر المستمر تلقائياً كل تغيير يجتاز الأنبوب."
+      "en": "Continuous Deployment auto-releases every change that passes the pipeline."
     }
   },
   {
@@ -467,8 +423,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "A blue-green deployment is?",
-      "ar": "ما هو النشر الأزرق-الأخضر؟"
+      "en": "A blue-green deployment is?"
     },
     "options": [
       "Two prod environments; switch traffic with zero downtime",
@@ -478,8 +433,7 @@
     ],
     "answer": "Two prod environments; switch traffic with zero downtime",
     "explanation": {
-      "en": "Blue-green keeps two environments and flips traffic for zero-downtime releases.",
-      "ar": "يحتفظ الأزرق-الأخضر ببيئتين ويحوّل الحركة لإصدار دون توقف."
+      "en": "Blue-green keeps two environments and flips traffic for zero-downtime releases."
     }
   },
   {
@@ -488,8 +442,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Terraform is used for?",
-      "ar": "فيمَ يُستخدم Terraform؟"
+      "en": "Terraform is used for?"
     },
     "options": [
       "Provisioning infrastructure as code",
@@ -499,8 +452,7 @@
     ],
     "answer": "Provisioning infrastructure as code",
     "explanation": {
-      "en": "Terraform provisions cloud/infra resources declaratively from code.",
-      "ar": "يوفّر Terraform موارد البنية/السحابة إعلانياً من شيفرة."
+      "en": "Terraform provisions cloud/infra resources declaratively from code."
     }
   },
   {
@@ -509,8 +461,7 @@
     "difficulty": "medium",
     "codeSnippet": "terraform apply",
     "question": {
-      "en": "What does 'terraform apply' do?",
-      "ar": "ماذا يفعل terraform apply؟"
+      "en": "What does 'terraform apply' do?"
     },
     "options": [
       "Create/update infrastructure to match the config",
@@ -520,8 +471,7 @@
     ],
     "answer": "Create/update infrastructure to match the config",
     "explanation": {
-      "en": "terraform apply makes real infrastructure match the desired config.",
-      "ar": "يجعل terraform apply البنية الفعلية مطابقة للإعداد المطلوب."
+      "en": "terraform apply makes real infrastructure match the desired config."
     }
   },
   {
@@ -530,8 +480,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Ansible playbooks are written in?",
-      "ar": "بأي لغة تُكتب playbooks في Ansible؟"
+      "en": "Ansible playbooks are written in?"
     },
     "options": [
       "YAML",
@@ -541,8 +490,7 @@
     ],
     "answer": "YAML",
     "explanation": {
-      "en": "Ansible playbooks are YAML files describing tasks.",
-      "ar": "playbooks في Ansible ملفات YAML تصف المهام."
+      "en": "Ansible playbooks are YAML files describing tasks."
     }
   },
   {
@@ -551,8 +499,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Ansible is agentless and connects mainly over?",
-      "ar": "Ansible بلا وكيل ويتصل أساساً عبر؟"
+      "en": "Ansible is agentless and connects mainly over?"
     },
     "options": [
       "SSH",
@@ -562,8 +509,7 @@
     ],
     "answer": "SSH",
     "explanation": {
-      "en": "Ansible needs no agent and manages hosts over SSH.",
-      "ar": "لا يحتاج Ansible وكيلاً ويدير المضيفين عبر SSH."
+      "en": "Ansible needs no agent and manages hosts over SSH."
     }
   },
   {
@@ -572,8 +518,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "'Infrastructure as Code' means?",
-      "ar": "ماذا تعني البنية التحتية كشيفرة؟"
+      "en": "'Infrastructure as Code' means?"
     },
     "options": [
       "Managing infrastructure via versioned config files",
@@ -583,8 +528,7 @@
     ],
     "answer": "Managing infrastructure via versioned config files",
     "explanation": {
-      "en": "IaC manages infrastructure through code that can be versioned and reviewed.",
-      "ar": "تدير IaC البنية عبر شيفرة يمكن إصدارها ومراجعتها."
+      "en": "IaC manages infrastructure through code that can be versioned and reviewed."
     }
   },
   {
@@ -593,8 +537,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Terraform 'state' tracks?",
-      "ar": "ماذا تتعقّب حالة Terraform؟"
+      "en": "Terraform 'state' tracks?"
     },
     "options": [
       "The real resources it manages",
@@ -604,8 +547,7 @@
     ],
     "answer": "The real resources it manages",
     "explanation": {
-      "en": "The state file maps your config to the real resources Terraform manages.",
-      "ar": "يربط ملف الحالة إعدادك بالموارد الفعلية التي يديرها Terraform."
+      "en": "The state file maps your config to the real resources Terraform manages."
     }
   },
   {
@@ -614,8 +556,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "Which AWS service provides object storage?",
-      "ar": "أي خدمة AWS توفّر تخزين الكائنات؟"
+      "en": "Which AWS service provides object storage?"
     },
     "options": [
       "S3",
@@ -625,8 +566,7 @@
     ],
     "answer": "S3",
     "explanation": {
-      "en": "Amazon S3 is object storage; EC2 is compute, RDS is databases.",
-      "ar": "S3 تخزين كائنات، وEC2 حوسبة، وRDS قواعد بيانات."
+      "en": "Amazon S3 is object storage; EC2 is compute, RDS is databases."
     }
   },
   {
@@ -635,8 +575,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "AWS EC2 provides?",
-      "ar": "ماذا توفّر AWS EC2؟"
+      "en": "AWS EC2 provides?"
     },
     "options": [
       "Virtual machines (compute)",
@@ -646,8 +585,7 @@
     ],
     "answer": "Virtual machines (compute)",
     "explanation": {
-      "en": "EC2 provides resizable virtual machine compute capacity.",
-      "ar": "توفّر EC2 أجهزة افتراضية للحوسبة قابلة للتوسيع."
+      "en": "EC2 provides resizable virtual machine compute capacity."
     }
   },
   {
@@ -656,8 +594,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Prometheus is mainly used for?",
-      "ar": "فيمَ يُستخدم Prometheus أساساً؟"
+      "en": "Prometheus is mainly used for?"
     },
     "options": [
       "Metrics collection & monitoring",
@@ -667,8 +604,7 @@
     ],
     "answer": "Metrics collection & monitoring",
     "explanation": {
-      "en": "Prometheus scrapes and stores time-series metrics for monitoring.",
-      "ar": "يجمع Prometheus مقاييس السلاسل الزمنية ويخزّنها للمراقبة."
+      "en": "Prometheus scrapes and stores time-series metrics for monitoring."
     }
   },
   {
@@ -677,8 +613,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Grafana is used to?",
-      "ar": "فيمَ يُستخدم Grafana؟"
+      "en": "Grafana is used to?"
     },
     "options": [
       "Visualize metrics in dashboards",
@@ -688,8 +623,7 @@
     ],
     "answer": "Visualize metrics in dashboards",
     "explanation": {
-      "en": "Grafana builds dashboards to visualize metrics (often from Prometheus).",
-      "ar": "ينشئ Grafana لوحات لعرض المقاييس (غالباً من Prometheus)."
+      "en": "Grafana builds dashboards to visualize metrics (often from Prometheus)."
     }
   },
   {
@@ -698,8 +632,7 @@
     "difficulty": "medium",
     "codeSnippet": "git rebase main",
     "question": {
-      "en": "What does 'git rebase' do?",
-      "ar": "ماذا يفعل git rebase؟"
+      "en": "What does 'git rebase' do?"
     },
     "options": [
       "Reapply commits on top of another branch",
@@ -709,8 +642,7 @@
     ],
     "answer": "Reapply commits on top of another branch",
     "explanation": {
-      "en": "git rebase moves/replays your commits onto another base branch.",
-      "ar": "ينقل git rebase تعديلاتك ويعيد تطبيقها على فرع آخر."
+      "en": "git rebase moves/replays your commits onto another base branch."
     }
   },
   {
@@ -719,8 +651,7 @@
     "difficulty": "hard",
     "codeSnippet": "git cherry-pick a1b2c3",
     "question": {
-      "en": "What does git cherry-pick do?",
-      "ar": "ماذا يفعل git cherry-pick؟"
+      "en": "What does git cherry-pick do?"
     },
     "options": [
       "Apply a specific commit onto the current branch",
@@ -730,8 +661,7 @@
     ],
     "answer": "Apply a specific commit onto the current branch",
     "explanation": {
-      "en": "cherry-pick applies one specific commit onto your current branch.",
-      "ar": "يطبّق cherry-pick تعديلاً محدداً على فرعك الحالي."
+      "en": "cherry-pick applies one specific commit onto your current branch."
     }
   },
   {
@@ -740,8 +670,7 @@
     "difficulty": "medium",
     "codeSnippet": "systemctl restart nginx",
     "question": {
-      "en": "What is systemctl used for?",
-      "ar": "فيمَ يُستخدم systemctl؟"
+      "en": "What is systemctl used for?"
     },
     "options": [
       "Manage systemd services on Linux",
@@ -751,8 +680,7 @@
     ],
     "answer": "Manage systemd services on Linux",
     "explanation": {
-      "en": "systemctl controls systemd services (start/stop/restart/status).",
-      "ar": "يتحكّم systemctl بخدمات systemd (تشغيل/إيقاف/إعادة/حالة)."
+      "en": "systemctl controls systemd services (start/stop/restart/status)."
     }
   },
   {
@@ -761,8 +689,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "A '.dockerignore' file is used to?",
-      "ar": "فيمَ يُستخدم ملف .dockerignore؟"
+      "en": "A '.dockerignore' file is used to?"
     },
     "options": [
       "Exclude files from the build context",
@@ -772,8 +699,7 @@
     ],
     "answer": "Exclude files from the build context",
     "explanation": {
-      "en": ".dockerignore keeps unneeded files out of the build context.",
-      "ar": "يُبقي .dockerignore الملفات غير اللازمة خارج سياق البناء."
+      "en": ".dockerignore keeps unneeded files out of the build context."
     }
   },
   {
@@ -782,8 +708,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Which tool is a service mesh for Kubernetes?",
-      "ar": "أي أداة هي service mesh لـ Kubernetes؟"
+      "en": "Which tool is a service mesh for Kubernetes?"
     },
     "options": [
       "Istio",
@@ -793,8 +718,7 @@
     ],
     "answer": "Istio",
     "explanation": {
-      "en": "Istio is a popular service mesh managing traffic, security and observability.",
-      "ar": "Istio service mesh شهير يدير الحركة والأمان والمراقبة."
+      "en": "Istio is a popular service mesh managing traffic, security and observability."
     }
   },
   {
@@ -803,8 +727,7 @@
     "difficulty": "easy",
     "codeSnippet": "docker ps -a",
     "question": {
-      "en": "What does docker ps -a show?",
-      "ar": "ماذا يعرض docker ps -a؟"
+      "en": "What does docker ps -a show?"
     },
     "options": [
       "All containers, including stopped ones",
@@ -814,8 +737,7 @@
     ],
     "answer": "All containers, including stopped ones",
     "explanation": {
-      "en": "docker ps -a lists every container, both running and stopped.",
-      "ar": "يسرد docker ps -a كل الحاويات، العاملة والمتوقفة."
+      "en": "docker ps -a lists every container, both running and stopped."
     }
   },
   {
@@ -824,8 +746,7 @@
     "difficulty": "medium",
     "codeSnippet": "docker logs -f web",
     "question": {
-      "en": "What does docker logs -f web do?",
-      "ar": "ماذا يفعل docker logs -f web؟"
+      "en": "What does docker logs -f web do?"
     },
     "options": [
       "Streams (follows) the web container’s logs in real time",
@@ -835,8 +756,7 @@
     ],
     "answer": "Streams (follows) the web container’s logs in real time",
     "explanation": {
-      "en": "docker logs -f tails and follows the container’s stdout/stderr live.",
-      "ar": "يتابع docker logs -f مخرجات الحاوية الحيّة لحظياً."
+      "en": "docker logs -f tails and follows the container’s stdout/stderr live."
     }
   },
   {
@@ -845,8 +765,7 @@
     "difficulty": "medium",
     "codeSnippet": "docker compose up -d",
     "question": {
-      "en": "What does the -d flag do here?",
-      "ar": "ماذا يفعل الخيار -d هنا؟"
+      "en": "What does the -d flag do here?"
     },
     "options": [
       "Runs the containers in detached (background) mode",
@@ -856,8 +775,7 @@
     ],
     "answer": "Runs the containers in detached (background) mode",
     "explanation": {
-      "en": "-d (detached) starts the services in the background and returns control to the shell.",
-      "ar": "يبدأ -d الخدمات في الخلفية ويعيد التحكم إلى الطرفية."
+      "en": "-d (detached) starts the services in the background and returns control to the shell."
     }
   },
   {
@@ -866,8 +784,7 @@
     "difficulty": "easy",
     "codeSnippet": "kubectl get pods",
     "question": {
-      "en": "What does kubectl get pods list?",
-      "ar": "ماذا يسرد kubectl get pods؟"
+      "en": "What does kubectl get pods list?"
     },
     "options": [
       "Pods in the current namespace",
@@ -877,8 +794,7 @@
     ],
     "answer": "Pods in the current namespace",
     "explanation": {
-      "en": "It lists the pods running in the currently selected namespace.",
-      "ar": "يسرد الـ pods العاملة في مساحة الأسماء الحالية."
+      "en": "It lists the pods running in the currently selected namespace."
     }
   },
   {
@@ -887,8 +803,7 @@
     "difficulty": "medium",
     "codeSnippet": "kubectl scale deployment web --replicas=5",
     "question": {
-      "en": "What does this command do?",
-      "ar": "ماذا يفعل هذا الأمر؟"
+      "en": "What does this command do?"
     },
     "options": [
       "Sets the deployment to run 5 pod replicas",
@@ -898,8 +813,7 @@
     ],
     "answer": "Sets the deployment to run 5 pod replicas",
     "explanation": {
-      "en": "kubectl scale adjusts the \"web\" deployment to maintain 5 running pod replicas.",
-      "ar": "يضبط kubectl scale نشر \"web\" للحفاظ على 5 نسخ pod عاملة."
+      "en": "kubectl scale adjusts the \"web\" deployment to maintain 5 running pod replicas."
     }
   },
   {
@@ -908,8 +822,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is a Kubernetes Service used for?",
-      "ar": "فيمَ يُستخدم Service في Kubernetes؟"
+      "en": "What is a Kubernetes Service used for?"
     },
     "options": [
       "Exposing a stable network endpoint for a set of pods",
@@ -919,8 +832,7 @@
     ],
     "answer": "Exposing a stable network endpoint for a set of pods",
     "explanation": {
-      "en": "A Service gives a stable IP/DNS name and load-balances traffic to matching pods.",
-      "ar": "يمنح Service عنوان IP/DNS ثابتاً ويوزّع الحِمل على الـ pods المطابقة."
+      "en": "A Service gives a stable IP/DNS name and load-balances traffic to matching pods."
     }
   },
   {
@@ -929,8 +841,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "What does a liveness probe do in Kubernetes?",
-      "ar": "ماذا يفعل فحص liveness في Kubernetes؟"
+      "en": "What does a liveness probe do in Kubernetes?"
     },
     "options": [
       "Restarts a container when its health check fails",
@@ -940,8 +851,7 @@
     ],
     "answer": "Restarts a container when its health check fails",
     "explanation": {
-      "en": "If a liveness probe fails, the kubelet restarts the container to recover it.",
-      "ar": "إذا فشل فحص liveness، يعيد kubelet تشغيل الحاوية لاستعادتها."
+      "en": "If a liveness probe fails, the kubelet restarts the container to recover it."
     }
   },
   {
@@ -950,8 +860,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does CI stand for in DevOps?",
-      "ar": "ماذا تعني CI في DevOps؟"
+      "en": "What does CI stand for in DevOps?"
     },
     "options": [
       "Continuous Integration",
@@ -961,8 +870,7 @@
     ],
     "answer": "Continuous Integration",
     "explanation": {
-      "en": "CI is Continuous Integration — merging and testing code changes frequently.",
-      "ar": "CI تعني التكامل المستمر — دمج واختبار تغييرات الشيفرة بشكل متكرر."
+      "en": "CI is Continuous Integration — merging and testing code changes frequently."
     }
   },
   {
@@ -971,8 +879,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is the main purpose of a CI pipeline?",
-      "ar": "ما الغرض الرئيسي من خط أنابيب CI؟"
+      "en": "What is the main purpose of a CI pipeline?"
     },
     "options": [
       "Automatically build and test code on each change",
@@ -982,8 +889,7 @@
     ],
     "answer": "Automatically build and test code on each change",
     "explanation": {
-      "en": "A CI pipeline automatically builds and runs tests whenever code changes, catching issues early.",
-      "ar": "يبني خط CI ويشغّل الاختبارات تلقائياً عند كل تغيير، فيكتشف المشاكل مبكراً."
+      "en": "A CI pipeline automatically builds and runs tests whenever code changes, catching issues early."
     }
   },
   {
@@ -992,8 +898,7 @@
     "difficulty": "medium",
     "codeSnippet": "terraform apply",
     "question": {
-      "en": "What does terraform apply do?",
-      "ar": "ماذا يفعل terraform apply؟"
+      "en": "What does terraform apply do?"
     },
     "options": [
       "Provisions infrastructure to match the configuration",
@@ -1003,8 +908,7 @@
     ],
     "answer": "Provisions infrastructure to match the configuration",
     "explanation": {
-      "en": "terraform apply creates or updates real infrastructure to match the declared configuration.",
-      "ar": "ينشئ terraform apply أو يحدّث البنية الحقيقية لتطابق الإعداد المعلن."
+      "en": "terraform apply creates or updates real infrastructure to match the declared configuration."
     }
   },
   {
@@ -1013,8 +917,7 @@
     "difficulty": "medium",
     "codeSnippet": "terraform plan",
     "question": {
-      "en": "What does terraform plan show?",
-      "ar": "ماذا يعرض terraform plan؟"
+      "en": "What does terraform plan show?"
     },
     "options": [
       "A preview of changes without applying them",
@@ -1024,8 +927,7 @@
     ],
     "answer": "A preview of changes without applying them",
     "explanation": {
-      "en": "terraform plan shows what would change, without modifying any infrastructure.",
-      "ar": "يعرض terraform plan ما سيتغيّر دون تعديل أي بنية."
+      "en": "terraform plan shows what would change, without modifying any infrastructure."
     }
   },
   {
@@ -1034,8 +936,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is the main benefit of autoscaling?",
-      "ar": "ما الفائدة الأساسية من التوسّع التلقائي (autoscaling)؟"
+      "en": "What is the main benefit of autoscaling?"
     },
     "options": [
       "Capacity automatically matches demand",
@@ -1045,8 +946,7 @@
     ],
     "answer": "Capacity automatically matches demand",
     "explanation": {
-      "en": "Autoscaling adds or removes capacity automatically as load rises and falls.",
-      "ar": "يضيف التوسّع التلقائي السعة أو يزيلها تلقائياً مع ارتفاع الحِمل وانخفاضه."
+      "en": "Autoscaling adds or removes capacity automatically as load rises and falls."
     }
   },
   {
@@ -1055,8 +955,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does \"serverless\" mean?",
-      "ar": "ماذا تعني \"بلا خادم\" (serverless)؟"
+      "en": "What does \"serverless\" mean?"
     },
     "options": [
       "You run code without managing servers",
@@ -1066,8 +965,7 @@
     ],
     "answer": "You run code without managing servers",
     "explanation": {
-      "en": "Serverless means the provider manages the servers; you just deploy code that runs on demand.",
-      "ar": "يعني serverless أن المزوّد يدير الخوادم، وأنت تنشر شيفرة تعمل عند الطلب."
+      "en": "Serverless means the provider manages the servers; you just deploy code that runs on demand."
     }
   },
   {
@@ -1076,8 +974,7 @@
     "difficulty": "easy",
     "codeSnippet": "docker ps",
     "question": {
-      "en": "What does this command show?",
-      "ar": "ماذا يعرض هذا الأمر؟"
+      "en": "What does this command show?"
     },
     "options": [
       "Running containers",
@@ -1087,8 +984,7 @@
     ],
     "answer": "Running containers",
     "explanation": {
-      "en": "docker ps lists currently running containers.",
-      "ar": "docker ps يسرد الحاويات العاملة حاليًا."
+      "en": "docker ps lists currently running containers."
     }
   },
   {
@@ -1097,8 +993,7 @@
     "difficulty": "medium",
     "codeSnippet": "docker exec -it web bash",
     "question": {
-      "en": "What does this command do?",
-      "ar": "ماذا يفعل هذا الأمر؟"
+      "en": "What does this command do?"
     },
     "options": [
       "Open a shell inside a running container",
@@ -1108,8 +1003,7 @@
     ],
     "answer": "Open a shell inside a running container",
     "explanation": {
-      "en": "exec -it runs an interactive shell in the container.",
-      "ar": "exec -it يشغّل صدفة تفاعلية داخل الحاوية."
+      "en": "exec -it runs an interactive shell in the container."
     }
   },
   {
@@ -1118,8 +1012,7 @@
     "difficulty": "easy",
     "codeSnippet": "kubectl get pods",
     "question": {
-      "en": "What does this command list?",
-      "ar": "ماذا يسرد هذا الأمر؟"
+      "en": "What does this command list?"
     },
     "options": [
       "Pods in the current namespace",
@@ -1129,8 +1022,7 @@
     ],
     "answer": "Pods in the current namespace",
     "explanation": {
-      "en": "kubectl get pods lists pods in the active namespace.",
-      "ar": "kubectl get pods يسرد البودات في مجال الأسماء الحالي."
+      "en": "kubectl get pods lists pods in the active namespace."
     }
   },
   {
@@ -1139,8 +1031,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is a Pod in Kubernetes?",
-      "ar": "ما البود (Pod) في Kubernetes؟"
+      "en": "What is a Pod in Kubernetes?"
     },
     "options": [
       "The smallest deployable unit (one or more containers)",
@@ -1150,8 +1041,7 @@
     ],
     "answer": "The smallest deployable unit (one or more containers)",
     "explanation": {
-      "en": "A Pod wraps one or more tightly-coupled containers.",
-      "ar": "البود يغلّف حاوية أو أكثر مترابطة."
+      "en": "A Pod wraps one or more tightly-coupled containers."
     }
   },
   {
@@ -1160,8 +1050,7 @@
     "difficulty": "medium",
     "codeSnippet": "kubectl scale deployment web --replicas=3",
     "question": {
-      "en": "What does this command do?",
-      "ar": "ماذا يفعل هذا الأمر؟"
+      "en": "What does this command do?"
     },
     "options": [
       "Set the deployment to 3 replicas",
@@ -1171,8 +1060,7 @@
     ],
     "answer": "Set the deployment to 3 replicas",
     "explanation": {
-      "en": "It changes the desired replica count to 3.",
-      "ar": "يغيّر عدد النسخ المطلوب إلى 3."
+      "en": "It changes the desired replica count to 3."
     }
   },
   {
@@ -1181,8 +1069,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does Continuous Integration (CI) mean?",
-      "ar": "ماذا يعني التكامل المستمر (CI)؟"
+      "en": "What does Continuous Integration (CI) mean?"
     },
     "options": [
       "Frequently merging and testing code changes",
@@ -1192,8 +1079,7 @@
     ],
     "answer": "Frequently merging and testing code changes",
     "explanation": {
-      "en": "CI merges and automatically tests changes often.",
-      "ar": "يدمج CI التغييرات ويختبرها آليًا بشكل متكرر."
+      "en": "CI merges and automatically tests changes often."
     }
   },
   {
@@ -1202,8 +1088,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "In a pipeline, what is a rollback?",
-      "ar": "في خط الأنابيب، ما الاسترجاع (rollback)؟"
+      "en": "In a pipeline, what is a rollback?"
     },
     "options": [
       "Reverting to a previous working version",
@@ -1213,8 +1098,7 @@
     ],
     "answer": "Reverting to a previous working version",
     "explanation": {
-      "en": "A rollback restores the last known-good release.",
-      "ar": "يعيد الاسترجاع آخر إصدار سليم معروف."
+      "en": "A rollback restores the last known-good release."
     }
   },
   {
@@ -1223,8 +1107,7 @@
     "difficulty": "easy",
     "codeSnippet": "terraform apply",
     "question": {
-      "en": "What does terraform apply do?",
-      "ar": "ماذا يفعل terraform apply؟"
+      "en": "What does terraform apply do?"
     },
     "options": [
       "Make real changes to match the desired state",
@@ -1234,8 +1117,7 @@
     ],
     "answer": "Make real changes to match the desired state",
     "explanation": {
-      "en": "apply provisions infra to reach the declared state.",
-      "ar": "apply ينفّذ التغييرات للوصول إلى الحالة المعلنة."
+      "en": "apply provisions infra to reach the declared state."
     }
   },
   {
@@ -1244,8 +1126,7 @@
     "difficulty": "medium",
     "codeSnippet": "terraform plan",
     "question": {
-      "en": "What does terraform plan do?",
-      "ar": "ماذا يفعل terraform plan؟"
+      "en": "What does terraform plan do?"
     },
     "options": [
       "Preview changes without applying them",
@@ -1255,8 +1136,7 @@
     ],
     "answer": "Preview changes without applying them",
     "explanation": {
-      "en": "plan shows a dry-run diff of proposed changes.",
-      "ar": "plan يعرض معاينة للتغييرات المقترحة دون تنفيذها."
+      "en": "plan shows a dry-run diff of proposed changes."
     }
   },
   {
@@ -1265,8 +1145,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does a load balancer do?",
-      "ar": "ماذا يفعل موازن الحِمل؟"
+      "en": "What does a load balancer do?"
     },
     "options": [
       "Distribute traffic across multiple servers",
@@ -1276,8 +1155,7 @@
     ],
     "answer": "Distribute traffic across multiple servers",
     "explanation": {
-      "en": "It spreads requests to avoid overloading one server.",
-      "ar": "يوزّع الطلبات لتجنّب إرهاق خادم واحد."
+      "en": "It spreads requests to avoid overloading one server."
     }
   },
   {
@@ -1286,8 +1164,7 @@
     "difficulty": "medium",
     "codeSnippet": "docker compose up -d",
     "question": {
-      "en": "What does the -d flag do here?",
-      "ar": "ماذا يفعل الخيار d- هنا؟"
+      "en": "What does the -d flag do here?"
     },
     "options": [
       "Run the services in the background (detached)",
@@ -1297,8 +1174,7 @@
     ],
     "answer": "Run the services in the background (detached)",
     "explanation": {
-      "en": "-d starts services detached from the terminal.",
-      "ar": "d- يشغّل الخدمات منفصلة عن الطرفية."
+      "en": "-d starts services detached from the terminal."
     }
   },
   {
@@ -1307,8 +1183,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does a Kubernetes Service provide?",
-      "ar": "ماذا توفّر خدمة (Service) في Kubernetes؟"
+      "en": "What does a Kubernetes Service provide?"
     },
     "options": [
       "A stable network endpoint for a set of pods",
@@ -1318,8 +1193,7 @@
     ],
     "answer": "A stable network endpoint for a set of pods",
     "explanation": {
-      "en": "A Service gives pods a stable IP/DNS name.",
-      "ar": "تمنح الخدمة البودات عنوانًا/اسمًا ثابتًا."
+      "en": "A Service gives pods a stable IP/DNS name."
     }
   },
   {
@@ -1328,8 +1202,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is autoscaling?",
-      "ar": "ما التوسيع التلقائي (autoscaling)؟"
+      "en": "What is autoscaling?"
     },
     "options": [
       "Adjusting resources automatically based on load",
@@ -1339,8 +1212,7 @@
     ],
     "answer": "Adjusting resources automatically based on load",
     "explanation": {
-      "en": "Autoscaling adds/removes capacity as demand shifts.",
-      "ar": "يضيف/يزيل السعة تلقائيًا حسب الطلب."
+      "en": "Autoscaling adds/removes capacity as demand shifts."
     }
   },
   {
@@ -1349,8 +1221,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does \"idempotent\" mean for IaC?",
-      "ar": "ماذا يعني \"متماثل النتيجة\" في البنية ككود؟"
+      "en": "What does \"idempotent\" mean for IaC?"
     },
     "options": [
       "Applying repeatedly yields the same end state",
@@ -1360,8 +1231,7 @@
     ],
     "answer": "Applying repeatedly yields the same end state",
     "explanation": {
-      "en": "Idempotent runs converge to the same result.",
-      "ar": "التطبيق المتكرر يصل إلى النتيجة ذاتها."
+      "en": "Idempotent runs converge to the same result."
     }
   },
   {
@@ -1370,8 +1240,7 @@
     "difficulty": "easy",
     "codeSnippet": "FROM node:20-alpine",
     "question": {
-      "en": "What does a Dockerfile FROM line set?",
-      "ar": "ماذا يحدّد سطر FROM في Dockerfile؟"
+      "en": "What does a Dockerfile FROM line set?"
     },
     "options": [
       "The base image",
@@ -1381,8 +1250,7 @@
     ],
     "answer": "The base image",
     "explanation": {
-      "en": "FROM defines the base image to build on.",
-      "ar": "FROM يحدّد الصورة الأساس التي نبني عليها."
+      "en": "FROM defines the base image to build on."
     }
   },
   {
@@ -1391,8 +1259,7 @@
     "difficulty": "medium",
     "codeSnippet": "kubectl logs mypod",
     "question": {
-      "en": "What does this command show?",
-      "ar": "ماذا يعرض هذا الأمر؟"
+      "en": "What does this command show?"
     },
     "options": [
       "A pod's container logs",
@@ -1402,8 +1269,7 @@
     ],
     "answer": "A pod's container logs",
     "explanation": {
-      "en": "kubectl logs streams a pod container's stdout.",
-      "ar": "kubectl logs يعرض مخرجات حاوية البود."
+      "en": "kubectl logs streams a pod container's stdout."
     }
   },
   {
@@ -1412,8 +1278,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does a CDN primarily do?",
-      "ar": "ماذا تفعل شبكة توصيل المحتوى (CDN) أساسًا؟"
+      "en": "What does a CDN primarily do?"
     },
     "options": [
       "Serve cached content from edge locations",
@@ -1423,8 +1288,7 @@
     ],
     "answer": "Serve cached content from edge locations",
     "explanation": {
-      "en": "A CDN caches content near users to cut latency.",
-      "ar": "تخزّن CDN المحتوى قرب المستخدمين لتقليل الكمون."
+      "en": "A CDN caches content near users to cut latency."
     }
   },
   {
@@ -1433,8 +1297,7 @@
     "difficulty": "easy",
     "codeSnippet": "docker build -t app:1.0 .",
     "question": {
-      "en": "What does this command produce?",
-      "ar": "ماذا يُنتج هذا الأمر؟"
+      "en": "What does this command produce?"
     },
     "options": [
       "An image tagged app:1.0 from the current directory",
@@ -1444,8 +1307,7 @@
     ],
     "answer": "An image tagged app:1.0 from the current directory",
     "explanation": {
-      "en": "-t names the image and `.` is the build context.",
-      "ar": "يسمّي -t الصورة، و`.` هو سياق البناء."
+      "en": "-t names the image and `.` is the build context."
     }
   },
   {
@@ -1454,8 +1316,7 @@
     "difficulty": "easy",
     "codeSnippet": "docker run -d -p 8080:80 nginx",
     "question": {
-      "en": "What does -p 8080:80 do?",
-      "ar": "ماذا يفعل -p 8080:80؟"
+      "en": "What does -p 8080:80 do?"
     },
     "options": [
       "Maps host port 8080 to container port 80",
@@ -1465,8 +1326,7 @@
     ],
     "answer": "Maps host port 8080 to container port 80",
     "explanation": {
-      "en": "The format is host:container, and -d runs it detached.",
-      "ar": "الصيغة مضيف:حاوية، و-d يشغّلها في الخلفية."
+      "en": "The format is host:container, and -d runs it detached."
     }
   },
   {
@@ -1475,8 +1335,7 @@
     "difficulty": "medium",
     "codeSnippet": "docker exec -it web sh",
     "question": {
-      "en": "What does this do?",
-      "ar": "ماذا يفعل هذا؟"
+      "en": "What does this do?"
     },
     "options": [
       "Opens an interactive shell inside a running container",
@@ -1486,8 +1345,7 @@
     ],
     "answer": "Opens an interactive shell inside a running container",
     "explanation": {
-      "en": "exec runs a command in an existing container; -it attaches a terminal.",
-      "ar": "ينفّذ exec أمرًا في حاوية قائمة، و-it يربط طرفية تفاعلية."
+      "en": "exec runs a command in an existing container; -it attaches a terminal."
     }
   },
   {
@@ -1496,8 +1354,7 @@
     "difficulty": "medium",
     "codeSnippet": "docker logs -f web",
     "question": {
-      "en": "What does the -f flag do here?",
-      "ar": "ماذا تفعل الراية -f هنا؟"
+      "en": "What does the -f flag do here?"
     },
     "options": [
       "Follows (streams) new log output",
@@ -1507,8 +1364,7 @@
     ],
     "answer": "Follows (streams) new log output",
     "explanation": {
-      "en": "-f keeps the stream open and prints lines as they appear.",
-      "ar": "تُبقي -f التدفق مفتوحًا وتطبع الأسطر عند ظهورها."
+      "en": "-f keeps the stream open and prints lines as they appear."
     }
   },
   {
@@ -1517,8 +1373,7 @@
     "difficulty": "hard",
     "codeSnippet": "COPY --from=builder /app/bin /usr/local/bin",
     "question": {
-      "en": "What does --from=builder do in a Dockerfile?",
-      "ar": "ماذا يفعل --from=builder في ملف Dockerfile؟"
+      "en": "What does --from=builder do in a Dockerfile?"
     },
     "options": [
       "Copies artifacts from an earlier build stage",
@@ -1528,8 +1383,7 @@
     ],
     "answer": "Copies artifacts from an earlier build stage",
     "explanation": {
-      "en": "Multi-stage builds copy only the output, leaving toolchains behind.",
-      "ar": "تنسخ البناءات متعددة المراحل الناتج فقط وتترك أدوات البناء."
+      "en": "Multi-stage builds copy only the output, leaving toolchains behind."
     }
   },
   {
@@ -1538,8 +1392,7 @@
     "difficulty": "easy",
     "codeSnippet": "kubectl get pods -n prod",
     "question": {
-      "en": "What does -n prod mean?",
-      "ar": "ماذا يعني -n prod؟"
+      "en": "What does -n prod mean?"
     },
     "options": [
       "List pods in the prod namespace",
@@ -1549,8 +1402,7 @@
     ],
     "answer": "List pods in the prod namespace",
     "explanation": {
-      "en": "-n scopes the command to a namespace.",
-      "ar": "يقصر -n الأمر على مجال أسماء معيّن."
+      "en": "-n scopes the command to a namespace."
     }
   },
   {
@@ -1559,8 +1411,7 @@
     "difficulty": "medium",
     "codeSnippet": "kubectl rollout undo deployment/api",
     "question": {
-      "en": "What does this command do?",
-      "ar": "ماذا يفعل هذا الأمر؟"
+      "en": "What does this command do?"
     },
     "options": [
       "Rolls the deployment back to the previous revision",
@@ -1570,8 +1421,7 @@
     ],
     "answer": "Rolls the deployment back to the previous revision",
     "explanation": {
-      "en": "Kubernetes keeps revision history so a bad release can be reverted.",
-      "ar": "يحفظ Kubernetes سجل الإصدارات ليتيح التراجع عن إصدار سيئ."
+      "en": "Kubernetes keeps revision history so a bad release can be reverted."
     }
   },
   {
@@ -1580,8 +1430,7 @@
     "difficulty": "medium",
     "codeSnippet": "kubectl scale deployment api --replicas=5",
     "question": {
-      "en": "What is the result?",
-      "ar": "ما النتيجة؟"
+      "en": "What is the result?"
     },
     "options": [
       "The deployment runs five pods",
@@ -1591,8 +1440,7 @@
     ],
     "answer": "The deployment runs five pods",
     "explanation": {
-      "en": "The replica count is the desired number of pod copies.",
-      "ar": "عدد النسخ هو العدد المطلوب من نسخ الـ pod."
+      "en": "The replica count is the desired number of pod copies."
     }
   },
   {
@@ -1601,8 +1449,7 @@
     "difficulty": "medium",
     "codeSnippet": "kubectl describe pod api-0",
     "question": {
-      "en": "What is this most useful for?",
-      "ar": "لأي شيء هذا أكثر فائدة؟"
+      "en": "What is this most useful for?"
     },
     "options": [
       "Reading a pod's events to debug why it failed",
@@ -1612,8 +1459,7 @@
     ],
     "answer": "Reading a pod's events to debug why it failed",
     "explanation": {
-      "en": "describe shows state, conditions and the recent event list.",
-      "ar": "يعرض describe الحالة والشروط وقائمة الأحداث الأخيرة."
+      "en": "describe shows state, conditions and the recent event list."
     }
   },
   {
@@ -1622,8 +1468,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does a readiness probe control?",
-      "ar": "ماذا يتحكم فيه اختبار الجاهزية؟"
+      "en": "What does a readiness probe control?"
     },
     "options": [
       "Whether the pod receives traffic",
@@ -1633,8 +1478,7 @@
     ],
     "answer": "Whether the pod receives traffic",
     "explanation": {
-      "en": "A failing readiness probe removes the pod from the service endpoints.",
-      "ar": "فشل اختبار الجاهزية يُخرج الـ pod من نقاط نهاية الخدمة."
+      "en": "A failing readiness probe removes the pod from the service endpoints."
     }
   },
   {
@@ -1643,8 +1487,7 @@
     "difficulty": "easy",
     "codeSnippet": "on:\n  pull_request:",
     "question": {
-      "en": "When does this GitHub Actions workflow run?",
-      "ar": "متى يعمل سير عمل GitHub Actions هذا؟"
+      "en": "When does this GitHub Actions workflow run?"
     },
     "options": [
       "When a pull request is opened or updated",
@@ -1654,8 +1497,7 @@
     ],
     "answer": "When a pull request is opened or updated",
     "explanation": {
-      "en": "The pull_request event fires on PR open, sync and reopen.",
-      "ar": "يُطلق حدث pull_request عند فتح الطلب أو تحديثه أو إعادة فتحه."
+      "en": "The pull_request event fires on PR open, sync and reopen."
     }
   },
   {
@@ -1664,8 +1506,7 @@
     "difficulty": "medium",
     "codeSnippet": "needs: [build]",
     "question": {
-      "en": "What does this job-level key express?",
-      "ar": "ماذا يعبّر عنه هذا المفتاح على مستوى الوظيفة؟"
+      "en": "What does this job-level key express?"
     },
     "options": [
       "Wait for the build job to succeed first",
@@ -1675,8 +1516,7 @@
     ],
     "answer": "Wait for the build job to succeed first",
     "explanation": {
-      "en": "`needs` declares a dependency edge between jobs.",
-      "ar": "يعلن `needs` عن علاقة اعتماد بين الوظائف."
+      "en": "`needs` declares a dependency edge between jobs."
     }
   },
   {
@@ -1685,8 +1525,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Why do CI pipelines publish build artifacts?",
-      "ar": "لماذا تنشر خطوط CI ناتج البناء؟"
+      "en": "Why do CI pipelines publish build artifacts?"
     },
     "options": [
       "To pass build output to later jobs or releases",
@@ -1696,8 +1535,7 @@
     ],
     "answer": "To pass build output to later jobs or releases",
     "explanation": {
-      "en": "Artifacts move compiled output between isolated jobs.",
-      "ar": "تنقل المخرجات الناتج المُصرَّف بين الوظائف المعزولة."
+      "en": "Artifacts move compiled output between isolated jobs."
     }
   },
   {
@@ -1706,8 +1544,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Why pin dependency versions in CI?",
-      "ar": "لماذا نثبّت إصدارات التبعيات في CI؟"
+      "en": "Why pin dependency versions in CI?"
     },
     "options": [
       "To make builds reproducible",
@@ -1717,8 +1554,7 @@
     ],
     "answer": "To make builds reproducible",
     "explanation": {
-      "en": "Unpinned versions let an upstream release break a previously green build.",
-      "ar": "الإصدارات غير المثبّتة تجعل تحديثًا خارجيًا يكسر بناءً كان ناجحًا."
+      "en": "Unpinned versions let an upstream release break a previously green build."
     }
   },
   {
@@ -1727,8 +1563,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "What does a canary release do?",
-      "ar": "ماذا يفعل الإصدار الاستكشافي (canary)؟"
+      "en": "What does a canary release do?"
     },
     "options": [
       "Sends a small share of traffic to the new version",
@@ -1738,8 +1573,7 @@
     ],
     "answer": "Sends a small share of traffic to the new version",
     "explanation": {
-      "en": "A small blast radius surfaces problems before a full rollout.",
-      "ar": "نطاق التأثير الصغير يكشف المشاكل قبل النشر الكامل."
+      "en": "A small blast radius surfaces problems before a full rollout."
     }
   },
   {
@@ -1748,8 +1582,7 @@
     "difficulty": "easy",
     "codeSnippet": "terraform plan",
     "question": {
-      "en": "What does this command do?",
-      "ar": "ماذا يفعل هذا الأمر؟"
+      "en": "What does this command do?"
     },
     "options": [
       "Shows the changes it would make, without applying them",
@@ -1759,8 +1592,7 @@
     ],
     "answer": "Shows the changes it would make, without applying them",
     "explanation": {
-      "en": "plan is a dry run you review before `terraform apply`.",
-      "ar": "الأمر plan تشغيل تجريبي تراجعه قبل `terraform apply`."
+      "en": "plan is a dry run you review before `terraform apply`."
     }
   },
   {
@@ -1769,8 +1601,7 @@
     "difficulty": "medium",
     "codeSnippet": "terraform state list",
     "question": {
-      "en": "What does this print?",
-      "ar": "ماذا يطبع هذا؟"
+      "en": "What does this print?"
     },
     "options": [
       "The resources Terraform currently tracks",
@@ -1780,8 +1611,7 @@
     ],
     "answer": "The resources Terraform currently tracks",
     "explanation": {
-      "en": "State is Terraform's record of what it created and owns.",
-      "ar": "الحالة هي سجل Terraform لما أنشأه ويملكه."
+      "en": "State is Terraform's record of what it created and owns."
     }
   },
   {
@@ -1790,8 +1620,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What makes infrastructure code idempotent?",
-      "ar": "ما الذي يجعل كود البنية التحتية عديم التأثير المتكرر؟"
+      "en": "What makes infrastructure code idempotent?"
     },
     "options": [
       "Re-applying the same config changes nothing",
@@ -1801,8 +1630,7 @@
     ],
     "answer": "Re-applying the same config changes nothing",
     "explanation": {
-      "en": "The tool converges to the declared state instead of repeating actions.",
-      "ar": "تتقارب الأداة نحو الحالة المُعلنة بدل تكرار الإجراءات."
+      "en": "The tool converges to the declared state instead of repeating actions."
     }
   },
   {
@@ -1811,8 +1639,7 @@
     "difficulty": "medium",
     "codeSnippet": "ansible-playbook -i hosts site.yml",
     "question": {
-      "en": "What does -i hosts specify?",
-      "ar": "ماذا يحدّد -i hosts؟"
+      "en": "What does -i hosts specify?"
     },
     "options": [
       "The inventory of machines to configure",
@@ -1822,8 +1649,7 @@
     ],
     "answer": "The inventory of machines to configure",
     "explanation": {
-      "en": "The inventory lists the hosts and groups a playbook targets.",
-      "ar": "يسرد المخزون المضيفين والمجموعات التي يستهدفها الـ playbook."
+      "en": "The inventory lists the hosts and groups a playbook targets."
     }
   },
   {
@@ -1832,8 +1658,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What is horizontal scaling?",
-      "ar": "ما التوسّع الأفقي؟"
+      "en": "What is horizontal scaling?"
     },
     "options": [
       "Adding more instances",
@@ -1843,8 +1668,7 @@
     ],
     "answer": "Adding more instances",
     "explanation": {
-      "en": "Scaling out adds machines; scaling up makes one machine bigger.",
-      "ar": "التوسّع الأفقي يضيف أجهزة، والرأسي يكبّر جهازًا واحدًا."
+      "en": "Scaling out adds machines; scaling up makes one machine bigger."
     }
   },
   {
@@ -1853,8 +1677,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does a load balancer health check achieve?",
-      "ar": "ماذا يحقّق اختبار سلامة موزّع الحمل؟"
+      "en": "What does a load balancer health check achieve?"
     },
     "options": [
       "It stops routing traffic to unhealthy instances",
@@ -1864,8 +1687,7 @@
     ],
     "answer": "It stops routing traffic to unhealthy instances",
     "explanation": {
-      "en": "Failing instances are pulled from the pool until they recover.",
-      "ar": "تُسحب النسخ الفاشلة من المجموعة حتى تتعافى."
+      "en": "Failing instances are pulled from the pool until they recover."
     }
   },
   {
@@ -1874,8 +1696,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is object storage best suited for?",
-      "ar": "لأي شيء يصلح تخزين الكائنات أكثر؟"
+      "en": "What is object storage best suited for?"
     },
     "options": [
       "Cheap, durable storage of large unstructured files",
@@ -1885,8 +1706,7 @@
     ],
     "answer": "Cheap, durable storage of large unstructured files",
     "explanation": {
-      "en": "Object stores trade filesystem semantics for durability and scale.",
-      "ar": "يستبدل تخزين الكائنات دلالات نظام الملفات بالمتانة وقابلية التوسّع."
+      "en": "Object stores trade filesystem semantics for durability and scale."
     }
   },
   {
@@ -1895,8 +1715,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does autoscaling normally react to?",
-      "ar": "على أي شيء يستجيب التوسّع التلقائي عادةً؟"
+      "en": "What does autoscaling normally react to?"
     },
     "options": [
       "Load metrics such as CPU or request rate",
@@ -1906,8 +1725,7 @@
     ],
     "answer": "Load metrics such as CPU or request rate",
     "explanation": {
-      "en": "Policies add or remove capacity as the measured load moves.",
-      "ar": "تضيف السياسات سعة أو تزيلها حسب الحمل المقاس."
+      "en": "Policies add or remove capacity as the measured load moves."
     }
   },
   {
@@ -1916,8 +1734,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is a blue/green deployment?",
-      "ar": "ما النشر الأزرق/الأخضر؟"
+      "en": "What is a blue/green deployment?"
     },
     "options": [
       "Two full environments with traffic switched between them",
@@ -1927,8 +1744,7 @@
     ],
     "answer": "Two full environments with traffic switched between them",
     "explanation": {
-      "en": "The cutover is instant and the old environment stays ready for rollback.",
-      "ar": "التحويل فوري وتبقى البيئة القديمة جاهزة للتراجع."
+      "en": "The cutover is instant and the old environment stays ready for rollback."
     }
   },
   {
@@ -1937,8 +1753,7 @@
     "difficulty": "medium",
     "codeSnippet": "docker volume create data",
     "question": {
-      "en": "What does a Docker volume provide?",
-      "ar": "ماذا يوفّر مجلّد Docker (volume)؟"
+      "en": "What does a Docker volume provide?"
     },
     "options": [
       "Data that persists beyond the container",
@@ -1948,8 +1763,7 @@
     ],
     "answer": "Data that persists beyond the container",
     "explanation": {
-      "en": "Volumes store data outside the container's writable layer, so it survives removal.",
-      "ar": "تخزّن الـ volumes البيانات خارج طبقة الحاوية، فتبقى بعد حذفها."
+      "en": "Volumes store data outside the container's writable layer, so it survives removal."
     }
   },
   {
@@ -1958,8 +1772,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is a Kubernetes namespace for?",
-      "ar": "فيمَ يُستخدم namespace في Kubernetes؟"
+      "en": "What is a Kubernetes namespace for?"
     },
     "options": [
       "Isolating groups of resources logically",
@@ -1969,8 +1782,7 @@
     ],
     "answer": "Isolating groups of resources logically",
     "explanation": {
-      "en": "Namespaces partition a cluster so teams or environments don't collide.",
-      "ar": "تقسّم مساحات الأسماء العنقود كي لا تتصادم الفرق أو البيئات."
+      "en": "Namespaces partition a cluster so teams or environments don't collide."
     }
   },
   {
@@ -1979,8 +1791,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What is a build artifact?",
-      "ar": "ما ناتج البناء (artifact)؟"
+      "en": "What is a build artifact?"
     },
     "options": [
       "The output produced by a build",
@@ -1990,8 +1801,7 @@
     ],
     "answer": "The output produced by a build",
     "explanation": {
-      "en": "Artifacts are the compiled/packaged outputs a pipeline passes along or ships.",
-      "ar": "المخرجات هي الناتج المُصرَّف/المحزوم الذي ينقله الأنبوب أو يشحنه."
+      "en": "Artifacts are the compiled/packaged outputs a pipeline passes along or ships."
     }
   },
   {
@@ -2000,8 +1810,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does 'declarative' configuration mean?",
-      "ar": "ماذا يعني الإعداد \"التصريحي\"؟"
+      "en": "What does 'declarative' configuration mean?"
     },
     "options": [
       "You describe the desired end state",
@@ -2011,8 +1820,7 @@
     ],
     "answer": "You describe the desired end state",
     "explanation": {
-      "en": "You state what you want; the tool figures out the steps to get there.",
-      "ar": "تصف ما تريده، والأداة تستنتج الخطوات للوصول إليه."
+      "en": "You state what you want; the tool figures out the steps to get there."
     }
   },
   {
@@ -2021,8 +1829,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is a container registry?",
-      "ar": "ما سجلّ الحاويات (registry)؟"
+      "en": "What is a container registry?"
     },
     "options": [
       "A store for built container images",
@@ -2032,8 +1839,7 @@
     ],
     "answer": "A store for built container images",
     "explanation": {
-      "en": "Registries host images so clusters can pull them (e.g. Docker Hub, GHCR).",
-      "ar": "تستضيف السجلات الصور ليسحبها العنقود (مثل Docker Hub وGHCR)."
+      "en": "Registries host images so clusters can pull them (e.g. Docker Hub, GHCR)."
     }
   },
   {
@@ -2042,8 +1848,7 @@
     "difficulty": "easy",
     "codeSnippet": "docker pull nginx",
     "question": {
-      "en": "What does this command do?",
-      "ar": "ماذا يفعل هذا الأمر؟"
+      "en": "What does this command do?"
     },
     "options": [
       "Download the nginx image locally",
@@ -2053,8 +1858,7 @@
     ],
     "answer": "Download the nginx image locally",
     "explanation": {
-      "en": "docker pull fetches an image from a registry to the local machine.",
-      "ar": "يجلب docker pull صورة من السجل إلى الجهاز المحلي."
+      "en": "docker pull fetches an image from a registry to the local machine."
     }
   },
   {
@@ -2063,8 +1867,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "What does a ConfigMap store?",
-      "ar": "ماذا يخزّن ConfigMap؟"
+      "en": "What does a ConfigMap store?"
     },
     "options": [
       "Non-secret configuration for pods",
@@ -2074,8 +1877,7 @@
     ],
     "answer": "Non-secret configuration for pods",
     "explanation": {
-      "en": "ConfigMaps hold plain config; Secrets are for sensitive values.",
-      "ar": "يحمل ConfigMap إعدادات عادية، أما القيم الحساسة فتوضع في Secrets."
+      "en": "ConfigMaps hold plain config; Secrets are for sensitive values."
     }
   },
   {
@@ -2084,8 +1886,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Why run automated tests in a CI pipeline?",
-      "ar": "لماذا نشغّل اختبارات آلية في خط CI؟"
+      "en": "Why run automated tests in a CI pipeline?"
     },
     "options": [
       "To catch breaking changes early",
@@ -2095,8 +1896,7 @@
     ],
     "answer": "To catch breaking changes early",
     "explanation": {
-      "en": "Running tests on every change surfaces regressions before they ship.",
-      "ar": "تشغيل الاختبارات عند كل تغيير يكشف الأعطال قبل شحنها."
+      "en": "Running tests on every change surfaces regressions before they ship."
     }
   },
   {
@@ -2105,8 +1905,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does 'high availability' aim for?",
-      "ar": "ما هدف \"التوافر العالي\"؟"
+      "en": "What does 'high availability' aim for?"
     },
     "options": [
       "Little to no service downtime",
@@ -2116,8 +1915,7 @@
     ],
     "answer": "Little to no service downtime",
     "explanation": {
-      "en": "HA designs remove single points of failure so the service stays up.",
-      "ar": "تصاميم HA تزيل نقاط الفشل الواحدة كي تبقى الخدمة عاملة."
+      "en": "HA designs remove single points of failure so the service stays up."
     }
   },
   {
@@ -2126,8 +1924,7 @@
     "difficulty": "medium",
     "codeSnippet": "terraform destroy",
     "question": {
-      "en": "What does this command do?",
-      "ar": "ماذا يفعل هذا الأمر؟"
+      "en": "What does this command do?"
     },
     "options": [
       "Tear down the managed resources",
@@ -2137,8 +1934,7 @@
     ],
     "answer": "Tear down the managed resources",
     "explanation": {
-      "en": "terraform destroy removes every resource the state currently manages.",
-      "ar": "يزيل terraform destroy كل مورد تديره الحالة حاليًا."
+      "en": "terraform destroy removes every resource the state currently manages."
     }
   },
   {
@@ -2147,8 +1943,7 @@
     "difficulty": "easy",
     "codeSnippet": "FROM node:20-alpine",
     "question": {
-      "en": "Why choose an -alpine base image?",
-      "ar": "لماذا نختار صورة أساس -alpine؟"
+      "en": "Why choose an -alpine base image?"
     },
     "options": [
       "It is a smaller image size",
@@ -2158,8 +1953,7 @@
     ],
     "answer": "It is a smaller image size",
     "explanation": {
-      "en": "Alpine is a minimal Linux base, shrinking the final image.",
-      "ar": "Alpine توزيعة Linux مصغّرة تقلّص حجم الصورة النهائية."
+      "en": "Alpine is a minimal Linux base, shrinking the final image."
     }
   },
   {
@@ -2168,8 +1962,7 @@
     "difficulty": "medium",
     "codeSnippet": "on: push:\n  branches: [main]",
     "question": {
-      "en": "When does this CI workflow trigger?",
-      "ar": "متى يُشغَّل مسار CI هذا؟"
+      "en": "When does this CI workflow trigger?"
     },
     "options": [
       "On a push to main",
@@ -2179,8 +1972,7 @@
     ],
     "answer": "On a push to main",
     "explanation": {
-      "en": "The push trigger fires the workflow when commits land on main.",
-      "ar": "مشغّل push يشغّل المسار عند وصول تغييرات إلى main."
+      "en": "The push trigger fires the workflow when commits land on main."
     }
   },
   {
@@ -2189,8 +1981,7 @@
     "difficulty": "medium",
     "codeSnippet": "docker build -t app . && docker run app",
     "question": {
-      "en": "What does 'docker build' produce?",
-      "ar": "ماذا يُنتج 'docker build'؟"
+      "en": "What does 'docker build' produce?"
     },
     "options": [
       "A reusable container image",
@@ -2200,8 +1991,7 @@
     ],
     "answer": "A reusable container image",
     "explanation": {
-      "en": "build turns a Dockerfile into an image that run then instantiates.",
-      "ar": "build يحوّل Dockerfile إلى صورة يُنشئها run بعد ذلك."
+      "en": "build turns a Dockerfile into an image that run then instantiates."
     }
   },
   {
@@ -2210,8 +2000,7 @@
     "difficulty": "medium",
     "codeSnippet": "terraform plan",
     "question": {
-      "en": "What does 'terraform plan' do?",
-      "ar": "ماذا يفعل 'terraform plan'؟"
+      "en": "What does 'terraform plan' do?"
     },
     "options": [
       "Preview changes before applying",
@@ -2221,8 +2010,7 @@
     ],
     "answer": "Preview changes before applying",
     "explanation": {
-      "en": "plan shows the diff Terraform would apply without changing anything.",
-      "ar": "plan يعرض الفروقات التي سيطبّقها Terraform دون تنفيذ أي تغيير."
+      "en": "plan shows the diff Terraform would apply without changing anything."
     }
   },
   {
@@ -2231,8 +2019,7 @@
     "difficulty": "hard",
     "codeSnippet": "kind: Deployment\nreplicas: 3",
     "question": {
-      "en": "What does replicas: 3 request?",
-      "ar": "ماذا يطلب replicas: 3؟"
+      "en": "What does replicas: 3 request?"
     },
     "options": [
       "Three identical running pods",
@@ -2242,8 +2029,7 @@
     ],
     "answer": "Three identical running pods",
     "explanation": {
-      "en": "The Deployment keeps three pod replicas running and healthy.",
-      "ar": "يبقي الـDeployment ثلاث نسخ من الـpod تعمل وسليمة."
+      "en": "The Deployment keeps three pod replicas running and healthy."
     }
   },
   {
@@ -2252,8 +2038,7 @@
     "difficulty": "easy",
     "codeSnippet": "npm ci && npm test",
     "question": {
-      "en": "Why prefer 'npm ci' in pipelines?",
-      "ar": "لماذا نفضّل 'npm ci' في المسارات؟"
+      "en": "Why prefer 'npm ci' in pipelines?"
     },
     "options": [
       "Clean install from the lockfile",
@@ -2263,8 +2048,7 @@
     ],
     "answer": "Clean install from the lockfile",
     "explanation": {
-      "en": "npm ci installs exactly what the lockfile pins, giving reproducible builds.",
-      "ar": "npm ci يثبّت ما يحدده ملف القفل تمامًا فتصبح البناءات قابلة للتكرار."
+      "en": "npm ci installs exactly what the lockfile pins, giving reproducible builds."
     }
   },
   {
@@ -2273,8 +2057,7 @@
     "difficulty": "medium",
     "codeSnippet": "// dashboards of request latency over time",
     "question": {
-      "en": "Which tool commonly stores time-series metrics?",
-      "ar": "أي أداة تخزّن عادةً مقاييس السلاسل الزمنية؟"
+      "en": "Which tool commonly stores time-series metrics?"
     },
     "options": [
       "Prometheus",
@@ -2284,8 +2067,7 @@
     ],
     "answer": "Prometheus",
     "explanation": {
-      "en": "Prometheus scrapes and stores time-series metrics for querying.",
-      "ar": "Prometheus يجمع ويخزّن مقاييس زمنية للاستعلام عنها."
+      "en": "Prometheus scrapes and stores time-series metrics for querying."
     }
   },
   {
@@ -2294,8 +2076,7 @@
     "difficulty": "hard",
     "codeSnippet": "COPY . .\nRUN npm install",
     "question": {
-      "en": "Why copy package files before the full source?",
-      "ar": "لماذا ننسخ ملفات الحزم قبل كامل الشيفرة؟"
+      "en": "Why copy package files before the full source?"
     },
     "options": [
       "To cache the dependency layer",
@@ -2305,8 +2086,7 @@
     ],
     "answer": "To cache the dependency layer",
     "explanation": {
-      "en": "Copying manifests first lets Docker reuse the install layer when only code changes.",
-      "ar": "نسخ ملفات الحزم أولًا يتيح لـDocker إعادة استخدام طبقة التثبيت عند تغيّر الشيفرة فقط."
+      "en": "Copying manifests first lets Docker reuse the install layer when only code changes."
     }
   },
   {
@@ -2315,8 +2095,7 @@
     "difficulty": "hard",
     "codeSnippet": "// shift 5% of traffic to the new version",
     "question": {
-      "en": "What deployment strategy is this?",
-      "ar": "أي استراتيجية نشر هذه؟"
+      "en": "What deployment strategy is this?"
     },
     "options": [
       "A canary release",
@@ -2326,8 +2105,7 @@
     ],
     "answer": "A canary release",
     "explanation": {
-      "en": "Canary sends a small traffic slice to the new version to catch issues early.",
-      "ar": "الإصدار التجريبي (canary) يرسل شريحة صغيرة للإصدار الجديد لاكتشاف المشاكل مبكرًا."
+      "en": "Canary sends a small traffic slice to the new version to catch issues early."
     }
   },
   {
@@ -2336,8 +2114,7 @@
     "difficulty": "easy",
     "codeSnippet": "- name: install nginx\n  apt: name=nginx state=present",
     "question": {
-      "en": "Which tool uses this YAML task format?",
-      "ar": "أي أداة تستخدم صيغة YAML هذه؟"
+      "en": "Which tool uses this YAML task format?"
     },
     "options": [
       "Ansible",
@@ -2347,8 +2124,7 @@
     ],
     "answer": "Ansible",
     "explanation": {
-      "en": "Ansible playbooks describe desired state as YAML tasks.",
-      "ar": "دفاتر Ansible تصف الحالة المطلوبة كمهام YAML."
+      "en": "Ansible playbooks describe desired state as YAML tasks."
     }
   },
   {
@@ -2357,8 +2133,7 @@
     "difficulty": "medium",
     "codeSnippet": "kubectl get pods",
     "question": {
-      "en": "What does this command list?",
-      "ar": "ماذا يسرد هذا الأمر؟"
+      "en": "What does this command list?"
     },
     "options": [
       "Running pods in the cluster",
@@ -2368,8 +2143,7 @@
     ],
     "answer": "Running pods in the cluster",
     "explanation": {
-      "en": "kubectl get pods lists pods and their status in the current namespace.",
-      "ar": "kubectl get pods يسرد الـpods وحالتها في مساحة الأسماء الحالية."
+      "en": "kubectl get pods lists pods and their status in the current namespace."
     }
   },
   {
@@ -2378,8 +2152,7 @@
     "difficulty": "medium",
     "codeSnippet": "stages: [build, test, deploy]",
     "question": {
-      "en": "What do pipeline stages define?",
-      "ar": "ماذا تحدّد مراحل المسار؟"
+      "en": "What do pipeline stages define?"
     },
     "options": [
       "An ordered sequence of steps",
@@ -2389,8 +2162,7 @@
     ],
     "answer": "An ordered sequence of steps",
     "explanation": {
-      "en": "Stages run in order; each groups jobs like build, test, then deploy.",
-      "ar": "تُنفَّذ المراحل بالترتيب، وكل مرحلة تجمع مهامًا مثل البناء ثم الاختبار ثم النشر."
+      "en": "Stages run in order; each groups jobs like build, test, then deploy."
     }
   },
   {
@@ -2399,8 +2171,7 @@
     "difficulty": "hard",
     "codeSnippet": "DB_PASSWORD=${{ secrets.DB_PASSWORD }}",
     "question": {
-      "en": "Why reference a secret this way?",
-      "ar": "لماذا نشير إلى السر بهذه الطريقة؟"
+      "en": "Why reference a secret this way?"
     },
     "options": [
       "Keep it out of the code",
@@ -2410,8 +2181,7 @@
     ],
     "answer": "Keep it out of the code",
     "explanation": {
-      "en": "Injecting from a secret store avoids committing credentials to the repo.",
-      "ar": "الحقن من مخزن الأسرار يتجنب حفظ بيانات الاعتماد في المستودع."
+      "en": "Injecting from a secret store avoids committing credentials to the repo."
     }
   },
   {
@@ -2420,8 +2190,7 @@
     "difficulty": "easy",
     "codeSnippet": "kubectl logs my-pod",
     "question": {
-      "en": "What does this command show?",
-      "ar": "ماذا يعرض هذا الأمر؟"
+      "en": "What does this command show?"
     },
     "options": [
       "A pod's log output",
@@ -2431,8 +2200,7 @@
     ],
     "answer": "A pod's log output",
     "explanation": {
-      "en": "kubectl logs streams a container's stdout/stderr.",
-      "ar": "kubectl logs يعرض مخرجات الحاوية القياسية والأخطاء."
+      "en": "kubectl logs streams a container's stdout/stderr."
     }
   },
   {
@@ -2441,8 +2209,7 @@
     "difficulty": "medium",
     "codeSnippet": "// keep old version live until new is ready",
     "question": {
-      "en": "Which strategy swaps two identical environments?",
-      "ar": "أي استراتيجية تبدّل بين بيئتين متطابقتين؟"
+      "en": "Which strategy swaps two identical environments?"
     },
     "options": [
       "Blue-green deployment",
@@ -2452,8 +2219,7 @@
     ],
     "answer": "Blue-green deployment",
     "explanation": {
-      "en": "Blue-green routes traffic to a fully staged new environment, enabling instant rollback.",
-      "ar": "الأزرق-الأخضر يوجّه الحركة لبيئة جديدة جاهزة كليًا مع تراجع فوري."
+      "en": "Blue-green routes traffic to a fully staged new environment, enabling instant rollback."
     }
   },
   {
@@ -2462,8 +2228,7 @@
     "difficulty": "easy",
     "codeSnippet": "EXPOSE 8080",
     "question": {
-      "en": "What does EXPOSE document?",
-      "ar": "ماذا يوثّق EXPOSE؟"
+      "en": "What does EXPOSE document?"
     },
     "options": [
       "The port the app listens on",
@@ -2473,8 +2238,7 @@
     ],
     "answer": "The port the app listens on",
     "explanation": {
-      "en": "EXPOSE declares the container's listening port as metadata.",
-      "ar": "EXPOSE يعلن منفذ استماع الحاوية كبيانات وصفية."
+      "en": "EXPOSE declares the container's listening port as metadata."
     }
   },
   {
@@ -2483,8 +2247,7 @@
     "difficulty": "hard",
     "codeSnippet": "livenessProbe: httpGet: path: /healthz",
     "question": {
-      "en": "What does a liveness probe decide?",
-      "ar": "ماذا يقرّر فحص الحيوية (liveness)؟"
+      "en": "What does a liveness probe decide?"
     },
     "options": [
       "Whether to restart the pod",
@@ -2494,8 +2257,7 @@
     ],
     "answer": "Whether to restart the pod",
     "explanation": {
-      "en": "If the liveness probe fails, Kubernetes restarts the container.",
-      "ar": "إذا فشل فحص الحيوية، يعيد Kubernetes تشغيل الحاوية."
+      "en": "If the liveness probe fails, Kubernetes restarts the container."
     }
   },
   {
@@ -2504,8 +2266,7 @@
     "difficulty": "medium",
     "codeSnippet": "terraform apply -auto-approve",
     "question": {
-      "en": "What is the risk of -auto-approve?",
-      "ar": "ما خطر -auto-approve؟"
+      "en": "What is the risk of -auto-approve?"
     },
     "options": [
       "Applies changes without review",
@@ -2515,8 +2276,7 @@
     ],
     "answer": "Applies changes without review",
     "explanation": {
-      "en": "It skips the confirmation prompt, applying possibly destructive changes.",
-      "ar": "يتخطى تأكيد المستخدم فيطبّق تغييرات قد تكون مدمّرة."
+      "en": "It skips the confirmation prompt, applying possibly destructive changes."
     }
   },
   {
@@ -2525,8 +2285,7 @@
     "difficulty": "easy",
     "codeSnippet": "artifacts:\n  paths: [dist/]",
     "question": {
-      "en": "What are build artifacts?",
-      "ar": "ما هي مخرجات البناء (artifacts)؟"
+      "en": "What are build artifacts?"
     },
     "options": [
       "Files passed between jobs",
@@ -2536,8 +2295,7 @@
     ],
     "answer": "Files passed between jobs",
     "explanation": {
-      "en": "Artifacts persist build outputs so later stages can use them.",
-      "ar": "المخرجات تحفظ نتائج البناء لتستخدمها المراحل اللاحقة."
+      "en": "Artifacts persist build outputs so later stages can use them."
     }
   },
   {
@@ -2546,8 +2304,7 @@
     "difficulty": "medium",
     "codeSnippet": "kind: Service\ntype: ClusterIP",
     "question": {
-      "en": "What does a ClusterIP Service provide?",
-      "ar": "ماذا توفّر خدمة ClusterIP؟"
+      "en": "What does a ClusterIP Service provide?"
     },
     "options": [
       "Stable internal cluster access",
@@ -2557,8 +2314,7 @@
     ],
     "answer": "Stable internal cluster access",
     "explanation": {
-      "en": "ClusterIP gives pods a stable virtual IP reachable inside the cluster.",
-      "ar": "ClusterIP يمنح الـpods عنوانًا افتراضيًا ثابتًا داخل العنقود."
+      "en": "ClusterIP gives pods a stable virtual IP reachable inside the cluster."
     }
   }
 ]

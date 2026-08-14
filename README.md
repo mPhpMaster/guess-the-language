@@ -1,6 +1,5 @@
 # Guess the Language
 
-**English** · [العربية](README.ar.md)
 
 An interactive quiz game for **Windows** (Electron), the **web** (also an
 installable **PWA / mobile app**), and **Discord** (as an embedded Activity).

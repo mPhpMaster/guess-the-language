@@ -68,13 +68,6 @@
     background: linear-gradient(92deg, #2ec5ff 0%, #19f0c4 100%);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   }
-  /* Bilingual, because the game ships EN + AR. inline-block so the RTL run is
-     shaped correctly but still sits flush against the left column, instead of
-     being pushed to the far edge by the RTL alignment. */
-  .arabic {
-    font-size: 31px; font-weight: 700; color: #9fb4cc;
-    margin-top: 12px; direction: rtl; display: inline-block;
-  }
   .tagline { font-size: 19px; font-weight: 500; color: #9fb4cc; margin-top: 18px; }
   .chips { display: flex; gap: 9px; margin-top: 26px; flex-wrap: wrap; }
   .chip {
@@ -127,8 +120,7 @@
   <div class="left">
     <div class="eyebrow">🎮 Discord Activity</div>
     <h1>Guess the<br /><span class="accent">Language</span></h1>
-    <div class="arabic">خمّن اللغة</div>
-    <p class="tagline">Bilingual IT quiz — beat the timer, climb the board.</p>
+    <p class="tagline">IT quiz — beat the timer, climb the board.</p>
     <div class="chips">
       <span class="chip">💻 Languages</span>
       <span class="chip">🛡️ Cyber</span>

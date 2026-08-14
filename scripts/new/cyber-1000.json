@@ -4,149 +4,284 @@
     "category": "web",
     "difficulty": "medium",
     "codeSnippet": "\"<script>alert(1)</script>\" stored and shown",
-    "question": { "en": "Which vulnerability does this demonstrate?", "ar": "أي ثغرة يوضّحها هذا؟" },
-    "options": ["Cross-site scripting", "SQL injection flaw", "Open redirect issue", "Weak password reuse"],
+    "question": {
+      "en": "Which vulnerability does this demonstrate?"
+    },
+    "options": [
+      "Cross-site scripting",
+      "SQL injection flaw",
+      "Open redirect issue",
+      "Weak password reuse"
+    ],
     "answer": "Cross-site scripting",
-    "explanation": { "en": "Rendering unescaped user input lets injected script run in the browser (XSS).", "ar": "عرض مدخلات المستخدم دون تهريب يسمح بتنفيذ سكربت محقون في المتصفح (XSS)." }
+    "explanation": {
+      "en": "Rendering unescaped user input lets injected script run in the browser (XSS)."
+    }
   },
   {
     "id": 144,
     "category": "crypto",
     "difficulty": "medium",
     "codeSnippet": "store: bcrypt(password + salt)",
-    "question": { "en": "Why store a salted bcrypt hash?", "ar": "لماذا نخزّن تجزئة bcrypt مملّحة؟" },
-    "options": ["Slow, unique per-user hashing", "Reversible fast encryption", "Plaintext for easy login", "A shorter database column"],
+    "question": {
+      "en": "Why store a salted bcrypt hash?"
+    },
+    "options": [
+      "Slow, unique per-user hashing",
+      "Reversible fast encryption",
+      "Plaintext for easy login",
+      "A shorter database column"
+    ],
     "answer": "Slow, unique per-user hashing",
-    "explanation": { "en": "bcrypt is deliberately slow and salted, resisting brute force and rainbow tables.", "ar": "bcrypt بطيء ومملّح عمدًا فيقاوم التخمين وجداول قوس قزح." }
+    "explanation": {
+      "en": "bcrypt is deliberately slow and salted, resisting brute force and rainbow tables."
+    }
   },
   {
     "id": 145,
     "category": "web",
     "difficulty": "hard",
     "codeSnippet": "query = \"SELECT * FROM u WHERE id=\" + input",
-    "question": { "en": "How is this best fixed?", "ar": "ما أفضل إصلاح لهذا؟" },
-    "options": ["Use parameterized queries", "Trust the client input", "Hide the SQL errors", "Rename the table columns"],
+    "question": {
+      "en": "How is this best fixed?"
+    },
+    "options": [
+      "Use parameterized queries",
+      "Trust the client input",
+      "Hide the SQL errors",
+      "Rename the table columns"
+    ],
     "answer": "Use parameterized queries",
-    "explanation": { "en": "Prepared statements separate code from data, preventing SQL injection.", "ar": "الاستعلامات المُعدّة تفصل الشيفرة عن البيانات فتمنع حقن SQL." }
+    "explanation": {
+      "en": "Prepared statements separate code from data, preventing SQL injection."
+    }
   },
   {
     "id": 146,
     "category": "auth",
     "difficulty": "medium",
     "codeSnippet": "// login asks password + phone code",
-    "question": { "en": "What security control is this?", "ar": "أي ضابط أمني هذا؟" },
-    "options": ["Multi-factor authentication", "Single sign-on only", "Password rotation policy", "Role based access lists"],
+    "question": {
+      "en": "What security control is this?"
+    },
+    "options": [
+      "Multi-factor authentication",
+      "Single sign-on only",
+      "Password rotation policy",
+      "Role based access lists"
+    ],
     "answer": "Multi-factor authentication",
-    "explanation": { "en": "Combining something you know and have is multi-factor authentication.", "ar": "الجمع بين شيء تعرفه وشيء تملكه هو المصادقة متعددة العوامل." }
+    "explanation": {
+      "en": "Combining something you know and have is multi-factor authentication."
+    }
   },
   {
     "id": 147,
     "category": "network",
     "difficulty": "hard",
     "codeSnippet": "// attacker relays traffic between two parties",
-    "question": { "en": "What attack is being described?", "ar": "أي هجوم يُوصَف هنا؟" },
-    "options": ["A man-in-the-middle attack", "A denial of service flood", "A password spraying run", "A privilege escalation bug"],
+    "question": {
+      "en": "What attack is being described?"
+    },
+    "options": [
+      "A man-in-the-middle attack",
+      "A denial of service flood",
+      "A password spraying run",
+      "A privilege escalation bug"
+    ],
     "answer": "A man-in-the-middle attack",
-    "explanation": { "en": "Intercepting and relaying traffic between two ends is a man-in-the-middle attack.", "ar": "اعتراض وتمرير الحركة بين طرفين هو هجوم الوسيط." }
+    "explanation": {
+      "en": "Intercepting and relaying traffic between two ends is a man-in-the-middle attack."
+    }
   },
   {
     "id": 148,
     "category": "web",
     "difficulty": "medium",
     "codeSnippet": "// form submits without an anti-forgery token",
-    "question": { "en": "Which attack does a missing token enable?", "ar": "أي هجوم يتيحه غياب الرمز؟" },
-    "options": ["Cross-site request forgery", "Buffer overflow crash", "DNS cache poisoning", "Clickjacking overlay only"],
+    "question": {
+      "en": "Which attack does a missing token enable?"
+    },
+    "options": [
+      "Cross-site request forgery",
+      "Buffer overflow crash",
+      "DNS cache poisoning",
+      "Clickjacking overlay only"
+    ],
     "answer": "Cross-site request forgery",
-    "explanation": { "en": "Without a CSRF token an attacker site can forge authenticated requests.", "ar": "بدون رمز CSRF يمكن لموقع مهاجم تزوير طلبات مُصادَقة." }
+    "explanation": {
+      "en": "Without a CSRF token an attacker site can forge authenticated requests."
+    }
   },
   {
     "id": 149,
     "category": "principles",
     "difficulty": "easy",
     "codeSnippet": "// give each account only what it needs",
-    "question": { "en": "Which principle is this?", "ar": "أي مبدأ هذا؟" },
-    "options": ["Least privilege access", "Security through obscurity", "Full trust by default", "Shared admin accounts"],
+    "question": {
+      "en": "Which principle is this?"
+    },
+    "options": [
+      "Least privilege access",
+      "Security through obscurity",
+      "Full trust by default",
+      "Shared admin accounts"
+    ],
     "answer": "Least privilege access",
-    "explanation": { "en": "Least privilege grants the minimum rights required, limiting damage.", "ar": "أقل صلاحية تمنح الحد الأدنى من الحقوق فتحدّ من الضرر." }
+    "explanation": {
+      "en": "Least privilege grants the minimum rights required, limiting damage."
+    }
   },
   {
     "id": 150,
     "category": "crypto",
     "difficulty": "hard",
     "codeSnippet": "// same key encrypts and decrypts",
-    "question": { "en": "What type of encryption is this?", "ar": "أي نوع تشفير هذا؟" },
-    "options": ["Symmetric key encryption", "Asymmetric public keys", "One-way hash function", "Plaintext encoding only"],
+    "question": {
+      "en": "What type of encryption is this?"
+    },
+    "options": [
+      "Symmetric key encryption",
+      "Asymmetric public keys",
+      "One-way hash function",
+      "Plaintext encoding only"
+    ],
     "answer": "Symmetric key encryption",
-    "explanation": { "en": "Symmetric ciphers like AES use one shared key for both directions.", "ar": "الشفرات المتماثلة مثل AES تستخدم مفتاحًا مشتركًا للاتجاهين." }
+    "explanation": {
+      "en": "Symmetric ciphers like AES use one shared key for both directions."
+    }
   },
   {
     "id": 151,
     "category": "malware",
     "difficulty": "medium",
     "codeSnippet": "// files encrypted, ransom note appears",
-    "question": { "en": "What malware category is this?", "ar": "أي فئة برمجيات خبيثة هذه؟" },
-    "options": ["Ransomware", "Adware popups", "A keylogger", "A rootkit"],
+    "question": {
+      "en": "What malware category is this?"
+    },
+    "options": [
+      "Ransomware",
+      "Adware popups",
+      "A keylogger",
+      "A rootkit"
+    ],
     "answer": "Ransomware",
-    "explanation": { "en": "Ransomware encrypts data and demands payment for the key.", "ar": "برمجية الفدية تشفّر البيانات وتطلب دفعًا مقابل المفتاح." }
+    "explanation": {
+      "en": "Ransomware encrypts data and demands payment for the key."
+    }
   },
   {
     "id": 152,
     "category": "auth",
     "difficulty": "hard",
     "codeSnippet": "Authorization: Bearer eyJhbGci...",
-    "question": { "en": "What is this bearer token typically?", "ar": "ما هذا الرمز (bearer) عادةً؟" },
-    "options": ["A signed JSON web token", "A raw database password", "A public TLS certificate", "A one-time hardware pin"],
+    "question": {
+      "en": "What is this bearer token typically?"
+    },
+    "options": [
+      "A signed JSON web token",
+      "A raw database password",
+      "A public TLS certificate",
+      "A one-time hardware pin"
+    ],
     "answer": "A signed JSON web token",
-    "explanation": { "en": "Bearer tokens are often JWTs whose signature the server verifies.", "ar": "رموز الحامل غالبًا JWT يتحقق الخادم من توقيعها." }
+    "explanation": {
+      "en": "Bearer tokens are often JWTs whose signature the server verifies."
+    }
   },
   {
     "id": 153,
     "category": "social",
     "difficulty": "easy",
     "codeSnippet": "// email: 'verify your bank now' fake link",
-    "question": { "en": "This is an example of what?", "ar": "هذا مثال على ماذا؟" },
-    "options": ["A phishing attempt", "A firewall rule", "A backup policy", "A patch update"],
+    "question": {
+      "en": "This is an example of what?"
+    },
+    "options": [
+      "A phishing attempt",
+      "A firewall rule",
+      "A backup policy",
+      "A patch update"
+    ],
     "answer": "A phishing attempt",
-    "explanation": { "en": "Phishing tricks users into revealing credentials via fake messages.", "ar": "التصيّد يخدع المستخدمين للكشف عن بياناتهم عبر رسائل مزيفة." }
+    "explanation": {
+      "en": "Phishing tricks users into revealing credentials via fake messages."
+    }
   },
   {
     "id": 154,
     "category": "network",
     "difficulty": "medium",
     "codeSnippet": "// huge traffic floods the site offline",
-    "question": { "en": "Which attack overwhelms a service with traffic?", "ar": "أي هجوم يُغرق الخدمة بالحركة؟" },
-    "options": ["Distributed denial of service", "Cross-site scripting", "Privilege escalation", "Certificate pinning"],
+    "question": {
+      "en": "Which attack overwhelms a service with traffic?"
+    },
+    "options": [
+      "Distributed denial of service",
+      "Cross-site scripting",
+      "Privilege escalation",
+      "Certificate pinning"
+    ],
     "answer": "Distributed denial of service",
-    "explanation": { "en": "A DDoS floods a target from many sources to exhaust its resources.", "ar": "هجوم DDoS يُغرق الهدف من مصادر كثيرة لاستنزاف موارده." }
+    "explanation": {
+      "en": "A DDoS floods a target from many sources to exhaust its resources."
+    }
   },
   {
     "id": 155,
     "category": "web",
     "difficulty": "hard",
     "codeSnippet": "Set-Cookie: session=abc; HttpOnly; Secure",
-    "question": { "en": "What does the HttpOnly flag do?", "ar": "ماذا يفعل الوسم HttpOnly؟" },
-    "options": ["Blocks JavaScript cookie access", "Encrypts the whole response", "Extends the cookie lifetime", "Shares it across domains"],
+    "question": {
+      "en": "What does the HttpOnly flag do?"
+    },
+    "options": [
+      "Blocks JavaScript cookie access",
+      "Encrypts the whole response",
+      "Extends the cookie lifetime",
+      "Shares it across domains"
+    ],
     "answer": "Blocks JavaScript cookie access",
-    "explanation": { "en": "HttpOnly hides the cookie from document.cookie, mitigating XSS theft.", "ar": "HttpOnly يخفي الكوكي عن document.cookie فيقلّل سرقتها عبر XSS." }
+    "explanation": {
+      "en": "HttpOnly hides the cookie from document.cookie, mitigating XSS theft."
+    }
   },
   {
     "id": 156,
     "category": "principles",
     "difficulty": "medium",
     "codeSnippet": "// firewall + MFA + backups + training",
-    "question": { "en": "What strategy layers many defenses?", "ar": "أي استراتيجية تُراكم دفاعات متعددة؟" },
-    "options": ["Defense in depth", "A single strong wall", "Trust but never verify", "Obscurity only design"],
+    "question": {
+      "en": "What strategy layers many defenses?"
+    },
+    "options": [
+      "Defense in depth",
+      "A single strong wall",
+      "Trust but never verify",
+      "Obscurity only design"
+    ],
     "answer": "Defense in depth",
-    "explanation": { "en": "Defense in depth uses overlapping controls so one failure isn't fatal.", "ar": "الدفاع المتعمّق يستخدم ضوابط متداخلة فلا يكون فشل واحد قاتلًا." }
+    "explanation": {
+      "en": "Defense in depth uses overlapping controls so one failure isn't fatal."
+    }
   },
   {
     "id": 157,
     "category": "crypto",
     "difficulty": "easy",
     "codeSnippet": "sha256(file) == published_hash",
-    "question": { "en": "What does matching the hash verify?", "ar": "ماذا تتحقق مطابقة التجزئة؟" },
-    "options": ["The file's integrity", "The author's identity", "The download speed", "The file's price"],
+    "question": {
+      "en": "What does matching the hash verify?"
+    },
+    "options": [
+      "The file's integrity",
+      "The author's identity",
+      "The download speed",
+      "The file's price"
+    ],
     "answer": "The file's integrity",
-    "explanation": { "en": "A matching hash shows the file was not altered in transit.", "ar": "تطابق التجزئة يدل على أن الملف لم يُعدَّل أثناء النقل." }
+    "explanation": {
+      "en": "A matching hash shows the file was not altered in transit."
+    }
   }
 ]

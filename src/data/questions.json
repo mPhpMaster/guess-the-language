@@ -5,8 +5,7 @@
     "difficulty": "easy",
     "codeSnippet": "print('Hello, World!')",
     "explanation": {
-      "en": "The print() function written this way, without a semicolon, is distinctive to Python.",
-      "ar": "دالة print() بهذا الشكل وبدون فاصلة منقوطة مميزة في بايثون."
+      "en": "The print() function written this way, without a semicolon, is distinctive to Python."
     }
   },
   {
@@ -15,8 +14,7 @@
     "difficulty": "easy",
     "codeSnippet": "def greet(name):\n    return f\"Hello, {name}!\"",
     "explanation": {
-      "en": "The def keyword and an f-string are clear Python markers.",
-      "ar": "الكلمة def وسلسلة f-string من علامات بايثون الواضحة."
+      "en": "The def keyword and an f-string are clear Python markers."
     }
   },
   {
@@ -25,8 +23,7 @@
     "difficulty": "easy",
     "codeSnippet": "if __name__ == \"__main__\":\n    main()",
     "explanation": {
-      "en": "The __name__ == \"__main__\" pattern is specific to Python.",
-      "ar": "النمط __name__ == \"__main__\" خاص ببايثون."
+      "en": "The __name__ == \"__main__\" pattern is specific to Python."
     }
   },
   {
@@ -35,8 +32,7 @@
     "difficulty": "medium",
     "codeSnippet": "squares = [x ** 2 for x in range(10)]",
     "explanation": {
-      "en": "A list comprehension with the ** power operator is a Python feature.",
-      "ar": "List comprehension مع المعامل ** للأس من مميزات بايثون."
+      "en": "A list comprehension with the ** power operator is a Python feature."
     }
   },
   {
@@ -45,8 +41,7 @@
     "difficulty": "medium",
     "codeSnippet": "with open('data.txt') as f:\n    data = f.read()",
     "explanation": {
-      "en": "The with statement (context manager) is characteristic of Python.",
-      "ar": "عبارة with لإدارة الموارد (context manager) مميزة لبايثون."
+      "en": "The with statement (context manager) is characteristic of Python."
     }
   },
   {
@@ -55,8 +50,7 @@
     "difficulty": "medium",
     "codeSnippet": "import numpy as np\narr = np.array([1, 2, 3])",
     "explanation": {
-      "en": "import ... as syntax and the numpy library are very common in Python.",
-      "ar": "صيغة import ... as ومكتبة numpy شائعة جداً في بايثون."
+      "en": "import ... as syntax and the numpy library are very common in Python."
     }
   },
   {
@@ -65,8 +59,7 @@
     "difficulty": "medium",
     "codeSnippet": "@app.route('/')\ndef index():\n    return 'Home'",
     "explanation": {
-      "en": "The @ decorator above a def points to Python (Flask here).",
-      "ar": "الديكوريتر @ مع تعريف def يدل على بايثون (Flask هنا)."
+      "en": "The @ decorator above a def points to Python (Flask here)."
     }
   },
   {
@@ -75,8 +68,7 @@
     "difficulty": "hard",
     "codeSnippet": "async def fetch(url):\n    async with session.get(url) as r:\n        return await r.json()",
     "explanation": {
-      "en": "async def and async with are Python's asynchronous syntax.",
-      "ar": "async def و async with صيغة بايثون غير المتزامنة."
+      "en": "async def and async with are Python's asynchronous syntax."
     }
   },
   {
@@ -85,8 +77,7 @@
     "difficulty": "hard",
     "codeSnippet": "result = {k: v for k, v in pairs if v is not None}",
     "explanation": {
-      "en": "A dict comprehension with 'is not None' is Python.",
-      "ar": "Dict comprehension مع is not None من بنى بايثون."
+      "en": "A dict comprehension with 'is not None' is Python."
     }
   },
   {
@@ -95,8 +86,7 @@
     "difficulty": "hard",
     "codeSnippet": "nums = list(map(lambda x: x * 2, filter(lambda y: y > 0, data)))",
     "explanation": {
-      "en": "lambda with map/filter like this strongly indicates Python.",
-      "ar": "lambda و map/filter بهذه الصيغة دلالة قوية على بايثون."
+      "en": "lambda with map/filter like this strongly indicates Python."
     }
   },
   {
@@ -105,8 +95,7 @@
     "difficulty": "easy",
     "codeSnippet": "console.log('Hello, World!');",
     "explanation": {
-      "en": "console.log is the standard way to print in JavaScript.",
-      "ar": "console.log هي طريقة الطباعة القياسية في جافاسكربت."
+      "en": "console.log is the standard way to print in JavaScript."
     }
   },
   {
@@ -115,8 +104,7 @@
     "difficulty": "easy",
     "codeSnippet": "const double = arr.map(x => x * 2);",
     "explanation": {
-      "en": "const with the arrow function => is modern JavaScript.",
-      "ar": "const مع الدالة السهمية => من سمات جافاسكربت الحديثة."
+      "en": "const with the arrow function => is modern JavaScript."
     }
   },
   {
@@ -125,8 +113,7 @@
     "difficulty": "easy",
     "codeSnippet": "document.querySelector('#app').innerHTML = 'Hi';",
     "explanation": {
-      "en": "document.querySelector and innerHTML are JavaScript DOM APIs.",
-      "ar": "document.querySelector و innerHTML خاصة بـ DOM في جافاسكربت."
+      "en": "document.querySelector and innerHTML are JavaScript DOM APIs."
     }
   },
   {
@@ -135,8 +122,7 @@
     "difficulty": "easy",
     "codeSnippet": "setTimeout(() => console.log('done'), 1000);",
     "explanation": {
-      "en": "setTimeout with an arrow function is a JavaScript API.",
-      "ar": "setTimeout مع دالة سهمية من واجهات جافاسكربت."
+      "en": "setTimeout with an arrow function is a JavaScript API."
     }
   },
   {
@@ -145,8 +131,7 @@
     "difficulty": "medium",
     "codeSnippet": "const { name, age } = user;",
     "explanation": {
-      "en": "Object destructuring is common in JavaScript/ES6.",
-      "ar": "تفكيك الكائن (object destructuring) شائع في جافاسكربت/ES6."
+      "en": "Object destructuring is common in JavaScript/ES6."
     }
   },
   {
@@ -155,8 +140,7 @@
     "difficulty": "medium",
     "codeSnippet": "async function load() {\n  const res = await fetch(url);\n  return res.json();\n}",
     "explanation": {
-      "en": "fetch() and res.json() are browser APIs specific to JavaScript.",
-      "ar": "fetch() و res.json() واجهات متصفح خاصة بجافاسكربت."
+      "en": "fetch() and res.json() are browser APIs specific to JavaScript."
     }
   },
   {
@@ -165,8 +149,7 @@
     "difficulty": "medium",
     "codeSnippet": "let p = new Promise((resolve, reject) => resolve(42));",
     "explanation": {
-      "en": "A Promise written this way is core to JavaScript's async model.",
-      "ar": "Promise بهذه الصيغة من نواة جافاسكربت غير المتزامنة."
+      "en": "A Promise written this way is core to JavaScript's async model."
     }
   },
   {
@@ -175,8 +158,7 @@
     "difficulty": "medium",
     "codeSnippet": "export default function App() {\n  return null;\n}",
     "explanation": {
-      "en": "export default is ES module syntax in JavaScript.",
-      "ar": "export default صيغة وحدات ES في جافاسكربت."
+      "en": "export default is ES module syntax in JavaScript."
     }
   },
   {
@@ -185,8 +167,7 @@
     "difficulty": "hard",
     "codeSnippet": "const total = items.filter(i => i.active).reduce((a, b) => a + b.price, 0);",
     "explanation": {
-      "en": "Chaining filter().reduce() with arrow functions is a JavaScript pattern.",
-      "ar": "سلسلة filter().reduce() مع دوال سهمية نمط جافاسكربت."
+      "en": "Chaining filter().reduce() with arrow functions is a JavaScript pattern."
     }
   },
   {
@@ -195,8 +176,7 @@
     "difficulty": "hard",
     "codeSnippet": "const merged = { ...defaults, ...options, id: 1 };",
     "explanation": {
-      "en": "The spread operator ... inside an object is a JavaScript ES feature.",
-      "ar": "معامل الانتشار ... داخل كائن من ميزات جافاسكربت ES."
+      "en": "The spread operator ... inside an object is a JavaScript ES feature."
     }
   },
   {
@@ -205,8 +185,7 @@
     "difficulty": "easy",
     "codeSnippet": "#include <iostream>\nint main() {\n    std::cout << \"Hello\";\n}",
     "explanation": {
-      "en": "#include <iostream> and std::cout are sure signs of C++.",
-      "ar": "‎#include <iostream> و std::cout علامات مؤكدة على ++C."
+      "en": "#include <iostream> and std::cout are sure signs of C++."
     }
   },
   {
@@ -215,8 +194,7 @@
     "difficulty": "easy",
     "codeSnippet": "std::cout << \"Sum: \" << a + b << std::endl;",
     "explanation": {
-      "en": "std::cout << and std::endl are core C++.",
-      "ar": "std::cout << و std::endl من نواة ++C."
+      "en": "std::cout << and std::endl are core C++."
     }
   },
   {
@@ -225,8 +203,7 @@
     "difficulty": "easy",
     "codeSnippet": "std::vector<int> v = {1, 2, 3};",
     "explanation": {
-      "en": "std::vector with the std namespace is specific to C++.",
-      "ar": "std::vector بمساحة الأسماء std خاص بـ ++C."
+      "en": "std::vector with the std namespace is specific to C++."
     }
   },
   {
@@ -235,8 +212,7 @@
     "difficulty": "medium",
     "codeSnippet": "template <typename T>\nT maxOf(T a, T b) { return a > b ? a : b; }",
     "explanation": {
-      "en": "template <typename T> is C++ generic templates.",
-      "ar": "template <typename T> من القوالب العامة في ++C."
+      "en": "template <typename T> is C++ generic templates."
     }
   },
   {
@@ -245,8 +221,7 @@
     "difficulty": "medium",
     "codeSnippet": "int* ptr = new int(5);\ndelete ptr;",
     "explanation": {
-      "en": "new/delete and manual pointer management are C++.",
-      "ar": "new/delete وإدارة المؤشرات يدوياً من ++C."
+      "en": "new/delete and manual pointer management are C++."
     }
   },
   {
@@ -255,8 +230,7 @@
     "difficulty": "medium",
     "codeSnippet": "class Animal {\npublic:\n    virtual void speak() = 0;\n};",
     "explanation": {
-      "en": "virtual ... = 0 (a pure virtual function) is C++.",
-      "ar": "virtual ... = 0 (دالة افتراضية بحتة) من ++C."
+      "en": "virtual ... = 0 (a pure virtual function) is C++."
     }
   },
   {
@@ -265,8 +239,7 @@
     "difficulty": "medium",
     "codeSnippet": "std::sort(v.begin(), v.end());",
     "explanation": {
-      "en": "std::sort with begin()/end() is from the C++ standard library.",
-      "ar": "std::sort مع begin()/end() من مكتبة ++C القياسية."
+      "en": "std::sort with begin()/end() is from the C++ standard library."
     }
   },
   {
@@ -275,8 +248,7 @@
     "difficulty": "hard",
     "codeSnippet": "auto ptr = std::make_unique<Foo>(42);",
     "explanation": {
-      "en": "std::make_unique and smart pointers are modern C++ (C++11+).",
-      "ar": "std::make_unique والمؤشرات الذكية من ++11C وما بعده."
+      "en": "std::make_unique and smart pointers are modern C++ (C++11+)."
     }
   },
   {
@@ -285,8 +257,7 @@
     "difficulty": "hard",
     "codeSnippet": "for (const auto& item : container) {\n    std::cout << item;\n}",
     "explanation": {
-      "en": "const auto& with std::cout is a modern C++ pattern.",
-      "ar": "const auto& مع std::cout من أنماط ++C الحديثة."
+      "en": "const auto& with std::cout is a modern C++ pattern."
     }
   },
   {
@@ -295,8 +266,7 @@
     "difficulty": "hard",
     "codeSnippet": "std::map<std::string, int> counts;\ncounts[\"a\"]++;",
     "explanation": {
-      "en": "std::map<std::string, int> with the std namespace is C++.",
-      "ar": "std::map<std::string, int> بمساحة std خاص بـ ++C."
+      "en": "std::map<std::string, int> with the std namespace is C++."
     }
   },
   {
@@ -305,8 +275,7 @@
     "difficulty": "easy",
     "codeSnippet": "public static void main(String[] args) {\n}",
     "explanation": {
-      "en": "The public static void main(String[] args) signature is Java's fingerprint.",
-      "ar": "توقيع public static void main(String[] args) بصمة جافا."
+      "en": "The public static void main(String[] args) signature is Java's fingerprint."
     }
   },
   {
@@ -315,8 +284,7 @@
     "difficulty": "easy",
     "codeSnippet": "System.out.println(\"Hello, World!\");",
     "explanation": {
-      "en": "System.out.println is Java's standard print method.",
-      "ar": "System.out.println الطريقة القياسية للطباعة في جافا."
+      "en": "System.out.println is Java's standard print method."
     }
   },
   {
@@ -325,8 +293,7 @@
     "difficulty": "easy",
     "codeSnippet": "public class Main {\n}",
     "explanation": {
-      "en": "A capitalized public class matching the file name is a Java pattern.",
-      "ar": "public class بحرف كبير كاسم الملف نمط جافا."
+      "en": "A capitalized public class matching the file name is a Java pattern."
     }
   },
   {
@@ -335,8 +302,7 @@
     "difficulty": "medium",
     "codeSnippet": "ArrayList<String> list = new ArrayList<>();",
     "explanation": {
-      "en": "ArrayList<String> ... new ArrayList<>() is from Java collections.",
-      "ar": "ArrayList<String> ... new ArrayList<>() من مجموعات جافا."
+      "en": "ArrayList<String> ... new ArrayList<>() is from Java collections."
     }
   },
   {
@@ -345,8 +311,7 @@
     "difficulty": "medium",
     "codeSnippet": "@Override\npublic String toString() {\n    return name;\n}",
     "explanation": {
-      "en": "@Override with a public String signature is Java.",
-      "ar": "‎@Override مع توقيع public String من جافا."
+      "en": "@Override with a public String signature is Java."
     }
   },
   {
@@ -355,8 +320,7 @@
     "difficulty": "medium",
     "codeSnippet": "for (String item : items) {\n    System.out.println(item);\n}",
     "explanation": {
-      "en": "A for-each loop with System.out.println indicates Java.",
-      "ar": "حلقة for-each مع System.out.println تدل على جافا."
+      "en": "A for-each loop with System.out.println indicates Java."
     }
   },
   {
@@ -365,8 +329,7 @@
     "difficulty": "medium",
     "codeSnippet": "private final int count = 0;",
     "explanation": {
-      "en": "The access modifiers private final before the type are Java traits.",
-      "ar": "محددات الوصول private final قبل النوع من سمات جافا."
+      "en": "The access modifiers private final before the type are Java traits."
     }
   },
   {
@@ -375,8 +338,7 @@
     "difficulty": "hard",
     "codeSnippet": "list.stream().filter(x -> x > 0).collect(Collectors.toList());",
     "explanation": {
-      "en": "stream() with Collectors.toList() is Java's Stream API.",
-      "ar": "stream() مع Collectors.toList() من Stream API في جافا."
+      "en": "stream() with Collectors.toList() is Java's Stream API."
     }
   },
   {
@@ -385,8 +347,7 @@
     "difficulty": "hard",
     "codeSnippet": "public void read() throws IOException {\n}",
     "explanation": {
-      "en": "A 'throws IOException' clause in the signature is specific to Java.",
-      "ar": "عبارة throws IOException ضمن التوقيع خاصة بجافا."
+      "en": "A 'throws IOException' clause in the signature is specific to Java."
     }
   },
   {
@@ -395,8 +356,7 @@
     "difficulty": "hard",
     "codeSnippet": "Map<String, Integer> map = new HashMap<>();\nmap.put(\"a\", 1);",
     "explanation": {
-      "en": "HashMap<>() with map.put is from Java collections.",
-      "ar": "HashMap<>() مع map.put من مجموعات جافا."
+      "en": "HashMap<>() with map.put is from Java collections."
     }
   },
   {
@@ -405,8 +365,7 @@
     "difficulty": "easy",
     "codeSnippet": "fn main() {\n    println!(\"Hello, World!\");\n}",
     "explanation": {
-      "en": "The println! macro with an exclamation mark and the fn keyword are sure signs of Rust.",
-      "ar": "الماكرو println! بعلامة التعجب وكلمة fn علامتان أكيدتان على رست."
+      "en": "The println! macro with an exclamation mark and the fn keyword are sure signs of Rust."
     }
   },
   {
@@ -415,8 +374,7 @@
     "difficulty": "easy",
     "codeSnippet": "let mut count = 0;",
     "explanation": {
-      "en": "let mut for mutable variables is from Rust.",
-      "ar": "let mut للمتغيرات القابلة للتعديل من رست."
+      "en": "let mut for mutable variables is from Rust."
     }
   },
   {
@@ -425,8 +383,7 @@
     "difficulty": "easy",
     "codeSnippet": "fn add(a: i32, b: i32) -> i32 {\n    a + b\n}",
     "explanation": {
-      "en": "The i32 types and the -> return arrow are Rust syntax.",
-      "ar": "الأنواع i32 والسهم <- لنوع الإرجاع من صيغة رست."
+      "en": "The i32 types and the -> return arrow are Rust syntax."
     }
   },
   {
@@ -435,8 +392,7 @@
     "difficulty": "medium",
     "codeSnippet": "let v: Vec<i32> = vec![1, 2, 3];",
     "explanation": {
-      "en": "The vec! macro and the Vec<i32> type are specific to Rust.",
-      "ar": "الماكرو ![vec ونوع <Vec<i32 خاصان برست."
+      "en": "The vec! macro and the Vec<i32> type are specific to Rust."
     }
   },
   {
@@ -445,8 +401,7 @@
     "difficulty": "medium",
     "codeSnippet": "match value {\n    Some(n) => n,\n    None => 0,\n}",
     "explanation": {
-      "en": "match with Some/None is a Rust pattern (Option).",
-      "ar": "match مع Some/None من نمط رست (و Option)."
+      "en": "match with Some/None is a Rust pattern (Option)."
     }
   },
   {
@@ -455,8 +410,7 @@
     "difficulty": "medium",
     "codeSnippet": "struct Point {\n    x: f64,\n    y: f64,\n}",
     "explanation": {
-      "en": "A struct with name: type fields and f64 types is Rust.",
-      "ar": "struct بحقول name: type والأنواع f64 من رست."
+      "en": "A struct with name: type fields and f64 types is Rust."
     }
   },
   {
@@ -465,8 +419,7 @@
     "difficulty": "medium",
     "codeSnippet": "for i in 0..10 {\n    println!(\"{}\", i);\n}",
     "explanation": {
-      "en": "The 0..10 range with println! indicates Rust.",
-      "ar": "نطاق 0..10 مع println! دلالة على رست."
+      "en": "The 0..10 range with println! indicates Rust."
     }
   },
   {
@@ -475,8 +428,7 @@
     "difficulty": "hard",
     "codeSnippet": "let content = std::fs::read_to_string(path)?;",
     "explanation": {
-      "en": "The ? error-propagation operator and std::fs are Rust.",
-      "ar": "معامل ? لانتشار الأخطاء و std::fs من رست."
+      "en": "The ? error-propagation operator and std::fs are Rust."
     }
   },
   {
@@ -485,8 +437,7 @@
     "difficulty": "hard",
     "codeSnippet": "impl Display for Point {\n    fn fmt(&self, f: &mut Formatter) -> fmt::Result {}\n}",
     "explanation": {
-      "en": "impl Trait for Type and &self are from Rust's trait system.",
-      "ar": "impl Trait for Type و self& من نظام السمات في رست."
+      "en": "impl Trait for Type and &self are from Rust's trait system."
     }
   },
   {
@@ -495,8 +446,7 @@
     "difficulty": "hard",
     "codeSnippet": "let name = String::from(\"Rust\");\nlet slice: &str = &name;",
     "explanation": {
-      "en": "String::from and the &str (slice) type are from Rust's ownership model.",
-      "ar": "String::from والنوع str& (شريحة) من ملكية رست."
+      "en": "String::from and the &str (slice) type are from Rust's ownership model."
     }
   },
   {
@@ -505,8 +455,7 @@
     "difficulty": "easy",
     "codeSnippet": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Hello, World!\")\n}",
     "explanation": {
-      "en": "package main, fmt.Println and the func keyword are sure signs of Go.",
-      "ar": "package main و fmt.Println وكلمة func علامات أكيدة على Go."
+      "en": "package main, fmt.Println and the func keyword are sure signs of Go."
     }
   },
   {
@@ -515,8 +464,7 @@
     "difficulty": "easy",
     "codeSnippet": "func add(a int, b int) int {\n    return a + b\n}",
     "explanation": {
-      "en": "The type comes after the parameter name (a int) — a Go pattern.",
-      "ar": "النوع يأتي بعد اسم المعامل (a int) وهذا نمط Go."
+      "en": "The type comes after the parameter name (a int) — a Go pattern."
     }
   },
   {
@@ -525,8 +473,7 @@
     "difficulty": "easy",
     "codeSnippet": "if err != nil {\n    return err\n}",
     "explanation": {
-      "en": "The 'if err != nil' error-handling pattern is a Go fingerprint.",
-      "ar": "نمط معالجة الأخطاء if err != nil من بصمات Go."
+      "en": "The 'if err != nil' error-handling pattern is a Go fingerprint."
     }
   },
   {
@@ -535,8 +482,7 @@
     "difficulty": "medium",
     "codeSnippet": "count := 0\nfor i := 0; i < 10; i++ {\n}",
     "explanation": {
-      "en": "The short assignment operator := is specific to Go.",
-      "ar": "معامل الإسناد القصير =: خاص بـ Go."
+      "en": "The short assignment operator := is specific to Go."
     }
   },
   {
@@ -545,8 +491,7 @@
     "difficulty": "medium",
     "codeSnippet": "defer file.Close()",
     "explanation": {
-      "en": "The defer keyword for deferring execution is from Go.",
-      "ar": "الكلمة المفتاحية defer لتأجيل التنفيذ من Go."
+      "en": "The defer keyword for deferring execution is from Go."
     }
   },
   {
@@ -555,8 +500,7 @@
     "difficulty": "medium",
     "codeSnippet": "type Point struct {\n    X, Y int\n}",
     "explanation": {
-      "en": "type Name struct with fields typed after the name is a Go pattern.",
-      "ar": "type Name struct وحقول بأنواع بعد الاسم نمط Go."
+      "en": "type Name struct with fields typed after the name is a Go pattern."
     }
   },
   {
@@ -565,8 +509,7 @@
     "difficulty": "medium",
     "codeSnippet": "m := map[string]int{\"a\": 1}",
     "explanation": {
-      "en": "map[string]int with := assignment is Go syntax.",
-      "ar": "map[string]int مع الإسناد =: من صيغة Go."
+      "en": "map[string]int with := assignment is Go syntax."
     }
   },
   {
@@ -575,8 +518,7 @@
     "difficulty": "hard",
     "codeSnippet": "ch := make(chan int)\ngo worker(ch)",
     "explanation": {
-      "en": "make(chan int) and the go keyword to launch a goroutine are Go.",
-      "ar": "make(chan int) والكلمة go لإطلاق goroutine من Go."
+      "en": "make(chan int) and the go keyword to launch a goroutine are Go."
     }
   },
   {
@@ -585,8 +527,7 @@
     "difficulty": "hard",
     "codeSnippet": "func (p *Point) Move(dx int) {\n    p.X += dx\n}",
     "explanation": {
-      "en": "A receiver (func (p *Point)) before the function name is a Go pattern.",
-      "ar": "المستقبِل (func (p *Point)) قبل اسم الدالة نمط Go."
+      "en": "A receiver (func (p *Point)) before the function name is a Go pattern."
     }
   },
   {
@@ -595,8 +536,7 @@
     "difficulty": "hard",
     "codeSnippet": "fmt.Printf(\"%v\\n\", result)",
     "explanation": {
-      "en": "fmt.Printf with the %v verb is from Go's fmt package.",
-      "ar": "fmt.Printf مع المحدد %v من مكتبة fmt في Go."
+      "en": "fmt.Printf with the %v verb is from Go's fmt package."
     }
   },
   {
@@ -605,8 +545,7 @@
     "difficulty": "easy",
     "codeSnippet": "for i in range(5):\n    print(i)",
     "explanation": {
-      "en": "A for ... in range() loop with print and no braces is a Python pattern.",
-      "ar": "حلقة for ... in range() مع print بلا أقواس معقوفة نمط بايثون."
+      "en": "A for ... in range() loop with print and no braces is a Python pattern."
     }
   },
   {
@@ -615,8 +554,7 @@
     "difficulty": "easy",
     "codeSnippet": "name = input('Enter your name: ')",
     "explanation": {
-      "en": "The input() function for reading input is distinctive to Python.",
-      "ar": "دالة input() لقراءة المدخلات مميزة في بايثون."
+      "en": "The input() function for reading input is distinctive to Python."
     }
   },
   {
@@ -625,8 +563,7 @@
     "difficulty": "easy",
     "codeSnippet": "numbers = [1, 2, 3]\nnumbers.append(4)",
     "explanation": {
-      "en": "The list.append() method and list building are from Python.",
-      "ar": "التابع list.append() وبناء القوائم من بايثون."
+      "en": "The list.append() method and list building are from Python."
     }
   },
   {
@@ -635,8 +572,7 @@
     "difficulty": "medium",
     "codeSnippet": "try:\n    x = int(value)\nexcept ValueError:\n    x = 0",
     "explanation": {
-      "en": "try/except with ValueError and a colon after the statement are Python.",
-      "ar": "try/except مع ValueError ونقطتان بعد العبارة من بايثون."
+      "en": "try/except with ValueError and a colon after the statement are Python."
     }
   },
   {
@@ -645,8 +581,7 @@
     "difficulty": "medium",
     "codeSnippet": "class Dog:\n    def __init__(self, name):\n        self.name = name",
     "explanation": {
-      "en": "The __init__ constructor and the self parameter are from Python classes.",
-      "ar": "الباني __init__ والمعامل self من أصناف بايثون."
+      "en": "The __init__ constructor and the self parameter are from Python classes."
     }
   },
   {
@@ -655,8 +590,7 @@
     "difficulty": "medium",
     "codeSnippet": "print(', '.join(items))",
     "explanation": {
-      "en": "The str.join() method on a separator string is a Python pattern.",
-      "ar": "التابع str.join() على سلسلة فاصلة من أنماط بايثون."
+      "en": "The str.join() method on a separator string is a Python pattern."
     }
   },
   {
@@ -665,8 +599,7 @@
     "difficulty": "medium",
     "codeSnippet": "from collections import Counter\nc = Counter(words)",
     "explanation": {
-      "en": "from collections import Counter is from Python's standard library.",
-      "ar": "from collections import Counter من المكتبة القياسية لبايثون."
+      "en": "from collections import Counter is from Python's standard library."
     }
   },
   {
@@ -675,8 +608,7 @@
     "difficulty": "hard",
     "codeSnippet": "def gen():\n    yield from range(10)",
     "explanation": {
-      "en": "yield from for generator delegation is specific to Python.",
-      "ar": "yield from لتفويض المولّدات خاص ببايثون."
+      "en": "yield from for generator delegation is specific to Python."
     }
   },
   {
@@ -685,8 +617,7 @@
     "difficulty": "hard",
     "codeSnippet": "items = sorted(data, key=lambda x: x[1], reverse=True)",
     "explanation": {
-      "en": "sorted(key=lambda, reverse=True) is Python syntax.",
-      "ar": "sorted(key=lambda, reverse=True) صيغة بايثون."
+      "en": "sorted(key=lambda, reverse=True) is Python syntax."
     }
   },
   {
@@ -695,8 +626,7 @@
     "difficulty": "hard",
     "codeSnippet": "df = pd.DataFrame(data)\nmean = df['col'].mean()",
     "explanation": {
-      "en": "pandas DataFrame and column access are very common in Python.",
-      "ar": "pandas DataFrame والوصول للأعمدة شائع جداً في بايثون."
+      "en": "pandas DataFrame and column access are very common in Python."
     }
   },
   {
@@ -705,8 +635,7 @@
     "difficulty": "easy",
     "codeSnippet": "let sum = 0;\nfor (let i = 0; i < 5; i++) sum += i;",
     "explanation": {
-      "en": "let inside a for loop is modern JavaScript.",
-      "ar": "let داخل حلقة for من جافاسكربت الحديثة."
+      "en": "let inside a for loop is modern JavaScript."
     }
   },
   {
@@ -715,8 +644,7 @@
     "difficulty": "easy",
     "codeSnippet": "const name = prompt('What is your name?');",
     "explanation": {
-      "en": "prompt() is a browser API specific to JavaScript.",
-      "ar": "prompt() واجهة متصفح خاصة بجافاسكربت."
+      "en": "prompt() is a browser API specific to JavaScript."
     }
   },
   {
@@ -725,8 +653,7 @@
     "difficulty": "easy",
     "codeSnippet": "arr.forEach(item => console.log(item));",
     "explanation": {
-      "en": "forEach with an arrow function and console.log are JavaScript.",
-      "ar": "forEach مع دالة سهمية و console.log من جافاسكربت."
+      "en": "forEach with an arrow function and console.log are JavaScript."
     }
   },
   {
@@ -735,8 +662,7 @@
     "difficulty": "medium",
     "codeSnippet": "button.addEventListener('click', () => {});",
     "explanation": {
-      "en": "addEventListener is a JavaScript DOM API.",
-      "ar": "addEventListener من واجهات DOM في جافاسكربت."
+      "en": "addEventListener is a JavaScript DOM API."
     }
   },
   {
@@ -745,8 +671,7 @@
     "difficulty": "medium",
     "codeSnippet": "const data = JSON.stringify({ id: 1, ok: true });",
     "explanation": {
-      "en": "JSON.stringify with the {} object is a JavaScript pattern.",
-      "ar": "JSON.stringify مع الكائن {} نمط جافاسكربت."
+      "en": "JSON.stringify with the {} object is a JavaScript pattern."
     }
   },
   {
@@ -755,8 +680,7 @@
     "difficulty": "medium",
     "codeSnippet": "class Cat extends Animal {\n  constructor() { super(); }\n}",
     "explanation": {
-      "en": "class extends with constructor and super() is JavaScript class syntax.",
-      "ar": "class extends مع constructor و super() صيغة أصناف جافاسكربت."
+      "en": "class extends with constructor and super() is JavaScript class syntax."
     }
   },
   {
@@ -765,8 +689,7 @@
     "difficulty": "hard",
     "codeSnippet": "const unique = [...new Set(arr)];",
     "explanation": {
-      "en": "Set with the spread operator ... to dedupe is from JavaScript.",
-      "ar": "Set مع معامل الانتشار ... لإزالة التكرار من جافاسكربت."
+      "en": "Set with the spread operator ... to dedupe is from JavaScript."
     }
   },
   {
@@ -775,8 +698,7 @@
     "difficulty": "hard",
     "codeSnippet": "app.get('/api', (req, res) => res.json(data));",
     "explanation": {
-      "en": "req/res and res.json are from Express in JavaScript/Node.",
-      "ar": "req/res و res.json من Express في جافاسكربت/Node."
+      "en": "req/res and res.json are from Express in JavaScript/Node."
     }
   },
   {
@@ -785,8 +707,7 @@
     "difficulty": "hard",
     "codeSnippet": "const [count, setCount] = useState(0);",
     "explanation": {
-      "en": "useState and array destructuring are from React (JavaScript).",
-      "ar": "useState وتفكيك المصفوفة من React (جافاسكربت)."
+      "en": "useState and array destructuring are from React (JavaScript)."
     }
   },
   {
@@ -795,8 +716,7 @@
     "difficulty": "hard",
     "codeSnippet": "const results = await Promise.all(urls.map(u => fetch(u)));",
     "explanation": {
-      "en": "Promise.all with map and fetch are from async JavaScript.",
-      "ar": "Promise.all مع map و fetch من جافاسكربت غير المتزامنة."
+      "en": "Promise.all with map and fetch are from async JavaScript."
     }
   },
   {
@@ -805,8 +725,7 @@
     "difficulty": "easy",
     "codeSnippet": "#include <vector>\nusing namespace std;",
     "explanation": {
-      "en": "using namespace std and #include with angle brackets are C++.",
-      "ar": "using namespace std و#include بأقواس زاوية من ++C."
+      "en": "using namespace std and #include with angle brackets are C++."
     }
   },
   {
@@ -815,8 +734,7 @@
     "difficulty": "easy",
     "codeSnippet": "int x;\nstd::cin >> x;",
     "explanation": {
-      "en": "std::cin >> for reading input is from C++.",
-      "ar": "std::cin >> لقراءة الإدخال من ++C."
+      "en": "std::cin >> for reading input is from C++."
     }
   },
   {
@@ -825,8 +743,7 @@
     "difficulty": "medium",
     "codeSnippet": "std::string name = \"C++\";\nstd::cout << name.length();",
     "explanation": {
-      "en": "std::string with std::cout and the std namespace are C++.",
-      "ar": "std::string مع std::cout ومساحة std من ++C."
+      "en": "std::string with std::cout and the std namespace are C++."
     }
   },
   {
@@ -835,8 +752,7 @@
     "difficulty": "medium",
     "codeSnippet": "for (auto it = v.begin(); it != v.end(); ++it) {}",
     "explanation": {
-      "en": "An explicit begin()/end() iterator with auto and ++it is C++.",
-      "ar": "مكرّر صريح begin()/end() مع auto و++it من ++C."
+      "en": "An explicit begin()/end() iterator with auto and ++it is C++."
     }
   },
   {
@@ -845,8 +761,7 @@
     "difficulty": "medium",
     "codeSnippet": "struct Node {\n    int data;\n    Node* next;\n};",
     "explanation": {
-      "en": "A struct with a self pointer Node* and a semicolon after } is C++.",
-      "ar": "بنية مع مؤشر ذاتي Node* وفاصلة منقوطة بعد } من ++C."
+      "en": "A struct with a self pointer Node* and a semicolon after } is C++."
     }
   },
   {
@@ -855,8 +770,7 @@
     "difficulty": "medium",
     "codeSnippet": "std::cout << \"Enter: \";\nstd::cin >> n;",
     "explanation": {
-      "en": "The cout/cin combination with the std namespace is C++.",
-      "ar": "تركيبة cout/cin مع مساحة std من ++C."
+      "en": "The cout/cin combination with the std namespace is C++."
     }
   },
   {
@@ -865,8 +779,7 @@
     "difficulty": "hard",
     "codeSnippet": "auto p = std::make_shared<int>(10);",
     "explanation": {
-      "en": "std::make_shared and the shared_ptr smart pointer are modern C++.",
-      "ar": "std::make_shared والمؤشر الذكي shared_ptr من ++C الحديثة."
+      "en": "std::make_shared and the shared_ptr smart pointer are modern C++."
     }
   },
   {
@@ -875,8 +788,7 @@
     "difficulty": "hard",
     "codeSnippet": "std::cout << std::fixed << std::setprecision(2) << pi;",
     "explanation": {
-      "en": "std::setprecision and std::fixed are from C++ iomanip.",
-      "ar": "std::setprecision و std::fixed من iomanip في ++C."
+      "en": "std::setprecision and std::fixed are from C++ iomanip."
     }
   },
   {
@@ -885,8 +797,7 @@
     "difficulty": "hard",
     "codeSnippet": "std::vector<std::pair<int, int>> edges;",
     "explanation": {
-      "en": "vector<pair<>> with the std namespace is from C++ containers.",
-      "ar": "vector<pair<>> مع مساحة std من حاويات ++C."
+      "en": "vector<pair<>> with the std namespace is from C++ containers."
     }
   },
   {
@@ -895,8 +806,7 @@
     "difficulty": "hard",
     "codeSnippet": "template <class T>\nclass Stack { std::vector<T> data; };",
     "explanation": {
-      "en": "template <class T> and a class template are from C++.",
-      "ar": "template <class T> وقالب صنف من ++C."
+      "en": "template <class T> and a class template are from C++."
     }
   },
   {
@@ -905,8 +815,7 @@
     "difficulty": "easy",
     "codeSnippet": "int[] arr = new int[10];",
     "explanation": {
-      "en": "The [] array syntax new int[10] with the type before the name is Java.",
-      "ar": "صيغة المصفوفة [] new int[10] مع النوع قبل الاسم من جافا."
+      "en": "The [] array syntax new int[10] with the type before the name is Java."
     }
   },
   {
@@ -915,8 +824,7 @@
     "difficulty": "easy",
     "codeSnippet": "String msg = \"Hi\";\nSystem.out.println(msg.length());",
     "explanation": {
-      "en": "String with System.out.println is from Java.",
-      "ar": "String مع System.out.println من جافا."
+      "en": "String with System.out.println is from Java."
     }
   },
   {
@@ -925,8 +833,7 @@
     "difficulty": "medium",
     "codeSnippet": "Scanner sc = new Scanner(System.in);",
     "explanation": {
-      "en": "Scanner(System.in) for reading input is specific to Java.",
-      "ar": "Scanner(System.in) لقراءة الإدخال خاص بجافا."
+      "en": "Scanner(System.in) for reading input is specific to Java."
     }
   },
   {
@@ -935,8 +842,7 @@
     "difficulty": "medium",
     "codeSnippet": "public abstract class Shape {\n    abstract double area();\n}",
     "explanation": {
-      "en": "abstract class and an abstract method are from Java.",
-      "ar": "abstract class وتابع abstract من جافا."
+      "en": "abstract class and an abstract method are from Java."
     }
   },
   {
@@ -945,8 +851,7 @@
     "difficulty": "medium",
     "codeSnippet": "try {\n} catch (Exception e) {\n    e.printStackTrace();\n}",
     "explanation": {
-      "en": "e.printStackTrace() inside a catch is from Java.",
-      "ar": "e.printStackTrace() ضمن catch من جافا."
+      "en": "e.printStackTrace() inside a catch is from Java."
     }
   },
   {
@@ -955,8 +860,7 @@
     "difficulty": "medium",
     "codeSnippet": "Map<String, List<Integer>> m = new HashMap<>();",
     "explanation": {
-      "en": "Nested generic types and new HashMap<>() are from Java collections.",
-      "ar": "أنواع مولّدة متداخلة و new HashMap<>() من مجموعات جافا."
+      "en": "Nested generic types and new HashMap<>() are from Java collections."
     }
   },
   {
@@ -965,8 +869,7 @@
     "difficulty": "hard",
     "codeSnippet": "list.forEach(System.out::println);",
     "explanation": {
-      "en": "The :: method reference (System.out::println) is from Java 8+.",
-      "ar": "مرجع التابع :: (System.out::println) من جافا 8+."
+      "en": "The :: method reference (System.out::println) is from Java 8+."
     }
   },
   {
@@ -975,8 +878,7 @@
     "difficulty": "hard",
     "codeSnippet": "Optional<String> name = Optional.ofNullable(value);",
     "explanation": {
-      "en": "Optional.ofNullable is from Java.",
-      "ar": "Optional.ofNullable من جافا."
+      "en": "Optional.ofNullable is from Java."
     }
   },
   {
@@ -985,8 +887,7 @@
     "difficulty": "hard",
     "codeSnippet": "@SpringBootApplication\npublic class App { }",
     "explanation": {
-      "en": "The @SpringBootApplication annotation is from the Spring framework in Java.",
-      "ar": "الموسوم @SpringBootApplication من إطار Spring في جافا."
+      "en": "The @SpringBootApplication annotation is from the Spring framework in Java."
     }
   },
   {
@@ -995,8 +896,7 @@
     "difficulty": "medium",
     "codeSnippet": "StringBuilder sb = new StringBuilder();\nsb.append(\"a\");",
     "explanation": {
-      "en": "StringBuilder with append() is from Java.",
-      "ar": "StringBuilder مع append() من جافا."
+      "en": "StringBuilder with append() is from Java."
     }
   },
   {
@@ -1005,8 +905,7 @@
     "difficulty": "easy",
     "codeSnippet": "let x: i32 = 10;\nlet y = x + 5;",
     "explanation": {
-      "en": "let with the i32 type is from Rust.",
-      "ar": "let مع نوع i32 من رست."
+      "en": "let with the i32 type is from Rust."
     }
   },
   {
@@ -1015,8 +914,7 @@
     "difficulty": "easy",
     "codeSnippet": "println!(\"{} + {} = {}\", a, b, a + b);",
     "explanation": {
-      "en": "The println! macro with {} placeholders is from Rust.",
-      "ar": "الماكرو println! مع المنوبات {} من رست."
+      "en": "The println! macro with {} placeholders is from Rust."
     }
   },
   {
@@ -1025,8 +923,7 @@
     "difficulty": "medium",
     "codeSnippet": "let sum: i32 = v.iter().sum();",
     "explanation": {
-      "en": "iter().sum() and the i32 type are from Rust.",
-      "ar": "iter().sum() ونوع i32 من رست."
+      "en": "iter().sum() and the i32 type are from Rust."
     }
   },
   {
@@ -1035,8 +932,7 @@
     "difficulty": "medium",
     "codeSnippet": "enum Direction {\n    North,\n    South,\n}",
     "explanation": {
-      "en": "An enum written this way is from Rust.",
-      "ar": "enum بهذا الشكل من رست."
+      "en": "An enum written this way is from Rust."
     }
   },
   {
@@ -1045,8 +941,7 @@
     "difficulty": "medium",
     "codeSnippet": "let s = String::new();\nlet n: usize = s.len();",
     "explanation": {
-      "en": "String::new() and the usize type are from Rust.",
-      "ar": "String::new() والنوع usize من رست."
+      "en": "String::new() and the usize type are from Rust."
     }
   },
   {
@@ -1055,8 +950,7 @@
     "difficulty": "medium",
     "codeSnippet": "if let Some(x) = option {\n    println!(\"{}\", x);\n}",
     "explanation": {
-      "en": "The if let Some(...) pattern is from Rust.",
-      "ar": "نمط if let Some(...) من رست."
+      "en": "The if let Some(...) pattern is from Rust."
     }
   },
   {
@@ -1065,8 +959,7 @@
     "difficulty": "hard",
     "codeSnippet": "fn largest<T: PartialOrd>(list: &[T]) -> &T {}",
     "explanation": {
-      "en": "Trait bounds <T: PartialOrd> and the slice &[T] are from Rust.",
-      "ar": "حدود السمات <T: PartialOrd> والشريحة &[T] من رست."
+      "en": "Trait bounds <T: PartialOrd> and the slice &[T] are from Rust."
     }
   },
   {
@@ -1075,8 +968,7 @@
     "difficulty": "hard",
     "codeSnippet": "let inc = |x: i32| -> i32 { x + 1 };",
     "explanation": {
-      "en": "A closure with |x| and a -> return type is from Rust.",
-      "ar": "إغلاق مع |x| ونوع إرجاع <- من رست."
+      "en": "A closure with |x| and a -> return type is from Rust."
     }
   },
   {
@@ -1085,8 +977,7 @@
     "difficulty": "hard",
     "codeSnippet": "use std::collections::HashMap;\nlet mut map = HashMap::new();",
     "explanation": {
-      "en": "use std::collections and let mut are from Rust.",
-      "ar": "use std::collections و let mut من رست."
+      "en": "use std::collections and let mut are from Rust."
     }
   },
   {
@@ -1095,8 +986,7 @@
     "difficulty": "hard",
     "codeSnippet": "let result: Result<i32, String> = Ok(5);",
     "explanation": {
-      "en": "The Result<i32, String> type and Ok are from Rust.",
-      "ar": "النوع <Result<i32, String و Ok من رست."
+      "en": "The Result<i32, String> type and Ok are from Rust."
     }
   },
   {
@@ -1105,8 +995,7 @@
     "difficulty": "easy",
     "codeSnippet": "var name string = \"Go\"",
     "explanation": {
-      "en": "var name string (type after the name) is from Go.",
-      "ar": "var name string (النوع بعد الاسم) من Go."
+      "en": "var name string (type after the name) is from Go."
     }
   },
   {
@@ -1115,8 +1004,7 @@
     "difficulty": "easy",
     "codeSnippet": "nums := []int{1, 2, 3}",
     "explanation": {
-      "en": "The []int slice with short assignment := is from Go.",
-      "ar": "شريحة []int مع الإسناد القصير =: من Go."
+      "en": "The []int slice with short assignment := is from Go."
     }
   },
   {
@@ -1125,8 +1013,7 @@
     "difficulty": "medium",
     "codeSnippet": "s := fmt.Sprintf(\"%d items\", n)",
     "explanation": {
-      "en": "fmt.Sprintf with := is from Go.",
-      "ar": "fmt.Sprintf مع =: من Go."
+      "en": "fmt.Sprintf with := is from Go."
     }
   },
   {
@@ -1135,8 +1022,7 @@
     "difficulty": "medium",
     "codeSnippet": "for index, value := range items {\n}",
     "explanation": {
-      "en": "for ... range with index, value and := is from Go.",
-      "ar": "for ... range مع index, value و =: من Go."
+      "en": "for ... range with index, value and := is from Go."
     }
   },
   {
@@ -1145,8 +1031,7 @@
     "difficulty": "medium",
     "codeSnippet": "type Animal interface {\n    Sound() string\n}",
     "explanation": {
-      "en": "An interface with simple method signatures is a Go pattern.",
-      "ar": "interface بتواقيع توابع بسيطة نمط Go."
+      "en": "An interface with simple method signatures is a Go pattern."
     }
   },
   {
@@ -1155,8 +1040,7 @@
     "difficulty": "hard",
     "codeSnippet": "wg.Add(1)\ngo func() { defer wg.Done() }()",
     "explanation": {
-      "en": "WaitGroup with go func and defer are from Go concurrency.",
-      "ar": "WaitGroup مع go func و defer من تزامن Go."
+      "en": "WaitGroup with go func and defer are from Go concurrency."
     }
   },
   {
@@ -1165,8 +1049,7 @@
     "difficulty": "hard",
     "codeSnippet": "result, err := strconv.Atoi(str)",
     "explanation": {
-      "en": "Multiple return result, err and strconv.Atoi are from Go.",
-      "ar": "الإرجاع المتعدد result, err و strconv.Atoi من Go."
+      "en": "Multiple return result, err and strconv.Atoi are from Go."
     }
   },
   {
@@ -1175,8 +1058,7 @@
     "difficulty": "hard",
     "codeSnippet": "select {\ncase msg := <-ch:\n}",
     "explanation": {
-      "en": "select with a channel <-ch is from Go.",
-      "ar": "select مع قناة <-ch من Go."
+      "en": "select with a channel <-ch is from Go."
     }
   },
   {
@@ -1185,8 +1067,7 @@
     "difficulty": "medium",
     "codeSnippet": "slice = append(slice, item)",
     "explanation": {
-      "en": "The built-in append on slices is from Go.",
-      "ar": "الدالة المدمجة append على الشرائح من Go."
+      "en": "The built-in append on slices is from Go."
     }
   },
   {
@@ -1195,8 +1076,7 @@
     "difficulty": "hard",
     "codeSnippet": "func (s *Server) Handle(w http.ResponseWriter, r *http.Request) {}",
     "explanation": {
-      "en": "A receiver (s *Server) and the http.ResponseWriter signature are from Go.",
-      "ar": "مستقبِل (s *Server) وتوقيع http.ResponseWriter من Go."
+      "en": "A receiver (s *Server) and the http.ResponseWriter signature are from Go."
     }
   },
   {
@@ -1205,8 +1085,7 @@
     "difficulty": "easy",
     "codeSnippet": "x = 5\nif x > 3:\n    print(\"big\")",
     "explanation": {
-      "en": "Indentation-based blocks with print() and a colon are Python.",
-      "ar": "كتل بالإزاحة مع print() ونقطتان بعد if من بايثون."
+      "en": "Indentation-based blocks with print() and a colon are Python."
     }
   },
   {
@@ -1215,8 +1094,7 @@
     "difficulty": "easy",
     "codeSnippet": "fruits = ['apple', 'banana']\nfor fruit in fruits:\n    print(fruit)",
     "explanation": {
-      "en": "for x in list with no braces and print() is Python.",
-      "ar": "حلقة for x in list بلا أقواس مع print() من بايثون."
+      "en": "for x in list with no braces and print() is Python."
     }
   },
   {
@@ -1225,8 +1103,7 @@
     "difficulty": "medium",
     "codeSnippet": "def factorial(n):\n    return 1 if n == 0 else n * factorial(n - 1)",
     "explanation": {
-      "en": "The 'x if cond else y' conditional expression is Python's ternary.",
-      "ar": "التعبير الشرطي x if cond else y هو ثلاثي بايثون."
+      "en": "The 'x if cond else y' conditional expression is Python's ternary."
     }
   },
   {
@@ -1235,8 +1112,7 @@
     "difficulty": "medium",
     "codeSnippet": "text = f\"{name} is {age} years old\"",
     "explanation": {
-      "en": "An f-string with {} interpolation is Python.",
-      "ar": "سلسلة f-string مع {} من بايثون."
+      "en": "An f-string with {} interpolation is Python."
     }
   },
   {
@@ -1245,8 +1121,7 @@
     "difficulty": "medium",
     "codeSnippet": "import os\nfiles = os.listdir('.')",
     "explanation": {
-      "en": "import os and os.listdir() are from Python's standard library.",
-      "ar": "import os و os.listdir() من مكتبة بايثون القياسية."
+      "en": "import os and os.listdir() are from Python's standard library."
     }
   },
   {
@@ -1255,8 +1130,7 @@
     "difficulty": "medium",
     "codeSnippet": "squares = {n: n * n for n in range(5)}",
     "explanation": {
-      "en": "A {key: value for ...} dict comprehension is Python.",
-      "ar": "صيغة {key: value for ...} من بايثون."
+      "en": "A {key: value for ...} dict comprehension is Python."
     }
   },
   {
@@ -1265,8 +1139,7 @@
     "difficulty": "hard",
     "codeSnippet": "@dataclass\nclass Point:\n    x: int\n    y: int",
     "explanation": {
-      "en": "The @dataclass decorator with type-annotated fields is Python.",
-      "ar": "الموسوم @dataclass مع حقول موسومة بالأنواع من بايثون."
+      "en": "The @dataclass decorator with type-annotated fields is Python."
     }
   },
   {
@@ -1275,8 +1148,7 @@
     "difficulty": "hard",
     "codeSnippet": "with ThreadPoolExecutor() as ex:\n    results = ex.map(work, items)",
     "explanation": {
-      "en": "concurrent.futures ThreadPoolExecutor with 'with' is Python.",
-      "ar": "ThreadPoolExecutor مع with من concurrent.futures في بايثون."
+      "en": "concurrent.futures ThreadPoolExecutor with 'with' is Python."
     }
   },
   {
@@ -1285,8 +1157,7 @@
     "difficulty": "hard",
     "codeSnippet": "class Meta(type):\n    def __new__(mcs, name, bases, ns):\n        return super().__new__(mcs, name, bases, ns)",
     "explanation": {
-      "en": "A metaclass with __new__ and super() is Python.",
-      "ar": "ميتا-كلاس مع __new__ و super() من بايثون."
+      "en": "A metaclass with __new__ and super() is Python."
     }
   },
   {
@@ -1295,8 +1166,7 @@
     "difficulty": "medium",
     "codeSnippet": "assert x == 5, \"x must be 5\"",
     "explanation": {
-      "en": "assert with a message is Python syntax.",
-      "ar": "assert مع رسالة من صيغة بايثون."
+      "en": "assert with a message is Python syntax."
     }
   },
   {
@@ -1305,8 +1175,7 @@
     "difficulty": "easy",
     "codeSnippet": "var x = 10;\nvar y = \"hello\";",
     "explanation": {
-      "en": "var declarations are JavaScript.",
-      "ar": "تصريحات var من جافاسكربت."
+      "en": "var declarations are JavaScript."
     }
   },
   {
@@ -1315,8 +1184,7 @@
     "difficulty": "easy",
     "codeSnippet": "const obj = { name: \"JS\", year: 1995 };",
     "explanation": {
-      "en": "A const object literal with {} is JavaScript.",
-      "ar": "كائن حرفي const مع {} من جافاسكربت."
+      "en": "A const object literal with {} is JavaScript."
     }
   },
   {
@@ -1325,8 +1193,7 @@
     "difficulty": "medium",
     "codeSnippet": "const evens = arr.filter(n => n % 2 === 0);",
     "explanation": {
-      "en": "filter with an arrow function and === is JavaScript.",
-      "ar": "filter مع دالة سهمية و === من جافاسكربت."
+      "en": "filter with an arrow function and === is JavaScript."
     }
   },
   {
@@ -1335,8 +1202,7 @@
     "difficulty": "medium",
     "codeSnippet": "let str = `Hello ${name}, welcome`;",
     "explanation": {
-      "en": "A template literal with backticks and ${} is JavaScript.",
-      "ar": "سلسلة قالبية بعلامات backtick و ${} من جافاسكربت."
+      "en": "A template literal with backticks and ${} is JavaScript."
     }
   },
   {
@@ -1345,8 +1211,7 @@
     "difficulty": "medium",
     "codeSnippet": "Object.keys(obj).forEach(key => console.log(key));",
     "explanation": {
-      "en": "Object.keys(...).forEach is JavaScript.",
-      "ar": "Object.keys(...).forEach من جافاسكربت."
+      "en": "Object.keys(...).forEach is JavaScript."
     }
   },
   {
@@ -1355,8 +1220,7 @@
     "difficulty": "medium",
     "codeSnippet": "const fn = function () { return this.value; };",
     "explanation": {
-      "en": "A function expression using 'this' is JavaScript.",
-      "ar": "تعبير دالة يستخدم this من جافاسكربت."
+      "en": "A function expression using 'this' is JavaScript."
     }
   },
   {
@@ -1365,8 +1229,7 @@
     "difficulty": "hard",
     "codeSnippet": "module.exports = { add, subtract };",
     "explanation": {
-      "en": "module.exports is CommonJS (Node.js / JavaScript).",
-      "ar": "module.exports من CommonJS (Node/جافاسكربت)."
+      "en": "module.exports is CommonJS (Node.js / JavaScript)."
     }
   },
   {
@@ -1375,8 +1238,7 @@
     "difficulty": "hard",
     "codeSnippet": "const once = (fn) => { let done = false; return (...a) => done || (done = true, fn(...a)); };",
     "explanation": {
-      "en": "Nested arrow functions with rest ...args are JavaScript.",
-      "ar": "دوال سهمية متداخلة مع ...args من جافاسكربت."
+      "en": "Nested arrow functions with rest ...args are JavaScript."
     }
   },
   {
@@ -1385,8 +1247,7 @@
     "difficulty": "medium",
     "codeSnippet": "try {\n  JSON.parse(data);\n} catch (e) {\n  console.error(e);\n}",
     "explanation": {
-      "en": "try/catch with console.error is JavaScript.",
-      "ar": "try/catch مع console.error من جافاسكربت."
+      "en": "try/catch with console.error is JavaScript."
     }
   },
   {
@@ -1395,8 +1256,7 @@
     "difficulty": "hard",
     "codeSnippet": "const name = obj?.user?.name ?? \"default\";",
     "explanation": {
-      "en": "Optional chaining ?. and nullish coalescing ?? are JavaScript.",
-      "ar": "السلسلة الاختيارية ?. والدمج العدمي ?? من جافاسكربت."
+      "en": "Optional chaining ?. and nullish coalescing ?? are JavaScript."
     }
   },
   {
@@ -1405,8 +1265,7 @@
     "difficulty": "easy",
     "codeSnippet": "#include <string>\nstd::string s = \"hello\";",
     "explanation": {
-      "en": "#include <string> and std::string are C++.",
-      "ar": "‎#include <string> و std::string من ++C."
+      "en": "#include <string> and std::string are C++."
     }
   },
   {
@@ -1415,8 +1274,7 @@
     "difficulty": "easy",
     "codeSnippet": "int arr[5] = {1, 2, 3, 4, 5};",
     "explanation": {
-      "en": "A C-style array initializer int arr[5] = {...} is C++.",
-      "ar": "تهيئة مصفوفة بنمط C مثل int arr[5] = {...} من ++C."
+      "en": "A C-style array initializer int arr[5] = {...} is C++."
     }
   },
   {
@@ -1425,8 +1283,7 @@
     "difficulty": "medium",
     "codeSnippet": "for (int i : {1, 2, 3}) std::cout << i;",
     "explanation": {
-      "en": "A range-based for with std::cout is C++.",
-      "ar": "حلقة for مدى مع std::cout من ++C."
+      "en": "A range-based for with std::cout is C++."
     }
   },
   {
@@ -1435,8 +1292,7 @@
     "difficulty": "medium",
     "codeSnippet": "std::cout << (x > 0 ? \"pos\" : \"neg\");",
     "explanation": {
-      "en": "std::cout with the ?: ternary is C++.",
-      "ar": "std::cout مع الثلاثي ?: من ++C."
+      "en": "std::cout with the ?: ternary is C++."
     }
   },
   {
@@ -1445,8 +1301,7 @@
     "difficulty": "medium",
     "codeSnippet": "enum class Color { Red, Green, Blue };",
     "explanation": {
-      "en": "enum class (a scoped enum) is C++.",
-      "ar": "enum class (تعداد مُنطّق) من ++C."
+      "en": "enum class (a scoped enum) is C++."
     }
   },
   {
@@ -1455,8 +1310,7 @@
     "difficulty": "medium",
     "codeSnippet": "std::unordered_map<int, std::string> m;",
     "explanation": {
-      "en": "std::unordered_map with the std namespace is C++.",
-      "ar": "std::unordered_map بمساحة std من ++C."
+      "en": "std::unordered_map with the std namespace is C++."
     }
   },
   {
@@ -1465,8 +1319,7 @@
     "difficulty": "hard",
     "codeSnippet": "auto sq = [](int x) { return x * x; };",
     "explanation": {
-      "en": "A lambda with [ ] capture is C++.",
-      "ar": "تعبير لامبدا مع التقاط [ ] من ++C."
+      "en": "A lambda with [ ] capture is C++."
     }
   },
   {
@@ -1475,8 +1328,7 @@
     "difficulty": "hard",
     "codeSnippet": "std::cout << std::boolalpha << (a == b);",
     "explanation": {
-      "en": "std::boolalpha is from C++ iostream.",
-      "ar": "std::boolalpha من iostream في ++C."
+      "en": "std::boolalpha is from C++ iostream."
     }
   },
   {
@@ -1485,8 +1337,7 @@
     "difficulty": "hard",
     "codeSnippet": "constexpr int square(int x) { return x * x; }",
     "explanation": {
-      "en": "constexpr is a C++ keyword.",
-      "ar": "constexpr كلمة مفتاحية في ++C."
+      "en": "constexpr is a C++ keyword."
     }
   },
   {
@@ -1495,8 +1346,7 @@
     "difficulty": "medium",
     "codeSnippet": "std::string& ref = name;",
     "explanation": {
-      "en": "A reference type std::string& is C++.",
-      "ar": "نوع مرجعي std::string& من ++C."
+      "en": "A reference type std::string& is C++."
     }
   },
   {
@@ -1505,8 +1355,7 @@
     "difficulty": "easy",
     "codeSnippet": "boolean flag = true;\nif (flag) System.out.println(\"yes\");",
     "explanation": {
-      "en": "boolean with System.out.println is Java.",
-      "ar": "boolean مع System.out.println من جافا."
+      "en": "boolean with System.out.println is Java."
     }
   },
   {
@@ -1515,8 +1364,7 @@
     "difficulty": "easy",
     "codeSnippet": "System.out.print(\"Enter a number: \");",
     "explanation": {
-      "en": "System.out.print is Java.",
-      "ar": "System.out.print من جافا."
+      "en": "System.out.print is Java."
     }
   },
   {
@@ -1525,8 +1373,7 @@
     "difficulty": "medium",
     "codeSnippet": "int sum = Arrays.stream(nums).sum();",
     "explanation": {
-      "en": "Arrays.stream(...).sum() is Java.",
-      "ar": "Arrays.stream(...).sum() من جافا."
+      "en": "Arrays.stream(...).sum() is Java."
     }
   },
   {
@@ -1535,8 +1382,7 @@
     "difficulty": "medium",
     "codeSnippet": "public interface Comparable<T> {\n    int compareTo(T o);\n}",
     "explanation": {
-      "en": "A public interface with generics <T> is Java.",
-      "ar": "واجهة interface مع أنواع مولّدة <T> من جافا."
+      "en": "A public interface with generics <T> is Java."
     }
   },
   {
@@ -1545,8 +1391,7 @@
     "difficulty": "medium",
     "codeSnippet": "enum Day { MONDAY, TUESDAY, WEDNESDAY }",
     "explanation": {
-      "en": "A Java enum declaration with constant members.",
-      "ar": "تعريف enum بثوابت في جافا."
+      "en": "A Java enum declaration with constant members."
     }
   },
   {
@@ -1555,8 +1400,7 @@
     "difficulty": "medium",
     "codeSnippet": "String[] parts = text.split(\",\");",
     "explanation": {
-      "en": "String[] with String.split is Java.",
-      "ar": "String[] مع String.split من جافا."
+      "en": "String[] with String.split is Java."
     }
   },
   {
@@ -1565,8 +1409,7 @@
     "difficulty": "hard",
     "codeSnippet": "list.sort(Comparator.comparing(User::getName));",
     "explanation": {
-      "en": "Comparator.comparing with a method reference is Java.",
-      "ar": "Comparator.comparing مع مرجع تابع من جافا."
+      "en": "Comparator.comparing with a method reference is Java."
     }
   },
   {
@@ -1575,8 +1418,7 @@
     "difficulty": "hard",
     "codeSnippet": "CompletableFuture.supplyAsync(() -> compute());",
     "explanation": {
-      "en": "CompletableFuture.supplyAsync is Java.",
-      "ar": "CompletableFuture.supplyAsync من جافا."
+      "en": "CompletableFuture.supplyAsync is Java."
     }
   },
   {
@@ -1585,8 +1427,7 @@
     "difficulty": "hard",
     "codeSnippet": "@FunctionalInterface\ninterface Calc { int apply(int a, int b); }",
     "explanation": {
-      "en": "The @FunctionalInterface annotation is Java.",
-      "ar": "الموسوم @FunctionalInterface من جافا."
+      "en": "The @FunctionalInterface annotation is Java."
     }
   },
   {
@@ -1595,8 +1436,7 @@
     "difficulty": "medium",
     "codeSnippet": "final double PI = 3.14159;",
     "explanation": {
-      "en": "final before a type (final double) is Java.",
-      "ar": "final قبل النوع (final double) من جافا."
+      "en": "final before a type (final double) is Java."
     }
   },
   {
@@ -1605,8 +1445,7 @@
     "difficulty": "easy",
     "codeSnippet": "let name = \"Rust\";\nprintln!(\"Hello, {}\", name);",
     "explanation": {
-      "en": "println! with a {} placeholder and a variable is Rust.",
-      "ar": "println! مع المنوب {} ومتغير من رست."
+      "en": "println! with a {} placeholder and a variable is Rust."
     }
   },
   {
@@ -1615,8 +1454,7 @@
     "difficulty": "easy",
     "codeSnippet": "fn greet() {\n    println!(\"Hi there\");\n}",
     "explanation": {
-      "en": "fn with the println! macro is Rust.",
-      "ar": "fn مع الماكرو println! من رست."
+      "en": "fn with the println! macro is Rust."
     }
   },
   {
@@ -1625,8 +1463,7 @@
     "difficulty": "medium",
     "codeSnippet": "for n in &numbers {\n    println!(\"{}\", n);\n}",
     "explanation": {
-      "en": "for n in &numbers (borrowing) is Rust.",
-      "ar": "for n in &numbers (استعارة) من رست."
+      "en": "for n in &numbers (borrowing) is Rust."
     }
   },
   {
@@ -1635,8 +1472,7 @@
     "difficulty": "medium",
     "codeSnippet": "let doubled: Vec<i32> = nums.iter().map(|x| x * 2).collect();",
     "explanation": {
-      "en": "iter().map(|x| ...).collect() with a closure is Rust.",
-      "ar": "iter().map(|x| ...).collect() مع إغلاق من رست."
+      "en": "iter().map(|x| ...).collect() with a closure is Rust."
     }
   },
   {
@@ -1645,8 +1481,7 @@
     "difficulty": "medium",
     "codeSnippet": "trait Animal {\n    fn sound(&self) -> String;\n}",
     "explanation": {
-      "en": "A trait with fn ...(&self) -> is Rust.",
-      "ar": "trait مع fn ...(self&) <- من رست."
+      "en": "A trait with fn ...(&self) -> is Rust."
     }
   },
   {
@@ -1655,8 +1490,7 @@
     "difficulty": "hard",
     "codeSnippet": "map.entry(key).or_insert(0);",
     "explanation": {
-      "en": "HashMap entry().or_insert() is Rust.",
-      "ar": "HashMap entry().or_insert() من رست."
+      "en": "HashMap entry().or_insert() is Rust."
     }
   },
   {
@@ -1665,8 +1499,7 @@
     "difficulty": "hard",
     "codeSnippet": "impl<T> Stack<T> {\n    fn new() -> Self { Stack { items: Vec::new() } }\n}",
     "explanation": {
-      "en": "impl<T> with Self is Rust.",
-      "ar": "impl<T> مع Self من رست."
+      "en": "impl<T> with Self is Rust."
     }
   },
   {
@@ -1675,8 +1508,7 @@
     "difficulty": "hard",
     "codeSnippet": "let level = match value {\n    1..=5 => \"low\",\n    _ => \"high\",\n};",
     "explanation": {
-      "en": "match with a 1..=5 range arm and _ is Rust.",
-      "ar": "match مع نطاق 1..=5 و _ من رست."
+      "en": "match with a 1..=5 range arm and _ is Rust."
     }
   },
   {
@@ -1685,8 +1517,7 @@
     "difficulty": "medium",
     "codeSnippet": "let opt: Option<i32> = Some(42);",
     "explanation": {
-      "en": "The Option<i32> type with Some is Rust.",
-      "ar": "النوع <Option<i32 مع Some من رست."
+      "en": "The Option<i32> type with Some is Rust."
     }
   },
   {
@@ -1695,8 +1526,7 @@
     "difficulty": "hard",
     "codeSnippet": "let boxed: Box<dyn Shape> = Box::new(circle);",
     "explanation": {
-      "en": "Box<dyn Trait> with Box::new is Rust.",
-      "ar": "Box<dyn Trait> مع Box::new من رست."
+      "en": "Box<dyn Trait> with Box::new is Rust."
     }
   },
   {
@@ -1705,8 +1535,7 @@
     "difficulty": "easy",
     "codeSnippet": "fmt.Println(\"Hello,\", name)",
     "explanation": {
-      "en": "fmt.Println with multiple arguments is Go.",
-      "ar": "fmt.Println بوسائط متعددة من Go."
+      "en": "fmt.Println with multiple arguments is Go."
     }
   },
   {
@@ -1715,8 +1544,7 @@
     "difficulty": "easy",
     "codeSnippet": "var count int = 0\ncount++",
     "explanation": {
-      "en": "var count int with ++ is Go.",
-      "ar": "var count int مع ++ من Go."
+      "en": "var count int with ++ is Go."
     }
   },
   {
@@ -1725,8 +1553,7 @@
     "difficulty": "medium",
     "codeSnippet": "numbers := make([]int, 0, 10)",
     "explanation": {
-      "en": "make([]int, 0, 10) is Go.",
-      "ar": "make([]int, 0, 10) من Go."
+      "en": "make([]int, 0, 10) is Go."
     }
   },
   {
@@ -1735,8 +1562,7 @@
     "difficulty": "medium",
     "codeSnippet": "for i := range items {\n    fmt.Println(i)\n}",
     "explanation": {
-      "en": "for i := range items is Go.",
-      "ar": "for i := range items من Go."
+      "en": "for i := range items is Go."
     }
   },
   {
@@ -1745,8 +1571,7 @@
     "difficulty": "medium",
     "codeSnippet": "if value, ok := m[key]; ok {\n    use(value)\n}",
     "explanation": {
-      "en": "The 'value, ok := m[key]' comma-ok idiom is Go.",
-      "ar": "نمط value, ok := m[key] من Go."
+      "en": "The 'value, ok := m[key]' comma-ok idiom is Go."
     }
   },
   {
@@ -1755,8 +1580,7 @@
     "difficulty": "medium",
     "codeSnippet": "func divide(a, b float64) (float64, error) {\n    return a / b, nil\n}",
     "explanation": {
-      "en": "Returning (float64, error) is a Go pattern.",
-      "ar": "إرجاع (float64, error) نمط Go."
+      "en": "Returning (float64, error) is a Go pattern."
     }
   },
   {
@@ -1765,8 +1589,7 @@
     "difficulty": "hard",
     "codeSnippet": "defer func() {\n    if r := recover(); r != nil {\n    }\n}()",
     "explanation": {
-      "en": "recover() inside a deferred func is Go.",
-      "ar": "recover() داخل دالة مؤجّلة من Go."
+      "en": "recover() inside a deferred func is Go."
     }
   },
   {
@@ -1775,8 +1598,7 @@
     "difficulty": "hard",
     "codeSnippet": "var mu sync.Mutex\nmu.Lock()\ndefer mu.Unlock()",
     "explanation": {
-      "en": "sync.Mutex with Lock/Unlock is Go.",
-      "ar": "sync.Mutex مع Lock/Unlock من Go."
+      "en": "sync.Mutex with Lock/Unlock is Go."
     }
   },
   {
@@ -1785,8 +1607,7 @@
     "difficulty": "medium",
     "codeSnippet": "type Celsius float64",
     "explanation": {
-      "en": "type Celsius float64 (a defined type) is Go.",
-      "ar": "type Celsius float64 (نوع معرّف) من Go."
+      "en": "type Celsius float64 (a defined type) is Go."
     }
   },
   {
@@ -1795,8 +1616,7 @@
     "difficulty": "hard",
     "codeSnippet": "ticker := time.NewTicker(time.Second)",
     "explanation": {
-      "en": "time.NewTicker is from Go's time package.",
-      "ar": "time.NewTicker من حزمة time في Go."
+      "en": "time.NewTicker is from Go's time package."
     }
   },
   {
@@ -1805,8 +1625,7 @@
     "difficulty": "easy",
     "codeSnippet": "numbers = [1, 2, 3]\ntotal = sum(numbers)",
     "explanation": {
-      "en": "sum() on a list with no semicolons is Python.",
-      "ar": "sum() على قائمة بلا فواصل منقوطة من بايثون."
+      "en": "sum() on a list with no semicolons is Python."
     }
   },
   {
@@ -1815,8 +1634,7 @@
     "difficulty": "medium",
     "codeSnippet": "import json\ndata = json.loads(raw)",
     "explanation": {
-      "en": "import json and json.loads() are from Python's standard library.",
-      "ar": "import json و json.loads() من مكتبة بايثون القياسية."
+      "en": "import json and json.loads() are from Python's standard library."
     }
   },
   {
@@ -1825,8 +1643,7 @@
     "difficulty": "medium",
     "codeSnippet": "print(f\"{value:.2f}\")",
     "explanation": {
-      "en": "An f-string with a :.2f format spec is Python.",
-      "ar": "سلسلة f-string مع منسّق ‎:.2f‎ من بايثون."
+      "en": "An f-string with a :.2f format spec is Python."
     }
   },
   {
@@ -1835,8 +1652,7 @@
     "difficulty": "medium",
     "codeSnippet": "from typing import Optional, List",
     "explanation": {
-      "en": "from typing import ... type hints are Python.",
-      "ar": "from typing import ... لتلميحات الأنواع من بايثون."
+      "en": "from typing import ... type hints are Python."
     }
   },
   {
@@ -1845,8 +1661,7 @@
     "difficulty": "hard",
     "codeSnippet": "match command:\n    case \"go\":\n        run()",
     "explanation": {
-      "en": "match/case structural pattern matching is Python 3.10+.",
-      "ar": "مطابقة الأنماط match/case من بايثون 3.10+."
+      "en": "match/case structural pattern matching is Python 3.10+."
     }
   },
   {
@@ -1855,8 +1670,7 @@
     "difficulty": "hard",
     "codeSnippet": "with contextlib.suppress(KeyError):\n    del d[key]",
     "explanation": {
-      "en": "contextlib.suppress with 'with' is Python.",
-      "ar": "contextlib.suppress مع with من بايثون."
+      "en": "contextlib.suppress with 'with' is Python."
     }
   },
   {
@@ -1865,8 +1679,7 @@
     "difficulty": "easy",
     "codeSnippet": "const add = (a, b) => a + b;",
     "explanation": {
-      "en": "A const arrow function is modern JavaScript.",
-      "ar": "دالة سهمية const من جافاسكربت الحديثة."
+      "en": "A const arrow function is modern JavaScript."
     }
   },
   {
@@ -1875,8 +1688,7 @@
     "difficulty": "medium",
     "codeSnippet": "const unique = new Set([1, 2, 2, 3]);",
     "explanation": {
-      "en": "new Set([...]) is JavaScript.",
-      "ar": "new Set([...]) من جافاسكربت."
+      "en": "new Set([...]) is JavaScript."
     }
   },
   {
@@ -1885,8 +1697,7 @@
     "difficulty": "medium",
     "codeSnippet": "nums.sort((a, b) => a - b);",
     "explanation": {
-      "en": "Array.sort with a (a, b) => comparator is JavaScript.",
-      "ar": "Array.sort مع مقارن (a, b) => من جافاسكربت."
+      "en": "Array.sort with a (a, b) => comparator is JavaScript."
     }
   },
   {
@@ -1895,8 +1706,7 @@
     "difficulty": "medium",
     "codeSnippet": "if (Array.isArray(value)) {}",
     "explanation": {
-      "en": "Array.isArray is a JavaScript API.",
-      "ar": "Array.isArray واجهة جافاسكربت."
+      "en": "Array.isArray is a JavaScript API."
     }
   },
   {
@@ -1905,8 +1715,7 @@
     "difficulty": "hard",
     "codeSnippet": "const { id, ...rest } = props;",
     "explanation": {
-      "en": "Rest in object destructuring (...rest) is JavaScript.",
-      "ar": "بقية التفكيك (...rest) من جافاسكربت."
+      "en": "Rest in object destructuring (...rest) is JavaScript."
     }
   },
   {
@@ -1915,8 +1724,7 @@
     "difficulty": "hard",
     "codeSnippet": "el.classList.toggle('active');",
     "explanation": {
-      "en": "element.classList.toggle is a JavaScript DOM API.",
-      "ar": "element.classList.toggle من واجهات DOM في جافاسكربت."
+      "en": "element.classList.toggle is a JavaScript DOM API."
     }
   },
   {
@@ -1925,8 +1733,7 @@
     "difficulty": "easy",
     "codeSnippet": "#include <map>\nstd::map<int, int> m;",
     "explanation": {
-      "en": "#include <map> and std::map are C++.",
-      "ar": "‎#include <map> و std::map من ++C."
+      "en": "#include <map> and std::map are C++."
     }
   },
   {
@@ -1935,8 +1742,7 @@
     "difficulty": "medium",
     "codeSnippet": "std::cout << std::setw(5) << x;",
     "explanation": {
-      "en": "std::setw from <iomanip> with std::cout is C++.",
-      "ar": "std::setw من iomanip مع std::cout من ++C."
+      "en": "std::setw from <iomanip> with std::cout is C++."
     }
   },
   {
@@ -1945,8 +1751,7 @@
     "difficulty": "medium",
     "codeSnippet": "auto it = std::find(v.begin(), v.end(), x);",
     "explanation": {
-      "en": "std::find with begin()/end() is C++.",
-      "ar": "std::find مع begin()/end() من ++C."
+      "en": "std::find with begin()/end() is C++."
     }
   },
   {
@@ -1955,8 +1760,7 @@
     "difficulty": "hard",
     "codeSnippet": "std::thread t(worker);\nt.join();",
     "explanation": {
-      "en": "std::thread with join() is C++.",
-      "ar": "std::thread مع join() من ++C."
+      "en": "std::thread with join() is C++."
     }
   },
   {
@@ -1965,8 +1769,7 @@
     "difficulty": "hard",
     "codeSnippet": "std::lock_guard<std::mutex> lock(mtx);",
     "explanation": {
-      "en": "std::lock_guard<std::mutex> is C++.",
-      "ar": "std::lock_guard<std::mutex> من ++C."
+      "en": "std::lock_guard<std::mutex> is C++."
     }
   },
   {
@@ -1975,8 +1778,7 @@
     "difficulty": "easy",
     "codeSnippet": "int sum = a + b;\nSystem.out.println(sum);",
     "explanation": {
-      "en": "System.out.println with typed variables is Java.",
-      "ar": "System.out.println مع متغيرات موسومة من جافا."
+      "en": "System.out.println with typed variables is Java."
     }
   },
   {
@@ -1985,8 +1787,7 @@
     "difficulty": "medium",
     "codeSnippet": "List<String> list = List.of(\"a\", \"b\");",
     "explanation": {
-      "en": "List.of(...) factory method is Java 9+.",
-      "ar": "التابع المصنع List.of(...) من جافا 9+."
+      "en": "List.of(...) factory method is Java 9+."
     }
   },
   {
@@ -1995,8 +1796,7 @@
     "difficulty": "medium",
     "codeSnippet": "int n = Integer.parseInt(text);",
     "explanation": {
-      "en": "Integer.parseInt is Java.",
-      "ar": "Integer.parseInt من جافا."
+      "en": "Integer.parseInt is Java."
     }
   },
   {
@@ -2005,8 +1805,7 @@
     "difficulty": "hard",
     "codeSnippet": "try (var in = open()) {\n}",
     "explanation": {
-      "en": "try-with-resources (try (...)) is Java.",
-      "ar": "try مع الموارد (try (...)) من جافا."
+      "en": "try-with-resources (try (...)) is Java."
     }
   },
   {
@@ -2015,8 +1814,7 @@
     "difficulty": "hard",
     "codeSnippet": "IntStream.range(0, 10).forEach(System.out::println);",
     "explanation": {
-      "en": "IntStream.range with a method reference is Java.",
-      "ar": "IntStream.range مع مرجع تابع من جافا."
+      "en": "IntStream.range with a method reference is Java."
     }
   },
   {
@@ -2025,8 +1823,7 @@
     "difficulty": "easy",
     "codeSnippet": "let v = vec![0; 5];",
     "explanation": {
-      "en": "vec![value; count] is a Rust macro.",
-      "ar": "ماكرو ![vec![0; 5 من رست."
+      "en": "vec![value; count] is a Rust macro."
     }
   },
   {
@@ -2035,8 +1832,7 @@
     "difficulty": "medium",
     "codeSnippet": "let n = s.parse::<i32>().unwrap();",
     "explanation": {
-      "en": "Turbofish parse::<i32>() with unwrap() is Rust.",
-      "ar": "parse::<i32>() (turbofish) مع unwrap() من رست."
+      "en": "Turbofish parse::<i32>() with unwrap() is Rust."
     }
   },
   {
@@ -2045,8 +1841,7 @@
     "difficulty": "medium",
     "codeSnippet": "#[derive(Clone, Debug)]\nstruct User;",
     "explanation": {
-      "en": "The #[derive(...)] attribute is Rust.",
-      "ar": "السمة #[derive(...)] من رست."
+      "en": "The #[derive(...)] attribute is Rust."
     }
   },
   {
@@ -2055,8 +1850,7 @@
     "difficulty": "hard",
     "codeSnippet": "let mut s = String::with_capacity(16);",
     "explanation": {
-      "en": "String::with_capacity and let mut are Rust.",
-      "ar": "String::with_capacity و let mut من رست."
+      "en": "String::with_capacity and let mut are Rust."
     }
   },
   {
@@ -2065,8 +1859,7 @@
     "difficulty": "hard",
     "codeSnippet": "let n = arr.iter().filter(|&&x| x > 0).count();",
     "explanation": {
-      "en": "iter().filter(|&&x| ...).count() is Rust.",
-      "ar": "iter().filter(|&&x| ...).count() من رست."
+      "en": "iter().filter(|&&x| ...).count() is Rust."
     }
   },
   {
@@ -2075,8 +1868,7 @@
     "difficulty": "easy",
     "codeSnippet": "s := []string{\"a\", \"b\"}",
     "explanation": {
-      "en": "[]string{...} slice literal with := is Go.",
-      "ar": "شريحة []string{...} مع =: من Go."
+      "en": "[]string{...} slice literal with := is Go."
     }
   },
   {
@@ -2085,8 +1877,7 @@
     "difficulty": "medium",
     "codeSnippet": "t := time.Now()",
     "explanation": {
-      "en": "time.Now() with := is Go.",
-      "ar": "time.Now() مع =: من Go."
+      "en": "time.Now() with := is Go."
     }
   },
   {
@@ -2095,8 +1886,7 @@
     "difficulty": "medium",
     "codeSnippet": "ch <- value",
     "explanation": {
-      "en": "Sending on a channel (ch <- value) is Go.",
-      "ar": "الإرسال عبر قناة (ch <- value) من Go."
+      "en": "Sending on a channel (ch <- value) is Go."
     }
   },
   {
@@ -2105,8 +1895,7 @@
     "difficulty": "hard",
     "codeSnippet": "b, err := json.Marshal(data)",
     "explanation": {
-      "en": "json.Marshal with multiple return values is Go.",
-      "ar": "json.Marshal مع إرجاع متعدد من Go."
+      "en": "json.Marshal with multiple return values is Go."
     }
   },
   {
@@ -2115,8 +1904,7 @@
     "difficulty": "hard",
     "codeSnippet": "ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)\ndefer cancel()",
     "explanation": {
-      "en": "context.WithTimeout with defer cancel() is Go.",
-      "ar": "context.WithTimeout مع defer cancel() من Go."
+      "en": "context.WithTimeout with defer cancel() is Go."
     }
   },
   {
@@ -2125,8 +1913,7 @@
     "difficulty": "easy",
     "codeSnippet": "for i, item in enumerate(items, start=1):\n    print(i, item)",
     "explanation": {
-      "en": "enumerate(..., start=1) with a for-in loop is Python.",
-      "ar": "enumerate(..., start=1) مع حلقة for-in من بايثون."
+      "en": "enumerate(..., start=1) with a for-in loop is Python."
     }
   },
   {
@@ -2135,8 +1922,7 @@
     "difficulty": "medium",
     "codeSnippet": "if (n := len(data)) > 0:\n    process(data)",
     "explanation": {
-      "en": "The walrus operator := inside an if is Python 3.8+.",
-      "ar": "معامل البطريق := داخل if من بايثون 3.8+."
+      "en": "The walrus operator := inside an if is Python 3.8+."
     }
   },
   {
@@ -2145,8 +1931,7 @@
     "difficulty": "medium",
     "codeSnippet": "@lru_cache(maxsize=128)\ndef fib(n):\n    return n if n < 2 else fib(n-1) + fib(n-2)",
     "explanation": {
-      "en": "The @lru_cache decorator is from Python's functools.",
-      "ar": "الموسوم @lru_cache من functools في بايثون."
+      "en": "The @lru_cache decorator is from Python's functools."
     }
   },
   {
@@ -2155,8 +1940,7 @@
     "difficulty": "hard",
     "codeSnippet": "raise ValueError(\"invalid\") from original",
     "explanation": {
-      "en": "raise ... from for exception chaining is Python.",
-      "ar": "raise ... from لربط الاستثناءات من بايثون."
+      "en": "raise ... from for exception chaining is Python."
     }
   },
   {
@@ -2165,8 +1949,7 @@
     "difficulty": "easy",
     "codeSnippet": "const clone = structuredClone(obj);",
     "explanation": {
-      "en": "structuredClone() is a modern JavaScript API.",
-      "ar": "structuredClone() واجهة جافاسكربت حديثة."
+      "en": "structuredClone() is a modern JavaScript API."
     }
   },
   {
@@ -2175,8 +1958,7 @@
     "difficulty": "medium",
     "codeSnippet": "for (const [key, val] of Object.entries(map)) {\n  console.log(key, val);\n}",
     "explanation": {
-      "en": "Object.entries with for...of destructuring is JavaScript.",
-      "ar": "Object.entries مع for...of وتفكيك من جافاسكربت."
+      "en": "Object.entries with for...of destructuring is JavaScript."
     }
   },
   {
@@ -2185,8 +1967,7 @@
     "difficulty": "hard",
     "codeSnippet": "const cache = new WeakMap();",
     "explanation": {
-      "en": "WeakMap is a JavaScript built-in collection type.",
-      "ar": "WeakMap نوع مجموعة مدمج في جافاسكربت."
+      "en": "WeakMap is a JavaScript built-in collection type."
     }
   },
   {
@@ -2195,8 +1976,7 @@
     "difficulty": "easy",
     "codeSnippet": "int* p = nullptr;",
     "explanation": {
-      "en": "nullptr is C++'s null pointer literal.",
-      "ar": "nullptr حرفي المؤشر الفارغ في ++C."
+      "en": "nullptr is C++'s null pointer literal."
     }
   },
   {
@@ -2205,8 +1985,7 @@
     "difficulty": "medium",
     "codeSnippet": "std::optional<int> maybe = std::nullopt;",
     "explanation": {
-      "en": "std::optional with std::nullopt is C++17.",
-      "ar": "std::optional مع std::nullopt من ++C17."
+      "en": "std::optional with std::nullopt is C++17."
     }
   },
   {
@@ -2215,8 +1994,7 @@
     "difficulty": "hard",
     "codeSnippet": "[[nodiscard]] int compute();",
     "explanation": {
-      "en": "The [[nodiscard]] attribute is C++17.",
-      "ar": "السمة [[nodiscard]] من ++C17."
+      "en": "The [[nodiscard]] attribute is C++17."
     }
   },
   {
@@ -2225,8 +2003,7 @@
     "difficulty": "easy",
     "codeSnippet": "record User(String name, int age) {}",
     "explanation": {
-      "en": "The record keyword for compact data classes is Java 16+.",
-      "ar": "الكلمة record لفئات البيانات المدمجة من جافا 16+."
+      "en": "The record keyword for compact data classes is Java 16+."
     }
   },
   {
@@ -2235,8 +2012,7 @@
     "difficulty": "medium",
     "codeSnippet": "switch (day) {\n    case MONDAY -> System.out.println(\"Mon\");\n}",
     "explanation": {
-      "en": "Arrow labels in switch (case X ->) are Java 14+.",
-      "ar": "تسميات السهم في switch (case X ->) من جافا 14+."
+      "en": "Arrow labels in switch (case X ->) are Java 14+."
     }
   },
   {
@@ -2245,8 +2021,7 @@
     "difficulty": "hard",
     "codeSnippet": "String text = Files.readString(Path.of(\"data.txt\"));",
     "explanation": {
-      "en": "Files.readString with Path.of is Java 11+.",
-      "ar": "Files.readString مع Path.of من جافا 11+."
+      "en": "Files.readString with Path.of is Java 11+."
     }
   },
   {
@@ -2255,8 +2030,7 @@
     "difficulty": "easy",
     "codeSnippet": "let msg = format!(\"count = {}\", n);",
     "explanation": {
-      "en": "The format! macro with {} placeholders is Rust.",
-      "ar": "ماكرو format! مع المنوبات {} من رست."
+      "en": "The format! macro with {} placeholders is Rust."
     }
   },
   {
@@ -2265,8 +2039,7 @@
     "difficulty": "medium",
     "codeSnippet": "let doubled: Vec<i32> = items.iter().map(|x| x * 2).collect();",
     "explanation": {
-      "en": "iter().map(|x| ...).collect() with Vec<i32> is Rust.",
-      "ar": "iter().map(|x| ...).collect() مع Vec<i32> من رست."
+      "en": "iter().map(|x| ...).collect() with Vec<i32> is Rust."
     }
   },
   {
@@ -2275,8 +2048,7 @@
     "difficulty": "hard",
     "codeSnippet": "#[tokio::main]\nasync fn main() {}",
     "explanation": {
-      "en": "The #[tokio::main] attribute for async entry points is Rust.",
-      "ar": "السمة #[tokio::main] لنقطة دخول غير متزامنة من رست."
+      "en": "The #[tokio::main] attribute for async entry points is Rust."
     }
   },
   {
@@ -2285,8 +2057,7 @@
     "difficulty": "easy",
     "codeSnippet": "var b strings.Builder\nb.WriteString(\"hello\")",
     "explanation": {
-      "en": "strings.Builder with WriteString is Go.",
-      "ar": "strings.Builder مع WriteString من Go."
+      "en": "strings.Builder with WriteString is Go."
     }
   },
   {
@@ -2295,8 +2066,7 @@
     "difficulty": "medium",
     "codeSnippet": "if errors.Is(err, io.EOF) {\n    return nil\n}",
     "explanation": {
-      "en": "errors.Is for error comparison is Go.",
-      "ar": "errors.Is لمقارنة الأخطاء من Go."
+      "en": "errors.Is for error comparison is Go."
     }
   },
   {
@@ -2305,8 +2075,7 @@
     "difficulty": "hard",
     "codeSnippet": "var once sync.Once\nonce.Do(initialize)",
     "explanation": {
-      "en": "sync.Once with Do for one-time initialization is Go.",
-      "ar": "sync.Once مع Do للتهيئة لمرة واحدة من Go."
+      "en": "sync.Once with Do for one-time initialization is Go."
     }
   },
   {
@@ -2315,8 +2084,7 @@
     "difficulty": "easy",
     "codeSnippet": "from pathlib import Path\ntext = Path(\"data.txt\").read_text()",
     "explanation": {
-      "en": "pathlib.Path with read_text() is Python.",
-      "ar": "pathlib.Path مع read_text() من بايثون."
+      "en": "pathlib.Path with read_text() is Python."
     }
   },
   {
@@ -2325,8 +2093,7 @@
     "difficulty": "medium",
     "codeSnippet": "for key, value in zip(keys, values):\n    print(key, value)",
     "explanation": {
-      "en": "zip() in a for loop with tuple unpacking is Python.",
-      "ar": "zip() في حلقة for مع تفكيك زوجي من بايثون."
+      "en": "zip() in a for loop with tuple unpacking is Python."
     }
   },
   {
@@ -2335,8 +2102,7 @@
     "difficulty": "hard",
     "codeSnippet": "async for event in queue:\n    await handle(event)",
     "explanation": {
-      "en": "async for with await is Python's async iteration syntax.",
-      "ar": "async for مع await صيغة التكرار غير المتزامن في بايثون."
+      "en": "async for with await is Python's async iteration syntax."
     }
   },
   {
@@ -2345,8 +2111,7 @@
     "difficulty": "easy",
     "codeSnippet": "queueMicrotask(() => tick());",
     "explanation": {
-      "en": "queueMicrotask() is a JavaScript scheduling API.",
-      "ar": "queueMicrotask() واجهة جدولة في جافاسكربت."
+      "en": "queueMicrotask() is a JavaScript scheduling API."
     }
   },
   {
@@ -2355,8 +2120,7 @@
     "difficulty": "medium",
     "codeSnippet": "const moduleUrl = import.meta.url;",
     "explanation": {
-      "en": "import.meta.url is ES module metadata in JavaScript.",
-      "ar": "import.meta.url بيانات وحدات ES في جافاسكربت."
+      "en": "import.meta.url is ES module metadata in JavaScript."
     }
   },
   {
@@ -2365,8 +2129,7 @@
     "difficulty": "hard",
     "codeSnippet": "const proxy = new Proxy(target, {\n  get(obj, key) { return obj[key]; }\n});",
     "explanation": {
-      "en": "new Proxy with a get trap is JavaScript.",
-      "ar": "new Proxy مع فخ get من جافاسكربت."
+      "en": "new Proxy with a get trap is JavaScript."
     }
   },
   {
@@ -2375,8 +2138,7 @@
     "difficulty": "easy",
     "codeSnippet": "std::array<int, 3> nums = {1, 2, 3};",
     "explanation": {
-      "en": "std::array with a fixed size is C++.",
-      "ar": "std::array بحجم ثابت من ++C."
+      "en": "std::array with a fixed size is C++."
     }
   },
   {
@@ -2385,8 +2147,7 @@
     "difficulty": "medium",
     "codeSnippet": "std::string_view name = \"hello\";",
     "explanation": {
-      "en": "std::string_view is a C++17 string view type.",
-      "ar": "std::string_view نوع عرض سلسلة من ++C17."
+      "en": "std::string_view is a C++17 string view type."
     }
   },
   {
@@ -2395,8 +2156,7 @@
     "difficulty": "hard",
     "codeSnippet": "template <std::integral T>\nT square(T x) { return x * x; }",
     "explanation": {
-      "en": "A constrained template with std::integral is C++20.",
-      "ar": "قالب مقيّد بـ std::integral من ++C20."
+      "en": "A constrained template with std::integral is C++20."
     }
   },
   {
@@ -2405,8 +2165,7 @@
     "difficulty": "easy",
     "codeSnippet": "String joined = String.join(\", \", parts);",
     "explanation": {
-      "en": "String.join as a static method is Java.",
-      "ar": "String.join كتابع ثابت من جافا."
+      "en": "String.join as a static method is Java."
     }
   },
   {
@@ -2415,8 +2174,7 @@
     "difficulty": "easy",
     "codeSnippet": "label = \"even\" if n % 2 == 0 else \"odd\"",
     "explanation": {
-      "en": "The \"value if condition else value\" ternary order is unique to Python.",
-      "ar": "ترتيب الشرط \"القيمة if الشرط else القيمة\" خاص ببايثون."
+      "en": "The \"value if condition else value\" ternary order is unique to Python."
     }
   },
   {
@@ -2425,8 +2183,7 @@
     "difficulty": "medium",
     "codeSnippet": "print(\", \".join(map(str, nums)))",
     "explanation": {
-      "en": "str.join with map() and the print() function are idiomatic Python.",
-      "ar": "استخدام str.join مع map() ودالة print() نمط بايثوني أصيل."
+      "en": "str.join with map() and the print() function are idiomatic Python."
     }
   },
   {
@@ -2435,8 +2192,7 @@
     "difficulty": "medium",
     "codeSnippet": "pairs = {k: v for k, v in items}",
     "explanation": {
-      "en": "A dict comprehension with {key: value for ...} is a Python feature.",
-      "ar": "إنشاء قاموس عبر {key: value for ...} من مميزات بايثون."
+      "en": "A dict comprehension with {key: value for ...} is a Python feature."
     }
   },
   {
@@ -2445,8 +2201,7 @@
     "difficulty": "medium",
     "codeSnippet": "match status:\n    case 200 | 201:\n        ok()",
     "explanation": {
-      "en": "Structural pattern matching with match/case arrived in Python 3.10.",
-      "ar": "مطابقة الأنماط match/case أُضيفت في بايثون 3.10."
+      "en": "Structural pattern matching with match/case arrived in Python 3.10."
     }
   },
   {
@@ -2455,8 +2210,7 @@
     "difficulty": "hard",
     "codeSnippet": "@dataclass(frozen=True)\nclass Point:\n    x: int\n    y: int",
     "explanation": {
-      "en": "The @dataclass decorator with type-annotated fields is Python.",
-      "ar": "الديكوريتر @dataclass مع حقول موصوفة بالأنواع من بايثون."
+      "en": "The @dataclass decorator with type-annotated fields is Python."
     }
   },
   {
@@ -2465,8 +2219,7 @@
     "difficulty": "easy",
     "codeSnippet": "const { x, y } = point;",
     "explanation": {
-      "en": "Object destructuring with const is everyday JavaScript syntax.",
-      "ar": "تفكيك الكائن مع const من صيغ جافاسكربت اليومية."
+      "en": "Object destructuring with const is everyday JavaScript syntax."
     }
   },
   {
@@ -2475,8 +2228,7 @@
     "difficulty": "medium",
     "codeSnippet": "const value = arr?.[0] ?? \"none\";",
     "explanation": {
-      "en": "Optional chaining ?.[ ] combined with ?? is JavaScript.",
-      "ar": "السلسلة الاختيارية ?.[ ] مع المعامل ?? من جافاسكربت."
+      "en": "Optional chaining ?.[ ] combined with ?? is JavaScript."
     }
   },
   {
@@ -2485,8 +2237,7 @@
     "difficulty": "easy",
     "codeSnippet": "setTimeout(() => console.log(\"done\"), 1000);",
     "explanation": {
-      "en": "setTimeout with an arrow callback is core JavaScript.",
-      "ar": "setTimeout مع دالة سهمية من أساسيات جافاسكربت."
+      "en": "setTimeout with an arrow callback is core JavaScript."
     }
   },
   {
@@ -2495,8 +2246,7 @@
     "difficulty": "medium",
     "codeSnippet": "for (const [k, v] of Object.entries(obj)) {\n  console.log(k, v);\n}",
     "explanation": {
-      "en": "Object.entries with for...of destructuring is JavaScript.",
-      "ar": "Object.entries مع for...of وتفكيك القيم من جافاسكربت."
+      "en": "Object.entries with for...of destructuring is JavaScript."
     }
   },
   {
@@ -2505,8 +2255,7 @@
     "difficulty": "hard",
     "codeSnippet": "function* range(n) {\n  for (let i = 0; i < n; i++) yield i;\n}",
     "explanation": {
-      "en": "function* with yield defines a generator in JavaScript.",
-      "ar": "function* مع yield تُعرّف مولّداً (generator) في جافاسكربت."
+      "en": "function* with yield defines a generator in JavaScript."
     }
   },
   {
@@ -2515,8 +2264,7 @@
     "difficulty": "easy",
     "codeSnippet": "std::cout << \"x = \" << x << \"\\n\";",
     "explanation": {
-      "en": "Stream insertion with std::cout << is classic C++.",
-      "ar": "الإخراج عبر std::cout << من سمات ++C الكلاسيكية."
+      "en": "Stream insertion with std::cout << is classic C++."
     }
   },
   {
@@ -2525,8 +2273,7 @@
     "difficulty": "medium",
     "codeSnippet": "auto ptr = std::make_unique<int>(42);",
     "explanation": {
-      "en": "std::make_unique returns a smart pointer, a modern C++ feature.",
-      "ar": "std::make_unique تُرجع مؤشراً ذكياً، وهي ميزة في ++C الحديثة."
+      "en": "std::make_unique returns a smart pointer, a modern C++ feature."
     }
   },
   {
@@ -2535,8 +2282,7 @@
     "difficulty": "medium",
     "codeSnippet": "for (const auto& item : items) {\n    process(item);\n}",
     "explanation": {
-      "en": "A range-based for over const auto& is distinctive C++.",
-      "ar": "حلقة for النطاقية على const auto& مميزة لـ ++C."
+      "en": "A range-based for over const auto& is distinctive C++."
     }
   },
   {
@@ -2545,8 +2291,7 @@
     "difficulty": "hard",
     "codeSnippet": "std::sort(v.begin(), v.end(),\n    [](int a, int b) { return a > b; });",
     "explanation": {
-      "en": "std::sort with begin()/end() iterators and a lambda is C++.",
-      "ar": "std::sort مع مكرّرات begin()/end() ودالة لمدا من ++C."
+      "en": "std::sort with begin()/end() iterators and a lambda is C++."
     }
   },
   {
@@ -2555,8 +2300,7 @@
     "difficulty": "medium",
     "codeSnippet": "std::unordered_map<std::string, int> freq;",
     "explanation": {
-      "en": "The std::unordered_map template with the std:: prefix is C++.",
-      "ar": "القالب std::unordered_map مع البادئة std:: من ++C."
+      "en": "The std::unordered_map template with the std:: prefix is C++."
     }
   },
   {
@@ -2565,8 +2309,7 @@
     "difficulty": "easy",
     "codeSnippet": "var sb = new StringBuilder();\nsb.append(\"hi\");",
     "explanation": {
-      "en": "StringBuilder with append() and var is typical Java.",
-      "ar": "StringBuilder مع append() والكلمة var من نمط جافا المعتاد."
+      "en": "StringBuilder with append() and var is typical Java."
     }
   },
   {
@@ -2575,8 +2318,7 @@
     "difficulty": "medium",
     "codeSnippet": "List<String> names = new ArrayList<>();",
     "explanation": {
-      "en": "Generic List with the diamond operator new ArrayList<>() is Java.",
-      "ar": "قائمة List عامة مع المعامل الماسي new ArrayList<>() من جافا."
+      "en": "Generic List with the diamond operator new ArrayList<>() is Java."
     }
   },
   {
@@ -2585,8 +2327,7 @@
     "difficulty": "medium",
     "codeSnippet": "int total = nums.stream().mapToInt(Integer::intValue).sum();",
     "explanation": {
-      "en": "Stream pipelines with method references Integer::intValue are Java.",
-      "ar": "سلاسل Stream مع مراجع الدوال Integer::intValue من جافا."
+      "en": "Stream pipelines with method references Integer::intValue are Java."
     }
   },
   {
@@ -2595,8 +2336,7 @@
     "difficulty": "hard",
     "codeSnippet": "public record Point(int x, int y) {}",
     "explanation": {
-      "en": "The record keyword for immutable data classes is modern Java.",
-      "ar": "الكلمة record لأصناف البيانات الثابتة من جافا الحديثة."
+      "en": "The record keyword for immutable data classes is modern Java."
     }
   },
   {
@@ -2605,8 +2345,7 @@
     "difficulty": "medium",
     "codeSnippet": "Map<String, Integer> counts = new HashMap<>();",
     "explanation": {
-      "en": "A generic Map backed by new HashMap<>() is standard Java.",
-      "ar": "خريطة Map عامة مدعومة بـ new HashMap<>() من جافا القياسية."
+      "en": "A generic Map backed by new HashMap<>() is standard Java."
     }
   },
   {
@@ -2615,8 +2354,7 @@
     "difficulty": "easy",
     "codeSnippet": "let mut total = 0;\ntotal += 1;",
     "explanation": {
-      "en": "Declaring a mutable binding with let mut is core Rust.",
-      "ar": "تعريف متغير قابل للتعديل عبر let mut من أساسيات رست."
+      "en": "Declaring a mutable binding with let mut is core Rust."
     }
   },
   {
@@ -2625,8 +2363,7 @@
     "difficulty": "medium",
     "codeSnippet": "let nums: Vec<i32> = (1..=5).collect();",
     "explanation": {
-      "en": "An inclusive range (1..=5) collected into Vec<i32> is Rust.",
-      "ar": "نطاق شامل (1..=5) يُجمَع في Vec<i32> من رست."
+      "en": "An inclusive range (1..=5) collected into Vec<i32> is Rust."
     }
   },
   {
@@ -2635,8 +2372,7 @@
     "difficulty": "medium",
     "codeSnippet": "match result {\n    Ok(v) => v,\n    Err(_) => 0,\n}",
     "explanation": {
-      "en": "Matching on Ok/Err variants of Result is idiomatic Rust.",
-      "ar": "المطابقة على المتغيّرين Ok/Err من نوع Result نمط رست أصيل."
+      "en": "Matching on Ok/Err variants of Result is idiomatic Rust."
     }
   },
   {
@@ -2645,8 +2381,7 @@
     "difficulty": "hard",
     "codeSnippet": "impl Iterator for Counter {\n    type Item = u32;\n    fn next(&mut self) -> Option<u32> { None }\n}",
     "explanation": {
-      "en": "impl Trait for Type with an associated type is Rust.",
-      "ar": "impl Trait for Type مع نوع مرتبط (associated type) من رست."
+      "en": "impl Trait for Type with an associated type is Rust."
     }
   },
   {
@@ -2655,8 +2390,7 @@
     "difficulty": "medium",
     "codeSnippet": "let name = String::from(\"rust\");\nlet len = name.len();",
     "explanation": {
-      "en": "String::from and the let bindings without semicolon-free returns are Rust.",
-      "ar": "استخدام String::from مع تعريفات let من سمات رست."
+      "en": "String::from and the let bindings without semicolon-free returns are Rust."
     }
   },
   {
@@ -2665,8 +2399,7 @@
     "difficulty": "easy",
     "codeSnippet": "fmt.Printf(\"x = %d\\n\", x)",
     "explanation": {
-      "en": "fmt.Printf with %d verbs and no trailing semicolon is Go.",
-      "ar": "fmt.Printf مع الرموز %d وبدون فاصلة منقوطة من Go."
+      "en": "fmt.Printf with %d verbs and no trailing semicolon is Go."
     }
   },
   {
@@ -2675,8 +2408,7 @@
     "difficulty": "medium",
     "codeSnippet": "switch v := x.(type) {\ncase int:\n    fmt.Println(v)\n}",
     "explanation": {
-      "en": "A type switch using x.(type) is a Go-specific construct.",
-      "ar": "مبدّل الأنواع عبر x.(type) تركيب خاص بلغة Go."
+      "en": "A type switch using x.(type) is a Go-specific construct."
     }
   },
   {
@@ -2685,8 +2417,7 @@
     "difficulty": "medium",
     "codeSnippet": "for i, v := range items {\n    fmt.Println(i, v)\n}",
     "explanation": {
-      "en": "The i, v := range form with := is distinctive Go.",
-      "ar": "صيغة i, v := range مع := مميزة للغة Go."
+      "en": "The i, v := range form with := is distinctive Go."
     }
   },
   {
@@ -2695,8 +2426,7 @@
     "difficulty": "hard",
     "codeSnippet": "func divide(a, b int) (int, error) {\n    return a / b, nil\n}",
     "explanation": {
-      "en": "Multiple return values including error and the nil zero value are Go.",
-      "ar": "إرجاع قيم متعددة منها error مع القيمة nil من سمات Go."
+      "en": "Multiple return values including error and the nil zero value are Go."
     }
   },
   {
@@ -2705,8 +2435,7 @@
     "difficulty": "medium",
     "codeSnippet": "m := map[string]int{\"a\": 1, \"b\": 2}",
     "explanation": {
-      "en": "Map literals written as map[string]int{...} are Go syntax.",
-      "ar": "تعريف الخرائط بصيغة map[string]int{...} من Go."
+      "en": "Map literals written as map[string]int{...} are Go syntax."
     }
   },
   {
@@ -2715,8 +2444,7 @@
     "difficulty": "medium",
     "codeSnippet": "from contextlib import suppress\nwith suppress(KeyError):\n    del d[\"x\"]",
     "explanation": {
-      "en": "contextlib.suppress used as a with-statement context manager is Python.",
-      "ar": "استخدام contextlib.suppress كمدير سياق مع with من بايثون."
+      "en": "contextlib.suppress used as a with-statement context manager is Python."
     }
   },
   {
@@ -2725,8 +2453,7 @@
     "difficulty": "hard",
     "codeSnippet": "results = await asyncio.gather(*tasks)",
     "explanation": {
-      "en": "await with asyncio.gather and * unpacking is Python async.",
-      "ar": "await مع asyncio.gather وتفكيك * من بايثون غير المتزامن."
+      "en": "await with asyncio.gather and * unpacking is Python async."
     }
   },
   {
@@ -2735,8 +2462,7 @@
     "difficulty": "medium",
     "codeSnippet": "const params = new URLSearchParams(location.search);",
     "explanation": {
-      "en": "Parsing location.search with URLSearchParams is browser JavaScript.",
-      "ar": "تحليل location.search عبر URLSearchParams من جافاسكربت المتصفح."
+      "en": "Parsing location.search with URLSearchParams is browser JavaScript."
     }
   },
   {
@@ -2745,8 +2471,7 @@
     "difficulty": "hard",
     "codeSnippet": "const results = await Promise.allSettled(promises);",
     "explanation": {
-      "en": "Promise.allSettled is a JavaScript promise combinator.",
-      "ar": "Promise.allSettled مُجمِّع وعود في جافاسكربت."
+      "en": "Promise.allSettled is a JavaScript promise combinator."
     }
   },
   {
@@ -2755,8 +2480,7 @@
     "difficulty": "medium",
     "codeSnippet": "auto [lo, hi] = std::minmax(a, b);",
     "explanation": {
-      "en": "Structured bindings with std::minmax are C++17.",
-      "ar": "الربط البنيوي مع std::minmax من ++C17."
+      "en": "Structured bindings with std::minmax are C++17."
     }
   },
   {
@@ -2765,8 +2489,7 @@
     "difficulty": "hard",
     "codeSnippet": "std::optional<int> result = find(key);",
     "explanation": {
-      "en": "std::optional for a maybe-absent value is C++17.",
-      "ar": "std::optional لقيمة قد تكون غائبة من ++C17."
+      "en": "std::optional for a maybe-absent value is C++17."
     }
   },
   {
@@ -2775,8 +2498,7 @@
     "difficulty": "medium",
     "codeSnippet": "Stream.of(1, 2, 3).forEach(System.out::println);",
     "explanation": {
-      "en": "Stream.of with the System.out::println method reference is Java.",
-      "ar": "Stream.of مع مرجع الدالة System.out::println من جافا."
+      "en": "Stream.of with the System.out::println method reference is Java."
     }
   },
   {
@@ -2785,8 +2507,7 @@
     "difficulty": "hard",
     "codeSnippet": "Thread.ofVirtual().start(() -> task());",
     "explanation": {
-      "en": "Thread.ofVirtual() launches a virtual thread (Java 21).",
-      "ar": "Thread.ofVirtual() يطلق خيطاً افتراضياً (جافا 21)."
+      "en": "Thread.ofVirtual() launches a virtual thread (Java 21)."
     }
   },
   {
@@ -2795,8 +2516,7 @@
     "difficulty": "medium",
     "codeSnippet": "let evens: i32 = (1..=100).filter(|n| n % 2 == 0).sum();",
     "explanation": {
-      "en": "An iterator chain with filter and a |n| closure is Rust.",
-      "ar": "سلسلة مكرّرات مع filter وإغلاق |n| من رست."
+      "en": "An iterator chain with filter and a |n| closure is Rust."
     }
   },
   {
@@ -2805,8 +2525,7 @@
     "difficulty": "hard",
     "codeSnippet": "let shared = Arc::new(Mutex::new(0));",
     "explanation": {
-      "en": "Arc::new(Mutex::new(...)) for shared mutable state is Rust.",
-      "ar": "Arc::new(Mutex::new(...)) للحالة المشتركة القابلة للتعديل من رست."
+      "en": "Arc::new(Mutex::new(...)) for shared mutable state is Rust."
     }
   },
   {
@@ -2815,8 +2534,7 @@
     "difficulty": "medium",
     "codeSnippet": "data, err := os.ReadFile(\"config.yaml\")",
     "explanation": {
-      "en": "The data, err := pattern with os.ReadFile is Go.",
-      "ar": "نمط data, err := مع os.ReadFile من Go."
+      "en": "The data, err := pattern with os.ReadFile is Go."
     }
   },
   {
@@ -2825,8 +2543,7 @@
     "difficulty": "hard",
     "codeSnippet": "start := time.Now()\nelapsed := time.Since(start)",
     "explanation": {
-      "en": "time.Now() with time.Since to measure elapsed time is Go.",
-      "ar": "time.Now() مع time.Since لقياس الزمن المنقضي من Go."
+      "en": "time.Now() with time.Since to measure elapsed time is Go."
     }
   },
   {
@@ -2835,8 +2552,7 @@
     "difficulty": "easy",
     "codeSnippet": "let count: number = 0;",
     "explanation": {
-      "en": "The `: number` type annotation on a variable is TypeScript.",
-      "ar": "التعليق النوعي `: number` على المتغير مميّز في TypeScript."
+      "en": "The `: number` type annotation on a variable is TypeScript."
     }
   },
   {
@@ -2845,8 +2561,7 @@
     "difficulty": "medium",
     "codeSnippet": "interface User {\n  name: string;\n  age: number;\n}",
     "explanation": {
-      "en": "Declaring an `interface` with typed fields is TypeScript.",
-      "ar": "تعريف `interface` بحقول ذات أنواع مميّز في TypeScript."
+      "en": "Declaring an `interface` with typed fields is TypeScript."
     }
   },
   {
@@ -2855,8 +2570,7 @@
     "difficulty": "medium",
     "codeSnippet": "function greet(name: string): void {\n  console.log(name);\n}",
     "explanation": {
-      "en": "Typed parameters and a `: void` return type are TypeScript.",
-      "ar": "المعاملات ذات الأنواع ونوع الإرجاع `: void` من سمات TypeScript."
+      "en": "Typed parameters and a `: void` return type are TypeScript."
     }
   },
   {
@@ -2865,8 +2579,7 @@
     "difficulty": "hard",
     "codeSnippet": "type ID = string | number;",
     "explanation": {
-      "en": "A `type` alias with a union (`string | number`) is TypeScript.",
-      "ar": "اسم مستعار `type` مع اتحاد (`string | number`) مميّز في TypeScript."
+      "en": "A `type` alias with a union (`string | number`) is TypeScript."
     }
   },
   {
@@ -2875,8 +2588,7 @@
     "difficulty": "medium",
     "codeSnippet": "const el = input as HTMLInputElement;",
     "explanation": {
-      "en": "The `as` type assertion is TypeScript syntax.",
-      "ar": "تأكيد النوع باستخدام `as` من صياغة TypeScript."
+      "en": "The `as` type assertion is TypeScript syntax."
     }
   },
   {
@@ -2885,8 +2597,7 @@
     "difficulty": "easy",
     "codeSnippet": "#include <stdio.h>\nint main(void) {\n  printf(\"Hello\\n\");\n  return 0;\n}",
     "explanation": {
-      "en": "`#include <stdio.h>` with `printf` and `int main(void)` is classic C.",
-      "ar": "`#include <stdio.h>` مع `printf` و`int main(void)` من سمات لغة C الكلاسيكية."
+      "en": "`#include <stdio.h>` with `printf` and `int main(void)` is classic C."
     }
   },
   {
@@ -2895,8 +2606,7 @@
     "difficulty": "medium",
     "codeSnippet": "int *p = malloc(sizeof(int) * n);",
     "explanation": {
-      "en": "`malloc` returning a raw `int *` pointer is C memory management.",
-      "ar": "استخدام `malloc` لإرجاع مؤشّر `int *` خام من إدارة الذاكرة في C."
+      "en": "`malloc` returning a raw `int *` pointer is C memory management."
     }
   },
   {
@@ -2905,8 +2615,7 @@
     "difficulty": "medium",
     "codeSnippet": "char name[50];\nscanf(\"%s\", name);",
     "explanation": {
-      "en": "`scanf` reading into a fixed char array is C.",
-      "ar": "قراءة `scanf` إلى مصفوفة أحرف ثابتة من سمات C."
+      "en": "`scanf` reading into a fixed char array is C."
     }
   },
   {
@@ -2915,8 +2624,7 @@
     "difficulty": "hard",
     "codeSnippet": "typedef struct {\n  int x;\n  int y;\n} Point;",
     "explanation": {
-      "en": "A `typedef struct { ... } Name;` defines a type in C.",
-      "ar": "`typedef struct { ... } Name;` يعرّف نوعاً في C."
+      "en": "A `typedef struct { ... } Name;` defines a type in C."
     }
   },
   {
@@ -2925,8 +2633,7 @@
     "difficulty": "easy",
     "codeSnippet": "Console.WriteLine(\"Hello\");",
     "explanation": {
-      "en": "`Console.WriteLine` is the C# console output method.",
-      "ar": "`Console.WriteLine` هي دالة الإخراج للطرفية في C#."
+      "en": "`Console.WriteLine` is the C# console output method."
     }
   },
   {
@@ -2935,8 +2642,7 @@
     "difficulty": "medium",
     "codeSnippet": "public class Program {\n  static void Main(string[] args) { }\n}",
     "explanation": {
-      "en": "`static void Main(string[] args)` is the C# entry point.",
-      "ar": "`static void Main(string[] args)` هي نقطة الدخول في C#."
+      "en": "`static void Main(string[] args)` is the C# entry point."
     }
   },
   {
@@ -2945,8 +2651,7 @@
     "difficulty": "medium",
     "codeSnippet": "Console.WriteLine($\"Value: {x}\");",
     "explanation": {
-      "en": "String interpolation with `$\"...\"` is C#.",
-      "ar": "الاستيفاء النصّي بصيغة `$\"...\"` من سمات C#."
+      "en": "String interpolation with `$\"...\"` is C#."
     }
   },
   {
@@ -2955,8 +2660,7 @@
     "difficulty": "medium",
     "codeSnippet": "var list = new List<int>();\nforeach (var n in list) { }",
     "explanation": {
-      "en": "`List<int>` plus `foreach (var ...)` is idiomatic C#.",
-      "ar": "`List<int>` مع `foreach (var ...)` من الصياغة المعتادة في C#."
+      "en": "`List<int>` plus `foreach (var ...)` is idiomatic C#."
     }
   },
   {
@@ -2965,8 +2669,7 @@
     "difficulty": "easy",
     "codeSnippet": "fun main() {\n  println(\"Hello\")\n}",
     "explanation": {
-      "en": "`fun main()` with `println` is Kotlin.",
-      "ar": "`fun main()` مع `println` من سمات Kotlin."
+      "en": "`fun main()` with `println` is Kotlin."
     }
   },
   {
@@ -2975,8 +2678,7 @@
     "difficulty": "medium",
     "codeSnippet": "val name: String = \"Kotlin\"",
     "explanation": {
-      "en": "An immutable `val` with a `: String` type is Kotlin.",
-      "ar": "المتغير الثابت `val` مع النوع `: String` من سمات Kotlin."
+      "en": "An immutable `val` with a `: String` type is Kotlin."
     }
   },
   {
@@ -2985,8 +2687,7 @@
     "difficulty": "medium",
     "codeSnippet": "fun add(a: Int, b: Int): Int = a + b",
     "explanation": {
-      "en": "A single-expression `fun ... : Int = ...` is Kotlin.",
-      "ar": "دالة بتعبير واحد `fun ... : Int = ...` من سمات Kotlin."
+      "en": "A single-expression `fun ... : Int = ...` is Kotlin."
     }
   },
   {
@@ -2995,8 +2696,7 @@
     "difficulty": "hard",
     "codeSnippet": "data class User(val name: String, val age: Int)",
     "explanation": {
-      "en": "A `data class` is a Kotlin feature.",
-      "ar": "`data class` ميزة خاصة بلغة Kotlin."
+      "en": "A `data class` is a Kotlin feature."
     }
   },
   {
@@ -3005,8 +2705,7 @@
     "difficulty": "easy",
     "codeSnippet": "let name = \"Swift\"\nprint(name)",
     "explanation": {
-      "en": "`let` binding with `print()` is Swift.",
-      "ar": "الربط بـ `let` مع `print()` من سمات Swift."
+      "en": "`let` binding with `print()` is Swift."
     }
   },
   {
@@ -3015,8 +2714,7 @@
     "difficulty": "medium",
     "codeSnippet": "func greet(name: String) -> String {\n  return \"Hi \\(name)\"\n}",
     "explanation": {
-      "en": "`func ... -> String` with `\\(...)` interpolation is Swift.",
-      "ar": "`func ... -> String` مع الاستيفاء `\\(...)` من سمات Swift."
+      "en": "`func ... -> String` with `\\(...)` interpolation is Swift."
     }
   },
   {
@@ -3025,8 +2723,7 @@
     "difficulty": "hard",
     "codeSnippet": "guard let value = maybe else {\n  return\n}",
     "explanation": {
-      "en": "The `guard let ... else` unwrap is Swift.",
-      "ar": "فكّ الاختيار `guard let ... else` من سمات Swift."
+      "en": "The `guard let ... else` unwrap is Swift."
     }
   },
   {
@@ -3035,8 +2732,7 @@
     "difficulty": "medium",
     "codeSnippet": "var numbers: [Int] = [1, 2, 3]",
     "explanation": {
-      "en": "An array typed as `[Int]` is Swift syntax.",
-      "ar": "المصفوفة ذات النوع `[Int]` من صياغة Swift."
+      "en": "An array typed as `[Int]` is Swift syntax."
     }
   },
   {
@@ -3045,8 +2741,7 @@
     "difficulty": "easy",
     "codeSnippet": "puts \"Hello, World!\"",
     "explanation": {
-      "en": "`puts` for output is Ruby.",
-      "ar": "`puts` للإخراج من سمات Ruby."
+      "en": "`puts` for output is Ruby."
     }
   },
   {
@@ -3055,8 +2750,7 @@
     "difficulty": "medium",
     "codeSnippet": "def greet(name)\n  puts \"Hi #{name}\"\nend",
     "explanation": {
-      "en": "`def ... end` with `#{}` interpolation is Ruby.",
-      "ar": "`def ... end` مع الاستيفاء `#{}` من سمات Ruby."
+      "en": "`def ... end` with `#{}` interpolation is Ruby."
     }
   },
   {
@@ -3065,8 +2759,7 @@
     "difficulty": "medium",
     "codeSnippet": "3.times { |i| puts i }",
     "explanation": {
-      "en": "`3.times { |i| ... }` block iteration is Ruby.",
-      "ar": "التكرار `3.times { |i| ... }` من سمات Ruby."
+      "en": "`3.times { |i| ... }` block iteration is Ruby."
     }
   },
   {
@@ -3075,8 +2768,7 @@
     "difficulty": "hard",
     "codeSnippet": "arr.each do |x|\n  puts x\nend",
     "explanation": {
-      "en": "`each do |x| ... end` is a Ruby block.",
-      "ar": "`each do |x| ... end` كتلة (block) في Ruby."
+      "en": "`each do |x| ... end` is a Ruby block."
     }
   },
   {
@@ -3085,8 +2777,7 @@
     "difficulty": "easy",
     "codeSnippet": "<?php echo \"Hello\"; ?>",
     "explanation": {
-      "en": "The `<?php ... ?>` tag is PHP.",
-      "ar": "الوسم `<?php ... ?>` من سمات PHP."
+      "en": "The `<?php ... ?>` tag is PHP."
     }
   },
   {
@@ -3095,8 +2786,7 @@
     "difficulty": "medium",
     "codeSnippet": "$name = \"World\";\necho \"Hello $name\";",
     "explanation": {
-      "en": "`$` variables with `echo` interpolation is PHP.",
-      "ar": "متغيّرات `$` مع الاستيفاء عبر `echo` من سمات PHP."
+      "en": "`$` variables with `echo` interpolation is PHP."
     }
   },
   {
@@ -3105,8 +2795,7 @@
     "difficulty": "medium",
     "codeSnippet": "foreach ($items as $item) {\n  echo $item;\n}",
     "explanation": {
-      "en": "`foreach ($x as $y)` with `$` variables is PHP.",
-      "ar": "`foreach ($x as $y)` مع متغيّرات `$` من سمات PHP."
+      "en": "`foreach ($x as $y)` with `$` variables is PHP."
     }
   },
   {
@@ -3115,8 +2804,7 @@
     "difficulty": "hard",
     "codeSnippet": "function greet($name) {\n  return \"Hi $name\";\n}",
     "explanation": {
-      "en": "A `function` with `$`-prefixed parameters is PHP.",
-      "ar": "دالة `function` بمعاملات مسبوقة بـ `$` من سمات PHP."
+      "en": "A `function` with `$`-prefixed parameters is PHP."
     }
   },
   {
@@ -3125,8 +2813,7 @@
     "difficulty": "easy",
     "codeSnippet": "SELECT * FROM users WHERE age > 18;",
     "explanation": {
-      "en": "`SELECT ... FROM ... WHERE` is SQL.",
-      "ar": "`SELECT ... FROM ... WHERE` من لغة SQL."
+      "en": "`SELECT ... FROM ... WHERE` is SQL."
     }
   },
   {
@@ -3135,8 +2822,7 @@
     "difficulty": "medium",
     "codeSnippet": "INSERT INTO users (name) VALUES ('Ann');",
     "explanation": {
-      "en": "`INSERT INTO ... VALUES` is SQL.",
-      "ar": "`INSERT INTO ... VALUES` من لغة SQL."
+      "en": "`INSERT INTO ... VALUES` is SQL."
     }
   },
   {
@@ -3145,8 +2831,7 @@
     "difficulty": "medium",
     "codeSnippet": "UPDATE users SET active = 1 WHERE id = 5;",
     "explanation": {
-      "en": "`UPDATE ... SET ... WHERE` is SQL.",
-      "ar": "`UPDATE ... SET ... WHERE` من لغة SQL."
+      "en": "`UPDATE ... SET ... WHERE` is SQL."
     }
   },
   {
@@ -3155,8 +2840,7 @@
     "difficulty": "hard",
     "codeSnippet": "SELECT name, COUNT(*)\nFROM orders\nGROUP BY name;",
     "explanation": {
-      "en": "`GROUP BY` with an aggregate like `COUNT(*)` is SQL.",
-      "ar": "`GROUP BY` مع دالة تجميع مثل `COUNT(*)` من لغة SQL."
+      "en": "`GROUP BY` with an aggregate like `COUNT(*)` is SQL."
     }
   },
   {
@@ -3165,8 +2849,7 @@
     "difficulty": "easy",
     "codeSnippet": "CREATE TABLE users (\n  id INT PRIMARY KEY\n);",
     "explanation": {
-      "en": "`CREATE TABLE ... PRIMARY KEY` is SQL DDL.",
-      "ar": "`CREATE TABLE ... PRIMARY KEY` من أوامر تعريف البيانات في SQL."
+      "en": "`CREATE TABLE ... PRIMARY KEY` is SQL DDL."
     }
   },
   {
@@ -3175,8 +2858,7 @@
     "difficulty": "easy",
     "codeSnippet": "#!/bin/bash\necho \"Hello\"",
     "explanation": {
-      "en": "The `#!/bin/bash` shebang marks a Bash script.",
-      "ar": "السطر `#!/bin/bash` يميّز سكربت Bash."
+      "en": "The `#!/bin/bash` shebang marks a Bash script."
     }
   },
   {
@@ -3185,8 +2867,7 @@
     "difficulty": "medium",
     "codeSnippet": "for i in 1 2 3; do\n  echo $i\ndone",
     "explanation": {
-      "en": "`for ... in ...; do ... done` is Bash looping.",
-      "ar": "`for ... in ...; do ... done` حلقة تكرار في Bash."
+      "en": "`for ... in ...; do ... done` is Bash looping."
     }
   },
   {
@@ -3195,8 +2876,7 @@
     "difficulty": "medium",
     "codeSnippet": "if [ -f file.txt ]; then\n  echo \"exists\"\nfi",
     "explanation": {
-      "en": "`if [ -f ... ]; then ... fi` is a Bash test.",
-      "ar": "`if [ -f ... ]; then ... fi` اختبار في Bash."
+      "en": "`if [ -f ... ]; then ... fi` is a Bash test."
     }
   },
   {
@@ -3205,8 +2885,7 @@
     "difficulty": "hard",
     "codeSnippet": "ls -la | grep \".txt\"",
     "explanation": {
-      "en": "Piping `ls` into `grep` is a Bash command line.",
-      "ar": "تمرير مخرجات `ls` إلى `grep` من سطر أوامر Bash."
+      "en": "Piping `ls` into `grep` is a Bash command line."
     }
   },
   {
@@ -3215,8 +2894,7 @@
     "difficulty": "easy",
     "codeSnippet": "package main\nimport \"fmt\"\nfunc main() {\n  fmt.Println(\"Hi\")\n}",
     "explanation": {
-      "en": "`package main` with `fmt.Println` is Go.",
-      "ar": "`package main` مع `fmt.Println` من سمات Go."
+      "en": "`package main` with `fmt.Println` is Go."
     }
   },
   {
@@ -3225,8 +2903,7 @@
     "difficulty": "medium",
     "codeSnippet": "fn main() {\n  println!(\"Hello\");\n}",
     "explanation": {
-      "en": "The `println!` macro (with `!`) is Rust.",
-      "ar": "الماكرو `println!` (بعلامة `!`) من سمات Rust."
+      "en": "The `println!` macro (with `!`) is Rust."
     }
   },
   {
@@ -3235,8 +2912,7 @@
     "difficulty": "easy",
     "codeSnippet": "def greet(name):\n    return f\"Hi {name}\"",
     "explanation": {
-      "en": "An f-string with `def ...:` indentation is Python.",
-      "ar": "سلسلة f-string مع `def ...:` والمسافات البادئة من سمات Python."
+      "en": "An f-string with `def ...:` indentation is Python."
     }
   },
   {
@@ -3245,8 +2921,7 @@
     "difficulty": "medium",
     "codeSnippet": "const doubled = [1, 2, 3].map(x => x * 2);",
     "explanation": {
-      "en": "An arrow function `x => ...` on an array is JavaScript.",
-      "ar": "الدالة السهمية `x => ...` على مصفوفة من سمات JavaScript."
+      "en": "An arrow function `x => ...` on an array is JavaScript."
     }
   },
   {
@@ -3255,8 +2930,7 @@
     "difficulty": "easy",
     "codeSnippet": "System.out.println(\"Hello\");",
     "explanation": {
-      "en": "`System.out.println` is Java output.",
-      "ar": "`System.out.println` للإخراج في Java."
+      "en": "`System.out.println` is Java output."
     }
   },
   {
@@ -3265,8 +2939,7 @@
     "difficulty": "medium",
     "codeSnippet": "#include <iostream>\nint main() {\n  std::cout << \"Hi\";\n}",
     "explanation": {
-      "en": "`std::cout <<` with `<iostream>` is C++.",
-      "ar": "`std::cout <<` مع `<iostream>` من سمات C++."
+      "en": "`std::cout <<` with `<iostream>` is C++."
     }
   },
   {
@@ -3275,8 +2948,7 @@
     "difficulty": "hard",
     "codeSnippet": "let mut v: Vec<i32> = Vec::new();",
     "explanation": {
-      "en": "`let mut` with `Vec<i32>` and `Vec::new()` is Rust.",
-      "ar": "`let mut` مع `Vec<i32>` و`Vec::new()` من سمات Rust."
+      "en": "`let mut` with `Vec<i32>` and `Vec::new()` is Rust."
     }
   },
   {
@@ -3285,8 +2957,7 @@
     "difficulty": "medium",
     "codeSnippet": "ch := make(chan int)\ngo worker(ch)",
     "explanation": {
-      "en": "`make(chan int)` and `go` for a goroutine are Go.",
-      "ar": "`make(chan int)` و`go` لتشغيل goroutine من سمات Go."
+      "en": "`make(chan int)` and `go` for a goroutine are Go."
     }
   },
   {
@@ -3295,8 +2966,7 @@
     "difficulty": "medium",
     "codeSnippet": "squares = [x*x for x in range(10)]",
     "explanation": {
-      "en": "A list comprehension `[... for ... in ...]` is Python.",
-      "ar": "الفهم القائمي `[... for ... in ...]` من سمات Python."
+      "en": "A list comprehension `[... for ... in ...]` is Python."
     }
   },
   {
@@ -3305,8 +2975,7 @@
     "difficulty": "hard",
     "codeSnippet": "function identity<T>(value: T): T {\n  return value;\n}",
     "explanation": {
-      "en": "A generic `<T>` typed function is TypeScript.",
-      "ar": "الدالة العامة ذات النوع `<T>` من سمات TypeScript."
+      "en": "A generic `<T>` typed function is TypeScript."
     }
   },
   {
@@ -3315,8 +2984,7 @@
     "difficulty": "hard",
     "codeSnippet": "var result = numbers.Where(n => n > 0).ToList();",
     "explanation": {
-      "en": "LINQ `.Where(...).ToList()` is C#.",
-      "ar": "LINQ عبر `.Where(...).ToList()` من سمات C#."
+      "en": "LINQ `.Where(...).ToList()` is C#."
     }
   },
   {
@@ -3325,8 +2993,7 @@
     "difficulty": "medium",
     "codeSnippet": "val doubled = list.map { it * 2 }",
     "explanation": {
-      "en": "A lambda using the implicit `it` parameter is Kotlin.",
-      "ar": "دالة لامدا باستخدام المعامل الضمني `it` من سمات Kotlin."
+      "en": "A lambda using the implicit `it` parameter is Kotlin."
     }
   },
   {
@@ -3335,8 +3002,7 @@
     "difficulty": "easy",
     "codeSnippet": "squares = [x**2 for x in range(10)]",
     "explanation": {
-      "en": "A list comprehension with the ** power operator is Python.",
-      "ar": "قائمة استيعابية مع معامل الأس ** من سمات بايثون."
+      "en": "A list comprehension with the ** power operator is Python."
     }
   },
   {
@@ -3345,8 +3011,7 @@
     "difficulty": "easy",
     "codeSnippet": "with open('file.txt') as f:\n    data = f.read()",
     "explanation": {
-      "en": "The with/as context manager is Python syntax.",
-      "ar": "مدير السياق with/as من صياغة بايثون."
+      "en": "The with/as context manager is Python syntax."
     }
   },
   {
@@ -3355,8 +3020,7 @@
     "difficulty": "medium",
     "codeSnippet": "nums = {k: v for k, v in items}",
     "explanation": {
-      "en": "A dict comprehension using {k: v ...} is Python.",
-      "ar": "استيعاب قاموس بصيغة {k: v ...} من بايثون."
+      "en": "A dict comprehension using {k: v ...} is Python."
     }
   },
   {
@@ -3365,8 +3029,7 @@
     "difficulty": "easy",
     "codeSnippet": "document.querySelector('.btn').addEventListener('click', () => {});",
     "explanation": {
-      "en": "querySelector with addEventListener is browser JavaScript.",
-      "ar": "querySelector مع addEventListener من جافاسكربت في المتصفح."
+      "en": "querySelector with addEventListener is browser JavaScript."
     }
   },
   {
@@ -3375,8 +3038,7 @@
     "difficulty": "medium",
     "codeSnippet": "const nums = arr.filter(n => n > 0).map(n => n * 2);",
     "explanation": {
-      "en": "Chained filter/map with untyped arrow functions is JavaScript.",
-      "ar": "سلسلة filter/map بدوال سهمية بلا أنواع من جافاسكربت."
+      "en": "Chained filter/map with untyped arrow functions is JavaScript."
     }
   },
   {
@@ -3385,8 +3047,7 @@
     "difficulty": "easy",
     "codeSnippet": "const p = new Promise((resolve) => resolve(42));",
     "explanation": {
-      "en": "A Promise built with an untyped executor is JavaScript.",
-      "ar": "وعد Promise بمنفّذ بلا أنواع من جافاسكربت."
+      "en": "A Promise built with an untyped executor is JavaScript."
     }
   },
   {
@@ -3395,8 +3056,7 @@
     "difficulty": "easy",
     "codeSnippet": "function greet(name: string): void {}",
     "explanation": {
-      "en": "Parameter and return type annotations mark TypeScript.",
-      "ar": "التعليقات النوعية للمعاملات وقيمة الإرجاع تميّز TypeScript."
+      "en": "Parameter and return type annotations mark TypeScript."
     }
   },
   {
@@ -3405,8 +3065,7 @@
     "difficulty": "medium",
     "codeSnippet": "interface User { id: number; name: string; }",
     "explanation": {
-      "en": "An interface with typed fields is TypeScript.",
-      "ar": "واجهة interface بحقول مكتوبة الأنواع من TypeScript."
+      "en": "An interface with typed fields is TypeScript."
     }
   },
   {
@@ -3415,8 +3074,7 @@
     "difficulty": "easy",
     "codeSnippet": "std::vector<int> v = {1, 2, 3};",
     "explanation": {
-      "en": "std::vector with brace initialization is C++.",
-      "ar": "std::vector مع تهيئة بالأقواس المعقوفة من C++."
+      "en": "std::vector with brace initialization is C++."
     }
   },
   {
@@ -3425,8 +3083,7 @@
     "difficulty": "easy",
     "codeSnippet": "cout << \"Hello\" << endl;",
     "explanation": {
-      "en": "Streaming with cout and endl is C++.",
-      "ar": "الإخراج بـ cout و endl من C++."
+      "en": "Streaming with cout and endl is C++."
     }
   },
   {
@@ -3435,8 +3092,7 @@
     "difficulty": "easy",
     "codeSnippet": "printf(\"%d\\n\", x);",
     "explanation": {
-      "en": "printf with a format specifier and no iostream is C.",
-      "ar": "printf مع محدد تنسيق دون iostream من لغة C."
+      "en": "printf with a format specifier and no iostream is C."
     }
   },
   {
@@ -3445,8 +3101,7 @@
     "difficulty": "medium",
     "codeSnippet": "struct Node { int data; struct Node *next; };",
     "explanation": {
-      "en": "A struct with a self-referential pointer typedef style is C.",
-      "ar": "بنية struct بمؤشر ذاتي المرجع من لغة C."
+      "en": "A struct with a self-referential pointer typedef style is C."
     }
   },
   {
@@ -3455,8 +3110,7 @@
     "difficulty": "easy",
     "codeSnippet": "Console.WriteLine($\"Hello {name}\");",
     "explanation": {
-      "en": "Console.WriteLine with $ interpolation is C#.",
-      "ar": "Console.WriteLine مع استيفاء $ من C#."
+      "en": "Console.WriteLine with $ interpolation is C#."
     }
   },
   {
@@ -3465,8 +3119,7 @@
     "difficulty": "medium",
     "codeSnippet": "var list = new List<int>();",
     "explanation": {
-      "en": "var with new List<int>() is C#.",
-      "ar": "var مع new List<int>() من C#."
+      "en": "var with new List<int>() is C#."
     }
   },
   {
@@ -3475,8 +3128,7 @@
     "difficulty": "easy",
     "codeSnippet": "System.out.println(\"Hello\");",
     "explanation": {
-      "en": "System.out.println is the classic Java print.",
-      "ar": "System.out.println هي طباعة جافا التقليدية."
+      "en": "System.out.println is the classic Java print."
     }
   },
   {
@@ -3485,8 +3137,7 @@
     "difficulty": "medium",
     "codeSnippet": "List<String> names = new ArrayList<>();",
     "explanation": {
-      "en": "ArrayList with the diamond operator is Java.",
-      "ar": "ArrayList مع مُعامل الألماس من جافا."
+      "en": "ArrayList with the diamond operator is Java."
     }
   },
   {
@@ -3495,8 +3146,7 @@
     "difficulty": "easy",
     "codeSnippet": "fun main() {\n    println(\"Hi\")\n}",
     "explanation": {
-      "en": "fun to declare a function plus println is Kotlin.",
-      "ar": "fun لتعريف دالة مع println من Kotlin."
+      "en": "fun to declare a function plus println is Kotlin."
     }
   },
   {
@@ -3505,8 +3155,7 @@
     "difficulty": "medium",
     "codeSnippet": "val list = listOf(1, 2, 3)",
     "explanation": {
-      "en": "val with listOf(...) is Kotlin.",
-      "ar": "val مع listOf(...) من Kotlin."
+      "en": "val with listOf(...) is Kotlin."
     }
   },
   {
@@ -3515,8 +3164,7 @@
     "difficulty": "easy",
     "codeSnippet": "let name = \"Swift\"\nprint(\"Hi, \\(name)\")",
     "explanation": {
-      "en": "String interpolation with \\(...) is Swift.",
-      "ar": "استيفاء النص بـ \\(...) من Swift."
+      "en": "String interpolation with \\(...) is Swift."
     }
   },
   {
@@ -3525,8 +3173,7 @@
     "difficulty": "medium",
     "codeSnippet": "guard let x = value else { return }",
     "explanation": {
-      "en": "The guard let ... else pattern is Swift.",
-      "ar": "نمط guard let ... else من Swift."
+      "en": "The guard let ... else pattern is Swift."
     }
   },
   {
@@ -3535,8 +3182,7 @@
     "difficulty": "easy",
     "codeSnippet": "let mut v: Vec<i32> = Vec::new();",
     "explanation": {
-      "en": "let mut with Vec<i32> is Rust.",
-      "ar": "let mut مع Vec<i32> من Rust."
+      "en": "let mut with Vec<i32> is Rust."
     }
   },
   {
@@ -3545,8 +3191,7 @@
     "difficulty": "easy",
     "codeSnippet": "println!(\"{}\", x);",
     "explanation": {
-      "en": "The println! macro with {} is Rust.",
-      "ar": "ماكرو println! مع {} من Rust."
+      "en": "The println! macro with {} is Rust."
     }
   },
   {
@@ -3555,8 +3200,7 @@
     "difficulty": "easy",
     "codeSnippet": "func main() {\n    fmt.Println(\"Hello\")\n}",
     "explanation": {
-      "en": "func main with fmt.Println is Go.",
-      "ar": "func main مع fmt.Println من Go."
+      "en": "func main with fmt.Println is Go."
     }
   },
   {
@@ -3565,8 +3209,7 @@
     "difficulty": "medium",
     "codeSnippet": "ch := make(chan int)",
     "explanation": {
-      "en": "make(chan int) with := creates a Go channel.",
-      "ar": "make(chan int) مع := ينشئ قناة في Go."
+      "en": "make(chan int) with := creates a Go channel."
     }
   },
   {
@@ -3575,8 +3218,7 @@
     "difficulty": "easy",
     "codeSnippet": "puts \"Hello\".upcase",
     "explanation": {
-      "en": "puts with a chained .upcase is Ruby.",
-      "ar": "puts مع .upcase المتسلسلة من Ruby."
+      "en": "puts with a chained .upcase is Ruby."
     }
   },
   {
@@ -3585,8 +3227,7 @@
     "difficulty": "medium",
     "codeSnippet": "[1, 2, 3].each { |n| puts n }",
     "explanation": {
-      "en": ".each with a { |n| ... } block is Ruby.",
-      "ar": ".each مع كتلة { |n| ... } من Ruby."
+      "en": ".each with a { |n| ... } block is Ruby."
     }
   },
   {
@@ -3595,8 +3236,7 @@
     "difficulty": "easy",
     "codeSnippet": "echo \"Total: \" . $count;",
     "explanation": {
-      "en": "echo with $ variables and . concatenation is PHP.",
-      "ar": "echo مع متغيرات $ ودمج بـ . من PHP."
+      "en": "echo with $ variables and . concatenation is PHP."
     }
   },
   {
@@ -3605,8 +3245,7 @@
     "difficulty": "medium",
     "codeSnippet": "$doubled = array_map(fn($x) => $x * 2, $nums);",
     "explanation": {
-      "en": "array_map with an fn() arrow function is PHP.",
-      "ar": "array_map مع دالة سهمية fn() من PHP."
+      "en": "array_map with an fn() arrow function is PHP."
     }
   },
   {
@@ -3615,8 +3254,7 @@
     "difficulty": "easy",
     "codeSnippet": "SELECT name FROM users WHERE age > 18;",
     "explanation": {
-      "en": "A SELECT ... FROM ... WHERE statement is SQL.",
-      "ar": "عبارة SELECT ... FROM ... WHERE من SQL."
+      "en": "A SELECT ... FROM ... WHERE statement is SQL."
     }
   },
   {
@@ -3625,8 +3263,7 @@
     "difficulty": "medium",
     "codeSnippet": "INSERT INTO logs (msg) VALUES ('ok');",
     "explanation": {
-      "en": "INSERT INTO ... VALUES is SQL.",
-      "ar": "INSERT INTO ... VALUES من SQL."
+      "en": "INSERT INTO ... VALUES is SQL."
     }
   },
   {
@@ -3635,8 +3272,7 @@
     "difficulty": "easy",
     "codeSnippet": "for f in *.txt; do echo \"$f\"; done",
     "explanation": {
-      "en": "A for ... in *.txt; do ... done loop is Bash.",
-      "ar": "حلقة for ... in *.txt; do ... done من Bash."
+      "en": "A for ... in *.txt; do ... done loop is Bash."
     }
   },
   {
@@ -3645,8 +3281,7 @@
     "difficulty": "medium",
     "codeSnippet": "if [ -f \"$file\" ]; then echo ok; fi",
     "explanation": {
-      "en": "The [ -f ... ] file test is Bash.",
-      "ar": "اختبار الملف [ -f ... ] من Bash."
+      "en": "The [ -f ... ] file test is Bash."
     }
   },
   {
@@ -3655,8 +3290,7 @@
     "difficulty": "hard",
     "codeSnippet": "const config = data as Record<string, unknown>;",
     "explanation": {
-      "en": "The `as` cast with the Record utility type is TypeScript.",
-      "ar": "التحويل بـ `as` مع النوع المساعد Record من TypeScript."
+      "en": "The `as` cast with the Record utility type is TypeScript."
     }
   },
   {
@@ -3665,8 +3299,7 @@
     "difficulty": "medium",
     "codeSnippet": "char *buf = malloc(64 * sizeof(char));",
     "explanation": {
-      "en": "malloc assigned without a cast compiles in C, not C++.",
-      "ar": "إسناد malloc بدون تحويل نوع صحيح في C وليس C++."
+      "en": "malloc assigned without a cast compiles in C, not C++."
     }
   },
   {
@@ -3675,8 +3308,7 @@
     "difficulty": "medium",
     "codeSnippet": "struct Node {\n    int value;\n    struct Node *next;\n};",
     "explanation": {
-      "en": "Repeating the `struct` keyword inside the definition is C.",
-      "ar": "تكرار الكلمة `struct` داخل التعريف من سمات C."
+      "en": "Repeating the `struct` keyword inside the definition is C."
     }
   },
   {
@@ -3685,8 +3317,7 @@
     "difficulty": "hard",
     "codeSnippet": "void swap(int *a, int *b) {\n    int t = *a; *a = *b; *b = t;\n}",
     "explanation": {
-      "en": "Explicit pointer parameters with no references is C.",
-      "ar": "معاملات مؤشرات صريحة بدون مراجع تدل على C."
+      "en": "Explicit pointer parameters with no references is C."
     }
   },
   {
@@ -3695,8 +3326,7 @@
     "difficulty": "medium",
     "codeSnippet": "var items = new List<string> { \"a\", \"b\" };",
     "explanation": {
-      "en": "`var` plus a collection initializer on List<T> is C#.",
-      "ar": "`var` مع مُهيِّئ مجموعة على List<T> من C#."
+      "en": "`var` plus a collection initializer on List<T> is C#."
     }
   },
   {
@@ -3705,8 +3335,7 @@
     "difficulty": "medium",
     "codeSnippet": "public async Task<int> LoadAsync() => await FetchAsync();",
     "explanation": {
-      "en": "Task<int> with an expression-bodied member is C#.",
-      "ar": "Task<int> مع عضو بجسم تعبيري من C#."
+      "en": "Task<int> with an expression-bodied member is C#."
     }
   },
   {
@@ -3715,8 +3344,7 @@
     "difficulty": "hard",
     "codeSnippet": "public int Count { get; private set; }",
     "explanation": {
-      "en": "An auto-property with accessors is C# syntax.",
-      "ar": "خاصية تلقائية مع مُوصِّلات من صياغة C#."
+      "en": "An auto-property with accessors is C# syntax."
     }
   },
   {
@@ -3725,8 +3353,7 @@
     "difficulty": "medium",
     "codeSnippet": "val names = listOf(\"ali\", \"sara\")",
     "explanation": {
-      "en": "`val` with listOf() is Kotlin.",
-      "ar": "`val` مع listOf() من Kotlin."
+      "en": "`val` with listOf() is Kotlin."
     }
   },
   {
@@ -3735,8 +3362,7 @@
     "difficulty": "medium",
     "codeSnippet": "data class Point(val x: Int, val y: Int)",
     "explanation": {
-      "en": "`data class` exists only in Kotlin here.",
-      "ar": "`data class` موجودة في Kotlin فقط هنا."
+      "en": "`data class` exists only in Kotlin here."
     }
   },
   {
@@ -3745,8 +3371,7 @@
     "difficulty": "easy",
     "codeSnippet": "let greeting = \"Hello, \\(name)!\"",
     "explanation": {
-      "en": "String interpolation with \\( ) is Swift.",
-      "ar": "تضمين النص باستخدام \\( ) من Swift."
+      "en": "String interpolation with \\( ) is Swift."
     }
   },
   {
@@ -3755,8 +3380,7 @@
     "difficulty": "medium",
     "codeSnippet": "def greet(name)\n  \"Hi #{name}\"\nend",
     "explanation": {
-      "en": "def ... end with #{} interpolation is Ruby.",
-      "ar": "def ... end مع التضمين #{} من Ruby."
+      "en": "def ... end with #{} interpolation is Ruby."
     }
   },
   {
@@ -3765,8 +3389,7 @@
     "difficulty": "medium",
     "codeSnippet": "foreach ($items as $key => $value) {\n    echo $key;\n}",
     "explanation": {
-      "en": "foreach ($a as $k => $v) is PHP syntax.",
-      "ar": "الصياغة foreach ($a as $k => $v) من PHP."
+      "en": "foreach ($a as $k => $v) is PHP syntax."
     }
   },
   {
@@ -3775,8 +3398,7 @@
     "difficulty": "easy",
     "codeSnippet": "SELECT name FROM users WHERE age > 18 ORDER BY name;",
     "explanation": {
-      "en": "SELECT ... FROM ... WHERE is SQL.",
-      "ar": "SELECT ... FROM ... WHERE من SQL."
+      "en": "SELECT ... FROM ... WHERE is SQL."
     }
   },
   {
@@ -3785,8 +3407,7 @@
     "difficulty": "medium",
     "codeSnippet": "SELECT u.name, o.total\nFROM users u\nINNER JOIN orders o ON o.user_id = u.id;",
     "explanation": {
-      "en": "An INNER JOIN with table aliases is SQL.",
-      "ar": "INNER JOIN مع أسماء مستعارة للجداول من SQL."
+      "en": "An INNER JOIN with table aliases is SQL."
     }
   },
   {
@@ -3795,8 +3416,7 @@
     "difficulty": "medium",
     "codeSnippet": "SELECT department, COUNT(*)\nFROM staff\nGROUP BY department\nHAVING COUNT(*) > 5;",
     "explanation": {
-      "en": "GROUP BY with HAVING is SQL.",
-      "ar": "GROUP BY مع HAVING من SQL."
+      "en": "GROUP BY with HAVING is SQL."
     }
   },
   {
@@ -3805,8 +3425,7 @@
     "difficulty": "easy",
     "codeSnippet": "for f in *.txt; do\n  mv \"$f\" \"${f%.txt}.md\"\ndone",
     "explanation": {
-      "en": "for ... do ... done with ${var%pattern} is Bash.",
-      "ar": "for ... do ... done مع ${var%pattern} من Bash."
+      "en": "for ... do ... done with ${var%pattern} is Bash."
     }
   },
   {
@@ -3815,8 +3434,7 @@
     "difficulty": "medium",
     "codeSnippet": "if [[ -z \"$1\" ]]; then\n  echo \"usage: $0 <file>\"\n  exit 1\nfi",
     "explanation": {
-      "en": "The [[ ... ]] test and $0/$1 positionals are Bash.",
-      "ar": "الاختبار [[ ... ]] والوسائط $0/$1 من Bash."
+      "en": "The [[ ... ]] test and $0/$1 positionals are Bash."
     }
   },
   {
@@ -3825,8 +3443,7 @@
     "difficulty": "medium",
     "codeSnippet": "count=$(grep -rc \"TODO\" . | wc -l)",
     "explanation": {
-      "en": "Command substitution $( ) piping into wc is Bash.",
-      "ar": "استبدال الأوامر $( ) مع التمرير إلى wc من Bash."
+      "en": "Command substitution $( ) piping into wc is Bash."
     }
   },
   {
@@ -3835,8 +3452,7 @@
     "difficulty": "medium",
     "codeSnippet": "let mut v: Vec<i32> = Vec::new();\nv.push(1);",
     "explanation": {
-      "en": "let mut, Vec<i32> and push are hallmark Rust syntax.",
-      "ar": "let mut وVec<i32> وpush من سمات لغة Rust."
+      "en": "let mut, Vec<i32> and push are hallmark Rust syntax."
     }
   },
   {
@@ -3845,8 +3461,7 @@
     "difficulty": "easy",
     "codeSnippet": "package main\n\nfunc main() {\n\tfmt.Println(\"hi\")\n}",
     "explanation": {
-      "en": "package main with func main and fmt.Println is idiomatic Go.",
-      "ar": "package main مع func main وfmt.Println من ملامح Go."
+      "en": "package main with func main and fmt.Println is idiomatic Go."
     }
   },
   {
@@ -3855,8 +3470,7 @@
     "difficulty": "medium",
     "codeSnippet": "interface User { id: number; name: string; }",
     "explanation": {
-      "en": "interface with typed fields is TypeScript, not plain JavaScript.",
-      "ar": "interface بحقول مُنمّطة هي TypeScript وليست JavaScript عادية."
+      "en": "interface with typed fields is TypeScript, not plain JavaScript."
     }
   },
   {
@@ -3865,8 +3479,7 @@
     "difficulty": "medium",
     "codeSnippet": "fun main() { val name = \"Sam\"; println(name) }",
     "explanation": {
-      "en": "fun and val with println are Kotlin markers.",
-      "ar": "fun وval مع println من علامات Kotlin."
+      "en": "fun and val with println are Kotlin markers."
     }
   },
   {
@@ -3875,8 +3488,7 @@
     "difficulty": "medium",
     "codeSnippet": "let names = [\"a\", \"b\"]\nfor n in names { print(n) }",
     "explanation": {
-      "en": "let arrays with this for-in and print are Swift.",
-      "ar": "مصفوفات let مع حلقة for-in وprint هي Swift."
+      "en": "let arrays with this for-in and print are Swift."
     }
   },
   {
@@ -3885,8 +3497,7 @@
     "difficulty": "easy",
     "codeSnippet": "3.times { |i| puts i }",
     "explanation": {
-      "en": "Integer#times with a block and puts is classic Ruby.",
-      "ar": "الطريقة times مع كتلة وputs من كلاسيكيات Ruby."
+      "en": "Integer#times with a block and puts is classic Ruby."
     }
   },
   {
@@ -3895,8 +3506,7 @@
     "difficulty": "easy",
     "codeSnippet": "<?php echo \"Hello, $name\"; ?>",
     "explanation": {
-      "en": "The <?php tag and $ variables are unmistakably PHP.",
-      "ar": "وسم <?php ومتغيرات $ تدل بوضوح على PHP."
+      "en": "The <?php tag and $ variables are unmistakably PHP."
     }
   },
   {
@@ -3905,8 +3515,7 @@
     "difficulty": "easy",
     "codeSnippet": "SELECT name FROM users WHERE age > 18;",
     "explanation": {
-      "en": "SELECT ... FROM ... WHERE is core SQL.",
-      "ar": "SELECT ... FROM ... WHERE من صميم SQL."
+      "en": "SELECT ... FROM ... WHERE is core SQL."
     }
   },
   {
@@ -3915,8 +3524,7 @@
     "difficulty": "medium",
     "codeSnippet": "for f in *.txt; do echo \"$f\"; done",
     "explanation": {
-      "en": "for f in *.txt; do ... done with $f is a Bash loop.",
-      "ar": "for f in *.txt; do ... done مع $f حلقة Bash."
+      "en": "for f in *.txt; do ... done with $f is a Bash loop."
     }
   },
   {
@@ -3925,8 +3533,7 @@
     "difficulty": "medium",
     "codeSnippet": "var list = new List<string> { \"a\" };\nConsole.WriteLine(list.Count);",
     "explanation": {
-      "en": "List<string> and Console.WriteLine are C# .NET.",
-      "ar": "List<string> وConsole.WriteLine من C#/‏.NET."
+      "en": "List<string> and Console.WriteLine are C# .NET."
     }
   },
   {
@@ -3935,8 +3542,7 @@
     "difficulty": "medium",
     "codeSnippet": "#include <iostream>\nstd::cout << x << std::endl;",
     "explanation": {
-      "en": "std::cout and std::endl with <iostream> are C++.",
-      "ar": "std::cout وstd::endl مع <iostream> هي C++."
+      "en": "std::cout and std::endl with <iostream> are C++."
     }
   },
   {
@@ -3945,8 +3551,7 @@
     "difficulty": "medium",
     "codeSnippet": "#include <stdio.h>\nprintf(\"%d\\n\", n);",
     "explanation": {
-      "en": "printf with format specifiers and stdio.h is plain C.",
-      "ar": "printf مع محدّدات التنسيق وstdio.h هي C خالصة."
+      "en": "printf with format specifiers and stdio.h is plain C."
     }
   },
   {
@@ -3955,8 +3560,7 @@
     "difficulty": "medium",
     "codeSnippet": "System.out.println(\"n=\" + n);",
     "explanation": {
-      "en": "System.out.println is the Java print idiom.",
-      "ar": "System.out.println هي طريقة الطباعة في Java."
+      "en": "System.out.println is the Java print idiom."
     }
   },
   {
@@ -3965,8 +3569,7 @@
     "difficulty": "easy",
     "codeSnippet": "const nums = [1,2,3].map(x => x * 2);",
     "explanation": {
-      "en": "const with an arrow-function map (no types) is JavaScript.",
-      "ar": "const مع map ودالة سهمية دون أنواع هي JavaScript."
+      "en": "const with an arrow-function map (no types) is JavaScript."
     }
   },
   {
@@ -3975,8 +3578,7 @@
     "difficulty": "easy",
     "codeSnippet": "nums = [x*2 for x in range(5)]",
     "explanation": {
-      "en": "A list comprehension with range is distinctly Python.",
-      "ar": "اشتقاق القوائم مع range مميز في Python."
+      "en": "A list comprehension with range is distinctly Python."
     }
   },
   {
@@ -3985,8 +3587,7 @@
     "difficulty": "hard",
     "codeSnippet": "match opt {\n  Some(x) => x,\n  None => 0,\n}",
     "explanation": {
-      "en": "match with Some/None over an Option is Rust pattern matching.",
-      "ar": "match مع Some/None على Option هي مطابقة أنماط Rust."
+      "en": "match with Some/None over an Option is Rust pattern matching."
     }
   },
   {
@@ -3995,8 +3596,7 @@
     "difficulty": "medium",
     "codeSnippet": "ch := make(chan int)\ngo func() { ch <- 1 }()",
     "explanation": {
-      "en": "make(chan int) and go func with <- are Go concurrency.",
-      "ar": "make(chan int) وgo func مع <- من تزامن Go."
+      "en": "make(chan int) and go func with <- are Go concurrency."
     }
   },
   {
@@ -4005,8 +3605,7 @@
     "difficulty": "hard",
     "codeSnippet": "function id<T>(x: T): T { return x; }",
     "explanation": {
-      "en": "A generic <T> with typed params and return is TypeScript.",
-      "ar": "دالة عامة <T> بأنواع للمعاملات والإرجاع هي TypeScript."
+      "en": "A generic <T> with typed params and return is TypeScript."
     }
   },
   {
@@ -4015,8 +3614,7 @@
     "difficulty": "hard",
     "codeSnippet": "guard let user = maybeUser else { return }",
     "explanation": {
-      "en": "guard let ... else is Swift's optional-unwrapping idiom.",
-      "ar": "guard let ... else هي صيغة فك الاختياري في Swift."
+      "en": "guard let ... else is Swift's optional-unwrapping idiom."
     }
   },
   {
@@ -4025,8 +3623,7 @@
     "difficulty": "easy",
     "codeSnippet": "#!/bin/bash\nif [ -f \"$1\" ]; then echo found; fi",
     "explanation": {
-      "en": "The #!/bin/bash shebang and [ -f ] test are Bash.",
-      "ar": "بادئة #!/bin/bash واختبار [ -f ] من Bash."
+      "en": "The #!/bin/bash shebang and [ -f ] test are Bash."
     }
   }
 ]

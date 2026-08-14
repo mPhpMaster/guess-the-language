@@ -4,139 +4,179 @@
     "correctLanguage": "Rust",
     "difficulty": "medium",
     "codeSnippet": "let mut v: Vec<i32> = Vec::new();\nv.push(1);",
-    "explanation": { "en": "let mut, Vec<i32> and push are hallmark Rust syntax.", "ar": "let mut وVec<i32> وpush من سمات لغة Rust." }
+    "explanation": {
+      "en": "let mut, Vec<i32> and push are hallmark Rust syntax."
+    }
   },
   {
     "id": 385,
     "correctLanguage": "Go",
     "difficulty": "easy",
     "codeSnippet": "package main\n\nfunc main() {\n\tfmt.Println(\"hi\")\n}",
-    "explanation": { "en": "package main with func main and fmt.Println is idiomatic Go.", "ar": "package main مع func main وfmt.Println من ملامح Go." }
+    "explanation": {
+      "en": "package main with func main and fmt.Println is idiomatic Go."
+    }
   },
   {
     "id": 386,
     "correctLanguage": "TypeScript",
     "difficulty": "medium",
     "codeSnippet": "interface User { id: number; name: string; }",
-    "explanation": { "en": "interface with typed fields is TypeScript, not plain JavaScript.", "ar": "interface بحقول مُنمّطة هي TypeScript وليست JavaScript عادية." }
+    "explanation": {
+      "en": "interface with typed fields is TypeScript, not plain JavaScript."
+    }
   },
   {
     "id": 387,
     "correctLanguage": "Kotlin",
     "difficulty": "medium",
     "codeSnippet": "fun main() { val name = \"Sam\"; println(name) }",
-    "explanation": { "en": "fun and val with println are Kotlin markers.", "ar": "fun وval مع println من علامات Kotlin." }
+    "explanation": {
+      "en": "fun and val with println are Kotlin markers."
+    }
   },
   {
     "id": 388,
     "correctLanguage": "Swift",
     "difficulty": "medium",
     "codeSnippet": "let names = [\"a\", \"b\"]\nfor n in names { print(n) }",
-    "explanation": { "en": "let arrays with this for-in and print are Swift.", "ar": "مصفوفات let مع حلقة for-in وprint هي Swift." }
+    "explanation": {
+      "en": "let arrays with this for-in and print are Swift."
+    }
   },
   {
     "id": 389,
     "correctLanguage": "Ruby",
     "difficulty": "easy",
     "codeSnippet": "3.times { |i| puts i }",
-    "explanation": { "en": "Integer#times with a block and puts is classic Ruby.", "ar": "الطريقة times مع كتلة وputs من كلاسيكيات Ruby." }
+    "explanation": {
+      "en": "Integer#times with a block and puts is classic Ruby."
+    }
   },
   {
     "id": 390,
     "correctLanguage": "PHP",
     "difficulty": "easy",
     "codeSnippet": "<?php echo \"Hello, $name\"; ?>",
-    "explanation": { "en": "The <?php tag and $ variables are unmistakably PHP.", "ar": "وسم <?php ومتغيرات $ تدل بوضوح على PHP." }
+    "explanation": {
+      "en": "The <?php tag and $ variables are unmistakably PHP."
+    }
   },
   {
     "id": 391,
     "correctLanguage": "SQL",
     "difficulty": "easy",
     "codeSnippet": "SELECT name FROM users WHERE age > 18;",
-    "explanation": { "en": "SELECT ... FROM ... WHERE is core SQL.", "ar": "SELECT ... FROM ... WHERE من صميم SQL." }
+    "explanation": {
+      "en": "SELECT ... FROM ... WHERE is core SQL."
+    }
   },
   {
     "id": 392,
     "correctLanguage": "Bash",
     "difficulty": "medium",
     "codeSnippet": "for f in *.txt; do echo \"$f\"; done",
-    "explanation": { "en": "for f in *.txt; do ... done with $f is a Bash loop.", "ar": "for f in *.txt; do ... done مع $f حلقة Bash." }
+    "explanation": {
+      "en": "for f in *.txt; do ... done with $f is a Bash loop."
+    }
   },
   {
     "id": 393,
     "correctLanguage": "C#",
     "difficulty": "medium",
     "codeSnippet": "var list = new List<string> { \"a\" };\nConsole.WriteLine(list.Count);",
-    "explanation": { "en": "List<string> and Console.WriteLine are C# .NET.", "ar": "List<string> وConsole.WriteLine من C#/‏.NET." }
+    "explanation": {
+      "en": "List<string> and Console.WriteLine are C# .NET."
+    }
   },
   {
     "id": 394,
     "correctLanguage": "C++",
     "difficulty": "medium",
     "codeSnippet": "#include <iostream>\nstd::cout << x << std::endl;",
-    "explanation": { "en": "std::cout and std::endl with <iostream> are C++.", "ar": "std::cout وstd::endl مع <iostream> هي C++." }
+    "explanation": {
+      "en": "std::cout and std::endl with <iostream> are C++."
+    }
   },
   {
     "id": 395,
     "correctLanguage": "C",
     "difficulty": "medium",
     "codeSnippet": "#include <stdio.h>\nprintf(\"%d\\n\", n);",
-    "explanation": { "en": "printf with format specifiers and stdio.h is plain C.", "ar": "printf مع محدّدات التنسيق وstdio.h هي C خالصة." }
+    "explanation": {
+      "en": "printf with format specifiers and stdio.h is plain C."
+    }
   },
   {
     "id": 396,
     "correctLanguage": "Java",
     "difficulty": "medium",
     "codeSnippet": "System.out.println(\"n=\" + n);",
-    "explanation": { "en": "System.out.println is the Java print idiom.", "ar": "System.out.println هي طريقة الطباعة في Java." }
+    "explanation": {
+      "en": "System.out.println is the Java print idiom."
+    }
   },
   {
     "id": 397,
     "correctLanguage": "JavaScript",
     "difficulty": "easy",
     "codeSnippet": "const nums = [1,2,3].map(x => x * 2);",
-    "explanation": { "en": "const with an arrow-function map (no types) is JavaScript.", "ar": "const مع map ودالة سهمية دون أنواع هي JavaScript." }
+    "explanation": {
+      "en": "const with an arrow-function map (no types) is JavaScript."
+    }
   },
   {
     "id": 398,
     "correctLanguage": "Python",
     "difficulty": "easy",
     "codeSnippet": "nums = [x*2 for x in range(5)]",
-    "explanation": { "en": "A list comprehension with range is distinctly Python.", "ar": "اشتقاق القوائم مع range مميز في Python." }
+    "explanation": {
+      "en": "A list comprehension with range is distinctly Python."
+    }
   },
   {
     "id": 399,
     "correctLanguage": "Rust",
     "difficulty": "hard",
     "codeSnippet": "match opt {\n  Some(x) => x,\n  None => 0,\n}",
-    "explanation": { "en": "match with Some/None over an Option is Rust pattern matching.", "ar": "match مع Some/None على Option هي مطابقة أنماط Rust." }
+    "explanation": {
+      "en": "match with Some/None over an Option is Rust pattern matching."
+    }
   },
   {
     "id": 400,
     "correctLanguage": "Go",
     "difficulty": "medium",
     "codeSnippet": "ch := make(chan int)\ngo func() { ch <- 1 }()",
-    "explanation": { "en": "make(chan int) and go func with <- are Go concurrency.", "ar": "make(chan int) وgo func مع <- من تزامن Go." }
+    "explanation": {
+      "en": "make(chan int) and go func with <- are Go concurrency."
+    }
   },
   {
     "id": 401,
     "correctLanguage": "TypeScript",
     "difficulty": "hard",
     "codeSnippet": "function id<T>(x: T): T { return x; }",
-    "explanation": { "en": "A generic <T> with typed params and return is TypeScript.", "ar": "دالة عامة <T> بأنواع للمعاملات والإرجاع هي TypeScript." }
+    "explanation": {
+      "en": "A generic <T> with typed params and return is TypeScript."
+    }
   },
   {
     "id": 402,
     "correctLanguage": "Swift",
     "difficulty": "hard",
     "codeSnippet": "guard let user = maybeUser else { return }",
-    "explanation": { "en": "guard let ... else is Swift's optional-unwrapping idiom.", "ar": "guard let ... else هي صيغة فك الاختياري في Swift." }
+    "explanation": {
+      "en": "guard let ... else is Swift's optional-unwrapping idiom."
+    }
   },
   {
     "id": 403,
     "correctLanguage": "Bash",
     "difficulty": "easy",
     "codeSnippet": "#!/bin/bash\nif [ -f \"$1\" ]; then echo found; fi",
-    "explanation": { "en": "The #!/bin/bash shebang and [ -f ] test are Bash.", "ar": "بادئة #!/bin/bash واختبار [ -f ] من Bash." }
+    "explanation": {
+      "en": "The #!/bin/bash shebang and [ -f ] test are Bash."
+    }
   }
 ]

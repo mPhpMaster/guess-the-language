@@ -5,8 +5,7 @@
     "difficulty": "easy",
     "codeSnippet": "player.position += velocity;",
     "question": {
-      "en": "What does this line likely do in a game loop?",
-      "ar": "ما الذي يفعله هذا السطر على الأرجح في حلقة اللعبة؟"
+      "en": "What does this line likely do in a game loop?"
     },
     "options": [
       "Move the player object",
@@ -16,8 +15,7 @@
     ],
     "answer": "Move the player object",
     "explanation": {
-      "en": "Updating a player's position is a common movement step in a game loop.",
-      "ar": "تحديث موضع اللاعب هو خطوة حركة شائعة في حلقة اللعبة."
+      "en": "Updating a player's position is a common movement step in a game loop."
     }
   },
   {
@@ -26,8 +24,7 @@
     "difficulty": "easy",
     "codeSnippet": "if (player.isGrounded) jump();",
     "question": {
-      "en": "What does this condition check?",
-      "ar": "ما الذي يتحقق منه هذا الشرط؟"
+      "en": "What does this condition check?"
     },
     "options": [
       "Whether the player is on the ground",
@@ -37,8 +34,7 @@
     ],
     "answer": "Whether the player is on the ground",
     "explanation": {
-      "en": "The isGrounded flag commonly represents whether the player can jump.",
-      "ar": "غالباً ما يمثل العلم isGrounded ما إذا كان اللاعب على الأرض ويمكنه القفز."
+      "en": "The isGrounded flag commonly represents whether the player can jump."
     }
   },
   {
@@ -47,8 +43,7 @@
     "difficulty": "medium",
     "codeSnippet": "renderSprite(sprite, x, y);",
     "question": {
-      "en": "What is the purpose of this call?",
-      "ar": "ما الغرض من هذا الاستدعاء؟"
+      "en": "What is the purpose of this call?"
     },
     "options": [
       "Draw a sprite on screen",
@@ -58,8 +53,7 @@
     ],
     "answer": "Draw a sprite on screen",
     "explanation": {
-      "en": "Rendering a sprite draws the visual object to the current frame.",
-      "ar": "إن رسم sprite يرسم الكائن البصري على الإطار الحالي."
+      "en": "Rendering a sprite draws the visual object to the current frame."
     }
   },
   {
@@ -68,8 +62,7 @@
     "difficulty": "easy",
     "codeSnippet": "loadTexture('player.png');",
     "question": {
-      "en": "What does this function likely do?",
-      "ar": "ما الذي يفعله هذا الدالة على الأرجح؟"
+      "en": "What does this function likely do?"
     },
     "options": [
       "Load an image asset",
@@ -79,8 +72,7 @@
     ],
     "answer": "Load an image asset",
     "explanation": {
-      "en": "Loading a texture usually means loading an image asset used by the game.",
-      "ar": "غالباً ما يعني تحميل texture تحميل ملف صورة يستخدمه اللعب."
+      "en": "Loading a texture usually means loading an image asset used by the game."
     }
   },
   {
@@ -89,8 +81,7 @@
     "difficulty": "medium",
     "codeSnippet": "score += 100;",
     "question": {
-      "en": "What does this statement update?",
-      "ar": "ما الذي يُحدّث هذا البيان؟"
+      "en": "What does this statement update?"
     },
     "options": [
       "The player's score",
@@ -100,8 +91,7 @@
     ],
     "answer": "The player's score",
     "explanation": {
-      "en": "Increasing a variable named score is typically used to reward the player.",
-      "ar": "زيادة متغير باسم score تُستخدم عادةً لمكافأة اللاعب."
+      "en": "Increasing a variable named score is typically used to reward the player."
     }
   },
   {
@@ -110,8 +100,7 @@
     "difficulty": "medium",
     "codeSnippet": "audio.play('jump');",
     "question": {
-      "en": "What is the most likely purpose of this call?",
-      "ar": "ما هو الغرض الأكثر احتمالاً من هذا الاستدعاء؟"
+      "en": "What is the most likely purpose of this call?"
     },
     "options": [
       "Play a jump sound effect",
@@ -121,8 +110,7 @@
     ],
     "answer": "Play a jump sound effect",
     "explanation": {
-      "en": "The audio system is being asked to play a sound named jump.",
-      "ar": "يُطلب من نظام الصوت تشغيل صوت باسم jump."
+      "en": "The audio system is being asked to play a sound named jump."
     }
   },
   {
@@ -131,8 +119,7 @@
     "difficulty": "hard",
     "codeSnippet": "if (enemy.health <= 0) destroy(enemy);",
     "question": {
-      "en": "What happens when this condition is true?",
-      "ar": "ماذا يحدث عندما يكون هذا الشرط صحيحاً؟"
+      "en": "What happens when this condition is true?"
     },
     "options": [
       "The enemy is removed",
@@ -142,8 +129,7 @@
     ],
     "answer": "The enemy is removed",
     "explanation": {
-      "en": "If health is zero or less, the enemy object is typically destroyed.",
-      "ar": "إذا كانت الصحة صفر أو أقل، يتم عادةً تدمير كائن العدو."
+      "en": "If health is zero or less, the enemy object is typically destroyed."
     }
   },
   {
@@ -152,8 +138,7 @@
     "difficulty": "easy",
     "codeSnippet": "showHUD();",
     "question": {
-      "en": "What does this call likely do?",
-      "ar": "ما الذي يفعله هذا الاستدعاء على الأرجح؟"
+      "en": "What does this call likely do?"
     },
     "options": [
       "Display the heads-up display",
@@ -163,8 +148,7 @@
     ],
     "answer": "Display the heads-up display",
     "explanation": {
-      "en": "showHUD commonly displays the in-game interface elements such as health and score.",
-      "ar": "تُستخدم showHUD عادةً لإظهار عناصر الواجهة داخل اللعبة مثل الصحة والنتيجة."
+      "en": "showHUD commonly displays the in-game interface elements such as health and score."
     }
   },
   {
@@ -173,8 +157,7 @@
     "difficulty": "easy",
     "codeSnippet": "if (input.isPressed('Space')) jump();",
     "question": {
-      "en": "What does this code check?",
-      "ar": "ما الذي يتحقق منه هذا الكود؟"
+      "en": "What does this code check?"
     },
     "options": [
       "Whether the player pressed jump",
@@ -184,8 +167,7 @@
     ],
     "answer": "Whether the player pressed jump",
     "explanation": {
-      "en": "This checks for a Space key press before calling the jump action.",
-      "ar": "يتحقق هذا مما إذا كان مفتاح المسافة مضغوطًا قبل استدعاء القفز."
+      "en": "This checks for a Space key press before calling the jump action."
     }
   },
   {
@@ -194,8 +176,7 @@
     "difficulty": "hard",
     "codeSnippet": "velocity.y += gravity * deltaTime;",
     "question": {
-      "en": "What physics concept is applied here?",
-      "ar": "ما هو مفهوم الفيزياء المطبق هنا؟"
+      "en": "What physics concept is applied here?"
     },
     "options": [
       "Gravity acceleration",
@@ -205,8 +186,7 @@
     ],
     "answer": "Gravity acceleration",
     "explanation": {
-      "en": "Adding gravity times delta time changes vertical velocity over time.",
-      "ar": "إضافة الجاذبية مضروبة في الوقت تغير السرعة الرأسية مع مرور الوقت."
+      "en": "Adding gravity times delta time changes vertical velocity over time."
     }
   },
   {
@@ -215,8 +195,7 @@
     "difficulty": "medium",
     "codeSnippet": "sprite.playAnimation('run');",
     "question": {
-      "en": "What effect does this have?",
-      "ar": "ما التأثير الذي يحدثه هذا؟"
+      "en": "What effect does this have?"
     },
     "options": [
       "Play the running animation",
@@ -226,8 +205,7 @@
     ],
     "answer": "Play the running animation",
     "explanation": {
-      "en": "The sprite is instructed to start the run animation sequence.",
-      "ar": "يُطلب من sprite بدء تسلسل رسوميات الجري."
+      "en": "The sprite is instructed to start the run animation sequence."
     }
   },
   {
@@ -236,8 +214,7 @@
     "difficulty": "hard",
     "codeSnippet": "if (player.bounds.intersects(enemy.bounds)) onHit(enemy);",
     "question": {
-      "en": "What is this condition testing for?",
-      "ar": "ما الذي يختبره هذا الشرط؟"
+      "en": "What is this condition testing for?"
     },
     "options": [
       "Player and enemy colliding",
@@ -247,8 +224,7 @@
     ],
     "answer": "Player and enemy colliding",
     "explanation": {
-      "en": "The code checks whether the player and enemy hitboxes overlap.",
-      "ar": "يتحقق الكود مما إذا كانت صناديق الاصطدام للاعب والعدو تتداخل."
+      "en": "The code checks whether the player and enemy hitboxes overlap."
     }
   },
   {
@@ -257,8 +233,7 @@
     "difficulty": "medium",
     "codeSnippet": "spawnEnemy('orc', x, y);",
     "question": {
-      "en": "What is the likely purpose of this call?",
-      "ar": "ما هو الغرض المحتمل من هذا الاستدعاء؟"
+      "en": "What is the likely purpose of this call?"
     },
     "options": [
       "Create a new enemy",
@@ -268,8 +243,7 @@
     ],
     "answer": "Create a new enemy",
     "explanation": {
-      "en": "spawnEnemy usually creates an enemy instance at the given position.",
-      "ar": "عادةً ما ينشئ spawnEnemy مثيلاً للعدو في الموضع المحدد."
+      "en": "spawnEnemy usually creates an enemy instance at the given position."
     }
   },
   {
@@ -278,8 +252,7 @@
     "difficulty": "medium",
     "codeSnippet": "saveGame({ level, score, player });",
     "question": {
-      "en": "What does this function likely do?",
-      "ar": "ما الذي تفعله هذه الدالة على الأرجح؟"
+      "en": "What does this function likely do?"
     },
     "options": [
       "Persist current progress",
@@ -289,8 +262,7 @@
     ],
     "answer": "Persist current progress",
     "explanation": {
-      "en": "Saving game state stores progress such as level and score.",
-      "ar": "يخزن حفظ حالة اللعبة التقدم مثل المستوى والنقاط."
+      "en": "Saving game state stores progress such as level and score."
     }
   },
   {
@@ -299,8 +271,7 @@
     "difficulty": "medium",
     "codeSnippet": "world.addComponent(entity, new Velocity(2, 0));",
     "question": {
-      "en": "Which architecture does this pattern suggest?",
-      "ar": "أي بنية برمجية يوحي بها هذا النمط؟"
+      "en": "Which architecture does this pattern suggest?"
     },
     "options": [
       "Entity-Component-System",
@@ -310,8 +281,7 @@
     ],
     "answer": "Entity-Component-System",
     "explanation": {
-      "en": "Attaching components to entities inside a world is the core idea of ECS.",
-      "ar": "إرفاق المكوّنات بالكيانات داخل العالم هو الفكرة الأساسية لنمط ECS."
+      "en": "Attaching components to entities inside a world is the core idea of ECS."
     }
   },
   {
@@ -320,8 +290,7 @@
     "difficulty": "medium",
     "codeSnippet": "position += speed * deltaTime;",
     "question": {
-      "en": "Why multiply movement by deltaTime?",
-      "ar": "لماذا نضرب الحركة في deltaTime؟"
+      "en": "Why multiply movement by deltaTime?"
     },
     "options": [
       "To make movement frame-rate independent",
@@ -331,8 +300,7 @@
     ],
     "answer": "To make movement frame-rate independent",
     "explanation": {
-      "en": "Scaling by delta time keeps motion consistent regardless of frame rate.",
-      "ar": "الضرب في زمن الإطار يجعل الحركة ثابتة بغضّ النظر عن معدّل الإطارات."
+      "en": "Scaling by delta time keeps motion consistent regardless of frame rate."
     }
   },
   {
@@ -341,8 +309,7 @@
     "difficulty": "medium",
     "codeSnippet": "x = lerp(a, b, 0.5);",
     "question": {
-      "en": "What value does this return?",
-      "ar": "ما القيمة التي يعيدها هذا؟"
+      "en": "What value does this return?"
     },
     "options": [
       "The midpoint between a and b",
@@ -352,8 +319,7 @@
     ],
     "answer": "The midpoint between a and b",
     "explanation": {
-      "en": "Linear interpolation at t=0.5 returns the value halfway between a and b.",
-      "ar": "الاستيفاء الخطي عند t=0.5 يعيد القيمة الواقعة في منتصف المسافة بين a و b."
+      "en": "Linear interpolation at t=0.5 returns the value halfway between a and b."
     }
   },
   {
@@ -362,8 +328,7 @@
     "difficulty": "hard",
     "codeSnippet": "path = aStar(start, goal, grid);",
     "question": {
-      "en": "What is this algorithm used for?",
-      "ar": "لأي غرض تُستخدم هذه الخوارزمية؟"
+      "en": "What is this algorithm used for?"
     },
     "options": [
       "Finding the shortest path",
@@ -373,8 +338,7 @@
     ],
     "answer": "Finding the shortest path",
     "explanation": {
-      "en": "A* searches a graph for the lowest-cost path from start to goal.",
-      "ar": "تبحث A* في الرسم البياني عن أقلّ مسار تكلفةً من البداية إلى الهدف."
+      "en": "A* searches a graph for the lowest-cost path from start to goal."
     }
   },
   {
@@ -383,8 +347,7 @@
     "difficulty": "hard",
     "codeSnippet": "bullet = bulletPool.get();",
     "question": {
-      "en": "What technique is being used here?",
-      "ar": "ما التقنية المستخدمة هنا؟"
+      "en": "What technique is being used here?"
     },
     "options": [
       "Object pooling",
@@ -394,8 +357,7 @@
     ],
     "answer": "Object pooling",
     "explanation": {
-      "en": "Reusing objects from a pool avoids costly allocations during gameplay.",
-      "ar": "إعادة استخدام الكائنات من تجمّع تتجنّب عمليات التخصيص المكلفة أثناء اللعب."
+      "en": "Reusing objects from a pool avoids costly allocations during gameplay."
     }
   },
   {
@@ -404,8 +366,7 @@
     "difficulty": "medium",
     "codeSnippet": "if (!camera.frustum.contains(obj)) continue;",
     "question": {
-      "en": "What optimization does this perform?",
-      "ar": "ما التحسين الذي يقوم به هذا؟"
+      "en": "What optimization does this perform?"
     },
     "options": [
       "Frustum culling",
@@ -415,8 +376,7 @@
     ],
     "answer": "Frustum culling",
     "explanation": {
-      "en": "Skipping objects outside the camera frustum avoids rendering what isn't visible.",
-      "ar": "تخطّي الكائنات خارج مجال رؤية الكاميرا يتجنّب رسم ما لا يُرى."
+      "en": "Skipping objects outside the camera frustum avoids rendering what isn't visible."
     }
   },
   {
@@ -425,8 +385,7 @@
     "difficulty": "medium",
     "codeSnippet": "if (input.wasPressedThisFrame('Fire')) shoot();",
     "question": {
-      "en": "What does wasPressedThisFrame detect?",
-      "ar": "ما الذي يكتشفه wasPressedThisFrame؟"
+      "en": "What does wasPressedThisFrame detect?"
     },
     "options": [
       "A key pressed on this specific frame",
@@ -436,8 +395,7 @@
     ],
     "answer": "A key pressed on this specific frame",
     "explanation": {
-      "en": "It fires once on the frame the key goes down, avoiding repeats while it is held.",
-      "ar": "يُطلق مرة واحدة في الإطار الذي يُضغط فيه المفتاح، متجنّبًا التكرار أثناء الاستمرار بالضغط."
+      "en": "It fires once on the frame the key goes down, avoiding repeats while it is held."
     }
   },
   {
@@ -446,8 +404,7 @@
     "difficulty": "hard",
     "codeSnippet": "rigidbody.applyImpulse(direction * force);",
     "question": {
-      "en": "What does applying an impulse do?",
-      "ar": "ماذا يفعل تطبيق الدفعة (impulse)؟"
+      "en": "What does applying an impulse do?"
     },
     "options": [
       "Instantly changes velocity",
@@ -457,8 +414,7 @@
     ],
     "answer": "Instantly changes velocity",
     "explanation": {
-      "en": "An impulse applies an immediate change in momentum, altering velocity at once.",
-      "ar": "الدفعة تطبّق تغيّرًا فوريًا في الزخم، فتُغيّر السرعة على الفور."
+      "en": "An impulse applies an immediate change in momentum, altering velocity at once."
     }
   },
   {
@@ -467,8 +423,7 @@
     "difficulty": "medium",
     "codeSnippet": "if (aabbOverlap(a, b)) resolve(a, b);",
     "question": {
-      "en": "What does AABB stand for?",
-      "ar": "ماذا يعني الاختصار AABB؟"
+      "en": "What does AABB stand for?"
     },
     "options": [
       "Axis-Aligned Bounding Box",
@@ -478,8 +433,7 @@
     ],
     "answer": "Axis-Aligned Bounding Box",
     "explanation": {
-      "en": "AABB collision uses rectangles aligned to the axes for fast overlap tests.",
-      "ar": "اصطدام AABB يستخدم مستطيلات محاذية للمحاور لاختبارات تداخل سريعة."
+      "en": "AABB collision uses rectangles aligned to the axes for fast overlap tests."
     }
   },
   {
@@ -488,8 +442,7 @@
     "difficulty": "medium",
     "codeSnippet": "enemy.state = 'chase';",
     "question": {
-      "en": "Which pattern manages behavior like this?",
-      "ar": "أي نمط يدير سلوكًا كهذا؟"
+      "en": "Which pattern manages behavior like this?"
     },
     "options": [
       "Finite state machine",
@@ -499,8 +452,7 @@
     ],
     "answer": "Finite state machine",
     "explanation": {
-      "en": "Switching between named states like patrol and chase is a finite state machine.",
-      "ar": "التبديل بين حالات مُسمّاة مثل الدورية والمطاردة هو آلة حالات منتهية."
+      "en": "Switching between named states like patrol and chase is a finite state machine."
     }
   },
   {
@@ -509,8 +461,7 @@
     "difficulty": "hard",
     "codeSnippet": "while (accumulator >= FIXED_DT) { step(FIXED_DT); accumulator -= FIXED_DT; }",
     "question": {
-      "en": "What does this loop implement?",
-      "ar": "ماذا تنفّذ هذه الحلقة؟"
+      "en": "What does this loop implement?"
     },
     "options": [
       "A fixed physics timestep",
@@ -520,8 +471,7 @@
     ],
     "answer": "A fixed physics timestep",
     "explanation": {
-      "en": "Accumulating time and stepping in fixed increments keeps physics deterministic.",
-      "ar": "تجميع الوقت والتقدّم بخطوات ثابتة يجعل الفيزياء حتمية ومتّسقة."
+      "en": "Accumulating time and stepping in fixed increments keeps physics deterministic."
     }
   },
   {
@@ -530,8 +480,7 @@
     "difficulty": "medium",
     "codeSnippet": "spriteBatch.draw(all);",
     "question": {
-      "en": "Why draw many sprites in a single batch?",
-      "ar": "لماذا نرسم عدّة sprites في دفعة واحدة؟"
+      "en": "Why draw many sprites in a single batch?"
     },
     "options": [
       "To reduce draw calls",
@@ -541,8 +490,7 @@
     ],
     "answer": "To reduce draw calls",
     "explanation": {
-      "en": "Batching sends geometry together, cutting expensive draw calls to the GPU.",
-      "ar": "التجميع يرسل الأشكال معًا، ما يقلّل استدعاءات الرسم المكلفة إلى المعالج الرسومي."
+      "en": "Batching sends geometry together, cutting expensive draw calls to the GPU."
     }
   },
   {
@@ -551,8 +499,7 @@
     "difficulty": "easy",
     "codeSnippet": "music.play({ loop: true });",
     "question": {
-      "en": "What does loop: true cause?",
-      "ar": "ماذا يسبّب loop: true؟"
+      "en": "What does loop: true cause?"
     },
     "options": [
       "The track repeats continuously",
@@ -562,8 +509,7 @@
     ],
     "answer": "The track repeats continuously",
     "explanation": {
-      "en": "Enabling loop restarts the track automatically when it ends.",
-      "ar": "تفعيل التكرار يعيد تشغيل المقطع تلقائيًا عند انتهائه."
+      "en": "Enabling loop restarts the track automatically when it ends."
     }
   },
   {
@@ -572,8 +518,7 @@
     "difficulty": "hard",
     "codeSnippet": "transform.rotation = Quaternion.Euler(0, 90, 0);",
     "question": {
-      "en": "What are quaternions commonly used for?",
-      "ar": "لأي شيء تُستخدم الـ quaternions عادةً؟"
+      "en": "What are quaternions commonly used for?"
     },
     "options": [
       "Representing 3D rotations",
@@ -583,8 +528,7 @@
     ],
     "answer": "Representing 3D rotations",
     "explanation": {
-      "en": "Quaternions represent rotations without the gimbal lock of Euler angles.",
-      "ar": "تمثّل الـ quaternions الدورانات دون مشكلة انغلاق المحاور التي تصيب زوايا أويلر."
+      "en": "Quaternions represent rotations without the gimbal lock of Euler angles."
     }
   },
   {
@@ -593,8 +537,7 @@
     "difficulty": "medium",
     "codeSnippet": "sword.setParent(hand);",
     "question": {
-      "en": "What is the effect of parenting the sword to the hand?",
-      "ar": "ما تأثير جعل السيف تابعًا لليد؟"
+      "en": "What is the effect of parenting the sword to the hand?"
     },
     "options": [
       "It follows the hand's transform",
@@ -604,8 +547,7 @@
     ],
     "answer": "It follows the hand's transform",
     "explanation": {
-      "en": "A child inherits its parent's position, rotation and scale in the scene graph.",
-      "ar": "يرث الابن موضع أبيه ودورانه وحجمه في الرسم البياني للمشهد."
+      "en": "A child inherits its parent's position, rotation and scale in the scene graph."
     }
   },
   {
@@ -614,8 +556,7 @@
     "difficulty": "medium",
     "codeSnippet": "emitter.emit(50);",
     "question": {
-      "en": "What does this call most likely create?",
-      "ar": "ما الذي ينشئه هذا الاستدعاء على الأرجح؟"
+      "en": "What does this call most likely create?"
     },
     "options": [
       "A burst of particles",
@@ -625,8 +566,7 @@
     ],
     "answer": "A burst of particles",
     "explanation": {
-      "en": "A particle emitter spawns many small particles for effects like sparks or smoke.",
-      "ar": "باعث الجسيمات يولّد جسيمات صغيرة كثيرة لتأثيرات مثل الشرر أو الدخان."
+      "en": "A particle emitter spawns many small particles for effects like sparks or smoke."
     }
   },
   {
@@ -635,8 +575,7 @@
     "difficulty": "hard",
     "codeSnippet": "applyInputLocally(input); sendToServer(input);",
     "question": {
-      "en": "What networking technique is this?",
-      "ar": "ما تقنية الشبكات هذه؟"
+      "en": "What networking technique is this?"
     },
     "options": [
       "Client-side prediction",
@@ -646,8 +585,7 @@
     ],
     "answer": "Client-side prediction",
     "explanation": {
-      "en": "Applying input locally before the server confirms hides latency from the player.",
-      "ar": "تطبيق الإدخال محليًا قبل تأكيد الخادم يخفي زمن التأخير عن اللاعب."
+      "en": "Applying input locally before the server confirms hides latency from the player."
     }
   },
   {
@@ -656,8 +594,7 @@
     "difficulty": "medium",
     "codeSnippet": "tilemap.setTile(3, 5, 'grass');",
     "question": {
-      "en": "What kind of level does a tilemap build?",
-      "ar": "أي نوع من المراحل تبنيه خريطة البلاط (tilemap)؟"
+      "en": "What kind of level does a tilemap build?"
     },
     "options": [
       "A grid of tiles",
@@ -667,8 +604,7 @@
     ],
     "answer": "A grid of tiles",
     "explanation": {
-      "en": "Tilemaps build 2D levels from a grid of reusable tile images.",
-      "ar": "خرائط البلاط تبني مراحل ثنائية الأبعاد من شبكة من صور البلاط القابلة لإعادة الاستخدام."
+      "en": "Tilemaps build 2D levels from a grid of reusable tile images."
     }
   },
   {
@@ -677,8 +613,7 @@
     "difficulty": "medium",
     "codeSnippet": "yield return new WaitForSeconds(2);",
     "question": {
-      "en": "What does this line do in a coroutine?",
-      "ar": "ماذا يفعل هذا السطر داخل coroutine؟"
+      "en": "What does this line do in a coroutine?"
     },
     "options": [
       "Pauses execution for 2 seconds",
@@ -688,8 +623,7 @@
     ],
     "answer": "Pauses execution for 2 seconds",
     "explanation": {
-      "en": "The coroutine suspends and resumes after the given delay.",
-      "ar": "يُعلّق الـ coroutine تنفيذه ثم يستأنف بعد التأخير المحدّد."
+      "en": "The coroutine suspends and resumes after the given delay."
     }
   },
   {
@@ -698,8 +632,7 @@
     "difficulty": "easy",
     "codeSnippet": "settings.vsync = true;",
     "question": {
-      "en": "What does enabling VSync help prevent?",
-      "ar": "ما الذي يساعد تفعيل VSync على منعه؟"
+      "en": "What does enabling VSync help prevent?"
     },
     "options": [
       "Screen tearing",
@@ -709,8 +642,7 @@
     ],
     "answer": "Screen tearing",
     "explanation": {
-      "en": "VSync synchronizes the frame-buffer swap with the display refresh to avoid tearing.",
-      "ar": "يزامن VSync تبديل مخزن الإطار مع تحديث الشاشة لتفادي تمزّق الصورة."
+      "en": "VSync synchronizes the frame-buffer swap with the display refresh to avoid tearing."
     }
   },
   {
@@ -719,8 +651,7 @@
     "difficulty": "easy",
     "codeSnippet": "velocity += gravity * dt;",
     "question": {
-      "en": "What does this line apply over time?",
-      "ar": "ماذا يطبّق هذا السطر عبر الزمن؟"
+      "en": "What does this line apply over time?"
     },
     "options": [
       "Gravity to the velocity",
@@ -730,8 +661,7 @@
     ],
     "answer": "Gravity to the velocity",
     "explanation": {
-      "en": "Accumulating gravity * dt integrates acceleration.",
-      "ar": "تجميع gravity * dt يكامل التسارع في السرعة."
+      "en": "Accumulating gravity * dt integrates acceleration."
     }
   },
   {
@@ -740,8 +670,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is a draw call?",
-      "ar": "ما نداء الرسم (draw call)؟"
+      "en": "What is a draw call?"
     },
     "options": [
       "A command telling the GPU to render geometry",
@@ -751,8 +680,7 @@
     ],
     "answer": "A command telling the GPU to render geometry",
     "explanation": {
-      "en": "Each draw call submits geometry to the GPU.",
-      "ar": "كل نداء رسم يرسل هندسة إلى وحدة الرسوميات."
+      "en": "Each draw call submits geometry to the GPU."
     }
   },
   {
@@ -761,8 +689,7 @@
     "difficulty": "easy",
     "codeSnippet": "float d = Vector2.Distance(a, b);",
     "question": {
-      "en": "What does this compute?",
-      "ar": "ماذا يحسب هذا؟"
+      "en": "What does this compute?"
     },
     "options": [
       "The distance between two points",
@@ -772,8 +699,7 @@
     ],
     "answer": "The distance between two points",
     "explanation": {
-      "en": "Vector2.Distance returns the length of a-b.",
-      "ar": "Vector2.Distance تعيد طول المتجه a-b."
+      "en": "Vector2.Distance returns the length of a-b."
     }
   },
   {
@@ -782,8 +708,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is a keyframe in animation?",
-      "ar": "ما الإطار المفتاحي في التحريك؟"
+      "en": "What is a keyframe in animation?"
     },
     "options": [
       "A defined pose at a specific time",
@@ -793,8 +718,7 @@
     ],
     "answer": "A defined pose at a specific time",
     "explanation": {
-      "en": "Keyframes mark poses the engine interpolates between.",
-      "ar": "الإطارات المفتاحية تحدّد أوضاعًا يُستوفى بينها."
+      "en": "Keyframes mark poses the engine interpolates between."
     }
   },
   {
@@ -803,8 +727,7 @@
     "difficulty": "easy",
     "codeSnippet": "if (Input.GetKeyDown(KeyCode.Space))",
     "question": {
-      "en": "What does GetKeyDown detect?",
-      "ar": "ماذا يكتشف GetKeyDown؟"
+      "en": "What does GetKeyDown detect?"
     },
     "options": [
       "A key pressed on this frame",
@@ -814,8 +737,7 @@
     ],
     "answer": "A key pressed on this frame",
     "explanation": {
-      "en": "GetKeyDown is true only on the press frame.",
-      "ar": "GetKeyDown صحيح فقط في إطار الضغط."
+      "en": "GetKeyDown is true only on the press frame."
     }
   },
   {
@@ -824,8 +746,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is object pooling?",
-      "ar": "ما تجميع الكائنات (object pooling)؟"
+      "en": "What is object pooling?"
     },
     "options": [
       "Reusing objects instead of constantly creating them",
@@ -835,8 +756,7 @@
     ],
     "answer": "Reusing objects instead of constantly creating them",
     "explanation": {
-      "en": "Pooling avoids costly instantiate/destroy churn.",
-      "ar": "يتجنّب التجميع تكلفة الإنشاء والحذف المتكررين."
+      "en": "Pooling avoids costly instantiate/destroy churn."
     }
   },
   {
@@ -845,8 +765,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is an AABB?",
-      "ar": "ما الـ AABB؟"
+      "en": "What is an AABB?"
     },
     "options": [
       "An axis-aligned bounding box",
@@ -856,8 +775,7 @@
     ],
     "answer": "An axis-aligned bounding box",
     "explanation": {
-      "en": "AABBs give fast, simple collision bounds.",
-      "ar": "توفّر AABB حدود تصادم سريعة وبسيطة."
+      "en": "AABBs give fast, simple collision bounds."
     }
   },
   {
@@ -866,8 +784,7 @@
     "difficulty": "easy",
     "codeSnippet": "health -= damage;",
     "question": {
-      "en": "What does this line do?",
-      "ar": "ماذا يفعل هذا السطر؟"
+      "en": "What does this line do?"
     },
     "options": [
       "Reduce health by the damage amount",
@@ -877,8 +794,7 @@
     ],
     "answer": "Reduce health by the damage amount",
     "explanation": {
-      "en": "It subtracts incoming damage from health.",
-      "ar": "يطرح الضرر الوارد من الصحة."
+      "en": "It subtracts incoming damage from health."
     }
   },
   {
@@ -887,8 +803,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "A finite state machine (FSM) controls what?",
-      "ar": "ماذا تتحكم آلة الحالات المنتهية (FSM)؟"
+      "en": "A finite state machine (FSM) controls what?"
     },
     "options": [
       "Behavior via discrete states and transitions",
@@ -898,8 +813,7 @@
     ],
     "answer": "Behavior via discrete states and transitions",
     "explanation": {
-      "en": "FSMs model entity behavior as states and transitions.",
-      "ar": "تمثّل FSM سلوك الكيان كحالات وانتقالات."
+      "en": "FSMs model entity behavior as states and transitions."
     }
   },
   {
@@ -908,8 +822,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is a shader?",
-      "ar": "ما المظلِّل (shader)؟"
+      "en": "What is a shader?"
     },
     "options": [
       "A program that runs on the GPU",
@@ -919,8 +832,7 @@
     ],
     "answer": "A program that runs on the GPU",
     "explanation": {
-      "en": "Shaders compute pixels/vertices on the GPU.",
-      "ar": "تحسب المظلِّلات البكسلات والرؤوس على وحدة الرسوميات."
+      "en": "Shaders compute pixels/vertices on the GPU."
     }
   },
   {
@@ -929,8 +841,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does deltaTime represent?",
-      "ar": "ماذا يمثّل deltaTime؟"
+      "en": "What does deltaTime represent?"
     },
     "options": [
       "Time elapsed since the last frame",
@@ -940,8 +851,7 @@
     ],
     "answer": "Time elapsed since the last frame",
     "explanation": {
-      "en": "deltaTime scales movement to be frame-rate independent.",
-      "ar": "يجعل deltaTime الحركة مستقلة عن معدل الإطارات."
+      "en": "deltaTime scales movement to be frame-rate independent."
     }
   },
   {
@@ -950,8 +860,7 @@
     "difficulty": "medium",
     "codeSnippet": "float y = Mathf.Lerp(a, b, t);",
     "question": {
-      "en": "What does Lerp do?",
-      "ar": "ماذا يفعل Lerp؟"
+      "en": "What does Lerp do?"
     },
     "options": [
       "Linearly interpolate between a and b",
@@ -961,8 +870,7 @@
     ],
     "answer": "Linearly interpolate between a and b",
     "explanation": {
-      "en": "Lerp blends a→b as t goes 0→1.",
-      "ar": "يمزج Lerp من a إلى b مع تغيّر t من 0 إلى 1."
+      "en": "Lerp blends a→b as t goes 0→1."
     }
   },
   {
@@ -971,8 +879,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What guides the A* search algorithm?",
-      "ar": "ما الذي يوجّه خوارزمية البحث *A؟"
+      "en": "What guides the A* search algorithm?"
     },
     "options": [
       "A heuristic estimate of remaining cost",
@@ -982,8 +889,7 @@
     ],
     "answer": "A heuristic estimate of remaining cost",
     "explanation": {
-      "en": "A* uses a heuristic to prioritize promising paths.",
-      "ar": "يستخدم *A تقديرًا إرشاديًا لتفضيل المسارات الواعدة."
+      "en": "A* uses a heuristic to prioritize promising paths."
     }
   },
   {
@@ -992,8 +898,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is client-side prediction?",
-      "ar": "ما التنبؤ من جهة العميل؟"
+      "en": "What is client-side prediction?"
     },
     "options": [
       "Simulating locally before the server confirms",
@@ -1003,8 +908,7 @@
     ],
     "answer": "Simulating locally before the server confirms",
     "explanation": {
-      "en": "Prediction hides latency until the server reconciles.",
-      "ar": "يخفي التنبؤ زمن الوصول حتى يوفّق الخادم."
+      "en": "Prediction hides latency until the server reconciles."
     }
   },
   {
@@ -1013,8 +917,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What is a prefab?",
-      "ar": "ما القالب الجاهز (prefab)؟"
+      "en": "What is a prefab?"
     },
     "options": [
       "A reusable, pre-configured game object",
@@ -1024,8 +927,7 @@
     ],
     "answer": "A reusable, pre-configured game object",
     "explanation": {
-      "en": "Prefabs let you reuse configured objects.",
-      "ar": "تتيح القوالب الجاهزة إعادة استخدام كائنات مهيّأة."
+      "en": "Prefabs let you reuse configured objects."
     }
   },
   {
@@ -1034,8 +936,7 @@
     "difficulty": "easy",
     "codeSnippet": "PlaySound(jumpSfx);",
     "question": {
-      "en": "What does this line most likely do?",
-      "ar": "ماذا يفعل هذا السطر على الأرجح؟"
+      "en": "What does this line most likely do?"
     },
     "options": [
       "Play a sound effect",
@@ -1045,8 +946,7 @@
     ],
     "answer": "Play a sound effect",
     "explanation": {
-      "en": "It triggers playback of the jump sound.",
-      "ar": "يشغّل صوت القفز."
+      "en": "It triggers playback of the jump sound."
     }
   },
   {
@@ -1055,8 +955,7 @@
     "difficulty": "easy",
     "codeSnippet": "if (Input.GetKeyDown(KeyCode.Space)) Jump();",
     "question": {
-      "en": "What does this line do?",
-      "ar": "ماذا يفعل هذا السطر؟"
+      "en": "What does this line do?"
     },
     "options": [
       "Jumps when the Space key is pressed",
@@ -1066,8 +965,7 @@
     ],
     "answer": "Jumps when the Space key is pressed",
     "explanation": {
-      "en": "GetKeyDown fires once on the frame the key goes down.",
-      "ar": "تُستدعى GetKeyDown مرة واحدة في الإطار الذي يُضغط فيه المفتاح."
+      "en": "GetKeyDown fires once on the frame the key goes down."
     }
   },
   {
@@ -1076,8 +974,7 @@
     "difficulty": "easy",
     "codeSnippet": "velocity.y += gravity * deltaTime;",
     "question": {
-      "en": "What is this line doing?",
-      "ar": "ماذا يفعل هذا السطر؟"
+      "en": "What is this line doing?"
     },
     "options": [
       "Applying gravity to vertical velocity",
@@ -1087,8 +984,7 @@
     ],
     "answer": "Applying gravity to vertical velocity",
     "explanation": {
-      "en": "Acceleration is integrated into velocity each frame.",
-      "ar": "يُدمج التسارع في السرعة كل إطار."
+      "en": "Acceleration is integrated into velocity each frame."
     }
   },
   {
@@ -1097,8 +993,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Why multiply movement by deltaTime?",
-      "ar": "لماذا نضرب الحركة في deltaTime؟"
+      "en": "Why multiply movement by deltaTime?"
     },
     "options": [
       "To make motion frame-rate independent",
@@ -1108,8 +1003,7 @@
     ],
     "answer": "To make motion frame-rate independent",
     "explanation": {
-      "en": "Scaling by elapsed time keeps speed equal on fast and slow machines.",
-      "ar": "القياس بالزمن المنقضي يوحّد السرعة على الأجهزة السريعة والبطيئة."
+      "en": "Scaling by elapsed time keeps speed equal on fast and slow machines."
     }
   },
   {
@@ -1118,8 +1012,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does culling do?",
-      "ar": "ماذا يفعل الاستبعاد (culling)؟"
+      "en": "What does culling do?"
     },
     "options": [
       "Skips rendering objects that cannot be seen",
@@ -1129,8 +1022,7 @@
     ],
     "answer": "Skips rendering objects that cannot be seen",
     "explanation": {
-      "en": "Off-screen and occluded geometry costs nothing if never submitted.",
-      "ar": "الأجسام خارج الشاشة أو المحجوبة لا تكلّف شيئًا إن لم تُرسل."
+      "en": "Off-screen and occluded geometry costs nothing if never submitted."
     }
   },
   {
@@ -1139,8 +1031,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Why pack sprites into a single atlas?",
-      "ar": "لماذا نجمع الرسوم في أطلس واحد؟"
+      "en": "Why pack sprites into a single atlas?"
     },
     "options": [
       "To cut draw calls by sharing one texture",
@@ -1150,8 +1041,7 @@
     ],
     "answer": "To cut draw calls by sharing one texture",
     "explanation": {
-      "en": "One bound texture lets many sprites render in a single batch.",
-      "ar": "ربط نسيج واحد يسمح برسم رسوم كثيرة في دفعة واحدة."
+      "en": "One bound texture lets many sprites render in a single batch."
     }
   },
   {
@@ -1160,8 +1050,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "Why compress textures for a shipped game?",
-      "ar": "لماذا نضغط الأنسجة في لعبة منشورة؟"
+      "en": "Why compress textures for a shipped game?"
     },
     "options": [
       "To cut memory use and bandwidth",
@@ -1171,8 +1060,7 @@
     ],
     "answer": "To cut memory use and bandwidth",
     "explanation": {
-      "en": "Compressed formats stay compressed in VRAM, not just on disk.",
-      "ar": "تبقى الصيغ المضغوطة مضغوطة في ذاكرة الرسوميات وليس على القرص فقط."
+      "en": "Compressed formats stay compressed in VRAM, not just on disk."
     }
   },
   {
@@ -1181,8 +1069,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What is a finite state machine used for in games?",
-      "ar": "لماذا تُستخدم آلة الحالات المنتهية في الألعاب؟"
+      "en": "What is a finite state machine used for in games?"
     },
     "options": [
       "Modelling discrete behaviour states and their transitions",
@@ -1192,8 +1079,7 @@
     ],
     "answer": "Modelling discrete behaviour states and their transitions",
     "explanation": {
-      "en": "Idle, patrol, chase and attack become explicit, testable states.",
-      "ar": "تصبح حالات السكون والدوريّة والمطاردة والهجوم صريحة وقابلة للاختبار."
+      "en": "Idle, patrol, chase and attack become explicit, testable states."
     }
   },
   {
@@ -1202,8 +1088,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does an entity-component-system separate?",
-      "ar": "ماذا يفصل نظام الكيان-المكوّن (ECS)؟"
+      "en": "What does an entity-component-system separate?"
     },
     "options": [
       "Data in components from behaviour in systems",
@@ -1213,8 +1098,7 @@
     ],
     "answer": "Data in components from behaviour in systems",
     "explanation": {
-      "en": "Composition over inheritance, with cache-friendly data layout.",
-      "ar": "التركيب بدل الوراثة، مع تخطيط بيانات ملائم للذاكرة المؤقتة."
+      "en": "Composition over inheritance, with cache-friendly data layout."
     }
   },
   {
@@ -1223,8 +1107,7 @@
     "difficulty": "easy",
     "codeSnippet": "health = Mathf.Clamp(health, 0, 100);",
     "question": {
-      "en": "What does this guarantee?",
-      "ar": "ماذا يضمن هذا؟"
+      "en": "What does this guarantee?"
     },
     "options": [
       "Health stays within 0 to 100",
@@ -1234,8 +1117,7 @@
     ],
     "answer": "Health stays within 0 to 100",
     "explanation": {
-      "en": "Clamp returns the value limited to the given range.",
-      "ar": "تُرجع Clamp القيمة محصورة داخل المدى المعطى."
+      "en": "Clamp returns the value limited to the given range."
     }
   },
   {
@@ -1244,8 +1126,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What is a HUD in a game?",
-      "ar": "ما هي واجهة العرض الأمامية (HUD) في اللعبة؟"
+      "en": "What is a HUD in a game?"
     },
     "options": [
       "An on-screen overlay showing status information",
@@ -1255,8 +1136,7 @@
     ],
     "answer": "An on-screen overlay showing status information",
     "explanation": {
-      "en": "Health, ammo and score are drawn over the world without blocking it.",
-      "ar": "تُرسم الصحة والذخيرة والنتيجة فوق العالم دون حجبه."
+      "en": "Health, ammo and score are drawn over the world without blocking it."
     }
   },
   {
@@ -1265,8 +1145,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What problem does input buffering solve?",
-      "ar": "أي مشكلة يحلّها تخزين المدخلات مؤقتًا؟"
+      "en": "What problem does input buffering solve?"
     },
     "options": [
       "A press made slightly too early still registers",
@@ -1276,8 +1155,7 @@
     ],
     "answer": "A press made slightly too early still registers",
     "explanation": {
-      "en": "The input is remembered for a few frames so the action still fires.",
-      "ar": "يُحفظ الإدخال لبضعة إطارات ليُنفَّذ الإجراء رغم توقيته المبكر."
+      "en": "The input is remembered for a few frames so the action still fires."
     }
   },
   {
@@ -1286,8 +1164,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does interpolating between keyframes produce?",
-      "ar": "ماذا يُنتج الاستيفاء بين الإطارات المفتاحية؟"
+      "en": "What does interpolating between keyframes produce?"
     },
     "options": [
       "Smooth in-between motion",
@@ -1297,8 +1174,7 @@
     ],
     "answer": "Smooth in-between motion",
     "explanation": {
-      "en": "The engine generates the frames between the authored poses.",
-      "ar": "يولّد المحرّك الإطارات بين الأوضاع المرسومة."
+      "en": "The engine generates the frames between the authored poses."
     }
   },
   {
@@ -1307,8 +1183,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What is a bounding box used for?",
-      "ar": "لماذا يُستخدم الصندوق المحيط؟"
+      "en": "What is a bounding box used for?"
     },
     "options": [
       "A cheap first-pass collision test",
@@ -1318,8 +1193,7 @@
     ],
     "answer": "A cheap first-pass collision test",
     "explanation": {
-      "en": "Only pairs whose boxes overlap need the expensive exact check.",
-      "ar": "الأزواج المتقاطعة صناديقها فقط تحتاج الاختبار الدقيق المكلف."
+      "en": "Only pairs whose boxes overlap need the expensive exact check."
     }
   },
   {
@@ -1328,8 +1202,7 @@
     "difficulty": "medium",
     "codeSnippet": "if (Vector2.Distance(a, b) < radius) Hit();",
     "question": {
-      "en": "What kind of check is this?",
-      "ar": "أي نوع من الفحص هذا؟"
+      "en": "What kind of check is this?"
     },
     "options": [
       "A circular proximity check",
@@ -1339,8 +1212,7 @@
     ],
     "answer": "A circular proximity check",
     "explanation": {
-      "en": "Comparing distance to a radius is a circle/sphere test.",
-      "ar": "مقارنة المسافة بنصف القطر اختبار دائرة أو كرة."
+      "en": "Comparing distance to a radius is a circle/sphere test."
     }
   },
   {
@@ -1349,8 +1221,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is serialization in a save system?",
-      "ar": "ما التسلسل في نظام الحفظ؟"
+      "en": "What is serialization in a save system?"
     },
     "options": [
       "Converting game state into a storable format",
@@ -1360,8 +1231,7 @@
     ],
     "answer": "Converting game state into a storable format",
     "explanation": {
-      "en": "The in-memory objects become bytes that can be written and reloaded.",
-      "ar": "تتحول الكائنات في الذاكرة إلى بايتات يمكن كتابتها وإعادة تحميلها."
+      "en": "The in-memory objects become bytes that can be written and reloaded."
     }
   },
   {
@@ -1370,8 +1240,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does the observer pattern help avoid?",
-      "ar": "ماذا يساعد نمط المراقب على تجنّبه؟"
+      "en": "What does the observer pattern help avoid?"
     },
     "options": [
       "Tight coupling between the emitter and its listeners",
@@ -1381,8 +1250,7 @@
     ],
     "answer": "Tight coupling between the emitter and its listeners",
     "explanation": {
-      "en": "The subject broadcasts an event without knowing who is listening.",
-      "ar": "يبثّ المصدر الحدث دون معرفة من يستمع إليه."
+      "en": "The subject broadcasts an event without knowing who is listening."
     }
   },
   {
@@ -1391,8 +1259,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "Why run physics on a fixed timestep?",
-      "ar": "لماذا نشغّل الفيزياء بخطوة زمنية ثابتة؟"
+      "en": "Why run physics on a fixed timestep?"
     },
     "options": [
       "To keep simulation results deterministic",
@@ -1402,8 +1269,7 @@
     ],
     "answer": "To keep simulation results deterministic",
     "explanation": {
-      "en": "Variable steps make the same inputs produce different outcomes.",
-      "ar": "الخطوات المتغيرة تجعل المدخلات ذاتها تنتج نتائج مختلفة."
+      "en": "Variable steps make the same inputs produce different outcomes."
     }
   },
   {
@@ -1412,8 +1278,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does normalizing a vector do?",
-      "ar": "ماذا يفعل تطبيع المتجه؟"
+      "en": "What does normalizing a vector do?"
     },
     "options": [
       "Keeps its direction and sets its length to 1",
@@ -1423,8 +1288,7 @@
     ],
     "answer": "Keeps its direction and sets its length to 1",
     "explanation": {
-      "en": "A unit vector expresses pure direction, which is what movement wants.",
-      "ar": "متجه الوحدة يعبّر عن الاتجاه فقط، وهو المطلوب للحركة."
+      "en": "A unit vector expresses pure direction, which is what movement wants."
     }
   },
   {
@@ -1433,8 +1297,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "For two unit vectors, what is the dot product?",
-      "ar": "لمتجهي وحدة، ما حاصل الضرب النقطي؟"
+      "en": "For two unit vectors, what is the dot product?"
     },
     "options": [
       "The cosine of the angle between them",
@@ -1444,8 +1307,7 @@
     ],
     "answer": "The cosine of the angle between them",
     "explanation": {
-      "en": "That makes it a cheap \"is it in front of me?\" test.",
-      "ar": "ما يجعله اختبارًا رخيصًا للسؤال: هل هو أمامي؟"
+      "en": "That makes it a cheap \"is it in front of me?\" test."
     }
   },
   {
@@ -1454,8 +1316,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does A* add over Dijkstra's algorithm?",
-      "ar": "ماذا يضيف A* على خوارزمية ديكسترا؟"
+      "en": "What does A* add over Dijkstra's algorithm?"
     },
     "options": [
       "A heuristic estimate of the remaining distance",
@@ -1465,8 +1326,7 @@
     ],
     "answer": "A heuristic estimate of the remaining distance",
     "explanation": {
-      "en": "The heuristic steers the search toward the goal, visiting fewer nodes.",
-      "ar": "يوجّه التقدير التقريبي البحث نحو الهدف فيزور عقدًا أقل."
+      "en": "The heuristic steers the search toward the goal, visiting fewer nodes."
     }
   },
   {
@@ -1475,8 +1335,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is object pooling for?",
-      "ar": "لماذا يُستخدم تجميع الكائنات (pooling)؟"
+      "en": "What is object pooling for?"
     },
     "options": [
       "Reusing objects instead of allocating new ones",
@@ -1486,8 +1345,7 @@
     ],
     "answer": "Reusing objects instead of allocating new ones",
     "explanation": {
-      "en": "Recycling bullets and particles avoids per-frame allocation and GC spikes.",
-      "ar": "إعادة تدوير الرصاص والجزيئات يمنع التخصيص المتكرر وقفزات جمع المهملات."
+      "en": "Recycling bullets and particles avoids per-frame allocation and GC spikes."
     }
   },
   {
@@ -1496,8 +1354,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What is a scene graph?",
-      "ar": "ما هو مخطط المشهد (scene graph)؟"
+      "en": "What is a scene graph?"
     },
     "options": [
       "A hierarchy of objects and their transforms",
@@ -1507,8 +1364,7 @@
     ],
     "answer": "A hierarchy of objects and their transforms",
     "explanation": {
-      "en": "A child's transform is relative to its parent's.",
-      "ar": "تحويل الابن نسبي إلى تحويل أبيه."
+      "en": "A child's transform is relative to its parent's."
     }
   },
   {
@@ -1517,8 +1373,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "What does client-side prediction hide?",
-      "ar": "ماذا يخفي التوقّع من جهة العميل؟"
+      "en": "What does client-side prediction hide?"
     },
     "options": [
       "Network latency",
@@ -1528,8 +1383,7 @@
     ],
     "answer": "Network latency",
     "explanation": {
-      "en": "The client simulates the move immediately and reconciles with the server later.",
-      "ar": "يحاكي العميل الحركة فورًا ثم يوفّقها مع الخادم لاحقًا."
+      "en": "The client simulates the move immediately and reconciles with the server later."
     }
   },
   {
@@ -1538,8 +1392,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does double buffering prevent?",
-      "ar": "ماذا يمنع التخزين المزدوج (double buffering)؟"
+      "en": "What does double buffering prevent?"
     },
     "options": [
       "Visible flicker while a frame is drawn",
@@ -1549,8 +1402,7 @@
     ],
     "answer": "Visible flicker while a frame is drawn",
     "explanation": {
-      "en": "Drawing to a hidden buffer, then swapping, avoids showing a half-drawn frame.",
-      "ar": "الرسم على مخزن مخفي ثم تبديله يمنع ظهور إطار نصف مرسوم."
+      "en": "Drawing to a hidden buffer, then swapping, avoids showing a half-drawn frame."
     }
   },
   {
@@ -1559,8 +1411,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What is a 'dead zone' on a controller stick?",
-      "ar": "ما \"المنطقة الميتة\" في عصا التحكم؟"
+      "en": "What is a 'dead zone' on a controller stick?"
     },
     "options": [
       "A small center range that is ignored",
@@ -1570,8 +1421,7 @@
     ],
     "answer": "A small center range that is ignored",
     "explanation": {
-      "en": "Tiny stick movements near center are ignored so the character does not drift.",
-      "ar": "تُتجاهل الحركات الصغيرة قرب المنتصف كي لا تنجرف الشخصية."
+      "en": "Tiny stick movements near center are ignored so the character does not drift."
     }
   },
   {
@@ -1580,8 +1430,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is a collision 'response'?",
-      "ar": "ما \"استجابة\" الاصطدام؟"
+      "en": "What is a collision 'response'?"
     },
     "options": [
       "Resolving the overlap after a hit is found",
@@ -1591,8 +1440,7 @@
     ],
     "answer": "Resolving the overlap after a hit is found",
     "explanation": {
-      "en": "Detection finds the overlap; the response pushes objects apart or applies forces.",
-      "ar": "الكشف يجد التداخل، والاستجابة تفصل الأجسام أو تطبّق قوى."
+      "en": "Detection finds the overlap; the response pushes objects apart or applies forces."
     }
   },
   {
@@ -1601,8 +1449,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does a navmesh describe?",
-      "ar": "ماذا يصف الـ navmesh؟"
+      "en": "What does a navmesh describe?"
     },
     "options": [
       "The walkable surfaces agents can path on",
@@ -1612,8 +1459,7 @@
     ],
     "answer": "The walkable surfaces agents can path on",
     "explanation": {
-      "en": "A navigation mesh marks where AI agents may move and find paths.",
-      "ar": "شبكة التنقّل تحدّد أين يستطيع عملاء الذكاء التحرك وإيجاد المسارات."
+      "en": "A navigation mesh marks where AI agents may move and find paths."
     }
   },
   {
@@ -1622,8 +1468,7 @@
     "difficulty": "hard",
     "codeSnippet": "",
     "question": {
-      "en": "What is 'level of detail' (LOD)?",
-      "ar": "ما مستوى التفصيل (LOD)؟"
+      "en": "What is 'level of detail' (LOD)?"
     },
     "options": [
       "Using simpler models for far objects",
@@ -1633,8 +1478,7 @@
     ],
     "answer": "Using simpler models for far objects",
     "explanation": {
-      "en": "Distant objects use low-poly meshes since detail isn't visible, saving GPU work.",
-      "ar": "الأجسام البعيدة تستخدم نماذج أبسط لأن التفاصيل لا تُرى، فيقلّ حمل الرسوميات."
+      "en": "Distant objects use low-poly meshes since detail isn't visible, saving GPU work."
     }
   },
   {
@@ -1643,8 +1487,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What does spatial (3D) audio give you?",
-      "ar": "ماذا يمنحك الصوت الفراغي (3D)؟"
+      "en": "What does spatial (3D) audio give you?"
     },
     "options": [
       "Sound that changes with source position",
@@ -1654,8 +1497,7 @@
     ],
     "answer": "Sound that changes with source position",
     "explanation": {
-      "en": "Volume and panning shift with where the source is relative to the listener.",
-      "ar": "يتغيّر الحجم والاتجاه حسب موقع المصدر بالنسبة للمستمع."
+      "en": "Volume and panning shift with where the source is relative to the listener."
     }
   },
   {
@@ -1664,8 +1506,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does a game's 'tick' refer to?",
-      "ar": "إلى ماذا يشير \"tick\" في اللعبة؟"
+      "en": "What does a game's 'tick' refer to?"
     },
     "options": [
       "One update step of the simulation",
@@ -1675,8 +1516,7 @@
     ],
     "answer": "One update step of the simulation",
     "explanation": {
-      "en": "A tick is one logic/physics update; it may differ from the render frame rate.",
-      "ar": "الـ tick خطوة تحديث منطق/فيزياء، وقد تختلف عن معدّل الرسم."
+      "en": "A tick is one logic/physics update; it may differ from the render frame rate."
     }
   },
   {
@@ -1685,8 +1525,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does clamping a value do?",
-      "ar": "ماذا يفعل حصر القيمة (clamp)؟"
+      "en": "What does clamping a value do?"
     },
     "options": [
       "Keeps it within a min and a max",
@@ -1696,8 +1535,7 @@
     ],
     "answer": "Keeps it within a min and a max",
     "explanation": {
-      "en": "Clamp forces a value to stay inside the given range.",
-      "ar": "يُبقي clamp القيمة داخل المدى المعطى."
+      "en": "Clamp forces a value to stay inside the given range."
     }
   },
   {
@@ -1706,8 +1544,7 @@
     "difficulty": "easy",
     "codeSnippet": "",
     "question": {
-      "en": "What is a texture's 'UV' coordinate?",
-      "ar": "ما إحداثية \"UV\" للنسيج؟"
+      "en": "What is a texture's 'UV' coordinate?"
     },
     "options": [
       "Where a vertex maps onto the image",
@@ -1717,8 +1554,7 @@
     ],
     "answer": "Where a vertex maps onto the image",
     "explanation": {
-      "en": "UVs say which part of the texture image maps to each point on the mesh.",
-      "ar": "تحدّد UV أي جزء من صورة النسيج يقابل كل نقطة على المجسم."
+      "en": "UVs say which part of the texture image maps to each point on the mesh."
     }
   },
   {
@@ -1727,8 +1563,7 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What is a 'hitscan' weapon?",
-      "ar": "ما سلاح \"hitscan\"؟"
+      "en": "What is a 'hitscan' weapon?"
     },
     "options": [
       "It hits instantly along a straight ray",
@@ -1738,8 +1573,7 @@
     ],
     "answer": "It hits instantly along a straight ray",
     "explanation": {
-      "en": "A ray is cast the moment you fire, so there is no projectile travel time.",
-      "ar": "يُطلق شعاع لحظة إطلاق النار، فلا يوجد زمن سفر لقذيفة."
+      "en": "A ray is cast the moment you fire, so there is no projectile travel time."
     }
   },
   {
@@ -1748,8 +1582,7 @@
     "difficulty": "easy",
     "codeSnippet": "transform.Translate(Vector3.forward * speed * Time.deltaTime);",
     "question": {
-      "en": "Why multiply by Time.deltaTime here?",
-      "ar": "لماذا الضرب في Time.deltaTime هنا؟"
+      "en": "Why multiply by Time.deltaTime here?"
     },
     "options": [
       "Make movement frame-rate independent",
@@ -1759,8 +1592,7 @@
     ],
     "answer": "Make movement frame-rate independent",
     "explanation": {
-      "en": "deltaTime scales motion by elapsed time so speed is consistent across frame rates.",
-      "ar": "deltaTime يضبط الحركة حسب الزمن المنقضي فتبقى السرعة ثابتة مهما اختلف معدل الإطارات."
+      "en": "deltaTime scales motion by elapsed time so speed is consistent across frame rates."
     }
   },
   {
@@ -1769,8 +1601,7 @@
     "difficulty": "medium",
     "codeSnippet": "rb.AddForce(Vector3.up * jump, ForceMode.Impulse);",
     "question": {
-      "en": "What does ForceMode.Impulse apply?",
-      "ar": "ماذا يطبّق ForceMode.Impulse؟"
+      "en": "What does ForceMode.Impulse apply?"
     },
     "options": [
       "An instant change in momentum",
@@ -1780,8 +1611,7 @@
     ],
     "answer": "An instant change in momentum",
     "explanation": {
-      "en": "Impulse applies the force instantly, ignoring mass-over-time, ideal for jumps.",
-      "ar": "Impulse يطبّق القوة فورًا متجاهلًا الزمن، وهو مثالي للقفز."
+      "en": "Impulse applies the force instantly, ignoring mass-over-time, ideal for jumps."
     }
   },
   {
@@ -1790,8 +1620,7 @@
     "difficulty": "medium",
     "codeSnippet": "// many identical trees drawn each frame",
     "question": {
-      "en": "Which technique best reduces draw calls for identical meshes?",
-      "ar": "أي تقنية تقلل نداءات الرسم لنماذج متطابقة؟"
+      "en": "Which technique best reduces draw calls for identical meshes?"
     },
     "options": [
       "GPU instancing of the mesh",
@@ -1801,8 +1630,7 @@
     ],
     "answer": "GPU instancing of the mesh",
     "explanation": {
-      "en": "Instancing draws many copies of one mesh in a single call.",
-      "ar": "التنفيذ المتعدد (instancing) يرسم نسخًا كثيرة من نموذج واحد بنداء واحد."
+      "en": "Instancing draws many copies of one mesh in a single call."
     }
   },
   {
@@ -1811,8 +1639,7 @@
     "difficulty": "easy",
     "codeSnippet": "void Update() { /* ... */ }",
     "question": {
-      "en": "How often does Unity call Update by default?",
-      "ar": "كم مرة يستدعي Unity الدالة Update افتراضيًا؟"
+      "en": "How often does Unity call Update by default?"
     },
     "options": [
       "Once per rendered frame",
@@ -1822,8 +1649,7 @@
     ],
     "answer": "Once per rendered frame",
     "explanation": {
-      "en": "Update runs each frame; FixedUpdate runs on the physics timestep.",
-      "ar": "Update يعمل كل إطار، بينما FixedUpdate يعمل على خطوة الفيزياء."
+      "en": "Update runs each frame; FixedUpdate runs on the physics timestep."
     }
   },
   {
@@ -1832,8 +1658,7 @@
     "difficulty": "medium",
     "codeSnippet": "void FixedUpdate() { rb.velocity = move; }",
     "question": {
-      "en": "Why put physics code in FixedUpdate?",
-      "ar": "لماذا يوضع كود الفيزياء في FixedUpdate؟"
+      "en": "Why put physics code in FixedUpdate?"
     },
     "options": [
       "It runs on a fixed timestep",
@@ -1843,8 +1668,7 @@
     ],
     "answer": "It runs on a fixed timestep",
     "explanation": {
-      "en": "FixedUpdate uses a constant interval, keeping physics stable and deterministic.",
-      "ar": "FixedUpdate يستخدم فترة ثابتة تحافظ على استقرار الفيزياء."
+      "en": "FixedUpdate uses a constant interval, keeping physics stable and deterministic."
     }
   },
   {
@@ -1853,8 +1677,7 @@
     "difficulty": "medium",
     "codeSnippet": "float d = Vector3.Dot(a.normalized, b.normalized);",
     "question": {
-      "en": "What does a dot product of normalized vectors give?",
-      "ar": "ماذا يعطي الجداء النقطي لمتجهين موحّدين؟"
+      "en": "What does a dot product of normalized vectors give?"
     },
     "options": [
       "The cosine of the angle between them",
@@ -1864,8 +1687,7 @@
     ],
     "answer": "The cosine of the angle between them",
     "explanation": {
-      "en": "For unit vectors the dot product equals cos(theta), useful for facing checks.",
-      "ar": "للمتجهات الموحّدة يساوي الجداء النقطي جيب تمام الزاوية، مفيد لفحص الاتجاه."
+      "en": "For unit vectors the dot product equals cos(theta), useful for facing checks."
     }
   },
   {
@@ -1874,8 +1696,7 @@
     "difficulty": "hard",
     "codeSnippet": "Vector3 n = Vector3.Cross(edge1, edge2);",
     "question": {
-      "en": "The cross product of two triangle edges yields what?",
-      "ar": "ماذا ينتج الجداء الاتجاهي لحافتي مثلث؟"
+      "en": "The cross product of two triangle edges yields what?"
     },
     "options": [
       "A vector normal to the surface",
@@ -1885,8 +1706,7 @@
     ],
     "answer": "A vector normal to the surface",
     "explanation": {
-      "en": "Cross gives a perpendicular vector; its direction is the surface normal.",
-      "ar": "الجداء الاتجاهي يعطي متجهًا عموديًا، واتجاهه هو عمودي السطح."
+      "en": "Cross gives a perpendicular vector; its direction is the surface normal."
     }
   },
   {
@@ -1895,8 +1715,7 @@
     "difficulty": "easy",
     "codeSnippet": "if (Input.GetKeyDown(KeyCode.Space)) Jump();",
     "question": {
-      "en": "When does GetKeyDown return true?",
-      "ar": "متى تُرجع GetKeyDown القيمة true؟"
+      "en": "When does GetKeyDown return true?"
     },
     "options": [
       "On the frame the key is pressed",
@@ -1906,8 +1725,7 @@
     ],
     "answer": "On the frame the key is pressed",
     "explanation": {
-      "en": "GetKeyDown is true only on the initial press frame; GetKey is true while held.",
-      "ar": "GetKeyDown تكون true في إطار الضغط الأول فقط، وGetKey أثناء الاستمرار."
+      "en": "GetKeyDown is true only on the initial press frame; GetKey is true while held."
     }
   },
   {
@@ -1916,8 +1734,7 @@
     "difficulty": "medium",
     "codeSnippet": "GameObject.Instantiate(bullet); // every shot",
     "question": {
-      "en": "What pattern avoids constant instantiate/destroy cost?",
-      "ar": "أي نمط يتجنب كلفة الإنشاء والحذف المستمرة؟"
+      "en": "What pattern avoids constant instantiate/destroy cost?"
     },
     "options": [
       "Object pooling of bullets",
@@ -1927,8 +1744,7 @@
     ],
     "answer": "Object pooling of bullets",
     "explanation": {
-      "en": "Pooling reuses inactive objects instead of allocating and freeing each time.",
-      "ar": "التجميع (pooling) يعيد استخدام الكائنات بدل تخصيصها وحذفها كل مرة."
+      "en": "Pooling reuses inactive objects instead of allocating and freeing each time."
     }
   },
   {
@@ -1937,8 +1753,7 @@
     "difficulty": "hard",
     "codeSnippet": "// object hidden behind the camera still processed",
     "question": {
-      "en": "What removes objects outside the camera view before drawing?",
-      "ar": "ما الذي يستبعد الكائنات خارج مجال الكاميرا قبل الرسم؟"
+      "en": "What removes objects outside the camera view before drawing?"
     },
     "options": [
       "Frustum culling of objects",
@@ -1948,8 +1763,7 @@
     ],
     "answer": "Frustum culling of objects",
     "explanation": {
-      "en": "Frustum culling skips rendering anything outside the camera frustum.",
-      "ar": "إقصاء الهرم (frustum culling) يتخطى رسم ما هو خارج مجال الكاميرا."
+      "en": "Frustum culling skips rendering anything outside the camera frustum."
     }
   },
   {
@@ -1958,8 +1772,7 @@
     "difficulty": "medium",
     "codeSnippet": "float t = Mathf.Lerp(a, b, 0.5f);",
     "question": {
-      "en": "What is the result of Lerp(a, b, 0.5)?",
-      "ar": "ما نتيجة Lerp(a, b, 0.5)؟"
+      "en": "What is the result of Lerp(a, b, 0.5)?"
     },
     "options": [
       "The midpoint between a and b",
@@ -1969,8 +1782,7 @@
     ],
     "answer": "The midpoint between a and b",
     "explanation": {
-      "en": "Linear interpolation at 0.5 returns the halfway value between a and b.",
-      "ar": "الاستيفاء الخطي عند 0.5 يعيد القيمة المنتصفة بين a وb."
+      "en": "Linear interpolation at 0.5 returns the halfway value between a and b."
     }
   },
   {
@@ -1979,8 +1791,7 @@
     "difficulty": "easy",
     "codeSnippet": "void OnCollisionEnter(Collision c) { }",
     "question": {
-      "en": "When is OnCollisionEnter invoked?",
-      "ar": "متى تُستدعى OnCollisionEnter؟"
+      "en": "When is OnCollisionEnter invoked?"
     },
     "options": [
       "When two colliders first touch",
@@ -1990,8 +1801,7 @@
     ],
     "answer": "When two colliders first touch",
     "explanation": {
-      "en": "It fires once at the start of a physical collision between colliders.",
-      "ar": "تُستدعى مرة عند بداية التصادم الفيزيائي بين المصادمات."
+      "en": "It fires once at the start of a physical collision between colliders."
     }
   },
   {
@@ -2000,8 +1810,7 @@
     "difficulty": "medium",
     "codeSnippet": "enum State { Idle, Run, Jump, Fall }",
     "question": {
-      "en": "This enum most likely drives which pattern?",
-      "ar": "هذا التعداد يقود على الأرجح أي نمط؟"
+      "en": "This enum most likely drives which pattern?"
     },
     "options": [
       "A finite state machine",
@@ -2011,8 +1820,7 @@
     ],
     "answer": "A finite state machine",
     "explanation": {
-      "en": "Discrete states like Idle/Run/Jump are the core of a state machine.",
-      "ar": "حالات منفصلة مثل Idle/Run/Jump هي جوهر آلة الحالات."
+      "en": "Discrete states like Idle/Run/Jump are the core of a state machine."
     }
   },
   {
@@ -2021,8 +1829,7 @@
     "difficulty": "hard",
     "codeSnippet": "Quaternion q = Quaternion.Slerp(from, to, t);",
     "question": {
-      "en": "Why use Slerp instead of Lerp for rotations?",
-      "ar": "لماذا نستخدم Slerp بدل Lerp للدوران؟"
+      "en": "Why use Slerp instead of Lerp for rotations?"
     },
     "options": [
       "It keeps constant angular speed",
@@ -2032,8 +1839,7 @@
     ],
     "answer": "It keeps constant angular speed",
     "explanation": {
-      "en": "Spherical interpolation rotates at a steady rate, avoiding wobble.",
-      "ar": "الاستيفاء الكروي يدور بمعدل ثابت ويتجنب الاهتزاز."
+      "en": "Spherical interpolation rotates at a steady rate, avoiding wobble."
     }
   },
   {
@@ -2042,8 +1848,7 @@
     "difficulty": "medium",
     "codeSnippet": "// UI text blurry on high-DPI screens",
     "question": {
-      "en": "Which asset stays sharp at any scale for icons?",
-      "ar": "أي أصل يبقى حادًا بأي حجم للأيقونات؟"
+      "en": "Which asset stays sharp at any scale for icons?"
     },
     "options": [
       "Vector or SDF graphics",
@@ -2053,8 +1858,7 @@
     ],
     "answer": "Vector or SDF graphics",
     "explanation": {
-      "en": "Vector/signed-distance-field art scales without pixelation.",
-      "ar": "الرسوم المتجهة أو SDF تتكبر دون تحبب."
+      "en": "Vector/signed-distance-field art scales without pixelation."
     }
   },
   {
@@ -2063,8 +1867,7 @@
     "difficulty": "easy",
     "codeSnippet": "Debug.Log(\"reached checkpoint\");",
     "question": {
-      "en": "What is Debug.Log mainly used for?",
-      "ar": "فيمَ تُستخدم Debug.Log أساسًا؟"
+      "en": "What is Debug.Log mainly used for?"
     },
     "options": [
       "Printing messages to the console",
@@ -2074,8 +1877,7 @@
     ],
     "answer": "Printing messages to the console",
     "explanation": {
-      "en": "It writes diagnostic text to the editor/player console.",
-      "ar": "تكتب نصًا تشخيصيًا إلى وحدة تحكم المحرر/اللاعب."
+      "en": "It writes diagnostic text to the editor/player console."
     }
   },
   {
@@ -2084,8 +1886,7 @@
     "difficulty": "hard",
     "codeSnippet": "for (int i=0;i<1000;i++) GetComponent<Rigidbody>();",
     "question": {
-      "en": "What is the main problem with this loop?",
-      "ar": "ما المشكلة الأساسية في هذه الحلقة؟"
+      "en": "What is the main problem with this loop?"
     },
     "options": [
       "Repeated component lookups are costly",
@@ -2095,8 +1896,7 @@
     ],
     "answer": "Repeated component lookups are costly",
     "explanation": {
-      "en": "Cache the reference once instead of calling GetComponent every iteration.",
-      "ar": "خزّن المرجع مرة واحدة بدل استدعاء GetComponent في كل تكرار."
+      "en": "Cache the reference once instead of calling GetComponent every iteration."
     }
   },
   {
@@ -2105,8 +1905,7 @@
     "difficulty": "easy",
     "codeSnippet": "audioSource.PlayOneShot(clip);",
     "question": {
-      "en": "What does PlayOneShot allow that Play does not?",
-      "ar": "ما الذي تتيحه PlayOneShot ولا تتيحه Play؟"
+      "en": "What does PlayOneShot allow that Play does not?"
     },
     "options": [
       "Overlapping multiple sounds at once",
@@ -2116,8 +1915,7 @@
     ],
     "answer": "Overlapping multiple sounds at once",
     "explanation": {
-      "en": "PlayOneShot mixes a clip without cutting the current one, so sounds overlap.",
-      "ar": "PlayOneShot تمزج مقطعًا دون قطع الحالي فتتراكب الأصوات."
+      "en": "PlayOneShot mixes a clip without cutting the current one, so sounds overlap."
     }
   },
   {
@@ -2126,8 +1924,7 @@
     "difficulty": "hard",
     "codeSnippet": "// player teleports when lag spikes",
     "question": {
-      "en": "Which technique hides latency by predicting local moves?",
-      "ar": "أي تقنية تخفي زمن الاستجابة بتوقع الحركة محليًا؟"
+      "en": "Which technique hides latency by predicting local moves?"
     },
     "options": [
       "Client-side prediction",
@@ -2137,8 +1934,7 @@
     ],
     "answer": "Client-side prediction",
     "explanation": {
-      "en": "The client predicts movement immediately and reconciles with the server later.",
-      "ar": "يتوقع العميل الحركة فورًا ثم يوفّق مع الخادم لاحقًا."
+      "en": "The client predicts movement immediately and reconciles with the server later."
     }
   },
   {
@@ -2147,8 +1943,7 @@
     "difficulty": "medium",
     "codeSnippet": "coroutine: yield return new WaitForSeconds(2f);",
     "question": {
-      "en": "What does this coroutine line do?",
-      "ar": "ماذا يفعل سطر الكوروتين هذا؟"
+      "en": "What does this coroutine line do?"
     },
     "options": [
       "Pause the routine for two seconds",
@@ -2158,8 +1953,7 @@
     ],
     "answer": "Pause the routine for two seconds",
     "explanation": {
-      "en": "The coroutine suspends and resumes after two seconds without blocking the game.",
-      "ar": "يعلّق الكوروتين ويستأنف بعد ثانيتين دون تجميد اللعبة."
+      "en": "The coroutine suspends and resumes after two seconds without blocking the game."
     }
   },
   {
@@ -2168,8 +1962,7 @@
     "difficulty": "easy",
     "codeSnippet": "float dist = Vector3.Distance(a, b);",
     "question": {
-      "en": "For many comparisons, what is a faster alternative?",
-      "ar": "لكثرة المقارنات، ما البديل الأسرع؟"
+      "en": "For many comparisons, what is a faster alternative?"
     },
     "options": [
       "Compare squared magnitudes",
@@ -2179,8 +1972,7 @@
     ],
     "answer": "Compare squared magnitudes",
     "explanation": {
-      "en": "sqrMagnitude avoids the costly square root when only ordering matters.",
-      "ar": "sqrMagnitude يتجنب الجذر التربيعي المكلف عند الحاجة للترتيب فقط."
+      "en": "sqrMagnitude avoids the costly square root when only ordering matters."
     }
   },
   {
@@ -2189,8 +1981,7 @@
     "difficulty": "medium",
     "codeSnippet": "material.SetFloat(\"_Metallic\", 1f);",
     "question": {
-      "en": "Which shading model uses metallic/roughness inputs?",
-      "ar": "أي نموذج تظليل يستخدم مدخلات معدنية/خشونة؟"
+      "en": "Which shading model uses metallic/roughness inputs?"
     },
     "options": [
       "Physically based rendering",
@@ -2200,8 +1991,7 @@
     ],
     "answer": "Physically based rendering",
     "explanation": {
-      "en": "PBR parameterizes surfaces with metallic and roughness for realistic light.",
-      "ar": "PBR يصف الأسطح بالمعدنية والخشونة لإضاءة واقعية."
+      "en": "PBR parameterizes surfaces with metallic and roughness for realistic light."
     }
   },
   {
@@ -2210,8 +2000,7 @@
     "difficulty": "hard",
     "codeSnippet": "// enemy chases player around walls",
     "question": {
-      "en": "Which algorithm finds a path around obstacles?",
-      "ar": "أي خوارزمية تجد مسارًا حول العوائق؟"
+      "en": "Which algorithm finds a path around obstacles?"
     },
     "options": [
       "A* pathfinding search",
@@ -2221,8 +2010,7 @@
     ],
     "answer": "A* pathfinding search",
     "explanation": {
-      "en": "A* searches a navigation graph using cost plus a heuristic to reach the goal.",
-      "ar": "A* يبحث في رسم التنقل مستخدمًا الكلفة مع تقدير للوصول للهدف."
+      "en": "A* searches a navigation graph using cost plus a heuristic to reach the goal."
     }
   },
   {
@@ -2231,8 +2019,7 @@
     "difficulty": "medium",
     "codeSnippet": "[SerializeField] private int lives = 3;",
     "question": {
-      "en": "Why use [SerializeField] on a private field?",
-      "ar": "لماذا نستخدم [SerializeField] على حقل خاص؟"
+      "en": "Why use [SerializeField] on a private field?"
     },
     "options": [
       "Expose it in the Inspector safely",
@@ -2242,8 +2029,7 @@
     ],
     "answer": "Expose it in the Inspector safely",
     "explanation": {
-      "en": "It lets the editor edit a private field without widening its code access.",
-      "ar": "يتيح للمحرر تعديل حقل خاص دون توسيع وصوله البرمجي."
+      "en": "It lets the editor edit a private field without widening its code access."
     }
   },
   {
@@ -2252,8 +2038,7 @@
     "difficulty": "hard",
     "codeSnippet": "// GC spikes cause frame hitches",
     "question": {
-      "en": "What commonly triggers garbage-collection hitches?",
-      "ar": "ما الذي يسبب عادةً تلعثم جمع المهملات؟"
+      "en": "What commonly triggers garbage-collection hitches?"
     },
     "options": [
       "Per-frame heap allocations",
@@ -2263,8 +2048,7 @@
     ],
     "answer": "Per-frame heap allocations",
     "explanation": {
-      "en": "Allocating managed memory every frame builds garbage that the GC must collect.",
-      "ar": "تخصيص ذاكرة مُدارة كل إطار يولّد مهملات يجب جمعها."
+      "en": "Allocating managed memory every frame builds garbage that the GC must collect."
     }
   },
   {
@@ -2273,8 +2057,7 @@
     "difficulty": "easy",
     "codeSnippet": "void OnTriggerEnter(Collider o) { }",
     "question": {
-      "en": "A collider marked 'Is Trigger' does what?",
-      "ar": "ماذا يفعل مصادم موسوم 'Is Trigger'؟"
+      "en": "A collider marked 'Is Trigger' does what?"
     },
     "options": [
       "Detects overlap without physical push",
@@ -2284,8 +2067,7 @@
     ],
     "answer": "Detects overlap without physical push",
     "explanation": {
-      "en": "Triggers report overlaps but do not produce collision response.",
-      "ar": "المشغلات تبلّغ عن التداخل دون استجابة تصادم فيزيائية."
+      "en": "Triggers report overlaps but do not produce collision response."
     }
   },
   {
@@ -2294,8 +2076,7 @@
     "difficulty": "medium",
     "codeSnippet": "// 2D sprites sort incorrectly",
     "question": {
-      "en": "What usually controls 2D sprite draw order?",
-      "ar": "ما الذي يتحكم عادةً بترتيب رسم الأشكال ثنائية الأبعاد؟"
+      "en": "What usually controls 2D sprite draw order?"
     },
     "options": [
       "Sorting layer and order",
@@ -2305,8 +2086,7 @@
     ],
     "answer": "Sorting layer and order",
     "explanation": {
-      "en": "Sprite renderers sort by sorting layer, then order-in-layer.",
-      "ar": "تُرتَّب الأشكال حسب طبقة الفرز ثم الترتيب داخلها."
+      "en": "Sprite renderers sort by sorting layer, then order-in-layer."
     }
   },
   {
@@ -2315,8 +2095,7 @@
     "difficulty": "medium",
     "codeSnippet": "angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;",
     "question": {
-      "en": "What does Atan2 compute here?",
-      "ar": "ماذا تحسب Atan2 هنا؟"
+      "en": "What does Atan2 compute here?"
     },
     "options": [
       "The heading angle of a vector",
@@ -2326,8 +2105,7 @@
     ],
     "answer": "The heading angle of a vector",
     "explanation": {
-      "en": "Atan2(y, x) returns the direction angle, handling all quadrants.",
-      "ar": "Atan2(y, x) تعيد زاوية الاتجاه مع مراعاة كل الأرباع."
+      "en": "Atan2(y, x) returns the direction angle, handling all quadrants."
     }
   },
   {
@@ -2336,8 +2114,7 @@
     "difficulty": "easy",
     "codeSnippet": "// build ships with 4K textures everywhere",
     "question": {
-      "en": "Which setting most reduces GPU memory use here?",
-      "ar": "أي إعداد يقلل استهلاك ذاكرة الرسوميات هنا؟"
+      "en": "Which setting most reduces GPU memory use here?"
     },
     "options": [
       "Lower texture import size",
@@ -2347,8 +2124,7 @@
     ],
     "answer": "Lower texture import size",
     "explanation": {
-      "en": "Reducing max texture size cuts VRAM usage substantially.",
-      "ar": "خفض الحجم الأقصى للنسيج يقلل استهلاك ذاكرة الرسوميات كثيرًا."
+      "en": "Reducing max texture size cuts VRAM usage substantially."
     }
   },
   {
@@ -2357,8 +2133,7 @@
     "difficulty": "medium",
     "codeSnippet": "Physics.Raycast(origin, dir, out hit, range);",
     "question": {
-      "en": "What does a raycast primarily do?",
-      "ar": "ماذا يفعل الشعاع (raycast) أساسًا؟"
+      "en": "What does a raycast primarily do?"
     },
     "options": [
       "Test what a ray hits first",
@@ -2368,8 +2143,7 @@
     ],
     "answer": "Test what a ray hits first",
     "explanation": {
-      "en": "A raycast reports the first collider a ray intersects, used for aiming and detection.",
-      "ar": "يبلّغ الشعاع عن أول مصادم يقطعه، ويُستخدم للتصويب والكشف."
+      "en": "A raycast reports the first collider a ray intersects, used for aiming and detection."
     }
   }
 ]
