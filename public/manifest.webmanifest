@@ -1,7 +1,7 @@
 {
   "name": "Guess the Language",
   "short_name": "GTL",
-  "description": "A bilingual (EN / AR) programming & IT quiz game — guess the language, beat the timer, and play with friends.",
+  "description": "A programming & IT quiz game — guess the language, beat the timer, and play with friends.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
