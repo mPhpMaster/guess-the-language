@@ -11,25 +11,75 @@
   font-display: swap;
 }
 
+/* ============================================================
+   Terminal / IDE design system (v3.15.0)
+
+   The old names below are KEPT and repointed at the new palette on purpose.
+   ~258 selectors across this file reference them, so repointing retones every
+   component — admin panel, player cards, dialogs — coherently, instead of
+   leaving half the app on the old blue-neon theme.
+
+   Fonts pair a webfont with a real system fallback: Discord's iframe CSP is
+   stricter than ours, so inside an Activity the Google Fonts may not load.
+   ============================================================ */
 :root {
-  --bg-0: #07111e;
-  --bg-1: #0b1a2b;
-  --bg-2: #102a44;
-  --panel: #0d1f33;
-  --panel-2: #11283f;
-  --text: #eaf2ff;
-  --muted: #9fb4cc;
-  --neon: #2ec5ff;
-  --neon-2: #19f0c4;
-  --gold-1: #ffd874;
-  --gold-2: #d9a536;
+  /* ---- surfaces, darkest to lightest ---- */
+  --bg-0: #06070a;          /* canvas behind the app frame */
+  --bg-1: #0b0d0c;          /* app background */
+  --bg-2: #0f1211;          /* title bar, side rail, HUD strip */
+  --panel: #111514;         /* cards, dialogs, option buttons */
+  --panel-2: #131716;       /* selected row */
+  --code-bg: #0d100f;       /* code panel */
+  --gutter-bg: #0f1312;     /* line-number gutter */
+
+  /* ---- text, brightest to dimmest ---- */
+  --text: #f2f6f3;
+  --body: #dfe5e0;
+  --muted: #c3ccc7;
+  --dim: #8a9490;
+  --dimmer: #6b736f;
+  --dimmest: #5f6864;
+  --line-num: #3f4644;
+
+  /* ---- one accent, used sparingly ---- */
+  --neon: #6ee7a0;          /* the accent (old name, kept) */
+  --neon-2: #9df3c1;
+  --accent-ink: #08120c;    /* text ON the accent */
+  --accent-soft: #12211a;   /* selected option fill */
+  --accent-text: #c6f5d8;
+  --accent-line: #6ee7a044;
+
+  /* ---- status ---- */
+  --good: #6ee7a0;
+  --warn: #e9c46a;
+  --bad: #e88a9a;
+  --bad-text: #f2c2c9;
+  --bad-bg: #1a1112;
+  --bad-line: #e88a9a44;
+
+  /* ---- podium ---- */
+  --gold-1: #e9c46a;
+  --gold-2: #8a7a5e;
   --silver-1: #e7edf5;
   --silver-2: #aab8c8;
-  --bronze-1: #e8a86b;
-  --bronze-2: #b9702f;
-  --good: #25d07d;
-  --bad: #ff5470;
-  --radius: 16px;
+  --bronze-1: #d9a06b;
+  --bronze-2: #8a7a5e;
+
+  /* ---- hairlines (alpha over the dark ground) ---- */
+  --line: #ffffff0e;
+  --line-2: #ffffff10;
+  --line-3: #ffffff14;
+  --line-4: #ffffff1a;
+  --line-5: #ffffff1e;
+
+  /* ---- type ---- */
+  --font-sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Code", "Consolas", monospace;
+  --font-code: "JetBrains Mono", "IBM Plex Mono", ui-monospace, "Cascadia Code", "Consolas", monospace;
+
+  /* Corners are tight in this direction — 16px read as "app", 6px reads as IDE. */
+  --radius: 6px;
+  --radius-lg: 8px;
   --tb-h: 38px;
 }
 
@@ -37,10 +87,11 @@
 
 html, body {
   min-height: 100%;
-  font-family: "Plus Jakarta Sans", "Segoe UI", "Tahoma", system-ui, sans-serif;
-  color: var(--text);
-  background: radial-gradient(circle at top, rgba(48, 150, 255, 0.16), transparent 28%),
-              linear-gradient(180deg, #07111e 0%, #091b30 45%, #081823 100%);
+  font-family: var(--font-sans);
+  color: var(--body);
+  /* Flat, not gradient. The IDE direction wants a calm ground so the code panel
+     is the only thing that glows. */
+  background: var(--bg-1);
   overflow: hidden;
 }
 
@@ -298,16 +349,15 @@ html.platform-discord .lobby-code {
   align-items: center;
   justify-content: center;
 }
+/* Home fills the frame edge to edge — the rail must reach the window edge, so
+   no padding here and no centred max-width column. */
 #screen-home {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  height: 100vh;
-  text-align: center;
-  overflow-y: hidden;
-  padding: clamp(12px, 1.5vw, 18px);
+  display: block;
+  min-height: 100%;
+  height: 100%;
+  text-align: left;
+  overflow: hidden;
+  padding: 0;
   background: transparent;
   border: none;
   border-radius: 0;
@@ -315,40 +365,8 @@ html.platform-discord .lobby-code {
   width: 100%;
   max-width: 100%;
 }
-#screen-home .mode-grid {
-  gap: 20px;
-}
-#screen-home .mode-card {
-  min-height: 120px;
-  padding: 14px 12px;
-}
-#screen-home .home-actions {
-  gap: 12px;
-}
-#screen-home .home-actions-row {
-  gap: 6px;
-}
-.home-title {
-  text-align: center;
-  margin-bottom: 10px;
-  font-size: clamp(2rem, 5vw, 4rem);
-}
-.home-title .neon {
-  color: #00d4ff;
-  text-shadow: 0 0 10px #00d4ff;
-}
-.home-sub {
-  text-align: center;
-  opacity: 0.8;
-  margin-bottom: 30px;
-}
-#mode-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  max-width: 1000px;
-  width: 100%;
-  gap: 20px;
-}
+#screen-home .home-actions { gap: 10px; }
+#screen-home .home-actions-row { gap: 8px; }
 .home-actions {
   display: flex;
   flex-direction: column;
@@ -951,46 +969,134 @@ button.opt-btn {
 /* ===================== Mode select screen ===================== */
 .modeselect-card { position: relative; width: min(960px, 100%); max-width: 960px; text-align: center; padding: 28px; }
 .ms-title { font-size: 30px; margin-bottom: 20px; }
+/* The mode picker is a numbered list, not a card grid: it reads as a file tree
+   and lets seven modes fit without scrolling. Selection is a 2px accent rule on
+   the leading edge, so nothing moves when it changes. */
 .mode-grid {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
   width: 100%;
-  max-width: 1000px;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  margin: 0 auto;
+  max-width: 560px;
 }
 .mode-card {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 180px;
-  background: rgba(12, 26, 42, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 24px;
-  padding: 26px 20px;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  padding: 14px 18px;
+  border: 0;
+  border-left: 2px solid transparent;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--muted);
   cursor: pointer;
-  color: var(--text);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  transition: background .15s ease, color .15s ease;
 }
-.mode-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+.mode-card:hover { background: var(--panel); color: var(--text); }
+.mode-card.selected {
+  background: var(--panel-2);
+  border-left-color: var(--neon);
 }
-.mode-card-cyber:hover { border-color: rgba(25, 240, 196, 0.28); }
-.mode-card-devops:hover { border-color: rgba(177, 140, 255, 0.28); }
-.mode-card-network:hover { border-color: rgba(95, 208, 255, 0.28); }
-.mode-card-gamedev:hover { border-color: rgba(255, 64, 129, 0.28); }
-.mode-card-algo:hover { border-color: rgba(46, 197, 255, 0.28); }
-.mode-card-all:hover { border-color: rgba(255, 216, 116, 0.28); }
-.mode-icon { font-size: 48px; margin-bottom: 14px; }
-.mode-name { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-.mode-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.mode-index {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  width: 26px;
+  flex: 0 0 auto;
+  color: var(--dimmest);
+}
+.mode-name { flex: 1; font-size: 17px; font-weight: 500; }
+.mode-count { font-family: var(--font-mono); font-size: 12px; color: var(--dimmest); }
+.mode-card.selected .mode-index,
+.mode-card.selected .mode-count { color: var(--neon); }
+.mode-card.selected .mode-name { font-weight: 600; color: var(--text); }
+.mode-icon { display: none; }   /* the emoji tiles are gone in this direction */
+
+/* ---------- Home layout: content + right rail ---------- */
+.home-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+.home-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+  min-height: 0;
+  padding: 0 clamp(24px, 6vw, 88px);
+  overflow-y: auto;
+}
+.home-hero { display: flex; flex-direction: column; gap: 14px; }
+.home-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--neon);
+}
+.home-eyebrow:empty { display: none; }
+.home-title {
+  margin: 0;
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: clamp(30px, 3.6vw, 46px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+}
+.home-title .neon { color: var(--text); text-shadow: none; }
+/* Blinking block caret — the one piece of motion on this screen. */
+.home-title .caret {
+  display: inline-block;
+  width: .5em;
+  height: .95em;
+  margin-left: 8px;
+  background: var(--neon);
+  vertical-align: -.14em;
+  animation: caret-blink 1.1s step-end infinite;
+}
+@keyframes caret-blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+.home-sub {
+  text-align: left;
+  margin: 0;
+  opacity: 1;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--dim);
+  max-width: 430px;
+}
+.home-rail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+  min-height: 0;
+  padding: 0 40px;
+  background: var(--bg-2);
+  border-left: 1px solid var(--line);
+  overflow-y: auto;
+}
+.home-rail-divider { height: 1px; background: var(--line); flex: 0 0 auto; }
+.home-rail-links { flex-wrap: wrap; gap: 8px; }
+.home-rail-links .btn { flex: 0 0 auto; }
+
 @media (max-width: 900px) {
-  .mode-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-}
-@media (max-width: 720px) {
-  .mode-grid { grid-template-columns: 1fr; gap: 12px; }
+  .home-layout { grid-template-columns: 1fr; height: auto; }
+  .home-main { padding: 0; overflow: visible; gap: 28px; }
+  .home-rail {
+    padding: 22px 0 0;
+    background: transparent;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    overflow: visible;
+  }
+  .mode-grid { max-width: none; }
+  .home-title { text-align: left; }
 }
 
 /* ===================== Responsive window scaling ===================== */
@@ -2016,3 +2122,701 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
 }
 .player-card-admin.hidden { display: none; }
 .player-card-admin .pca-label { font-size: 12px; font-weight: 800; color: #ffcf9a; margin-inline-end: 2px; }
+
+/* ============================================================
+   Terminal / IDE — components
+   Defined last so they settle the duplicate .btn-primary / .btn-ghost rules
+   left over from earlier passes, which still carried hardcoded blues.
+   ============================================================ */
+
+/* ---------- Buttons ---------- */
+.btn {
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 18px;
+  border-radius: var(--radius);
+  color: var(--body);
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+.btn-primary,
+.btn-accent {
+  background: var(--neon);
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  border: none;
+  border-radius: var(--radius);
+  padding: 15px 22px;
+  box-shadow: none;
+  flex: 0 0 auto;
+}
+.btn-primary:hover:not(:disabled),
+.btn-accent:hover:not(:disabled) { background: var(--neon-2); transform: none; }
+.btn-primary:disabled, .btn-accent:disabled { opacity: .45; cursor: not-allowed; }
+.btn-ghost,
+.btn-daily,
+.btn-discord {
+  background: transparent;
+  border: 1px solid var(--line-3);
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  flex: 0 0 auto;
+}
+.btn-ghost:hover:not(:disabled),
+.btn-daily:hover:not(:disabled),
+.btn-discord:hover:not(:disabled) { border-color: var(--accent-line); color: var(--text); }
+.btn-ghost:disabled, .btn-daily:disabled { opacity: .45; cursor: not-allowed; }
+.btn-sm { padding: 8px 14px; font-size: 13px; }
+.btn-daily { display: flex; align-items: center; justify-content: space-between; }
+.text-btn { background: none; border: 0; color: var(--neon); cursor: pointer; font-size: 13px; }
+
+/* ---------- Home rail ---------- */
+.home-profile {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+.home-profile-avatar {
+  width: 34px; height: 34px; border-radius: 50%; object-fit: cover;
+  background: #1c2220; border: 1px solid var(--accent-line); flex: 0 0 auto;
+}
+.home-profile-meta { display: flex; flex-direction: column; min-width: 0; }
+.home-profile-name { font-size: 14px; font-weight: 600; color: var(--text); }
+.home-profile-sub { font-family: var(--font-mono); font-size: 11px; color: var(--neon); }
+.home-actions { align-items: stretch; max-width: none; margin-top: 0; }
+.home-actions-row { display: flex; }
+.home-actions-row .btn { flex: 1 1 0; }
+.menu-highscore {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--dimmer);
+}
+.menu-highscore strong { color: var(--text); font-size: 12px; font-weight: 500; }
+
+/* ---------- Dialogs ---------- */
+.popover, .modal-card, .admin-box {
+  background: var(--panel);
+  border: 1px solid var(--line-4);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 30px 70px #000a;
+}
+.popover { padding: 30px 32px; }
+.setting-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 0; border-bottom: 1px solid var(--line);
+  font-size: 14px; color: var(--body);
+}
+.popover h3, .modal-card h3 { font-size: 18px; font-weight: 600; color: var(--text); }
+.dialog-description { font-size: 13px; color: var(--dim); margin-bottom: 20px; }
+.popover input[type="text"], .popover select, .modal-card input, .modal-card select,
+.popover input[type="password"] {
+  background: var(--code-bg);
+  border: 1px solid var(--line-5);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  padding: 7px 10px;
+}
+
+/* ---------- Game: HUD strip ---------- */
+.game-topbar {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 0;
+  padding: 0;
+  background: var(--bg-2);
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  font-family: var(--font-mono);
+}
+.topbar-left, .topbar-right { display: flex; align-items: center; gap: 0; }
+.topbar-right { gap: 14px; padding: 0 18px; }
+.score-pill, .correct-pill, .streak-pill {
+  display: flex; flex-direction: column; gap: 3px;
+  padding: 14px 22px;
+  border: 0;
+  border-right: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.score-pill > span:first-child,
+.correct-pill > span:first-child,
+.streak-pill > span:first-child {
+  font-size: 10px; font-weight: 400; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--dimmer);
+}
+.correct-pill { color: var(--neon); }
+.streak-pill { color: var(--warn); }
+.progress-pill {
+  background: transparent; border: 0; padding: 0;
+  font-size: 12px; color: var(--dimmer); font-family: var(--font-mono);
+}
+.lifeline-btn {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid var(--accent-line);
+  border-radius: 4px;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--neon);
+  cursor: pointer;
+}
+.lifeline-count { color: var(--text); }
+.end-btn {
+  padding: 8px 14px; border: 1px solid var(--line-3); border-radius: 4px;
+  background: transparent; font-family: var(--font-mono); font-size: 12px;
+  color: #e39a9a; cursor: pointer;
+}
+
+/* Linear run-bar under the HUD replaces the old countdown ring. */
+.timer-bar { flex: 0 0 auto; height: 3px; background: #171b1a; }
+.timer-bar-fill {
+  height: 100%; width: 100%;
+  background: var(--neon);
+  box-shadow: 0 0 12px var(--accent-line);
+  transition: width .25s linear;
+}
+.timer-bar-fill.warn { background: var(--warn); box-shadow: none; }
+.timer-bar-fill.danger { background: var(--bad); box-shadow: none; }
+.timer-ring svg { display: none; }
+.timer-ring {
+  position: static; width: auto; height: auto;
+  display: flex; align-items: center;
+}
+.timer-num {
+  position: static; transform: none;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  color: var(--dimmer);
+}
+.timer-num::after { content: "s"; }
+
+/* ---------- Game: code panel ---------- */
+.code-wrap { flex: 1 1 auto; min-width: 0; width: 100%; max-width: 920px; }
+.code-header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 0;
+  padding: 0 14px;
+  background: var(--panel);
+  border: 1px solid var(--line-2);
+  border-bottom: none;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.code-header .dot { display: none; }
+.code-tab {
+  padding: 11px 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text);
+  border-bottom: 1px solid var(--neon);
+}
+.code-header-right { display: flex; align-items: center; gap: 14px; font-family: var(--font-mono); font-size: 11px; }
+.code-difficulty {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em;
+  text-transform: uppercase; background: none; border: 0; padding: 0;
+  color: var(--warn);
+}
+.code-difficulty[data-diff="easy"] { color: var(--neon); }
+.code-difficulty[data-diff="hard"] { color: var(--bad); }
+.code-panel {
+  display: flex;
+  margin: 0;
+  background: var(--code-bg);
+  border: 1px solid var(--line-2);
+  border-radius: 0 0 var(--radius) var(--radius);
+  overflow: hidden;
+  font-family: var(--font-code);
+  font-size: clamp(15px, 1.3vw, 19px);
+  line-height: 1.75;
+}
+.code-gutter {
+  flex: 0 0 auto;
+  padding: 26px 14px;
+  text-align: right;
+  font-family: var(--font-code);
+  font-size: inherit;
+  line-height: 1.75;
+  color: var(--line-num);
+  background: var(--gutter-bg);
+  border-right: 1px solid var(--line);
+  user-select: none;
+}
+.code-panel code {
+  display: block;
+  padding: 26px 28px;
+  white-space: pre;
+  flex: 1;
+  overflow: auto;
+}
+.code-panel.as-text code { white-space: pre-wrap; }
+.code-panel.as-text .code-gutter { display: none; }
+
+/* Syntax palette pinned to the design's snippet colours. */
+.tok-keyword { color: #ff8fc0; }
+.tok-func    { color: #7fd6ff; }
+.tok-string  { color: #a8e6a3; }
+.tok-number  { color: #e9c46a; }
+.tok-comment { color: #4d5654; font-style: italic; }
+.tok-punct   { color: var(--dimmer); }
+
+/* ---------- Game: question + options ---------- */
+.question-text {
+  width: 100%; max-width: 920px;
+  font-size: 22px; font-weight: 600; color: var(--text);
+  text-align: left; margin: 0;
+}
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 920px;
+}
+.lang-btn, .opt-btn {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 18px;
+  min-height: 56px;
+  border: 1px solid var(--line-3);
+  border-radius: var(--radius);
+  background: var(--panel);
+  color: var(--body);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color .15s ease, background .15s ease;
+  box-shadow: none;
+}
+.lang-btn:hover:not(:disabled), .opt-btn:hover:not(:disabled) {
+  transform: none; box-shadow: none; border-color: var(--accent-line);
+}
+.opt-key, .opt-badge {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--dimmer);
+  background: #1b201f;
+  border-radius: 3px;
+  padding: 3px 7px;
+  flex: 0 0 auto;
+  width: auto; height: auto;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.lang-icon { display: none; }
+.lang-name, .opt-text { flex: 1; }
+.lang-btn.selected, .opt-btn.selected,
+.lang-btn.mp-selected, .opt-btn.mp-selected {
+  border-color: var(--neon);
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 1px var(--accent-line);
+  color: var(--accent-text);
+}
+.lang-btn.selected .opt-key, .opt-btn.selected .opt-badge,
+.lang-btn.correct .opt-key, .opt-btn.correct .opt-badge {
+  background: var(--neon); color: var(--accent-ink); font-weight: 700;
+}
+.lang-btn.correct, .opt-btn.correct {
+  border-color: var(--neon);
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  box-shadow: none;
+}
+.lang-btn.wrong, .opt-btn.wrong {
+  border-color: var(--bad);
+  background: #1c1213;
+  color: var(--bad-text);
+  box-shadow: none;
+}
+.lang-btn:disabled, .opt-btn:disabled { cursor: default; opacity: 1; }
+.lang-btn:disabled:not(.correct):not(.wrong),
+.opt-btn:disabled:not(.correct):not(.wrong) {
+  background: #0e1110; border-color: var(--line-2); color: var(--dimmer); opacity: .6;
+}
+.lang-btn.eliminated, .opt-btn.eliminated { opacity: .28; }
+
+/* ---------- Game: feedback ---------- */
+/* Static, not the old absolutely-positioned overlay: the design puts this
+   banner in the flow between the snippet and the options. */
+.feedback-panel {
+  position: static;
+  inset: auto;
+  width: 100%; max-width: 920px;
+  display: flex; align-items: center; gap: 16px;
+  padding: 18px 22px;
+  border: 1px solid var(--accent-line);
+  border-radius: var(--radius);
+  background: #0f1a15;
+}
+.toast { display: flex; flex-direction: column; gap: 4px; flex: 1; background: none; border: 0; padding: 0; }
+.fb-headline { font-size: 16px; font-weight: 700; color: var(--accent-text); }
+.fb-explanation { font-size: 13px; color: var(--dim); }
+.feedback-panel:has(.toast.bad) { border-color: var(--bad-line); background: var(--bad-bg); }
+.toast.bad .fb-headline { color: var(--bad-text); }
+.toast.bad .fb-explanation { color: #a89b9c; }
+
+/* Footer hint strip under the game body. */
+.game-footer {
+  flex: 0 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 9px 18px;
+  background: var(--bg-2);
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dimmer);
+}
+.game-footer-gain { color: var(--neon); }
+
+/* ---------- Results ---------- */
+.results-card {
+  background: transparent; border: 0; box-shadow: none;
+  width: 100%; max-width: 920px; margin: 0 auto; padding: 0;
+}
+.trophy { display: none; }
+.final-score {
+  display: flex; flex-direction: column; gap: 4px; text-align: left; margin: 0;
+}
+.final-score > span:first-child {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--dimmer); font-weight: 400;
+}
+.final-score #final-score {
+  font-family: var(--font-mono); font-size: 56px; font-weight: 700;
+  color: var(--text); line-height: 1;
+}
+.results-correct { font-size: 15px; color: var(--dim); }
+.result-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--line-2);
+  border: 1px solid var(--line-2); border-radius: var(--radius);
+  overflow: hidden;
+}
+.result-stats > div {
+  background: var(--panel); padding: 16px;
+  display: flex; flex-direction: column; gap: 4px;
+  border: 0; border-radius: 0;
+}
+.result-stats strong, .result-stats b {
+  font-family: var(--font-mono); font-size: 22px; font-weight: 700; color: var(--text);
+}
+.results-sub { font-size: 14px; font-weight: 600; color: var(--text); }
+.results-buttons { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+/* Leaderboard rows read as a table, not as bars. */
+.lb-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 11px 4px;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  border-radius: 0;
+}
+.lb-row.is-you { background: #0f1a15; border-bottom-color: var(--accent-line); border-radius: 4px; }
+.lb-rank { font-family: var(--font-mono); width: 20px; font-size: 14px; color: var(--muted); }
+.lb-row.rank-1 .lb-rank { color: var(--gold-1); }
+.lb-row.rank-3 .lb-rank { color: var(--gold-2); }
+.lb-avatar { width: 30px; height: 30px; border-radius: 50%; background: #1c2220; border: 1px solid var(--line-3); }
+.lb-bar-wrap { flex: 1; background: none; height: auto; }
+.lb-bar-bg { display: none; }
+.lb-bar-fill {
+  position: static; width: auto !important; height: auto;
+  background: none; box-shadow: none; border-radius: 0;
+  font-size: 14px; color: var(--text);
+  display: flex; align-items: center; gap: 6px;
+}
+.lb-note { font-family: var(--font-mono); font-size: 11px; color: var(--dimmer); }
+.lb-note.online { color: var(--neon); }
+.lb-note.offline { color: var(--warn); }
+
+/* ---------- Lobby ---------- */
+.lobby-card {
+  background: transparent; border: 0; box-shadow: none;
+  width: 100%; max-width: 920px; margin: 0 auto;
+}
+.lobby-code {
+  font-family: var(--font-mono); font-size: 40px; font-weight: 700;
+  letter-spacing: .1em; color: var(--neon);
+  background: none; border: 0; padding: 0;
+}
+.lobby-label, .lobby-players-title, .lobby-settings-title {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--dimmer);
+}
+.mp-player-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 4px; border-bottom: 1px solid var(--line);
+  background: transparent; border-radius: 0;
+}
+.mp-host-badge {
+  font-family: var(--font-mono); font-size: 11px; color: var(--neon);
+  border: 1px solid var(--accent-line); border-radius: 3px; padding: 2px 7px;
+  background: none;
+}
+.mp-room-code-pill {
+  font-family: var(--font-mono); color: var(--neon);
+  background: none; border: 1px solid var(--accent-line); border-radius: 4px;
+}
+
+/* ---------- Titlebar ---------- */
+.titlebar { background: var(--bg-2); border-bottom: 1px solid var(--line); }
+.titlebar-title { font-family: var(--font-mono); font-size: 12px; color: var(--dim); letter-spacing: .04em; }
+.win-logo { color: var(--neon); font-size: 12px; }
+.tb-btn { color: var(--dimmer); }
+.tb-btn:hover { background: #ffffff10; color: var(--text); }
+
+@media (max-width: 900px) {
+  .options-grid { grid-template-columns: 1fr; }
+  .result-stats { grid-template-columns: repeat(2, 1fr); }
+  .code-panel { font-size: 15px; }
+  .code-panel code { padding: 16px 18px; }
+  .code-gutter { padding: 16px 10px; }
+  .question-text { font-size: 17px; }
+}
+
+/* ============================================================
+   Terminal / IDE — reconciling the legacy responsive rules.
+
+   The blocks above still shape the mode picker as a 2-up card grid and size the
+   countdown ring, both of which the redesign replaces. They use id specificity
+   (#screen-home .mode-grid), so matching it here is what actually wins rather
+   than relying on source order.
+   ============================================================ */
+.timer-ring { width: auto; height: auto; }
+
+@media (max-width: 960px) {
+  .options-grid, .options-grid.cyber { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 768px) {
+  /* The picker is a list on every width — that is the point of the direction.
+     Stacking beats a 2-up grid here: seven modes with long names ("Programming
+     Languages") wrap badly in half a phone width. */
+  #screen-home .mode-grid {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none;
+    gap: 8px;
+    max-width: none;
+  }
+  #screen-home .mode-card {
+    height: auto;
+    min-height: 0;
+    padding: 14px 16px;
+    border-radius: var(--radius);
+    border-left: 2px solid transparent;
+  }
+  #screen-home .mode-card.selected { border-left-color: var(--neon); }
+  #screen-home { padding: 0; }
+  .home-main { padding: 14px 20px 0; }
+  .home-rail { padding: 18px 20px calc(24px + env(safe-area-inset-bottom)); }
+  .home-title { display: block !important; font-size: clamp(24px, 8vw, 32px); margin-bottom: 0; }
+  .home-sub { margin-bottom: 0; font-size: 14px; }
+  .mode-name { font-size: 15px; }
+  .options-grid, .options-grid.cyber { grid-template-columns: 1fr; }
+
+  /* The footer strip is informational; it must never sit over the Next button. */
+  .game-footer { position: static; }
+  #screen-game { padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
+}
+
+@media (max-width: 380px) {
+  #screen-home .mode-grid { display: flex; grid-template-columns: none; }
+  #screen-home .mode-card { min-height: 0; }
+  #screen-home .mode-card-all { width: 100%; }
+}
+
+@media (max-height: 620px) and (min-width: 769px) {
+  #screen-home .mode-card { min-height: 0; }
+}
+
+@media (max-width: 768px) {
+  /* Compact the HUD back to one line on a phone. The stacked label/value cells
+     are a desktop affordance; at 390px they cost ~30px of height that the
+     answer options and the Next button need. The design's mobile game screen
+     shows a single mono line and no footer strip, so match that. */
+  .score-pill, .correct-pill, .streak-pill {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 6px;
+    padding: 7px 10px;
+    font-size: 13px;
+    border-right: 0;
+  }
+  .score-pill > span:first-child,
+  .correct-pill > span:first-child,
+  .streak-pill > span:first-child { font-size: 9px; letter-spacing: .1em; }
+  .game-footer { display: none; }
+  .code-panel code { padding: 14px; }
+  .code-gutter { padding: 14px 8px; }
+  .feedback-panel { padding: 12px 14px; gap: 10px; }
+}
+
+/* ============================================================
+   Terminal / IDE — specificity reconciliation
+
+   Earlier passes styled these with id selectors (#btn-start) or bundled the
+   selected state into a shared blue ring. Class-level rules cannot beat that
+   however late they appear, so the overrides are restated at matching weight.
+   ============================================================ */
+#btn-start,
+.home-actions #btn-start,
+#btn-challenge,
+#btn-discord-host,
+#btn-next {
+  background: var(--neon);
+  background-image: none;
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: none;
+  text-shadow: none;
+}
+#btn-start:hover:not(:disabled),
+.home-actions #btn-start:hover:not(:disabled),
+#btn-challenge:hover:not(:disabled),
+#btn-discord-host:hover:not(:disabled),
+#btn-next:hover:not(:disabled) {
+  background: var(--neon-2);
+  background-image: none;
+  transform: none;
+  box-shadow: none;
+}
+#btn-start:disabled, .home-actions #btn-start:disabled { opacity: .45; }
+
+/* The old selection ring was cyan and applied to three different components.
+   Options keep a ring (restated in the component layer); the mode row does not —
+   its selected state is the 2px accent rule on the leading edge. */
+.mode-card.selected { box-shadow: none; }
+.opt-btn.selected, .lang-btn.selected {
+  box-shadow: 0 0 0 1px var(--accent-line);
+}
+
+/* The old grid marked the active mode with a floating green tick. In a list the
+   left accent rule already carries that, and the badge landed on top of the
+   question count — so drop it. */
+.mode-card.selected::after { content: none; }
+
+/* Rail secondary links read as plain text in this direction, not as boxes:
+   the rail should have exactly one filled button (run) and one outlined one. */
+.home-rail-links .btn {
+  background: transparent;
+  border: 0;
+  padding: 4px 0;
+  font-size: 13px;
+  color: var(--dimmer);
+  text-align: left;
+  flex: 0 0 auto;
+}
+.home-rail-links .btn:hover:not(:disabled) { color: var(--text); border: 0; }
+.home-rail-links { gap: 20px; }
+
+#btn-daily {
+  border: 1px solid var(--line-3);
+  background: transparent;
+  color: var(--body);
+  font-family: var(--font-sans);
+  font-weight: 500;
+}
+#btn-daily:hover:not(:disabled) { border-color: var(--accent-line); }
+#btn-daily.is-done { color: var(--dimmer); }
+
+/* ---------- Game screen frame ---------- */
+/* The screen was a translucent dark-blue card floating on the page. In this
+   direction the round is full-bleed: the HUD strip, the run-bar and the footer
+   are meant to touch the window edges like editor chrome. */
+#screen-game {
+  background: var(--bg-1);
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  gap: 0;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+#screen-game .game-topbar,
+#screen-game .timer-bar,
+#screen-game .game-footer { width: 100%; align-self: stretch; }
+#screen-game .game-topbar { max-width: none; }
+/* The body holds the centred 920px column the design specifies. */
+#screen-game .game-body,
+#screen-game .question-text,
+#screen-game #options-grid,
+#screen-game #fill-form,
+#screen-game #mp-status {
+  width: 100%;
+  max-width: 920px;
+  margin-inline: auto;
+  align-self: center;
+}
+#screen-game .game-body { flex: 0 0 auto; padding-top: 34px; }
+#screen-game .question-text { margin-top: 26px; }
+#screen-game #options-grid { margin-top: 18px; margin-bottom: auto; }
+
+/* Options are a keycap followed by the label, left aligned. */
+.lang-btn, .opt-btn {
+  flex-direction: row;
+  justify-content: flex-start;
+  text-align: left;
+}
+.lang-name, .opt-text { text-align: left; }
+
+/* The design prefixes the prompt with an accent question mark. */
+.question-text::before {
+  content: "?";
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--neon);
+  margin-inline-end: 14px;
+}
+
+/* The in-game player chip loses its pill; the HUD already frames it. */
+.game-player {
+  background: transparent;
+  border: 0;
+  border-right: 1px solid var(--line);
+  border-radius: 0;
+  padding: 14px 18px;
+  gap: 10px;
+}
+.game-player-name { font-size: 13px; color: var(--dim); font-family: var(--font-sans); }
+
+/* The keycap used to be an absolutely-positioned corner chip on a tall card.
+   In the list-style option row it sits in the flow, before the label. */
+.opt-key, .opt-badge {
+  position: static;
+  top: auto;
+  inset-inline-start: auto;
+  min-width: 0;
+  font: 500 12px/1.4 var(--font-mono);
+  border: 0;
+  pointer-events: auto;
+}

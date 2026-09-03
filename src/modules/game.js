@@ -33,6 +33,9 @@ export function beginRound() {
     // The "you've been challenged" banner belongs on Home only — clear it once play
     // starts (the win/lose verdict shows on the results screen instead).
     $('#challenge-banner')?.classList.add('hidden');
+    // Same for the first-run welcome: it is shown 500ms after boot and nothing
+    // took it down, so starting a round left it floating over the question.
+    document.getElementById('onboarding')?.classList.remove('show');
     showScreen('game');
     markPresenceRoundStart();
     nextQuestion();
@@ -175,6 +178,7 @@ export function nextQuestion() {
         panel.setAttribute('dir', 'auto');
         codeEl.textContent = cur.panelText;
     }
+    renderCodeChrome(cur);
 
     // Sub-question (cyber: "what does this command do?").
     const qt = $('#question-text');
@@ -282,7 +286,7 @@ export function renderOptions(cur, disabled) {
             const badge = document.createElement('span');
             badge.className = 'opt-badge';
             badge.style.background = OPTION_COLORS[index % OPTION_COLORS.length];
-            badge.textContent = String.fromCharCode(65 + index);
+            badge.textContent = String(index + 1);
             const text = document.createElement('span');
             text.className = 'opt-text';
             text.textContent = opt.label;
@@ -422,6 +426,8 @@ export function resolveCurrentQuestion(chosen, timedOut = false) {
     }
 
     recordRoundAnswer(cur, chosen, correct, gained, timedOut);
+    const gainEl = $('#game-footer-gain');
+    if (gainEl) gainEl.textContent = correct ? `+${gained}` : '';
     updateStreakPill();
     if (state.multiplayer) return;
     bumpAdaptive(correct); // nudge the next question's difficulty
@@ -631,9 +637,35 @@ export function updateTimerDisplay() {
 export function setRing(fraction) {
     fraction = Math.max(0, Math.min(1, fraction));
     const ring = $('#ring-fg');
-    ring.style.strokeDashoffset = String(RING_CIRCUMFERENCE * (1 - fraction));
-    ring.classList.toggle('warn', fraction <= 0.4 && fraction > 0.2);
-    ring.classList.toggle('danger', fraction <= 0.2);
+    // The ring is hidden in the Terminal/IDE design but kept in the DOM, so the
+    // headless tests that read it still work.
+    if (ring) {
+        ring.style.strokeDashoffset = String(RING_CIRCUMFERENCE * (1 - fraction));
+        ring.classList.toggle('warn', fraction <= 0.4 && fraction > 0.2);
+        ring.classList.toggle('danger', fraction <= 0.2);
+    }
+    // The visible countdown: a run-bar across the top of the round.
+    const bar = $('#timer-bar-fill');
+    if (bar) {
+        bar.style.width = `${fraction * 100}%`;
+        bar.classList.toggle('warn', fraction <= 0.4 && fraction > 0.2);
+        bar.classList.toggle('danger', fraction <= 0.2);
+    }
+}
+
+// Line-number gutter beside the snippet, and the editor-style tab label. The
+// gutter is aria-hidden, so it is decoration only — the code itself still reads
+// cleanly to a screen reader.
+export function renderCodeChrome(cur) {
+    const gutter = $('#code-gutter');
+    if (gutter) {
+        const lines = String(cur.panelText || '').split('\n').length;
+        gutter.textContent = cur.panelIsCode
+            ? Array.from({ length: lines }, (_, i) => i + 1).join('\n')
+            : '';
+    }
+    const tab = $('#code-tab');
+    if (tab) tab.textContent = cur.panelIsCode ? 'snippet.??' : 'question.md';
 }
 
 // ---------- HUD ----------

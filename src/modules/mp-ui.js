@@ -3,7 +3,7 @@ import { amIWinner, isPerfectRound, recordPlay, submitMpScores, supabaseConfigur
 import { hideBootLoading } from './boot.js';
 import { $, announce, closeDialog, openDialog, screens, showScreen } from './dom.js';
 import { selectMode } from './events.js';
-import { clearTimer, hideMpStatus, hideToast, isFillCorrect, normFill, normalizeQuestion, recordRoundAnswer, renderQuestionUI, showFeedback, startTimerFromServer, updateCorrect, updateScore, updateStreakPill } from './game.js';
+import { clearTimer, hideMpStatus, hideToast, isFillCorrect, normFill, normalizeQuestion, recordRoundAnswer, renderCodeChrome, renderQuestionUI, showFeedback, startTimerFromServer, updateCorrect, updateScore, updateStreakPill } from './game.js';
 import { highlight } from './highlight.js';
 import { MODES, diffLabel, t } from './i18n.js';
 import { canPlay, getSettings, isDiscordActivity, isDiscordLinked, requiresDiscordLogin, safeDisplayName, showAuthError, syncDiscordNameField, updateInGameProfile } from './identity.js';
@@ -389,6 +389,7 @@ export function showMultiplayerQuestion(room) {
         panel.setAttribute('dir', 'auto');
         codeEl.textContent = cur.panelText;
     }
+    renderCodeChrome(cur);
 
     const qt = $('#question-text');
     if (cur.questionText) {

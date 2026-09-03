@@ -42,6 +42,12 @@ export const I18N = {
         diffHard: 'Hard',
         save: 'Save & Close',
         score: 'Score:',
+        // Terminal/IDE HUD: the label sits above the value, uppercase and mono.
+        scoreLabel: 'SCORE',
+        correctLabel: 'CORRECT',
+        streakLabel: 'STREAK',
+        answerWithKeys: 'press 1–6 to answer',
+        signedInDiscord: 'signed in · discord',
         question: 'Question',
         finalScore: 'Final Score:',
         comparison: 'Global Leaderboard',

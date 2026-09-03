@@ -2,8 +2,43 @@ import { $, screens } from './dom.js';
 import { refreshMenu } from './events.js';
 import { t } from './i18n.js';
 import { refreshMultiplayerButtons } from './mp-ui.js';
-import { isDailyDone } from './round.js';
+import { isDailyDone, modeOfBank } from './round.js';
 import { state } from './state.js';
+
+// ---------- Home eyebrow + per-mode question counts ----------
+// The mode list shows how many questions each mode holds. One 'all' load returns
+// every bank already tagged, so all seven counts come from a single call — and
+// it is cached and fired after boot, so it never blocks the first paint. Banks
+// are summed by MODE, not by bank: Problem Solving spans three of them.
+let countsPromise = null;
+
+export function loadModeCounts() {
+    if (countsPromise) return countsPromise;
+    countsPromise = (async () => {
+        const all = await window.gameAPI.getQuestions('all');
+        const byMode = { all: all.length };
+        all.forEach((q) => {
+            const m = modeOfBank(q.bank || 'languages');
+            byMode[m] = (byMode[m] || 0) + 1;
+        });
+        return byMode;
+    })().catch(() => null);
+    return countsPromise;
+}
+
+export async function renderModeCounts() {
+    const counts = await loadModeCounts();
+    if (!counts) return;
+    document.querySelectorAll('[data-mode-count]').forEach((el) => {
+        const n = counts[el.dataset.modeCount];
+        if (n) el.textContent = `${n} q`;
+    });
+    const eyebrow = $('#home-eyebrow');
+    if (!eyebrow) return;
+    let version = '';
+    try { version = (await window.appWindow?.getVersion?.()) || ''; } catch (_) { /* ignore */ }
+    eyebrow.textContent = `${version ? `v${version} · ` : ''}${counts.all} questions`;
+}
 
 // Highlight the active mode card and show its best score on the home page.
 export function renderHome() {

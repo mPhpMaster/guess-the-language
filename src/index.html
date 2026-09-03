@@ -7,11 +7,20 @@
         content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; worker-src 'self'; manifest-src 'self'; img-src 'self' data: blob: https://cdn.discordapp.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://discord.com https://*.discord.com;" />
   <title>Guess the Language</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <!-- Terminal / IDE type stack. The CSP already allows googleapis + gstatic.
+       Every rule pairs these with a real system fallback, because Discord's own
+       iframe CSP is stricter than ours and only /supabase is URL-mapped — so
+       inside an Activity these may not load and the stack must degrade sanely. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" />
   <link rel="stylesheet" href="styles.css" />
 
   <!-- PWA / installable mobile app -->
   <link rel="manifest" href="/manifest.webmanifest" />
-  <meta name="theme-color" content="#07111e" />
+  <meta name="theme-color" content="#0b0d0c" />
   <link rel="apple-touch-icon" href="/icon-192.png" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,85 +62,110 @@
     <section id="screen-home" class="screen active">
         <button class="corner-btn about-btn" id="btn-about" title="About">&#9432;</button>
 
-        <h1 class="home-title" tabindex="-1"><span class="neon" data-i18n="appTitle">Guess the Language</span></h1>
-        <p class="home-sub" data-i18n="homeSub">Pick a mode and beat the timer</p>
+        <!-- Two columns: the mode list reads as a file tree, the rail as a
+             sidebar. Mode descriptions stay in the DOM (sr-only) so the i18n
+             keys and screen-reader text survive the visual switch to a list. -->
+        <div class="home-layout">
+          <div class="home-main">
+            <div class="home-hero">
+              <div class="home-eyebrow" id="home-eyebrow"></div>
+              <h1 class="home-title" tabindex="-1"><span class="neon" data-i18n="appTitle">Guess the Language</span><span class="caret" aria-hidden="true"></span></h1>
+              <p class="home-sub" data-i18n="homeSub">Pick a mode and beat the timer</p>
+            </div>
 
-        <div class="challenge-banner hidden" id="challenge-banner"></div>
+            <div class="challenge-banner hidden" id="challenge-banner"></div>
 
-        <div class="home-profile hidden" id="home-profile">
-          <img class="home-profile-avatar" id="home-profile-avatar" alt="" referrerpolicy="no-referrer" />
-          <span class="home-profile-name" id="home-profile-name"></span>
-        </div>
-        <button class="btn btn-discord home-login-cta hidden" id="home-login-cta" data-i18n="loginDiscord">
-          &#128172;  Login with Discord
-        </button>
-        <p class="auth-hint hidden" id="web-auth-hint" data-i18n="webAuthHint">
-          Sign in with Discord to save your identity and play on the global leaderboard.
-        </p>
-        <div class="auth-error hidden" id="auth-error" role="alert">
-          <span id="auth-error-text"></span>
-          <button class="text-btn" id="auth-retry" data-i18n="retry">Retry</button>
-        </div>
-
-        <div class="mode-grid" id="mode-grid" role="group" aria-label="Game mode">
-          <button class="mode-card" data-mode="languages" aria-pressed="false">
-            <div class="mode-icon">&#128187;</div>
-            <div class="mode-name" data-i18n="modeLanguages">Programming Languages</div>
-            <div class="mode-desc" data-i18n="modeLanguagesDesc">Guess the language from a code snippet</div>
-          </button>
-          <button class="mode-card mode-card-cyber" data-mode="cybersecurity" aria-pressed="false">
-            <div class="mode-icon">&#128737;&#65039;</div>
-            <div class="mode-name" data-i18n="modeCyber">Cybersecurity</div>
-            <div class="mode-desc" data-i18n="modeCyberDesc">Tools, malware, Nmap, Metasploit &amp; more</div>
-          </button>
-          <button class="mode-card mode-card-devops" data-mode="devops" aria-pressed="false">
-            <div class="mode-icon">&#9854;&#65039;</div>
-            <div class="mode-name" data-i18n="modeDevops">DevOps</div>
-            <div class="mode-desc" data-i18n="modeDevopsDesc">Docker, Kubernetes, CI/CD, Git, IaC &amp; cloud</div>
-          </button>
-          <button class="mode-card mode-card-network" data-mode="network" aria-pressed="false">
-            <div class="mode-icon">&#127760;</div>
-            <div class="mode-name" data-i18n="modeNetwork">Networking</div>
-            <div class="mode-desc" data-i18n="modeNetworkDesc">OSI, TCP/IP, DNS, routing &amp; protocols</div>
-          </button>
-          <button class="mode-card mode-card-gamedev" data-mode="gamedev" aria-pressed="false">
-            <div class="mode-icon">🎮</div>
-            <div class="mode-name" data-i18n="modeGamedev">Game Dev</div>
-            <div class="mode-desc" data-i18n="modeGamedevDesc">Game loops, physics, rendering, assets and UI systems</div>
-          </button>
-          <button class="mode-card mode-card-algo" data-mode="algorithms" aria-pressed="false">
-            <div class="mode-icon">🧩</div>
-            <div class="mode-name" data-i18n="modeAlgo">Problem Solving</div>
-            <div class="mode-desc" data-i18n="modeAlgoDesc">Fill the blank, fix the bug or predict the output</div>
-          </button>
-          <button class="mode-card mode-card-all" data-mode="all" aria-pressed="false">
-            <div class="mode-icon">&#127922;</div>
-            <div class="mode-name" data-i18n="modeAll">All (Mixed)</div>
-            <div class="mode-desc" data-i18n="modeAllDesc">Everything: all six modes together</div>
-          </button>
-        </div>
-
-        <div class="home-actions">
-          <button class="btn btn-primary" id="btn-start" data-i18n="start">▶  Start</button>
-          <button class="btn btn-daily" id="btn-daily" data-i18n="dailyChallenge">🗓️  Daily Challenge</button>
-          <div class="home-actions-row home-mp-actions">
-            <button class="btn btn-ghost" id="btn-host" data-i18n="hostRoom">🏠  Host Room</button>
-            <button class="btn btn-ghost" id="btn-join" data-i18n="joinRoom">🔗  Join Room</button>
+            <div class="mode-grid" id="mode-grid" role="group" aria-label="Game mode">
+              <button class="mode-card" data-mode="languages" aria-pressed="false">
+                <span class="mode-index" aria-hidden="true">01</span>
+                <span class="mode-name" data-i18n="modeLanguages">Programming Languages</span>
+                <span class="mode-desc sr-only" data-i18n="modeLanguagesDesc">Guess the language from a code snippet</span>
+                <span class="mode-count" data-mode-count="languages"></span>
+              </button>
+              <button class="mode-card mode-card-cyber" data-mode="cybersecurity" aria-pressed="false">
+                <span class="mode-index" aria-hidden="true">02</span>
+                <span class="mode-name" data-i18n="modeCyber">Cybersecurity</span>
+                <span class="mode-desc sr-only" data-i18n="modeCyberDesc">Tools, malware, Nmap, Metasploit &amp; more</span>
+                <span class="mode-count" data-mode-count="cybersecurity"></span>
+              </button>
+              <button class="mode-card mode-card-devops" data-mode="devops" aria-pressed="false">
+                <span class="mode-index" aria-hidden="true">03</span>
+                <span class="mode-name" data-i18n="modeDevops">DevOps</span>
+                <span class="mode-desc sr-only" data-i18n="modeDevopsDesc">Docker, Kubernetes, CI/CD, Git, IaC &amp; cloud</span>
+                <span class="mode-count" data-mode-count="devops"></span>
+              </button>
+              <button class="mode-card mode-card-network" data-mode="network" aria-pressed="false">
+                <span class="mode-index" aria-hidden="true">04</span>
+                <span class="mode-name" data-i18n="modeNetwork">Networking</span>
+                <span class="mode-desc sr-only" data-i18n="modeNetworkDesc">OSI, TCP/IP, DNS, routing &amp; protocols</span>
+                <span class="mode-count" data-mode-count="network"></span>
+              </button>
+              <button class="mode-card mode-card-gamedev" data-mode="gamedev" aria-pressed="false">
+                <span class="mode-index" aria-hidden="true">05</span>
+                <span class="mode-name" data-i18n="modeGamedev">Game Dev</span>
+                <span class="mode-desc sr-only" data-i18n="modeGamedevDesc">Game loops, physics, rendering, assets and UI systems</span>
+                <span class="mode-count" data-mode-count="gamedev"></span>
+              </button>
+              <button class="mode-card mode-card-algo" data-mode="algorithms" aria-pressed="false">
+                <span class="mode-index" aria-hidden="true">06</span>
+                <span class="mode-name" data-i18n="modeAlgo">Problem Solving</span>
+                <span class="mode-desc sr-only" data-i18n="modeAlgoDesc">Fill the blank, fix the bug or predict the output</span>
+                <span class="mode-count" data-mode-count="algorithms"></span>
+              </button>
+              <button class="mode-card mode-card-all" data-mode="all" aria-pressed="false">
+                <span class="mode-index" aria-hidden="true">07</span>
+                <span class="mode-name" data-i18n="modeAll">All (Mixed)</span>
+                <span class="mode-desc sr-only" data-i18n="modeAllDesc">Everything: all six modes together</span>
+                <span class="mode-count" data-mode-count="all"></span>
+              </button>
+            </div>
           </div>
-          <p class="discord-mp-note hidden" id="discord-mp-note" data-i18n="discordAutoMp">
-            Multiplayer is automatic here — everyone in this voice channel shares the same room.
-          </p>
-          <button class="btn btn-primary hidden" id="btn-discord-host" data-i18n="joinRoom">🔗  Join Room</button>
-          <div class="home-actions-row">
-            <button class="btn btn-ghost" id="btn-practice" data-i18n="practiceMode">🎓  Practice</button>
-            <button class="btn btn-ghost" id="btn-friends" data-i18n="friends">👥  Friends &amp; Scores</button>
-            <button class="btn btn-ghost" id="btn-settings" data-i18n="settings">⚙  Settings</button>
-            <button class="btn btn-ghost btn-admin hidden" id="btn-admin" data-i18n="adminButton">🛡️  Admin</button>
-          </div>
-        </div>
 
-        <div class="menu-highscore">
-          <span data-i18n="bestScore">Best score:</span> <strong id="menu-highscore-val">0</strong>
+          <aside class="home-rail">
+            <div class="home-profile hidden" id="home-profile">
+              <img class="home-profile-avatar" id="home-profile-avatar" alt="" referrerpolicy="no-referrer" />
+              <span class="home-profile-meta">
+                <span class="home-profile-name" id="home-profile-name"></span>
+                <span class="home-profile-sub" data-i18n="signedInDiscord">signed in · discord</span>
+              </span>
+            </div>
+            <button class="btn btn-discord home-login-cta hidden" id="home-login-cta" data-i18n="loginDiscord">
+              &#128172;  Login with Discord
+            </button>
+            <p class="auth-hint hidden" id="web-auth-hint" data-i18n="webAuthHint">
+              Sign in with Discord to save your identity and play on the global leaderboard.
+            </p>
+            <div class="auth-error hidden" id="auth-error" role="alert">
+              <span id="auth-error-text"></span>
+              <button class="text-btn" id="auth-retry" data-i18n="retry">Retry</button>
+            </div>
+
+            <div class="home-actions">
+              <button class="btn btn-primary" id="btn-start" data-i18n="start">▶  Start</button>
+              <button class="btn btn-daily" id="btn-daily" data-i18n="dailyChallenge">🗓️  Daily Challenge</button>
+              <div class="home-actions-row home-mp-actions">
+                <button class="btn btn-ghost" id="btn-host" data-i18n="hostRoom">🏠  Host Room</button>
+                <button class="btn btn-ghost" id="btn-join" data-i18n="joinRoom">🔗  Join Room</button>
+              </div>
+              <p class="discord-mp-note hidden" id="discord-mp-note" data-i18n="discordAutoMp">
+                Multiplayer is automatic here — everyone in this voice channel shares the same room.
+              </p>
+              <button class="btn btn-primary hidden" id="btn-discord-host" data-i18n="joinRoom">🔗  Join Room</button>
+            </div>
+
+            <div class="home-rail-divider" aria-hidden="true"></div>
+
+            <div class="menu-highscore">
+              <span data-i18n="bestScore">Best score:</span> <strong id="menu-highscore-val">0</strong>
+            </div>
+
+            <div class="home-actions-row home-rail-links">
+              <button class="btn btn-ghost" id="btn-practice" data-i18n="practiceMode">🎓  Practice</button>
+              <button class="btn btn-ghost" id="btn-friends" data-i18n="friends">👥  Friends &amp; Scores</button>
+              <button class="btn btn-ghost" id="btn-settings" data-i18n="settings">⚙  Settings</button>
+              <button class="btn btn-ghost btn-admin hidden" id="btn-admin" data-i18n="adminButton">🛡️  Admin</button>
+            </div>
+          </aside>
         </div>
 
       <!-- Settings popover -->
@@ -475,9 +509,9 @@
             <img class="game-player-avatar" id="game-player-avatar" alt="" referrerpolicy="no-referrer" />
             <span class="game-player-name" id="game-player-name"></span>
           </div>
-          <div class="score-pill"><span data-i18n="score">Score:</span> <span id="game-score">0</span></div>
-          <div class="correct-pill">✓ <span id="correct-count">0</span>/<span id="correct-total">10</span></div>
-          <div class="streak-pill hidden" id="streak-pill">🔥 <span id="streak-count">0</span> &nbsp;×1.5</div>
+          <div class="score-pill"><span data-i18n="scoreLabel">SCORE</span><span id="game-score">0</span></div>
+          <div class="correct-pill"><span data-i18n="correctLabel">CORRECT</span><span><span id="correct-count">0</span>/<span id="correct-total">10</span></span></div>
+          <div class="streak-pill hidden" id="streak-pill"><span data-i18n="streakLabel">STREAK</span><span>×1.5 <span id="streak-count">0</span></span></div>
         </div>
         <div class="topbar-right">
           <button class="lifeline-btn" id="btn-fifty" type="button" title="50:50">
@@ -493,13 +527,28 @@
         </div>
       </div>
 
+      <!-- Countdown as a run-bar across the top of the round, replacing the ring. -->
+      <div class="timer-bar" aria-hidden="true"><div class="timer-bar-fill" id="timer-bar-fill"></div></div>
+
       <div class="game-body">
         <div class="code-wrap" id="code-wrap">
           <div class="code-header">
-            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-            <span class="code-difficulty" id="code-difficulty">easy</span>
+            <span class="code-tab" id="code-tab">snippet.??</span>
+            <span class="code-header-right">
+              <span class="code-difficulty" id="code-difficulty">easy</span>
+              <!-- The ring SVG stays in the DOM (setRing still drives it and the
+                   smoke tests read #timer-num) but is hidden; the visible
+                   countdown is the bar above plus this seconds readout. -->
+              <span class="timer-ring" id="timer-ring" role="timer" aria-label="Time remaining">
+                <svg viewBox="0 0 120 120" aria-hidden="true">
+                  <circle class="ring-bg" cx="60" cy="60" r="52" />
+                  <circle class="ring-fg" id="ring-fg" cx="60" cy="60" r="52" />
+                </svg>
+                <span class="timer-num" id="timer-num" dir="ltr">15</span>
+              </span>
+            </span>
           </div>
-          <pre class="code-panel" dir="ltr"><code id="code-snippet"></code></pre>
+          <pre class="code-panel" dir="ltr"><span class="code-gutter" id="code-gutter" aria-hidden="true"></span><code id="code-snippet"></code></pre>
           <div class="feedback-panel hidden" id="feedback-panel">
             <div class="toast" id="answer-toast" role="status" aria-live="polite">
               <span class="fb-headline" id="fb-headline"></span>
@@ -507,14 +556,6 @@
             </div>
             <button class="btn btn-primary btn-sm" id="btn-next" data-i18n="nextQuestion">Next question</button>
           </div>
-        </div>
-
-        <div class="timer-ring" id="timer-ring" role="timer" aria-label="Time remaining">
-          <svg viewBox="0 0 120 120">
-            <circle class="ring-bg" cx="60" cy="60" r="52" />
-            <circle class="ring-fg" id="ring-fg" cx="60" cy="60" r="52" />
-          </svg>
-          <div class="timer-num" id="timer-num" dir="ltr">15</div>
         </div>
       </div>
 
@@ -531,6 +572,13 @@
                aria-label="Your answer" />
         <button type="submit" class="btn btn-primary fill-submit" id="fill-submit" data-i18n="fillSubmit">Submit</button>
       </form>
+
+      <!-- Status strip: the keyboard affordance on the left, the last score
+           delta on the right (filled in by resolveCurrentQuestion). -->
+      <div class="game-footer">
+        <span id="game-footer-hint" data-i18n="answerWithKeys">press 1–6 to answer</span>
+        <span class="game-footer-gain" id="game-footer-gain"></span>
+      </div>
     </section>
 
     <!-- ============ RESULTS SCREEN ============ -->

@@ -2,7 +2,7 @@ import { updateAdminButton } from './admin.js';
 import { setupErrorLogging } from './api.js';
 import { $, showScreen } from './dom.js';
 import { bindEvents, selectMode } from './events.js';
-import { maybeShowOnboarding } from './home.js';
+import { maybeShowOnboarding, renderModeCounts } from './home.js';
 import { MODES, applyLanguage } from './i18n.js';
 import { handleDiscordOAuthReturn, isDiscordActivity, isDiscordEmbedded } from './identity.js';
 import { applyChallengeSettings, getChallengeFromUrl, parseChallengePayload, showChallengeBanner } from './leaderboard.js';
@@ -96,6 +96,7 @@ export async function boot() {
     selectMode(state.mode);
     updateAdminButton();
     startHeartbeat();
+    renderModeCounts(); // fire-and-forget: fills the eyebrow + per-mode counts
     if (challengeInfo) showChallengeBanner(challengeInfo);
     else setTimeout(maybeShowOnboarding, 500); // first-run welcome (once)
 }

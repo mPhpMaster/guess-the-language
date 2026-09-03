@@ -6,7 +6,12 @@ import { $ } from './dom.js';
 export const UI_SCALE_MIN = 0.8, UI_SCALE_MAX = 2.0, UI_SCALE_STEP = 0.1;
 // The content is laid out around this width, then scaled up to fill wider windows
 // (the Discord Activity panel is very wide, leaving the game tiny and centered).
-export const AUTOFIT_REF = 900;
+//
+// Raised from 900 to 1280 with the Terminal/IDE redesign: those screens are drawn
+// at 1280x800 and the layout is now two-column with its own rail, so it fills a
+// desktop window on its own. Leaving the reference at 900 scaled a 1280 window to
+// 1.42x, which blew the type up and pushed the rail off the bottom.
+export const AUTOFIT_REF = 1280;
 // Manual override is a DISTINCT flag (not just the presence of gtl_ui_scale, which
 // older builds auto-persisted for everyone) so existing users still get auto-fit.
 export function hasManualScale() { return localStorage.getItem('gtl_ui_manual') === '1'; }

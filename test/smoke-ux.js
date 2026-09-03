@@ -54,7 +54,11 @@ app.whenReady().then(async () => {
     check('mobile home scrolls', mobile.overflow === 'auto' || mobile.overflow === 'scroll', mobile.overflow);
     check('mobile primary action stays in viewport', mobile.startTop >= 0 && mobile.startBottom <= mobile.viewport, JSON.stringify(mobile));
     check('inactive screens are not rendered', !mobile.inactiveVisible);
-    check('mobile mode picker uses two columns', mobile.columns === 2, `columns=${mobile.columns}`);
+    // The Terminal/IDE redesign turned the mode picker into a single-column
+    // list. Seven modes with names as long as "Programming Languages" wrapped
+    // badly in half a phone width, so stacking is the intent now — assert the
+    // list rather than the old 2-up grid.
+    check('mobile mode picker is a single-column list', mobile.columns === 1, `columns=${mobile.columns}`);
 
     const selected = await run("document.querySelector('.mode-card[data-mode=languages]').getAttribute('aria-pressed')");
     check('selected mode exposes aria-pressed', selected === 'true', selected);
