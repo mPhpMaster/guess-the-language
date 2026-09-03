@@ -120,17 +120,31 @@ module.exports = async function handler(req, res) {
   const avatar = safeAvatar(req.body?.avatar, session.sub);
 
   try {
+    /* Stamp the Discord id the session was signed with. `player` is a display
+       name the client asserts, so it cannot identify anyone: renaming on Discord
+       orphans a player's history, and a freed name can be taken by someone else.
+       This column is the durable identity, and only this path can set it — anon
+       is blocked by the "anon cannot set discord_id" policy, so a client cannot
+       claim somebody else's id.
+
+       Reads still key off `player`; rows written before this shipped have a null
+       discord_id and can never be backfilled, so switching reads over has to wait
+       until enough active players have a stamped row. See
+       supabase/migration-score-integrity.sql. */
+    const discordId = String(session.sub);
+
     if (board === 'daily') {
       // The unique (day, player) plus ignore-duplicates means the FIRST score of
       // the day stands and replays are a silent no-op — same rule as before.
       const day = new Date().toISOString().slice(0, 10); // UTC, matches dailyDateKey()
-      await sbInsert(cfg, 'daily_scores', { day, player, score, avatar },
+      await sbInsert(cfg, 'daily_scores', { day, player, score, avatar, discord_id: discordId },
         'resolution=ignore-duplicates,return=minimal');
       return res.status(200).json({ ok: true });
     }
 
     const rows = await sbInsert(cfg, 'scores',
-      { player, score, mode, multiplayer: false, avatar }, 'return=representation');
+      { player, score, mode, multiplayer: false, avatar, discord_id: discordId },
+      'return=representation');
     return res.status(200).json({ ok: true, row: Array.isArray(rows) ? rows[0] : null });
   } catch (err) {
     console.error('submit-score failed:', err && err.message);

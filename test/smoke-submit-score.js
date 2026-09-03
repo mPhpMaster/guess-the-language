@@ -67,9 +67,18 @@ function call(body, auth = `Bearer ${token}`, method = 'POST') {
   await call({ ...ok, avatar: 'https://cdn.discordapp.com/avatars/999/abc.png' });
   check('drops another user\'s avatar', lastInsert.body.avatar === null);
 
+  // The durable identity comes from the SIGNED session, never from the body, so
+  // a client cannot post under someone else's Discord id.
+  await call({ ...ok, discord_id: '999999999999999999' });
+  check('stamps the session\'s discord id', lastInsert.body.discord_id === DISCORD_ID,
+    lastInsert.body.discord_id);
+  check('ignores a discord id supplied in the body',
+    lastInsert.body.discord_id !== '999999999999999999');
+
   // Daily board routes to the other table and forces multiplayer off.
   await call({ player: 'Tester', score: 500, board: 'daily' });
   check('daily goes to daily_scores', /\/daily_scores$/.test(lastInsert.url));
+  check('daily rows carry the discord id too', lastInsert.body.discord_id === DISCORD_ID);
   check('single-player rows are never flagged multiplayer',
     (await call(ok), lastInsert.body.multiplayer === false));
 
