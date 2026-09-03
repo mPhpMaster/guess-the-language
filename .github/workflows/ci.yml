@@ -1,0 +1,51 @@
+# Guards that already existed but never ran.
+#
+# validate-questions.js said "Run before every build" in its own header and was
+# wired into nothing, so 26 duplicate questions accumulated across four banks and
+# test/smoke-algo.js sat red for two releases without anyone noticing. This
+# workflow is what makes those checks real. build:web now runs the validator as
+# its first step too, so a bad bank fails the Vercel deploy as well.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # Schema, duplicate content across all eight banks, answer-length bias.
+      - name: Validate question banks
+        run: pnpm run validate
+
+      # Plain-node data tests. The rest of test/ drives a real Electron window and
+      # stays a local step (pnpm run test:ux).
+      - name: Data smoke tests
+        run: node test/smoke-algo.js && node test/smoke-gamedev.js
+
+      # Every script the browser loads directly, so a syntax error can never reach
+      # production as a blank page.
+      - name: Syntax-check the renderer
+        run: |
+          node --check src/renderer.js
+          node --check src/multiplayer.js
+          node --check src/web-shim.js
+          for f in src/modules/*.js; do node --check "$f"; done
+
+      - name: Build the web bundle
+        run: pnpm run build:web
