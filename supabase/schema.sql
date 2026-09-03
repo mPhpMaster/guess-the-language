@@ -58,10 +58,19 @@ create policy "public can read scores"
   on public.scores for select
   using (true);
 
+-- Inserts are bounded by what the game can arithmetically produce in one round
+-- (20 questions x 1050 = 21000; see supabase/migration-score-integrity.sql for the
+-- derivation). The client goes through /api/submit-score, which verifies a signed
+-- Discord session — but this check is what stops someone POSTing with the public
+-- anon key directly, so the bound has to live here as well.
 drop policy if exists "public can insert scores" on public.scores;
 create policy "public can insert scores"
   on public.scores for insert
-  with check (score >= 0 and public.is_safe_player_name(player));
+  with check (
+    score >= 0
+    and score <= 21000
+    and public.is_safe_player_name(player)
+  );
 
 -- Player reports are written only through /api/report with the service-role
 -- key. There is deliberately no anon/authenticated select or insert policy.

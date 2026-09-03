@@ -1,5 +1,5 @@
 import { MODES } from './i18n.js';
-import { discordAvatarUrl, getDiscordProfile, isDiscordActivity, safeDisplayName } from './identity.js';
+import { appApiPrefix, discordAvatarUrl, getAppSessionToken, getDiscordProfile, isDiscordActivity, safeDisplayName } from './identity.js';
 import { celebrateAchievements } from './profile.js';
 import { dailyDateKey } from './round.js';
 import { getPlayerName } from './settings.js';
@@ -129,35 +129,65 @@ export function amIWinner() {
     return top > 0 && me.score === top;
 }
 
-export function submitScore(player, score, mode = state.mode, multiplayer = false) {
-    return sbFetch('scores', {
+// Post a single-player score through the authenticated endpoint when we hold a
+// session token, which is every context that has a real identity: the Discord
+// Activity and the web build (which requires signing in before you can play).
+// /api/submit-score verifies the signature, bounds the score and writes with the
+// service-role key, so a score can no longer be conjured with the public anon key.
+//
+// Electron has no /api to call and no session token — it falls through to the
+// direct insert. That is the same trust level desktop always had, and the RLS
+// check is the backstop there (see supabase/schema.sql).
+async function postScoreViaApi(body) {
+    const token = getAppSessionToken();
+    if (!token) return undefined; // caller falls back
+    const res = await fetch(`${appApiPrefix()}/api/submit-score`, {
         method: 'POST',
-        headers: {
-            Prefer: 'return=representation'
-        },
-        body: JSON.stringify([{
-            player: safeDisplayName(player),
-            score,
-            mode,
-            multiplayer,
-            avatar: discordAvatarUrl(getDiscordProfile()) || null
-        }])
-    }).then((rows) => (Array.isArray(rows) ? rows[0] : null));
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+    });
+    if (!res.ok) throw new Error(`submit-score ${res.status}: ${await res.text()}`);
+    return res.json();
+}
+
+export async function submitScore(player, score, mode = state.mode, multiplayer = false) {
+    const row = {
+        player: safeDisplayName(player),
+        score,
+        mode,
+        multiplayer,
+        avatar: discordAvatarUrl(getDiscordProfile()) || null
+    };
+    // Multiplayer rows are registered in bulk by the host (submitMpScores) from
+    // scores Postgres itself computed, so they keep the direct path.
+    if (!multiplayer) {
+        const out = await postScoreViaApi({ board: 'scores', ...row });
+        if (out !== undefined) return (out && out.row) || null;
+    }
+    const rows = await sbFetch('scores', {
+        method: 'POST',
+        headers: { Prefer: 'return=representation' },
+        body: JSON.stringify([row])
+    });
+    return Array.isArray(rows) ? rows[0] : null;
 }
 
 // Daily Challenge: submit today's score to the separate daily board. The unique
 // (day,player) + resolution=ignore-duplicates means the FIRST score of the day
 // stands and replays are silently ignored (no cheating a better result).
-export function submitDailyScore(player, score) {
+export async function submitDailyScore(player, score) {
+    const row = {
+        day: dailyDateKey(),
+        player: safeDisplayName(player),
+        score: Math.max(0, Math.round(score || 0)),
+        avatar: discordAvatarUrl(getDiscordProfile()) || null
+    };
+    const out = await postScoreViaApi({ board: 'daily', ...row });
+    if (out !== undefined) return out;
     return sbFetch('daily_scores', {
         method: 'POST',
         headers: { Prefer: 'resolution=ignore-duplicates,return=minimal' },
-        body: JSON.stringify([{
-            day: dailyDateKey(),
-            player: safeDisplayName(player),
-            score: Math.max(0, Math.round(score || 0)),
-            avatar: discordAvatarUrl(getDiscordProfile()) || null
-        }])
+        body: JSON.stringify([row])
     });
 }
 

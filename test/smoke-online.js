@@ -89,9 +89,15 @@ app.whenReady().then(async () => {
     const youText = await run("(document.querySelector('.lb-row.is-you .lb-bar-fill')||{}).textContent || ''");
     check('player row matched by inserted id', /Me/.test(youText), youText);
 
-    const postCall = await run("JSON.stringify(window.__calls.find(c => c.method === 'POST') || null)");
+    // Match the scores insert by URL, not by being the first POST. A round fires
+    // several POSTs (record_progress, the score, the presence heartbeat) and their
+    // order is not a contract — it shifted once submitScore became async.
+    const postCall = await run(
+      "JSON.stringify(window.__calls.find(c => c.method === 'POST' && /\\/rest\\/v1\\/scores$/.test(c.url)) || null)"
+    );
     const post = JSON.parse(postCall);
-    check('POST sent to scores endpoint', post && /\/rest\/v1\/scores$/.test(post.url), post && post.url);
+    const postUrls = await run("JSON.stringify(window.__calls.filter(c => c.method === 'POST').map(c => c.url))");
+    check('POST sent to scores endpoint', !!post, post ? post.url : `POSTs seen: ${postUrls}`);
     check('POST carries apikey header', post && post.headers && !!post.headers.apikey);
     check('POST body has player & score', post && /"player"/.test(post.body) && /"score"/.test(post.body));
 

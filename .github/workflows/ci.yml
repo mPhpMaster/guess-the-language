@@ -33,10 +33,11 @@ jobs:
       - name: Validate question banks
         run: pnpm run validate
 
-      # Plain-node data tests. The rest of test/ drives a real Electron window and
-      # stays a local step (pnpm run test:ux).
-      - name: Data smoke tests
-        run: node test/smoke-algo.js && node test/smoke-gamedev.js
+      # Plain-node tests: question data, and the /api/submit-score validation
+      # contract (stubbed fetch, no network). The rest of test/ drives a real
+      # Electron window and stays a local step (pnpm run test:ux).
+      - name: Data and API smoke tests
+        run: node test/smoke-algo.js && node test/smoke-gamedev.js && node test/smoke-submit-score.js
 
       # Every script the browser loads directly, so a syntax error can never reach
       # production as a blank page.
