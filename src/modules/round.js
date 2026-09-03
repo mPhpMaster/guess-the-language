@@ -71,23 +71,24 @@ export function resolvedQuestionTime(difficulty) {
     return timeForDifficulty(difficulty);
 }
 
-// Deal `count` questions round-robin across the banks present in the pool, so a
-// mixed round can't be swallowed by the biggest bank. Drawing uniformly used to
-// mean ~45% of 10-question "All" rounds contained no Problem Solving question at
-// all, because `languages` alone is over half the pool. One pass gives every bank
-// a slot before any bank repeats; the bank order and the final order are shuffled
-// so the rotation isn't visible to the player.
-export function sampleAcrossBanks(pool, count, shuffleFn) {
-    const byBank = new Map();
-    pool.forEach((q) => {
-        const bank = q.bank || 'languages';
-        if (!byBank.has(bank)) byBank.set(bank, []);
-        byBank.get(bank).push(q);
-    });
-    // Single-bank pool (any specific mode): nothing to balance.
-    if (byBank.size < 2) return shuffleFn(pool).slice(0, count);
+// Which selectable mode each bank belongs to. Problem Solving is the only mode
+// that spans more than one bank. This is the inverse of MODE_BANKS in
+// src/main.js and src/web-shim.js, which is where the mode -> banks direction
+// lives; src/multiplayer.js keeps its own copy because it is a classic script.
+export const BANK_MODE = {
+    languages: 'languages',
+    cybersecurity: 'cybersecurity',
+    devops: 'devops',
+    network: 'network',
+    gamedev: 'gamedev',
+    algorithms: 'algorithms',
+    bug: 'algorithms',
+    output: 'algorithms'
+};
+export function modeOfBank(bank) { return BANK_MODE[bank] || 'languages'; }
 
-    const queues = shuffleFn(Array.from(byBank.values())).map((qs) => shuffleFn(qs));
+// Deal from several queues in turn, so each contributes one before any repeats.
+export function dealRoundRobin(queues, count) {
     const picked = [];
     for (let depth = 0; picked.length < count; depth++) {
         let dealt = false;
@@ -97,9 +98,46 @@ export function sampleAcrossBanks(pool, count, shuffleFn) {
             dealt = true;
             if (picked.length === count) break;
         }
-        if (!dealt) break; // every bank exhausted
+        if (!dealt) break; // every queue exhausted
     }
-    return shuffleFn(picked);
+    return picked;
+}
+
+// Deal `count` questions round-robin so a mixed round can't be swallowed by the
+// biggest bank. Drawing uniformly used to mean ~45% of 10-question "All" rounds
+// contained no Problem Solving question at all, because `languages` alone is over
+// half the pool.
+//
+// The rotation is TWO levels deep, because the unit a player perceives is the
+// mode, not the bank. Dealing across banks alone handed Problem Solving three of
+// the eight slots in a mixed round (37.5%, measured) against 12.5% for every
+// other mode, purely because it happens to be stored as three banks. So: deal
+// across modes first, which makes every mode equally likely, and inside a mode
+// deal across its banks, which keeps Problem Solving an even mix of fill-in,
+// fix-the-bug and predict-the-output. Orders are shuffled at each level so the
+// rotation is never visible to the player.
+export function sampleAcrossBanks(pool, count, shuffleFn) {
+    const byMode = new Map();
+    pool.forEach((q) => {
+        const bank = q.bank || 'languages';
+        const mode = modeOfBank(bank);
+        if (!byMode.has(mode)) byMode.set(mode, new Map());
+        const banks = byMode.get(mode);
+        if (!banks.has(bank)) banks.set(bank, []);
+        banks.get(bank).push(q);
+    });
+
+    // One queue per mode, each already balanced across that mode's own banks.
+    const modeQueues = shuffleFn(Array.from(byMode.values())).map((banks) => {
+        const bankQueues = shuffleFn(Array.from(banks.values())).map((qs) => shuffleFn(qs));
+        if (bankQueues.length < 2) return bankQueues[0] || [];
+        return dealRoundRobin(bankQueues, Infinity);
+    });
+
+    // Single mode (any specific mode): take from the bank-balanced order, then
+    // shuffle what we took — slicing a re-shuffled queue would undo the balance.
+    if (modeQueues.length < 2) return shuffleFn((modeQueues[0] || []).slice(0, count));
+    return shuffleFn(dealRoundRobin(modeQueues, count));
 }
 
 export function buildRoundFromPool(pool, settings) {

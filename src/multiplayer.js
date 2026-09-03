@@ -87,20 +87,23 @@
     return String(s == null ? '' : s).trim().toLowerCase().replace(/\s+/g, ' ');
   }
 
-  // Same fair-across-banks deal as the single-player round builder (see
-  // sampleAcrossBanks in renderer.js): one slot per bank before any bank repeats,
-  // so an "All" room isn't dominated by `languages` (over half the pool).
-  function sampleAcrossBanks(pool, count, seed) {
-    const byBank = new Map();
-    pool.forEach((q) => {
-      const bank = q.bank || 'languages';
-      if (!byBank.has(bank)) byBank.set(bank, []);
-      byBank.get(bank).push(q);
-    });
-    if (byBank.size < 2) return seededShuffle(pool, seed).slice(0, count);
+  // Which selectable mode each bank belongs to. Problem Solving is the only mode
+  // spanning several banks. Must stay in step with BANK_MODE in
+  // src/modules/round.js; duplicated because this file is a classic script and
+  // cannot import the module.
+  const BANK_MODE = {
+    languages: 'languages',
+    cybersecurity: 'cybersecurity',
+    devops: 'devops',
+    network: 'network',
+    gamedev: 'gamedev',
+    algorithms: 'algorithms',
+    bug: 'algorithms',
+    output: 'algorithms'
+  };
+  function modeOfBank(bank) { return BANK_MODE[bank] || 'languages'; }
 
-    const queues = seededShuffle(Array.from(byBank.values()), seed)
-      .map((qs, i) => seededShuffle(qs, (seed ^ ((i + 1) * 0x9e3779b9)) >>> 0));
+  function dealRoundRobin(queues, count) {
     const picked = [];
     for (let depth = 0; picked.length < count; depth++) {
       let dealt = false;
@@ -112,13 +115,47 @@
       }
       if (!dealt) break;
     }
-    return seededShuffle(picked, (seed ^ 0x85ebca6b) >>> 0);
+    return picked;
+  }
+
+  // Same two-level deal as the single-player round builder (sampleAcrossBanks in
+  // src/modules/round.js): across modes first so no mode is over-represented in
+  // an "All" room, then across the banks inside a mode so Problem Solving stays
+  // an even mix. Seeded throughout, so every client in the room builds the same
+  // round from the same seed.
+  function sampleAcrossBanks(pool, count, seed) {
+    const byMode = new Map();
+    pool.forEach((q) => {
+      const bank = q.bank || 'languages';
+      const mode = modeOfBank(bank);
+      if (!byMode.has(mode)) byMode.set(mode, new Map());
+      const banks = byMode.get(mode);
+      if (!banks.has(bank)) banks.set(bank, []);
+      banks.get(bank).push(q);
+    });
+
+    const modeQueues = seededShuffle(Array.from(byMode.values()), seed).map((banks, m) => {
+      const bankQueues = seededShuffle(Array.from(banks.values()), (seed ^ ((m + 1) * 0x9e3779b9)) >>> 0)
+        .map((qs, i) => seededShuffle(qs, (seed ^ ((m + 1) * 0x85ebca6b) ^ ((i + 1) * 0xc2b2ae35)) >>> 0));
+      if (bankQueues.length < 2) return bankQueues[0] || [];
+      return dealRoundRobin(bankQueues, Infinity);
+    });
+
+    if (modeQueues.length < 2) {
+      return seededShuffle((modeQueues[0] || []).slice(0, count), (seed ^ 0x85ebca6b) >>> 0);
+    }
+    return seededShuffle(dealRoundRobin(modeQueues, count), (seed ^ 0x85ebca6b) >>> 0);
   }
 
   function buildRoundForRoom(allQuestions, settings) {
     let pool = allQuestions.slice();
+    /* Match on the bank's MODE, not the bank name. They are the same for five of
+       the six modes, but Problem Solving spans algorithms + bug + output — so a
+       bank-name match silently limited those rooms to the `algorithms` bank and
+       dropped 306 fix-the-bug / predict-the-output questions that single-player
+       Problem Solving has always served. */
     if (settings.mode && settings.mode !== 'all') {
-      pool = pool.filter((q) => (q.bank || 'languages') === settings.mode);
+      pool = pool.filter((q) => modeOfBank(q.bank || 'languages') === settings.mode);
     }
     if (pool.length === 0) pool = allQuestions.slice();
     if (settings.difficulty && settings.difficulty !== 'all') {
