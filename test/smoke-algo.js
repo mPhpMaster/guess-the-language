@@ -14,14 +14,16 @@ if (!Array.isArray(questions) || questions.length < 8) {
 }
 
 // Fill-in-the-blank format: a code snippet with a ____ blank, a typed answer,
-// and bilingual question + explanation. No options (it is not multiple choice).
+// and an English question + explanation. No options (it is not multiple choice).
+// The `ar` half of both texts was dropped when the app went English-only, so
+// asserting on it here only made this test fail against every valid question.
 const invalid = questions.find(
   (q) => !q.id ||
     typeof q.codeSnippet !== 'string' || !q.codeSnippet.includes('____') ||
-    !q.question || !q.question.en || !q.question.ar ||
+    !q.question || !q.question.en ||
     typeof q.answer !== 'string' || !q.answer.trim() ||
     (q.accept && !Array.isArray(q.accept)) ||
-    !q.explanation || !q.explanation.en || !q.explanation.ar
+    !q.explanation || !q.explanation.en
 );
 if (invalid) {
   console.error('Invalid question entry:', invalid.id || 'unknown');

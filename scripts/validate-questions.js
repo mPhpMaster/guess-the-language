@@ -45,6 +45,48 @@ function checkCommon(file, q) {
   if (q.id == null) err(file, '?', 'missing id');
   if (!DIFFS.has(q.difficulty)) err(file, q.id, `bad difficulty "${q.difficulty}"`);
   if (!textOk(q.explanation)) err(file, q.id, 'explanation needs a non-empty en (ar optional, non-empty if present)');
+  noteContent(file, q);
+}
+
+// ---- Content-duplicate detection --------------------------------------------
+// `id` is only unique WITHIN a bank, so duplicate ids were the only thing this
+// script used to catch — and 26 duplicate questions accumulated across four banks
+// unnoticed (removed in v3.14.0 by scripts/remove-duplicates.js).
+//
+// Two questions are the same question when prompt AND snippet match. Neither half
+// works alone: generic prompts are reused by design ("What is the output?" x58,
+// "Which fix removes the bug?" x56), and 283 knowledge questions carry an empty
+// codeSnippet. questions.json has no `question` field, so it keys on the snippet.
+//
+// The check spans every bank, not just each file: "All" mode mixes all eight banks
+// into one round, so the same question in cyber and network would surface twice.
+const normContent = (s) => String(s == null ? '' : s).replace(/\s+/g, ' ').trim().toLowerCase();
+const seenContent = new Map(); // key -> ["file#id", ...]
+
+function contentKey(q) {
+  if (q.correctLanguage != null) return normContent(q.codeSnippet);
+  return normContent(q.question && q.question.en) + '||' + normContent(q.codeSnippet);
+}
+
+function noteContent(file, q) {
+  const key = contentKey(q);
+  const where = `${file}#${q.id}`;
+  const hits = seenContent.get(key);
+  if (hits) hits.push(where);
+  else seenContent.set(key, [where]);
+}
+
+function reportContentDuplicates() {
+  const dups = [...seenContent.values()].filter((v) => v.length > 1);
+  if (!dups.length) {
+    console.log('\nNo duplicate questions (prompt + snippet, across all banks).');
+    return;
+  }
+  console.error(`\nDuplicate questions (prompt + snippet), ${dups.length} group(s):`);
+  for (const where of dups) {
+    hardErrors++;
+    console.error(`  ✗ ${where.join('  ==  ')}`);
+  }
 }
 
 function analyzeMc(file, questions) {
@@ -103,6 +145,8 @@ for (const f of [FILL_FILE, CHOICE_FILE]) {
   console.log(`  • ${f}: n=${questions.length} (schema only)`);
 }
 
-if (hardErrors) { console.error(`\n${hardErrors} schema error(s).`); process.exit(1); }
+reportContentDuplicates();
+
+if (hardErrors) { console.error(`\n${hardErrors} error(s).`); process.exit(1); }
 if (strict && biasFail) { console.error('\nLength-bias targets exceeded (--strict).'); process.exit(1); }
 console.log('\nOK.');
