@@ -1,5 +1,5 @@
 import { closeAdminPanel, requestAdminAccess } from './admin.js';
-import { $, closeDialog, openDialog, screens, showScreen } from './dom.js';
+import { $, closeDialog, openDialog, showScreen } from './dom.js';
 import { advanceAfterFeedback, clearTimer, endQuiz, onGameKeydown, startGame, startPractice, submitFill, useFifty } from './game.js';
 import { renderHome } from './home.js';
 import { MODES, t } from './i18n.js';
@@ -231,13 +231,6 @@ export function bindEvents() {
         }
     });
 
-    // keyboard: number keys select the matching option
-    document.addEventListener('keydown', (e) => {
-        if (!screens.game.classList.contains('active') || state.answered) return;
-        const n = parseInt(e.key, 10);
-        const buttons = document.querySelectorAll('#options-grid button');
-        if (n >= 1 && n <= buttons.length) buttons[n - 1].click();
-    });
 }
 
 export function refreshMenu() {
