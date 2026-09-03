@@ -1,0 +1,302 @@
+[
+  {
+    "id": 123,
+    "category": "kubernetes",
+    "difficulty": "medium",
+    "codeSnippet": "kind: Ingress\nrules:\n  - host: api.example.com",
+    "question": { "en": "What does an Ingress handle?" },
+    "options": [
+      "HTTP routing into the cluster",
+      "Storage claims for each pod",
+      "Node labels used by scheduling",
+      "Secrets mounted into a container"
+    ],
+    "answer": "HTTP routing into the cluster",
+    "explanation": { "en": "Ingress maps external hostnames and paths onto internal Services." }
+  },
+  {
+    "id": 124,
+    "category": "kubernetes",
+    "difficulty": "medium",
+    "codeSnippet": "kind: StatefulSet",
+    "question": { "en": "What does a StatefulSet guarantee?" },
+    "options": [
+      "Stable names and storage per pod",
+      "Exactly one pod on every node",
+      "Automatic rollback on failure",
+      "Shared memory between the pods"
+    ],
+    "answer": "Stable names and storage per pod",
+    "explanation": { "en": "Pods keep an ordinal identity and their volume across restarts — needed by databases." }
+  },
+  {
+    "id": 125,
+    "category": "kubernetes",
+    "difficulty": "medium",
+    "codeSnippet": "kind: DaemonSet",
+    "question": { "en": "What does a DaemonSet schedule?" },
+    "options": [
+      "One pod on every node",
+      "One pod per namespace",
+      "A fixed count of replicas",
+      "A pod that runs once only"
+    ],
+    "answer": "One pod on every node",
+    "explanation": { "en": "DaemonSets suit per-node agents such as log shippers and metrics exporters." }
+  },
+  {
+    "id": 126,
+    "category": "kubernetes",
+    "difficulty": "easy",
+    "codeSnippet": "kind: Secret\ntype: Opaque",
+    "question": { "en": "How does a Secret differ from a ConfigMap?" },
+    "options": [
+      "It is meant for sensitive values",
+      "It is limited to a single pod",
+      "It is written in JSON, not YAML",
+      "It is loaded only at build time"
+    ],
+    "answer": "It is meant for sensitive values",
+    "explanation": { "en": "Both inject configuration, but Secrets get restricted handling for credentials." }
+  },
+  {
+    "id": 127,
+    "category": "kubernetes",
+    "difficulty": "hard",
+    "codeSnippet": "resources:\n  limits:\n    memory: 512Mi",
+    "question": { "en": "What happens if the pod exceeds this?" },
+    "options": [
+      "The container is killed",
+      "The node adds more memory",
+      "The pod moves to another node",
+      "The limit is raised automatically"
+    ],
+    "answer": "The container is killed",
+    "explanation": { "en": "Passing a memory limit triggers an OOM kill; CPU limits throttle instead." }
+  },
+  {
+    "id": 128,
+    "category": "kubernetes",
+    "difficulty": "hard",
+    "codeSnippet": "kind: HorizontalPodAutoscaler\ntargetCPUUtilizationPercentage: 70",
+    "question": { "en": "What does this adjust?" },
+    "options": [
+      "The number of running pods",
+      "The CPU given to each pod",
+      "The count of cluster nodes",
+      "The rollout speed of updates"
+    ],
+    "answer": "The number of running pods",
+    "explanation": { "en": "An HPA scales replicas up and down to hold the target metric." }
+  },
+  {
+    "id": 129,
+    "category": "cicd",
+    "difficulty": "medium",
+    "codeSnippet": "git bisect start\ngit bisect bad\ngit bisect good v1.0",
+    "question": { "en": "What is this searching for?" },
+    "options": [
+      "The commit that introduced a bug",
+      "The branch furthest behind main",
+      "The largest commit in the history",
+      "The author of a conflicting change"
+    ],
+    "answer": "The commit that introduced a bug",
+    "explanation": { "en": "bisect binary-searches the history between a known good and bad commit." }
+  },
+  {
+    "id": 130,
+    "category": "cicd",
+    "difficulty": "easy",
+    "codeSnippet": "git revert a1b2c3",
+    "question": { "en": "What does this do?" },
+    "options": [
+      "Adds a commit undoing that one",
+      "Deletes that commit from history",
+      "Moves the branch back one commit",
+      "Restores the files without a commit"
+    ],
+    "answer": "Adds a commit undoing that one",
+    "explanation": { "en": "revert is safe on shared branches because it rewrites nothing." }
+  },
+  {
+    "id": 131,
+    "category": "ci",
+    "difficulty": "medium",
+    "codeSnippet": "strategy:\n  matrix:\n    node: [18, 20, 22]",
+    "question": { "en": "What does this produce?" },
+    "options": [
+      "One job per listed version",
+      "One job that loops the list",
+      "Three sequential build stages",
+      "A single job with three steps"
+    ],
+    "answer": "One job per listed version",
+    "explanation": { "en": "A matrix fans the job out in parallel, one run per combination." }
+  },
+  {
+    "id": 132,
+    "category": "ci",
+    "difficulty": "medium",
+    "codeSnippet": "- uses: actions/cache@v4\n  with:\n    path: ~/.npm",
+    "question": { "en": "Why add this step?" },
+    "options": [
+      "To reuse downloads between runs",
+      "To store the build output for later",
+      "To share files across two branches",
+      "To keep secrets out of the logs"
+    ],
+    "answer": "To reuse downloads between runs",
+    "explanation": { "en": "Caching the dependency directory removes a repeated download from every run." }
+  },
+  {
+    "id": 133,
+    "category": "deployment",
+    "difficulty": "medium",
+    "codeSnippet": "if (flags.newCheckout) { renderNew(); }",
+    "question": { "en": "What does a feature flag allow?" },
+    "options": [
+      "Shipping code before enabling it",
+      "Skipping the code review step",
+      "Deploying without a build stage",
+      "Running two versions of a test"
+    ],
+    "answer": "Shipping code before enabling it",
+    "explanation": { "en": "Release is decoupled from deploy, so a change can be switched on or off instantly." }
+  },
+  {
+    "id": 134,
+    "category": "reliability",
+    "difficulty": "hard",
+    "codeSnippet": "SLO: 99.9% over 30 days",
+    "question": { "en": "What does the error budget represent?" },
+    "options": [
+      "The unreliability you may spend",
+      "The money set aside for outages",
+      "The count of open bug reports",
+      "The time allowed for a rollback"
+    ],
+    "answer": "The unreliability you may spend",
+    "explanation": { "en": "0.1% of the window is the budget; exhausting it usually freezes risky releases." }
+  },
+  {
+    "id": 135,
+    "category": "observability",
+    "difficulty": "medium",
+    "codeSnippet": "trace_id=4bf92f span_id=00f067",
+    "question": { "en": "What does distributed tracing show?" },
+    "options": [
+      "One request across many services",
+      "Every log line from one machine",
+      "A metric averaged over a window",
+      "The uptime of each dependency"
+    ],
+    "answer": "One request across many services",
+    "explanation": { "en": "A shared trace id stitches the spans together, exposing where the time went." }
+  },
+  {
+    "id": 136,
+    "category": "observability",
+    "difficulty": "easy",
+    "codeSnippet": "{\"level\":\"warn\",\"user\":42,\"ms\":310}",
+    "question": { "en": "What does structured logging make easier?" },
+    "options": [
+      "Querying logs by field",
+      "Reading logs on a terminal",
+      "Shrinking the log volume",
+      "Encrypting the log contents"
+    ],
+    "answer": "Querying logs by field",
+    "explanation": { "en": "Machine-readable fields can be filtered and aggregated without fragile regexes." }
+  },
+  {
+    "id": 137,
+    "category": "iac",
+    "difficulty": "medium",
+    "codeSnippet": "module \"vpc\" {\n  source = \"./modules/vpc\"\n}",
+    "question": { "en": "What is a Terraform module?" },
+    "options": [
+      "A reusable group of resources",
+      "A record of the applied state",
+      "A provider's API credentials",
+      "A preview of pending changes"
+    ],
+    "answer": "A reusable group of resources",
+    "explanation": { "en": "Modules package resources so the same pattern can be instantiated repeatedly." }
+  },
+  {
+    "id": 138,
+    "category": "iac",
+    "difficulty": "easy",
+    "codeSnippet": "terraform fmt",
+    "question": { "en": "What does this command do?" },
+    "options": [
+      "Rewrites files to canonical style",
+      "Removes the unused state entries",
+      "Formats the plan output as JSON",
+      "Validates the provider versions"
+    ],
+    "answer": "Rewrites files to canonical style",
+    "explanation": { "en": "fmt only reformats configuration; it never touches infrastructure." }
+  },
+  {
+    "id": 139,
+    "category": "containers",
+    "difficulty": "easy",
+    "codeSnippet": "docker system prune",
+    "question": { "en": "What does this reclaim?" },
+    "options": [
+      "Unused images and containers",
+      "Memory held by running apps",
+      "Ports bound by old services",
+      "Credentials cached at login"
+    ],
+    "answer": "Unused images and containers",
+    "explanation": { "en": "prune deletes dangling images, stopped containers and unused networks." }
+  },
+  {
+    "id": 140,
+    "category": "containers",
+    "difficulty": "medium",
+    "codeSnippet": "FROM node@sha256:9b1c...",
+    "question": { "en": "Why pin a digest instead of a tag?" },
+    "options": [
+      "A digest can never be moved",
+      "A digest downloads much faster",
+      "A digest works without a login",
+      "A digest skips the build cache"
+    ],
+    "answer": "A digest can never be moved",
+    "explanation": { "en": "Tags can be repointed at a new image; a digest names exactly one build." }
+  },
+  {
+    "id": 141,
+    "category": "cloud",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": { "en": "What does least privilege mean for an IAM role?" },
+    "options": [
+      "Grant only what the task needs",
+      "Grant the same rights to all",
+      "Grant access for a short time",
+      "Grant rights through one admin"
+    ],
+    "answer": "Grant only what the task needs",
+    "explanation": { "en": "Narrow permissions limit the blast radius when a credential leaks." }
+  },
+  {
+    "id": 142,
+    "category": "deployment",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "What does immutable infrastructure mean?" },
+    "options": [
+      "Replace servers, never patch them",
+      "Patch servers, never replace them",
+      "Freeze the config after the build",
+      "Keep one server per environment"
+    ],
+    "answer": "Replace servers, never patch them",
+    "explanation": { "en": "Every change builds a fresh instance, so no server drifts from its definition." }
+  }
+]

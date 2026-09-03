@@ -2145,5 +2145,385 @@
     "explanation": {
       "en": "A raycast reports the first collider a ray intersects, used for aiming and detection."
     }
+  },
+  {
+    "id": 114,
+    "category": "rendering",
+    "difficulty": "medium",
+    "codeSnippet": "// two coplanar surfaces flicker as the camera moves",
+    "question": {
+      "en": "What is this artefact called?"
+    },
+    "options": [
+      "Z-fighting",
+      "Overdraw",
+      "Aliasing",
+      "Banding"
+    ],
+    "answer": "Z-fighting",
+    "explanation": {
+      "en": "Equal depth values make the depth buffer flip between surfaces frame to frame."
+    }
+  },
+  {
+    "id": 115,
+    "category": "rendering",
+    "difficulty": "easy",
+    "codeSnippet": "texture.mipMapBias = 0;",
+    "question": {
+      "en": "What are mipmaps?"
+    },
+    "options": [
+      "Pre-scaled smaller textures",
+      "Extra lights baked per object",
+      "Cached meshes for far objects",
+      "Compressed audio for cutscenes"
+    ],
+    "answer": "Pre-scaled smaller textures",
+    "explanation": {
+      "en": "Distant surfaces sample a smaller level, which cuts shimmering and memory traffic."
+    }
+  },
+  {
+    "id": 116,
+    "category": "rendering",
+    "difficulty": "medium",
+    "codeSnippet": "material.SetTexture(\"_BumpMap\", normalTex);",
+    "question": {
+      "en": "What does a normal map do?"
+    },
+    "options": [
+      "Fakes surface detail",
+      "Stores per-pixel colour",
+      "Marks transparent areas",
+      "Holds the shadow mask"
+    ],
+    "answer": "Fakes surface detail",
+    "explanation": {
+      "en": "It perturbs lighting normals so a flat surface lights like a bumpy one."
+    }
+  },
+  {
+    "id": 117,
+    "category": "rendering",
+    "difficulty": "hard",
+    "codeSnippet": "// a wall stands between the camera and the crowd",
+    "question": {
+      "en": "What does occlusion culling skip?"
+    },
+    "options": [
+      "Objects hidden behind others",
+      "Objects outside the view cone",
+      "Objects beyond the far plane",
+      "Objects smaller than a pixel"
+    ],
+    "answer": "Objects hidden behind others",
+    "explanation": {
+      "en": "Frustum culling drops what is off-screen; occlusion culling drops what is blocked."
+    }
+  },
+  {
+    "id": 118,
+    "category": "animation",
+    "difficulty": "medium",
+    "codeSnippet": "animator.SetFloat(\"speed\", 0.5f);",
+    "question": {
+      "en": "What does a blend tree do?"
+    },
+    "options": [
+      "Mixes several clips",
+      "Records new keyframes",
+      "Splits a clip in two",
+      "Loops the final frame"
+    ],
+    "answer": "Mixes several clips",
+    "explanation": {
+      "en": "A parameter weights the clips, so walk blends smoothly into run."
+    }
+  },
+  {
+    "id": 119,
+    "category": "animation",
+    "difficulty": "medium",
+    "codeSnippet": "animator.applyRootMotion = true;",
+    "question": {
+      "en": "Where does movement come from now?"
+    },
+    "options": [
+      "The animation clip",
+      "The physics engine",
+      "The input handler",
+      "The navmesh agent"
+    ],
+    "answer": "The animation clip",
+    "explanation": {
+      "en": "Root motion drives the transform from the baked animation instead of code."
+    }
+  },
+  {
+    "id": 120,
+    "category": "animation",
+    "difficulty": "easy",
+    "codeSnippet": "t = t * t * (3 - 2 * t);",
+    "question": {
+      "en": "What does an easing curve change?"
+    },
+    "options": [
+      "How the value progresses",
+      "How long the tween lasts",
+      "Where the tween finishes",
+      "Which axis is animated"
+    ],
+    "answer": "How the value progresses",
+    "explanation": {
+      "en": "Easing reshapes the rate of change; start and end values stay the same."
+    }
+  },
+  {
+    "id": 121,
+    "category": "ui",
+    "difficulty": "medium",
+    "codeSnippet": "image.type = Image.Type.Sliced;",
+    "question": {
+      "en": "What does nine-slicing preserve?"
+    },
+    "options": [
+      "The corner proportions",
+      "The original file size",
+      "The sprite's pivot point",
+      "The draw order on screen"
+    ],
+    "answer": "The corner proportions",
+    "explanation": {
+      "en": "Corners stay fixed while the edges and centre stretch, so borders never smear."
+    }
+  },
+  {
+    "id": 122,
+    "category": "ui",
+    "difficulty": "easy",
+    "codeSnippet": "rect.anchorMin = new Vector2(1, 1);",
+    "question": {
+      "en": "What do UI anchors control?"
+    },
+    "options": [
+      "Placement when resizing",
+      "Order of the draw calls",
+      "Colour of the container",
+      "Speed of the transition"
+    ],
+    "answer": "Placement when resizing",
+    "explanation": {
+      "en": "Anchoring ties an element to a parent edge so layouts survive other resolutions."
+    }
+  },
+  {
+    "id": 123,
+    "category": "physics",
+    "difficulty": "hard",
+    "codeSnippet": "rb.collisionDetectionMode = CollisionDetectionMode.Continuous;",
+    "question": {
+      "en": "What does this prevent?"
+    },
+    "options": [
+      "Fast objects tunnelling",
+      "Slow objects jittering",
+      "Stacked objects sinking",
+      "Light objects drifting"
+    ],
+    "answer": "Fast objects tunnelling",
+    "explanation": {
+      "en": "Discrete checks can step straight past a thin wall between two frames."
+    }
+  },
+  {
+    "id": 124,
+    "category": "physics",
+    "difficulty": "medium",
+    "codeSnippet": "rb.isKinematic = true;",
+    "question": {
+      "en": "How does the body move now?"
+    },
+    "options": [
+      "By script only",
+      "By gravity only",
+      "By collisions only",
+      "By the navmesh only"
+    ],
+    "answer": "By script only",
+    "explanation": {
+      "en": "A kinematic body ignores forces; you set its transform directly."
+    }
+  },
+  {
+    "id": 125,
+    "category": "physics",
+    "difficulty": "medium",
+    "codeSnippet": "// Physics settings > Layer Collision Matrix",
+    "question": {
+      "en": "What does this matrix decide?"
+    },
+    "options": [
+      "Which layers interact",
+      "Which layers are drawn",
+      "How heavy each layer is",
+      "How fast each layer moves"
+    ],
+    "answer": "Which layers interact",
+    "explanation": {
+      "en": "Turning off pairs removes whole classes of collision checks — a cheap optimisation."
+    }
+  },
+  {
+    "id": 126,
+    "category": "gameplay",
+    "difficulty": "medium",
+    "codeSnippet": "if (Time.time - leftGroundAt < 0.1f) allowJump = true;",
+    "question": {
+      "en": "What is this technique called?"
+    },
+    "options": [
+      "Coyote time",
+      "Input buffering",
+      "Frame pacing",
+      "Tick smoothing"
+    ],
+    "answer": "Coyote time",
+    "explanation": {
+      "en": "A short grace period after leaving a ledge makes jumps feel fair rather than strict."
+    }
+  },
+  {
+    "id": 127,
+    "category": "input",
+    "difficulty": "easy",
+    "codeSnippet": "bindings[\"jump\"] = KeyCode.Space;",
+    "question": {
+      "en": "What does input remapping give players?"
+    },
+    "options": [
+      "Their own key choices",
+      "A faster input response",
+      "Support for more devices",
+      "Fewer accidental presses"
+    ],
+    "answer": "Their own key choices",
+    "explanation": {
+      "en": "Rebindable controls are a baseline accessibility feature, not a luxury."
+    }
+  },
+  {
+    "id": 128,
+    "category": "assets",
+    "difficulty": "medium",
+    "codeSnippet": "Random.InitState(12345);",
+    "question": {
+      "en": "What does seeding the generator give you?"
+    },
+    "options": [
+      "Repeatable results",
+      "Better randomness",
+      "Faster generation",
+      "Smaller save files"
+    ],
+    "answer": "Repeatable results",
+    "explanation": {
+      "en": "The same seed rebuilds the same world, which makes bugs reproducible and seeds shareable."
+    }
+  },
+  {
+    "id": 129,
+    "category": "assets",
+    "difficulty": "hard",
+    "codeSnippet": "float h = Mathf.PerlinNoise(x * 0.1f, y * 0.1f);",
+    "question": {
+      "en": "Why use Perlin noise for terrain?"
+    },
+    "options": [
+      "Neighbours vary smoothly",
+      "Values never repeat at all",
+      "It is faster than a lookup",
+      "It guarantees flat regions"
+    ],
+    "answer": "Neighbours vary smoothly",
+    "explanation": {
+      "en": "Gradient noise is continuous, so heights form hills rather than white-noise spikes."
+    }
+  },
+  {
+    "id": 130,
+    "category": "save",
+    "difficulty": "medium",
+    "codeSnippet": "{ \"version\": 2, \"gold\": 120 }",
+    "question": {
+      "en": "Why store a version in a save file?"
+    },
+    "options": [
+      "To migrate old saves",
+      "To detect a corrupt file",
+      "To compress it further",
+      "To sort the save slots"
+    ],
+    "answer": "To migrate old saves",
+    "explanation": {
+      "en": "The loader can upgrade an older layout instead of rejecting the player's progress."
+    }
+  },
+  {
+    "id": 131,
+    "category": "netcode",
+    "difficulty": "hard",
+    "codeSnippet": "// the client reports a hit; the server disagrees",
+    "question": {
+      "en": "In an authoritative model, who wins?"
+    },
+    "options": [
+      "The server",
+      "The client",
+      "The faster peer",
+      "The match host"
+    ],
+    "answer": "The server",
+    "explanation": {
+      "en": "Trusting clients invites cheating, so the server's simulation is the record."
+    }
+  },
+  {
+    "id": 132,
+    "category": "audio",
+    "difficulty": "easy",
+    "codeSnippet": "musicBus.volume = dialogue.isPlaying ? 0.3f : 1f;",
+    "question": {
+      "en": "What is this technique called?"
+    },
+    "options": [
+      "Ducking",
+      "Panning",
+      "Looping",
+      "Filtering"
+    ],
+    "answer": "Ducking",
+    "explanation": {
+      "en": "Ducking dips one bus while another plays, so speech stays intelligible."
+    }
+  },
+  {
+    "id": 133,
+    "category": "optimization",
+    "difficulty": "easy",
+    "codeSnippet": "// frame time spikes every few seconds",
+    "question": {
+      "en": "What should you reach for first?"
+    },
+    "options": [
+      "The profiler",
+      "A faster GPU",
+      "Lower textures",
+      "Fewer objects"
+    ],
+    "answer": "The profiler",
+    "explanation": {
+      "en": "Measure before optimising — the spike's real cause is rarely the first guess."
+    }
   }
 ]

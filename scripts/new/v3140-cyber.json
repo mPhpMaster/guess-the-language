@@ -1,0 +1,407 @@
+[
+  {
+    "id": 158,
+    "category": "web",
+    "difficulty": "medium",
+    "codeSnippet": "query = \"SELECT * FROM users WHERE id = '\" + userId + \"'\"",
+    "question": { "en": "Which change removes the vulnerability?" },
+    "options": [
+      "Use a parameterised query",
+      "Escape the HTML output",
+      "Add an index on the id",
+      "Rename the users table"
+    ],
+    "answer": "Use a parameterised query",
+    "explanation": { "en": "Binding the value as a parameter keeps it data, so it can never become SQL." }
+  },
+  {
+    "id": 159,
+    "category": "web",
+    "difficulty": "medium",
+    "codeSnippet": "element.innerHTML = commentText;",
+    "question": { "en": "Which risk does this create?" },
+    "options": [
+      "Cross-site scripting",
+      "SQL injection",
+      "Directory traversal",
+      "Session fixation"
+    ],
+    "answer": "Cross-site scripting",
+    "explanation": { "en": "Untrusted text assigned to innerHTML is parsed as markup, so it can run script." }
+  },
+  {
+    "id": 160,
+    "category": "web",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "What does a CSRF token protect against?" },
+    "options": [
+      "Requests forged by another site",
+      "Passwords guessed by brute force",
+      "Traffic captured on the network",
+      "Files uploaded with a bad type"
+    ],
+    "answer": "Requests forged by another site",
+    "explanation": { "en": "The token proves the request came from your own page, not an attacker's." }
+  },
+  {
+    "id": 161,
+    "category": "web",
+    "difficulty": "hard",
+    "codeSnippet": "Set-Cookie: sid=abc; HttpOnly; Secure; SameSite=Strict",
+    "question": { "en": "What does the HttpOnly flag do?" },
+    "options": [
+      "Hides the cookie from JavaScript",
+      "Sends the cookie over HTTP only",
+      "Expires the cookie on logout",
+      "Encrypts the cookie's value"
+    ],
+    "answer": "Hides the cookie from JavaScript",
+    "explanation": { "en": "HttpOnly blocks document.cookie access, so stolen XSS cannot read the session." }
+  },
+  {
+    "id": 162,
+    "category": "crypto",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": { "en": "Which uses one shared secret key?" },
+    "options": [
+      "Symmetric encryption",
+      "Asymmetric encryption",
+      "Public-key signing",
+      "Certificate pinning"
+    ],
+    "answer": "Symmetric encryption",
+    "explanation": { "en": "Symmetric ciphers like AES use the same key to encrypt and decrypt." }
+  },
+  {
+    "id": 163,
+    "category": "crypto",
+    "difficulty": "medium",
+    "codeSnippet": "hash = bcrypt(password + salt)",
+    "question": { "en": "What is the salt for?" },
+    "options": [
+      "To defeat precomputed tables",
+      "To shorten the stored hash",
+      "To speed up the comparison",
+      "To recover a lost password"
+    ],
+    "answer": "To defeat precomputed tables",
+    "explanation": { "en": "A unique salt per user makes rainbow tables useless and hides repeated passwords." }
+  },
+  {
+    "id": 164,
+    "category": "crypto",
+    "difficulty": "hard",
+    "codeSnippet": "stored = sha256(password)",
+    "question": { "en": "Why is this a weak choice?" },
+    "options": [
+      "It is far too fast to compute",
+      "It produces too short a digest",
+      "It cannot handle long inputs",
+      "It is not a published standard"
+    ],
+    "answer": "It is far too fast to compute",
+    "explanation": { "en": "Password hashes should be slow; bcrypt or Argon2 add deliberate work per guess." }
+  },
+  {
+    "id": 165,
+    "category": "auth",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": { "en": "What does multi-factor authentication add?" },
+    "options": [
+      "A second, different proof",
+      "A longer password rule",
+      "A shared team account",
+      "A faster login screen"
+    ],
+    "answer": "A second, different proof",
+    "explanation": { "en": "MFA combines factor types — something you know plus something you have or are." }
+  },
+  {
+    "id": 166,
+    "category": "auth",
+    "difficulty": "medium",
+    "codeSnippet": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIn0.9x7Kp",
+    "question": { "en": "What does the third segment provide?" },
+    "options": [
+      "Proof the payload is untampered",
+      "Encryption of the user's claims",
+      "Compression of the header data",
+      "A unique identifier per request"
+    ],
+    "answer": "Proof the payload is untampered",
+    "explanation": { "en": "A JWT's signature authenticates the header and payload; it does not hide them." }
+  },
+  {
+    "id": 167,
+    "category": "auth",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": { "en": "What does OpenID Connect add to OAuth 2.0?" },
+    "options": [
+      "A standard identity layer",
+      "A faster token endpoint",
+      "A mandatory refresh flow",
+      "A stronger client secret"
+    ],
+    "answer": "A standard identity layer",
+    "explanation": { "en": "OAuth 2.0 authorises access; OIDC layers authentication on top with an ID token." }
+  },
+  {
+    "id": 168,
+    "category": "attacks",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": { "en": "What defines a phishing attack?" },
+    "options": [
+      "A fake message baiting a click",
+      "A flood of traffic from bots",
+      "A silent scan of open ports",
+      "A patched flaw being reused"
+    ],
+    "answer": "A fake message baiting a click",
+    "explanation": { "en": "Phishing impersonates a trusted sender to harvest credentials or drop malware." }
+  },
+  {
+    "id": 169,
+    "category": "attacks",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "How does a dictionary attack differ from brute force?" },
+    "options": [
+      "It tries likely words first",
+      "It runs entirely offline",
+      "It needs no password hash",
+      "It targets only one account"
+    ],
+    "answer": "It tries likely words first",
+    "explanation": { "en": "A dictionary attack uses a curated wordlist instead of exhausting every combination." }
+  },
+  {
+    "id": 170,
+    "category": "attacks",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "What happens in a man-in-the-middle attack?" },
+    "options": [
+      "Traffic is relayed by an attacker",
+      "A server is flooded until it stops",
+      "A password file is cracked offline",
+      "A user is tricked into installing"
+    ],
+    "answer": "Traffic is relayed by an attacker",
+    "explanation": { "en": "The attacker sits between both parties, able to read or alter what passes through." }
+  },
+  {
+    "id": 171,
+    "category": "attacks",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": { "en": "What makes pass-the-hash possible?" },
+    "options": [
+      "The hash itself authenticates",
+      "The hash is easily reversed",
+      "The password is sent in clear",
+      "The account has no lockout"
+    ],
+    "answer": "The hash itself authenticates",
+    "explanation": { "en": "Where a protocol accepts the hash as proof, stealing it is as good as the password." }
+  },
+  {
+    "id": 172,
+    "category": "malware",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": { "en": "What does ransomware do?" },
+    "options": [
+      "Encrypts files and demands payment",
+      "Records every keystroke silently",
+      "Opens a hidden remote backdoor",
+      "Shows unwanted adverts on screen"
+    ],
+    "answer": "Encrypts files and demands payment",
+    "explanation": { "en": "Ransomware locks data behind encryption and sells the key back to the victim." }
+  },
+  {
+    "id": 173,
+    "category": "malware",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "What is a rootkit built to do?" },
+    "options": [
+      "Hide its presence from the OS",
+      "Spread itself across a network",
+      "Encrypt the user's documents",
+      "Mine cryptocurrency in the background"
+    ],
+    "answer": "Hide its presence from the OS",
+    "explanation": { "en": "A rootkit subverts the system so its files and processes never show up." }
+  },
+  {
+    "id": 174,
+    "category": "malware",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": { "en": "How does a worm differ from a virus?" },
+    "options": [
+      "It spreads with no host file",
+      "It only runs in system memory",
+      "It always encrypts what it finds",
+      "It cannot cross network segments"
+    ],
+    "answer": "It spreads with no host file",
+    "explanation": { "en": "A worm self-propagates; a virus needs a host program a user runs." }
+  },
+  {
+    "id": 175,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "What is Wireshark used for?" },
+    "options": [
+      "Capturing and inspecting packets",
+      "Cracking hashed password lists",
+      "Scanning hosts for open ports",
+      "Fuzzing a web app's parameters"
+    ],
+    "answer": "Capturing and inspecting packets",
+    "explanation": { "en": "Wireshark is a packet analyser that decodes traffic protocol by protocol." }
+  },
+  {
+    "id": 176,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "What is Burp Suite mainly used for?" },
+    "options": [
+      "Intercepting web app traffic",
+      "Managing firewall rule sets",
+      "Recovering deleted disk files",
+      "Monitoring server CPU usage"
+    ],
+    "answer": "Intercepting web app traffic",
+    "explanation": { "en": "Burp proxies HTTP so requests can be inspected, modified and replayed." }
+  },
+  {
+    "id": 177,
+    "category": "tools",
+    "difficulty": "easy",
+    "codeSnippet": "hashcat -m 0 hashes.txt wordlist.txt",
+    "question": { "en": "What does this command attempt?" },
+    "options": [
+      "Cracking hashes from a wordlist",
+      "Hashing a file to verify it",
+      "Encrypting a list of secrets",
+      "Comparing two password files"
+    ],
+    "answer": "Cracking hashes from a wordlist",
+    "explanation": { "en": "hashcat hashes each candidate word and looks for a match in the hash file." }
+  },
+  {
+    "id": 178,
+    "category": "nmap",
+    "difficulty": "medium",
+    "codeSnippet": "nmap -sV 10.0.0.5",
+    "question": { "en": "What does the -sV flag add?" },
+    "options": [
+      "Service and version detection",
+      "A much slower timing profile",
+      "Verbose output while scanning",
+      "A scan of every UDP port"
+    ],
+    "answer": "Service and version detection",
+    "explanation": { "en": "-sV probes open ports to identify the service and its version." }
+  },
+  {
+    "id": 179,
+    "category": "nmap",
+    "difficulty": "hard",
+    "codeSnippet": "nmap -O 10.0.0.5",
+    "question": { "en": "What does -O try to determine?" },
+    "options": [
+      "The target's operating system",
+      "The output file for results",
+      "The count of open services",
+      "The optimal scanning order"
+    ],
+    "answer": "The target's operating system",
+    "explanation": { "en": "-O fingerprints the TCP/IP stack to guess the host's OS." }
+  },
+  {
+    "id": 180,
+    "category": "metasploit",
+    "difficulty": "medium",
+    "codeSnippet": "msf6 > set PAYLOAD windows/meterpreter/reverse_tcp",
+    "question": { "en": "What does a reverse payload do?" },
+    "options": [
+      "Connects back to the attacker",
+      "Waits for an inbound connection",
+      "Reverses the exploit's effects",
+      "Restores the target's registry"
+    ],
+    "answer": "Connects back to the attacker",
+    "explanation": { "en": "A reverse shell dials out from the victim, which gets past inbound firewall rules." }
+  },
+  {
+    "id": 181,
+    "category": "defense",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "Where does a WAF sit?" },
+    "options": [
+      "In front of a web application",
+      "Inside the database server",
+      "On every employee laptop",
+      "Between two office switches"
+    ],
+    "answer": "In front of a web application",
+    "explanation": { "en": "A web application firewall filters HTTP requests before they reach the app." }
+  },
+  {
+    "id": 182,
+    "category": "defense",
+    "difficulty": "easy",
+    "codeSnippet": "iptables -P INPUT DROP",
+    "question": { "en": "What policy does this set?" },
+    "options": [
+      "Deny anything not allowed",
+      "Allow anything not denied",
+      "Log every inbound packet",
+      "Drop only invalid packets"
+    ],
+    "answer": "Deny anything not allowed",
+    "explanation": { "en": "A default DROP policy is default-deny: only explicit ACCEPT rules let traffic through." }
+  },
+  {
+    "id": 183,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "Which CIA triad goal does a DDoS attack break?" },
+    "options": [
+      "Availability",
+      "Confidentiality",
+      "Integrity",
+      "Accountability"
+    ],
+    "answer": "Availability",
+    "explanation": { "en": "Flooding a service leaves the data intact and private but unreachable." }
+  },
+  {
+    "id": 184,
+    "category": "principles",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": { "en": "What does defence in depth assume?" },
+    "options": [
+      "Any single control can fail",
+      "One strong wall is enough",
+      "Insiders are always trusted",
+      "Patching replaces monitoring"
+    ],
+    "answer": "Any single control can fail",
+    "explanation": { "en": "Layered controls mean one bypassed defence does not hand over the whole system." }
+  }
+]

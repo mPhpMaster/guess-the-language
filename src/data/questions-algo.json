@@ -3545,5 +3545,630 @@
     "explanation": {
       "en": "Readonly<T> marks every property of T as readonly."
     }
+  },
+  {
+    "id": 215,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# print each item on its own line\nfor item in items:\n    ____(item)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "print",
+    "accept": [
+      "print",
+      "print()"
+    ],
+    "explanation": {
+      "en": "print() writes each item to standard output."
+    }
+  },
+  {
+    "id": 216,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# add x to the end of the list\nnums.____(x)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "append",
+    "accept": [
+      "append",
+      "append()"
+    ],
+    "explanation": {
+      "en": "list.append() adds a single item to the end of the list."
+    }
+  },
+  {
+    "id": 217,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# uppercase copy of the name\nshout = name.____()",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "upper",
+    "accept": [
+      "upper",
+      "upper()"
+    ],
+    "explanation": {
+      "en": "str.upper() returns an uppercased copy; strings are immutable."
+    }
+  },
+  {
+    "id": 218,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# remove and return the last item\nlast = stack.____()",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "pop",
+    "accept": [
+      "pop",
+      "pop()"
+    ],
+    "explanation": {
+      "en": "list.pop() removes and returns the final element — a stack pop."
+    }
+  },
+  {
+    "id": 219,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "# sort by the second element of each pair\npairs.sort(key=lambda p: p[____])",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "1",
+    "accept": [
+      "1"
+    ],
+    "explanation": {
+      "en": "Indexes are zero-based, so the second element is index 1."
+    }
+  },
+  {
+    "id": 220,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "# build a dict from a list of (key, value) pairs\nlookup = ____(pairs)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "dict",
+    "accept": [
+      "dict",
+      "dict()"
+    ],
+    "explanation": {
+      "en": "dict() accepts an iterable of key/value pairs."
+    }
+  },
+  {
+    "id": 221,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "# read the whole file into one string\ntext = f.____()",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "read",
+    "accept": [
+      "read",
+      "read()"
+    ],
+    "explanation": {
+      "en": "read() returns the entire remaining contents as a single string."
+    }
+  },
+  {
+    "id": 222,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "# pair each element of a with the matching one in b\npairs = list(____(a, b))",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "zip",
+    "accept": [
+      "zip",
+      "zip()"
+    ],
+    "explanation": {
+      "en": "zip() yields tuples pairing items from each iterable, stopping at the shortest."
+    }
+  },
+  {
+    "id": 223,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "# get the index alongside the value\nfor i, value in ____(items):\n    print(i, value)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "enumerate",
+    "accept": [
+      "enumerate",
+      "enumerate()"
+    ],
+    "explanation": {
+      "en": "enumerate() yields (index, value) pairs, so no manual counter is needed."
+    }
+  },
+  {
+    "id": 224,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "# count how often each word appears\ncounts = ____(words)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "Counter",
+    "accept": [
+      "Counter",
+      "Counter()",
+      "collections.Counter"
+    ],
+    "explanation": {
+      "en": "collections.Counter tallies occurrences of each element in one pass."
+    }
+  },
+  {
+    "id": 225,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// add one to every number\nconst bumped = nums.____((n) => n + 1);",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "map",
+    "accept": [
+      "map",
+      "map()"
+    ],
+    "explanation": {
+      "en": "map() builds a new array from each callback result."
+    }
+  },
+  {
+    "id": 226,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// keep only the positive numbers\nconst positive = nums.____((n) => n > 0);",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "filter",
+    "accept": [
+      "filter",
+      "filter()"
+    ],
+    "explanation": {
+      "en": "filter() keeps the elements whose callback returns true."
+    }
+  },
+  {
+    "id": 227,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// index of the final element\nconst last = arr[arr.____ - 1];",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "length",
+    "accept": [
+      "length"
+    ],
+    "explanation": {
+      "en": "Array indexes stop at length - 1."
+    }
+  },
+  {
+    "id": 228,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// total of every number in the array\nconst total = nums.____((a, b) => a + b, 0);",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "reduce",
+    "accept": [
+      "reduce",
+      "reduce()"
+    ],
+    "explanation": {
+      "en": "reduce() folds the array into one value, starting from the 0 seed."
+    }
+  },
+  {
+    "id": 229,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// pause until the promise settles\nconst data = ____ loadData();",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "await",
+    "accept": [
+      "await"
+    ],
+    "explanation": {
+      "en": "await suspends an async function until the promise resolves."
+    }
+  },
+  {
+    "id": 230,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// true only when every item passes\nconst allOk = items.____((x) => x > 0);",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "every",
+    "accept": [
+      "every",
+      "every()"
+    ],
+    "explanation": {
+      "en": "every() returns true when the callback holds for all elements."
+    }
+  },
+  {
+    "id": 231,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// the first matching user, or undefined\nconst hit = users.____((u) => u.id === id);",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "find",
+    "accept": [
+      "find",
+      "find()"
+    ],
+    "explanation": {
+      "en": "find() returns the first matching element, or undefined."
+    }
+  },
+  {
+    "id": 232,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "// clone a plain object through JSON\nconst copy = JSON.____(JSON.stringify(obj));",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "parse",
+    "accept": [
+      "parse",
+      "parse()",
+      "JSON.parse"
+    ],
+    "explanation": {
+      "en": "stringify then parse rebuilds a detached copy of a JSON-safe object."
+    }
+  },
+  {
+    "id": 233,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "// every property becomes optional\ntype Draft = ____<User>;",
+    "question": {
+      "en": "Fill the blank"
+    },
+    "answer": "Partial",
+    "accept": [
+      "Partial",
+      "Partial()"
+    ],
+    "explanation": {
+      "en": "Partial<T> makes each property of T optional."
+    }
+  },
+  {
+    "id": 234,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "// keep only the listed keys\ntype Summary = ____<User, 'id' | 'name'>;",
+    "question": {
+      "en": "Fill the blank"
+    },
+    "answer": "Pick",
+    "accept": [
+      "Pick",
+      "Pick()"
+    ],
+    "explanation": {
+      "en": "Pick<T, K> builds a type from the named subset of T's keys."
+    }
+  },
+  {
+    "id": 235,
+    "category": "typescript",
+    "difficulty": "hard",
+    "codeSnippet": "// everything except the listed keys\ntype Safe = ____<User, 'password'>;",
+    "question": {
+      "en": "Fill the blank"
+    },
+    "answer": "Omit",
+    "accept": [
+      "Omit",
+      "Omit()"
+    ],
+    "explanation": {
+      "en": "Omit<T, K> removes the named keys from T."
+    }
+  },
+  {
+    "id": 236,
+    "category": "strings",
+    "difficulty": "easy",
+    "codeSnippet": "# break a sentence into a list of words\nwords = sentence.____()",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "split",
+    "accept": [
+      "split",
+      "split()"
+    ],
+    "explanation": {
+      "en": "str.split() with no argument splits on runs of whitespace."
+    }
+  },
+  {
+    "id": 237,
+    "category": "strings",
+    "difficulty": "medium",
+    "codeSnippet": "# glue the words back together with single spaces\nline = ' '.____(words)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "join",
+    "accept": [
+      "join",
+      "join()"
+    ],
+    "explanation": {
+      "en": "The separator string owns join(): ' '.join(words)."
+    }
+  },
+  {
+    "id": 238,
+    "category": "strings",
+    "difficulty": "easy",
+    "codeSnippet": "// strip whitespace from both ends\nconst clean = raw.____();",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "trim",
+    "accept": [
+      "trim",
+      "trim()"
+    ],
+    "explanation": {
+      "en": "trim() removes leading and trailing whitespace in JavaScript."
+    }
+  },
+  {
+    "id": 239,
+    "category": "strings",
+    "difficulty": "medium",
+    "codeSnippet": "# does the filename end with .txt?\nok = name.____('.txt')",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "endswith",
+    "accept": [
+      "endswith",
+      "endswith()",
+      "endsWith"
+    ],
+    "explanation": {
+      "en": "str.endswith() tests the suffix of a string."
+    }
+  },
+  {
+    "id": 240,
+    "category": "data-structures",
+    "difficulty": "easy",
+    "codeSnippet": "// take the first element off the front\nconst head = queue.____();",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "shift",
+    "accept": [
+      "shift",
+      "shift()"
+    ],
+    "explanation": {
+      "en": "shift() removes and returns the first element of an array."
+    }
+  },
+  {
+    "id": 241,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "codeSnippet": "# collapse the list down to unique values\nunique = ____(items)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "set",
+    "accept": [
+      "set",
+      "set()"
+    ],
+    "explanation": {
+      "en": "set() drops duplicates because a set holds each value once."
+    }
+  },
+  {
+    "id": 242,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "codeSnippet": "# a queue with O(1) pops from the left\nfrontier = ____([start])",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "deque",
+    "accept": [
+      "deque",
+      "deque()",
+      "collections.deque"
+    ],
+    "explanation": {
+      "en": "collections.deque pops from either end in constant time, unlike a list."
+    }
+  },
+  {
+    "id": 243,
+    "category": "data-structures",
+    "difficulty": "hard",
+    "codeSnippet": "# always pop the smallest item first\nsmallest = heapq.____(heap)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "heappop",
+    "accept": [
+      "heappop",
+      "heappop()"
+    ],
+    "explanation": {
+      "en": "heapq.heappop() removes the smallest element of a min-heap."
+    }
+  },
+  {
+    "id": 244,
+    "category": "algorithms",
+    "difficulty": "medium",
+    "codeSnippet": "# midpoint of a binary search window\nmid = (low + high) // ____",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "2",
+    "accept": [
+      "2"
+    ],
+    "explanation": {
+      "en": "Halving the window each step is what makes binary search logarithmic."
+    }
+  },
+  {
+    "id": 245,
+    "category": "algorithms",
+    "difficulty": "medium",
+    "codeSnippet": "# swap two elements in place\narr[i], arr[j] = arr[j], arr[____]",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "i",
+    "accept": [
+      "i"
+    ],
+    "explanation": {
+      "en": "Tuple assignment swaps both sides at once, so arr[i] goes to arr[j]."
+    }
+  },
+  {
+    "id": 246,
+    "category": "algorithms",
+    "difficulty": "medium",
+    "codeSnippet": "# discard the half that cannot contain the target\nif arr[mid] < target:\n    low = mid + ____",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "1",
+    "accept": [
+      "1"
+    ],
+    "explanation": {
+      "en": "mid has already been tested, so the next window starts one past it."
+    }
+  },
+  {
+    "id": 247,
+    "category": "recursion",
+    "difficulty": "medium",
+    "codeSnippet": "def fact(n):\n    if n <= 1:\n        return 1\n    return n * ____(n - 1)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "fact",
+    "accept": [
+      "fact",
+      "fact()"
+    ],
+    "explanation": {
+      "en": "The function calls itself on a smaller input — that is the recursion."
+    }
+  },
+  {
+    "id": 248,
+    "category": "recursion",
+    "difficulty": "hard",
+    "codeSnippet": "def fib(n, memo={}):\n    if n in ____:\n        return memo[n]",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "memo",
+    "accept": [
+      "memo"
+    ],
+    "explanation": {
+      "en": "Checking the cache first is what turns exponential recursion into linear."
+    }
+  },
+  {
+    "id": 249,
+    "category": "complexity",
+    "difficulty": "easy",
+    "codeSnippet": "# one pass over n items\n# time complexity: O(____)",
+    "question": {
+      "en": "Fill the blank"
+    },
+    "answer": "n",
+    "accept": [
+      "n",
+      "N"
+    ],
+    "explanation": {
+      "en": "Touching each of n items once is linear time, O(n)."
+    }
+  },
+  {
+    "id": 250,
+    "category": "complexity",
+    "difficulty": "hard",
+    "codeSnippet": "# a loop over n inside a loop over n\n# time complexity: O(n^____)",
+    "question": {
+      "en": "Fill the blank"
+    },
+    "answer": "2",
+    "accept": [
+      "2"
+    ],
+    "explanation": {
+      "en": "Nested loops over the same n items give quadratic time, O(n^2)."
+    }
+  },
+  {
+    "id": 251,
+    "category": "bit-manipulation",
+    "difficulty": "hard",
+    "codeSnippet": "# true when the lowest bit is set\nis_odd = n ____ 1",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "&",
+    "accept": [
+      "&",
+      "and"
+    ],
+    "explanation": {
+      "en": "Bitwise AND with 1 isolates the least-significant bit, which is 1 for odd numbers."
+    }
   }
 ]

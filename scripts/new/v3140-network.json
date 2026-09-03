@@ -1,0 +1,267 @@
+[
+  {
+    "id": 125,
+    "category": "protocols",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": { "en": "Which port does FTP use for control?" },
+    "options": ["21", "22", "23", "25"],
+    "answer": "21",
+    "explanation": { "en": "FTP sends commands on port 21 and moves file data on a separate connection." }
+  },
+  {
+    "id": 126,
+    "category": "ports",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": { "en": "Which range holds the well-known ports?" },
+    "options": ["0 to 1023", "1024 to 4095", "4096 to 8191", "8192 to 65535"],
+    "answer": "0 to 1023",
+    "explanation": { "en": "Ports 0–1023 are reserved for standard services and usually need privileges." }
+  },
+  {
+    "id": 127,
+    "category": "addressing",
+    "difficulty": "hard",
+    "codeSnippet": "192.168.10.0/26",
+    "question": { "en": "How many usable host addresses is that?" },
+    "options": ["62", "64", "30", "126"],
+    "answer": "62",
+    "explanation": { "en": "A /26 leaves 6 host bits: 64 addresses, minus the network and broadcast." }
+  },
+  {
+    "id": 128,
+    "category": "addressing",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "Which delivery sends to a subscribed group?" },
+    "options": ["Multicast", "Broadcast", "Unicast", "Anycast"],
+    "answer": "Multicast",
+    "explanation": { "en": "Multicast reaches only hosts that joined the group, unlike broadcast's whole subnet." }
+  },
+  {
+    "id": 129,
+    "category": "dns",
+    "difficulty": "medium",
+    "codeSnippet": "$ dig -x 93.184.216.34",
+    "question": { "en": "Which record type does this query?" },
+    "options": ["PTR", "A", "MX", "TXT"],
+    "answer": "PTR",
+    "explanation": { "en": "A reverse lookup maps an address back to a name through a PTR record." }
+  },
+  {
+    "id": 130,
+    "category": "dns",
+    "difficulty": "medium",
+    "codeSnippet": "example.com.  NS  ns1.example.net.",
+    "question": { "en": "What does an NS record name?" },
+    "options": [
+      "The zone's authoritative servers",
+      "The zone's mail exchangers",
+      "The zone's address records",
+      "The zone's backup registrar"
+    ],
+    "answer": "The zone's authoritative servers",
+    "explanation": { "en": "NS records delegate a zone to the name servers that answer for it." }
+  },
+  {
+    "id": 131,
+    "category": "dns",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": { "en": "What does a recursive resolver do?" },
+    "options": [
+      "Chases the answer for the client",
+      "Stores the zone's master copy",
+      "Signs each response with DNSSEC",
+      "Refuses queries outside its zone"
+    ],
+    "answer": "Chases the answer for the client",
+    "explanation": { "en": "It queries the root, TLD and authoritative servers in turn, then caches the result." }
+  },
+  {
+    "id": 132,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "$ ss -tuln",
+    "question": { "en": "What does this list?" },
+    "options": [
+      "Listening TCP and UDP sockets",
+      "Every packet crossing the NIC",
+      "The kernel's routing decisions",
+      "Open files held by each process"
+    ],
+    "answer": "Listening TCP and UDP sockets",
+    "explanation": { "en": "-t and -u select TCP/UDP, -l listening only, -n skips name resolution." }
+  },
+  {
+    "id": 133,
+    "category": "protocols",
+    "difficulty": "medium",
+    "codeSnippet": "MTU 1500",
+    "question": { "en": "What does the MTU set?" },
+    "options": [
+      "The largest payload per frame",
+      "The maximum speed of the link",
+      "The number of hops allowed",
+      "The size of the receive buffer"
+    ],
+    "answer": "The largest payload per frame",
+    "explanation": { "en": "Anything larger must be fragmented or rejected, which is why path MTU matters." }
+  },
+  {
+    "id": 134,
+    "category": "switching",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": { "en": "What does Spanning Tree Protocol prevent?" },
+    "options": [
+      "Loops between redundant links",
+      "Collisions on a shared segment",
+      "Floods of broadcast from hosts",
+      "Duplicate MAC addresses on a LAN"
+    ],
+    "answer": "Loops between redundant links",
+    "explanation": { "en": "STP blocks redundant paths so frames cannot circulate forever in a switched loop." }
+  },
+  {
+    "id": 135,
+    "category": "services",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "What does NTP keep in step?" },
+    "options": [
+      "Clocks across the network",
+      "Routing tables across routers",
+      "DNS caches across resolvers",
+      "Sessions across load balancers"
+    ],
+    "answer": "Clocks across the network",
+    "explanation": { "en": "NTP synchronises system time, which logs, certificates and Kerberos all depend on." }
+  },
+  {
+    "id": 136,
+    "category": "services",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "What is SNMP mainly used for?" },
+    "options": [
+      "Monitoring network devices",
+      "Encrypting management traffic",
+      "Assigning addresses to hosts",
+      "Resolving names to addresses"
+    ],
+    "answer": "Monitoring network devices",
+    "explanation": { "en": "SNMP polls counters and status from switches, routers and servers." }
+  },
+  {
+    "id": 137,
+    "category": "security",
+    "difficulty": "medium",
+    "codeSnippet": "client -> proxy -> app server",
+    "question": { "en": "What does a reverse proxy do?" },
+    "options": [
+      "Fronts servers for the client",
+      "Fronts clients for the server",
+      "Caches DNS for the resolver",
+      "Bridges two physical segments"
+    ],
+    "answer": "Fronts servers for the client",
+    "explanation": { "en": "It terminates the client connection and forwards to backends, hiding them." }
+  },
+  {
+    "id": 138,
+    "category": "services",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "What does QoS do on a congested link?" },
+    "options": [
+      "Prioritises time-critical traffic",
+      "Increases the link's bandwidth",
+      "Compresses every packet sent",
+      "Retransmits the dropped frames"
+    ],
+    "answer": "Prioritises time-critical traffic",
+    "explanation": { "en": "QoS reorders the queue so voice and video go first when there is contention." }
+  },
+  {
+    "id": 139,
+    "category": "services",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "What does a CDN mainly improve?" },
+    "options": [
+      "Latency, by serving from nearby",
+      "Security, by signing every asset",
+      "Accuracy, by validating content",
+      "Capacity, by compressing images"
+    ],
+    "answer": "Latency, by serving from nearby",
+    "explanation": { "en": "Edge caches near the user shorten the round trip for static content." }
+  },
+  {
+    "id": 140,
+    "category": "protocols",
+    "difficulty": "easy",
+    "codeSnippet": "$ telnet router.example.com",
+    "question": { "en": "Why prefer SSH over this?" },
+    "options": [
+      "SSH encrypts the session",
+      "SSH is faster to connect",
+      "SSH needs no credentials",
+      "SSH works over UDP too"
+    ],
+    "answer": "SSH encrypts the session",
+    "explanation": { "en": "Telnet sends credentials and commands in clear text; SSH encrypts them." }
+  },
+  {
+    "id": 141,
+    "category": "layers",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "What is the layer 4 data unit called?" },
+    "options": ["Segment", "Packet", "Frame", "Datagram"],
+    "answer": "Segment",
+    "explanation": { "en": "TCP calls it a segment; layer 3 has packets and layer 2 has frames." }
+  },
+  {
+    "id": 142,
+    "category": "diagnostics",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "What does jitter measure?" },
+    "options": [
+      "Variation in packet delay",
+      "Total bandwidth available",
+      "Percentage of lost packets",
+      "Distance to the far end"
+    ],
+    "answer": "Variation in packet delay",
+    "explanation": { "en": "Uneven arrival times hurt voice and video more than steady latency does." }
+  },
+  {
+    "id": 143,
+    "category": "protocols",
+    "difficulty": "easy",
+    "codeSnippet": "IEEE 802.11ac",
+    "question": { "en": "Which technology does 802.11 define?" },
+    "options": ["Wi-Fi", "Ethernet", "Bluetooth", "Fibre optics"],
+    "answer": "Wi-Fi",
+    "explanation": { "en": "The IEEE 802.11 family standardises wireless LANs; 802.3 is Ethernet." }
+  },
+  {
+    "id": 144,
+    "category": "security",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": { "en": "What is a DMZ used for?" },
+    "options": [
+      "Hosting public-facing servers",
+      "Storing the backup archives",
+      "Joining two office branches",
+      "Isolating printers from users"
+    ],
+    "answer": "Hosting public-facing servers",
+    "explanation": { "en": "A DMZ sits between the internet and the internal LAN, so a breach stays contained." }
+  }
+]

@@ -2468,5 +2468,442 @@
     "explanation": {
       "en": "Assignment shares the same array, so clearing the copy clears the original too."
     }
+  },
+  {
+    "id": 131,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "for (let i = 0; i <= nums.length; i++) {\n  console.log(nums[i]);\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Change `<=` to `<`",
+      "Change `let` to `var`",
+      "Start the loop at `1`",
+      "Cache `nums.length` first"
+    ],
+    "answer": "Change `<=` to `<`",
+    "explanation": {
+      "en": "Indexes stop at length - 1, so `<=` reads one past the end and logs undefined."
+    }
+  },
+  {
+    "id": 132,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "if (status = 'ready') {\n  start();\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Change `=` to `===`",
+      "Change `=` to `=>`",
+      "Wrap `status` in quotes",
+      "Declare `status` with let"
+    ],
+    "answer": "Change `=` to `===`",
+    "explanation": {
+      "en": "A single `=` assigns and then evaluates truthy, so the branch always runs."
+    }
+  },
+  {
+    "id": 133,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "const total = items.map((i) => i.price);\nconsole.log(total + 1);",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `reduce` instead of `map`",
+      "Use `filter` instead of `map`",
+      "Use `forEach` instead of `map`",
+      "Use `flatMap` instead of `map`"
+    ],
+    "answer": "Use `reduce` instead of `map`",
+    "explanation": {
+      "en": "map returns an array of prices; a running total needs reduce."
+    }
+  },
+  {
+    "id": 134,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "setTimeout(refresh(), 1000);",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Pass `refresh` without calling",
+      "Pass `1000` as the first argument",
+      "Wrap `refresh` in `Promise`",
+      "Replace it with `setInterval`"
+    ],
+    "answer": "Pass `refresh` without calling",
+    "explanation": {
+      "en": "`refresh()` runs immediately and its return value is scheduled instead."
+    }
+  },
+  {
+    "id": 135,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "const sorted = [10, 9, 100].sort();\nconsole.log(sorted);",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Pass `(a, b) => a - b` to sort",
+      "Call `reverse()` after sort",
+      "Convert the array with `map`",
+      "Replace `sort` with `toSorted`"
+    ],
+    "answer": "Pass `(a, b) => a - b` to sort",
+    "explanation": {
+      "en": "Default sort compares strings, so 100 lands before 9 without a comparator."
+    }
+  },
+  {
+    "id": 136,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "if (names.indexOf(target)) {\n  console.log('found');\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Compare the result to `-1`",
+      "Swap the arguments around",
+      "Use `indexOf` on a copy",
+      "Sort `names` before the check"
+    ],
+    "answer": "Compare the result to `-1`",
+    "explanation": {
+      "en": "indexOf returns 0 for the first element, which is falsy — test `!== -1`."
+    }
+  },
+  {
+    "id": 137,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "items.forEach(async (item) => {\n  await save(item);\n});\nconsole.log('all saved');",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use a `for...of` loop instead",
+      "Mark the outer scope `async`",
+      "Move the log inside forEach",
+      "Return the promise from save"
+    ],
+    "answer": "Use a `for...of` loop instead",
+    "explanation": {
+      "en": "forEach ignores the returned promises, so the log fires before any save finishes."
+    }
+  },
+  {
+    "id": 138,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "class Counter {\n  constructor() { this.n = 0; }\n  tick() {\n    [1, 2].forEach(function () { this.n++; });\n  }\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use an arrow function callback",
+      "Rename `this.n` to `self.n`",
+      "Move `tick` into the constructor",
+      "Declare `n` as a static field"
+    ],
+    "answer": "Use an arrow function callback",
+    "explanation": {
+      "en": "A plain function gets its own `this`; an arrow keeps the enclosing one."
+    }
+  },
+  {
+    "id": 139,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "const copy = { ...settings };\ncopy.theme.color = 'red';",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Clone `theme` separately too",
+      "Use `Object.assign` instead",
+      "Freeze `settings` beforehand",
+      "Spread `settings` a second time"
+    ],
+    "answer": "Clone `theme` separately too",
+    "explanation": {
+      "en": "Spread copies one level, so `copy.theme` is still the original nested object."
+    }
+  },
+  {
+    "id": 140,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "async function load() {\n  const rows = await db.query();\n}\nconsole.log(load().length);",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Return `rows` and await `load()`",
+      "Remove `async` from the function",
+      "Wrap the call in `Promise.all`",
+      "Read `.length` inside `load`"
+    ],
+    "answer": "Return `rows` and await `load()`",
+    "explanation": {
+      "en": "load() returns a promise with no value; it must return rows and be awaited."
+    }
+  },
+  {
+    "id": 141,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "if value == None:\n    return",
+    "question": {
+      "en": "What is the correct fix?"
+    },
+    "options": [
+      "Use `is None` for the test",
+      "Use `== 'None'` for the test",
+      "Use `not value` for the test",
+      "Use `len(value)` for the test"
+    ],
+    "answer": "Use `is None` for the test",
+    "explanation": {
+      "en": "None is a singleton, so identity (`is`) is the correct and safe comparison."
+    }
+  },
+  {
+    "id": 142,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(\"total: \" + count)",
+    "question": {
+      "en": "What is the correct fix?"
+    },
+    "options": [
+      "Wrap `count` in `str()`",
+      "Wrap `count` in `int()`",
+      "Swap the two operands",
+      "Use single quotes instead"
+    ],
+    "answer": "Wrap `count` in `str()`",
+    "explanation": {
+      "en": "Python will not concatenate str and int — convert, or use an f-string."
+    }
+  },
+  {
+    "id": 143,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "settings = {}\nprint(settings['theme'])",
+    "question": {
+      "en": "What is the correct fix?"
+    },
+    "options": [
+      "Use `settings.get('theme')`",
+      "Use `settings.pop('theme')`",
+      "Use `settings.keys('theme')`",
+      "Use `settings.setdefault()`"
+    ],
+    "answer": "Use `settings.get('theme')`",
+    "explanation": {
+      "en": "Subscripting a missing key raises KeyError; get() returns None instead."
+    }
+  },
+  {
+    "id": 144,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "def add(item, bucket=[]):\n    bucket.append(item)\n    return bucket",
+    "question": {
+      "en": "What is the correct fix?"
+    },
+    "options": [
+      "Default to None, build inside",
+      "Default to a tuple instead",
+      "Copy `bucket` before append",
+      "Return a new list each call"
+    ],
+    "answer": "Default to None, build inside",
+    "explanation": {
+      "en": "A mutable default is created once and shared across every call."
+    }
+  },
+  {
+    "id": 145,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "for item in items:\n    if item.stale:\n        items.remove(item)",
+    "question": {
+      "en": "What is the correct fix?"
+    },
+    "options": [
+      "Build a new filtered list",
+      "Iterate the list backwards",
+      "Call `remove` after the loop",
+      "Use `items.pop()` instead"
+    ],
+    "answer": "Build a new filtered list",
+    "explanation": {
+      "en": "Removing while iterating shifts the list and silently skips elements."
+    }
+  },
+  {
+    "id": 146,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "try:\n    run()\nexcept:\n    pass",
+    "question": {
+      "en": "What is the correct fix?"
+    },
+    "options": [
+      "Catch the specific exception",
+      "Move `run()` out of the try",
+      "Replace `pass` with `return`",
+      "Add an `else` clause after"
+    ],
+    "answer": "Catch the specific exception",
+    "explanation": {
+      "en": "A bare except swallows everything, including KeyboardInterrupt and real bugs."
+    }
+  },
+  {
+    "id": 147,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "class Cart:\n    items = []\n\n    def add(self, x):\n        self.items.append(x)",
+    "question": {
+      "en": "What is the correct fix?"
+    },
+    "options": [
+      "Create `items` in `__init__`",
+      "Mark `items` as a property",
+      "Rename `items` to `_items`",
+      "Add `@staticmethod` to add"
+    ],
+    "answer": "Create `items` in `__init__`",
+    "explanation": {
+      "en": "A class-level list is shared by every instance, so all carts see the same items."
+    }
+  },
+  {
+    "id": 148,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "callbacks = [lambda: i for i in range(3)]\nprint(callbacks[0]())",
+    "question": {
+      "en": "What is the correct fix?"
+    },
+    "options": [
+      "Bind `i` as a default argument",
+      "Wrap each lambda in `tuple()`",
+      "Replace the lambda with `def`",
+      "Iterate over `list(range(3))`"
+    ],
+    "answer": "Bind `i` as a default argument",
+    "explanation": {
+      "en": "The lambdas close over `i` itself, so all three see its final value."
+    }
+  },
+  {
+    "id": 149,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "total = 0\nfor row in rows:\n    total += row.amount\naverage = total / len(rows)",
+    "question": {
+      "en": "What is the correct fix?"
+    },
+    "options": [
+      "Guard against an empty `rows`",
+      "Initialise `total` to `1`",
+      "Use `sum()` over the rows",
+      "Convert `total` to a float"
+    ],
+    "answer": "Guard against an empty `rows`",
+    "explanation": {
+      "en": "An empty list makes len(rows) zero, raising ZeroDivisionError."
+    }
+  },
+  {
+    "id": 150,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "const el = document.getElementById('name');\nel.value = 'Sam';",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Null-check `el` before using",
+      "Rename `el` to avoid a clash",
+      "Move the lookup into a class",
+      "Read `.value` before writing"
+    ],
+    "answer": "Null-check `el` before using",
+    "explanation": {
+      "en": "getElementById returns HTMLElement | null, so el may be null at runtime."
+    }
+  },
+  {
+    "id": 151,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "const age: number = parseInt(input);\nif (age > 18) grant();",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Check the result for `NaN`",
+      "Pass a radix to `parseInt`",
+      "Type `age` as `string` too",
+      "Use `>=` instead of `>`"
+    ],
+    "answer": "Check the result for `NaN`",
+    "explanation": {
+      "en": "parseInt returns NaN on bad input, and every comparison with NaN is false."
+    }
+  },
+  {
+    "id": 152,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "function shout(text: any): string {\n  return text.toUpperCase();\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Type the parameter `string`",
+      "Return `text` without a call",
+      "Mark the function `async`",
+      "Rename the parameter `str`"
+    ],
+    "answer": "Type the parameter `string`",
+    "explanation": {
+      "en": "`any` disables checking, so a number argument crashes only at runtime."
+    }
+  },
+  {
+    "id": 153,
+    "category": "typescript",
+    "difficulty": "hard",
+    "codeSnippet": "interface User { id: number; name: string }\nconst u = {} as User;\nconsole.log(u.name.length);",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Build a real object literal",
+      "Change `as User` to `as any`",
+      "Mark both fields optional",
+      "Declare `u` with `let`"
+    ],
+    "answer": "Build a real object literal",
+    "explanation": {
+      "en": "The assertion lies to the compiler: `u.name` is undefined at runtime."
+    }
   }
 ]

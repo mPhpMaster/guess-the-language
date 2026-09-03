@@ -3544,5 +3544,617 @@
     "explanation": {
       "en": "The #!/bin/bash shebang and [ -f ] test are Bash."
     }
+  },
+  {
+    "id": 404,
+    "correctLanguage": "Python",
+    "difficulty": "easy",
+    "codeSnippet": "with open('data.txt') as f:\n    lines = f.readlines()",
+    "explanation": {
+      "en": "The `with` context-manager statement and the colon-plus-indent block are Python."
+    }
+  },
+  {
+    "id": 405,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "try:\n    value = int(raw)\nexcept ValueError:\n    value = 0",
+    "explanation": {
+      "en": "try/except with a named exception class and colon-indented blocks is Python."
+    }
+  },
+  {
+    "id": 406,
+    "correctLanguage": "Python",
+    "difficulty": "medium",
+    "codeSnippet": "def counter():\n    total = 0\n    while True:\n        total += yield total",
+    "explanation": {
+      "en": "`yield` inside a def makes it a Python generator; the assignment form also receives sent values."
+    }
+  },
+  {
+    "id": 407,
+    "correctLanguage": "Python",
+    "difficulty": "hard",
+    "codeSnippet": "async def main():\n    await asyncio.gather(*tasks)",
+    "explanation": {
+      "en": "`async def` plus asyncio.gather and the * unpacking operator are Python's asyncio style."
+    }
+  },
+  {
+    "id": 408,
+    "correctLanguage": "JavaScript",
+    "difficulty": "easy",
+    "codeSnippet": "document.querySelector('.btn').addEventListener('click', run);",
+    "explanation": {
+      "en": "querySelector and addEventListener are browser DOM APIs called from JavaScript."
+    }
+  },
+  {
+    "id": 409,
+    "correctLanguage": "JavaScript",
+    "difficulty": "medium",
+    "codeSnippet": "const data = await fetch(url).then((r) => r.json());",
+    "explanation": {
+      "en": "fetch() returning a promise resolved with .json(), with no type annotations, is plain JavaScript."
+    }
+  },
+  {
+    "id": 410,
+    "correctLanguage": "JavaScript",
+    "difficulty": "medium",
+    "codeSnippet": "module.exports = { run, stop };",
+    "explanation": {
+      "en": "module.exports is the CommonJS export form used by Node.js."
+    }
+  },
+  {
+    "id": 411,
+    "correctLanguage": "JavaScript",
+    "difficulty": "hard",
+    "codeSnippet": "const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));",
+    "explanation": {
+      "en": "An arrow function wrapping the Promise constructor with setTimeout is idiomatic JavaScript."
+    }
+  },
+  {
+    "id": 412,
+    "correctLanguage": "C++",
+    "difficulty": "easy",
+    "codeSnippet": "#include <iostream>\nusing namespace std;",
+    "explanation": {
+      "en": "`using namespace std;` after an <iostream> include is C++."
+    }
+  },
+  {
+    "id": 413,
+    "correctLanguage": "C++",
+    "difficulty": "medium",
+    "codeSnippet": "template <typename T>\nT largest(T a, T b) { return a > b ? a : b; }",
+    "explanation": {
+      "en": "`template <typename T>` is the C++ syntax for a generic function."
+    }
+  },
+  {
+    "id": 414,
+    "correctLanguage": "C++",
+    "difficulty": "hard",
+    "codeSnippet": "for (const auto& [key, value] : counts) {\n    std::cout << key;\n}",
+    "explanation": {
+      "en": "Structured bindings in a range-for, combined with std::cout, are C++17."
+    }
+  },
+  {
+    "id": 415,
+    "correctLanguage": "C++",
+    "difficulty": "hard",
+    "codeSnippet": "class Base {\npublic:\n    virtual ~Base() = default;\n};",
+    "explanation": {
+      "en": "A virtual destructor defaulted with `= default` is C++; the tilde names the destructor."
+    }
+  },
+  {
+    "id": 416,
+    "correctLanguage": "Rust",
+    "difficulty": "easy",
+    "codeSnippet": "let s = String::from(\"hi\");\nlet r = &s;",
+    "explanation": {
+      "en": "String::from with an explicit borrow (&s) is Rust's ownership syntax."
+    }
+  },
+  {
+    "id": 417,
+    "correctLanguage": "Rust",
+    "difficulty": "medium",
+    "codeSnippet": "match result {\n    Ok(v) => println!(\"{}\", v),\n    Err(e) => eprintln!(\"{}\", e),\n}",
+    "explanation": {
+      "en": "Matching on Ok/Err with the println! macro is Rust's Result handling."
+    }
+  },
+  {
+    "id": 418,
+    "correctLanguage": "Rust",
+    "difficulty": "medium",
+    "codeSnippet": "#[derive(Debug, Clone)]\nstruct Config {\n    debug: bool,\n}",
+    "explanation": {
+      "en": "The #[derive(...)] attribute above a struct is Rust."
+    }
+  },
+  {
+    "id": 419,
+    "correctLanguage": "Rust",
+    "difficulty": "hard",
+    "codeSnippet": "impl fmt::Display for Point {\n    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {\n        write!(f, \"({}, {})\", self.x, self.y)\n    }\n}",
+    "explanation": {
+      "en": "`impl Trait for Type` with &self and the write! macro is Rust's trait implementation syntax."
+    }
+  },
+  {
+    "id": 420,
+    "correctLanguage": "Go",
+    "difficulty": "easy",
+    "codeSnippet": "resp, _ := http.Get(url)\ndefer resp.Body.Close()",
+    "explanation": {
+      "en": "The blank identifier `_` for a discarded return plus `defer` is Go."
+    }
+  },
+  {
+    "id": 421,
+    "correctLanguage": "Go",
+    "difficulty": "medium",
+    "codeSnippet": "counts := map[string]int{\"a\": 1}",
+    "explanation": {
+      "en": "The := short declaration with a map[string]int literal is Go."
+    }
+  },
+  {
+    "id": 422,
+    "correctLanguage": "Go",
+    "difficulty": "medium",
+    "codeSnippet": "var wg sync.WaitGroup\nwg.Add(1)\ngo work(&wg)",
+    "explanation": {
+      "en": "sync.WaitGroup and the `go` keyword launching a goroutine are Go concurrency."
+    }
+  },
+  {
+    "id": 423,
+    "correctLanguage": "Go",
+    "difficulty": "hard",
+    "codeSnippet": "type Writer interface {\n    Write(p []byte) (n int, err error)\n}",
+    "explanation": {
+      "en": "An interface whose method returns multiple values, with []byte, is Go."
+    }
+  },
+  {
+    "id": 424,
+    "correctLanguage": "Java",
+    "difficulty": "easy",
+    "codeSnippet": "private static final int MAX_SIZE = 100;",
+    "explanation": {
+      "en": "`static final` for a constant (rather than const/readonly) is Java."
+    }
+  },
+  {
+    "id": 425,
+    "correctLanguage": "Java",
+    "difficulty": "medium",
+    "codeSnippet": "@Override\npublic String toString() {\n    return this.name;\n}",
+    "explanation": {
+      "en": "The @Override annotation on a public String toString() method is Java."
+    }
+  },
+  {
+    "id": 426,
+    "correctLanguage": "Java",
+    "difficulty": "hard",
+    "codeSnippet": "names.stream()\n     .filter(s -> s.length() > 3)\n     .collect(Collectors.toList());",
+    "explanation": {
+      "en": "The Stream API with Collectors.toList() is Java 8+."
+    }
+  },
+  {
+    "id": 427,
+    "correctLanguage": "Java",
+    "difficulty": "hard",
+    "codeSnippet": "try (BufferedReader br = new BufferedReader(new FileReader(path))) {\n    return br.readLine();\n}",
+    "explanation": {
+      "en": "try-with-resources declaring a BufferedReader in the try parentheses is Java."
+    }
+  },
+  {
+    "id": 428,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "Dictionary<string, int> counts = new();",
+    "explanation": {
+      "en": "Target-typed `new()` with no repeated type name is C# 9+."
+    }
+  },
+  {
+    "id": 429,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "var adults = from u in users\n             where u.Age > 18\n             select u.Name;",
+    "explanation": {
+      "en": "LINQ query syntax (from/where/select as language keywords) exists only in C#."
+    }
+  },
+  {
+    "id": 430,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "public record Person(string Name, int Age);",
+    "explanation": {
+      "en": "A positional `record` declaration is C# 9+."
+    }
+  },
+  {
+    "id": 431,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "[HttpGet(\"api/users\")]\npublic IActionResult Get() => Ok(_users);",
+    "explanation": {
+      "en": "Square-bracket attributes and IActionResult are ASP.NET Core, written in C#."
+    }
+  },
+  {
+    "id": 432,
+    "correctLanguage": "Ruby",
+    "difficulty": "easy",
+    "codeSnippet": "attr_accessor :name, :age",
+    "explanation": {
+      "en": "attr_accessor with symbol arguments generates getters and setters in Ruby."
+    }
+  },
+  {
+    "id": 433,
+    "correctLanguage": "Ruby",
+    "difficulty": "easy",
+    "codeSnippet": "puts \"empty\" unless list.any?",
+    "explanation": {
+      "en": "The trailing `unless` modifier and the `?` method-name suffix are Ruby."
+    }
+  },
+  {
+    "id": 434,
+    "correctLanguage": "Ruby",
+    "difficulty": "medium",
+    "codeSnippet": "evens = numbers.select { |n| n.even? }",
+    "explanation": {
+      "en": "A block in braces with |n| parameters plus the even? predicate is Ruby."
+    }
+  },
+  {
+    "id": 435,
+    "correctLanguage": "Ruby",
+    "difficulty": "medium",
+    "codeSnippet": "module Greeter\n  def self.hi\n    \"hello\"\n  end\nend",
+    "explanation": {
+      "en": "`module` with a `def self.` module method and `end` keywords is Ruby."
+    }
+  },
+  {
+    "id": 436,
+    "correctLanguage": "Ruby",
+    "difficulty": "hard",
+    "codeSnippet": "shouted = %w[a b c].map(&:upcase)",
+    "explanation": {
+      "en": "The %w word-array literal and the &:symbol block shorthand are Ruby."
+    }
+  },
+  {
+    "id": 437,
+    "correctLanguage": "PHP",
+    "difficulty": "easy",
+    "codeSnippet": "$config = ['debug' => true];\nprint_r($config);",
+    "explanation": {
+      "en": "The $ variable sigil with a => array literal and print_r is PHP."
+    }
+  },
+  {
+    "id": 438,
+    "correctLanguage": "PHP",
+    "difficulty": "easy",
+    "codeSnippet": "$total = array_sum($prices);",
+    "explanation": {
+      "en": "array_sum on a $-prefixed variable is PHP's standard library."
+    }
+  },
+  {
+    "id": 439,
+    "correctLanguage": "PHP",
+    "difficulty": "medium",
+    "codeSnippet": "if (isset($_POST['id'])) {\n    $id = (int) $_POST['id'];\n}",
+    "explanation": {
+      "en": "The $_POST superglobal and isset() are PHP request handling."
+    }
+  },
+  {
+    "id": 440,
+    "correctLanguage": "PHP",
+    "difficulty": "medium",
+    "codeSnippet": "$stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');\n$stmt->execute([$id]);",
+    "explanation": {
+      "en": "PDO with the -> object operator and $ variables is PHP database access."
+    }
+  },
+  {
+    "id": 441,
+    "correctLanguage": "PHP",
+    "difficulty": "hard",
+    "codeSnippet": "class User {\n    public function __construct(private string $name) {}\n}",
+    "explanation": {
+      "en": "Constructor property promotion (a visibility modifier on a parameter) is PHP 8."
+    }
+  },
+  {
+    "id": 442,
+    "correctLanguage": "Swift",
+    "difficulty": "easy",
+    "codeSnippet": "if let value = maybeValue {\n    print(value)\n}",
+    "explanation": {
+      "en": "Optional binding with `if let` is Swift."
+    }
+  },
+  {
+    "id": 443,
+    "correctLanguage": "Swift",
+    "difficulty": "medium",
+    "codeSnippet": "let doubled = numbers.map { $0 * 2 }",
+    "explanation": {
+      "en": "The $0 shorthand argument inside a trailing closure is Swift."
+    }
+  },
+  {
+    "id": 444,
+    "correctLanguage": "Swift",
+    "difficulty": "medium",
+    "codeSnippet": "enum Direction: String {\n    case north, south\n}",
+    "explanation": {
+      "en": "A raw-value enum declared with `case` and a String type is Swift."
+    }
+  },
+  {
+    "id": 445,
+    "correctLanguage": "Swift",
+    "difficulty": "medium",
+    "codeSnippet": "protocol Drawable {\n    func draw()\n}",
+    "explanation": {
+      "en": "`protocol` with `func` members is Swift's interface declaration."
+    }
+  },
+  {
+    "id": 446,
+    "correctLanguage": "Swift",
+    "difficulty": "hard",
+    "codeSnippet": "@State private var count = 0",
+    "explanation": {
+      "en": "The @State property wrapper is SwiftUI, written in Swift."
+    }
+  },
+  {
+    "id": 447,
+    "correctLanguage": "TypeScript",
+    "difficulty": "easy",
+    "codeSnippet": "const scores: number[] = [1, 2, 3];",
+    "explanation": {
+      "en": "The `: number[]` type annotation on a const is TypeScript."
+    }
+  },
+  {
+    "id": 448,
+    "correctLanguage": "TypeScript",
+    "difficulty": "medium",
+    "codeSnippet": "function log(msg: string, level: 'info' | 'warn' = 'info'): void {}",
+    "explanation": {
+      "en": "A string-literal union type with a default parameter is TypeScript."
+    }
+  },
+  {
+    "id": 449,
+    "correctLanguage": "TypeScript",
+    "difficulty": "medium",
+    "codeSnippet": "export type Result<T> =\n  | { ok: true; data: T }\n  | { ok: false; error: string };",
+    "explanation": {
+      "en": "A generic discriminated union declared with `type` is TypeScript."
+    }
+  },
+  {
+    "id": 450,
+    "correctLanguage": "TypeScript",
+    "difficulty": "hard",
+    "codeSnippet": "function isString(x: unknown): x is string {\n  return typeof x === 'string';\n}",
+    "explanation": {
+      "en": "The `x is string` type predicate return type is TypeScript."
+    }
+  },
+  {
+    "id": 451,
+    "correctLanguage": "TypeScript",
+    "difficulty": "hard",
+    "codeSnippet": "type Optional<T> = { [K in keyof T]?: T[K] };",
+    "explanation": {
+      "en": "A mapped type using `in keyof` is TypeScript."
+    }
+  },
+  {
+    "id": 452,
+    "correctLanguage": "SQL",
+    "difficulty": "easy",
+    "codeSnippet": "DELETE FROM sessions WHERE expires_at < NOW();",
+    "explanation": {
+      "en": "DELETE FROM ... WHERE is SQL data manipulation."
+    }
+  },
+  {
+    "id": 453,
+    "correctLanguage": "SQL",
+    "difficulty": "easy",
+    "codeSnippet": "ALTER TABLE users ADD COLUMN email TEXT;",
+    "explanation": {
+      "en": "ALTER TABLE ... ADD COLUMN is SQL schema definition."
+    }
+  },
+  {
+    "id": 454,
+    "correctLanguage": "SQL",
+    "difficulty": "medium",
+    "codeSnippet": "SELECT a.id, b.total\nFROM accounts a\nLEFT JOIN bills b ON a.id = b.account_id;",
+    "explanation": {
+      "en": "LEFT JOIN with table aliases and an ON clause is SQL."
+    }
+  },
+  {
+    "id": 455,
+    "correctLanguage": "SQL",
+    "difficulty": "hard",
+    "codeSnippet": "SELECT dept, AVG(salary)\nFROM staff\nGROUP BY dept\nHAVING AVG(salary) > 5000;",
+    "explanation": {
+      "en": "HAVING filters grouped rows after GROUP BY — SQL only."
+    }
+  },
+  {
+    "id": 456,
+    "correctLanguage": "SQL",
+    "difficulty": "hard",
+    "codeSnippet": "WITH recent AS (\n  SELECT * FROM logs ORDER BY ts DESC LIMIT 10\n)\nSELECT * FROM recent;",
+    "explanation": {
+      "en": "A WITH ... AS common table expression is SQL."
+    }
+  },
+  {
+    "id": 457,
+    "correctLanguage": "Bash",
+    "difficulty": "easy",
+    "codeSnippet": "export PATH=\"$PATH:/usr/local/bin\"",
+    "explanation": {
+      "en": "`export` with a $-expanded PATH is shell scripting."
+    }
+  },
+  {
+    "id": 458,
+    "correctLanguage": "Bash",
+    "difficulty": "medium",
+    "codeSnippet": "while read -r line; do\n  echo \"$line\"\ndone < input.txt",
+    "explanation": {
+      "en": "while/do/done with `read -r` and input redirection is Bash."
+    }
+  },
+  {
+    "id": 459,
+    "correctLanguage": "Bash",
+    "difficulty": "medium",
+    "codeSnippet": "case \"$1\" in\n  start) echo starting ;;\n  *) echo \"usage: $0 start\" ;;\nesac",
+    "explanation": {
+      "en": "case/esac with `;;` terminators and positional $1 is Bash."
+    }
+  },
+  {
+    "id": 460,
+    "correctLanguage": "Bash",
+    "difficulty": "medium",
+    "codeSnippet": "find . -name \"*.log\" -mtime +7 -delete",
+    "explanation": {
+      "en": "A find invocation with test flags is a shell command line."
+    }
+  },
+  {
+    "id": 461,
+    "correctLanguage": "Bash",
+    "difficulty": "hard",
+    "codeSnippet": "tmp=$(mktemp)\ntrap 'rm -f \"$tmp\"' EXIT",
+    "explanation": {
+      "en": "`trap ... EXIT` registers a shell cleanup handler; $(...) is command substitution."
+    }
+  },
+  {
+    "id": 462,
+    "correctLanguage": "C",
+    "difficulty": "easy",
+    "codeSnippet": "FILE *fp = fopen(\"data.txt\", \"r\");",
+    "explanation": {
+      "en": "The FILE* handle from fopen is C's standard I/O."
+    }
+  },
+  {
+    "id": 463,
+    "correctLanguage": "C",
+    "difficulty": "easy",
+    "codeSnippet": "free(ptr);\nptr = NULL;",
+    "explanation": {
+      "en": "free() with a NULL reset is manual memory management in C."
+    }
+  },
+  {
+    "id": 464,
+    "correctLanguage": "C",
+    "difficulty": "medium",
+    "codeSnippet": "int arr[10];\nmemset(arr, 0, sizeof(arr));",
+    "explanation": {
+      "en": "memset over a fixed array with sizeof is C."
+    }
+  },
+  {
+    "id": 465,
+    "correctLanguage": "C",
+    "difficulty": "medium",
+    "codeSnippet": "#define MAX(a, b) ((a) > (b) ? (a) : (b))",
+    "explanation": {
+      "en": "A parenthesised function-like #define macro is the C preprocessor."
+    }
+  },
+  {
+    "id": 466,
+    "correctLanguage": "C",
+    "difficulty": "hard",
+    "codeSnippet": "unsigned char *bytes = (unsigned char *)&value;",
+    "explanation": {
+      "en": "Casting an address to unsigned char* to walk raw bytes is C."
+    }
+  },
+  {
+    "id": 467,
+    "correctLanguage": "Kotlin",
+    "difficulty": "easy",
+    "codeSnippet": "val label = when (code) {\n    1 -> \"one\"\n    else -> \"many\"\n}",
+    "explanation": {
+      "en": "`when` used as an expression with `->` branches is Kotlin."
+    }
+  },
+  {
+    "id": 468,
+    "correctLanguage": "Kotlin",
+    "difficulty": "medium",
+    "codeSnippet": "val name: String? = null\nprintln(name?.length)",
+    "explanation": {
+      "en": "A nullable type marked with ? and the ?. safe-call operator are Kotlin."
+    }
+  },
+  {
+    "id": 469,
+    "correctLanguage": "Kotlin",
+    "difficulty": "medium",
+    "codeSnippet": "items.filter { it > 2 }.forEach { println(it) }",
+    "explanation": {
+      "en": "The implicit `it` lambda parameter in a trailing lambda is Kotlin."
+    }
+  },
+  {
+    "id": 470,
+    "correctLanguage": "Kotlin",
+    "difficulty": "hard",
+    "codeSnippet": "sealed class Result {\n    data class Ok(val value: Int) : Result()\n}",
+    "explanation": {
+      "en": "A `sealed class` holding a nested `data class` is Kotlin."
+    }
+  },
+  {
+    "id": 471,
+    "correctLanguage": "Kotlin",
+    "difficulty": "hard",
+    "codeSnippet": "suspend fun load(): String = withContext(Dispatchers.IO) { fetch() }",
+    "explanation": {
+      "en": "`suspend fun` with withContext(Dispatchers.IO) is Kotlin coroutines."
+    }
   }
 ]

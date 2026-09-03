@@ -2468,5 +2468,442 @@
     "explanation": {
       "en": "forEach returns undefined; map returns an array of each callback's undefined result."
     }
+  },
+  {
+    "id": 131,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log(!!'false');",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "true",
+      "false",
+      "undefined",
+      "NaN"
+    ],
+    "answer": "true",
+    "explanation": {
+      "en": "Any non-empty string is truthy, including the text \"false\"."
+    }
+  },
+  {
+    "id": 132,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log([1, 2] + [3]);",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "1,23",
+      "[1,2,3]",
+      "1,2,3",
+      "NaN"
+    ],
+    "answer": "1,23",
+    "explanation": {
+      "en": "+ converts both arrays to strings, so \"1,2\" and \"3\" are concatenated."
+    }
+  },
+  {
+    "id": 133,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log([3, 1, 2].sort());",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "[ 1, 2, 3 ]",
+      "[ 3, 1, 2 ]",
+      "[ 1, 3, 2 ]",
+      "[ 2, 1, 3 ]"
+    ],
+    "answer": "[ 1, 2, 3 ]",
+    "explanation": {
+      "en": "Default sort compares strings, which happens to match numeric order for single digits."
+    }
+  },
+  {
+    "id": 134,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log([1, 2, 3].join('-'));",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "1-2-3",
+      "123",
+      "1,2,3",
+      "[1-2-3]"
+    ],
+    "answer": "1-2-3",
+    "explanation": {
+      "en": "join inserts the separator between elements and returns a string."
+    }
+  },
+  {
+    "id": 135,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log('abc'.at(-1));",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "c",
+      "a",
+      "abc",
+      "undefined"
+    ],
+    "answer": "c",
+    "explanation": {
+      "en": "at() accepts negative indexes, counting back from the end of the string."
+    }
+  },
+  {
+    "id": 136,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log('5' - 2, '5' + 2);",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "3 52",
+      "52 3",
+      "3 7",
+      "7 52"
+    ],
+    "answer": "3 52",
+    "explanation": {
+      "en": "- coerces the string to a number; + prefers string concatenation."
+    }
+  },
+  {
+    "id": 137,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log(Boolean(''), Boolean('0'));",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "false true",
+      "true false",
+      "false false",
+      "true true"
+    ],
+    "answer": "false true",
+    "explanation": {
+      "en": "Only the empty string is falsy; '0' is a non-empty string."
+    }
+  },
+  {
+    "id": 138,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "console.log([] == false, [] === false);",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "true false",
+      "false false",
+      "true true",
+      "false true"
+    ],
+    "answer": "true false",
+    "explanation": {
+      "en": "== coerces both sides to 0; === compares types first and they differ."
+    }
+  },
+  {
+    "id": 139,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "console.log(typeof NaN);",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "number",
+      "NaN",
+      "undefined",
+      "object"
+    ],
+    "answer": "number",
+    "explanation": {
+      "en": "NaN is a numeric value meaning \"not a valid number\", so its type is number."
+    }
+  },
+  {
+    "id": 140,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "const a = {};\nconst b = {};\nconsole.log(a == b);",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "false",
+      "true",
+      "undefined",
+      "TypeError"
+    ],
+    "answer": "false",
+    "explanation": {
+      "en": "Objects compare by reference, and these are two distinct objects."
+    }
+  },
+  {
+    "id": 141,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(3 / 2)",
+    "question": {
+      "en": "What is printed?"
+    },
+    "options": [
+      "1.5",
+      "1",
+      "2",
+      "1.0"
+    ],
+    "answer": "1.5",
+    "explanation": {
+      "en": "In Python 3 the / operator always produces a float."
+    }
+  },
+  {
+    "id": 142,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(3 // 2)",
+    "question": {
+      "en": "What is printed?"
+    },
+    "options": [
+      "1",
+      "1.5",
+      "2",
+      "0"
+    ],
+    "answer": "1",
+    "explanation": {
+      "en": "// is floor division, which truncates towards negative infinity."
+    }
+  },
+  {
+    "id": 143,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(\"Hi\"[::2])",
+    "question": {
+      "en": "What is printed?"
+    },
+    "options": [
+      "H",
+      "Hi",
+      "iH",
+      "i"
+    ],
+    "answer": "H",
+    "explanation": {
+      "en": "A step of 2 keeps index 0 and skips index 1."
+    }
+  },
+  {
+    "id": 144,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "print(bool([]), bool([0]))",
+    "question": {
+      "en": "What is printed?"
+    },
+    "options": [
+      "False True",
+      "True False",
+      "False False",
+      "True True"
+    ],
+    "answer": "False True",
+    "explanation": {
+      "en": "Emptiness decides truthiness, so a list holding 0 is still truthy."
+    }
+  },
+  {
+    "id": 145,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "print('ab' * 2)",
+    "question": {
+      "en": "What is printed?"
+    },
+    "options": [
+      "abab",
+      "ab2",
+      "ab ab",
+      "TypeError"
+    ],
+    "answer": "abab",
+    "explanation": {
+      "en": "Multiplying a string by an int repeats it."
+    }
+  },
+  {
+    "id": 146,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "print(len({1, 1, 2}))",
+    "question": {
+      "en": "What is printed?"
+    },
+    "options": [
+      "2",
+      "3",
+      "1",
+      "0"
+    ],
+    "answer": "2",
+    "explanation": {
+      "en": "A set literal drops the repeated 1, leaving two members."
+    }
+  },
+  {
+    "id": 147,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "print(list(range(0, 5, 2)))",
+    "question": {
+      "en": "What is printed?"
+    },
+    "options": [
+      "[0, 2, 4]",
+      "[0, 2, 4, 6]",
+      "[2, 4]",
+      "[0, 1, 2]"
+    ],
+    "answer": "[0, 2, 4]",
+    "explanation": {
+      "en": "range stops before 5, stepping by 2 from 0."
+    }
+  },
+  {
+    "id": 148,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "a = [1, 2]\nb = a\nb.append(3)\nprint(len(a))",
+    "question": {
+      "en": "What is printed?"
+    },
+    "options": [
+      "3",
+      "2",
+      "4",
+      "1"
+    ],
+    "answer": "3",
+    "explanation": {
+      "en": "b is another name for the same list, so appending is visible through a."
+    }
+  },
+  {
+    "id": 149,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "print([1, 2, 3][::-1])",
+    "question": {
+      "en": "What is printed?"
+    },
+    "options": [
+      "[3, 2, 1]",
+      "[1, 2, 3]",
+      "[3, 2]",
+      "[1, 2]"
+    ],
+    "answer": "[3, 2, 1]",
+    "explanation": {
+      "en": "A step of -1 walks the list backwards, returning a reversed copy."
+    }
+  },
+  {
+    "id": 150,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "print(sorted({'b': 1, 'a': 2}))",
+    "question": {
+      "en": "What is printed?"
+    },
+    "options": [
+      "['a', 'b']",
+      "['b', 'a']",
+      "[1, 2]",
+      "[2, 1]"
+    ],
+    "answer": "['a', 'b']",
+    "explanation": {
+      "en": "Iterating a dict yields its keys, so sorted() returns the sorted keys."
+    }
+  },
+  {
+    "id": 151,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "const xs: number[] = [1, 2];\nconsole.log(xs.length + '!');",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "2!",
+      "!2",
+      "12!",
+      "NaN!"
+    ],
+    "answer": "2!",
+    "explanation": {
+      "en": "Types vanish at runtime; number + string concatenates to \"2!\"."
+    }
+  },
+  {
+    "id": 152,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log([1, 2, 3].slice(-1));",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "[ 3 ]",
+      "[ 1 ]",
+      "[ 2, 3 ]",
+      "[]"
+    ],
+    "answer": "[ 3 ]",
+    "explanation": {
+      "en": "A negative start counts from the end, so slice(-1) takes the last element."
+    }
+  },
+  {
+    "id": 153,
+    "category": "typescript",
+    "difficulty": "hard",
+    "codeSnippet": "enum E { A = 1, B }\nconsole.log(E.B, E[1]);",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "2 A",
+      "1 A",
+      "2 B",
+      "1 B"
+    ],
+    "answer": "2 A",
+    "explanation": {
+      "en": "B auto-increments to 2, and numeric enums also map values back to names."
+    }
   }
 ]
