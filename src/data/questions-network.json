@@ -931,63 +931,6 @@
     }
   },
   {
-    "id": 50,
-    "category": "protocols",
-    "difficulty": "easy",
-    "codeSnippet": "",
-    "question": {
-      "en": "Which port does HTTP use by default?"
-    },
-    "options": [
-      "80",
-      "443",
-      "22",
-      "25"
-    ],
-    "answer": "80",
-    "explanation": {
-      "en": "HTTP runs on TCP port 80 by default."
-    }
-  },
-  {
-    "id": 51,
-    "category": "protocols",
-    "difficulty": "easy",
-    "codeSnippet": "",
-    "question": {
-      "en": "Which port does SSH use by default?"
-    },
-    "options": [
-      "22",
-      "23",
-      "21",
-      "80"
-    ],
-    "answer": "22",
-    "explanation": {
-      "en": "SSH listens on TCP port 22."
-    }
-  },
-  {
-    "id": 52,
-    "category": "dns",
-    "difficulty": "medium",
-    "codeSnippet": "",
-    "question": {
-      "en": "What does a DNS A record map?"
-    },
-    "options": [
-      "A hostname to an IPv4 address",
-      "A domain to a canonical alias",
-      "An IP address back to a name",
-      "A mail exchanger for a domain"
-    ],
-    "answer": "A hostname to an IPv4 address",
-    "explanation": {
-      "en": "An A record resolves a name to an IPv4 address."
-    }
-  },
-  {
     "id": 53,
     "category": "dns",
     "difficulty": "medium",
@@ -1042,44 +985,6 @@
     "answer": "Connectionless and faster with no delivery guarantee",
     "explanation": {
       "en": "UDP skips handshakes and acknowledgements."
-    }
-  },
-  {
-    "id": 56,
-    "category": "ip",
-    "difficulty": "easy",
-    "codeSnippet": "",
-    "question": {
-      "en": "How many bits are in an IPv4 address?"
-    },
-    "options": [
-      "32",
-      "64",
-      "128",
-      "16"
-    ],
-    "answer": "32",
-    "explanation": {
-      "en": "IPv4 addresses are 32 bits (four octets)."
-    }
-  },
-  {
-    "id": 57,
-    "category": "ip",
-    "difficulty": "easy",
-    "codeSnippet": "",
-    "question": {
-      "en": "How many bits are in an IPv6 address?"
-    },
-    "options": [
-      "128",
-      "64",
-      "32",
-      "256"
-    ],
-    "answer": "128",
-    "explanation": {
-      "en": "IPv6 addresses are 128 bits long."
     }
   },
   {
@@ -1156,25 +1061,6 @@
     "answer": "An IP address to a MAC address",
     "explanation": {
       "en": "ARP maps IPv4 addresses to hardware MACs."
-    }
-  },
-  {
-    "id": 62,
-    "category": "osi",
-    "difficulty": "medium",
-    "codeSnippet": "",
-    "question": {
-      "en": "At which OSI layer does a router primarily operate?"
-    },
-    "options": [
-      "Layer 3 (Network)",
-      "Layer 2 (Data Link)",
-      "Layer 4 (Transport)",
-      "Layer 7 (Application)"
-    ],
-    "answer": "Layer 3 (Network)",
-    "explanation": {
-      "en": "Routers forward packets using Layer 3 IP addresses."
     }
   },
   {
@@ -1558,25 +1444,6 @@
     }
   },
   {
-    "id": 83,
-    "category": "protocols",
-    "difficulty": "easy",
-    "codeSnippet": "",
-    "question": {
-      "en": "Which port does HTTPS use by default?"
-    },
-    "options": [
-      "443",
-      "80",
-      "8080",
-      "22"
-    ],
-    "answer": "443",
-    "explanation": {
-      "en": "HTTP over TLS listens on TCP 443."
-    }
-  },
-  {
     "id": 84,
     "category": "protocols",
     "difficulty": "easy",
@@ -1745,44 +1612,6 @@
     "answer": "Identify a device on the local link",
     "explanation": {
       "en": "MAC addresses identify hardware on the same local network segment."
-    }
-  },
-  {
-    "id": 93,
-    "category": "ports",
-    "difficulty": "easy",
-    "codeSnippet": "",
-    "question": {
-      "en": "Which port does HTTPS use by default?"
-    },
-    "options": [
-      "443",
-      "80",
-      "22",
-      "53"
-    ],
-    "answer": "443",
-    "explanation": {
-      "en": "HTTPS defaults to TCP 443; plain HTTP uses 80."
-    }
-  },
-  {
-    "id": 94,
-    "category": "ports",
-    "difficulty": "easy",
-    "codeSnippet": "",
-    "question": {
-      "en": "Which port does SSH use by default?"
-    },
-    "options": [
-      "22",
-      "21",
-      "25",
-      "110"
-    ],
-    "answer": "22",
-    "explanation": {
-      "en": "SSH listens on TCP 22 by default; 21 is FTP, 25 is SMTP."
     }
   },
   {

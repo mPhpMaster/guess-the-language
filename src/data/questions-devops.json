@@ -988,25 +988,6 @@
     }
   },
   {
-    "id": 53,
-    "category": "docker",
-    "difficulty": "medium",
-    "codeSnippet": "docker exec -it web bash",
-    "question": {
-      "en": "What does this command do?"
-    },
-    "options": [
-      "Open a shell inside a running container",
-      "Build a fresh image from a Dockerfile",
-      "Start a stopped image as a service",
-      "Copy files out of a stopped container"
-    ],
-    "answer": "Open a shell inside a running container",
-    "explanation": {
-      "en": "exec -it runs an interactive shell in the container."
-    }
-  },
-  {
     "id": 54,
     "category": "kubernetes",
     "difficulty": "easy",
@@ -1102,25 +1083,6 @@
     }
   },
   {
-    "id": 59,
-    "category": "iac",
-    "difficulty": "easy",
-    "codeSnippet": "terraform apply",
-    "question": {
-      "en": "What does terraform apply do?"
-    },
-    "options": [
-      "Make real changes to match the desired state",
-      "Only show a plan of the pending changes",
-      "Delete the local Terraform state file",
-      "Reformat the configuration files only"
-    ],
-    "answer": "Make real changes to match the desired state",
-    "explanation": {
-      "en": "apply provisions infra to reach the declared state."
-    }
-  },
-  {
     "id": 60,
     "category": "iac",
     "difficulty": "medium",
@@ -1156,25 +1118,6 @@
     "answer": "Distribute traffic across multiple servers",
     "explanation": {
       "en": "It spreads requests to avoid overloading one server."
-    }
-  },
-  {
-    "id": 62,
-    "category": "docker",
-    "difficulty": "medium",
-    "codeSnippet": "docker compose up -d",
-    "question": {
-      "en": "What does the -d flag do here?"
-    },
-    "options": [
-      "Run the services in the background (detached)",
-      "Delete the containers once they have started",
-      "Rebuild every image before starting up",
-      "Stream the service logs to the shell"
-    ],
-    "answer": "Run the services in the background (detached)",
-    "explanation": {
-      "en": "-d starts services detached from the terminal."
     }
   },
   {
@@ -2125,25 +2068,6 @@
     "answer": "Ansible",
     "explanation": {
       "en": "Ansible playbooks describe desired state as YAML tasks."
-    }
-  },
-  {
-    "id": 113,
-    "category": "orchestration",
-    "difficulty": "medium",
-    "codeSnippet": "kubectl get pods",
-    "question": {
-      "en": "What does this command list?"
-    },
-    "options": [
-      "Running pods in the cluster",
-      "Open ports on a host",
-      "Git commits on main",
-      "Cloud billing charges"
-    ],
-    "answer": "Running pods in the cluster",
-    "explanation": {
-      "en": "kubectl get pods lists pods and their status in the current namespace."
     }
   },
   {

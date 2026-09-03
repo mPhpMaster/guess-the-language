@@ -1843,25 +1843,6 @@
     }
   },
   {
-    "id": 98,
-    "category": "nmap",
-    "difficulty": "medium",
-    "codeSnippet": "nmap -p- 10.0.0.1",
-    "question": {
-      "en": "What does the -p- flag scan?"
-    },
-    "options": [
-      "All 65535 TCP ports",
-      "Only the top 100 ports",
-      "UDP ports only",
-      "The default 1000 ports"
-    ],
-    "answer": "All 65535 TCP ports",
-    "explanation": {
-      "en": "-p- expands the scan to every TCP port."
-    }
-  },
-  {
     "id": 99,
     "category": "metasploit",
     "difficulty": "easy",
@@ -1976,25 +1957,6 @@
     }
   },
   {
-    "id": 105,
-    "category": "concepts",
-    "difficulty": "medium",
-    "codeSnippet": "",
-    "question": {
-      "en": "What is a zero-day vulnerability?"
-    },
-    "options": [
-      "A flaw with no available patch yet",
-      "A bug that the vendor patched long ago",
-      "A weak and guessable password",
-      "A credential-phishing email lure"
-    ],
-    "answer": "A flaw with no available patch yet",
-    "explanation": {
-      "en": "Zero-days are unknown to the vendor and unpatched."
-    }
-  },
-  {
     "id": 106,
     "category": "malware",
     "difficulty": "easy",
@@ -2030,25 +1992,6 @@
     "answer": "A second, independent verification factor",
     "explanation": {
       "en": "2FA requires something you have in addition to a password."
-    }
-  },
-  {
-    "id": 108,
-    "category": "web",
-    "difficulty": "easy",
-    "codeSnippet": "",
-    "question": {
-      "en": "Which port does HTTPS use by default?"
-    },
-    "options": [
-      "443",
-      "80",
-      "22",
-      "8080"
-    ],
-    "answer": "443",
-    "explanation": {
-      "en": "HTTPS runs over TLS on TCP port 443."
     }
   },
   {
@@ -2505,25 +2448,6 @@
     "answer": "The attacker address the payload connects back to",
     "explanation": {
       "en": "LHOST is the local listener address for a reverse connection."
-    }
-  },
-  {
-    "id": 133,
-    "category": "concepts",
-    "difficulty": "medium",
-    "codeSnippet": "",
-    "question": {
-      "en": "What is the principle of least privilege?"
-    },
-    "options": [
-      "Grant only the access that is needed",
-      "Give admins access to everything",
-      "Share one account across a team",
-      "Disable all logging by default"
-    ],
-    "answer": "Grant only the access that is needed",
-    "explanation": {
-      "en": "Each user or process gets the minimum rights required, limiting damage."
     }
   },
   {

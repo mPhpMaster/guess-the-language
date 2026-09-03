@@ -2952,15 +2952,6 @@
     }
   },
   {
-    "id": 329,
-    "correctLanguage": "Go",
-    "difficulty": "medium",
-    "codeSnippet": "ch := make(chan int)\ngo worker(ch)",
-    "explanation": {
-      "en": "`make(chan int)` and `go` for a goroutine are Go."
-    }
-  },
-  {
     "id": 330,
     "correctLanguage": "Python",
     "difficulty": "medium",
@@ -3069,15 +3060,6 @@
     }
   },
   {
-    "id": 342,
-    "correctLanguage": "C++",
-    "difficulty": "easy",
-    "codeSnippet": "std::vector<int> v = {1, 2, 3};",
-    "explanation": {
-      "en": "std::vector with brace initialization is C++."
-    }
-  },
-  {
     "id": 343,
     "correctLanguage": "C++",
     "difficulty": "easy",
@@ -3123,24 +3105,6 @@
     }
   },
   {
-    "id": 348,
-    "correctLanguage": "Java",
-    "difficulty": "easy",
-    "codeSnippet": "System.out.println(\"Hello\");",
-    "explanation": {
-      "en": "System.out.println is the classic Java print."
-    }
-  },
-  {
-    "id": 349,
-    "correctLanguage": "Java",
-    "difficulty": "medium",
-    "codeSnippet": "List<String> names = new ArrayList<>();",
-    "explanation": {
-      "en": "ArrayList with the diamond operator is Java."
-    }
-  },
-  {
     "id": 350,
     "correctLanguage": "Kotlin",
     "difficulty": "easy",
@@ -3174,15 +3138,6 @@
     "codeSnippet": "guard let x = value else { return }",
     "explanation": {
       "en": "The guard let ... else pattern is Swift."
-    }
-  },
-  {
-    "id": 354,
-    "correctLanguage": "Rust",
-    "difficulty": "easy",
-    "codeSnippet": "let mut v: Vec<i32> = Vec::new();",
-    "explanation": {
-      "en": "let mut with Vec<i32> is Rust."
     }
   },
   {
@@ -3465,15 +3420,6 @@
     }
   },
   {
-    "id": 386,
-    "correctLanguage": "TypeScript",
-    "difficulty": "medium",
-    "codeSnippet": "interface User { id: number; name: string; }",
-    "explanation": {
-      "en": "interface with typed fields is TypeScript, not plain JavaScript."
-    }
-  },
-  {
     "id": 387,
     "correctLanguage": "Kotlin",
     "difficulty": "medium",
@@ -3492,39 +3438,12 @@
     }
   },
   {
-    "id": 389,
-    "correctLanguage": "Ruby",
-    "difficulty": "easy",
-    "codeSnippet": "3.times { |i| puts i }",
-    "explanation": {
-      "en": "Integer#times with a block and puts is classic Ruby."
-    }
-  },
-  {
     "id": 390,
     "correctLanguage": "PHP",
     "difficulty": "easy",
     "codeSnippet": "<?php echo \"Hello, $name\"; ?>",
     "explanation": {
       "en": "The <?php tag and $ variables are unmistakably PHP."
-    }
-  },
-  {
-    "id": 391,
-    "correctLanguage": "SQL",
-    "difficulty": "easy",
-    "codeSnippet": "SELECT name FROM users WHERE age > 18;",
-    "explanation": {
-      "en": "SELECT ... FROM ... WHERE is core SQL."
-    }
-  },
-  {
-    "id": 392,
-    "correctLanguage": "Bash",
-    "difficulty": "medium",
-    "codeSnippet": "for f in *.txt; do echo \"$f\"; done",
-    "explanation": {
-      "en": "for f in *.txt; do ... done with $f is a Bash loop."
     }
   },
   {
