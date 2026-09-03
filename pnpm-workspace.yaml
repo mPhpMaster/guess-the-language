@@ -9,3 +9,20 @@ onlyBuiltDependencies:
   - electron
   - electron-builder
   - esbuild
+
+# Transitive dependencies of electron / electron-builder that have published
+# security fixes their parents have not picked up yet. Every one is BUILD-time
+# only -- they package the Windows installer and never reach the web bundle or a
+# player -- so this is hygiene, not an exposed vulnerability.
+#
+# Ranges stay inside the current major on purpose: a bare ">=3.1.6" on fast-uri
+# resolves to 4.x, which ajv does not expect.
+#
+# extract-zip (electron's own, symlink path traversal) has NO patched version
+# published, so there is nothing to override. It is reachable only while
+# unpacking an archive during a desktop build.
+overrides:
+  fast-uri: "^3.1.6"
+  js-yaml: "^4.3.1"
+  "@xmldom/xmldom@0.8": "0.8.15"
+  "@xmldom/xmldom@0.9": "0.9.12"
