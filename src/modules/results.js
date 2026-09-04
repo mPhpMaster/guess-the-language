@@ -129,43 +129,101 @@ export async function shareResultCard() {
         const canvas = document.createElement('canvas');
         canvas.width = w; canvas.height = h;
         const ctx = canvas.getContext('2d');
-        const g = ctx.createLinearGradient(0, 0, w, h);
-        g.addColorStop(0, '#0e2a44'); g.addColorStop(1, '#081019');
-        ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
-        ctx.fillStyle = 'rgba(46,197,255,0.10)';
-        ctx.beginPath(); ctx.arc(w * 0.82, h * 0.14, 340, 0, Math.PI * 2); ctx.fill();
-        const cx = w / 2, FONT = '"Plus Jakarta Sans", system-ui, sans-serif';
+        // The card is drawn in the app's own language: the dark ground, one
+        // accent, mono type. It used to be the pre-redesign navy gradient with a
+        // cyan glow — canvas colours live here, not in the token layer, so the
+        // stylesheet sweep never reached them.
+        const INK = '#0b0d0c', PANEL = '#111514', LINE = '#ffffff14';
+        const TEXT = '#f2f6f3', DIM = '#8a9490', DIMMER = '#6b736f', NEON = '#6ee7a0';
+        const MONO = '"IBM Plex Mono", ui-monospace, monospace';
+        const SANS = '"IBM Plex Sans", system-ui, sans-serif';
+        // The webfonts are already linked in the document; wait for them or the
+        // canvas silently falls back to a system face mid-draw.
+        try { await document.fonts?.ready; } catch (_) { /* ignore */ }
+
+        ctx.fillStyle = INK; ctx.fillRect(0, 0, w, h);
+
+        // A window frame, echoing the app's title bar.
+        const pad = 64, top = 96, bottom = h - 96;
+        ctx.fillStyle = PANEL;
+        ctx.fillRect(pad, top, w - pad * 2, bottom - top);
+        ctx.strokeStyle = LINE; ctx.lineWidth = 2;
+        ctx.strokeRect(pad, top, w - pad * 2, bottom - top);
+        ctx.fillStyle = '#0f1211';
+        ctx.fillRect(pad, top, w - pad * 2, 72);
+        ctx.strokeRect(pad, top, w - pad * 2, 72);
+        ctx.fillStyle = NEON;
+        ctx.beginPath(); ctx.arc(pad + 34, top + 36, 8, 0, Math.PI * 2); ctx.fill();
+        ctx.textAlign = 'left';
+        ctx.fillStyle = DIM; ctx.font = `400 26px ${MONO}`;
+        ctx.fillText('guess-the-language', pad + 60, top + 46);
+
+        const cx = w / 2;
         ctx.textAlign = 'center';
-        ctx.fillStyle = '#8ea6c0'; ctx.font = `600 42px ${FONT}`;
-        ctx.fillText('GUESS THE LANGUAGE', cx, 150);
-        ctx.fillStyle = '#2ec5ff'; ctx.font = `800 56px ${FONT}`;
-        ctx.fillText(state.daily ? t('dailyChallenge') : currentModeLabel(), cx, 250);
-        // Player's Discord avatar as a circular badge (falls back to the trophy when
-        // there's no avatar or it fails to load / would taint the canvas).
+
+        // The shell prompt the home screen opens with.
+        // Mode names vary a lot in length, so the line is fitted to the card
+        // rather than trusting one size: a long one used to run past the frame.
+        const modeLine = (state.daily ? t('dailyChallenge') : currentModeLabel()).toLowerCase();
+        const maxLine = w - pad * 2 - 160;
+        let modeSize = 52;
+        do {
+            ctx.font = `600 ${modeSize}px ${MONO}`;
+            if (ctx.measureText(modeLine).width <= maxLine) break;
+            modeSize -= 2;
+        } while (modeSize > 24);
+        const lineW = ctx.measureText(modeLine).width;
+        ctx.fillStyle = NEON;
+        ctx.fillText('$', cx - lineW / 2 - modeSize * 0.62, 268);
+        ctx.fillStyle = TEXT; ctx.fillText(modeLine, cx, 268);
+
+        // The player's Discord avatar, or the app's mark when there isn't one.
         const avImg = await loadCrossOriginImage(discordAvatarUrl(getDiscordProfile(), 256));
+        const r = 96, ay = 430;
         if (avImg) {
-            const r = 108, ay = 430;
             ctx.save();
-            ctx.beginPath(); ctx.arc(cx, ay, r + 8, 0, Math.PI * 2);
-            ctx.fillStyle = '#2ec5ff'; ctx.fill();
             ctx.beginPath(); ctx.arc(cx, ay, r, 0, Math.PI * 2); ctx.clip();
             ctx.drawImage(avImg, cx - r, ay - r, r * 2, r * 2);
             ctx.restore();
+            ctx.strokeStyle = NEON; ctx.lineWidth = 3;
+            ctx.beginPath(); ctx.arc(cx, ay, r, 0, Math.PI * 2); ctx.stroke();
         } else {
-            ctx.font = '150px serif'; ctx.fillText('🏆', cx, 470);
+            ctx.fillStyle = '#0d100f';
+            ctx.beginPath(); ctx.arc(cx, ay, r, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = LINE; ctx.lineWidth = 3;
+            ctx.beginPath(); ctx.arc(cx, ay, r, 0, Math.PI * 2); ctx.stroke();
+            ctx.fillStyle = NEON; ctx.font = `700 72px ${MONO}`;
+            ctx.fillText('$_', cx, ay + 26);
         }
-        ctx.fillStyle = '#eaf4ff'; ctx.font = `900 200px ${FONT}`;
-        ctx.fillText(String(state.score), cx, 720);
-        ctx.fillStyle = '#8ea6c0'; ctx.font = `600 44px ${FONT}`;
-        ctx.fillText('SCORE', cx, 792);
+
+        ctx.fillStyle = TEXT; ctx.font = `600 32px ${MONO}`;
+        ctx.fillText(safeDisplayName(getPlayerName()) || 'Player', cx, ay + 172);
+
+        // Score: the label above the number, as the results screen sets it.
+        ctx.fillStyle = DIMMER; ctx.font = `400 28px ${MONO}`;
+        ctx.fillText('F I N A L   S C O R E', cx, 740);
+        ctx.fillStyle = TEXT; ctx.font = `700 180px ${MONO}`;
+        ctx.fillText(formatScore(state.score), cx, 900);
+
+        // One hairline, then the round's two figures.
+        ctx.strokeStyle = LINE; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(pad + 80, 968); ctx.lineTo(w - pad - 80, 968); ctx.stroke();
+
         const total = state.round.length || 1;
         const acc = Math.round((state.correct / total) * 100);
-        ctx.fillStyle = '#19f0c4'; ctx.font = `800 62px ${FONT}`;
-        ctx.fillText(`${acc}%   ·   ${state.correct}/${total}`, cx, 930);
-        ctx.fillStyle = '#cfe0f4'; ctx.font = `700 54px ${FONT}`;
-        ctx.fillText(safeDisplayName(getPlayerName()) || 'Player', cx, 1130);
-        ctx.fillStyle = '#5f7590'; ctx.font = `500 38px ${FONT}`;
-        ctx.fillText('guess-the-language-chi.vercel.app', cx, 1275);
+        const colW = (w - pad * 2 - 160) / 2;
+        const leftX = pad + 80 + colW / 2, rightX = w - pad - 80 - colW / 2;
+        ctx.fillStyle = NEON; ctx.font = `700 76px ${MONO}`;
+        ctx.fillText(`${acc}%`, leftX, 1078);
+        ctx.fillStyle = TEXT;
+        ctx.fillText(`${state.correct}/${total}`, rightX, 1078);
+        ctx.fillStyle = DIMMER; ctx.font = `400 26px ${SANS}`;
+        ctx.fillText('Accuracy', leftX, 1126);
+        ctx.fillText('Correct', rightX, 1126);
+        ctx.beginPath(); ctx.moveTo(cx, 1030); ctx.lineTo(cx, 1136); ctx.stroke();
+
+        ctx.fillStyle = DIMMER; ctx.font = `400 26px ${MONO}`;
+        ctx.fillText('guess-the-language-chi.vercel.app', cx, bottom - 44);
 
         const blob = await new Promise((res) => canvas.toBlob(res, 'image/png'));
         if (!blob) return;
@@ -257,14 +315,14 @@ export function showShareOverlay(url, blob, publicUrl) {
         hint.textContent = t('shareHint');
     } else {
         // Web / Electron: direct copy + download work here.
-        mkBtn(`📋 ${t('copyImage')}`, 'btn-primary', async () => {
+        mkBtn(t('copyImage'), 'btn-primary', async () => {
             try {
                 if (!navigator.clipboard || typeof ClipboardItem === 'undefined') throw new Error('no-clipboard');
                 await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
                 hint.textContent = t('copied');
             } catch (e) { hint.textContent = t('copyFailed'); }
         });
-        mkBtn(`⬇ ${t('download')}`, 'btn-ghost', () => {
+        mkBtn(t('download'), 'btn-ghost', () => {
             try {
                 const a = document.createElement('a');
                 a.href = url; a.download = 'guess-the-language.png'; a.rel = 'noopener';

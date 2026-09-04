@@ -4480,3 +4480,45 @@ html.platform-discord .results-card { max-height: none; overflow: visible; }
    ring the Activity block still sized. */
 html.platform-discord .timer-ring { width: auto; height: auto; align-self: center; margin: 0; }
 html.platform-discord .timer-num { font-size: 12px; }
+
+/* ============================================================
+   Multiplayer answer chips on the option cards
+   ============================================================ */
+/* The redesign turned the option card into a single row, so the chips became a
+   third item on that row and landed underneath the absolutely-positioned ✓ / ✗
+   badge in the corner. (They used to sit below the label, when the card was a
+   column.) They take their own line inside the card again — only when there are
+   chips, so a normal single-player card keeps its exact height. */
+.lang-btn:has(.mp-answer-chips),
+.opt-btn:has(.mp-answer-chips),
+button.opt-btn:has(.mp-answer-chips) {
+  flex-wrap: wrap;
+  padding-block-end: 10px;
+}
+.mp-answer-chips {
+  flex: 0 0 100%;
+  width: 100%;
+  justify-content: flex-start;
+  margin-top: 8px;
+  gap: 4px;
+}
+/* Quieter than the old pill: a hairline chip in the player's colour, with the
+   name in the interface mono so it reads as an identity, not a label. */
+.mp-answer-chip {
+  border-radius: 3px;
+  padding: 2px 7px 2px 5px;
+  gap: 5px;
+}
+.mp-chip-nm { font-family: var(--font-mono); font-weight: 600; }
+
+/* The share overlay follows the dialogs: a panel card on the app's ground, with
+   the image inside it rather than floating on a gradient. */
+.share-card-box {
+  background: var(--panel);
+  border: 1px solid var(--line-4);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  gap: 16px;
+}
+.share-img { border-radius: var(--radius); border: 1px solid var(--line-2); }
+.share-hint { font-size: 12px; color: var(--dimmer); }
