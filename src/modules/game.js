@@ -792,6 +792,7 @@ export function showFeedback(kind, headline, explanation) {
     }
     if (toast) toast.className = `toast show ${kind}`;
     $('#feedback-panel')?.classList.remove('hidden');
+    $('#screen-game')?.classList.add('is-answered');
     $('#btn-next')?.classList.toggle('hidden', state.multiplayer);
     announce(`${headline || ''}${explanation ? '. ' + explanation : ''}`);
 }
@@ -804,6 +805,7 @@ export function showToast(text, kind) {
 export function hideToast() {
     $('#answer-toast').className = 'toast';
     $('#feedback-panel')?.classList.add('hidden');
+    $('#screen-game')?.classList.remove('is-answered');
     $('#btn-next')?.classList.add('hidden');
 }
 

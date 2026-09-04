@@ -164,7 +164,7 @@ export function openPlayerCard(player) {
     if (invite) {
         const canInvite = isDiscordActivity() || !!room?.code;
         invite.classList.toggle('hidden', !canInvite);
-        invite.textContent = isDiscordActivity() ? t('inviteToRoom') : t('copyCode');
+        invite.textContent = t('inviteToRoom');
     }
     /* Promote another (non-host, non-spectator) player to host.
        Two routes, because `mp.isAdmin` means "I am THIS room's host" — not "I am the

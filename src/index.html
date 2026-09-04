@@ -249,7 +249,7 @@
       <!-- About popover -->
       <dialog id="about-panel" class="popover" aria-labelledby="about-title">
         <h3 id="about-title" data-i18n="aboutTitle">About</h3>
-        <img class="about-logo" src="favicon.svg" alt="" aria-hidden="true" />
+        <img class="about-logo" id="about-logo" src="favicon.svg" alt="" referrerpolicy="no-referrer" aria-hidden="true" />
         <p class="about-app"><span data-i18n="appTitle">Guess the Language</span> <span id="about-version"></span></p>
         <p class="about-desc" data-i18n="aboutDesc">An IT quiz game: programming languages, cybersecurity, DevOps & networking.</p>
         <p class="about-count"><span data-i18n="aboutQuestions">Questions:</span> <strong id="about-count">…</strong></p>
@@ -546,54 +546,64 @@
       <!-- Countdown as a run-bar across the top of the round, replacing the ring. -->
       <div class="timer-bar" aria-hidden="true"><div class="timer-bar-fill" id="timer-bar-fill"></div></div>
 
-      <div class="game-body">
-        <div class="code-wrap" id="code-wrap">
-          <div class="code-header">
-            <span class="code-tabs">
-              <button type="button" class="code-tab is-active" id="code-tab">snippet.??</button>
-              <button type="button" class="code-tab" id="code-tab-hint" data-i18n="hintTab">hint.md</button>
-            </span>
-            <span class="code-header-right">
-              <span class="code-difficulty" id="code-difficulty">easy</span>
-              <!-- The ring SVG stays in the DOM (setRing still drives it and the
-                   smoke tests read #timer-num) but is hidden; the visible
-                   countdown is the bar above plus this seconds readout. -->
-              <span class="timer-ring" id="timer-ring" role="timer" aria-label="Time remaining">
-                <svg viewBox="0 0 120 120" aria-hidden="true">
-                  <circle class="ring-bg" cx="60" cy="60" r="52" />
-                  <circle class="ring-fg" id="ring-fg" cx="60" cy="60" r="52" />
-                </svg>
-                <span class="timer-num" id="timer-num" dir="ltr">15</span>
+      <!-- The play area, centred between the HUD and the status strip as the
+           design lays it out. Without a wrapper these blocks were siblings of
+           the fixed bars and stacked from the top, leaving the lower third of
+           the screen empty. -->
+      <div class="game-stage">
+        <div class="game-body">
+          <div class="code-wrap" id="code-wrap">
+            <div class="code-header">
+              <span class="code-tabs">
+                <button type="button" class="code-tab is-active" id="code-tab">snippet.??</button>
+                <button type="button" class="code-tab" id="code-tab-hint" data-i18n="hintTab">hint.md</button>
               </span>
-            </span>
-          </div>
-          <pre class="code-panel" dir="ltr"><span class="code-gutter" id="code-gutter" aria-hidden="true"></span><code id="code-snippet"></code></pre>
-          <!-- The hint.md tab's content. Shows what can be said about the question
-               without handing over the answer — the answer itself is masked out. -->
-          <div class="hint-body hidden" id="hint-body" dir="ltr"></div>
-          <div class="feedback-panel hidden" id="feedback-panel">
-            <div class="toast" id="answer-toast" role="status" aria-live="polite">
-              <span class="fb-headline" id="fb-headline"></span>
-              <span class="fb-explanation" id="fb-explanation"></span>
+              <span class="code-header-right">
+                <span class="code-difficulty" id="code-difficulty">easy</span>
+                <!-- The ring SVG stays in the DOM (setRing still drives it and the
+                     smoke tests read #timer-num) but is hidden; the visible
+                     countdown is the bar above plus this seconds readout. -->
+                <span class="timer-ring" id="timer-ring" role="timer" aria-label="Time remaining">
+                  <svg viewBox="0 0 120 120" aria-hidden="true">
+                    <circle class="ring-bg" cx="60" cy="60" r="52" />
+                    <circle class="ring-fg" id="ring-fg" cx="60" cy="60" r="52" />
+                  </svg>
+                  <span class="timer-num" id="timer-num" dir="ltr">15</span>
+                </span>
+              </span>
             </div>
-            <button class="btn btn-primary btn-sm" id="btn-next" data-i18n="nextQuestion">Next question</button>
+            <pre class="code-panel" dir="ltr"><span class="code-gutter" id="code-gutter" aria-hidden="true"></span><code id="code-snippet"></code></pre>
+            <!-- The hint.md tab's content. Shows what can be said about the question
+                 without handing over the answer — the answer itself is masked out. -->
+            <div class="hint-body hidden" id="hint-body" dir="ltr"></div>
           </div>
         </div>
+
+        <!-- Answer feedback: a block of its own between the snippet and the
+             options, as the design lays the answered state out. Nested inside the
+             code card it was glued to the snippet's bottom edge with no gap. -->
+        <div class="feedback-panel hidden" id="feedback-panel">
+          <div class="toast" id="answer-toast" role="status" aria-live="polite">
+            <span class="fb-headline" id="fb-headline"></span>
+            <span class="fb-explanation" id="fb-explanation"></span>
+          </div>
+          <button class="btn btn-primary btn-sm" id="btn-next" data-i18n="nextQuestion">next &#9656;</button>
+        </div>
+
+        <div id="question-text" class="question-text" dir="auto"></div>
+
+        <div id="mp-status" class="mp-status hidden"></div>
+
+        <div class="options-grid" id="options-grid" dir="ltr"><!-- option buttons injected --></div>
+
+        <!-- Fill-in-the-blank / code-completion answer (Problem Solving mode) -->
+        <form class="fill-form hidden" id="fill-form" dir="ltr" autocomplete="off">
+          <input type="text" id="fill-input" class="fill-input" dir="ltr"
+                 autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+                 aria-label="Your answer" />
+          <button type="submit" class="btn btn-primary fill-submit" id="fill-submit" data-i18n="fillSubmit">Submit</button>
+        </form>
       </div>
-
-      <div id="question-text" class="question-text" dir="auto"></div>
-
-      <div id="mp-status" class="mp-status hidden"></div>
-
-      <div class="options-grid" id="options-grid" dir="ltr"><!-- option buttons injected --></div>
-
-      <!-- Fill-in-the-blank / code-completion answer (Problem Solving mode) -->
-      <form class="fill-form hidden" id="fill-form" dir="ltr" autocomplete="off">
-        <input type="text" id="fill-input" class="fill-input" dir="ltr"
-               autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
-               aria-label="Your answer" />
-        <button type="submit" class="btn btn-primary fill-submit" id="fill-submit" data-i18n="fillSubmit">Submit</button>
-      </form>
 
       <!-- Status strip: the keyboard affordance on the left, the last score
            delta on the right (filled in by resolveCurrentQuestion). -->

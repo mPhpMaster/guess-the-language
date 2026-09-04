@@ -4,27 +4,79 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Privacy Policy — Guess the Language</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" />
   <style>
-    :root { --bg: #07111e; --text: #eaf2ff; --muted: #9fb4cc; --accent: #2ec5ff; }
+    /* Same token layer as the app, so the legal pages read as part of it rather
+       than as a leftover of the old blue theme. */
+    :root {
+      color-scheme: dark;
+      --bg: #0b0d0c;
+      --panel: #111514;
+      --text: #f2f6f3;
+      --body: #dfe5e0;
+      --muted: #8a9490;
+      --dimmer: #6b736f;
+      --neon: #6ee7a0;
+      --line: #ffffff14;
+      --font-sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: "Segoe UI", system-ui, sans-serif;
+      font-family: var(--font-sans);
       background: var(--bg);
-      color: var(--text);
+      color: var(--body);
       line-height: 1.65;
-      padding: 32px 20px 48px;
+      padding: 40px 24px 64px;
     }
     main { max-width: 720px; margin: 0 auto; }
-    h1 { font-size: 1.75rem; margin-bottom: 0.25rem; }
-    .updated { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.75rem; }
-    h2 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; color: var(--accent); }
-    p, li { margin-bottom: 0.75rem; color: #d4e4f7; }
-    ul { padding-left: 1.25rem; }
-    a { color: var(--accent); }
-    .back { display: inline-block; margin-bottom: 1.5rem; font-size: 0.95rem; }
-    table { width: 100%; border-collapse: collapse; margin: 0.75rem 0 1rem; font-size: 0.95rem; }
-    th, td { border: 1px solid #ffffff22; padding: 8px 10px; text-align: left; }
-    th { background: #0d1f33; color: var(--accent); }
+    h1 {
+      font-family: var(--font-mono);
+      font-size: 30px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -.01em;
+      margin-bottom: 6px;
+    }
+    .updated {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--dimmer);
+      margin-bottom: 32px;
+    }
+    h2 {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      color: var(--neon);
+      margin: 32px 0 10px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+    }
+    p, li { margin-bottom: 12px; color: var(--body); font-size: 15px; }
+    strong { color: var(--text); font-weight: 600; }
+    ul { padding-left: 20px; }
+    li::marker { color: var(--dimmer); }
+    a { color: var(--neon); text-underline-offset: 3px; }
+    a:hover { color: var(--text); }
+    .back {
+      display: inline-block;
+      margin-bottom: 28px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 8px 14px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+    }
+    .back:hover { border-color: #6ee7a044; color: var(--neon); }
   </style>
 </head>
 <body>

@@ -295,7 +295,7 @@ export function renderLobby(room, players) {
     if (invite) {
         const canInvite = discord || !!room?.code;
         invite.classList.toggle('hidden', !canInvite);
-        invite.textContent = discord ? t('inviteToRoom') : t('copyCode');
+        invite.textContent = t('inviteToRoom');
     }
     $('#lobby-invite-note')?.classList.add('hidden');
 

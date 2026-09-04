@@ -277,6 +277,15 @@ export async function openAbout() {
     } catch {
         $('#about-count').textContent = '—';
     }
+    // The design puts the player's own avatar at the head of this dialog. Falls
+    // back to the app mark when they are not signed in, or if the image 404s.
+    const logo = $('#about-logo');
+    if (logo) {
+        const url = discordAvatarUrl(getDiscordProfile());
+        logo.onerror = () => { logo.onerror = null; logo.src = 'favicon.svg'; };
+        logo.src = url || 'favicon.svg';
+        logo.classList.toggle('is-app-mark', !url);
+    }
     try {
         const v = await window.appWindow ?.getVersion ?.();
         if (v) $('#about-version').textContent = 'v' + v;
