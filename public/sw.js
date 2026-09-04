@@ -6,7 +6,7 @@
 // NOTE: index.html is requested with a query string (Discord appends ?instance_id=…),
 // so it always misses this cache and comes from the network, while renderer.js always
 // hits it. Forgetting to bump this therefore ships NEW html against OLD js.
-const CACHE = 'gtl-cache-v53';
+const CACHE = 'gtl-cache-v54';
 const CORE = ['./', './index.html', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png'];
 
 self.addEventListener('install', (event) => {
