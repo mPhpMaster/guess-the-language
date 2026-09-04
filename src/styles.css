@@ -2937,3 +2937,83 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
 /* "new" tag on the daily row, per the design. */
 .daily-new { font-family: var(--font-mono); font-size: 11px; color: var(--neon); }
 #btn-daily.is-done .daily-new { display: none; }
+
+/* Settings rows are one line: label left, control right. A legacy rule gave the
+   label `flex: 1 1 120px` inside a wrapping row, so at the dialog's 420px width
+   every control dropped onto its own line and row heights came out ragged
+   (55 / 88 / 43px against the design's even 12px rhythm). */
+.setting-row { flex-wrap: nowrap; gap: 16px; }
+.setting-row > span:first-child { flex: 1 1 auto; min-width: 0; }
+.setting-row select,
+.setting-row input[type="text"],
+.setting-row input[type="password"] { flex: 0 0 auto; width: auto; max-width: 200px; }
+.setting-row input[type="checkbox"] {
+  flex: 0 0 auto;
+  width: 18px; height: 18px;
+  accent-color: var(--neon);
+}
+.ui-scale-control { flex: 0 0 auto; display: flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: 13px; }
+.ui-scale-btn { background: none; border: 0; color: var(--dimmer); cursor: pointer; font-size: 14px; }
+.ui-scale-btn:hover { color: var(--neon); }
+.ui-scale-value { color: var(--text); }
+
+/* ---------- Lobby corrections ---------- */
+/* The settings column is a plain column behind a hairline in this direction, not
+   a nested navy card. */
+.lobby-settings {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+}
+.lobby-card > .lobby-settings { border-left: 1px solid var(--line); padding-left: 36px; }
+@media (max-width: 900px) { .lobby-card > .lobby-settings { border-left: 0; padding-left: 0; } }
+
+/* Lobby content is left-aligned like the rest of the direction. */
+#screen-lobby { text-align: left; }
+.lobby-card, .lobby-code-row, .lobby-admin-actions { text-align: left; }
+.lobby-code-row { display: flex; align-items: center; gap: 14px; justify-content: flex-start; }
+.lobby-label, .lobby-players-title, .lobby-settings-title, .lobby-mode { text-align: left; }
+.lobby-mode { font-size: 13px; color: var(--dim); }
+
+/* Invite sits with the other lobby actions rather than as a full-width bar. */
+.lobby-invite, #btn-lobby-invite {
+  width: auto;
+  align-self: flex-start;
+  background: transparent;
+  background-image: none;
+  border: 1px solid var(--line-4);
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 18px;
+  box-shadow: none;
+}
+.lobby-invite:hover:not(:disabled), #btn-lobby-invite:hover:not(:disabled) {
+  border-color: var(--accent-line); color: var(--text); background: transparent;
+}
+.lobby-admin-actions { display: flex; gap: 12px; align-items: center; }
+#btn-lobby-end, #btn-lobby-leave { color: #e39a9a; }
+
+/* .lobby-card is a grid, so a grid item stretches across its column unless the
+   inline size is constrained — align-self only moves it on the block axis. */
+.lobby-invite, #btn-lobby-invite, #btn-lobby-leave { width: fit-content; justify-self: start; }
+
+@media (max-width: 768px) {
+  /* A legacy `div#options-grid` rule (element + id) forced 2 columns, which at
+     375px came to 377px of track plus gap and clipped the right-hand column off
+     screen. The design's mobile game stacks the options full-width. */
+  div#options-grid, div#options-grid.cyber { grid-template-columns: 1fr; }
+  /* The full-bleed game frame still needs a gutter for its centred column. */
+  #screen-game .game-body,
+  #screen-game .question-text,
+  #screen-game #options-grid,
+  #screen-game #fill-form,
+  #screen-game #mp-status { padding-inline: 16px; }
+  #screen-game .game-body { padding-top: 16px; }
+  #screen-game .question-text { margin-top: 16px; }
+  #screen-game #options-grid { margin-top: 14px; padding-bottom: 16px; }
+  button.opt-btn, .lang-btn { min-height: 52px; padding: 14px 16px; border-radius: var(--radius); gap: 12px; }
+}
