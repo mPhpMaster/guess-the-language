@@ -4205,3 +4205,91 @@ option:checked { background: var(--accent-soft); color: var(--neon); }
 
 /* Option labels wrap on words, not mid-phrase, and the card grows to fit. */
 .lang-name, .opt-text { overflow-wrap: break-word; line-height: 1.35; }
+
+/* ============================================================
+   Design parity, third pass — the twelve differences left after
+   re-measuring every screen, each restated at the weight needed
+   to beat the rule that was winning.
+   ============================================================ */
+
+/* --- Game --- */
+
+/* 1 — the three HUD numbers are colour-coded in the design: the score reads
+   white, correct green, streak amber. `.score-pill span` painted every span in
+   the pill green, so the score and the correct count looked identical. */
+.score-pill > span:last-child { color: var(--text); }
+.correct-pill > span:last-child { color: var(--neon); }
+.streak-pill > span:last-child { color: var(--warn); }
+
+/* 2 — the tab strip and the snippet are one card: the strip carries the border
+   on three sides and the panel closes it underneath. It had none, so the card's
+   top edge was open. */
+.code-header {
+  border: 1px solid var(--line-2);
+  border-bottom: none;
+}
+
+/* 3 — three columns on a full-size window. The multiple-choice grid was
+   auto-fitting to four across, which narrowed the cards and wrapped their
+   labels. Scoped above the responsive breakpoints so the 2-up (<=960px) and
+   1-up (<=768px) rules below still win on smaller screens — an unscoped rule
+   this late in the file would have overridden both. */
+@media (min-width: 961px) {
+  .options-grid, .options-grid.cyber { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* --- Leaderboard --- */
+
+/* 4 — the place number is set at 16/700; it was running two sizes larger and
+   heavier than anything around it. */
+.lb-row .lb-rank { font-size: 16px; font-weight: 700; }
+.lb-row.rank-1 .lb-rank, .lb-row.rank-2 .lb-rank, .lb-row.rank-3 .lb-rank { font-size: 16px; }
+
+/* 5/6 — avatar 34px, and the score column wide enough for a five-figure total
+   without crowding the name. */
+.lb-head, .lb-row { grid-template-columns: 34px 34px 1fr 110px 70px auto; }
+.lb-row .lb-avatar { width: 34px; height: 34px; }
+.lb-score { font-size: 14px; }
+
+/* 7 — row padding, which sets the table's rhythm. */
+.lb-row { padding: 13px 8px; }
+.lb-head { padding: 0 8px 8px; }
+
+/* 8 — the footer action. */
+#screen-results .results-buttons #btn-menu { padding: 12px 24px; border-radius: 5px; }
+
+/* --- Profile --- */
+
+/* 9 — the profile column is 940px inside an 88px gutter. */
+#player-card.is-profile .modal-card {
+  max-width: 940px;
+  padding: 34px 88px 0;
+}
+
+/* 10 — last seen is a quiet mono footnote under the name, not a second line
+   competing with it. */
+/* The profile variant sets these at (id + 2 classes), so the plain-id rule
+   below it never won. Restated at that weight for both card shapes. */
+#player-card.is-profile .player-card-lastseen,
+#player-card .player-card-lastseen {
+  font-size: 11px;
+  color: var(--dimmer);
+  font-weight: 400;
+}
+
+/* 11 — the XP bar is a thin 6px rule with a 3px radius, not a rounded pill. */
+.pcs-xpbar { height: 6px; border-radius: 3px; }
+.pcs-xpfill { border-radius: 3px; }
+
+/* --- Home --- */
+
+
+/* --- Results: alignment only (the block itself stays) --- */
+
+/* The personal-rank banner was the one centred element on a left-aligned
+   screen. It keeps its place and its gold; it just lines up with everything
+   above and below it. */
+.personal-result {
+  justify-items: start;
+  text-align: start;
+}
