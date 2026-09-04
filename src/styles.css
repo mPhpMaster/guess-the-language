@@ -3129,3 +3129,59 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
   .lb-head, .lb-row { grid-template-columns: 26px 26px 1fr 70px auto; gap: 10px; }
   .lb-games { display: none; }
 }
+
+/* ============================================================
+   Design-fidelity corrections
+   ============================================================ */
+
+/* 1. The "All (Mixed)" row was still carrying its card-grid rule
+   (grid-column: 1/-1; width: min(320px,100%); justify-self: center), which in a
+   flex list clamped it to 320px so it read as a stub next to the full-width
+   rows above it. In the list it is a row like any other. */
+.mode-card-all,
+#screen-home .mode-card-all {
+  grid-column: auto;
+  width: auto;
+  max-width: none;
+  justify-self: auto;
+}
+
+/* 2. The feedback banner is ONE box in the design: a status glyph, the text, and
+   the button. `.toast.good` / `.toast.bad` still painted their own fill and
+   border at higher specificity than the reset, which drew a second box inside
+   the banner. Unset them at matching weight and let the banner carry the colour. */
+.toast.good, .toast.bad {
+  background: none;
+  border: 0;
+  padding: 0;
+  box-shadow: none;
+  opacity: 1;
+}
+.toast.good { color: var(--accent-text); }
+.toast.bad { color: var(--bad-text); }
+/* The ✓ / ✗ the design puts at the head of the banner. */
+.feedback-panel::before {
+  content: "✓";
+  font-family: var(--font-mono);
+  font-size: 20px;
+  line-height: 1;
+  color: var(--neon);
+  flex: 0 0 auto;
+}
+.feedback-panel:has(.toast.bad)::before { content: "✗"; color: var(--bad); }
+
+/* 3. Home column padding is asymmetric in the design: the content sits 88px from
+   the left edge and runs to the rail with no right gutter, so the 560px mode list
+   has room. Padding both sides squeezed it. */
+.home-main { padding: 0 0 0 clamp(20px, 6vw, 88px); }
+.home-rail { gap: 26px; padding: 0 40px; }
+
+@media (max-width: 900px) {
+  .home-main { padding: 0; }
+  .home-rail { padding: 22px 0 0; }
+}
+@media (max-width: 768px) {
+  .home-main { padding: 14px 20px 0; }
+  .home-rail { padding: 18px 20px calc(24px + env(safe-area-inset-bottom)); }
+  .feedback-panel::before { font-size: 16px; }
+}
