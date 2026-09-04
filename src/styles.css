@@ -4121,3 +4121,20 @@ option:checked { background: var(--accent-soft); color: var(--neon); }
 #screen-game .game-stage #options-grid { margin-top: 0; margin-bottom: 0; }
 #screen-game .game-stage .question-text { margin: 0; }
 #screen-game .game-stage .fill-form { margin: 0; }
+
+/* Found on a pass over the finished screens. */
+
+/* The per-category breakdown was 720px centred inside a 920px column, so its
+   left edge sat 100px in from every other block on the results screen. */
+.round-breakdown { width: 100%; max-width: 920px; margin: 0; }
+
+/* The board well was 300px tall with both scrollbars up: ten rows do not fit,
+   and the table was 8px wider than its own clipping box. Rows are what the
+   screen is for, so it gets the height and the columns stop overflowing. */
+.results-card .leaderboard { max-height: none; overflow: visible; }
+.lb-head, .lb-row { min-width: 0; }
+.lb-bar-wrap { min-width: 0; }
+.lb-bar-fill { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* One placeholder for an absent number, not two ("0" for best, "—" for rank). */
+.rail-stats strong:empty::after { content: "—"; }
