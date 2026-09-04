@@ -2,6 +2,7 @@ import { adminApi, armButton, isAdmin } from './admin.js';
 import { sbFetch, supabaseConfigured } from './api.js';
 import { $, announce, closeDialog, openDialog, setTitlebar, showScreen } from './dom.js';
 import { formatScore } from './format.js';
+import { readAccuracy } from './home.js';
 import { t } from './i18n.js';
 import { discordAvatarUrl, getDiscordProfile, isDiscordActivity, safeDisplayName } from './identity.js';
 import { avatarFor, buildResultsLeaderboard, mpVisualOf } from './leaderboard.js';
@@ -198,7 +199,7 @@ export function openPlayerCard(player) {
     playerCardId = player.id;
     // No-ops when the card is already open, so refreshes don't steal focus.
     openDialog(dlg, $('#btn-player-card-close'));
-    if (isNewOpen) loadPlayerProfileSections(safeDisplayName(player.name));
+    if (isNewOpen) loadPlayerProfileSections(safeDisplayName(player.name), isYou);
 }
 
 // Keep an open card in step with the realtime room feed.
@@ -358,7 +359,7 @@ export async function openProfileCard(entry) {
     renderCardAdminControls(entry.name, isYou);
 
     openDialog(dlg, $('#btn-player-card-close'));
-    loadPlayerProfileSections(entry.name);
+    loadPlayerProfileSections(entry.name, isYou);
     setupFollowButton(entry.name, isYou);
     if (isYou) renderFollowingList();
 }
@@ -367,7 +368,7 @@ export async function openProfileCard(entry) {
 // online/last-seen) for `name`. Used by the standalone profile card and, alongside
 // the live-room rows, by the in-lobby player card. Best-effort and self-cancelling
 // if the card is closed before the fetches resolve.
-export async function loadPlayerProfileSections(name) {
+export async function loadPlayerProfileSections(name, isYou) {
     const dlg = $('#player-card');
     const statsBox = $('#player-card-profile-stats');
     const rankWrap = $('#player-card-rankings');
@@ -388,7 +389,7 @@ export async function loadPlayerProfileSections(name) {
         if (!dlg.open) return; // closed/reopened meanwhile
         const ranks = rows.filter((r) => r.best != null && r.rank != null).map((r) => r.rank);
         const bestRank = ranks.length ? Math.min(...ranks) : null;
-        renderProfileStats(statsBox, stats, bestRank, activity);
+        renderProfileStats(statsBox, stats, bestRank, activity, isYou);
         renderProfileRankings(list, rows);
 
         // Online (active in the last few minutes) or last-seen timestamp.
@@ -540,7 +541,7 @@ export function renderAchievements(box, activity) {
 
 // `bestRank` (min rank across modes) comes from the rankings fetch, so the whole
 // profile costs no extra query. `null` when the player has no ranked score.
-export function renderProfileStats(box, stats, bestRank, activity) {
+export function renderProfileStats(box, stats, bestRank, activity, isYou) {
     box.innerHTML = '';
     renderLevelBar(box, activity);
     // The design sets best rank opposite the name rather than inside the grid.
@@ -562,7 +563,14 @@ export function renderProfileStats(box, stats, bestRank, activity) {
         { label: t('statHours'), value: hours },
         { label: t('statAvg'), value: formatScore(stats.avg) },
         { label: t('statMp'), value: fmtNum(mpGames || stats.mp) },
-        { label: t('statPerfect'), value: fmtNum(perfect) }
+        { label: t('statPerfect'), value: fmtNum(perfect) },
+        // Accuracy is the one figure on the home rail with no server column
+        // behind it — `scores` stores a score and a mode, `player_stats` games
+        // and wins. It is counted on this device, so it can only be shown on
+        // your own profile; another player's would be a number about you.
+        ...(isYou && readAccuracy() != null
+            ? [{ label: t('statAccuracy'), value: `${readAccuracy()}%` }]
+            : [])
     ];
     cells.forEach((c) => {
         const cell = document.createElement('div');

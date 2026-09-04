@@ -277,14 +277,18 @@ export async function openAbout() {
     } catch {
         $('#about-count').textContent = '—';
     }
-    // The design puts the player's own avatar at the head of this dialog. Falls
-    // back to the app mark when they are not signed in, or if the image 404s.
+    // This dialog is about the project and who made it, so the mark is the
+    // author's photo — not whoever happens to be signed in. Falls back to the
+    // app icon if the file is missing.
     const logo = $('#about-logo');
     if (logo) {
-        const url = discordAvatarUrl(getDiscordProfile());
-        logo.onerror = () => { logo.onerror = null; logo.src = 'favicon.svg'; };
-        logo.src = url || 'favicon.svg';
-        logo.classList.toggle('is-app-mark', !url);
+        logo.onerror = () => {
+            logo.onerror = null;
+            logo.src = 'favicon.svg';
+            logo.classList.add('is-app-mark');
+        };
+        logo.classList.remove('is-app-mark');
+        logo.src = 'author.jpg';
     }
     try {
         const v = await window.appWindow ?.getVersion ?.();

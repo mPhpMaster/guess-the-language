@@ -23,6 +23,15 @@ const files = [
   path.join('vendor', 'supabase.js')
 ];
 
+// Binary assets referenced from JS rather than from index.html: vite's build
+// never sees them, so they are copied verbatim.
+const binaries = ['author.jpg'];
+
+for (const name of binaries) {
+  const from = path.join(src, name);
+  if (fs.existsSync(from)) fs.copyFileSync(from, path.join(out, name));
+}
+
 for (const file of files) {
   const dest = path.join(out, file);
   fs.mkdirSync(path.dirname(dest), { recursive: true });

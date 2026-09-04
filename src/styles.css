@@ -341,7 +341,7 @@ html.platform-discord .lobby-code {
 }
 .screen.active {
   display: flex;
-  background: rgba(7, 17, 30, 0.95);
+  background: rgba(11, 13, 12, 0.95);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   z-index: 1000;
@@ -383,27 +383,27 @@ html.platform-discord .lobby-code {
   font-weight: 700;
   border-radius: 14px;
   background: linear-gradient(135deg, var(--neon), var(--neon));
-  box-shadow: 0 10px 25px rgba(0, 114, 255, 0.5);
+  box-shadow: none;
 }
 #btn-start:hover {
   transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 12px 30px rgba(0, 212, 255, 0.4);
+  box-shadow: none;
 }
 #btn-start:active {
   transform: scale(0.98);
 }
 .home-actions-row button {
   flex: 1;
-  background: rgba(234, 242, 255, 0.08);
-  border: 1px solid rgba(234, 242, 255, 0.18);
+  background: #ffffff0d;
+  border: 1px solid var(--line-4);
   border-radius: 12px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 .home-actions-row button:hover {
   transform: translateY(-2px);
-  background: rgba(234, 242, 255, 0.14);
-  border-color: rgba(234, 242, 255, 0.28);
+  background: #ffffff14;
+  border-color: #ffffff2a;
 }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 
@@ -1126,7 +1126,7 @@ html, body { min-height: 100%; overflow: hidden; }
   font-size: 20px;
   text-transform: uppercase;
   background: linear-gradient(135deg, var(--neon), var(--neon));
-  box-shadow: 0 8px 20px rgba(0, 114, 255, 0.4);
+  box-shadow: none;
   transition: transform 0.2s, filter 0.2s;
 }
 
@@ -1564,7 +1564,7 @@ html.ui-scaled .screen.active {
 #player-card .modal-card { max-height: 92vh; overflow-y: auto; overflow-x: hidden; }
 .modal {
   backdrop-filter: blur(12px);
-  background-color: rgba(2, 6, 23, 0.85);
+  background-color: rgba(6, 7, 10, 0.85);
   transition: opacity 0.3s;
   display: flex;
   position: fixed;
@@ -1595,7 +1595,7 @@ html.ui-scaled .screen.active {
   min-height: 200px;
   z-index: 1000000;
   position: relative;
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
+  background: var(--panel);
   width: min(440px, 90vw);
   flex-direction: column;
   gap: 24px;
@@ -1614,7 +1614,7 @@ html.ui-scaled .screen.active {
   gap: 12px;
 }
 .setting-row {
-  color: rgb(148, 163, 184);
+  color: var(--dim);
   font-size: 0.875rem;
   font-weight: 500;
   margin-bottom: 12px;
@@ -1645,14 +1645,14 @@ html.ui-scaled .screen.active {
 }
 .modal-error.hidden { display: none; }
 .modal-hint {
-  color: rgba(226, 232, 240, 0.7);
+  color: var(--muted);
   font-size: 0.8rem;
   text-align: center;
   margin-top: -8px;
 }
 #join-code {
-  background: rgba(15, 23, 42, 0.6);
-  border: 2px solid rgb(51, 65, 85);
+  background: var(--code-bg);
+  border: 2px solid var(--line-3);
   border-radius: 12px;
   padding: 14px 16px;
   color: rgb(255, 255, 255);
@@ -1672,7 +1672,7 @@ html.ui-scaled .screen.active {
 }
 .btn[disabled] { opacity: 0.45; cursor: not-allowed; }
 .btn-primary {
-  background: linear-gradient(to right, rgb(59, 130, 246), rgb(37, 99, 235));
+  background: var(--neon);
   color: rgb(255, 255, 255);
   border-radius: 12px;
   padding: 14px 24px;
@@ -1680,13 +1680,13 @@ html.ui-scaled .screen.active {
   font-size: 1rem;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: rgba(37, 99, 235, 0.3) 0px 4px 12px;
+  box-shadow: none;
   flex: 1 1 0%;
 }
 .btn-ghost {
   background: transparent;
-  color: rgb(148, 163, 184);
-  border: 1px solid rgba(148, 163, 184, 0.3);
+  color: var(--dim);
+  border: 1px solid var(--line-3);
   border-radius: 12px;
   padding: 14px 24px;
   font-weight: 600;
@@ -1794,7 +1794,7 @@ dialog.modal {
 }
 dialog.modal[open] { display: block; }
 dialog.modal .modal-card { width: 100%; max-width: 100%; }
-dialog::backdrop { background: rgba(2, 8, 18, 0.78); backdrop-filter: blur(5px); }
+dialog::backdrop { background: rgba(6, 7, 10, 0.78); backdrop-filter: blur(5px); }
 .dialog-description, .discord-name-note, .auth-hint { color: var(--muted); font-size: 13px; line-height: 1.5; }
 .setting-row > span { flex: 0 1 auto; }
 .auth-hint { max-width: 540px; margin: 0 auto 12px; }
@@ -1986,11 +1986,11 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
 .onboarding-overlay {
   position: fixed; inset: 0; z-index: 1000002; display: none;
   align-items: center; justify-content: center; padding: 20px;
-  background: rgba(2, 6, 23, 0.72); backdrop-filter: blur(8px);
+  background: rgba(6, 7, 10, 0.72); backdrop-filter: blur(8px);
 }
 .onboarding-overlay.show { display: flex; }
 .onboarding-card {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.96));
+  background: var(--panel);
   border: 1px solid #6ee7a044; border-radius: 20px; padding: 26px 24px;
   width: min(460px, 94vw); text-align: center; box-shadow: 0 25px 60px #000a;
 }
@@ -2020,7 +2020,7 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
 .share-overlay {
   position: fixed; inset: 0; z-index: 1000003; display: none;
   align-items: center; justify-content: center; padding: 18px;
-  background: rgba(2, 6, 23, 0.82); backdrop-filter: blur(8px);
+  background: rgba(6, 7, 10, 0.82); backdrop-filter: blur(8px);
 }
 .share-overlay.show { display: flex; }
 .share-card-box {
@@ -2043,11 +2043,11 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
 .admin-modal {
   position: fixed; inset: 0; z-index: 1000003; display: flex;
   align-items: center; justify-content: center; padding: 16px;
-  background: rgba(2, 6, 23, 0.78); backdrop-filter: blur(8px);
+  background: rgba(6, 7, 10, 0.78); backdrop-filter: blur(8px);
 }
 .admin-modal.hidden { display: none; }
 .admin-box {
-  background: linear-gradient(135deg, rgba(28, 38, 56, 0.97), rgba(12, 20, 36, 0.98));
+  background: var(--panel);
   border: 1px solid #ff9f5a44; border-radius: 18px;
   width: min(560px, 96vw); max-height: 88vh; display: flex; flex-direction: column;
   box-shadow: 0 25px 70px #000b;
@@ -4138,3 +4138,26 @@ option:checked { background: var(--accent-soft); color: var(--neon); }
 
 /* One placeholder for an absent number, not two ("0" for best, "—" for rank). */
 .rail-stats strong:empty::after { content: "—"; }
+
+/* The results column was a plain block with no gap: every section was spaced by
+   whatever margin it happened to carry, so some sat flush against the next (the
+   board heading against the breakdown, the action row against the misses). One
+   rhythm for the whole column, and the margins that used to stand in for it are
+   cleared so they do not compound with the gap. */
+#screen-results .results-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 26px;
+}
+#screen-results .results-card > * { margin-block: 0; }
+
+/* The action row closes the screen, so it gets more air above it than the gap
+   between sections, and room beneath it to breathe at the end of the scroll. */
+#screen-results .results-buttons { margin-top: 12px; padding-bottom: 32px; }
+
+/* The four lobby actions are one row, so they align on a common baseline and
+   none of them carries a stray margin from when they were stacked blocks
+   (.lobby-leave had a 12px top margin that dropped it below its neighbours). */
+.lobby-actions { align-items: center; }
+.lobby-actions > .btn { margin: 0; align-self: center; }
