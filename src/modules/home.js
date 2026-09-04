@@ -1,9 +1,10 @@
-import { $, screens } from './dom.js';
+import { $, screens, setTitlebar } from './dom.js';
 import { refreshMenu } from './events.js';
 import { t } from './i18n.js';
 import { refreshMultiplayerButtons } from './mp-ui.js';
 import { isDailyDone, modeOfBank } from './round.js';
-import { state } from './state.js';
+import { fetchPersonalRank, supabaseConfigured } from './api.js';
+import { state, store } from './state.js';
 
 // ---------- Home eyebrow + per-mode question counts ----------
 // The mode list shows how many questions each mode holds. One 'all' load returns
@@ -50,6 +51,51 @@ export function renderHome() {
     refreshMenu();
     refreshMultiplayerButtons();
     updateDailyButton();
+    setTitlebar(t('appSlug'));
+    renderRailStats();
+}
+
+// ---------- Rail stats: best / rank / accuracy ----------
+// Accuracy is tracked locally because nothing records it server-side: `scores`
+// stores a score and a mode, `player_stats` games and wins — neither carries
+// correct-vs-total. A rolling per-device tally is honest and needs no migration.
+const ACC_KEY = 'gtl_accuracy';
+
+export function recordAccuracy(correct, total) {
+    if (!Number.isFinite(correct) || !Number.isFinite(total) || total <= 0) return;
+    try {
+        const prev = JSON.parse(localStorage.getItem(ACC_KEY) || '{"c":0,"t":0}');
+        localStorage.setItem(ACC_KEY, JSON.stringify({
+            c: (Number(prev.c) || 0) + correct,
+            t: (Number(prev.t) || 0) + total
+        }));
+    } catch (_) { /* storage unavailable — accuracy just stays blank */ }
+}
+
+export function readAccuracy() {
+    try {
+        const a = JSON.parse(localStorage.getItem(ACC_KEY) || 'null');
+        if (!a || !a.t) return null;
+        return Math.round((a.c / a.t) * 100);
+    } catch (_) { return null; }
+}
+
+// Rank is a real global position: the count of scores above this player's best
+// in the current mode, +1 — the same method the results screen uses.
+export async function renderRailStats() {
+    const accEl = $('#rail-accuracy');
+    if (accEl) {
+        const acc = readAccuracy();
+        accEl.textContent = acc == null ? '—' : `${acc}%`;
+    }
+    const rankEl = $('#rail-rank');
+    if (!rankEl) return;
+    const best = store.highScore(state.mode);
+    if (!best || !supabaseConfigured()) { rankEl.textContent = '—'; return; }
+    try {
+        const rank = await fetchPersonalRank(best);
+        rankEl.textContent = rank ? `#${rank}` : '—';
+    } catch (_) { rankEl.textContent = '—'; }
 }
 
 // Reflect whether today's daily challenge has already been played.

@@ -1,6 +1,6 @@
 import { closeAdminPanel, requestAdminAccess } from './admin.js';
 import { $, closeDialog, openDialog, showScreen } from './dom.js';
-import { advanceAfterFeedback, clearTimer, endQuiz, onGameKeydown, startGame, startPractice, submitFill, useFifty } from './game.js';
+import { advanceAfterFeedback, clearTimer, endQuiz, onGameKeydown, showCodeTab, startGame, startPractice, submitFill, useFifty } from './game.js';
 import { renderHome } from './home.js';
 import { MODES, t } from './i18n.js';
 import { discordAvatarUrl, discordLogout, getDiscordProfile, startDiscordLogin } from './identity.js';
@@ -159,6 +159,9 @@ export function bindEvents() {
     $('#btn-mp-leave')?.addEventListener('click', () => leaveMultiplayer());
     $('#btn-next').addEventListener('click', advanceAfterFeedback);
     $('#btn-fifty')?.addEventListener('click', useFifty);
+    // Code panel tabs: the snippet, and the hint that masks the answer out.
+    $('#code-tab')?.addEventListener('click', () => showCodeTab('snippet'));
+    $('#code-tab-hint')?.addEventListener('click', () => showCodeTab('hint'));
 
     // Desktop: answer with number keys (1–4) or letters (a–d) while a choice
     // question is open. Typing into the fill-in box is never intercepted, and

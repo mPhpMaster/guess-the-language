@@ -1,9 +1,9 @@
 import { OPTION_COLORS, RING_CIRCUMFERENCE } from './constants.js';
-import { $, announce, showScreen } from './dom.js';
+import { $, announce, setTitlebar, showScreen } from './dom.js';
 import { highlight } from './highlight.js';
 import { diffLabel, t } from './i18n.js';
 import { getSettings, updateInGameProfile } from './identity.js';
-import { syncMpHudFromPlayers } from './mp-ui.js';
+import { modeLabel, syncMpHudFromPlayers } from './mp-ui.js';
 import { markPresenceRoundStart, pushPresence } from './presence.js';
 import { endGame } from './results.js';
 import { buildLanguageOptions, buildRound, bumpAdaptive, maybeSetupAdaptive, pickAdaptiveQuestion, resolvedQuestionTime, scoreAnswer, shuffle, shuffleOptions } from './round.js';
@@ -162,6 +162,7 @@ export function nextQuestion() {
     const cur = normalizeQuestion(state.round[state.index]);
     state.current = cur;
     $('#q-current').textContent = String(state.index + 1);
+    setTitlebar(`${modeLabel(state.mode).toLowerCase()} — ${t('tbRound')} ${state.index + 1}/${state.round.length}`);
     const dEl = $('#code-difficulty');
     dEl.dataset.diff = cur.difficulty;
     dEl.textContent = diffLabel(cur.difficulty);
@@ -675,7 +676,63 @@ export function renderCodeChrome(cur) {
             : '';
     }
     const tab = $('#code-tab');
-    if (tab) tab.textContent = cur.panelIsCode ? 'snippet.??' : 'question.md';
+    if (tab) tab.textContent = cur.panelIsCode ? t('snippetTab') : 'question.md';
+    buildHint(cur);
+    showCodeTab('snippet');   // every new question opens on the snippet
+}
+
+// ---------- hint.md ----------
+// A hint has to help without answering. The question's own explanation is the
+// only prose available and it usually names the answer outright, so the answer
+// (and every accept-variant) is masked out of it. What survives is the reasoning:
+// "The ▮▮▮▮ shebang and [ -f ] test are ▮▮▮▮." That points at the right idea
+// without handing over the word.
+export function maskAnswer(text, cur) {
+    let out = String(text || '');
+    const targets = [cur.answer, ...(cur.accept || [])]
+        .filter((a) => typeof a === 'string' && a.trim().length > 1)
+        .sort((a, b) => b.length - a.length); // longest first, so a subset can't half-mask
+    for (const a of targets) {
+        const esc = a.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        out = out.replace(new RegExp(esc, 'gi'), '▮'.repeat(Math.min(a.length, 8)));
+    }
+    return out;
+}
+
+export function buildHint(cur) {
+    const box = $('#hint-body');
+    if (!box) return;
+    box.innerHTML = '';
+    const bank = cur.bank || '';
+    const rows = [];
+    if (bank) rows.push([t('hintCategory'), modeLabel(bank === 'bug' || bank === 'output' ? 'algorithms' : bank)]);
+    if (cur.difficulty) rows.push([t('hintDifficulty'), diffLabel(cur.difficulty)]);
+    rows.forEach(([k, v]) => {
+        const row = document.createElement('div');
+        row.className = 'hint-row';
+        const key = document.createElement('span');
+        key.className = 'hint-key';
+        key.textContent = k;
+        const val = document.createElement('span');
+        val.className = 'hint-val';
+        val.textContent = v;
+        row.append(key, val);
+        box.appendChild(row);
+    });
+    const p = document.createElement('p');
+    p.className = 'hint-text';
+    const explanation = (cur.explanation && cur.explanation.en) || '';
+    p.textContent = explanation ? maskAnswer(explanation, cur) : t('hintMasked');
+    box.appendChild(p);
+}
+
+export function showCodeTab(which) {
+    const isHint = which === 'hint';
+    $('#hint-body')?.classList.toggle('hidden', !isHint);
+    const pre = $('#code-snippet')?.parentElement;
+    if (pre) pre.classList.toggle('hidden', isHint);
+    $('#code-tab')?.classList.toggle('is-active', !isHint);
+    $('#code-tab-hint')?.classList.toggle('is-active', isHint);
 }
 
 // ---------- HUD ----------

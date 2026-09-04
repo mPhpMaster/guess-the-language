@@ -4,13 +4,8 @@ import { $ } from './dom.js';
 // zoom the whole UI. Uses Chromium's `zoom` (Electron / Discord / Chrome are all
 // Chromium), persisted across launches.
 export const UI_SCALE_MIN = 0.8, UI_SCALE_MAX = 2.0, UI_SCALE_STEP = 0.1;
-// The content is laid out around this width, then scaled up to fill wider windows
-// (the Discord Activity panel is very wide, leaving the game tiny and centered).
-//
-// Raised from 900 to 1280 with the Terminal/IDE redesign: those screens are drawn
-// at 1280x800 and the layout is now two-column with its own rail, so it fills a
-// desktop window on its own. Leaving the reference at 900 scaled a 1280 window to
-// 1.42x, which blew the type up and pushed the rail off the bottom.
+// Kept only so the manual zoom stepper has a reference width; nothing auto-scales
+// against it any more. See autoFitScale below.
 export const AUTOFIT_REF = 1280;
 // Manual override is a DISTINCT flag (not just the presence of gtl_ui_scale, which
 // older builds auto-persisted for everyone) so existing users still get auto-fit.
@@ -19,13 +14,19 @@ export function getUiScale() {
     const v = parseFloat(localStorage.getItem('gtl_ui_scale'));
     return Number.isFinite(v) ? Math.min(UI_SCALE_MAX, Math.max(UI_SCALE_MIN, v)) : 1;
 }
-// Auto scale-to-fill for wide viewports; never shrinks below 1 (narrow screens keep
-// their normal responsive layout). Only used when the player hasn't set a manual zoom.
+// No automatic zoom. This used to return max(1, width / reference), scaling the
+// whole UI up on any window wider than the reference — which is why the game
+// opened at the wrong size on a large monitor (1920 wide gave 1.5x) and only
+// looked right after the player nudged the zoom and set it back, because that
+// pins a manual 100%.
+//
+// It existed because the OLD layout was a fixed-width centred column that left
+// the game tiny in a wide Discord panel. The Terminal/IDE layout is fluid — the
+// home screen is a grid with its own rail, the round centres a 920px column
+// inside full-bleed chrome — so it fills any width on its own and needs no
+// transform. Manual zoom still works and is still persisted.
 export function autoFitScale() {
-    try {
-        const w = window.innerWidth || document.documentElement.clientWidth || 1000;
-        return Math.min(UI_SCALE_MAX, Math.max(1, Math.round((w / AUTOFIT_REF) * 100) / 100));
-    } catch (e) { return 1; }
+    return 1;
 }
 export function effectiveScale() { return hasManualScale() ? getUiScale() : autoFitScale(); }
 // Re-fit when the window resizes (Discord panel resize, window drag) — but only

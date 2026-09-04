@@ -145,7 +145,19 @@ export function updateStartButtonState() {
         startBtn.disabled = needsLogin ? false : !(hasQuestions && canPlay());
         startBtn.dataset.authAction = needsLogin ? 'true' : 'false';
         startBtn.setAttribute('data-i18n', needsLogin ? 'loginDiscordToPlay' : 'start');
-        startBtn.textContent = t(needsLogin ? 'loginDiscordToPlay' : 'start');
+        // Built as elements so the design's Enter keycap survives; a plain
+        // textContent assignment would wipe it on every repaint.
+        startBtn.textContent = '';
+        const label = document.createElement('span');
+        label.textContent = t(needsLogin ? 'loginDiscordToPlay' : 'start');
+        startBtn.appendChild(label);
+        if (!needsLogin) {
+            const key = document.createElement('span');
+            key.className = 'btn-keycap';
+            key.textContent = '↵';
+            key.setAttribute('aria-hidden', 'true');
+            startBtn.appendChild(key);
+        }
     }
     // Host / Join follow the same gate.
     refreshMultiplayerButtons();

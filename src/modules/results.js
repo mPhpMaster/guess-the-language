@@ -1,11 +1,12 @@
 import { isPerfectRound, logError, recordPlay, supabaseConfigured } from './api.js';
-import { $, showScreen } from './dom.js';
+import { $, setTitlebar, showScreen } from './dom.js';
 import { t } from './i18n.js';
 import { discordAvatarUrl, getDiscordProfile, isDiscordActivity, loadCrossOriginImage, safeDisplayName } from './identity.js';
 import { buildResultsLeaderboard, currentModeLabel, renderChallengeVerdict } from './leaderboard.js';
 import { modeLabel } from './mp-ui.js';
 import { getPlayerName } from './settings.js';
 import { sfx } from './sound.js';
+import { recordAccuracy } from './home.js';
 import { state, store } from './state.js';
 
 // ============================================================
@@ -19,6 +20,7 @@ export async function endGame() {
     }
     if (!viewOnly) sfx.finish();
     showScreen('results');
+    setTitlebar(`${t('tbResults')} — ${modeLabel(state.mode).toLowerCase()}`);
 
     $('.final-score').classList.toggle('hidden', viewOnly);
     $('.results-correct').classList.toggle('hidden', viewOnly);
@@ -44,7 +46,10 @@ export async function endGame() {
         renderRoundSummary();
         // Single-player round finished — log play-time + games, award XP and unlock
         // achievements (not a multiplayer win). Practice rounds are not scored/tracked.
-        if (!state.multiplayer && !state.learn) recordPlay(false, false, state.score, isPerfectRound());
+        if (!state.multiplayer && !state.learn) {
+            recordPlay(false, false, state.score, isPerfectRound());
+            recordAccuracy(state.correct, state.round.length);
+        }
     }
     await buildResultsLeaderboard();
 }

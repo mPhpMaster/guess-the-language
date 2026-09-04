@@ -39,7 +39,7 @@
   <header class="titlebar" dir="ltr">
     <div class="titlebar-left">
       <span class="win-logo">▦</span>
-      <span class="titlebar-title" data-i18n="appTitle">Guess the Language</span>
+      <span class="titlebar-title" id="titlebar-title" data-i18n="appSlug">guess-the-language</span>
     </div>
     <div class="titlebar-controls">
       <button class="tb-btn" id="tb-min" title="Minimize">&#8211;</button>
@@ -69,8 +69,8 @@
           <div class="home-main">
             <div class="home-hero">
               <div class="home-eyebrow" id="home-eyebrow"></div>
-              <h1 class="home-title" tabindex="-1"><span class="neon" data-i18n="appTitle">Guess the Language</span><span class="caret" aria-hidden="true"></span></h1>
-              <p class="home-sub" data-i18n="homeSub">Pick a mode and beat the timer</p>
+              <h1 class="home-title" tabindex="-1"><span class="neon" data-i18n="appTitleMono">guess_the_language</span><span class="caret" aria-hidden="true"></span></h1>
+              <p class="home-sub" data-i18n="homeSub">Read the snippet. Beat the clock. Seven banks, one leaderboard.</p>
             </div>
 
             <div class="challenge-banner hidden" id="challenge-banner"></div>
@@ -155,8 +155,10 @@
 
             <div class="home-rail-divider" aria-hidden="true"></div>
 
-            <div class="menu-highscore">
-              <span data-i18n="bestScore">Best score:</span> <strong id="menu-highscore-val">0</strong>
+            <div class="rail-stats">
+              <div class="menu-highscore"><span data-i18n="railBest">best</span><strong id="menu-highscore-val">0</strong></div>
+              <div class="rail-stat"><span data-i18n="railRank">rank</span><strong id="rail-rank">—</strong></div>
+              <div class="rail-stat"><span data-i18n="railAccuracy">accuracy</span><strong id="rail-accuracy">—</strong></div>
             </div>
 
             <div class="home-actions-row home-rail-links">
@@ -509,9 +511,9 @@
             <img class="game-player-avatar" id="game-player-avatar" alt="" referrerpolicy="no-referrer" />
             <span class="game-player-name" id="game-player-name"></span>
           </div>
-          <div class="score-pill"><span data-i18n="scoreLabel">SCORE</span><span id="game-score">0</span></div>
-          <div class="correct-pill"><span data-i18n="correctLabel">CORRECT</span><span><span id="correct-count">0</span>/<span id="correct-total">10</span></span></div>
-          <div class="streak-pill hidden" id="streak-pill"><span data-i18n="streakLabel">STREAK</span><span>×1.5 <span id="streak-count">0</span></span></div>
+          <div class="score-pill"><span data-i18n="hudScore">SCORE</span><span id="game-score">0</span></div>
+          <div class="correct-pill"><span data-i18n="hudCorrect">CORRECT</span><span><span id="correct-count">0</span>/<span id="correct-total">10</span></span></div>
+          <div class="streak-pill hidden" id="streak-pill"><span data-i18n="hudStreak">STREAK</span><span>×1.5 <span id="streak-count">0</span></span></div>
         </div>
         <div class="topbar-right">
           <button class="lifeline-btn" id="btn-fifty" type="button" title="50:50">
@@ -533,7 +535,10 @@
       <div class="game-body">
         <div class="code-wrap" id="code-wrap">
           <div class="code-header">
-            <span class="code-tab" id="code-tab">snippet.??</span>
+            <span class="code-tabs">
+              <button type="button" class="code-tab is-active" id="code-tab">snippet.??</button>
+              <button type="button" class="code-tab" id="code-tab-hint" data-i18n="hintTab">hint.md</button>
+            </span>
             <span class="code-header-right">
               <span class="code-difficulty" id="code-difficulty">easy</span>
               <!-- The ring SVG stays in the DOM (setRing still drives it and the
@@ -549,6 +554,9 @@
             </span>
           </div>
           <pre class="code-panel" dir="ltr"><span class="code-gutter" id="code-gutter" aria-hidden="true"></span><code id="code-snippet"></code></pre>
+          <!-- The hint.md tab's content. Shows what can be said about the question
+               without handing over the answer — the answer itself is masked out. -->
+          <div class="hint-body hidden" id="hint-body" dir="ltr"></div>
           <div class="feedback-panel hidden" id="feedback-panel">
             <div class="toast" id="answer-toast" role="status" aria-live="polite">
               <span class="fb-headline" id="fb-headline"></span>

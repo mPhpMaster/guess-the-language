@@ -48,3 +48,14 @@ export function closeDialog(dialog, returnFocus = true) {
     dialog.close();
     if (returnFocus) dialogReturnFocus.get(dialog)?.focus?.();
 }
+
+
+// The title bar carries context in this direction rather than the app name:
+//   guess-the-language · languages — round 3/10 · results — languages · lobby · room A3K9
+// Deliberately dumb: the caller resolves the string. dom.js is imported by i18n's
+// own dependency chain (i18n -> home -> dom), so importing `t` here would close
+// that cycle for no benefit.
+export function setTitlebar(text) {
+    const el = document.getElementById('titlebar-title');
+    if (el) el.textContent = String(text || '');
+}

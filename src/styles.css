@@ -3017,3 +3017,74 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
   #screen-game #options-grid { margin-top: 14px; padding-bottom: 16px; }
   button.opt-btn, .lang-btn { min-height: 52px; padding: 14px 16px; border-radius: var(--radius); gap: 12px; }
 }
+
+/* ============================================================
+   Terminal / IDE — remaining design details
+   ============================================================ */
+
+/* Rail stats: best / rank / accuracy, mono and tabular. */
+.rail-stats { display: flex; flex-direction: column; gap: 12px; }
+.rail-stat, .menu-highscore {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin: 0;
+  font-family: var(--font-mono); font-size: 12px; color: var(--dimmer);
+}
+.rail-stat strong, .menu-highscore strong {
+  color: var(--text); font-size: 12px; font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The Enter keycap on the run button. */
+.btn-keycap {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  background: #08120c22;
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin-inline-start: 10px;
+}
+#btn-start { display: inline-flex; align-items: center; justify-content: center; }
+
+/* Code panel tabs — snippet.?? and hint.md. */
+.code-tabs { display: flex; }
+.code-tab {
+  padding: 11px 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--dimmest);
+  background: none;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+}
+.code-tab:hover { color: var(--muted); }
+.code-tab.is-active { color: var(--text); border-bottom-color: var(--neon); }
+
+/* hint.md body: the same panel box as the snippet, prose instead of code. */
+.hint-body {
+  background: var(--code-bg);
+  border: 1px solid var(--line-2);
+  border-radius: 0 0 var(--radius) var(--radius);
+  padding: 22px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.hint-row { display: flex; gap: 14px; font-family: var(--font-mono); font-size: 12px; }
+.hint-key { color: var(--dimmer); min-width: 78px; }
+.hint-val { color: var(--neon); }
+.hint-text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--dim);
+}
+
+/* The masked answer reads as redaction, not as a missing glyph. */
+.hint-text { word-break: break-word; }
+
+@media (max-width: 768px) {
+  .hint-body { padding: 14px 16px; }
+  .hint-text { font-size: 14px; }
+}

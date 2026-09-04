@@ -1,7 +1,7 @@
 import { adminApi, isAdmin, updateAdminButton } from './admin.js';
 import { amIWinner, isPerfectRound, recordPlay, submitMpScores, supabaseConfigured } from './api.js';
 import { hideBootLoading } from './boot.js';
-import { $, announce, closeDialog, openDialog, screens, showScreen } from './dom.js';
+import { $, announce, closeDialog, openDialog, screens, setTitlebar, showScreen } from './dom.js';
 import { selectMode } from './events.js';
 import { clearTimer, hideMpStatus, hideToast, isFillCorrect, normFill, normalizeQuestion, recordRoundAnswer, renderCodeChrome, renderQuestionUI, showFeedback, startTimerFromServer, updateCorrect, updateScore, updateStreakPill } from './game.js';
 import { highlight } from './highlight.js';
@@ -253,6 +253,7 @@ export function syncMpHudFromPlayers() {
 
 export function renderLobby(room, players) {
     const discord = isDiscordActivity();
+    setTitlebar(room?.code ? `${t('tbLobby')} ${room.code}` : t('lobbyTitle').toLowerCase());
     const label = $('#lobby-label');
     if (label) label.textContent = discord ? t('discordVoiceRoom') : t('roomCode');
     $('#lobby-code').textContent = discord ? t('discordVoiceRoomHint') : (room?.code || '----');
