@@ -677,7 +677,12 @@ export function renderCodeChrome(cur) {
     }
     const tab = $('#code-tab');
     if (tab) tab.textContent = cur.panelIsCode ? t('snippetTab') : 'question.md';
-    buildHint(cur);
+    // The hint tab is a PRACTICE affordance only. A scored round — normal, daily
+    // or multiplayer — shows just the snippet, which is why the design's game
+    // screen has a single tab.
+    const hintable = !!state.learn;
+    $('#code-tab-hint')?.classList.toggle('hidden', !hintable);
+    if (hintable) buildHint(cur);
     showCodeTab('snippet');   // every new question opens on the snippet
 }
 

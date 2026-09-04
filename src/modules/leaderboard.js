@@ -1,4 +1,4 @@
-import { fetchDailyTop, fetchPersonalRank, fetchTopScores, lbScope, lbViewMode, submitDailyScore, submitScore, supabaseConfigured } from './api.js';
+import { fetchDailyTop, fetchGamesFor, fetchPersonalRank, fetchTopScores, lbScope, lbViewMode, submitDailyScore, submitScore, supabaseConfigured } from './api.js';
 import { FRIENDS } from './constants.js';
 import { $, announce, closeDialog, openDialog } from './dom.js';
 import { MODES, challengeText, t } from './i18n.js';
@@ -209,7 +209,8 @@ export async function buildResultsLeaderboard() {
             }
 
             $('.results-sub').textContent = `${t('globalLeaderboard')} · ${modeLabel(lbViewMode())}`;
-            renderLeaderboard(list);
+            const games = await fetchGamesFor(list.map((p) => safeDisplayName(p.name)));
+            renderLeaderboard(list, games);
             note.className = 'lb-note online';
             note.textContent = t('lbOnline');
             return;
@@ -239,7 +240,7 @@ export function currentModeLabel() {
     return Array.isArray(title) ? title.join(' ') : String(title || mode.key || '');
 }
 
-export function renderLeaderboard(list) {
+export function renderLeaderboard(list, gamesByName = {}) {
     const sorted = list.slice().sort((a, b) => b.score - a.score);
     let display = sorted.slice(0, 10);
     const youIdx = sorted.findIndex((p) => p.you);
@@ -251,6 +252,16 @@ export function renderLeaderboard(list) {
 
     const lb = $('#leaderboard');
     lb.innerHTML = '';
+    // Column header, so the row actually reads as the design's table.
+    const head = document.createElement('div');
+    head.className = 'lb-head';
+    head.innerHTML =
+        `<span class="lb-rank">${t('lbColRank')}</span>` +
+        `<span class="lb-avatar" aria-hidden="true"></span>` +
+        `<span class="lb-bar-wrap">${t('lbColPlayer')}</span>` +
+        `<span class="lb-score">${t('lbColScore')}</span>` +
+        `<span class="lb-games">${t('lbColGames')}</span>`;
+    lb.appendChild(head);
     display.forEach((p, i) => {
         const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-other';
         const placementBadge = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '';
@@ -264,7 +275,9 @@ export function renderLeaderboard(list) {
         const label = document.createElement('div');
         label.className = 'lb-bar-fill';
         const displayName = safeDisplayName(p.name);
-        label.textContent = `${displayName}${placementBadge ? ` ${placementBadge}` : ''} — ${p.score} pts`;
+        // Name only — the score moved to its own column so the row reads as a
+        // table (rank / player / score / games), as the design lays it out.
+        label.textContent = `${displayName}${placementBadge ? ` ${placementBadge}` : ''}`;
         if (p.multiplayer) {
             const mpTag = document.createElement('span');
             mpTag.className = 'lb-mp-tag';
@@ -284,6 +297,13 @@ export function renderLeaderboard(list) {
         bg.className = 'lb-bar-bg';
         wrap.appendChild(bg);
         wrap.appendChild(label);
+        const scoreCell = document.createElement('div');
+        scoreCell.className = 'lb-score';
+        scoreCell.textContent = String(p.score);
+        const gamesCell = document.createElement('div');
+        gamesCell.className = 'lb-games';
+        const g = gamesByName[safeDisplayName(p.name).trim().toLowerCase()];
+        gamesCell.textContent = g == null ? '—' : String(g);
         const avatar = document.createElement('div');
         avatar.className = 'lb-avatar';
         // A real Discord avatar URL renders as an image; anything else is emoji.
@@ -303,6 +323,8 @@ export function renderLeaderboard(list) {
         }
         row.appendChild(avatar);
         row.appendChild(wrap);
+        row.appendChild(scoreCell);
+        row.appendChild(gamesCell);
         row.setAttribute('role', 'listitem');
         row.setAttribute('aria-label', `${t('personalRank')} ${p.rank || i + 1}, ${displayName}, ${p.score} points${p.multiplayer ? `, ${t('multiplayerScore')}` : ''}`);
         if (supabaseConfigured() && !p.you && Number(p.id) > 0 && getAppSessionToken()) {

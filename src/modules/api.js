@@ -255,3 +255,22 @@ export async function fetchPersonalRank(score) {
     const count = Number(range.split('/')[1]);
     return Number.isFinite(count) ? count + 1 : null;
 }
+
+// Games played per player, for the leaderboard's `games` column. One query for
+// the whole visible page — a request per row would be ten round-trips for a
+// decorative number. Missing rows simply render as a dash.
+export async function fetchGamesFor(names) {
+    const list = (names || []).filter(Boolean);
+    if (!supabaseConfigured() || !list.length) return {};
+    try {
+        // Names go into a PostgREST in.("a","b") list, so a stray double quote
+        // would break the filter — strip those before quoting.
+        const quoted = list.map((n) => `"${String(n).split('"').join('')}"`).join(',');
+        const rows = await sbFetch(`player_stats?select=player,games&player=in.(${encodeURIComponent(quoted)})`);
+        const out = {};
+        (rows || []).forEach((r) => { out[String(r.player).trim().toLowerCase()] = r.games; });
+        return out;
+    } catch (e) {
+        return {};
+    }
+}

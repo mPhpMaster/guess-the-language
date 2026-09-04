@@ -3088,3 +3088,44 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
   .hint-body { padding: 14px 16px; }
   .hint-text { font-size: 14px; }
 }
+
+/* ---------- Home: shell prompt in the wordmark ---------- */
+.prompt-sigil { color: var(--neon); }
+.prompt-path { color: var(--dimmest); }
+
+/* ---------- Leaderboard as a table ---------- */
+/* rank | avatar | player | score | games — the design's column layout, with the
+   header row using the same grid so the columns actually line up. */
+.lb-head, .lb-row {
+  display: grid;
+  grid-template-columns: 34px 30px 1fr 90px 70px auto;
+  align-items: center;
+  gap: 14px;
+}
+.lb-head {
+  padding: 0 4px 8px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--dimmer);
+}
+.lb-head .lb-avatar { background: none; border: 0; }
+.lb-score, .lb-games {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.lb-head .lb-score, .lb-head .lb-games { font-size: 11px; color: var(--dimmer); }
+.lb-row.is-you .lb-score, .lb-row.is-you .lb-games { color: var(--neon); }
+.lb-row.rank-1 .lb-score { color: var(--gold-1); }
+.lb-report { justify-self: end; }
+
+@media (max-width: 768px) {
+  /* The phone drops the games column; rank, player and score are what matter. */
+  .lb-head, .lb-row { grid-template-columns: 26px 26px 1fr 70px auto; gap: 10px; }
+  .lb-games { display: none; }
+}
