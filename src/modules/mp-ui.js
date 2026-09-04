@@ -3,7 +3,7 @@ import { amIWinner, isPerfectRound, recordPlay, submitMpScores, supabaseConfigur
 import { hideBootLoading } from './boot.js';
 import { $, announce, closeDialog, openDialog, screens, setTitlebar, showScreen } from './dom.js';
 import { selectMode } from './events.js';
-import { clearTimer, hideMpStatus, hideToast, isFillCorrect, normFill, normalizeQuestion, recordRoundAnswer, renderCodeChrome, renderQuestionUI, showFeedback, startTimerFromServer, updateCorrect, updateScore, updateStreakPill } from './game.js';
+import { clearTimer, hideMpStatus, hideToast, isFillCorrect, normFill, normalizeQuestion, padIndex, recordRoundAnswer, renderCodeChrome, renderQuestionUI, showFeedback, startTimerFromServer, updateCorrect, updateScore, updateStreakPill } from './game.js';
 import { highlight } from './highlight.js';
 import { MODES, diffLabel, t } from './i18n.js';
 import { canPlay, getSettings, isDiscordActivity, isDiscordLinked, requiresDiscordLogin, safeDisplayName, showAuthError, syncDiscordNameField, updateInGameProfile } from './identity.js';
@@ -194,18 +194,26 @@ export function renderMpPlayerList(containerSel, players, {
         sc.className = 'mp-player-score';
         sc.textContent = String(p.score);
         row.appendChild(sc);
-        /* Kick. `mp.isAdmin` is the room HOST (lobby-only, and never the host). A
-           site admin who joined as a plain player can't prove admin-ness to the room
-           RPC, so they route through /api/admin — where the signed `adm` claim is
-           verified — and may remove anyone, mid-round included. */
+        /* Two different powers that used to look identical.
+
+           `mp.isAdmin` means "I am THIS room's host" — a lobby-only control that
+           never targets the host. `isAdmin()` means "I am a site admin", which is
+           moderation: it routes through /api/admin, where the signed `adm` claim is
+           actually verified, and works mid-round.
+
+           They were indistinguishable, so handing the host role to someone else
+           looked like a bug: the host × switched off and the admin × switched on in
+           the same place, and it read as "I am somehow still host". The admin
+           control now carries a shield and its own label, and it excludes the room
+           host the same way the host control does. */
         const room = mp.room;
         const kickAsHost = showKick && mp.isAdmin && !p.is_host;
-        const kickAsAdmin = !mp.isAdmin && isAdmin() && p.id !== mp.playerId && !!room;
+        const kickAsAdmin = !mp.isAdmin && isAdmin() && p.id !== mp.playerId && !p.is_host && !!room;
         if (kickAsHost || kickAsAdmin) {
             const kick = document.createElement('button');
-            kick.className = 'mp-kick-btn';
-            kick.title = t('kickPlayer');
-            kick.textContent = '×';
+            kick.className = 'mp-kick-btn' + (kickAsAdmin ? ' is-admin-kick' : '');
+            kick.title = kickAsAdmin ? t('kickPlayerAdmin') : t('kickPlayer');
+            kick.textContent = kickAsAdmin ? '⛨' : '×';
             kick.addEventListener('click', (ev) => {
                 // The row itself opens the player card — don't do both.
                 ev.stopPropagation();
@@ -371,8 +379,8 @@ export function showMultiplayerQuestion(room) {
         optionSeed: ref.optionSeed
     });
     state.current = cur;
-    $('#q-current').textContent = String(state.index + 1);
-    $('#q-total').textContent = String(refs.length);
+    $('#q-current').textContent = padIndex(state.index + 1);
+    $('#q-total').textContent = padIndex(refs.length);
     $('#correct-total').textContent = String(refs.length);
 
     const dEl = $('#code-difficulty');

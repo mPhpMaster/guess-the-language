@@ -3315,3 +3315,15 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
 }
 #player-card.is-profile .player-card-rank-row:hover { background: var(--panel); }
 #player-card.is-profile .pcr-mode { color: var(--body); }
+
+/* Site-admin moderation reads differently from the host's own remove control.
+   They used to be the same red ×, so handing the host role to someone else looked
+   like the power had stuck: the host button switched off and the admin button
+   switched on in the same spot. Amber + a shield says "moderation", not "host". */
+.mp-kick-btn.is-admin-kick {
+  background: #2a2113;
+  border-color: #e9c46a55;
+  color: var(--warn);
+  font-size: 14px;
+}
+.mp-kick-btn.is-admin-kick:hover { border-color: var(--warn); }

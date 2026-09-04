@@ -216,6 +216,53 @@ app.whenReady().then(async () => {
     await sleep(200);
     const modalOpen = await run('!document.querySelector("#join-modal").classList.contains("hidden")');
     check('join modal opens', modalOpen);
+
+    /* ---- Handing the host role away actually gives up the remove control ----
+       Two separate powers rendered the same red x: the room host's remove, and a
+       site admin's moderation. Transferring host switched the first off and the
+       second on in the same spot, so it looked like the power had stuck. These
+       checks pin both halves; nothing in the 26 above noticed it. */
+    const SEAT = (hostId, adm) => `(() => {
+      const mp = window.GTL_MULTIPLAYER.state;
+      mp.playerId = 'p1'; mp.roomId = 'r1'; mp.code = 'A3K9';
+      mp.room = { id:'r1', code:'A3K9', status:'lobby', mode:'languages', host_player_id:'${hostId}',
+                  settings:{ questions:10, difficulty:'all', timer:'auto' } };
+      mp.players = [
+        { id:'p1', name:'me',   score:0, is_host:'${hostId}' === 'p1' },
+        { id:'p2', name:'rami', score:0, is_host:'${hostId}' === 'p2' },
+        { id:'p3', name:'lina', score:0, is_host:false }
+      ];
+      mp.isAdmin = mp.room.host_player_id === mp.playerId;
+      ${adm
+        ? `localStorage.setItem('gtl_discord_user', JSON.stringify({ id:'1', name:'a', avatar:null,
+             sessionToken: btoa(JSON.stringify({ adm:true, sub:'1', exp:9999999999 }))
+               .replace(/\\+/g,'-').replace(/\\//g,'_').replace(/=+$/,'') + '.sig' }));`
+        : `localStorage.removeItem('gtl_discord_user');`}
+      showScreen('lobby');
+      renderLobby(mp.room, mp.players);
+      const rows = [...document.querySelectorAll('#lobby-players .mp-player-row')].map((r) => {
+        const b = r.querySelector('.mp-kick-btn');
+        return { host: !!r.querySelector('.mp-host-badge'), kick: !!b, adminKick: !!(b && b.classList.contains('is-admin-kick')) };
+      });
+      return JSON.stringify(rows);
+    })()`;
+
+    const asHost = JSON.parse(await run(SEAT('p1', false)));
+    check('host can remove the other players', asHost.filter((r) => r.kick).length === 2,
+      JSON.stringify(asHost));
+
+    const afterTransfer = JSON.parse(await run(SEAT('p2', false)));
+    check('handing host away removes the kick control', afterTransfer.every((r) => !r.kick),
+      JSON.stringify(afterTransfer));
+
+    const adminAfterTransfer = JSON.parse(await run(SEAT('p2', true)));
+    check('site admin keeps a moderation control, marked as such',
+      adminAfterTransfer.filter((r) => r.adminKick).length === 1,
+      JSON.stringify(adminAfterTransfer));
+    check('site admin cannot remove the room host',
+      adminAfterTransfer.every((r) => !(r.host && r.kick)),
+      JSON.stringify(adminAfterTransfer));
+    await run("localStorage.removeItem('gtl_discord_user'); 'ok'");
   } catch (err) {
     check('no exceptions during multiplayer smoke', false, String(err));
   }
