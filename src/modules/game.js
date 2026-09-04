@@ -426,8 +426,18 @@ export function resolveCurrentQuestion(chosen, timedOut = false) {
     }
 
     recordRoundAnswer(cur, chosen, correct, gained, timedOut);
+    // Split the award the way the design's footer reads it: the flat 100 for a
+    // correct answer, then whatever the remaining time was worth.
     const gainEl = $('#game-footer-gain');
-    if (gainEl) gainEl.textContent = correct ? `+${gained}` : '';
+    if (gainEl) {
+        if (!correct) gainEl.textContent = '';
+        else {
+            const mult = state.streak >= 3 ? 1.5 : 1;
+            const base = Math.round(100 * mult);
+            const speed = Math.max(0, gained - base);
+            gainEl.textContent = speed > 0 ? `+${base}  ·  speed bonus +${speed}` : `+${gained}`;
+        }
+    }
     updateStreakPill();
     if (state.multiplayer) return;
     bumpAdaptive(correct); // nudge the next question's difficulty

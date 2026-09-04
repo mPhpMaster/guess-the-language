@@ -266,8 +266,8 @@ html.platform-discord .lobby-code {
   text-align: center;
   color: #ffe9a8;
   background: linear-gradient(135deg, #2a1f08, #1a2a3a);
-  border: 1px solid #ffd87455;
-  box-shadow: 0 0 24px #ffd87422;
+  border: 1px solid #e9c46a55;
+  box-shadow: 0 0 24px #e9c46a22;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -277,7 +277,7 @@ html.platform-discord .lobby-code {
   flex: 0 0 auto;
   width: 26px; height: 26px;
   border-radius: 50%;
-  border: 1px solid #ffd87444;
+  border: 1px solid #e9c46a44;
   background: #ffffff12;
   color: #ffe9a8;
   font-size: 13px; line-height: 1; cursor: pointer;
@@ -296,8 +296,8 @@ html.platform-discord .lobby-code {
 }
 .challenge-result.won {
   background: linear-gradient(135deg, #0c2e1e, #10233a);
-  border-color: #19f0c455;
-  box-shadow: 0 0 26px #19f0c422;
+  border-color: #6ee7a055;
+  box-shadow: 0 0 26px #6ee7a022;
 }
 .challenge-result.lost {
   background: linear-gradient(135deg, #2e0c18, #10233a);
@@ -420,10 +420,10 @@ html.platform-discord .lobby-code {
   background: linear-gradient(135deg, var(--neon), #1577c9);
   box-shadow: 0 8px 24px #1f8fd055, inset 0 1px 0 #ffffff44;
 }
-.btn-primary:hover { box-shadow: 0 10px 30px #2ec5ff77; }
+.btn-primary:hover { box-shadow: 0 10px 30px #6ee7a077; }
 .btn-accent {
   background: linear-gradient(135deg, var(--neon-2), #0fa98b);
-  box-shadow: 0 8px 24px #19f0c455;
+  box-shadow: 0 8px 24px #6ee7a055;
 }
 /* Daily challenge: a warm, distinct call-to-action, dimmed once played today. */
 .btn-daily {
@@ -534,12 +534,12 @@ html.platform-discord .lobby-code {
   border-radius: 22px;
   box-shadow: 0 30px 80px #00000066, inset 0 1px 0 #ffffff10;
 }
-.menu-logo { font-size: 64px; filter: drop-shadow(0 0 18px #2ec5ff88); }
+.menu-logo { font-size: 64px; filter: drop-shadow(0 0 18px #6ee7a088); }
 .menu-title { font-size: 38px; line-height: 1.15; margin: 14px 0 6px; }
 .neon {
   background: linear-gradient(90deg, var(--neon), var(--neon-2));
   -webkit-background-clip: text; background-clip: text; color: transparent;
-  filter: drop-shadow(0 0 14px #2ec5ff55);
+  filter: drop-shadow(0 0 14px #6ee7a055);
 }
 .menu-sub { color: var(--muted); font-size: 15px; margin-bottom: 26px; }
 .menu-buttons { display: flex; flex-direction: column; gap: 12px; }
@@ -564,7 +564,7 @@ html.platform-discord .lobby-code {
   opacity: 0.9;
   cursor: not-allowed;
   color: var(--neon);
-  border-color: #2ec5ff44;
+  border-color: #6ee7a044;
   background: #0a1828cc;
 }
 .setting-row input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--neon); cursor: pointer; }
@@ -592,7 +592,7 @@ html.platform-discord .lobby-code {
 }
 .score-pill span { color: var(--neon); }
 .progress-pill { color: var(--muted); font-weight: 600; }
-.streak-pill { color: var(--gold-1); border-color: #ffd87455; box-shadow: 0 0 18px #ffd87433; }
+.streak-pill { color: var(--gold-1); border-color: #e9c46a55; box-shadow: 0 0 18px #e9c46a33; }
 
 .game-body {
   width: min(1320px, 100%);
@@ -649,7 +649,7 @@ html.platform-discord .lobby-code {
 .tok-comment { color: #6b7c93; font-style: italic; }
 .tok-number  { color: #ffca7a; }
 .tok-func    { color: #7ad3ff; }
-.tok-punct   { color: #9fb4cc; }
+.tok-punct   { color: #8a9490; }
 
 .toast {
   position: absolute;
@@ -666,8 +666,8 @@ html.platform-discord .lobby-code {
   pointer-events: none;
 }
 .toast.show { opacity: 1; }
-.toast.good { background: #103a2a; color: #8ef0bd; border: 1px solid #25d07d55; }
-.toast.bad  { background: #3a1320; color: #ff9fb1; border: 1px solid #ff547055; }
+.toast.good { background: #103a2a; color: #8ef0bd; border: 1px solid #6ee7a055; }
+.toast.bad  { background: #3a1320; color: #ff9fb1; border: 1px solid #e88a9a55; }
 
 /* Fill-in-the-blank answer (Problem Solving mode) */
 .fill-form {
@@ -690,10 +690,10 @@ html.platform-discord .lobby-code {
   transition: border-color .2s, box-shadow .2s;
 }
 .fill-input::placeholder { color: #6b8098; }
-.fill-input:focus { outline: none; border-color: var(--neon); box-shadow: 0 0 0 3px #2ec5ff33; }
+.fill-input:focus { outline: none; border-color: var(--neon); box-shadow: 0 0 0 3px #6ee7a033; }
 .fill-input:disabled { opacity: .95; cursor: default; }
-.fill-input.fill-correct { border-color: var(--good); box-shadow: 0 0 0 3px #25d07d55, 0 0 26px #25d07d55; color: #b7f7d2; }
-.fill-input.fill-wrong { border-color: var(--bad); box-shadow: 0 0 0 3px #ff547055, 0 0 26px #ff547055; color: #ffc2cd; }
+.fill-input.fill-correct { border-color: var(--good); box-shadow: 0 0 0 3px #6ee7a055, 0 0 26px #6ee7a055; color: #b7f7d2; }
+.fill-input.fill-wrong { border-color: var(--bad); box-shadow: 0 0 0 3px #e88a9a55, 0 0 26px #e88a9a55; color: #ffc2cd; }
 .fill-submit { flex: 0 0 auto; padding: 14px 26px; font-size: 16px; }
 @media (max-width: 720px) {
   .fill-form { flex-direction: column; }
@@ -711,10 +711,10 @@ html.platform-discord .lobby-code {
   stroke-dasharray: 326.7;
   stroke-dashoffset: 0;
   transition: stroke-dashoffset 1s linear, stroke .3s;
-  filter: drop-shadow(0 0 6px #2ec5ff88);
+  filter: drop-shadow(0 0 6px #6ee7a088);
 }
 .ring-fg.warn { stroke: #ffb02e; filter: drop-shadow(0 0 6px #ffb02e88); }
-.ring-fg.danger { stroke: var(--bad); filter: drop-shadow(0 0 6px #ff547088); }
+.ring-fg.danger { stroke: var(--bad); filter: drop-shadow(0 0 6px #e88a9a88); }
 .timer-num {
   position: absolute;
   inset: 0;
@@ -764,8 +764,8 @@ button.opt-btn {
   flex-shrink: 0;
 }
 .opt-text { font-size: 14px; font-weight: 600; line-height: 1.32; word-break: break-word; }
-.opt-btn.correct { border-color: var(--good); box-shadow: 0 0 0 2px var(--good), 0 0 26px #25d07d77; }
-.opt-btn.wrong { border-color: var(--bad); box-shadow: 0 0 0 2px var(--bad), 0 0 26px #ff547077; }
+.opt-btn.correct { border-color: var(--good); box-shadow: 0 0 0 2px var(--good), 0 0 26px #6ee7a077; }
+.opt-btn.wrong { border-color: var(--bad); box-shadow: 0 0 0 2px var(--bad), 0 0 26px #e88a9a77; }
 .options-grid {
   width: min(1180px, 100%);
   display: grid;
@@ -807,8 +807,8 @@ button.opt-btn {
   box-shadow: inset 0 2px 0 #ffffff55, 0 6px 16px #0006;
 }
 .lang-name { font-size: 14px; font-weight: 600; }
-.lang-btn.correct { border-color: var(--good); box-shadow: 0 0 0 2px var(--good), 0 0 26px #25d07d77; }
-.lang-btn.wrong { border-color: var(--bad); box-shadow: 0 0 0 2px var(--bad), 0 0 26px #ff547077; }
+.lang-btn.correct { border-color: var(--good); box-shadow: 0 0 0 2px var(--good), 0 0 26px #6ee7a077; }
+.lang-btn.wrong { border-color: var(--bad); box-shadow: 0 0 0 2px var(--bad), 0 0 26px #e88a9a77; }
 
 /* Option buttons anchor the corner keyboard hint and the result mark. */
 .opt-btn, .lang-btn { position: relative; }
@@ -817,7 +817,7 @@ button.opt-btn {
   position: absolute; top: 7px; inset-inline-start: 7px;
   min-width: 16px; height: 16px; padding: 0 3px; box-sizing: border-box;
   font: 700 10px/16px ui-monospace, Consolas, monospace; text-align: center;
-  color: #9fb4cc; background: #ffffff12; border: 1px solid #ffffff24;
+  color: #8a9490; background: #ffffff12; border: 1px solid #ffffff24;
   border-radius: 5px; pointer-events: none;
 }
 @media (pointer: coarse) { .opt-key { display: none; } }
@@ -843,10 +843,10 @@ button.opt-btn {
 
 @keyframes glow-green {
   0% {
-    box-shadow: 0 0 0 2px var(--good), 0 0 20px #25d07d55;
+    box-shadow: 0 0 0 2px var(--good), 0 0 20px #6ee7a055;
   }
   100% {
-    box-shadow: 0 0 0 4px var(--good), 0 0 40px #25d07dcc;
+    box-shadow: 0 0 0 4px var(--good), 0 0 40px #6ee7a0cc;
   }
 }
 
@@ -878,7 +878,7 @@ button.opt-btn {
 .trophy {
   font-size: 48px;
   margin-bottom: 10px;
-  filter: drop-shadow(0 0 30px #ffd87499);
+  filter: drop-shadow(0 0 30px #e9c46a99);
   animation: floatY 3s ease-in-out infinite;
 }
 @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
@@ -910,7 +910,7 @@ button.opt-btn {
   color: var(--muted);
   font-variant-numeric: tabular-nums;
 }
-.lb-row.rank-1 .lb-rank { color: var(--gold-1); font-size: 20px; text-shadow: 0 0 10px #ffd87455; }
+.lb-row.rank-1 .lb-rank { color: var(--gold-1); font-size: 20px; text-shadow: 0 0 10px #e9c46a55; }
 .lb-row.rank-2 .lb-rank { color: var(--silver-1); font-size: 19px; }
 .lb-row.rank-3 .lb-rank { color: var(--bronze-1); font-size: 19px; }
 .lb-avatar {
@@ -938,14 +938,14 @@ button.opt-btn {
 .lb-row.rank-other .lb-bar-fill { background: linear-gradient(90deg, #cdd7e3, #8395a8); }
 /* Make the player's own row unmistakable at a glance. */
 .lb-row.is-you {
-  background: linear-gradient(90deg, #2ec5ff26, #2ec5ff08);
+  background: linear-gradient(90deg, #6ee7a026, #6ee7a008);
   border-radius: 14px;
-  box-shadow: 0 0 0 2px var(--neon), 0 0 22px #2ec5ff40;
+  box-shadow: 0 0 0 2px var(--neon), 0 0 22px #6ee7a040;
   padding: 6px 8px;
   margin: 2px -8px;
 }
-.lb-row.is-you .lb-rank { color: var(--neon); text-shadow: 0 0 10px #2ec5ff66; }
-.lb-row.is-you .lb-avatar { border-color: var(--neon); box-shadow: 0 0 16px #2ec5ffaa; }
+.lb-row.is-you .lb-rank { color: var(--neon); text-shadow: 0 0 10px #6ee7a066; }
+.lb-row.is-you .lb-avatar { border-color: var(--neon); box-shadow: 0 0 16px #6ee7a0aa; }
 .lb-row.is-you .lb-bar-fill { outline: 2px solid var(--neon); outline-offset: -2px; font-weight: 800; }
 .lb-tag { font-size: 11px; color: var(--neon); font-weight: 700; }
 .lb-mp-tag { font-size: 12px; cursor: default; }
@@ -956,7 +956,7 @@ button.opt-btn {
   width: 100%;
   order: 1;
   background: #0a1726;
-  border: 1px solid #2ec5ff55;
+  border: 1px solid #6ee7a055;
   border-radius: 10px;
   color: #cfe8ff;
   font-size: 13px;
@@ -964,7 +964,7 @@ button.opt-btn {
   text-align: center;
   font-family: "Cascadia Code", "Consolas", monospace;
 }
-.challenge-link:focus { outline: none; border-color: var(--neon); box-shadow: 0 0 0 2px #2ec5ff44; }
+.challenge-link:focus { outline: none; border-color: var(--neon); box-shadow: 0 0 0 2px #6ee7a044; }
 
 /* ===================== Mode select screen ===================== */
 .modeselect-card { position: relative; width: min(960px, 100%); max-width: 960px; text-align: center; padding: 28px; }
@@ -1212,28 +1212,28 @@ html, body { min-height: 100%; overflow: hidden; }
 /* ===================== Game topbar additions ===================== */
 .topbar-left, .topbar-right { display: flex; align-items: center; gap: 12px; }
 .correct-pill {
-  background: #0e2238cc; border: 1px solid #25d07d44; border-radius: 999px;
+  background: #0e2238cc; border: 1px solid #6ee7a044; border-radius: 999px;
   padding: 9px 16px; font-size: 16px; font-weight: 700; color: var(--good);
 }
 .end-btn {
-  background: #2a1320; border: 1px solid #ff547055; color: #ff9fb1;
+  background: #2a1320; border: 1px solid #e88a9a55; color: #ff9fb1;
   font-size: 14px; font-weight: 700; padding: 9px 16px; border-radius: 999px; cursor: pointer;
   transition: background .15s, box-shadow .2s;
 }
-.end-btn:hover { background: #3a1320; box-shadow: 0 0 18px #ff547033; }
+.end-btn:hover { background: #3a1320; box-shadow: 0 0 18px #e88a9a33; }
 
 /* 50:50 lifeline button in the game topbar. */
 .lifeline-btn {
   display: inline-flex; align-items: center; gap: 6px;
-  background: #123049; border: 1px solid #2ec5ff55; color: #bfe6ff;
+  background: #123049; border: 1px solid #6ee7a055; color: #bfe6ff;
   font-size: 13px; font-weight: 800; padding: 8px 12px; border-radius: 999px; cursor: pointer;
   transition: background .15s, box-shadow .2s, opacity .15s;
 }
-.lifeline-btn:hover:not(:disabled) { background: #17405f; box-shadow: 0 0 16px #2ec5ff44; }
+.lifeline-btn:hover:not(:disabled) { background: #17405f; box-shadow: 0 0 16px #6ee7a044; }
 .lifeline-btn:disabled { opacity: .4; cursor: default; }
 .lifeline-btn.hidden { display: none; }
 .lifeline-count {
-  background: var(--neon, #2ec5ff); color: #08111c; font-size: 11px; font-weight: 800;
+  background: var(--neon, #6ee7a0); color: #08111c; font-size: 11px; font-weight: 800;
   min-width: 16px; height: 16px; line-height: 16px; text-align: center; border-radius: 999px; padding: 0 4px;
 }
 /* An option removed by 50:50: faded and struck through, not clickable. */
@@ -1248,17 +1248,17 @@ html, body { min-height: 100%; overflow: hidden; }
 }
 .lb-scope-switch.hidden { display: none; }
 .lb-scope-btn {
-  background: transparent; border: none; color: #9fb4cc; font-weight: 700; font-size: 12.5px;
+  background: transparent; border: none; color: #8a9490; font-weight: 700; font-size: 12.5px;
   padding: 6px 16px; border-radius: 999px; cursor: pointer; transition: background .15s, color .15s;
 }
-.lb-scope-btn.is-active { background: var(--neon, #2ec5ff); color: #08111c; }
+.lb-scope-btn.is-active { background: var(--neon, #6ee7a0); color: #08111c; }
 
 /* ===================== Results additions ===================== */
 .results-correct { color: var(--muted); font-size: 17px; font-weight: 600; margin: -2px 0 12px; }
 .results-correct.hidden, .final-score.hidden, #btn-challenge.hidden { display: none; }
 
 /* ===================== About dialog ===================== */
-.about-logo { font-size: 44px; text-align: center; filter: drop-shadow(0 0 14px #2ec5ff66); }
+.about-logo { font-size: 44px; text-align: center; filter: drop-shadow(0 0 14px #6ee7a066); }
 .about-app { text-align: center; font-size: 18px; font-weight: 700; margin: 6px 0 2px; }
 .about-app #about-version { color: var(--muted); font-size: 13px; font-weight: 600; }
 .about-desc { text-align: center; color: var(--muted); font-size: 13px; line-height: 1.6; margin-bottom: 10px; }
@@ -1274,10 +1274,10 @@ html, body { min-height: 100%; overflow: hidden; }
   font-size: 14px; font-weight: 600; padding: 9px 14px; border-radius: 10px; cursor: pointer;
   transition: background .15s, border-color .2s, transform .12s;
 }
-.about-link:hover { background: #ffffff1a; border-color: #2ec5ff66; transform: translateY(-2px); }
+.about-link:hover { background: #ffffff1a; border-color: #6ee7a066; transform: translateY(-2px); }
 .opt-btn.selected, .lang-btn.selected, .mode-card.selected {
   border-color: var(--neon);
-  box-shadow: inset 0 0 0 2px rgba(46, 197, 255, 0.25), 0 0 0 1px rgba(46, 197, 255, 0.15);
+  box-shadow: inset 0 0 0 2px rgba(110, 231, 160, 0.25), 0 0 0 1px rgba(110, 231, 160, 0.15);
   transform: translateY(-1px);
 }
 
@@ -1315,7 +1315,7 @@ html, body { min-height: 100%; overflow: hidden; }
   display: flex; align-items: center; gap: 10px;
   background: #0e2238; border: 1px solid #ffffff12; border-radius: 12px; padding: 10px 12px;
 }
-.mp-player-row.is-you { border-color: #2ec5ff55; }
+.mp-player-row.is-you { border-color: #6ee7a055; }
 .mp-player-avatar {
   font-size: 18px; width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center; background: #0e2238;
@@ -1328,27 +1328,27 @@ html, body { min-height: 100%; overflow: hidden; }
 .boot-loading {
   position: fixed; inset: 0; z-index: 9999;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
-  background: radial-gradient(120% 120% at 50% 30%, #0d2036 0%, #07111e 70%);
+  background: radial-gradient(120% 120% at 50% 30%, #0d2036 0%, #0b0d0c 70%);
 }
 .boot-loading.hidden { display: none; }
 .boot-spinner {
   width: 46px; height: 46px; border-radius: 50%;
-  border: 4px solid #2ec5ff33; border-top-color: var(--neon, #2ec5ff);
+  border: 4px solid #6ee7a033; border-top-color: var(--neon, #6ee7a0);
   animation: boot-spin 0.8s linear infinite;
 }
-.boot-loading-text { color: #9fb4cc; font-weight: 600; letter-spacing: 0.02em; }
+.boot-loading-text { color: #8a9490; font-weight: 600; letter-spacing: 0.02em; }
 @keyframes boot-spin { to { transform: rotate(360deg); } }
 
 /* Interface-size stepper (helps on 4K where the app renders very small) */
 .ui-scale-control { display: inline-flex; align-items: center; gap: 10px; }
 .ui-scale-btn {
   width: 30px; height: 30px; border-radius: 8px; cursor: pointer;
-  border: 1px solid #2ec5ff44; background: #0e2238; color: #dceaff;
+  border: 1px solid #6ee7a044; background: #0e2238; color: #dceaff;
   font-size: 18px; line-height: 1; font-weight: 700;
   display: inline-flex; align-items: center; justify-content: center;
 }
-.ui-scale-btn:hover { background: #14314f; border-color: #2ec5ff88; }
-.ui-scale-btn:focus-visible { outline: 2px solid var(--neon, #2ec5ff); outline-offset: 2px; }
+.ui-scale-btn:hover { background: #14314f; border-color: #6ee7a088; }
+.ui-scale-btn:focus-visible { outline: 2px solid var(--neon, #6ee7a0); outline-offset: 2px; }
 .ui-scale-value { min-width: 48px; text-align: center; font-weight: 700; color: #dceaff; }
 
 /* Responsive interface scaling. #app is transform-scaled by --ui-scale, and its
@@ -1378,25 +1378,25 @@ html.ui-scaled .screen.active {
 /* In-place leaderboard mode picker */
 .lb-mode-switch {
   display: flex; align-items: center; justify-content: center; gap: 10px;
-  margin: 6px 0 12px; font-weight: 600; color: #9fb4cc; flex-wrap: wrap;
+  margin: 6px 0 12px; font-weight: 600; color: #8a9490; flex-wrap: wrap;
 }
 .lb-mode-switch.hidden { display: none; }
 .lb-mode-switch select {
-  background: #0e2238; color: #dceaff; border: 1px solid #2ec5ff44;
+  background: #0e2238; color: #dceaff; border: 1px solid #6ee7a044;
   border-radius: 8px; padding: 6px 10px; font: inherit; font-weight: 600; cursor: pointer;
 }
-.lb-mode-switch select:focus-visible { outline: 2px solid var(--neon, #2ec5ff); outline-offset: 2px; }
+.lb-mode-switch select:focus-visible { outline: 2px solid var(--neon, #6ee7a0); outline-offset: 2px; }
 
 /* Clickable rows / profile affordances */
 .lb-row.is-clickable { cursor: pointer; }
 .lb-row.is-clickable:hover { filter: brightness(1.08); }
-.lb-row.is-clickable:focus-visible { outline: 2px solid var(--neon, #2ec5ff); outline-offset: 2px; }
+.lb-row.is-clickable:focus-visible { outline: 2px solid var(--neon, #6ee7a0); outline-offset: 2px; }
 .home-profile.is-clickable { cursor: pointer; }
-.home-profile.is-clickable:focus-visible { outline: 2px solid var(--neon, #2ec5ff); outline-offset: 3px; border-radius: 999px; }
+.home-profile.is-clickable:focus-visible { outline: 2px solid var(--neon, #6ee7a0); outline-offset: 3px; border-radius: 999px; }
 
 /* Player profile: rank-per-mode block inside the player card */
 .player-card-lastseen { margin: -8px 0 12px; color: #8ea6c0; font-size: 12.5px; font-weight: 600; }
-.player-card-lastseen.is-online { color: #25d07d; }
+.player-card-lastseen.is-online { color: #6ee7a0; }
 .player-card-lastseen.hidden { display: none; }
 .player-card-profile-stats {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin: 2px 0 12px;
@@ -1416,22 +1416,22 @@ html.ui-scaled .screen.active {
 .pcs-hero {
   grid-column: 1 / -1;
   background: linear-gradient(135deg, #123a5c, #0e2238);
-  border-color: #2ec5ff44; padding: 11px;
+  border-color: #6ee7a044; padding: 11px;
 }
-.pcs-hero .pcs-value { font-size: 26px; color: var(--neon, #2ec5ff); }
+.pcs-hero .pcs-value { font-size: 26px; color: var(--neon, #6ee7a0); }
 .pcs-hero .pcs-label { font-size: 11.5px; }
 
 /* ---- Progression: level bar + XP + daily streak (spans the stats grid) ---- */
 .pcs-levelbar {
   grid-column: 1 / -1;
   background: linear-gradient(135deg, #123a5c, #0e2238);
-  border: 1px solid #2ec5ff44; border-radius: 12px; padding: 10px 12px;
+  border: 1px solid #6ee7a044; border-radius: 12px; padding: 10px 12px;
   display: flex; flex-direction: column; gap: 7px;
 }
 .pcs-lvl-top { display: flex; align-items: center; gap: 9px; }
 .pcs-lvl-badge {
-  font-weight: 800; font-size: 14px; color: #08111c; background: var(--neon, #2ec5ff);
-  border-radius: 8px; padding: 2px 9px; box-shadow: 0 0 14px #2ec5ff66;
+  font-weight: 800; font-size: 14px; color: #08111c; background: var(--neon, #6ee7a0);
+  border-radius: 8px; padding: 2px 9px; box-shadow: 0 0 14px #6ee7a066;
 }
 .pcs-lvl-title { font-weight: 700; color: #eaf4ff; font-size: 13.5px; }
 .pcs-streak {
@@ -1444,14 +1444,14 @@ html.ui-scaled .screen.active {
 }
 .pcs-xpfill {
   height: 100%; border-radius: 999px; min-width: 2px;
-  background: linear-gradient(90deg, #2ec5ff, #19f0c4); box-shadow: 0 0 12px #2ec5ff88;
+  background: linear-gradient(90deg, #6ee7a0, #6ee7a0); box-shadow: 0 0 12px #6ee7a088;
   transition: width .6s ease;
 }
 .pcs-xptext { font-size: 10.5px; color: #8ea6c0; text-align: end; font-weight: 600; }
 
 /* ---- Achievements grid ---- */
 .pcs-ach { grid-column: 1 / -1; margin-top: 2px; }
-.pcs-ach-title { font-size: 12.5px; font-weight: 700; color: #9fb4cc; margin: 2px 0 6px; }
+.pcs-ach-title { font-size: 12.5px; font-weight: 700; color: #8a9490; margin: 2px 0 6px; }
 .pcs-ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 6px; }
 .pcs-ach-item {
   display: flex; flex-direction: column; align-items: center; gap: 3px; text-align: center;
@@ -1459,8 +1459,8 @@ html.ui-scaled .screen.active {
   opacity: .38; filter: grayscale(1); transition: opacity .2s, filter .2s;
 }
 .pcs-ach-item.is-earned {
-  opacity: 1; filter: none; border-color: #2ec5ff55; background: #123049;
-  box-shadow: 0 0 14px #2ec5ff22;
+  opacity: 1; filter: none; border-color: #6ee7a055; background: #123049;
+  box-shadow: 0 0 14px #6ee7a022;
 }
 .pcs-ach-icon { font-size: 20px; line-height: 1; }
 .pcs-ach-name { font-size: 9.5px; font-weight: 600; color: #cfe0f4; line-height: 1.15; }
@@ -1470,12 +1470,12 @@ html.ui-scaled .screen.active {
   position: fixed; top: 18px; left: 50%; transform: translateX(-50%) translateY(-140%);
   z-index: 1000001; pointer-events: none; text-align: center;
   background: linear-gradient(135deg, #123a5c, #0e2238);
-  border: 1px solid #2ec5ff66; border-radius: 14px; padding: 12px 22px;
-  box-shadow: 0 18px 44px #0009, 0 0 26px #2ec5ff44; opacity: 0;
+  border: 1px solid #6ee7a066; border-radius: 14px; padding: 12px 22px;
+  box-shadow: 0 18px 44px #0009, 0 0 26px #6ee7a044; opacity: 0;
   transition: transform .45s cubic-bezier(.2,1.2,.3,1), opacity .3s;
 }
 .achievement-pop.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-.ach-pop-title { font-weight: 800; font-size: 15px; color: var(--neon, #2ec5ff); }
+.ach-pop-title { font-weight: 800; font-size: 15px; color: var(--neon, #6ee7a0); }
 .ach-pop-body { font-weight: 600; font-size: 13px; color: #eaf4ff; margin-top: 2px; }
 
 /* The profile card is wider than a plain dialog so stats and rankings can lay out
@@ -1483,7 +1483,7 @@ html.ui-scaled .screen.active {
 #player-card .modal-card { width: min(94vw, 620px); }
 .player-card-rankings { margin: 4px 0 2px; }
 .player-card-rankings.hidden { display: none; }
-.player-card-rankings-title { margin: 2px 0 7px; font-size: 13px; color: #9fb4cc; font-weight: 700; }
+.player-card-rankings-title { margin: 2px 0 7px; font-size: 13px; color: #8a9490; font-weight: 700; }
 /* Two columns so 4–7 modes take 2–4 rows instead of a tall single stack — the
    card stays short enough to avoid a scrollbar. minmax(0,1fr) lets each column
    shrink below its content width so a long mode name wraps instead of forcing
@@ -1501,17 +1501,17 @@ html.ui-scaled .screen.active {
   grid-column: 1 / -1; font-weight: 600; color: #dceaff; min-width: 0;
   overflow-wrap: anywhere; line-height: 1.2; font-size: 12.5px;
 }
-.pcr-rank { font-weight: 700; color: var(--neon, #2ec5ff); font-size: 13px; }
-.pcr-score { color: #9fb4cc; font-weight: 600; justify-self: end; font-size: 12.5px; }
-.player-card-rankings-empty { color: #9fb4cc; text-align: center; padding: 10px 0; }
+.pcr-rank { font-weight: 700; color: var(--neon, #6ee7a0); font-size: 13px; }
+.pcr-score { color: #8a9490; font-weight: 600; justify-self: end; font-size: 12.5px; }
+.player-card-rankings-empty { color: #8a9490; text-align: center; padding: 10px 0; }
 .mp-player-name { flex: 1; font-weight: 600; }
 .mp-player-score { color: var(--neon); font-weight: 700; font-size: 14px; }
 .mp-host-badge {
   font-size: 11px; font-weight: 700; text-transform: uppercase;
-  background: #2ec5ff22; color: var(--neon); padding: 2px 8px; border-radius: 999px;
+  background: #6ee7a022; color: var(--neon); padding: 2px 8px; border-radius: 999px;
 }
 .mp-kick-btn {
-  background: #3a1320; border: 1px solid #ff547055; color: #ff9fb1;
+  background: #3a1320; border: 1px solid #e88a9a55; color: #ff9fb1;
   width: 28px; height: 28px; border-radius: 8px; cursor: pointer; font-size: 16px; line-height: 1;
 }
 .mp-game-strip {
@@ -1519,7 +1519,7 @@ html.ui-scaled .screen.active {
   margin-bottom: 4px; flex-wrap: wrap;
 }
 .mp-room-code-pill {
-  background: #0e2238cc; border: 1px solid #2ec5ff44; border-radius: 999px;
+  background: #0e2238cc; border: 1px solid #6ee7a044; border-radius: 999px;
   padding: 6px 14px; font-weight: 700; font-size: 13px; color: var(--neon);
   font-family: ui-monospace, Consolas, monospace;
 }
@@ -1529,7 +1529,7 @@ html.ui-scaled .screen.active {
 
 /* Player rows open the player card (round / score / mode / invite). */
 .mp-player-row.is-clickable { cursor: pointer; transition: border-color 0.15s, background 0.15s; }
-.mp-player-row.is-clickable:hover { background: #122b45; border-color: #2ec5ff44; }
+.mp-player-row.is-clickable:hover { background: #122b45; border-color: #6ee7a044; }
 .mp-player-row.is-clickable:focus-visible { outline: 2px solid var(--neon); outline-offset: 2px; }
 
 .player-card-head { display: flex; align-items: center; gap: 12px; margin: 2px 0 10px; }
@@ -1539,7 +1539,7 @@ html.ui-scaled .screen.active {
 }
 .player-card-avatar-img {
   width: 46px; height: 46px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
-  box-shadow: inset 0 0 0 2px #2ec5ff55;
+  box-shadow: inset 0 0 0 2px #6ee7a055;
 }
 .player-card-name {
   flex: 1; font-weight: 800; font-size: 20px; text-align: start; color: #fff;
@@ -1668,7 +1668,7 @@ html.ui-scaled .screen.active {
 }
 #join-code:focus {
   border-color: var(--neon);
-  box-shadow: 0 0 0 3px rgba(46, 197, 255, 0.2);
+  box-shadow: 0 0 0 3px rgba(110, 231, 160, 0.2);
 }
 .btn[disabled] { opacity: 0.45; cursor: not-allowed; }
 .btn-primary {
@@ -1714,7 +1714,7 @@ html.ui-scaled .screen.active {
 /* ===================== Waiting-for-opponents banner ===================== */
 .mp-status {
   width: min(1000px, 96%); text-align: center; font-weight: 700; font-size: 15px;
-  color: var(--neon); background: #0e2238cc; border: 1px solid #2ec5ff33;
+  color: var(--neon); background: #0e2238cc; border: 1px solid #6ee7a033;
   border-radius: 999px; padding: 8px 16px;
   animation: mpPulse 1.4s ease-in-out infinite;
 }
@@ -1722,7 +1722,7 @@ html.ui-scaled .screen.active {
 
 /* Locked-in choice (selected, awaiting the synchronized reveal) */
 .lang-btn.mp-selected, .opt-btn.mp-selected {
-  border-color: var(--neon); box-shadow: 0 0 0 2px var(--neon), 0 0 22px #2ec5ff55;
+  border-color: var(--neon); box-shadow: 0 0 0 2px var(--neon), 0 0 22px #6ee7a055;
 }
 
 /* Each player's pick shown on the options at reveal time */
@@ -1763,7 +1763,7 @@ html.ui-scaled .screen.active {
 :where(button, a, input, select, textarea, summary):focus-visible {
   outline: 3px solid #fff;
   outline-offset: 3px;
-  box-shadow: 0 0 0 6px #2ec5ff88 !important;
+  box-shadow: 0 0 0 6px #6ee7a088 !important;
 }
 
 dialog.popover,
@@ -1866,7 +1866,7 @@ dialog::backdrop { background: rgba(2, 8, 18, 0.78); backdrop-filter: blur(5px);
 .review-item p { margin-top: 8px; color: var(--muted); }
 .review-explanation { color: #c8e8f8 !important; }
 .lb-row { position: relative; }
-.lb-bar-fill { width: 30%; color: #07111e; }
+.lb-bar-fill { width: 30%; color: #0b0d0c; }
 .lb-report { flex: 0 0 auto; padding: 7px; font-size: 12px; }
 
 @media (max-width: 768px) {
@@ -1970,16 +1970,16 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
 /* ---- Round breakdown (accuracy by category, Phase 4.2) ---- */
 .round-breakdown { width: min(720px, 96%); margin: 2px auto 10px; }
 .round-breakdown.hidden { display: none; }
-.rb-title { font-size: 12.5px; font-weight: 700; color: #9fb4cc; margin: 0 0 6px; text-align: start; }
+.rb-title { font-size: 12.5px; font-weight: 700; color: #8a9490; margin: 0 0 6px; text-align: start; }
 .rb-list { display: flex; flex-direction: column; gap: 5px; }
 .rb-row { display: grid; grid-template-columns: minmax(70px, 32%) 1fr auto; align-items: center; gap: 10px; }
 .rb-name { font-size: 12.5px; font-weight: 600; color: #dceaff; text-align: start; }
 .rb-bar { height: 8px; border-radius: 999px; background: #0a1a2c; overflow: hidden; box-shadow: inset 0 0 0 1px #ffffff10; }
-.rb-fill { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #2ec5ff, #19f0c4); }
-.rb-val { font-size: 12px; font-weight: 700; color: #9fb4cc; min-width: 34px; text-align: end; }
-.rb-row.is-best .rb-fill { background: linear-gradient(90deg, #25d07d, #19f0c4); }
+.rb-fill { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #6ee7a0, #6ee7a0); }
+.rb-val { font-size: 12px; font-weight: 700; color: #8a9490; min-width: 34px; text-align: end; }
+.rb-row.is-best .rb-fill { background: linear-gradient(90deg, #6ee7a0, #6ee7a0); }
 .rb-row.is-worst .rb-fill { background: linear-gradient(90deg, #ff7a9c, #ff547d); }
-.rb-row.is-best .rb-name::after { content: ' ▲'; color: #25d07d; font-size: 10px; }
+.rb-row.is-best .rb-name::after { content: ' ▲'; color: #6ee7a0; font-size: 10px; }
 .rb-row.is-worst .rb-name::after { content: ' ▼'; color: #ff7a9c; font-size: 10px; }
 
 /* ---- First-run onboarding overlay (Phase 6.4) ---- */
@@ -1991,7 +1991,7 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
 .onboarding-overlay.show { display: flex; }
 .onboarding-card {
   background: linear-gradient(135deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.96));
-  border: 1px solid #2ec5ff44; border-radius: 20px; padding: 26px 24px;
+  border: 1px solid #6ee7a044; border-radius: 20px; padding: 26px 24px;
   width: min(460px, 94vw); text-align: center; box-shadow: 0 25px 60px #000a;
 }
 .onboarding-emoji { font-size: 40px; }
@@ -2001,7 +2001,7 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
 .onboarding-ok { width: 100%; }
 
 /* ---- Friends / following (Phase 6.3) ---- */
-#btn-player-card-follow.is-following { border-color: #25d07d66; color: #8ef0bd; }
+#btn-player-card-follow.is-following { border-color: #6ee7a066; color: #8ef0bd; }
 .player-card-friends { margin: 6px 0 2px; }
 .player-card-friends.hidden { display: none; }
 .player-card-friends-list { display: flex; flex-direction: column; gap: 5px; }
@@ -2010,11 +2010,11 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
   background: #0e2238; border: 1px solid #ffffff10; border-radius: 10px; padding: 6px 10px;
   cursor: pointer; color: inherit; text-align: start; font: inherit; transition: background .15s, border-color .15s;
 }
-.friend-row:hover { background: #122b45; border-color: #2ec5ff44; }
+.friend-row:hover { background: #122b45; border-color: #6ee7a044; }
 .friend-av { width: 26px; height: 26px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #0a1a2c; font-size: 14px; }
 .friend-av img { width: 100%; height: 100%; object-fit: cover; }
 .friend-name { font-weight: 600; color: #dceaff; font-size: 13px; }
-.friend-score { font-weight: 800; color: var(--neon, #2ec5ff); font-size: 13px; }
+.friend-score { font-weight: 800; color: var(--neon, #6ee7a0); font-size: 13px; }
 
 /* ---- Share result overlay (works inside the sandboxed Discord iframe) ---- */
 .share-overlay {
@@ -2032,7 +2032,7 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
   border-radius: 16px; box-shadow: 0 20px 50px #000a; border: 1px solid #ffffff1f;
 }
 .share-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
-.share-hint { font-size: 12.5px; color: #9fb4cc; text-align: center; margin: 0; }
+.share-hint { font-size: 12.5px; color: #8a9490; text-align: center; margin: 0; }
 
 /* ---- Admin panel ---- */
 .btn-admin { border-color: #ff9f5a55 !important; color: #ffcf9a !important; }
@@ -2070,7 +2070,7 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
 }
 .admin-tab.is-active { background: #ff9f5a22; border-color: #ff9f5a66; color: #ffd9b3; }
 .admin-body { overflow-y: auto; padding: 6px 14px 16px; }
-.admin-msg { text-align: center; color: #9fb4cc; padding: 22px 0; margin: 0; }
+.admin-msg { text-align: center; color: #8a9490; padding: 22px 0; margin: 0; }
 .admin-err { color: #ff9fb6; }
 .admin-search { margin-bottom: 10px; }
 .admin-search input {
@@ -2082,23 +2082,23 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
   padding: 10px 12px; margin-bottom: 8px; border-radius: 12px;
   background: #ffffff08; border: 1px solid #ffffff12; flex-wrap: wrap;
 }
-.admin-row.status-open { border-color: #ffd87455; background: #ffd8740c; }
+.admin-row.status-open { border-color: #e9c46a55; background: #e9c46a0c; }
 .admin-row-main { min-width: 0; flex: 1 1 200px; }
 .admin-row-name { font-weight: 800; color: #eaf4ff; font-size: 14px; word-break: break-word; }
-.admin-row-sub { font-size: 12px; color: #9fb4cc; margin-top: 2px; word-break: break-word; }
+.admin-row-sub { font-size: 12px; color: #8a9490; margin-top: 2px; word-break: break-word; }
 /* Clickable player name in the Users tab — opens that player's profile card. */
 .admin-name-btn {
   cursor: pointer; border-radius: 6px; padding: 0 2px; margin: 0 -2px;
   text-decoration: underline; text-decoration-color: #ffffff33; text-underline-offset: 3px;
   transition: color 0.15s, text-decoration-color 0.15s;
 }
-.admin-name-btn:hover { color: var(--neon, #2ec5ff); text-decoration-color: var(--neon, #2ec5ff); }
-.admin-name-btn:focus-visible { outline: 2px solid var(--neon, #2ec5ff); outline-offset: 2px; }
+.admin-name-btn:hover { color: var(--neon, #6ee7a0); text-decoration-color: var(--neon, #6ee7a0); }
+.admin-name-btn:focus-visible { outline: 2px solid var(--neon, #6ee7a0); outline-offset: 2px; }
 .admin-badge {
   display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 7px;
   border-radius: 999px; background: #ffffff1a; color: #cfe0f4; vertical-align: middle;
 }
-.admin-badge.live { background: #19f0c422; color: #6ffcd8; }
+.admin-badge.live { background: #6ee7a022; color: #6ffcd8; }
 .admin-badge.ban { background: #ff547d33; color: #ff9fb6; }
 .admin-row-acts { display: flex; gap: 6px; flex-wrap: wrap; }
 .admin-act {
@@ -2820,3 +2820,120 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
   border: 0;
   pointer-events: auto;
 }
+
+/* ============================================================
+   Terminal / IDE — Results & Lobby
+   ============================================================ */
+
+/* Every screen was a translucent navy card floating on the page. Only the game
+   screen had been converted; results and lobby still showed the old frame. */
+#screen-results, #screen-lobby {
+  background: var(--bg-1);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 36px clamp(20px, 6vw, 88px);
+  overflow-y: auto;
+}
+#screen-results .results-card, #screen-lobby .lobby-card {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+  max-height: none;
+  overflow: visible;
+}
+
+/* The leaderboard is a table in this direction, not a bar chart. The podium
+   gradients were set per rank (.lb-row.rank-1 .lb-bar-fill), which outweighs a
+   plain .lb-bar-fill rule however late it appears — so they are unset at the
+   same weight. Rank now reads from the number alone. */
+.lb-row.rank-1 .lb-bar-fill,
+.lb-row.rank-2 .lb-bar-fill,
+.lb-row.rank-3 .lb-bar-fill,
+.lb-row.rank-other .lb-bar-fill {
+  background: none;
+  background-image: none;
+  color: var(--text);
+  font-weight: 500;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  min-width: 0;
+  height: auto;
+}
+.lb-row.is-you .lb-bar-fill {
+  outline: none;
+  color: var(--neon);
+  font-weight: 600;
+}
+.lb-row.rank-1 .lb-rank { color: var(--gold-1); }
+.lb-row.rank-2 .lb-rank { color: var(--muted); }
+.lb-row.rank-3 .lb-rank { color: var(--gold-2); }
+.lb-tag { color: var(--neon); font-family: var(--font-mono); font-size: 11px; }
+.lb-mp-tag { opacity: .7; }
+
+/* Score sits at the row's end, mono and tabular, like the design. */
+.lb-bar-wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+
+/* Review of missed questions: the design shows compact cards, one per miss. */
+.review-item {
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius);
+  background: var(--panel);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.review-item h4 { font-size: 13px; font-weight: 600; color: var(--text); margin: 0; }
+.review-item pre {
+  margin: 0;
+  font-family: var(--font-code);
+  font-size: 12px;
+  color: var(--dim);
+  background: var(--code-bg);
+  border-radius: 4px;
+  padding: 8px 10px;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+.review-item p { font-size: 12px; color: var(--dimmer); margin: 0; }
+.review-explanation { color: var(--dim); }
+.review-empty { font-size: 13px; color: var(--dimmer); }
+#answer-review-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+@media (max-width: 900px) { #answer-review-list { grid-template-columns: 1fr; } }
+
+/* Lobby: players on the left, the settings summary in a right-hand column. */
+.lobby-card {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 48px;
+  align-items: start;
+}
+.lobby-card > .lobby-settings {
+  grid-column: 2;
+  grid-row: 1 / span 99;
+  border-left: 1px solid var(--line);
+  padding-left: 36px;
+  align-self: stretch;
+}
+@media (max-width: 900px) {
+  .lobby-card { grid-template-columns: 1fr; gap: 20px; }
+  .lobby-card > .lobby-settings { grid-column: 1; grid-row: auto; border-left: 0; padding-left: 0; }
+}
+
+/* The destructive choice in the end-round dialog is red, per the design. */
+#btn-end-confirm {
+  background: var(--bad);
+  background-image: none;
+  color: #1a0d0f;
+  font-weight: 700;
+}
+#btn-end-confirm:hover:not(:disabled) { background: #f0a3b0; background-image: none; }
+
+/* "new" tag on the daily row, per the design. */
+.daily-new { font-family: var(--font-mono); font-size: 11px; color: var(--neon); }
+#btn-daily.is-done .daily-new { display: none; }

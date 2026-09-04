@@ -58,7 +58,19 @@ export function updateDailyButton() {
     if (!btn) return;
     const done = isDailyDone();
     btn.classList.toggle('is-done', done);
-    btn.textContent = done ? `🗓️  ${t('dailyPlayed')}` : `🗓️  ${t('dailyChallenge')}`;
+    // Label plus, when today is still unplayed, the design's "new" tag at the
+    // row's end. Built as elements rather than one textContent assignment,
+    // which would wipe the tag on every repaint.
+    btn.textContent = '';
+    const label = document.createElement('span');
+    label.textContent = done ? `🗓️  ${t('dailyPlayed')}` : `🗓️  ${t('dailyChallenge')}`;
+    btn.appendChild(label);
+    if (!done) {
+        const tag = document.createElement('span');
+        tag.className = 'daily-new';
+        tag.textContent = t('dailyNew');
+        btn.appendChild(tag);
+    }
 }
 
 // ---------- First-run onboarding ----------

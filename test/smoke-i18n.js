@@ -94,7 +94,12 @@ app.whenReady().then(async () => {
     const stale = await run(READ_LANG_STATE);
     check('stale gtl_lang="ar" still renders lang="en"', stale.lang === 'en', stale.lang);
     check('stale gtl_lang="ar" still renders dir="ltr"', stale.dir === 'ltr', stale.dir);
-    check('stale gtl_lang="ar": start button stays English', /Start/.test(stale.start), stale.start);
+    // The point of this check is that a stale gtl_lang="ar" cannot resurrect the
+    // Arabic UI — not that the button says any particular English word. Pinning
+    // the literal "Start" made it fail the moment the label became "run ▸", so
+    // assert the actual intent: non-empty, and no Arabic script.
+    check('stale gtl_lang="ar": start button stays English',
+      stale.start.trim().length > 0 && !/[؀-ۿ]/.test(stale.start), stale.start);
     check('stale gtl_lang="ar": subtitle stays English', /Pick a mode/.test(stale.sub), stale.sub);
     check('stale gtl_lang="ar": no toggle reappears', stale.toggles === 0, `nodes=${stale.toggles}`);
 
