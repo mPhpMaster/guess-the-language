@@ -4,10 +4,11 @@ import { hideBootLoading } from './boot.js';
 import { $, announce, closeDialog, openDialog, screens, setTitlebar, showScreen } from './dom.js';
 import { selectMode } from './events.js';
 import { clearTimer, hideMpStatus, hideToast, isFillCorrect, normFill, normalizeQuestion, padIndex, recordRoundAnswer, renderCodeChrome, renderQuestionUI, showFeedback, startTimerFromServer, updateCorrect, updateScore, updateStreakPill } from './game.js';
+import { formatScore } from './format.js';
 import { highlight } from './highlight.js';
 import { MODES, diffLabel, t } from './i18n.js';
 import { canPlay, getSettings, isDiscordActivity, isDiscordLinked, requiresDiscordLogin, safeDisplayName, showAuthError, syncDiscordNameField, updateInGameProfile } from './identity.js';
-import { flashButton, mpDiscordAvatarUrl, mpRoomAvatarOf, mpVisualOf, parseChallengePayload, renderLeaderboard } from './leaderboard.js';
+import { flashButton, mpDiscordAvatarUrl, mpRoomAvatarOf, mpVisualOf, parseChallengePayload, renderLeaderboard, setBoardHeading } from './leaderboard.js';
 import { presenceStartedAt, pushPresence, sendHeartbeat, setPresenceStartedAt } from './presence.js';
 import { closePlayerCard, currentPlayerRow, openPlayerCard, refreshPlayerCard } from './profile.js';
 import { countUp, renderRoundSummary } from './results.js';
@@ -150,7 +151,8 @@ export function modeLabel(mode) {
 
 export function renderMpPlayerList(containerSel, players, {
     compact,
-    showKick
+    showKick,
+    lobby
 }) {
     const el = $(containerSel);
     el.innerHTML = '';
@@ -190,9 +192,16 @@ export function renderMpPlayerList(containerSel, players, {
             badge.textContent = t('adminBadge');
             row.appendChild(badge);
         }
+        // In the lobby nobody has a score yet, so the design shows readiness
+        // there and keeps the score column for the in-round strip.
         const sc = document.createElement('div');
-        sc.className = 'mp-player-score';
-        sc.textContent = String(p.score);
+        if (lobby) {
+            sc.className = 'mp-player-ready';
+            sc.textContent = t('badgeReady');
+        } else {
+            sc.className = 'mp-player-score';
+            sc.textContent = formatScore(p.score);
+        }
         row.appendChild(sc);
         /* Two different powers that used to look identical.
 
@@ -268,12 +277,16 @@ export function renderLobby(room, players) {
     renderLobbySettings(room);
     renderMpPlayerList('#lobby-players', players, {
         compact: false,
-        showKick: room ?.status === 'lobby'
+        showKick: room ?.status === 'lobby',
+        lobby: room ?.status === 'lobby'
     });
+    const playersTitle = $('#lobby-players-title');
+    if (playersTitle) playersTitle.textContent = `${t('playersTitle')} (${players.length})`;
 
     const isAdmin = window.GTL_MULTIPLAYER.state.isAdmin;
     $('#lobby-wait').classList.toggle('hidden', isAdmin);
-    $('#lobby-admin').classList.toggle('hidden', !isAdmin);
+    $('#btn-lobby-start').classList.toggle('hidden', !isAdmin);
+    $('#btn-lobby-end').classList.toggle('hidden', !isAdmin);
     $('#btn-copy-code').classList.toggle('hidden', !isAdmin || discord);
 
     // "Invite to this room" — shown to everyone when there's something to invite
@@ -316,7 +329,31 @@ export function renderLobbySettings(room) {
 
     const diff = s.difficulty === 'all' ? t('diffAll') : diffLabel(s.difficulty);
     const timerLabel = timer === 'auto' ? t('timerAuto') : `${timer}s`;
-    $('#lobby-mode').textContent = `${modeLabel(mode)}  •  ${diff}  •  ${s.questions} Q  •  ${timerLabel}`;
+    $('#lobby-mode').textContent = `${modeLabel(mode)} · ${s.questions} ${t('questionsWord')} · ${diff}`;
+
+    const summary = $('#lobby-summary');
+    if (summary) {
+        // The host edits through the controls below; everyone else reads this.
+        summary.classList.toggle('hidden', !!(isAdmin && inLobby));
+        summary.innerHTML = '';
+        [
+            [t('changeMode'), modeLabel(mode)],
+            [t('settingQuestions'), String(s.questions)],
+            [t('settingDifficulty'), diff],
+            [t('settingTimer'), timerLabel],
+            [t('settingSound'), getSettings().sound ? t('soundOn') : t('soundOff')]
+        ].forEach(([label, value], i, all) => {
+            const row = document.createElement('div');
+            row.className = 'lobby-summary-row';
+            const dt = document.createElement('dt');
+            dt.textContent = label;
+            const dd = document.createElement('dd');
+            dd.textContent = value;
+            if (i === all.length - 1) dd.classList.add('is-on');
+            row.append(dt, dd);
+            summary.appendChild(row);
+        });
+    }
 }
 
 // Host changed mode / questions / difficulty / timer — push to the room.
@@ -570,8 +607,8 @@ export function renderMpResults() {
     const players = mpState.players;
     showScreen('results');
 
-    $('.final-score').classList.remove('hidden');
-    $('.results-correct').classList.remove('hidden');
+    $('#results-head').classList.remove('hidden');
+    $('#screen-results').classList.remove('is-leaderboard-view');
     $('#result-stats').classList.remove('hidden');
     $('#answer-review').classList.remove('hidden');
     $('#personal-result').classList.add('hidden');
@@ -591,7 +628,7 @@ export function renderMpResults() {
     state.score = me ? me.score : 0;
     state.round = new Array(Number($('#results-total').textContent) || state.roundHistory.length);
     renderRoundSummary();
-    $('.results-sub').textContent = t('roomResults');
+    setBoardHeading(t('roomResults'), '');
     renderLeaderboard(window.GTL_MULTIPLAYER.getRoomLeaderboard(mpRoomAvatarOf));
     $('#lb-note').className = 'lb-note';
     $('#lb-note').textContent = '';

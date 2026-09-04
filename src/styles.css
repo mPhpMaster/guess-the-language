@@ -3327,3 +3327,630 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
   font-size: 14px;
 }
 .mp-kick-btn.is-admin-kick:hover { border-color: var(--warn); }
+
+/* ============================================================
+   Design parity pass — measured against the v2 handoff, screen
+   by screen. Everything below restates an existing rule at the
+   design's own numbers; nothing here relies on !important.
+   ============================================================ */
+
+/* --- Home --- */
+
+/* 4 — the design's hero column starts at a flat 88px. The old 6vw ceiling
+   never reached it on a 1280 window (76.8px). */
+.home-main { padding: 0 0 0 clamp(20px, 7vw, 88px); }
+
+/* 2 — rail links are plain text in the design, and About sits among them
+   rather than behind a floating glyph. */
+.home-rail-links .btn { font-size: 13px; }
+
+/* --- Game --- */
+
+/* 12/13 — the snippet is set at 19px, and the panel itself carries no padding:
+   the gutter (26/14) and the code (26/28) supply it, as the design draws them.
+   The old outer 24px stacked on top of both. */
+.code-panel { padding: 0; font-size: clamp(15px, 1.5vw, 19px); }
+
+/* --- Answered state --- */
+
+/* 17 — the design's Next is a wider, squarer chip than the generic small button. */
+.feedback-panel #btn-next { padding: 12px 22px; border-radius: 5px; font-size: 13px; }
+
+/* --- Results --- */
+
+/* 18 — the label sits above the number, the correct count rides the same
+   baseline on the right, and the whole header is left-aligned in the column. */
+.results-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  text-align: start;
+}
+.results-head-main { display: flex; flex-direction: column; gap: 4px; }
+.results-kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--dimmer);
+}
+.results-card .final-score {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text);
+}
+.results-card .results-correct { margin: 0; font-size: 15px; color: var(--muted); text-align: end; }
+
+/* 19 — four columns, and the two headline numbers carry the design's accents. */
+.result-stats { grid-template-columns: repeat(4, 1fr); }
+.result-stats .rs-cell { text-align: start; align-items: flex-start; }
+.result-stats .rs-accuracy strong { color: var(--neon); }
+.result-stats .rs-streak strong { color: var(--warn); }
+
+/* 20 — the board's inline heading on the results screen: title left, the mode
+   and scope in mono on the right. */
+.results-sub {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  margin: 0;
+  padding-bottom: 8px;
+  text-align: start;
+}
+.results-sub-title { font-size: 14px; font-weight: 600; color: var(--text); }
+.results-sub-meta { font-family: var(--font-mono); font-size: 11px; color: var(--dimmer); }
+
+/* 21 — the misses stay on screen. They were behind a <details> summary. */
+.answer-review { border-top: 0; padding-top: 0; width: 100%; text-align: start; }
+.review-title {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+.review-label { color: var(--dimmer); }
+.review-answer { color: var(--neon); }
+
+/* 22 — one centred row: play again solid, share outlined in green, the rest plain. */
+.results-buttons { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; }
+.results-buttons .btn { flex: 0 0 auto; }
+.results-buttons #btn-share-card { border-color: var(--accent-line); color: var(--neon); }
+
+/* --- Leaderboard as its own screen --- */
+
+/* 23/24/31 — opened on its own the board is the whole screen, so it drops the
+   centred results column for the design's left-aligned 940px one. */
+#screen-results.is-leaderboard-view .results-card {
+  max-width: 940px;
+  margin: 0;
+  padding: 38px 88px 0;
+  text-align: start;
+  align-items: stretch;
+}
+#screen-results.is-leaderboard-view { align-items: flex-start; justify-content: flex-start; }
+#screen-results.is-leaderboard-view .results-buttons { justify-content: flex-start; padding: 16px 0 26px; }
+.lb-view-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+}
+.lb-view-title { display: flex; flex-direction: column; gap: 6px; }
+.lb-view-kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--dimmer);
+}
+.lb-view-mode { font-family: var(--font-mono); font-size: 30px; font-weight: 600; color: var(--text); }
+.lb-view-controls { display: flex; align-items: center; gap: 12px; }
+
+/* 25 — a square segmented control, not a pill; the active half is solid. */
+.lb-scope-switch {
+  display: flex;
+  border: 1px solid var(--line-3);
+  border-radius: 5px;
+  overflow: hidden;
+  padding: 0;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.lb-scope-btn {
+  padding: 9px 16px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+.lb-scope-btn.is-active { background: var(--neon); color: var(--accent-ink); font-weight: 700; }
+
+/* 26 — the mode picker is a compact chip beside the scope switch. */
+.lb-mode-switch { display: inline-flex; align-items: center; width: auto; gap: 0; }
+.lb-mode-switch select {
+  width: auto;
+  height: auto;
+  padding: 9px 14px;
+  border: 1px solid var(--line-3);
+  border-radius: 5px;
+  background: transparent;
+  color: var(--body);
+  font-size: 13px;
+}
+
+/* 27 — the list fills the screen instead of scrolling inside a 300px box. */
+#screen-results.is-leaderboard-view .leaderboard { max-height: none; overflow: visible; }
+
+/* 29/30 — rank reads from colour, and the trailing action cell is always laid
+   out so the columns line up whether or not this viewer may report. */
+.lb-row.rank-2 .lb-score { color: var(--silver-1); }
+.lb-report-cell { width: 64px; justify-self: end; text-align: end; }
+.lb-head .lb-report-cell { width: 64px; }
+
+/* --- Lobby --- */
+
+/* 32 — two columns: the room on the left, the settings summary on the right. */
+.lobby-card {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 48px;
+  width: 100%;
+  max-width: 920px;
+  align-items: start;
+  text-align: start;
+}
+.lobby-main { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.lobby-room { display: flex; flex-direction: column; gap: 8px; }
+.lobby-label {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--dimmer);
+}
+.lobby-code-row { display: flex; align-items: center; gap: 14px; }
+.lobby-code {
+  font-family: var(--font-mono);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: var(--neon);
+}
+.lobby-mode { margin: 0; font-size: 13px; color: var(--muted); }
+.lobby-players-title { margin: 0 0 6px; font-size: 13px; font-weight: 600; color: var(--text); }
+
+/* 36 — one action row, with End room reading as the destructive one. */
+.lobby-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.lobby-actions .btn { flex: 0 0 auto; }
+.lobby-actions .btn-danger { color: #e39a9a; }
+
+/* 33 — the settings summary everyone can read, beside the host's controls. */
+.lobby-side {
+  border-inline-start: 1px solid var(--line);
+  padding-inline-start: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.lobby-settings-title { margin: 0; font-size: 13px; font-weight: 600; color: var(--text); }
+.lobby-summary { margin: 0; display: flex; flex-direction: column; gap: 2px; }
+.lobby-summary-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+.lobby-summary-row:last-child { border-bottom: 0; }
+.lobby-summary-row dt { color: var(--muted); }
+.lobby-summary-row dd { margin: 0; color: var(--body); }
+.lobby-summary-row dd.is-on { color: var(--neon); }
+
+/* 35 — readiness reads as a quiet mono note; host as a green chip. */
+.mp-player-ready { font-family: var(--font-mono); font-size: 12px; color: var(--dimmer); }
+.mp-host-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--neon);
+  border: 1px solid var(--accent-line);
+  border-radius: 3px;
+  padding: 2px 7px;
+  background: transparent;
+}
+
+@media (max-width: 900px) {
+  .lobby-card { grid-template-columns: 1fr; gap: 24px; }
+  .lobby-side { border-inline-start: 0; padding-inline-start: 0; border-top: 1px solid var(--line); padding-top: 18px; }
+}
+
+/* --- Settings --- */
+
+/* 38 — 420px, as drawn. */
+#settings-panel { width: 420px; max-width: calc(100vw - 32px); }
+
+/* 39/40 — the account block leads, in its own bordered section, and Log out is
+   a full-width button rather than a small chip. */
+.settings-account {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.settings-account .btn-discord-logout {
+  width: 100%;
+  height: 40px;
+  background: #2a1618;
+  border: 1px solid var(--line-3);
+  color: #e8dcd8;
+  font-size: 14px;
+  font-weight: 600;
+}
+.settings-account .btn-discord { width: 100%; height: 40px; }
+.discord-login-status {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--neon);
+}
+.discord-name-note { margin: 0; text-align: center; font-size: 13px; color: var(--dim); }
+
+/* 41 — the value controls are chips sized to their content, not one wide box. */
+#settings-panel .setting-row select {
+  width: auto;
+  min-width: 64px;
+  height: 32px;
+  padding: 0 10px;
+  text-align: center;
+}
+#settings-panel #set-questions { width: 64px; }
+#settings-panel #set-difficulty { width: 110px; }
+#settings-panel #set-feedback-delay { width: 110px; }
+#settings-panel #set-timer { width: 150px; }
+
+/* 42 — save & close is the panel's full-width footer action. */
+#settings-panel > #set-close {
+  margin-top: 22px;
+  width: 100%;
+  height: 46px;
+  border-radius: 5px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* --- About --- */
+
+/* 45 — 400px, centred content. */
+#about-panel {
+  width: 400px;
+  max-width: calc(100vw - 32px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  padding: 34px 32px;
+}
+#about-panel > * { margin: 0; }
+
+/* 43 — a 64px round mark instead of a text emoji. */
+.about-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--accent-line);
+  margin: 8px 0;
+  filter: none;
+}
+.about-app { font-size: 15px; font-weight: 600; color: var(--text); }
+.about-desc { font-size: 13px; color: var(--dim); line-height: 1.6; max-width: 320px; }
+
+/* 46 — plain bordered link chips. */
+.about-links { display: flex; gap: 10px; margin-top: 8px; }
+.about-link {
+  padding: 9px 16px;
+  border: 1px solid var(--line-4);
+  border-radius: 4px;
+  background: transparent;
+  font-size: 13px;
+  color: var(--body);
+  cursor: pointer;
+}
+.about-link:hover { border-color: var(--accent-line); color: var(--neon); }
+.about-legal { display: flex; gap: 10px; font-size: 12px; color: var(--dimmer); margin-top: 4px; }
+
+/* 47 — close is the dialog's full-width footer action. */
+#about-close {
+  margin-top: 16px;
+  width: 100%;
+  height: 44px;
+  border-radius: 5px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* --- Profile --- */
+
+/* 48 — the name is set in mono here; it was still carrying a pre-redesign face. */
+#player-card.is-profile .player-card-name {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* 49/50 — best rank at the drawn size, and the avatar with its hairline. */
+#player-card.is-profile .pcb-value { font-size: 34px; line-height: 1; }
+#player-card.is-profile .player-card-avatar,
+#player-card.is-profile .player-card-avatar-img {
+  width: 52px;
+  height: 52px;
+  border: 1px solid var(--line-3);
+}
+
+/* 51 — last seen reads under the name, quiet and mono. */
+.player-card-ident { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.player-card-lastseen {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dimmer);
+}
+
+/* 52 — level and title on the left of the row, the XP count on its right, and
+   the bar beneath. The count used to sit below the bar on a third line. */
+.pcs-lvl-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.pcs-lvl-left, .pcs-lvl-right { display: flex; align-items: center; gap: 10px; }
+.pcs-xptext { color: var(--dimmer); font-family: var(--font-mono); font-size: 12px; }
+.pcs-lvl-badge {
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: var(--neon);
+  color: var(--accent-ink);
+  font-weight: 700;
+}
+.pcs-lvl-title { color: var(--text); font-weight: 600; }
+
+/* 53 — rank leads the ranking row, then the mode, then the score. The room card
+   shares these elements but not the space: it stacks live round progress above
+   them inside a dialog that must still fit a 520px Discord embed, so it keeps a
+   compact one-line row and the roomier design version is scoped to the profile
+   (see the .is-profile block further down). */
+.player-card-rank-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  border-radius: 6px;
+}
+.pcr-rank {
+  width: 36px;
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--neon);
+}
+.pcr-mode { flex: 1; min-width: 0; color: var(--text); }
+.pcr-score { flex: 0 0 auto; font-family: var(--font-mono); color: var(--muted); }
+
+/* 54 — follow is the primary action in the design's footer. */
+#btn-player-card-follow { font-family: var(--font-mono); font-weight: 700; }
+
+/* --- Mobile --- */
+
+@media (max-width: 768px) {
+  /* 56 — the design sets the phone hero at 19px on one line; ours ran to 30px
+     and filled the width edge to edge. */
+  #screen-home .home-title { font-size: 19px; white-space: nowrap; }
+  #screen-home .home-sub { font-size: 14px; }
+
+  /* 57/58 — Run returns to the flow. As a fixed bar it covered the button
+     beneath it, and the column below it could not be reached without scrolling
+     past a floating control. */
+  #screen-home #btn-start {
+    position: static;
+    inset-inline: auto;
+    bottom: auto;
+    width: 100%;
+    height: 52px;
+    box-shadow: none;
+  }
+  #screen-home .home-rail { margin-top: auto; }
+
+  /* 59/60 — the phone shows Run and one three-up row; the daily button and the
+     rail stats are desktop-only in the design. */
+  #screen-home #btn-daily,
+  #screen-home .rail-stats,
+  #screen-home .home-rail-divider { display: none; }
+  #screen-home .home-rail-links {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  #screen-home .home-rail-links .btn {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 42px;
+    justify-content: center;
+    border: 1px solid var(--line-3);
+    border-radius: var(--radius);
+    font-size: 13px;
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  #screen-home .home-mp-actions { gap: 8px; }
+
+  /* 62 — unselected rows carry a full hairline on the phone, not a left edge. */
+  #screen-home .mode-card {
+    border: 1px solid var(--line-2);
+    border-left: 1px solid var(--line-2);
+  }
+  #screen-home .mode-card.selected {
+    border-left: 2px solid var(--neon);
+    background: var(--panel-2);
+  }
+
+  /* 63 — the HUD is one compact mono line: no player chip, no lifeline, no
+     labels. Those are desktop affordances the phone has no room for. */
+  .game-topbar { flex-wrap: nowrap; }
+  .topbar-left, .topbar-right { flex-wrap: nowrap; }
+  .score-pill > span:first-child,
+  .correct-pill > span:first-child,
+  .streak-pill > span:first-child { display: none; }
+  .lifeline-btn { display: none; }
+}
+
+/* The segmented control's halves must not wrap — "all-time" broke onto two
+   lines inside its own pill at the design's 16px side padding. */
+.lb-scope-btn { white-space: nowrap; }
+.lb-view-mode { white-space: nowrap; }
+
+/* The connection note is an app affordance the design has no slot for, so it
+   reads as a quiet mono line under the header rather than a centred banner. */
+#screen-results.is-leaderboard-view .lb-note,
+.results-card .lb-note {
+  align-self: flex-start;
+  text-align: start;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dimmer);
+}
+
+/* 53 (cont.) — the compact two-up ranking cards were a fix for the old short
+   dialog. The full-screen profile has the width for the design's single column
+   of full rows: rank, mode, score, side by side. `.pcr-mode` was still spanning
+   the whole grid row (grid-column: 1 / -1), which stacked the three parts. */
+#player-card.is-profile .player-card-rankings-list {
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+#player-card.is-profile .player-card-rank-row {
+  display: flex;
+  gap: 16px;
+  padding: 13px 16px;
+  border: 1px solid var(--line-2);
+  border-radius: 5px;
+  background: var(--panel);
+}
+#player-card.is-profile .pcr-rank { width: 44px; }
+#player-card.is-profile .pcr-mode {
+  grid-column: auto;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.4;
+}
+#player-card.is-profile .pcr-rank { font-size: 14px; font-weight: 700; }
+#player-card.is-profile .pcr-score { font-size: 13px; font-weight: 400; }
+
+/* The section heading is sentence case in the design, not a mono kicker. */
+#player-card.is-profile .player-card-rankings-title,
+#player-card.is-profile .player-card-friends-title {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--text);
+}
+
+/* 35 (cont.) — the host chip is lowercase in the design; the pill shape and the
+   uppercasing came from the pre-redesign badge. */
+.mp-host-badge { text-transform: none; font-weight: 400; }
+
+/* 34 (cont.) — only the room-code label is a mono kicker in the design; the two
+   section headings beside it are sentence case, so they opt back out. */
+.lobby-players-title, .lobby-settings-title {
+  font-family: var(--font-sans);
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+@media (max-width: 768px) {
+  /* 61 — the phone shows the bare count. */
+  .mode-count-unit { display: none; }
+
+  /* 59 — the design collapses these five destinations behind a "More" button.
+     Keeping them all visible is the better trade here (nothing gets buried),
+     so the row wraps instead of squeezing "Global Leaderboard" to an ellipsis. */
+  #screen-home .home-rail-links { flex-wrap: wrap; }
+  #screen-home .home-rail-links .btn { flex: 1 1 auto; min-width: 96px; }
+}
+
+@media (max-width: 768px) {
+  /* The leaderboard view's desktop gutters (88px) and its 30px non-wrapping
+     title pushed the table off the right edge of a phone. The design's mobile
+     board is a narrow rank / player / score table — games and the report action
+     are desktop columns. */
+  #screen-results.is-leaderboard-view .results-card { padding: 18px 16px 0; max-width: 100%; }
+  #screen-results.is-leaderboard-view .results-buttons { padding: 16px 0 24px; }
+  .lb-view-head { flex-direction: column; align-items: stretch; gap: 12px; }
+  .lb-view-mode { font-size: 20px; white-space: normal; }
+  .lb-view-controls { flex-wrap: wrap; }
+  .lb-head, .lb-row { grid-template-columns: 26px 26px 1fr 70px; gap: 10px; }
+  .lb-report-cell { display: none; }
+}
+
+/* The achievement chips were still on the pre-redesign navy (#0e2238 / #123049
+   with cyan text) — the same class of leftover as the profile name's old font.
+   The design draws them as bordered chips: earned in the accent, the rest a
+   hairline on the panel ground. */
+.pcs-ach-item {
+  background: transparent;
+  border-color: var(--line-2);
+  border-radius: 4px;
+  padding: 8px 6px;
+  opacity: 1;
+  filter: none;
+}
+.pcs-ach-item .pcs-ach-name { color: var(--dimmest); font-size: 10px; font-weight: 500; }
+.pcs-ach-item:not(.is-earned) .pcs-ach-icon { filter: grayscale(1); opacity: .45; }
+.pcs-ach-item.is-earned {
+  background: var(--accent-soft);
+  border-color: var(--neon);
+  box-shadow: none;
+}
+.pcs-ach-item.is-earned .pcs-ach-name { color: var(--accent-text); font-weight: 600; }
+.pcs-ach-title { font-family: var(--font-sans); font-size: 13px; font-weight: 600; color: var(--text); }
+
+/* A short embed (Discord mobile, a small window) has to fit the room card's
+   header, its live round progress, the player's rankings AND the actions into
+   about 520px. Letting the whole card scroll pushed Close and Invite below the
+   fold. The live-progress list becomes the scroller instead, so the name at the
+   top and the actions at the bottom both stay put. */
+@media (max-height: 620px) {
+  #player-card:not(.is-profile) .modal-card { padding: 20px; gap: 12px; }
+  #player-card:not(.is-profile) .player-card-stats {
+    max-height: 34vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}

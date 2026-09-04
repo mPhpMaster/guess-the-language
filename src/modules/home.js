@@ -32,7 +32,17 @@ export async function renderModeCounts() {
     if (!counts) return;
     document.querySelectorAll('[data-mode-count]').forEach((el) => {
         const n = counts[el.dataset.modeCount];
-        if (n) el.textContent = `${n} q`;
+        // The unit is a separate node so the phone can drop it (the design's
+        // mobile home shows the bare count) without a second render path.
+        if (!n) return;
+        el.textContent = '';
+        const num = document.createElement('span');
+        num.className = 'mode-count-num';
+        num.textContent = String(n);
+        const unit = document.createElement('span');
+        unit.className = 'mode-count-unit';
+        unit.textContent = ' q';
+        el.append(num, unit);
     });
     const eyebrow = $('#home-eyebrow');
     if (!eyebrow) return;
@@ -109,7 +119,7 @@ export function updateDailyButton() {
     // which would wipe the tag on every repaint.
     btn.textContent = '';
     const label = document.createElement('span');
-    label.textContent = done ? `🗓️  ${t('dailyPlayed')}` : `🗓️  ${t('dailyChallenge')}`;
+    label.textContent = done ? t('dailyPlayed') : t('dailyChallenge');
     btn.appendChild(label);
     if (!done) {
         const tag = document.createElement('span');

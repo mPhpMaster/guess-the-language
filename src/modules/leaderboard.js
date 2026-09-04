@@ -1,6 +1,7 @@
 import { fetchDailyTop, fetchGamesFor, fetchPersonalRank, fetchTopScores, lbScope, lbViewMode, submitDailyScore, submitScore, supabaseConfigured } from './api.js';
 import { FRIENDS } from './constants.js';
-import { $, announce, closeDialog, openDialog } from './dom.js';
+import { $, announce, closeDialog, openDialog, setTitlebar } from './dom.js';
+import { formatScore } from './format.js';
 import { MODES, challengeText, t } from './i18n.js';
 import { appApiPrefix, discordAvatarUrl, getAppSessionToken, getDiscordProfile, getSettings, isDiscordActivity, safeDisplayName } from './identity.js';
 import { modeLabel } from './mp-ui.js';
@@ -62,6 +63,25 @@ export function mpDiscordAvatarUrl(player) {
     return null;
 }
 
+// The board carries two headings. On the results screen it is one section among
+// several and gets a modest inline title; opened on its own it is the whole
+// screen and takes the design's large two-line header, with the scope and mode
+// controls beside it. Both are filled from here so they can never disagree.
+export function setBoardHeading(title, meta, viewMode) {
+    const view = !!state.viewOnly;
+    $('#lb-view-head')?.classList.toggle('hidden', !view);
+    $('#results-sub')?.classList.toggle('hidden', view);
+    // The large header names the board and nothing else — its scope is already
+    // shown by which half of the pill is lit, so repeating it there wrapped the
+    // 30px line onto two.
+    const modeEl = $('#lb-view-mode');
+    if (modeEl) modeEl.textContent = (viewMode || title || '').toLowerCase();
+    const titleEl = $('#results-sub-title');
+    if (titleEl) titleEl.textContent = title || '';
+    const metaEl = $('#results-sub-meta');
+    if (metaEl) metaEl.textContent = meta || '';
+}
+
 // The leaderboard-view mode picker is only meaningful when browsing the board
 // (not on a real round's results, which must show the mode you just played).
 export function updateLbModeSwitch() {
@@ -89,7 +109,7 @@ export async function buildDailyLeaderboard() {
     const playerName = getPlayerName();
     $('#lb-mode-switch')?.classList.add('hidden');
     $('#lb-scope-switch')?.classList.add('hidden');
-    $('.results-sub').textContent = `${t('dailyChallenge')} · ${dailyDateKey()}`;
+    setBoardHeading(t('dailyChallenge'), dailyDateKey());
 
     if (!supabaseConfigured()) { note.className = 'lb-note'; note.textContent = ''; return; }
     note.className = 'lb-note';
@@ -132,7 +152,7 @@ export async function buildResultsLeaderboard() {
         $('#lb-mode-switch')?.classList.add('hidden');
         $('#lb-scope-switch')?.classList.add('hidden');
         $('#leaderboard').innerHTML = '';
-        $('.results-sub').textContent = t('practiceRound');
+        setBoardHeading(t('practiceRound'), '');
         const note = $('#lb-note');
         note.className = 'lb-note';
         note.textContent = t('practiceNotSaved');
@@ -208,7 +228,10 @@ export async function buildResultsLeaderboard() {
                 personal.classList.remove('hidden');
             }
 
-            $('.results-sub').textContent = `${t('globalLeaderboard')} · ${modeLabel(lbViewMode())}`;
+            const modeName = modeLabel(lbViewMode());
+            setBoardHeading(t('comparison'), `${modeName} · ${t(lbScope() === 'week' ? 'scopeWeek' : 'scopeAllTime')}`, modeName);
+            // The window title names the board when the board is the whole screen.
+            if (state.viewOnly) setTitlebar(`${t('tbLeaderboard')} ${modeName.toLowerCase()}`);
             const games = await fetchGamesFor(list.map((p) => safeDisplayName(p.name)));
             renderLeaderboard(list, games);
             note.className = 'lb-note online';
@@ -225,7 +248,7 @@ export async function buildResultsLeaderboard() {
     }
 
     // Offline / fallback: mock friends + the player.
-    $('.results-sub').textContent = t('comparison');
+    setBoardHeading(t('comparison'), modeLabel(lbViewMode()));
     renderLeaderboard(FRIENDS.concat([{
         name: playerName,
         avatar: discordAvatarUrl(getDiscordProfile()) || '🧑‍💻',
@@ -260,11 +283,11 @@ export function renderLeaderboard(list, gamesByName = {}) {
         `<span class="lb-avatar" aria-hidden="true"></span>` +
         `<span class="lb-bar-wrap">${t('lbColPlayer')}</span>` +
         `<span class="lb-score">${t('lbColScore')}</span>` +
-        `<span class="lb-games">${t('lbColGames')}</span>`;
+        `<span class="lb-games">${t('lbColGames')}</span>` +
+        `<span class="lb-report-cell"></span>`;
     lb.appendChild(head);
     display.forEach((p, i) => {
         const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-other';
-        const placementBadge = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '';
         const row = document.createElement('div');
         row.className = `lb-row ${rankClass}${p.you ? ' is-you' : ''}`;
         // Place number (1, 2, 3, …) shown at the start of every row.
@@ -277,7 +300,7 @@ export function renderLeaderboard(list, gamesByName = {}) {
         const displayName = safeDisplayName(p.name);
         // Name only — the score moved to its own column so the row reads as a
         // table (rank / player / score / games), as the design lays it out.
-        label.textContent = `${displayName}${placementBadge ? ` ${placementBadge}` : ''}`;
+        label.textContent = displayName;
         if (p.multiplayer) {
             const mpTag = document.createElement('span');
             mpTag.className = 'lb-mp-tag';
@@ -299,7 +322,7 @@ export function renderLeaderboard(list, gamesByName = {}) {
         wrap.appendChild(label);
         const scoreCell = document.createElement('div');
         scoreCell.className = 'lb-score';
-        scoreCell.textContent = String(p.score);
+        scoreCell.textContent = formatScore(p.score);
         const gamesCell = document.createElement('div');
         gamesCell.className = 'lb-games';
         const g = gamesByName[safeDisplayName(p.name).trim().toLowerCase()];
@@ -327,14 +350,17 @@ export function renderLeaderboard(list, gamesByName = {}) {
         row.appendChild(gamesCell);
         row.setAttribute('role', 'listitem');
         row.setAttribute('aria-label', `${t('personalRank')} ${p.rank || i + 1}, ${displayName}, ${p.score} points${p.multiplayer ? `, ${t('multiplayerScore')}` : ''}`);
+        const reportCell = document.createElement('div');
+        reportCell.className = 'lb-report-cell';
         if (supabaseConfigured() && !p.you && Number(p.id) > 0 && getAppSessionToken()) {
             const report = document.createElement('button');
             report.className = 'lb-report text-btn';
             report.type = 'button';
             report.textContent = t('report');
             report.addEventListener('click', (ev) => { ev.stopPropagation(); openReportDialog(p); });
-            row.appendChild(report);
+            reportCell.appendChild(report);
         }
+        row.appendChild(reportCell);
 
         // Click a leaderboard row to open that player's profile (rank per mode).
         // Only meaningful online, where there are real ranked scores to show.

@@ -163,12 +163,20 @@ app.whenReady().then(async () => {
     const playerRows = await run('document.querySelectorAll("#lobby-players .mp-player-row").length');
     check('lobby lists at least host', playerRows >= 1, String(playerRows));
 
-    const adminVisible = await run('!document.querySelector("#lobby-admin").classList.contains("hidden")');
-    check('admin controls visible for host', adminVisible);
+    // The host's start / end controls sit in the lobby's single action row now
+    // (there is no #lobby-admin wrapper), so they are checked individually.
+    const startVisible = await run('!document.querySelector("#btn-lobby-start").classList.contains("hidden")');
+    check('host start control visible', startVisible);
+    const endVisible = await run('!document.querySelector("#btn-lobby-end").classList.contains("hidden")');
+    check('host end-room control visible', endVisible);
 
     // Host can change all game settings from the lobby.
     const settingsVisible = await run('!document.querySelector("#lobby-settings").classList.contains("hidden")');
     check('host lobby settings visible', settingsVisible);
+    // Everyone else reads the same settings as a summary; it is hidden for the
+    // host, who has the controls themselves.
+    const summaryHidden = await run('document.querySelector("#lobby-summary").classList.contains("hidden")');
+    check('host sees controls, not the read-only summary', summaryHidden);
     check('lobby mode select exists', await run('!!document.querySelector("#lobby-mode-select")'));
     check('lobby questions select exists', await run('!!document.querySelector("#lobby-questions")'));
     check('lobby difficulty select exists', await run('!!document.querySelector("#lobby-difficulty")'));

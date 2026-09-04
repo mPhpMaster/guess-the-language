@@ -1,8 +1,9 @@
 import { isPerfectRound, logError, recordPlay, supabaseConfigured } from './api.js';
 import { $, setTitlebar, showScreen } from './dom.js';
+import { formatScore } from './format.js';
 import { t } from './i18n.js';
 import { discordAvatarUrl, getDiscordProfile, isDiscordActivity, loadCrossOriginImage, safeDisplayName } from './identity.js';
-import { buildResultsLeaderboard, currentModeLabel, renderChallengeVerdict } from './leaderboard.js';
+import { buildResultsLeaderboard, currentModeLabel, renderChallengeVerdict, setBoardHeading } from './leaderboard.js';
 import { modeLabel } from './mp-ui.js';
 import { getPlayerName } from './settings.js';
 import { sfx } from './sound.js';
@@ -22,8 +23,11 @@ export async function endGame() {
     showScreen('results');
     setTitlebar(`${t('tbResults')} — ${modeLabel(state.mode).toLowerCase()}`);
 
-    $('.final-score').classList.toggle('hidden', viewOnly);
-    $('.results-correct').classList.toggle('hidden', viewOnly);
+    // The whole round header goes away in leaderboard view — there is no round.
+    $('#results-head').classList.toggle('hidden', viewOnly);
+    // The board is the entire screen in that view, so the screen switches to the
+    // design's left-aligned board layout instead of the centred results column.
+    $('#screen-results').classList.toggle('is-leaderboard-view', viewOnly);
     $('#btn-challenge').classList.toggle('hidden', viewOnly);
     $('#btn-share-card')?.classList.toggle('hidden', viewOnly);
     $('#challenge-link').classList.add('hidden');
@@ -31,8 +35,8 @@ export async function endGame() {
     // the leaderboard (viewOnly), where there's no round to replay.
     $('#btn-replay').classList.toggle('hidden', viewOnly);
     $('#btn-replay').textContent = t('replay');
-    $('#btn-menu').textContent = t('backMenu');
-    $('.results-sub').textContent = `${t('leaderboardFor')} ${currentModeLabel()}`;
+    $('#btn-menu').textContent = viewOnly ? t('mainMenu') : t('backMenu');
+    setBoardHeading(t('comparison'), currentModeLabel());
     $('#result-stats').classList.toggle('hidden', viewOnly);
     if (viewOnly) $('#round-breakdown')?.classList.add('hidden');
     $('#answer-review').classList.toggle('hidden', viewOnly);
@@ -286,6 +290,8 @@ export function renderAnswerReview(history) {
     const list = $('#answer-review-list');
     list.innerHTML = '';
     const incorrect = history.filter((item) => !item.correct);
+    const heading = $('#answer-review-title');
+    if (heading) heading.textContent = `${t('missedTitle')} (${incorrect.length})`;
     if (!incorrect.length) {
         const empty = document.createElement('p');
         empty.className = 'review-empty';
@@ -293,21 +299,36 @@ export function renderAnswerReview(history) {
         list.appendChild(empty);
         return;
     }
-    incorrect.forEach((item, index) => {
+    incorrect.forEach((item) => {
         const article = document.createElement('article');
         article.className = 'review-item';
-        const title = document.createElement('h4');
-        title.textContent = `${index + 1}. ${item.prompt || item.panelText}`;
         const code = document.createElement('pre');
         code.textContent = item.panelText || item.prompt || '';
         const answers = document.createElement('p');
-        answers.textContent = `${t('yourAnswer')}: ${item.selectedAnswer || '—'} · ${t('correctAnswer')}: ${item.correctAnswer}`;
-        const explanation = document.createElement('p');
-        explanation.className = 'review-explanation';
-        explanation.textContent = item.explanation?.en || '';
-        article.append(title, code, answers, explanation);
+        // A timeout has no pick to report, so it says so instead of "you: —".
+        if (item.selectedAnswer) {
+            answers.append(
+                labelSpan(t('answeredYou')),
+                document.createTextNode(' ' + item.selectedAnswer + ' '),
+                labelSpan(t('answeredAnswer'))
+            );
+        } else {
+            answers.append(labelSpan(t('answeredTimeout')));
+        }
+        const right = document.createElement('span');
+        right.className = 'review-answer';
+        right.textContent = ' ' + item.correctAnswer;
+        answers.appendChild(right);
+        article.append(code, answers);
         list.appendChild(article);
     });
+}
+
+function labelSpan(text) {
+    const el = document.createElement('span');
+    el.className = 'review-label';
+    el.textContent = text;
+    return el;
 }
 
 export function countUp(el, target, durationMs) {
@@ -315,7 +336,7 @@ export function countUp(el, target, durationMs) {
 
     function frame(now) {
         const p = Math.min(1, (now - start) / durationMs);
-        el.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3))));
+        el.textContent = formatScore(target * (1 - Math.pow(1 - p, 3)));
         if (p < 1) requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);

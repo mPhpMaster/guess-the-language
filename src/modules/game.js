@@ -1,4 +1,5 @@
-import { OPTION_COLORS, RING_CIRCUMFERENCE } from './constants.js';
+import { RING_CIRCUMFERENCE } from './constants.js';
+import { formatScore } from './format.js';
 import { $, announce, setTitlebar, showScreen } from './dom.js';
 import { highlight } from './highlight.js';
 import { diffLabel, t } from './i18n.js';
@@ -6,7 +7,7 @@ import { getSettings, updateInGameProfile } from './identity.js';
 import { modeLabel, syncMpHudFromPlayers } from './mp-ui.js';
 import { markPresenceRoundStart, pushPresence } from './presence.js';
 import { endGame } from './results.js';
-import { buildLanguageOptions, buildRound, bumpAdaptive, maybeSetupAdaptive, pickAdaptiveQuestion, resolvedQuestionTime, scoreAnswer, shuffle, shuffleOptions } from './round.js';
+import { buildLanguageOptions, buildRound, bumpAdaptive, maybeSetupAdaptive, pickAdaptiveQuestion, resolvedQuestionTime, scoreAnswer, shuffle, shuffleOptions, streakMultiplier } from './round.js';
 import { ensureValidPlayerName, requireNameToInteract } from './settings.js';
 import { sfx } from './sound.js';
 import { state } from './state.js';
@@ -27,7 +28,7 @@ export function beginRound() {
     updateCorrect();
     updateStreakPill();
     updateFiftyButton();
-    $('#q-total').textContent = String(state.round.length);
+    $('#q-total').textContent = padIndex(state.round.length);
     $('#correct-total').textContent = String(state.round.length);
     updateInGameProfile();
     // The "you've been challenged" banner belongs on Home only — clear it once play
@@ -161,7 +162,7 @@ export function nextQuestion() {
 
     const cur = normalizeQuestion(state.round[state.index]);
     state.current = cur;
-    $('#q-current').textContent = String(state.index + 1);
+    $('#q-current').textContent = padIndex(state.index + 1);
     setTitlebar(`${modeLabel(state.mode).toLowerCase()} — ${t('tbRound')} ${state.index + 1}/${state.round.length}`);
     const dEl = $('#code-difficulty');
     dEl.dataset.diff = cur.difficulty;
@@ -265,6 +266,11 @@ export function setupFillForm(disabled) {
     if (!disabled && input) setTimeout(() => { try { input.focus(); } catch (e) {} }, 40);
 }
 
+// Round counters are zero-padded in the design (Q 08 / 10).
+export function padIndex(n) {
+    return String(n).padStart(2, '0');
+}
+
 export function renderOptions(cur, disabled) {
     const grid = $('#options-grid');
     grid.innerHTML = '';
@@ -274,32 +280,27 @@ export function renderOptions(cur, disabled) {
         const btn = document.createElement('button');
         btn.dataset.answer = opt.label;
         btn.disabled = !!disabled;
-        if (cur.style === 'languages') {
-            btn.className = 'lang-btn';
-            btn.innerHTML =
-                `<span class="opt-key" aria-hidden="true">${index + 1}</span>` +
-                `<span class="lang-icon" style="background:${opt.color}">${opt.glyph}</span>` +
-                `<span class="lang-name">${opt.label}</span>`;
-        } else {
-            // Give multiple-choice options the same card-with-icon look as the
-            // language buttons: a lettered A/B/C/D badge plus the answer text.
-            btn.className = 'opt-btn';
-            const badge = document.createElement('span');
-            badge.className = 'opt-badge';
-            badge.style.background = OPTION_COLORS[index % OPTION_COLORS.length];
-            badge.textContent = String(index + 1);
-            const text = document.createElement('span');
-            text.className = 'opt-text';
-            text.textContent = opt.label;
-            btn.appendChild(badge);
-            btn.appendChild(text);
-        }
+        // Both option kinds are the same card in the design: a mono key badge
+        // and the label, nothing else. The class names differ only because the
+        // rest of the app (and the smoke tests) address them separately.
+        btn.className = cur.style === 'languages' ? 'lang-btn' : 'opt-btn';
+        const badge = document.createElement('span');
+        badge.className = 'opt-key';
+        badge.setAttribute('aria-hidden', 'true');
+        badge.textContent = String(index + 1);
+        const text = document.createElement('span');
+        text.className = cur.style === 'languages' ? 'lang-name' : 'opt-text';
+        text.textContent = opt.label;
+        btn.appendChild(badge);
+        btn.appendChild(text);
         btn.addEventListener('click', () => {
             if (state.multiplayer) onAnswerMultiplayer(opt.label, btn);
             else onAnswer(opt.label, btn);
         });
         grid.appendChild(btn);
     });
+    const hint = $('#game-footer-hint');
+    if (hint) hint.textContent = t('answerWithKeys').replace('{n}', String(cur.options.length));
 }
 
 export function clearSelectedOption() {
@@ -743,7 +744,7 @@ export function showCodeTab(which) {
 // ---------- HUD ----------
 export function updateScore(pulse) {
     const el = $('#game-score');
-    el.textContent = String(state.score);
+    el.textContent = formatScore(state.score);
     if (pulse) {
         el.animate(
             [{
@@ -768,9 +769,10 @@ export function updateCorrect() {
 
 export function updateStreakPill() {
     const pill = $('#streak-pill');
-    if (state.streak >= 3) {
+    const mult = streakMultiplier(state.streak);
+    if (mult > 1) {
         pill.classList.remove('hidden');
-        $('#streak-count').textContent = String(state.streak);
+        $('#streak-count').textContent = '×' + mult;
     } else {
         pill.classList.add('hidden');
     }

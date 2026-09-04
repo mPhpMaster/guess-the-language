@@ -27,7 +27,7 @@ export function shuffleOptions(arr, optionSeed) {
 
 // Number of language choices shown per question. The pool (LANGUAGES) is larger,
 // so each question shows the correct language plus a rotating set of distractors.
-export const LANG_OPTION_COUNT = 4;
+export const LANG_OPTION_COUNT = 6;
 
 // Pick the on-screen language options for a question: the correct language plus
 // (LANG_OPTION_COUNT-1) distractors from the pool, then shuffle. optionSeed keeps
@@ -46,8 +46,14 @@ export function buildLanguageOptions(correctName, optionSeed) {
     }));
 }
 
+// The streak bonus, as one rule. The HUD pill and the scorer both read it, so
+// the number shown to the player is the number actually applied.
+export function streakMultiplier(streak) {
+    return streak >= 3 ? 1.5 : 1;
+}
+
 export function scoreAnswer(timeLeft, streakAfter) {
-    const multiplier = streakAfter >= 3 ? 1.5 : 1;
+    const multiplier = streakMultiplier(streakAfter);
     // Guard against a non-finite timeLeft (e.g. practice mode's ∞ timer) so the
     // score can never become Infinity.
     const t = Number.isFinite(timeLeft) ? Math.max(0, timeLeft) : 0;

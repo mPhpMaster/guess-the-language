@@ -38,7 +38,7 @@
   <!-- ===== Custom title bar (kept LTR like native window chrome) ===== -->
   <header class="titlebar" dir="ltr">
     <div class="titlebar-left">
-      <span class="win-logo">▦</span>
+      <span class="win-logo">&#9679;</span>
       <span class="titlebar-title" id="titlebar-title" data-i18n="appSlug">guess-the-language</span>
     </div>
     <div class="titlebar-controls">
@@ -60,7 +60,6 @@
 
     <!-- ============ HOME SCREEN (mode + actions in one page) ============ -->
     <section id="screen-home" class="screen active">
-        <button class="corner-btn about-btn" id="btn-about" title="About">&#9432;</button>
 
         <!-- Two columns: the mode list reads as a file tree, the rail as a
              sidebar. Mode descriptions stay in the DOM (sr-only) so the i18n
@@ -129,9 +128,7 @@
                 <span class="home-profile-sub" data-i18n="signedInDiscord">signed in · discord</span>
               </span>
             </div>
-            <button class="btn btn-discord home-login-cta hidden" id="home-login-cta" data-i18n="loginDiscord">
-              &#128172;  Login with Discord
-            </button>
+            <button class="btn btn-discord home-login-cta hidden" id="home-login-cta" data-i18n="loginDiscord">Login with Discord</button>
             <p class="auth-hint hidden" id="web-auth-hint" data-i18n="webAuthHint">
               Sign in with Discord to save your identity and play on the global leaderboard.
             </p>
@@ -141,16 +138,16 @@
             </div>
 
             <div class="home-actions">
-              <button class="btn btn-primary" id="btn-start" data-i18n="start">▶  Start</button>
-              <button class="btn btn-daily" id="btn-daily" data-i18n="dailyChallenge">🗓️  Daily Challenge</button>
+              <button class="btn btn-primary" id="btn-start" data-i18n="start">run ▸</button>
+              <button class="btn btn-daily" id="btn-daily" data-i18n="dailyChallenge">Daily challenge</button>
               <div class="home-actions-row home-mp-actions">
-                <button class="btn btn-ghost" id="btn-host" data-i18n="hostRoom">🏠  Host Room</button>
-                <button class="btn btn-ghost" id="btn-join" data-i18n="joinRoom">🔗  Join Room</button>
+                <button class="btn btn-ghost" id="btn-host" data-i18n="hostRoom">Host room</button>
+                <button class="btn btn-ghost" id="btn-join" data-i18n="joinRoom">Join room</button>
               </div>
               <p class="discord-mp-note hidden" id="discord-mp-note" data-i18n="discordAutoMp">
                 Multiplayer is automatic here — everyone in this voice channel shares the same room.
               </p>
-              <button class="btn btn-primary hidden" id="btn-discord-host" data-i18n="joinRoom">🔗  Join Room</button>
+              <button class="btn btn-primary hidden" id="btn-discord-host" data-i18n="joinRoom">Join room</button>
             </div>
 
             <div class="home-rail-divider" aria-hidden="true"></div>
@@ -162,10 +159,11 @@
             </div>
 
             <div class="home-actions-row home-rail-links">
-              <button class="btn btn-ghost" id="btn-practice" data-i18n="practiceMode">🎓  Practice</button>
-              <button class="btn btn-ghost" id="btn-friends" data-i18n="friends">👥  Friends &amp; Scores</button>
-              <button class="btn btn-ghost" id="btn-settings" data-i18n="settings">⚙  Settings</button>
-              <button class="btn btn-ghost btn-admin hidden" id="btn-admin" data-i18n="adminButton">🛡️  Admin</button>
+              <button class="btn btn-ghost" id="btn-practice" data-i18n="practiceMode">Practice</button>
+              <button class="btn btn-ghost" id="btn-friends" data-i18n="friends">Global Leaderboard</button>
+              <button class="btn btn-ghost" id="btn-settings" data-i18n="settings">Settings</button>
+              <button class="btn btn-ghost" id="btn-about" data-i18n="aboutButton">About</button>
+              <button class="btn btn-ghost btn-admin hidden" id="btn-admin" data-i18n="adminButton">Admin</button>
             </div>
           </aside>
         </div>
@@ -174,27 +172,25 @@
       <dialog id="settings-panel" class="popover" aria-labelledby="settings-title" aria-describedby="settings-description">
         <h3 id="settings-title" data-i18n="settingsTitle">Settings</h3>
         <p class="dialog-description" id="settings-description" data-i18n="settingsDescription">Adjust your quiz preferences.</p>
+        <div class="settings-account">
+          <label class="setting-row hidden" id="setting-name-row">
+            <span id="set-name-label" data-i18n="settingName">Your leaderboard name</span>
+            <input type="text" id="set-name" maxlength="24" placeholder="User" autocomplete="off" />
+          </label>
+          <button class="btn btn-discord hidden" id="btn-discord-login" data-i18n="loginDiscord">Login with Discord</button>
+          <button class="btn btn-discord-logout hidden" id="btn-discord-logout" data-i18n="logoutDiscord">Log out</button>
+          <p class="discord-login-status hidden" id="discord-login-status"></p>
+          <p class="discord-name-note hidden" id="discord-name-note" data-i18n="discordNameNote">Your public name and avatar come from Discord.</p>
+          <p class="modal-error hidden" id="settings-error" role="alert"></p>
+        </div>
         <div class="setting-row">
           <span data-i18n="settingUiScale">Interface size</span>
           <span class="ui-scale-control">
-            <button type="button" class="ui-scale-btn" id="ui-scale-minus" aria-label="Smaller interface">−</button>
+            <button type="button" class="ui-scale-btn" id="ui-scale-minus" aria-label="Smaller interface">&minus;</button>
             <span class="ui-scale-value" id="ui-scale-value" aria-live="polite">100%</span>
             <button type="button" class="ui-scale-btn" id="ui-scale-plus" aria-label="Larger interface">+</button>
           </span>
         </div>
-        <label class="setting-row" id="setting-name-row">
-          <span id="set-name-label" data-i18n="settingName">Your leaderboard name</span>
-          <input type="text" id="set-name" maxlength="24" placeholder="User" autocomplete="off" />
-        </label>
-        <button class="btn btn-discord btn-sm hidden" id="btn-discord-login" data-i18n="loginDiscord">
-          &#128172;  Login with Discord
-        </button>
-        <button class="btn btn-discord-logout btn-sm hidden" id="btn-discord-logout" data-i18n="logoutDiscord">
-          &#128682;  Log out
-        </button>
-        <p class="discord-login-status hidden" id="discord-login-status"></p>
-        <p class="discord-name-note hidden" id="discord-name-note" data-i18n="discordNameNote">Your public name and avatar come from Discord.</p>
-        <p class="modal-error hidden" id="settings-error" role="alert"></p>
         <label class="setting-row">
           <span data-i18n="settingQuestions">Questions per round</span>
           <select id="set-questions">
@@ -247,110 +243,124 @@
             <option value="manual" data-i18n="feedbackManual">Manual</option>
           </select>
         </label>
-        <button class="btn btn-primary btn-sm" id="set-close" data-i18n="save">Save &amp; Close</button>
+        <button class="btn btn-primary" id="set-close" data-i18n="save">save &amp; close</button>
       </dialog>
 
       <!-- About popover -->
       <dialog id="about-panel" class="popover" aria-labelledby="about-title">
         <h3 id="about-title" data-i18n="aboutTitle">About</h3>
-        <div class="about-logo">&#127918;</div>
+        <img class="about-logo" src="favicon.svg" alt="" aria-hidden="true" />
         <p class="about-app"><span data-i18n="appTitle">Guess the Language</span> <span id="about-version"></span></p>
         <p class="about-desc" data-i18n="aboutDesc">An IT quiz game: programming languages, cybersecurity, DevOps & networking.</p>
         <p class="about-count"><span data-i18n="aboutQuestions">Questions:</span> <strong id="about-count">…</strong></p>
         <div class="about-links">
-          <button class="about-link" data-url="https://github.com/mPhpMaster/guess-the-language">&#128187; GitHub</button>
-          <button class="about-link" data-url="https://discord.gg/BRgVPum">&#128172; Discord</button>
-          <button class="about-link" data-url="https://www.linkedin.com/in/mohammad-al-safadi/">&#128188; LinkedIn</button>
+          <button class="about-link" data-url="https://github.com/mPhpMaster/guess-the-language">GitHub</button>
+          <button class="about-link" data-url="https://discord.gg/BRgVPum">Discord</button>
+          <button class="about-link" data-url="https://www.linkedin.com/in/mohammad-al-safadi/">LinkedIn</button>
         </div>
         <div class="about-legal">
           <a class="about-legal-link" href="/terms.html" target="_blank" rel="noopener noreferrer">Terms of Service</a>
           <span class="about-legal-sep">·</span>
           <a class="about-legal-link" href="/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
         </div>
-        <button class="btn btn-primary btn-sm" id="about-close" data-i18n="close">Close</button>
+        <button class="btn btn-primary btn-sm" id="about-close" data-i18n="closeLower">close</button>
       </dialog>
     </section>
 
     <!-- ============ LOBBY SCREEN ============ -->
     <section id="screen-lobby" class="screen">
+      <!-- Two columns, as the design lays the lobby out: the room and its
+           players on the left, what you are about to play on the right. -->
       <div class="lobby-card">
         <h2 class="sr-only screen-heading" tabindex="-1" data-i18n="lobbyTitle">Multiplayer lobby</h2>
-        <p class="lobby-label" id="lobby-label" data-i18n="roomCode">Room code</p>
-        <div class="lobby-code-row">
-          <div class="lobby-code" id="lobby-code">----</div>
-          <button class="btn btn-ghost btn-sm" id="btn-copy-code" data-i18n="copyCode">Copy</button>
-        </div>
-        <p class="lobby-mode" id="lobby-mode"></p>
 
-        <!-- Host-only game settings (the owner can change all of it) -->
-        <div class="lobby-settings hidden" id="lobby-settings">
-          <h4 class="lobby-settings-title" data-i18n="lobbySettings">Game settings</h4>
-          <label class="setting-row">
-            <span data-i18n="changeMode">Modes</span>
-            <select id="lobby-mode-select">
-              <option value="languages" data-i18n="modeLanguages">Programming Languages</option>
-              <option value="cybersecurity" data-i18n="modeCyber">Cybersecurity</option>
-              <option value="devops" data-i18n="modeDevops">DevOps</option>
-              <option value="network" data-i18n="modeNetwork">Networking</option>
-              <option value="gamedev" data-i18n="modeGamedev">Game Dev</option>
-              <option value="algorithms" data-i18n="modeAlgo">Problem Solving</option>
-              <option value="all" data-i18n="modeAll">All (Mixed)</option>
-            </select>
-          </label>
-          <label class="setting-row">
-            <span data-i18n="settingQuestions">Questions per round</span>
-            <select id="lobby-questions">
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-              <option value="20">20</option>
-            </select>
-          </label>
-          <label class="setting-row">
-            <span data-i18n="settingDifficulty">Difficulty</span>
-            <select id="lobby-difficulty">
-              <option value="all" data-i18n="diffAll">All</option>
-              <option value="easy" data-i18n="diffEasy">Easy</option>
-              <option value="medium" data-i18n="diffMedium">Medium</option>
-              <option value="hard" data-i18n="diffHard">Hard</option>
-            </select>
-          </label>
-          <label class="setting-row">
-            <span data-i18n="settingTimer">Time per question</span>
-            <select id="lobby-timer">
-              <option value="auto" data-i18n="timerAuto">Auto (by difficulty)</option>
-              <option value="5">5s</option>
-              <option value="10">10s</option>
-              <option value="15">15s</option>
-              <option value="20">20s</option>
-              <option value="30">30s</option>
-              <option value="45">45s</option>
-              <option value="60">60s</option>
-            </select>
-          </label>
-          <label class="setting-row">
-            <span data-i18n="settingSound">Sound effects</span>
-            <input type="checkbox" id="lobby-sound" />
-          </label>
+        <div class="lobby-main">
+          <div class="lobby-room">
+            <p class="lobby-label" id="lobby-label" data-i18n="roomCode">room code</p>
+            <div class="lobby-code-row">
+              <div class="lobby-code" id="lobby-code">----</div>
+              <button class="btn btn-ghost btn-sm" id="btn-copy-code" data-i18n="copyCode">copy</button>
+            </div>
+            <p class="lobby-mode" id="lobby-mode"></p>
+          </div>
+
+          <div class="lobby-players">
+            <h3 class="lobby-players-title" id="lobby-players-title" data-i18n="playersTitle">Players</h3>
+            <div class="mp-player-list" id="lobby-players"></div>
+            <p class="lobby-wait hidden" id="lobby-wait" data-i18n="waitingHost">Waiting for host&hellip;</p>
+          </div>
+
+          <!-- One action row in the design: start, invite, leave, end room. -->
+          <div class="lobby-actions">
+            <button class="btn btn-accent hidden" id="btn-lobby-start" data-i18n="startGame">start game &#9656;</button>
+            <!-- Anyone in the room can pull friends in. Inside Discord this opens
+                 the native Activity invite (not a text message / discord.gg link),
+                 so a server's "external invites" or word-filter AutoMod can't
+                 block it. -->
+            <button class="btn btn-ghost lobby-invite hidden" id="btn-lobby-invite" data-i18n="inviteToRoom">Invite</button>
+            <button class="btn btn-ghost lobby-leave" id="btn-lobby-leave" data-i18n="leaveRoom">Leave</button>
+            <button class="btn btn-ghost btn-danger hidden" id="btn-lobby-end" data-i18n="endRoom">End room</button>
+          </div>
+          <p class="lobby-invite-note hidden" id="lobby-invite-note"></p>
         </div>
 
-        <h3 class="lobby-players-title" data-i18n="playersTitle">Players</h3>
-        <div class="mp-player-list" id="lobby-players"></div>
+        <aside class="lobby-side">
+          <h4 class="lobby-settings-title" data-i18n="gameSettings">Game settings</h4>
 
-        <p class="lobby-wait hidden" id="lobby-wait" data-i18n="waitingHost">Waiting for host…</p>
+          <!-- Everyone sees what the room is set to; only the host sees the
+               controls that change it. Before, a guest saw nothing at all. -->
+          <dl class="lobby-summary" id="lobby-summary"></dl>
 
-        <div class="lobby-admin-actions hidden" id="lobby-admin">
-          <button class="btn btn-primary" id="btn-lobby-start" data-i18n="startGame">▶  Start Game</button>
-          <button class="btn btn-ghost" id="btn-lobby-end" data-i18n="endRoom">End Room</button>
-        </div>
-
-        <!-- Anyone in the room can pull friends in. Inside Discord this opens the
-             native Activity invite (not a text message / discord.gg link), so a
-             server's "external invites" or word-filter AutoMod can't block it. -->
-        <button class="btn btn-primary lobby-invite hidden" id="btn-lobby-invite" data-i18n="inviteToRoom">➕  Invite to this room</button>
-        <p class="lobby-invite-note hidden" id="lobby-invite-note"></p>
-
-        <button class="btn btn-ghost lobby-leave" id="btn-lobby-leave" data-i18n="leaveRoom">Leave</button>
+          <div class="lobby-settings hidden" id="lobby-settings">
+            <label class="setting-row">
+              <span data-i18n="changeMode">Modes</span>
+              <select id="lobby-mode-select">
+                <option value="languages" data-i18n="modeLanguages">Programming Languages</option>
+                <option value="cybersecurity" data-i18n="modeCyber">Cybersecurity</option>
+                <option value="devops" data-i18n="modeDevops">DevOps</option>
+                <option value="network" data-i18n="modeNetwork">Networking</option>
+                <option value="gamedev" data-i18n="modeGamedev">Game Dev</option>
+                <option value="algorithms" data-i18n="modeAlgo">Problem Solving</option>
+                <option value="all" data-i18n="modeAll">All (Mixed)</option>
+              </select>
+            </label>
+            <label class="setting-row">
+              <span data-i18n="settingQuestions">Questions per round</span>
+              <select id="lobby-questions">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+              </select>
+            </label>
+            <label class="setting-row">
+              <span data-i18n="settingDifficulty">Difficulty</span>
+              <select id="lobby-difficulty">
+                <option value="all" data-i18n="diffAll">All</option>
+                <option value="easy" data-i18n="diffEasy">Easy</option>
+                <option value="medium" data-i18n="diffMedium">Medium</option>
+                <option value="hard" data-i18n="diffHard">Hard</option>
+              </select>
+            </label>
+            <label class="setting-row">
+              <span data-i18n="settingTimer">Time per question</span>
+              <select id="lobby-timer">
+                <option value="auto" data-i18n="timerAuto">Auto (by difficulty)</option>
+                <option value="5">5s</option>
+                <option value="10">10s</option>
+                <option value="15">15s</option>
+                <option value="20">20s</option>
+                <option value="30">30s</option>
+                <option value="45">45s</option>
+                <option value="60">60s</option>
+              </select>
+            </label>
+            <label class="setting-row">
+              <span data-i18n="settingSound">Sound effects</span>
+              <input type="checkbox" id="lobby-sound" />
+            </label>
+          </div>
+        </aside>
       </div>
     </section>
 
@@ -448,7 +458,8 @@
           <img class="player-card-avatar-img hidden" id="player-card-avatar-img" alt="" referrerpolicy="no-referrer" />
           <div class="player-card-ident">
             <div class="player-card-name" id="player-card-name"></div>
-              </div>
+            <p class="player-card-lastseen hidden" id="player-card-lastseen"></p>
+          </div>
           <span class="mp-host-badge hidden" id="player-card-host" data-i18n="adminBadge">Host</span>
           <!-- Profile variant only: the design lifts best rank out of the stat
                grid and sets it opposite the name. -->
@@ -485,7 +496,6 @@
         </dl>
         <!-- Profile view (opened from the leaderboard / home): the player's
              aggregate stats plus best score and rank in each mode. -->
-        <p class="player-card-lastseen hidden" id="player-card-lastseen"></p>
         <div class="player-card-profile-stats hidden" id="player-card-profile-stats"></div>
         <div class="player-card-rankings hidden" id="player-card-rankings">
           <h4 class="player-card-rankings-title" data-i18n="rankingsTitle">Rankings by mode</h4>
@@ -498,9 +508,9 @@
         <p class="modal-error hidden" id="player-card-error" role="alert"></p>
         <div class="player-card-admin hidden" id="player-card-admin"></div>
         <div class="modal-actions">
-          <button class="btn btn-ghost hidden" id="btn-player-card-follow"></button>
+          <button class="btn btn-accent hidden" id="btn-player-card-follow"></button>
           <button class="btn btn-ghost hidden" id="btn-player-card-makehost"></button>
-          <button class="btn btn-primary" id="btn-player-card-invite" data-i18n="inviteToRoom">&#10133;  Invite to this room</button>
+          <button class="btn btn-primary" id="btn-player-card-invite" data-i18n="inviteToRoom">Invite</button>
           <button class="btn btn-ghost" id="btn-player-card-close" data-i18n="close">Close</button>
         </div>
       </div>
@@ -515,24 +525,20 @@
       </div>
       <div class="game-topbar">
         <div class="topbar-left">
-          <div class="game-player hidden" id="game-player">
-            <img class="game-player-avatar" id="game-player-avatar" alt="" referrerpolicy="no-referrer" />
-            <span class="game-player-name" id="game-player-name"></span>
-          </div>
           <div class="score-pill"><span data-i18n="hudScore">SCORE</span><span id="game-score">0</span></div>
           <div class="correct-pill"><span data-i18n="hudCorrect">CORRECT</span><span><span id="correct-count">0</span>/<span id="correct-total">10</span></span></div>
-          <div class="streak-pill hidden" id="streak-pill"><span data-i18n="hudStreak">STREAK</span><span>×1.5 <span id="streak-count">0</span></span></div>
+          <div class="streak-pill hidden" id="streak-pill"><span data-i18n="hudStreak">STREAK</span><span id="streak-count">×1.5</span></div>
         </div>
         <div class="topbar-right">
           <button class="lifeline-btn" id="btn-fifty" type="button" title="50:50">
             <span class="lifeline-icon" aria-hidden="true">50:50</span>
-            <span class="lifeline-count" id="fifty-count">2</span>
+            <span class="lifeline-count"><span aria-hidden="true">×</span><span id="fifty-count">2</span></span>
           </button>
           <div class="progress-pill">
-            <span data-i18n="question">Question</span>
-            <span id="q-current">1</span> / <span id="q-total">10</span>
+            <span data-i18n="question">Q</span>
+            <span id="q-current">01</span> / <span id="q-total">10</span>
           </div>
-          <button class="end-btn" id="btn-end">&#10005; <span data-i18n="endQuiz">End</span></button>
+          <button class="end-btn" id="btn-end" data-i18n="endQuiz">end</button>
           <button class="end-btn hidden" id="btn-mp-leave" data-i18n="leaveRoom">Leave</button>
         </div>
       </div>
@@ -592,7 +598,7 @@
       <!-- Status strip: the keyboard affordance on the left, the last score
            delta on the right (filled in by resolveCurrentQuestion). -->
       <div class="game-footer">
-        <span id="game-footer-hint" data-i18n="answerWithKeys">press 1–6 to answer</span>
+        <span id="game-footer-hint">press 1–6 to answer</span>
         <span class="game-footer-gain" id="game-footer-gain"></span>
       </div>
     </section>
@@ -602,49 +608,76 @@
       <div class="results-card">
         <div class="trophy">&#127942;</div>
         <div class="challenge-result hidden" id="challenge-result" role="status"></div>
-        <h2 class="final-score screen-heading" tabindex="-1"><span data-i18n="finalScore">Final Score:</span> <span id="final-score">0</span></h2>
-        <p class="results-correct"><span data-i18n="correctLabel">Correct:</span> <span id="results-correct">0</span>/<span id="results-total">0</span></p>
+
+        <!-- Round header: the label sits above the number and the correct count
+             rides the same baseline on the right, as the design lays it out. -->
+        <div class="results-head" id="results-head">
+          <div class="results-head-main">
+            <span class="results-kicker" data-i18n="finalScore">final score</span>
+            <h2 class="final-score screen-heading" tabindex="-1" id="final-score">0</h2>
+          </div>
+          <p class="results-correct"><span id="results-correct">0</span> / <span id="results-total">0</span> <span data-i18n="correctWord">correct</span></p>
+        </div>
+
         <div class="result-stats" id="result-stats" aria-label="Round statistics">
-          <div><strong id="stat-accuracy">0%</strong><span data-i18n="statAccuracy">Accuracy</span></div>
-          <div><strong id="stat-streak">0</strong><span data-i18n="statStreak">Best streak</span></div>
-          <div><strong id="stat-average">—</strong><span data-i18n="statAverage">Average response</span></div>
-          <div><strong id="stat-fastest">—</strong><span data-i18n="statFastest">Fastest correct</span></div>
+          <div class="rs-cell rs-accuracy"><strong id="stat-accuracy">0%</strong><span data-i18n="statAccuracy">Accuracy</span></div>
+          <div class="rs-cell rs-streak"><strong id="stat-streak">0</strong><span data-i18n="statStreak">Best streak</span></div>
+          <div class="rs-cell"><strong id="stat-average">&mdash;</strong><span data-i18n="statAverage">Average response</span></div>
+          <div class="rs-cell"><strong id="stat-fastest">&mdash;</strong><span data-i18n="statFastest">Fastest correct</span></div>
         </div>
         <div class="round-breakdown hidden" id="round-breakdown"></div>
         <div class="personal-result hidden" id="personal-result"></div>
-        <p class="results-sub" data-i18n="comparison">Friends Comparison</p>
-        <!-- Scope the board to the whole history or just this week. -->
-        <div class="lb-scope-switch hidden" id="lb-scope-switch" role="group">
-          <button type="button" class="lb-scope-btn is-active" data-scope="all" data-i18n="scopeAllTime">All-time</button>
-          <button type="button" class="lb-scope-btn" data-scope="week" data-i18n="scopeWeek">This week</button>
+
+        <!-- Board header, in two shapes. On the results screen the board is one
+             section among several, so it gets a modest inline heading. Opened on
+             its own (leaderboard view) it is the whole screen, and takes the
+             design's large two-line header with the controls beside it. -->
+        <div class="lb-view-head hidden" id="lb-view-head">
+          <div class="lb-view-title">
+            <span class="lb-view-kicker" data-i18n="globalLeaderboard">global leaderboard</span>
+            <span class="lb-view-mode" id="lb-view-mode"></span>
+          </div>
+          <div class="lb-view-controls">
+            <!-- Scope the board to the whole history or just this week. -->
+            <div class="lb-scope-switch hidden" id="lb-scope-switch" role="group">
+              <button type="button" class="lb-scope-btn is-active" data-scope="all" data-i18n="scopeAllTime">all-time</button>
+              <button type="button" class="lb-scope-btn" data-scope="week" data-i18n="scopeWeek">this week</button>
+            </div>
+            <!-- View any mode's board without leaving this screen. -->
+            <label class="lb-mode-switch hidden" id="lb-mode-switch">
+              <span class="sr-only" data-i18n="leaderboardFor">Leaderboard for</span>
+              <select id="lb-mode-select">
+                <option value="languages" data-i18n="modeLanguages">Programming Languages</option>
+                <option value="cybersecurity" data-i18n="modeCyber">Cybersecurity</option>
+                <option value="devops" data-i18n="modeDevops">DevOps</option>
+                <option value="network" data-i18n="modeNetwork">Networking</option>
+                <option value="gamedev" data-i18n="modeGamedev">Game Dev</option>
+                <option value="algorithms" data-i18n="modeAlgo">Problem Solving</option>
+                <option value="all" data-i18n="modeAll">All (Mixed)</option>
+              </select>
+            </label>
+          </div>
         </div>
-        <!-- View any mode's board without leaving this screen (leaderboard view). -->
-        <label class="lb-mode-switch hidden" id="lb-mode-switch">
-          <span data-i18n="leaderboardFor">Leaderboard for</span>
-          <select id="lb-mode-select">
-            <option value="languages" data-i18n="modeLanguages">Programming Languages</option>
-            <option value="cybersecurity" data-i18n="modeCyber">Cybersecurity</option>
-            <option value="devops" data-i18n="modeDevops">DevOps</option>
-            <option value="network" data-i18n="modeNetwork">Networking</option>
-            <option value="gamedev" data-i18n="modeGamedev">Game Dev</option>
-            <option value="algorithms" data-i18n="modeAlgo">Problem Solving</option>
-            <option value="all" data-i18n="modeAll">All (Mixed)</option>
-          </select>
-        </label>
+        <p class="results-sub" id="results-sub">
+          <span class="results-sub-title" id="results-sub-title" data-i18n="comparison">Global Leaderboard</span>
+          <span class="results-sub-meta" id="results-sub-meta"></span>
+        </p>
+
         <div class="lb-note" id="lb-note" role="status" aria-live="polite"></div>
         <div class="leaderboard" id="leaderboard" role="list"><!-- rows injected --></div>
 
-        <details class="answer-review" id="answer-review">
-          <summary data-i18n="reviewAnswers">Review incorrect answers</summary>
+        <!-- The design keeps the misses on screen rather than behind a summary. -->
+        <section class="answer-review" id="answer-review">
+          <h3 class="review-title" id="answer-review-title" data-i18n="missedTitle">missed</h3>
           <div id="answer-review-list"></div>
-        </details>
+        </section>
 
         <div class="results-buttons">
-          <button class="btn btn-primary" id="btn-challenge" data-i18n="challenge">🔗  Challenge a friend</button>
+          <button class="btn btn-accent" id="btn-replay" data-i18n="replay">play again &#9656;</button>
+          <button class="btn btn-ghost" id="btn-challenge" data-i18n="challenge">Challenge a friend</button>
           <input class="challenge-link hidden" id="challenge-link" type="text" readonly aria-label="Challenge link" />
-          <button class="btn btn-ghost" id="btn-share-card" data-i18n="shareResult">📸  Share result</button>
-          <button class="btn btn-accent" id="btn-replay" data-i18n="replay">🔄  Play again</button>
-          <button class="btn btn-ghost" id="btn-menu" data-i18n="backMenu">🏠  Home</button>
+          <button class="btn btn-ghost btn-share" id="btn-share-card" data-i18n="shareResult">Share result</button>
+          <button class="btn btn-ghost" id="btn-menu" data-i18n="backMenu">Home</button>
         </div>
       </div>
     </section>

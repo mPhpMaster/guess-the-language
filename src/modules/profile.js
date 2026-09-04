@@ -1,6 +1,7 @@
 import { adminApi, armButton, isAdmin } from './admin.js';
 import { sbFetch, supabaseConfigured } from './api.js';
 import { $, announce, closeDialog, openDialog, setTitlebar, showScreen } from './dom.js';
+import { formatScore } from './format.js';
 import { t } from './i18n.js';
 import { discordAvatarUrl, getDiscordProfile, isDiscordActivity, safeDisplayName } from './identity.js';
 import { avatarFor, buildResultsLeaderboard, mpVisualOf } from './leaderboard.js';
@@ -274,7 +275,7 @@ export async function setupFollowButton(name, isYou) {
     if (!show) return;
     await loadMyFollows();
     const paint = () => {
-        btn.textContent = isFollowing(who) ? `✓ ${t('following')}` : `➕ ${t('follow')}`;
+        btn.textContent = isFollowing(who) ? `✓ ${t('following')}` : t('follow');
         btn.classList.toggle('is-following', isFollowing(who));
     };
     paint();
@@ -395,7 +396,7 @@ export async function loadPlayerProfileSections(name) {
         const lastIso = (activity && activity.last_seen) || stats.lastPlayed;
         if (lastSeen && lastIso) {
             const online = isRecentlyActive(lastIso);
-            lastSeen.textContent = online ? `🟢 ${t('online')}` : `${t('lastSeen')}: ${formatLastPlayed(lastIso)}`;
+            lastSeen.textContent = online ? `🟢 ${t('online')}` : `${t('lastSeen')} ${formatLastPlayed(lastIso)}`;
             lastSeen.classList.toggle('is-online', online);
             lastSeen.classList.remove('hidden');
         }
@@ -500,12 +501,16 @@ export function renderLevelBar(box, activity) {
     bar.className = 'pcs-levelbar';
     bar.innerHTML =
         `<div class="pcs-lvl-top">` +
+        `<span class="pcs-lvl-left">` +
         `<span class="pcs-lvl-badge">${t('levelShort')} ${level}</span>` +
         `<span class="pcs-lvl-title">${levelTitle(level)}</span>` +
+        `</span>` +
+        `<span class="pcs-lvl-right">` +
         (streak >= 2 ? `<span class="pcs-streak" title="${t('dayStreak')}">🔥 ${streak}</span>` : '') +
+        `<span class="pcs-xptext">${formatScore(Math.max(0, xp - base))} / ${formatScore(span)} XP</span>` +
+        `</span>` +
         `</div>` +
-        `<div class="pcs-xpbar"><div class="pcs-xpfill" style="width:${pct}%"></div></div>` +
-        `<div class="pcs-xptext">${fmtNum(Math.max(0, xp - base))} / ${fmtNum(span)} XP</div>`;
+        `<div class="pcs-xpbar"><div class="pcs-xpfill" style="width:${pct}%"></div></div>`;
     box.appendChild(bar);
 }
 
@@ -551,11 +556,11 @@ export function renderProfileStats(box, stats, bestRank, activity) {
     const hours = activity && activity.seconds ? `${(activity.seconds / 3600).toFixed(1)}h` : '0h';
     const cells = [
         ...(inHeader ? [] : [{ label: t('statBestRank'), value: bestRank ? `#${bestRank}` : '—', hero: true }]),
-        { label: t('statBest'), value: fmtNum(stats.best) },
+        { label: t('statBest'), value: formatScore(stats.best) },
         { label: t('statGames'), value: fmtNum(stats.games) },
         { label: t('statWinRate'), value: winRate },
         { label: t('statHours'), value: hours },
-        { label: t('statAvg'), value: fmtNum(stats.avg) },
+        { label: t('statAvg'), value: formatScore(stats.avg) },
         { label: t('statMp'), value: fmtNum(mpGames || stats.mp) },
         { label: t('statPerfect'), value: fmtNum(perfect) }
     ];
@@ -634,18 +639,18 @@ export function renderProfileRankings(list, rows) {
         if (r.best == null) return;
         const row = document.createElement('div');
         row.className = 'player-card-rank-row';
+        const rk = document.createElement('span');
+        rk.className = 'pcr-rank';
+        rk.textContent = r.rank ? `#${r.rank}` : '—';
+        if (r.rank && r.rank <= 3) row.classList.add(`rank-${r.rank}`);
         const m = document.createElement('span');
         m.className = 'pcr-mode';
         m.textContent = modeLabel(r.mode);
-        const medal = r.rank === 1 ? ' 🥇' : r.rank === 2 ? ' 🥈' : r.rank === 3 ? ' 🥉' : '';
-        const rk = document.createElement('span');
-        rk.className = 'pcr-rank';
-        rk.textContent = (r.rank ? `#${r.rank}` : '—') + medal;
         const sc = document.createElement('span');
         sc.className = 'pcr-score';
-        sc.textContent = `${r.best} pts`;
-        row.appendChild(m);
+        sc.textContent = `${formatScore(r.best)} pts`;
         row.appendChild(rk);
+        row.appendChild(m);
         row.appendChild(sc);
         list.appendChild(row);
     });
