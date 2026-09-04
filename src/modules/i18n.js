@@ -53,6 +53,7 @@ export const I18N = {
         tbRound: 'round',
         tbResults: 'results',
         tbLobby: 'lobby · room',
+        tbProfile: 'profile —',
         railRank: 'rank',
         railAccuracy: 'accuracy',
         railBest: 'best',

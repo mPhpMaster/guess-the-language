@@ -1,6 +1,6 @@
 import { adminApi, armButton, isAdmin } from './admin.js';
 import { sbFetch, supabaseConfigured } from './api.js';
-import { $, announce, closeDialog, openDialog, showScreen } from './dom.js';
+import { $, announce, closeDialog, openDialog, setTitlebar, showScreen } from './dom.js';
 import { t } from './i18n.js';
 import { discordAvatarUrl, getDiscordProfile, isDiscordActivity, safeDisplayName } from './identity.js';
 import { avatarFor, buildResultsLeaderboard, mpVisualOf } from './leaderboard.js';
@@ -114,6 +114,8 @@ export function openPlayerCard(player) {
     // Room context: live-progress rows on. The profile stats + rankings are shown
     // too (loaded below), so a lobby card is the player's full profile + live round.
     $('#player-card-room')?.classList.remove('hidden');
+    dlg.classList.remove('is-profile');
+    $('#player-card-bestrank')?.classList.add('hidden');
     $('#btn-player-card-follow')?.classList.add('hidden'); // follow lives on profile cards
     $('#player-card-friends')?.classList.add('hidden');
     const titleEl = $('#player-card-title'); if (titleEl) titleEl.textContent = t('playerCardTitle');
@@ -213,6 +215,18 @@ export function closePlayerCard() {
     playerCardId = null;
     const dlg = $('#player-card');
     if (dlg?.open) closeDialog(dlg);
+    dlg?.classList.remove('is-profile');
+    $('#player-card-bestrank')?.classList.add('hidden');
+    restoreTitlebarFromScreen();
+}
+
+// After a full-screen profile closes, put the title bar back to whatever screen
+// is underneath it.
+export function restoreTitlebarFromScreen() {
+    const screen = state.currentScreen;
+    if (screen === 'results') setTitlebar(`${t('tbResults')} — ${modeLabel(state.mode).toLowerCase()}`);
+    else if (screen === 'lobby') setTitlebar(`${t('tbLobby')} ${window.GTL_MULTIPLAYER?.state?.room?.code || ''}`.trim());
+    else setTitlebar(t('appSlug'));
 }
 
 // Open the same card as a *profile* (from the leaderboard, home, anywhere a name
@@ -311,6 +325,11 @@ export async function openProfileCard(entry) {
     playerCardId = null; // not tied to a live room row
     const isYou = !!entry.you;
 
+    // Full-screen layout, per the design's "Player profile" screen. The room
+    // card shares this dialog and stays a dialog, so the variant is a class.
+    dlg.classList.add('is-profile');
+    $('#player-card-bestrank')?.classList.remove('hidden');
+    setTitlebar(`${t('tbProfile')} ${safeDisplayName(entry.name)}`);
     $('#player-card-title').textContent = t('profileTitle');
     $('#player-card-hint').textContent = t('profileHint');
     $('#player-card-name').textContent = safeDisplayName(entry.name) + (isYou ? ` ${t('you')}` : '');
@@ -519,13 +538,19 @@ export function renderAchievements(box, activity) {
 export function renderProfileStats(box, stats, bestRank, activity) {
     box.innerHTML = '';
     renderLevelBar(box, activity);
+    // The design sets best rank opposite the name rather than inside the grid.
+    // The room card has no such header slot, so it keeps the cell instead.
+    const rankSlot = $('#player-card-bestrank');
+    const rankVal = $('#player-card-bestrank-val');
+    const inHeader = !!(rankSlot && !rankSlot.classList.contains('hidden'));
+    if (rankVal) rankVal.textContent = bestRank ? `#${bestRank}` : '—';
     const mpGames = activity ? activity.mp_games : 0;
     const wins = activity ? activity.wins : 0;
     const perfect = activity ? activity.perfect_games : 0;
     const winRate = mpGames > 0 ? `${Math.round((wins / mpGames) * 100)}%` : '—';
     const hours = activity && activity.seconds ? `${(activity.seconds / 3600).toFixed(1)}h` : '0h';
     const cells = [
-        { label: t('statBestRank'), value: bestRank ? `#${bestRank}` : '—', hero: true },
+        ...(inHeader ? [] : [{ label: t('statBestRank'), value: bestRank ? `#${bestRank}` : '—', hero: true }]),
         { label: t('statBest'), value: fmtNum(stats.best) },
         { label: t('statGames'), value: fmtNum(stats.games) },
         { label: t('statWinRate'), value: winRate },

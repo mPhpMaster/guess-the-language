@@ -446,8 +446,16 @@
         <div class="player-card-head">
           <div class="player-card-avatar" id="player-card-avatar" aria-hidden="true"></div>
           <img class="player-card-avatar-img hidden" id="player-card-avatar-img" alt="" referrerpolicy="no-referrer" />
-          <div class="player-card-name" id="player-card-name"></div>
+          <div class="player-card-ident">
+            <div class="player-card-name" id="player-card-name"></div>
+              </div>
           <span class="mp-host-badge hidden" id="player-card-host" data-i18n="adminBadge">Host</span>
+          <!-- Profile variant only: the design lifts best rank out of the stat
+               grid and sets it opposite the name. -->
+          <div class="player-card-bestrank hidden" id="player-card-bestrank">
+            <span class="pcb-label" data-i18n="statBestRank">Best rank</span>
+            <strong class="pcb-value" id="player-card-bestrank-val">—</strong>
+          </div>
         </div>
         <dl class="player-card-stats" id="player-card-room">
           <div class="player-card-stat">
