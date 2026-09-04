@@ -46,7 +46,14 @@ function isAdminUsername(username) {
 const UNLOCK_TTL_SECONDS = 30 * 60;
 
 function adminPasscodeConfigured() {
-  return typeof process.env.ADMIN_PASSCODE === 'string' && process.env.ADMIN_PASSCODE.length > 0;
+  return normalizePasscode(process.env.ADMIN_PASSCODE).length > 0;
+}
+
+// CLI pipes (`echo ... | vercel env add`) often include a trailing newline, and
+// PowerShell's `$$` is the current PID unless the value is single-quoted. Trim
+// so those accidents cannot make a typed passcode miss forever.
+function normalizePasscode(value) {
+  return String(value ?? '').replace(/^\uFEFF/, '').trim();
 }
 
 // The date-based fallback, as DDMMYYYY. The server runs on UTC while the owner is
@@ -82,13 +89,16 @@ function safeEquals(a, b) {
 // Never logs or echoes the value. Falls back to the date passcode when
 // ADMIN_PASSCODE is unset (see the note above).
 function checkAdminPasscode(candidate) {
-  if (typeof candidate !== 'string' || !candidate.length) return false;
-  if (adminPasscodeConfigured()) return safeEquals(candidate, process.env.ADMIN_PASSCODE);
+  const got = normalizePasscode(candidate);
+  if (!got) return false;
+  if (adminPasscodeConfigured()) {
+    return safeEquals(got, normalizePasscode(process.env.ADMIN_PASSCODE));
+  }
   // Every candidate is compared, with no early exit, so the time taken does not
   // reveal which of the accepted dates matched.
   let ok = false;
   for (const expected of fallbackPasscodes()) {
-    if (safeEquals(candidate, expected)) ok = true;
+    if (safeEquals(got, expected)) ok = true;
   }
   return ok;
 }
