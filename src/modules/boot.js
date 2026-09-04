@@ -1,16 +1,17 @@
 import { updateAdminButton } from './admin.js';
-import { setupErrorLogging } from './api.js';
-import { $, showScreen } from './dom.js';
+import { setupErrorLogging, supabaseConfigured } from './api.js';
+import { $, announce, showScreen } from './dom.js';
 import { bindEvents, selectMode } from './events.js';
 import { maybeShowOnboarding, renderModeCounts } from './home.js';
-import { MODES, applyLanguage } from './i18n.js';
+import { MODES, applyLanguage, t } from './i18n.js';
 import { handleDiscordOAuthReturn, isDiscordActivity, isDiscordEmbedded } from './identity.js';
 import { applyChallengeSettings, getChallengeFromUrl, parseChallengePayload, showChallengeBanner } from './leaderboard.js';
-import { autoJoinDiscordVoiceRoom, handleMultiplayerUpdate, onDiscordSessionReady, onMpKicked, refreshMultiplayerButtons } from './mp-ui.js';
+import { autoJoinDiscordVoiceRoom, handleMultiplayerUpdate, joinRoomByCode, onDiscordSessionReady, onMpKicked, refreshMultiplayerButtons } from './mp-ui.js';
 import { startHeartbeat } from './presence.js';
 import { applySettingsToUI } from './settings.js';
 import { state } from './state.js';
 import { applyUiScale, effectiveScale, hasManualScale } from './ui-scale.js';
+import { clearRoomInUrl, roomFromUrl } from './util.js';
 
 // ============================================================
 //  Boot
@@ -85,6 +86,24 @@ export async function boot() {
     if (isDiscordActivity() && !challengeInfo) {
         const joined = await autoJoinDiscordVoiceRoom();
         if (joined) { hideBootLoading(); return; }
+    }
+
+    // A shared room link (?room=CODE) drops the visitor straight into that lobby,
+    // the same way the code modal would. Inside a Discord Activity the room comes
+    // from the voice channel instead, so the param is ignored there.
+    const roomCode = isDiscordActivity() ? '' : roomFromUrl();
+    if (roomCode && !challengeInfo && supabaseConfigured()) {
+        try {
+            await joinRoomByCode(roomCode);
+            hideBootLoading();
+            return;
+        } catch (e) {
+            // A dead or full room is a normal outcome for a link that has been
+            // sitting in someone's chat: drop the code and land on Home.
+            console.warn('room link join failed:', e.message);
+            clearRoomInUrl();
+            announce(t('mpJoinFail') + ': ' + e.message);
+        }
     }
 
     // Reveal Home. Keep the veil up only when we're still inside Discord waiting

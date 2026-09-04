@@ -4293,3 +4293,190 @@ option:checked { background: var(--accent-soft); color: var(--neon); }
   justify-items: start;
   text-align: start;
 }
+
+/* ============================================================
+   Rail links + option legibility
+   ============================================================ */
+
+/* The rail links had no hover affordance of their own: they inherited the
+   ghost-button treatment (a border that appears on hover) while the rail rule
+   removed the border, so the only feedback was a colour change with nothing to
+   anchor it. A quiet underline reads as a link and shifts nothing. */
+.home-rail-links .btn {
+  padding: 4px 2px;
+  border-radius: 3px;
+  text-decoration: none;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  transition: color .12s ease;
+}
+.home-rail-links .btn:hover:not(:disabled),
+.home-rail-links .btn:focus-visible {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--accent-line);
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Admin is a moderation link, not a warning banner: it keeps a distinguishing
+   tint but stops shouting in full amber and wrapping onto a line of its own. */
+.home-rail-links .btn-admin {
+  border: 0 !important;
+  color: var(--warn) !important;
+  opacity: .75;
+}
+.home-rail-links .btn-admin:hover:not(:disabled) { opacity: 1; }
+
+/* --- Option legibility --- */
+
+/* Multiple-choice answers are sentences, often carrying inline code; at three
+   across they wrapped onto two and three lines and stopped scanning as choices.
+   Two across gives each one the width to sit on a single line in most banks.
+   Language answers stay three across — they are one or two words. */
+@media (min-width: 961px) {
+  .options-grid.cyber { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Anything that still needs a second line stays readable rather than being
+   clipped: the card grows, the text balances across the lines it needs. */
+.lang-btn, .opt-btn { align-items: center; }
+.lang-name, .opt-text { text-wrap: pretty; }
+.opt-btn .opt-key, .lang-btn .opt-key { align-self: center; }
+
+/* The design wraps this row too (flex-wrap with a 10/16 gap); the 20px gap we
+   had pushed a lone Admin onto a line by itself, which read as an error rather
+   than a wrap. At the design's spacing the five links break 3 + 2. */
+.home-rail-links { gap: 10px 16px; }
+
+/* The rail's link row inherits `justify-content: center` from .home-actions-row,
+   which is right for the two-up Host/Join buttons but leaves a wrapped Admin
+   floating alone in the middle. The rail is a left-aligned list; the wrap should
+   read as the list continuing. */
+.home-rail-links { justify-content: flex-start; }
+
+/* ============================================================
+   Discord Activity — reconciling with the redesign
+   ============================================================
+   The html.platform-discord block near the top of this file predates the
+   Terminal/IDE layout. It shapes a card grid that no longer exists, insets the
+   screens with their own padding (the redesign's HUD, rail and status strip are
+   full-bleed), and sizes icons and a countdown ring the redesign removed. The
+   result inside an Activity was a clipped HUD, a footer running off the left
+   edge and a rail floating in the middle of the frame.
+
+   An Activity is not a different design — it is a small, short viewport, which
+   the responsive rules already handle. So the obsolete overrides are neutralised
+   here and only what Discord genuinely needs is kept: no page scroll, the
+   safe-area inset above Discord's own toolbar, and slightly tighter type.
+   ============================================================ */
+
+/* --- Home --- */
+
+/* The rail and the mode list run to the frame edges, as everywhere else. The
+   screen's own padding was pushing both inward and leaving the rail's panel
+   floating. */
+html.platform-discord #screen-home {
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+html.platform-discord .home-layout { height: 100%; }
+html.platform-discord .home-main {
+  padding: 0 0 0 clamp(16px, 5vw, 56px);
+  overflow-y: auto;
+}
+html.platform-discord .home-rail {
+  padding: 0 24px calc(12px + var(--discord-safe-bottom, 0px));
+  overflow-y: auto;
+}
+html.platform-discord .home-title { font-size: clamp(22px, 3.2vw, 34px); margin: 0; }
+html.platform-discord .home-sub { font-size: 13px; margin: 0; }
+html.platform-discord #mode-grid {
+  grid-template-columns: none;
+  max-width: 560px;
+  gap: 2px;
+}
+html.platform-discord #screen-home .mode-card {
+  height: auto;
+  min-height: 0;
+  padding: 10px 16px;
+  border-radius: var(--radius);
+}
+html.platform-discord .mode-name { font-size: 15px; margin: 0; }
+html.platform-discord #screen-home .home-actions { max-width: none; margin-top: 0; gap: 10px; }
+html.platform-discord .home-actions #btn-start,
+html.platform-discord .home-actions-row,
+html.platform-discord #btn-discord-host { width: 100%; }
+html.platform-discord .home-actions #btn-start { height: 48px; }
+
+/* --- Game --- */
+
+/* The HUD and the status strip are edge-to-edge bars; the screen must not inset
+   them. The safe area belongs to the strip at the bottom, not to the screen. */
+html.platform-discord #screen-game {
+  padding: 0;
+  gap: 0;
+  height: 100%;
+}
+html.platform-discord .game-footer {
+  padding-bottom: calc(9px + var(--discord-safe-bottom, 0px));
+}
+html.platform-discord .game-stage {
+  padding: 8px clamp(12px, 3vw, 40px);
+  gap: 14px;
+  min-height: 0;
+  overflow-y: auto;
+}
+html.platform-discord .game-body {
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0;
+}
+html.platform-discord .code-wrap { flex: 0 0 auto; width: 100%; max-width: 920px; }
+html.platform-discord .code-panel {
+  min-height: 0;
+  flex: 0 0 auto;
+  padding: 0;
+  font-size: clamp(13px, 1.2vw, 16px);
+}
+html.platform-discord .code-panel code { padding: 14px 16px; }
+html.platform-discord .code-gutter { padding: 14px 10px; }
+html.platform-discord .question-text { font-size: 17px; margin: 0; }
+
+/* Option cards keep the redesign's shape; only the padding tightens. */
+html.platform-discord .options-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0; }
+html.platform-discord .options-grid.cyber { grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 0; }
+html.platform-discord button.opt-btn,
+html.platform-discord .lang-btn {
+  min-height: 44px;
+  padding: 10px 14px;
+  flex-direction: row;
+  gap: 10px;
+  border-radius: var(--radius);
+  font-size: 14px;
+}
+html.platform-discord .opt-key {
+  width: auto;
+  height: auto;
+  font-size: 11px;
+  padding: 2px 6px;
+}
+html.platform-discord .opt-text, html.platform-discord .lang-name { font-size: 14px; }
+html.platform-discord .feedback-panel { padding: 12px 16px; gap: 12px; }
+
+/* --- Lobby / results --- */
+html.platform-discord #screen-lobby,
+html.platform-discord #screen-results {
+  padding: 16px clamp(12px, 3vw, 40px) calc(16px + var(--discord-safe-bottom, 0px));
+  justify-content: flex-start;
+}
+html.platform-discord .lobby-card,
+html.platform-discord .results-card { max-height: none; overflow: visible; }
+
+/* The countdown is a small mono readout beside the difficulty now, not the 74px
+   ring the Activity block still sized. */
+html.platform-discord .timer-ring { width: auto; height: auto; align-self: center; margin: 0; }
+html.platform-discord .timer-num { font-size: 12px; }

@@ -13,6 +13,7 @@ import { presenceStartedAt, pushPresence, sendHeartbeat, setPresenceStartedAt } 
 import { closePlayerCard, currentPlayerRow, openPlayerCard, refreshPlayerCard } from './profile.js';
 import { countUp, renderRoundSummary } from './results.js';
 import { timeForDifficulty } from './round.js';
+import { clearRoomInUrl, roomUrlFor, setRoomInUrl } from './util.js';
 import { getPlayerName, requireNameToInteract, saveSettingsFromUI } from './settings.js';
 import { note, sfx } from './sound.js';
 import { defaultSettings, state } from './state.js';
@@ -63,10 +64,14 @@ export async function inviteFromLobby() {
         }
         return;
     }
-    if (room?.code) {
-        navigator.clipboard?.writeText(room.code).then(
-            () => { flashButton('#btn-lobby-invite', t('codeCopied')); showNote(t('inviteShareCode')); },
-            () => showNote(room.code)
+    if (room ?.code) {
+        // A link beats a code: the recipient opens it and is already in the room.
+        // Where there is no shareable URL (the desktop build runs from file://)
+        // the code itself is still the thing to send.
+        const link = roomUrlFor(room.code) || room.code;
+        navigator.clipboard ?.writeText(link).then(
+            () => { flashButton('#btn-lobby-invite', t('linkCopied')); showNote(link); },
+            () => showNote(link)
         );
     }
 }
@@ -760,6 +765,7 @@ export function handleMultiplayerUpdate(room, players) {
 // overwrites state.allQuestions with the full 'all' set).
 export function returnHome() {
     state.multiplayer = false;
+    clearRoomInUrl(); // every exit funnels through here, so the link can't go stale
     state.mpResultsShown = false;
     state.mpSyncKey = '';
     clearTimer();
@@ -903,6 +909,7 @@ export async function hostRoomFlow() {
         await window.GTL_MULTIPLAYER.hostRoom(state.mode, getSettings(), name);
         state.multiplayer = true;
         state.viewOnly = false;
+        setRoomInUrl(window.GTL_MULTIPLAYER.state.room ?.code);
         showScreen('lobby');
         renderLobby(window.GTL_MULTIPLAYER.state.room, window.GTL_MULTIPLAYER.state.players);
     } catch (e) {
@@ -924,6 +931,27 @@ export function closeJoinModal() {
     closeDialog($('#join-modal'));
 }
 
+// The one join path: the code modal and a ?room= deep link both come through
+// here, so a link lands the visitor in exactly the state a manual join does.
+export async function joinRoomByCode(rawCode) {
+    const code = window.GTL_MULTIPLAYER.normalizeCode(rawCode);
+    if (code.length !== 4) throw new Error(t('roomCode'));
+    await loadAllBanks();
+    await window.GTL_MULTIPLAYER.joinRoom(code, getPlayerName());
+    state.multiplayer = true;
+    state.viewOnly = false;
+    state.spectator = amSpectator();
+    setRoomInUrl(code);
+    const mp = window.GTL_MULTIPLAYER.state;
+    if (mp.room && mp.room.status === 'playing') {
+        handleMultiplayerUpdate(mp.room, mp.players);
+    } else {
+        showScreen('lobby');
+        renderLobby(mp.room, mp.players);
+    }
+    return mp;
+}
+
 export async function confirmJoinRoom() {
     const code = window.GTL_MULTIPLAYER.normalizeCode($('#join-code').value);
     if (code.length !== 4) {
@@ -936,19 +964,8 @@ export async function confirmJoinRoom() {
     if (btn) { btn.disabled = true; btn.textContent = t('joining'); }
     $('#join-error').classList.add('hidden');
     try {
-        await loadAllBanks();
-        await window.GTL_MULTIPLAYER.joinRoom(code, getPlayerName());
+        await joinRoomByCode(code);
         closeJoinModal();
-        state.multiplayer = true;
-        state.viewOnly = false;
-        state.spectator = amSpectator();
-        const mp = window.GTL_MULTIPLAYER.state;
-        if (mp.room && mp.room.status === 'playing') {
-            handleMultiplayerUpdate(mp.room, mp.players);
-        } else {
-            showScreen('lobby');
-            renderLobby(mp.room, mp.players);
-        }
     } catch (e) {
         $('#join-error').textContent = t('mpJoinFail') + ': ' + e.message;
         $('#join-error').classList.remove('hidden');

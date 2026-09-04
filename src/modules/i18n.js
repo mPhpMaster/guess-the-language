@@ -18,6 +18,7 @@ export const I18N = {
         correctLabel: 'Correct:',
         aboutTitle: 'About',
         aboutButton: 'About',
+        linkCopied: 'Link copied',
         correctWord: 'correct',
         mainMenu: 'Main menu',
         missedTitle: 'missed',
