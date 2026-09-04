@@ -94,6 +94,7 @@ export const I18N = {
         gameTitle: 'Quiz in progress',
         lobbyTitle: 'Multiplayer lobby',
         joinHint: 'Paste a 4-letter code or type it manually.',
+        endConfirmAction: 'End',
         endConfirmTitle: 'End this quiz?',
         endConfirmDesc: 'Your current progress will be shown in the results.',
         continueQuiz: 'Keep playing',
