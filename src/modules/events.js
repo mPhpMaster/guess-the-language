@@ -208,8 +208,20 @@ export function bindEvents() {
             if (dialog === $('#settings-panel')) applySettingsToUI();
             closeDialog(dialog);
         });
+        // Light dismiss, measured against the visible box rather than the event
+        // target. `.modal` dialogs fill the viewport and paint their content in
+        // an inner .modal-card, but a `.popover` IS the box — so `target ===
+        // dialog` closed About and Settings on any click that landed on their
+        // own padding or between two children.
         dialog.addEventListener('click', (e) => {
-            if (e.target !== dialog) return;
+            // A keyboard-activated button fires a click at (0, 0); that is not a
+            // click on the backdrop.
+            if (e.detail === 0) return;
+            const box = dialog.querySelector('.modal-card') || dialog;
+            const r = box.getBoundingClientRect();
+            const inside = e.clientX >= r.left && e.clientX <= r.right &&
+                e.clientY >= r.top && e.clientY <= r.bottom;
+            if (inside) return;
             if (dialog === $('#settings-panel')) applySettingsToUI();
             closeDialog(dialog);
         });

@@ -209,7 +209,10 @@ app.whenReady().then(async () => {
     check('card: shows the streak', card.streak === '0', card.streak);
     check('card: shows the game mode', /Problem|Solving|Algo/i.test(card.mode), card.mode);
     check('card: shows a playing status', /Playing/i.test(card.status), card.status);
-    check('card: offers an invite (ability to join)', card.invite === true);
+    // Inviting is a property of the room, not of a person: the lobby carries the
+    // control and this card's footer is Follow + Close. The ability to pull
+    // someone in is asserted in smoke-multiplayer, against a rendered lobby.
+    check('card: does not duplicate the room invite', card.invite === false);
 
     // Live score changes refresh an open card in place.
     const live = await run(`(() => {

@@ -4161,3 +4161,47 @@ option:checked { background: var(--accent-soft); color: var(--neon); }
    (.lobby-leave had a 12px top margin that dropped it below its neighbours). */
 .lobby-actions { align-items: center; }
 .lobby-actions > .btn { margin: 0; align-self: center; }
+
+/* The player card had two scrollbars because two ancestors both scrolled: the
+   <dialog> (max-height + overflow-y:auto) and the card inside it. The dialog
+   sizes to the card and the card owns the scrolling, so there is one bar. */
+#player-card {
+  max-height: none;
+  overflow: visible;
+}
+#player-card .modal-card {
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+/* The full-screen profile is its own scroller and must not be capped. */
+#player-card.is-profile .modal-card { max-height: none; }
+
+/* The room card's live-progress list scrolls only when the screen is genuinely
+   short; capping it at any height added the second bar back. */
+@media (min-height: 621px) {
+  #player-card:not(.is-profile) .player-card-stats { max-height: none; overflow: visible; }
+}
+
+/* `.player-card-stat` sets display:flex, which beats the `.hidden` utility at
+   the same specificity — the same trap `.player-card-stats.hidden` already had. */
+.player-card-stat.hidden { display: none; }
+
+/* Inline code inside question text, option labels and explanations. The banks
+   write it in backticks; those now become real spans and need to look like code
+   rather than like quoted prose. */
+.inline-code {
+  font-family: var(--font-code);
+  font-size: .92em;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: var(--code-bg);
+  border: 1px solid var(--line-2);
+  color: var(--accent-text);
+  white-space: nowrap;
+}
+.lang-btn .inline-code, .opt-btn .inline-code { background: #0b0e0d; }
+.toast.bad .inline-code { color: var(--bad-text); }
+
+/* Option labels wrap on words, not mid-phrase, and the card grows to fit. */
+.lang-name, .opt-text { overflow-wrap: break-word; line-height: 1.35; }

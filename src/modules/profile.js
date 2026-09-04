@@ -118,7 +118,6 @@ export function openPlayerCard(player) {
     $('#player-card-room')?.classList.remove('hidden');
     dlg.classList.remove('is-profile');
     $('#player-card-bestrank')?.classList.add('hidden');
-    $('#btn-player-card-follow')?.classList.add('hidden'); // follow lives on profile cards
     $('#player-card-friends')?.classList.add('hidden');
     const titleEl = $('#player-card-title'); if (titleEl) titleEl.textContent = t('playerCardTitle');
     const hintEl = $('#player-card-hint'); if (hintEl) hintEl.textContent = t('playerCardHint');
@@ -128,10 +127,16 @@ export function openPlayerCard(player) {
     const vis = mpVisualOf(player);
     const isYou = player.id === mp.playerId;
 
-    // Prefer the player's real Discord avatar when they're a connected participant
-    // of this Activity; otherwise use the emoji identity the server assigned.
-    const participant = window.DISCORD_ACTIVITY?.participant?.(player.discord_user_id) || null;
-    const avatarUrl = participant ? discordAvatarUrl(participant) : null;
+    // Real photo first, in the same order the leaderboard resolves it: the row's
+    // own avatar URL, then your own Discord profile when this is you, then the
+    // Activity participant. Only with none of those does it fall back to the
+    // generated emoji identity. Before, only the participant lookup was tried,
+    // which is null outside a Discord Activity — so the web always showed emoji.
+    const participant = window.DISCORD_ACTIVITY ?.participant ?.(player.discord_user_id) || null;
+    const avatarUrl =
+        (typeof player.avatar === 'string' && /^https?:\/\//.test(player.avatar) ? player.avatar : null) ||
+        (isYou ? discordAvatarUrl(getDiscordProfile()) : null) ||
+        (participant ? discordAvatarUrl(participant) : null);
     const img = $('#player-card-avatar-img');
     const emoji = $('#player-card-avatar');
     if (avatarUrl) {
@@ -153,20 +158,23 @@ export function openPlayerCard(player) {
     // No round to report before the game starts, and a spectator isn't in one.
     const noRound = !total || room?.status === 'lobby';
     setPlayerCardRow('#player-card-round', noRound ? '—' : `${room?.status === 'finished' ? total : current} / ${total}`);
-    setPlayerCardRow('#player-card-score', String(player.score ?? 0));
+    setPlayerCardRow('#player-card-score', formatScore(player.score ?? 0));
     setPlayerCardRow('#player-card-correct', String(player.correct ?? 0));
     setPlayerCardRow('#player-card-streak', String(player.streak ?? 0));
     setPlayerCardRow('#player-card-status', playerStatusLabel(player, room));
+    // Before the round starts these four are zeros and a dash about a game that
+    // has not happened. Mode and status still say something in a lobby, so they
+    // stay; the live figures appear when there are live figures.
+    ['#player-card-round', '#player-card-score', '#player-card-correct', '#player-card-streak']
+        .forEach((sel) => $(sel)?.closest('.player-card-stat')?.classList.toggle('hidden', noRound));
 
     // "Ability to join": inside Discord, Discord's own invite sheet pulls people
     // into this Activity's voice channel — and the voice-channel auto-join drops
     // them straight into this room. On the web, share the room code instead.
-    const invite = $('#btn-player-card-invite');
-    if (invite) {
-        const canInvite = isDiscordActivity() || !!room?.code;
-        invite.classList.toggle('hidden', !canInvite);
-        invite.textContent = t('inviteToRoom');
-    }
+    // Inviting belongs to the room, not to a person: the lobby already has its
+    // own Invite control. This card's footer is Follow + Close, and your own is
+    // just Close — there is nobody to follow and nobody to invite.
+    $('#btn-player-card-invite') ?.classList.add('hidden');
     /* Promote another (non-host, non-spectator) player to host.
        Two routes, because `mp.isAdmin` means "I am THIS room's host" — not "I am the
        site admin". The host uses the ordinary room RPC (lobby-only, our own policy).
@@ -192,6 +200,7 @@ export function openPlayerCard(player) {
     }
     $('#player-card-error')?.classList.add('hidden');
     renderCardAdminControls(player.name, isYou);
+    setupFollowButton(player.name, isYou);
 
     // Load the player's global profile (stats + per-mode rankings) once per open —
     // not on every realtime refresh, which would re-fetch and flicker.
@@ -556,7 +565,8 @@ export function renderProfileStats(box, stats, bestRank, activity, isYou) {
     const winRate = mpGames > 0 ? `${Math.round((wins / mpGames) * 100)}%` : '—';
     const hours = activity && activity.seconds ? `${(activity.seconds / 3600).toFixed(1)}h` : '0h';
     const cells = [
-        ...(inHeader ? [] : [{ label: t('statBestRank'), value: bestRank ? `#${bestRank}` : '—', hero: true }]),
+        // An unranked player gets no hero cell — it was a large empty box.
+        ...(inHeader || !bestRank ? [] : [{ label: t('statBestRank'), value: `#${bestRank}`, hero: true }]),
         { label: t('statBest'), value: formatScore(stats.best) },
         { label: t('statGames'), value: fmtNum(stats.games) },
         { label: t('statWinRate'), value: winRate },

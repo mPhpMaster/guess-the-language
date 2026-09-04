@@ -186,7 +186,7 @@ export function nextQuestion() {
     const qt = $('#question-text');
     if (cur.questionText) {
         qt.classList.remove('hidden');
-        qt.textContent = cur.questionText;
+        setRichText(qt, cur.questionText);
     } else {
         qt.classList.add('hidden');
         qt.textContent = '';
@@ -266,6 +266,31 @@ export function setupFillForm(disabled) {
     if (!disabled && input) setTimeout(() => { try { input.focus(); } catch (e) {} }, 40);
 }
 
+// The banks write inline code in markdown backticks (`setInterval`, `nums.size`).
+// Rendered literally they read as stray punctuation, so the ticks become real
+// <code> spans. Built as nodes, never innerHTML: the text is question content.
+export function setRichText(el, text) {
+    if (!el) return;
+    el.textContent = '';
+    // Split on the ticks rather than matching them: odd-numbered pieces are the
+    // code spans. A regex here would need an escaped newline class, which this
+    // repo has had mangled by a shell heredoc twice.
+    const parts = String(text == null ? '' : text).split('`');
+    parts.forEach((part, index) => {
+        if (!part) return;
+        // A trailing unmatched tick leaves an odd piece count; that last piece
+        // is prose, not code, so it is appended as text.
+        if (index % 2 === 1 && index < parts.length - 1) {
+            const code = document.createElement('code');
+            code.className = 'inline-code';
+            code.textContent = part;
+            el.appendChild(code);
+        } else {
+            el.appendChild(document.createTextNode(part));
+        }
+    });
+}
+
 // Round counters are zero-padded in the design (Q 08 / 10).
 export function padIndex(n) {
     return String(n).padStart(2, '0');
@@ -290,7 +315,7 @@ export function renderOptions(cur, disabled) {
         badge.textContent = String(index + 1);
         const text = document.createElement('span');
         text.className = cur.style === 'languages' ? 'lang-name' : 'opt-text';
-        text.textContent = opt.label;
+        setRichText(text, opt.label);
         btn.appendChild(badge);
         btn.appendChild(text);
         btn.addEventListener('click', () => {
@@ -785,9 +810,9 @@ export function showFeedback(kind, headline, explanation) {
     const toast = $('#answer-toast');
     const h = $('#fb-headline');
     const e = $('#fb-explanation');
-    if (h) h.textContent = headline || '';
+    if (h) setRichText(h, headline || '');
     if (e) {
-        e.textContent = explanation || '';
+        setRichText(e, explanation || '');
         e.classList.toggle('hidden', !explanation);
     }
     if (toast) toast.className = `toast show ${kind}`;

@@ -177,6 +177,11 @@ app.whenReady().then(async () => {
     // host, who has the controls themselves.
     const summaryHidden = await run('document.querySelector("#lobby-summary").classList.contains("hidden")');
     check('host sees controls, not the read-only summary', summaryHidden);
+
+    // Inviting belongs to the room, so the lobby is where the control lives (the
+    // player card used to carry a second copy of it).
+    const lobbyInvite = await run('!document.querySelector("#btn-lobby-invite").classList.contains("hidden")');
+    check('lobby offers an invite (ability to join)', lobbyInvite);
     check('lobby mode select exists', await run('!!document.querySelector("#lobby-mode-select")'));
     check('lobby questions select exists', await run('!!document.querySelector("#lobby-questions")'));
     check('lobby difficulty select exists', await run('!!document.querySelector("#lobby-difficulty")'));
