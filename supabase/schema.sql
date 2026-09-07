@@ -195,12 +195,153 @@ returns int language sql immutable as $$
   select greatest(1, floor(sqrt(greatest(p_xp, 0) / 1000.0))::int + 1);
 $$;
 
--- Full record_progress() body lives in migration phase2_progression_fix; it is
--- SECURITY DEFINER, upserts player_stats, and returns:
+-- record_progress(): supersedes record_play(). Upserts player_stats, awards XP,
+-- recomputes level and daily streak, unlocks achievements, and returns
 --   { level, xp, day_streak, best_day_streak, new_achievements: [...] }
--- Achievement ids: rookie, dedicated, centurion, first_win, champion, perfect,
---   flawless, streak3, streak7, marathon, level5, level10.
--- grant execute on function public.record_progress(text,int,boolean,boolean,int,boolean) to anon, authenticated;
+--
+-- This body was RECOVERED FROM PRODUCTION. The file previously said only "full
+-- body lives in migration phase2_progression_fix" — a migration that is not in
+-- this repo — so the most security-sensitive function the anon key can call had
+-- no definition under version control at all. Anyone reading this file to plan a
+-- change was reading a pointer to nothing. Recovered via scripts/schema-drift.js;
+-- verified byte-identical to the deployed definition at v3.23.0.
+--
+-- Note the trust model, unchanged and worth being explicit about: p_player is a
+-- self-asserted display name, so anyone holding the anon key can add XP to any
+-- name. That is the same exposure as `scores` and closing it means finishing the
+-- discord_id migration in supabase/migration-score-integrity.sql, not patching
+-- this function.
+create or replace function public.record_progress(
+  p_player text, p_seconds integer, p_multiplayer boolean,
+  p_won boolean, p_xp integer, p_perfect boolean
+) returns jsonb
+language plpgsql security definer set search_path = public as $$
+declare
+  v_today date := (now() at time zone 'utc')::date;
+  r public.player_stats;
+  v_streak int;
+  v_xp bigint;
+  v_earned text[] := array[]::text[];
+  v_existing text[];
+  v_new text[];
+begin
+  if p_player is null or length(btrim(p_player)) = 0 then return '{}'::jsonb; end if;
+
+  select * into r from public.player_stats where player = p_player for update;
+  if not found then
+    v_streak := 1;
+    v_xp := greatest(p_xp, 0);
+    insert into public.player_stats(player, games, mp_games, wins, seconds, last_seen,
+      xp, level, day_streak, best_day_streak, last_play_date, perfect_games, achievements)
+    values (p_player, 1, case when p_multiplayer then 1 else 0 end, case when p_won then 1 else 0 end,
+      greatest(p_seconds, 0), now(), v_xp, gtl_level_from_xp(v_xp), v_streak, v_streak, v_today,
+      case when p_perfect then 1 else 0 end, '[]'::jsonb)
+    returning * into r;
+  else
+    if r.last_play_date = v_today then v_streak := r.day_streak;
+    elsif r.last_play_date = v_today - 1 then v_streak := r.day_streak + 1;
+    else v_streak := 1; end if;
+    v_xp := r.xp + greatest(p_xp, 0);
+    update public.player_stats set
+      games = r.games + 1,
+      mp_games = r.mp_games + case when p_multiplayer then 1 else 0 end,
+      wins = r.wins + case when p_won then 1 else 0 end,
+      seconds = r.seconds + greatest(p_seconds, 0),
+      last_seen = now(),
+      xp = v_xp,
+      level = gtl_level_from_xp(v_xp),
+      day_streak = v_streak,
+      best_day_streak = greatest(r.best_day_streak, v_streak),
+      last_play_date = v_today,
+      perfect_games = r.perfect_games + case when p_perfect then 1 else 0 end
+    where player = p_player
+    returning * into r;
+  end if;
+
+  if r.games >= 1   then v_earned := array_append(v_earned, 'rookie'); end if;
+  if r.games >= 25  then v_earned := array_append(v_earned, 'dedicated'); end if;
+  if r.games >= 100 then v_earned := array_append(v_earned, 'centurion'); end if;
+  if r.wins >= 1    then v_earned := array_append(v_earned, 'first_win'); end if;
+  if r.wins >= 10   then v_earned := array_append(v_earned, 'champion'); end if;
+  if r.perfect_games >= 1 then v_earned := array_append(v_earned, 'perfect'); end if;
+  if r.perfect_games >= 5 then v_earned := array_append(v_earned, 'flawless'); end if;
+  if r.best_day_streak >= 3 then v_earned := array_append(v_earned, 'streak3'); end if;
+  if r.best_day_streak >= 7 then v_earned := array_append(v_earned, 'streak7'); end if;
+  if r.seconds >= 3600 then v_earned := array_append(v_earned, 'marathon'); end if;
+  if r.level >= 5   then v_earned := array_append(v_earned, 'level5'); end if;
+  if r.level >= 10  then v_earned := array_append(v_earned, 'level10'); end if;
+
+  select coalesce(array_agg(x), array[]::text[]) into v_existing from jsonb_array_elements_text(r.achievements) x;
+  select coalesce(array_agg(e), array[]::text[]) into v_new from unnest(v_earned) e where e <> all(v_existing);
+  if array_length(v_new, 1) is not null then
+    update public.player_stats set achievements = to_jsonb(v_earned) where player = p_player;
+  end if;
+
+  return jsonb_build_object(
+    'level', r.level, 'xp', r.xp, 'day_streak', r.day_streak,
+    'best_day_streak', r.best_day_streak,
+    'new_achievements', to_jsonb(coalesce(v_new, array[]::text[]))
+  );
+end $$;
+
+grant execute on function public.record_progress(text,int,boolean,boolean,int,boolean) to anon, authenticated;
+
+-- ---------------------------------------------------------------------------
+-- RLS safety net.
+--
+-- RECOVERED FROM PRODUCTION, where it already runs as the `ensure_rls` event
+-- trigger. Provenance unknown — it predates this audit and may have been added
+-- from the dashboard — but it is load-bearing and was nowhere in this repo, so a
+-- fresh install would silently lack it. It turns RLS on for every new table in
+-- `public`, which is why a forgotten `alter table ... enable row level security`
+-- has never yet become an open table here.
+--
+-- Do NOT treat it as a substitute for writing the policy. RLS on with no policy
+-- denies everything: safe, but it surfaces as a feature that mysteriously
+-- returns empty rather than as an obvious permissions error. (Exactly that shape
+-- shows up in test/probe-anon-surface.js, where error_logs / presence /
+-- banned_players answer 200 with [] rather than 401.)
+--
+-- Creating an event trigger needs elevated rights; on a fresh project run this
+-- as the `postgres` role in the SQL editor.
+-- ---------------------------------------------------------------------------
+create or replace function public.rls_auto_enable()
+returns event_trigger language plpgsql security definer set search_path = pg_catalog as $$
+declare
+  cmd record;
+begin
+  for cmd in
+    select * from pg_event_trigger_ddl_commands()
+    where command_tag in ('CREATE TABLE', 'CREATE TABLE AS', 'SELECT INTO')
+      and object_type in ('table', 'partitioned table')
+  loop
+    if cmd.schema_name is not null and cmd.schema_name in ('public')
+       and cmd.schema_name not in ('pg_catalog', 'information_schema')
+       and cmd.schema_name not like 'pg_toast%' and cmd.schema_name not like 'pg_temp%' then
+      begin
+        execute format('alter table if exists %s enable row level security', cmd.object_identity);
+        raise log 'rls_auto_enable: enabled RLS on %', cmd.object_identity;
+      exception
+        when others then
+          raise log 'rls_auto_enable: failed to enable RLS on %', cmd.object_identity;
+      end;
+    else
+      raise log 'rls_auto_enable: skip % (system schema or not in enforced list: %.)',
+        cmd.object_identity, cmd.schema_name;
+    end if;
+  end loop;
+end $$;
+
+-- Never callable as an RPC: it returns event_trigger, which PostgREST cannot
+-- even render, and Postgres grants EXECUTE to PUBLIC by default.
+revoke all on function public.rls_auto_enable() from public, anon, authenticated;
+
+do $$
+begin
+  if not exists (select 1 from pg_event_trigger where evtname = 'ensure_rls') then
+    create event trigger ensure_rls on ddl_command_end execute function public.rls_auto_enable();
+  end if;
+end $$;
 
 -- ---------------------------------------------------------------------------
 -- Daily Challenge (Phase 3): the same 10 questions for everyone each UTC day

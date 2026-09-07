@@ -52,6 +52,7 @@ const SITE = 'https://guess-the-language-chi.vercel.app';
     results.push({ label, status: r.status, ok: expect(r.status), hint: r.ok ? body.slice(0, 60) : body.slice(0, 90) });
   }
 
+  const ZERO = '00000000-0000-4000-8000-000000000000';
   const ok2xx = (s) => s >= 200 && s < 300;
   const denied = (s) => s === 401 || s === 403 || s === 404;
   // Reachable, but RLS hands back nothing.
@@ -85,6 +86,25 @@ const SITE = 'https://guess-the-language-chi.vercel.app';
     denied);
   await rpc('admin_* stays service-role only', 'admin_ban',
     { p_player: 'probe', p_reason: 'probe', p_by: 'probe' }, denied);
+
+  /* Internal helpers. Postgres grants EXECUTE to PUBLIC by default, and these
+     were never revoked — so every one of them was callable with the anon key.
+     _answer_for_index is the reason this block exists: it is SECURITY DEFINER
+     precisely so it can read room_answer_keys, which is otherwise unreadable,
+     and it returned the correct answer to anyone who asked. Both of its
+     arguments are public (the room id is selectable, the question index is on
+     the same row), so revoking room_answers and silencing submit_answer had
+     locked the window beside an open door.
+
+     A 400 here would still be a FAIL: it would mean the function ran and
+     merely disliked its arguments. Only a permission error counts. */
+  for (const fn of ['_answer_for_index', '_settle_question', '_set_question_timer']) {
+    await rpc(`${fn} not callable`, fn, { p_room_id: ZERO, p_index: 0 }, denied);
+  }
+  await rpc('_ensure_host not callable', '_ensure_host', { p_room_id: ZERO }, denied);
+  await rpc('_score_points not callable', '_score_points',
+    { p_time_left: 999999, p_streak_after: 99 }, denied);
+  await rpc('rls_auto_enable not callable', 'rls_auto_enable', {}, denied);
 
   let bad = 0;
   for (const r of results) {

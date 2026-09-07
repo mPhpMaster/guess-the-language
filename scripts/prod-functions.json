@@ -1,0 +1,302 @@
+[
+  {
+    "name": "_answer_for_index",
+    "args": "p_room_id uuid, p_index integer",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "_assert_admin",
+    "args": "p_room_id uuid, p_player_id uuid, p_token uuid",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "_assert_seat",
+    "args": "p_room_id uuid, p_player_id uuid, p_token uuid",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "_duration_for_difficulty",
+    "args": "p_difficulty text",
+    "security": "invoker",
+    "anon": false
+  },
+  {
+    "name": "_ensure_host",
+    "args": "p_room_id uuid",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "_gen_room_code",
+    "args": "",
+    "security": "invoker",
+    "anon": false
+  },
+  {
+    "name": "_issue_player_token",
+    "args": "p_player_id uuid",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "_player_color",
+    "args": "slot integer",
+    "security": "invoker",
+    "anon": false
+  },
+  {
+    "name": "_player_icon",
+    "args": "slot integer",
+    "security": "invoker",
+    "anon": false
+  },
+  {
+    "name": "_score_points",
+    "args": "p_time_left integer, p_streak_after integer",
+    "security": "invoker",
+    "anon": false
+  },
+  {
+    "name": "_set_question_timer",
+    "args": "p_room_id uuid, p_index integer",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "_settle_question",
+    "args": "p_room_id uuid, p_index integer",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "admin_ban",
+    "args": "p_player text, p_reason text, p_by text",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "admin_delete_score",
+    "args": "p_id bigint, p_by text",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "admin_join_room",
+    "args": "p_room_id uuid, p_name text, p_by text DEFAULT NULL::text",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "admin_kick_player",
+    "args": "p_room_id uuid, p_target_player_id uuid, p_by text DEFAULT NULL::text",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "admin_make_host",
+    "args": "p_room_id uuid, p_target_player_id uuid, p_by text DEFAULT NULL::text",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "admin_reset_profile",
+    "args": "p_player text",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "admin_unban",
+    "args": "p_player text",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "apply_faint_penalty",
+    "args": "p_character_id uuid",
+    "security": "definer",
+    "anon": true
+  },
+  {
+    "name": "claim_host",
+    "args": "p_room_id uuid",
+    "security": "definer",
+    "anon": true
+  },
+  {
+    "name": "cleanup_presence",
+    "args": "",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "cleanup_rooms",
+    "args": "",
+    "security": "definer",
+    "anon": true
+  },
+  {
+    "name": "create_room",
+    "args": "p_mode text, p_settings jsonb, p_host_name text",
+    "security": "definer",
+    "anon": true
+  },
+  {
+    "name": "end_room",
+    "args": "p_room_id uuid, p_player_id uuid, p_token uuid",
+    "security": "definer",
+    "anon": true
+  },
+  {
+    "name": "gtl_level_from_xp",
+    "args": "p_xp bigint",
+    "security": "invoker",
+    "anon": true
+  },
+  {
+    "name": "handle_approval",
+    "args": "",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "handle_new_user",
+    "args": "",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "has_role",
+    "args": "_user_id uuid, _role app_role",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "heartbeat",
+    "args": "p_player text, p_discord_id text, p_guild_id text, p_channel_id text, p_mode text, p_activity text, p_platform text",
+    "security": "definer",
+    "anon": true
+  },
+  {
+    "name": "is_approved",
+    "args": "_user_id uuid",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "is_member",
+    "args": "_conv uuid, _user uuid",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "is_safe_player_name",
+    "args": "p_name text",
+    "security": "invoker",
+    "anon": true
+  },
+  {
+    "name": "join_discord_room",
+    "args": "p_instance_id text, p_mode text, p_settings jsonb, p_player_name text, p_discord_user_id text",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "join_room",
+    "args": "p_code text, p_name text",
+    "security": "definer",
+    "anon": true
+  },
+  {
+    "name": "kick_player",
+    "args": "p_room_id uuid, p_admin_player_id uuid, p_token uuid, p_target_player_id uuid",
+    "security": "definer",
+    "anon": true
+  },
+  {
+    "name": "leave_room",
+    "args": "p_room_id uuid, p_player_id uuid, p_token uuid",
+    "security": "definer",
+    "anon": true
+  },
+  {
+    "name": "make_host",
+    "args": "p_room_id uuid, p_player_id uuid, p_token uuid, p_target_player_id uuid",
+    "security": "definer",
+    "anon": true
+  },
+  {
+    "name": "publish_score",
+    "args": "p_name text, p_level integer, p_coins integer, p_kills integer, p_catches integer",
+    "security": "definer",
+    "anon": true
+  },
+  {
+    "name": "record_play",
+    "args": "p_player text, p_seconds integer, p_multiplayer boolean DEFAULT false, p_won boolean DEFAULT false",
+    "security": "definer",
+    "anon": true
+  },
+  {
+    "name": "record_progress",
+    "args": "p_player text, p_seconds integer, p_multiplayer boolean, p_won boolean, p_xp integer, p_perfect boolean",
+    "security": "definer",
+    "anon": true
+  },
+  {
+    "name": "reject_banned_score",
+    "args": "",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "restart_room",
+    "args": "p_room_id uuid, p_player_id uuid, p_token uuid",
+    "security": "definer",
+    "anon": true
+  },
+  {
+    "name": "rls_auto_enable",
+    "args": "",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "room_answers_for",
+    "args": "p_room_id uuid, p_index integer",
+    "security": "definer",
+    "anon": true
+  },
+  {
+    "name": "set_active_monster",
+    "args": "p_character_id uuid, p_slot integer",
+    "security": "definer",
+    "anon": true
+  },
+  {
+    "name": "start_room",
+    "args": "p_room_id uuid, p_player_id uuid, p_token uuid, p_round_refs jsonb, p_answer_keys jsonb",
+    "security": "definer",
+    "anon": true
+  },
+  {
+    "name": "submit_answer",
+    "args": "p_room_id uuid, p_player_id uuid, p_token uuid, p_answer text",
+    "security": "definer",
+    "anon": true
+  },
+  {
+    "name": "tick_room",
+    "args": "p_room_id uuid",
+    "security": "definer",
+    "anon": true
+  },
+  {
+    "name": "update_room_settings",
+    "args": "p_room_id uuid, p_player_id uuid, p_token uuid, p_mode text, p_settings jsonb",
+    "security": "definer",
+    "anon": true
+  }
+]
