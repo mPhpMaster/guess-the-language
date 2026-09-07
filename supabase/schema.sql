@@ -400,4 +400,9 @@ create table if not exists public.follows (
 create index if not exists follows_follower_idx on public.follows (follower);
 alter table public.follows enable row level security;
 drop policy if exists follows_all on public.follows;
-create policy follows_all on public.follows for all to anon, authenticated using (true) with check (true);
+-- Reads only. Writes go through /api/follow with a signed session — see
+-- supabase/migration-follows-authed.sql for why both the identity gap and the
+-- "anyone can empty this table" exposure could only close together.
+create policy follows_select on public.follows
+  for select to anon, authenticated using (true);
+revoke insert, update, delete on public.follows from anon, authenticated;

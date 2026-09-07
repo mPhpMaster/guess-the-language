@@ -4,7 +4,7 @@ import { $, announce, closeDialog, openDialog, setTitlebar, showScreen } from '.
 import { formatScore } from './format.js';
 import { readAccuracy } from './home.js';
 import { t } from './i18n.js';
-import { discordAvatarUrl, getDiscordProfile, isDiscordActivity, safeDisplayName } from './identity.js';
+import { appApiPrefix, discordAvatarUrl, getAppSessionToken, getDiscordProfile, isDiscordActivity, safeDisplayName } from './identity.js';
 import { avatarFor, buildResultsLeaderboard, mpVisualOf } from './leaderboard.js';
 import { loadAllBanks, modeLabel, mpOnline, renderLobby } from './mp-ui.js';
 import { mpRoundInfo, pushPresence } from './presence.js';
@@ -257,23 +257,49 @@ export async function loadMyFollows(force) {
     return myFollowsCache;
 }
 export function isFollowing(name) { return !!(myFollowsCache && myFollowsCache.has(safeDisplayName(name))); }
+/* Follows are written through /api/follow now, not straight into the table.
+
+   Two things were wrong with the direct write. The row said who you followed
+   and nothing checked you were the follower, so anyone could add follows in
+   your name and one unfiltered DELETE emptied the table — RLS could not scope
+   either, because every caller is `anon` and there is no identity to scope to.
+   And follower_discord_id, added long ago, had no writer, so a rename orphaned
+   the whole list.
+
+   Returns without doing anything when there is no session token. Following is
+   a social feature tied to an account, so unlike recording a round already
+   played there is nothing to preserve for an unauthenticated caller — and the
+   optimistic cache update below is rolled back so the button does not lie. */
+async function writeFollow(action, me, who) {
+    const token = getAppSessionToken();
+    if (!token) return false;
+    try {
+        const res = await fetch(`${appApiPrefix()}/api/follow`, {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action, follower: me, followee: who })
+        });
+        if (!res.ok) throw new Error(`${action} ${res.status}`);
+        return true;
+    } catch (e) {
+        console.warn(`${action} failed:`, e.message);
+        return false;
+    }
+}
+
 export async function followPlayer(name) {
     const me = safeDisplayName(getPlayerName());
     const who = safeDisplayName(name);
     if (!me || !who || me === who) return;
     (myFollowsCache = myFollowsCache || new Set()).add(who);
-    try {
-        await sbFetch('follows', { method: 'POST', headers: { Prefer: 'resolution=ignore-duplicates,return=minimal' }, body: JSON.stringify([{ follower: me, followee: who }]) });
-    } catch (e) { console.warn('follow failed:', e.message); }
+    if (!(await writeFollow('follow', me, who))) myFollowsCache.delete(who);
 }
 export async function unfollowPlayer(name) {
     const me = safeDisplayName(getPlayerName());
     const who = safeDisplayName(name);
     if (!me || !who) return;
     if (myFollowsCache) myFollowsCache.delete(who);
-    try {
-        await sbFetch(`follows?follower=eq.${encodeURIComponent(me)}&followee=eq.${encodeURIComponent(who)}`, { method: 'DELETE', headers: { Prefer: 'return=minimal' } });
-    } catch (e) { console.warn('unfollow failed:', e.message); }
+    if (!(await writeFollow('unfollow', me, who)) && myFollowsCache) myFollowsCache.add(who);
 }
 export async function setupFollowButton(name, isYou) {
     const btn = $('#btn-player-card-follow');
