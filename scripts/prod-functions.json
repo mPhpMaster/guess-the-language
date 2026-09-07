@@ -252,12 +252,6 @@
     "anon": true
   },
   {
-    "name": "record_play",
-    "args": "p_player text, p_seconds integer, p_multiplayer boolean DEFAULT false, p_won boolean DEFAULT false",
-    "security": "definer",
-    "anon": true
-  },
-  {
     "name": "record_progress",
     "args": "p_player text, p_seconds integer, p_multiplayer boolean, p_won boolean, p_xp integer, p_perfect boolean",
     "security": "definer",

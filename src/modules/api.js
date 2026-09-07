@@ -101,18 +101,19 @@ export function recordPlay(multiplayer, won, xp, perfect) {
     if (!name) return;
     const points = Math.max(0, Math.round(xp || 0));
 
-    /* Prefer the authenticated endpoint, which stamps player_stats.discord_id
-       from the signed session. player_stats is keyed on a display name, so a
-       rename currently orphans a player's level, streak and achievements, and a
-       freed name carries the profile behind it to whoever takes it next. The
-       column to fix that has existed since migration-score-integrity.sql; what
-       was missing was any writer — record_progress() had no such parameter, so
-       0 of 1080 rows carried one.
+    /* Prefer the authenticated endpoint, which passes a discord_id taken from
+       the signed session. Since step (c) that id is what record_progress
+       RESOLVES the profile by, not merely something it stamps: renaming on
+       Discord now keeps your level, streak and achievements, and a freed name
+       no longer carries your profile to whoever takes it next.
 
-       Falls back to the direct RPC when there is no session token: the Electron
-       desktop build has no /api to call, and refusing to record a round already
-       played would remove a working feature to gain nothing. Those rows simply
-       carry no id, exactly as every row does today. Same shape as submitScore(). */
+       Falls back to the direct RPC when there is no session token, because the
+       Electron desktop build has no /api to call and refusing to record a round
+       already played would remove a working feature to gain nothing. That path
+       can only assert a name, so it resolves by name — preferring an unclaimed
+       row, then the most recently seen claimed one, which keeps a signed-in
+       player's desktop sessions on their own profile rather than forking a
+       second one. Same fallback shape as submitScore(). */
     const token = getAppSessionToken();
     const celebrate = (info) => {
         const unlocked = info && info.new_achievements;
@@ -336,9 +337,17 @@ export async function fetchGamesFor(names) {
         // Names go into a PostgREST in.("a","b") list, so a stray double quote
         // would break the filter — strip those before quoting.
         const quoted = list.map((n) => `"${String(n).split('"').join('')}"`).join(',');
-        const rows = await sbFetch(`player_stats?select=player,games&player=in.(${encodeURIComponent(quoted)})`);
+        const rows = await sbFetch(`player_stats?select=player,games&player=in.(${encodeURIComponent(quoted)})`
+            + '&order=last_seen.desc.nullslast');
         const out = {};
-        (rows || []).forEach((r) => { out[String(r.player).trim().toLowerCase()] = r.games; });
+        // Ordered newest-first and written with `??=`, so when two identities
+        // share a display name the most recently active one wins — matching what
+        // fetchPlayerActivity() shows for the same name. Before step (c) a name
+        // could only ever return one row, so plain assignment was equivalent.
+        (rows || []).forEach((r) => {
+            const key = String(r.player).trim().toLowerCase();
+            if (out[key] === undefined) out[key] = r.games;
+        });
         return out;
     } catch (e) {
         return {};

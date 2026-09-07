@@ -415,10 +415,17 @@ export async function loadPlayerProfileSections(name, isYou) {
     }
 }
 
+/* A display name no longer identifies one profile. Since step (c) two Discord
+   identities may hold the same name — one having renamed away from it and
+   another having taken it — so this picks the most recently active holder
+   rather than whichever row the planner happened to return first. Opening a
+   card from the leaderboard only ever carries a name, so there is nothing
+   better to key on here; the row that IS keyed by identity is the one
+   record_progress writes. */
 export async function fetchPlayerActivity(name) {
     const clean = safeDisplayName(name);
     try {
-        const rows = await sbFetch(`player_stats?select=games,mp_games,wins,seconds,last_seen,xp,level,day_streak,best_day_streak,perfect_games,achievements&player=eq.${encodeURIComponent(clean)}&limit=1`);
+        const rows = await sbFetch(`player_stats?select=games,mp_games,wins,seconds,last_seen,xp,level,day_streak,best_day_streak,perfect_games,achievements&player=eq.${encodeURIComponent(clean)}&order=last_seen.desc.nullslast&limit=1`);
         return (rows && rows[0]) || null;
     } catch {
         return null;

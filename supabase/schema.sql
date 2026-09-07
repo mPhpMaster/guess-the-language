@@ -111,8 +111,12 @@ alter table public.leaderboard_reports enable row level security;
 -- Player activity stats (v3.4.1): hours played, multiplayer games + wins,
 -- last activity. Written only through record_play(); read publicly for profiles.
 -- ---------------------------------------------------------------------------
+-- The primary key is a surrogate `id`, added in migration-identity-step-c.sql;
+-- `player` is NOT unique any more. Two Discord identities may hold the same
+-- display name — one having renamed away from it, another having taken it — and
+-- the partial uniques there keep claimed and unclaimed rows apart.
 create table if not exists public.player_stats (
-  player      text primary key,
+  player      text not null,
   games       integer not null default 0,
   mp_games    integer not null default 0,
   wins        integer not null default 0,
@@ -126,36 +130,10 @@ drop policy if exists "public can read player_stats" on public.player_stats;
 create policy "public can read player_stats"
   on public.player_stats for select using (true);
 
-create or replace function public.record_play(
-  p_player  text,
-  p_seconds integer,
-  p_multiplayer boolean default false,
-  p_won boolean default false
-) returns void
-language plpgsql
-security definer
-set search_path = public
-as $$
-declare
-  name text := left(btrim(coalesce(p_player, '')), 32);
-  secs integer := greatest(0, least(coalesce(p_seconds, 0), 86400));
-begin
-  if name = '' then return; end if;
-  insert into public.player_stats (player, games, mp_games, wins, seconds, last_seen)
-  values (name, 1,
-    case when p_multiplayer then 1 else 0 end,
-    case when p_multiplayer and p_won then 1 else 0 end,
-    secs, now())
-  on conflict (player) do update set
-    games    = public.player_stats.games + 1,
-    mp_games = public.player_stats.mp_games + case when p_multiplayer then 1 else 0 end,
-    wins     = public.player_stats.wins + case when p_multiplayer and p_won then 1 else 0 end,
-    seconds  = public.player_stats.seconds + secs,
-    last_seen = now();
-end;
-$$;
-
-grant execute on function public.record_play(text, integer, boolean, boolean) to anon, authenticated;
+-- record_play() lived here. It was superseded by record_progress() in v3.6.0,
+-- had no caller left, and upserted with `on conflict (player)` — which stops
+-- resolving once `player` is not a unique key. Dropped in
+-- migration-identity-step-c.sql.
 
 -- ---------------------------------------------------------------------------
 -- Client error logging. The web / Discord / desktop clients write uncaught
