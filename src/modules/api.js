@@ -183,20 +183,23 @@ async function postScoreViaApi(body) {
     return res.json();
 }
 
-export async function submitScore(player, score, mode = state.mode, multiplayer = false) {
+/* Single-player only. The `multiplayer` parameter is gone: multiplayer results
+   are registered by register_room_scores() in Postgres now, and this was the
+   client's only remaining way to set that flag — which meant anyone could post a
+   single-player score wearing the "👥 multiplayer" badge. Removing the parameter
+   removes the claim. */
+export async function submitScore(player, score, mode = state.mode) {
     const row = {
         player: safeDisplayName(player),
         score,
         mode,
-        multiplayer,
+        multiplayer: false,
         avatar: discordAvatarUrl(getDiscordProfile()) || null
     };
-    // Multiplayer rows are registered in bulk by the host (submitMpScores) from
-    // scores Postgres itself computed, so they keep the direct path.
-    if (!multiplayer) {
-        const out = await postScoreViaApi({ board: 'scores', ...row });
-        if (out !== undefined) return (out && out.row) || null;
-    }
+    const out = await postScoreViaApi({ board: 'scores', ...row });
+    if (out !== undefined) return (out && out.row) || null;
+    // No session token (the Electron desktop build has no /api): fall back to the
+    // direct insert, which RLS still bounds. Same trust level desktop always had.
     const rows = await sbFetch('scores', {
         method: 'POST',
         headers: { Prefer: 'return=representation' },
@@ -229,18 +232,15 @@ export async function fetchDailyTop(limit = 20) {
     return rows || [];
 }
 
-// Register every player's score from a finished multiplayer room in one insert,
-// each flagged as a multiplayer result. return=minimal -> 204 (no body to parse).
-export function submitMpScores(rows) {
-    if (!rows.length) return Promise.resolve(null);
-    return sbFetch('scores', {
-        method: 'POST',
-        headers: {
-            Prefer: 'return=minimal'
-        },
-        body: JSON.stringify(rows.map((row) => ({ ...row, player: safeDisplayName(row.player) })))
-    });
-}
+/* Multiplayer results are no longer posted from here. They are registered by
+   register_room_scores() in Postgres, which reads the scores it computed itself
+   and the discord ids it verified at join — see registerMpScores() in
+   src/modules/mp-ui.js and supabase/migration-identity-mp-scores.sql.
+
+   The function that used to live here took rows the HOST had built from its own
+   client state and posted them with the anon key, so one player asserted every
+   other player's score. It is deleted rather than left unused: it is exactly the
+   shape of call that should not exist, and an unused helper is an invitation. */
 
 // Which mode's leaderboard to show. Defaults to the play mode, but the leaderboard
 // screen's own mode picker can point it elsewhere without leaving the screen.

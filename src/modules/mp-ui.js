@@ -1,5 +1,5 @@
 import { adminApi, isAdmin, updateAdminButton } from './admin.js';
-import { amIWinner, isPerfectRound, recordPlay, submitMpScores, supabaseConfigured } from './api.js';
+import { amIWinner, isPerfectRound, recordPlay, supabaseConfigured } from './api.js';
 import { hideBootLoading } from './boot.js';
 import { $, announce, closeDialog, openDialog, screens, setTitlebar, showScreen } from './dom.js';
 import { selectMode } from './events.js';
@@ -660,27 +660,41 @@ export function renderMpResults() {
 
 // Register every player's final score in the global leaderboard, flagged as a
 // multiplayer result. The host submits once for the whole room (one row each).
+/* Ask the SERVER to register the room's results.
+
+   This used to build the rows here and POST them with the anon key: the host
+   asserted every other player's score from its own copy of mpState.players,
+   and nothing checked those numbers against what Postgres computed in
+   _settle_question(). The scoring was server-authoritative; the registration
+   never was. The same call also could not carry a discord_id, because the
+   "anon cannot set discord_id" policy forbids anon from setting that column —
+   so multiplayer rows were structurally excluded from identity anchoring.
+
+   register_room_scores() reads the scores Postgres itself computed and the
+   discord ids the server verified at join, so nothing below is asserted. The
+   seat token is the whole argument list that matters: it proves membership
+   without an /api round trip, which is what lets the Electron desktop build
+   use this path too.
+
+   Every member may call it, not just the host — the values do not depend on
+   who calls, and the room row claims the registration atomically so the first
+   caller writes and the rest get a quiet no-op. That removes the old failure
+   mode where a host who closed the tab took everyone's results with them.
+
+   Avatars are the one thing the server cannot derive: the URL needs the avatar
+   HASH, which lives in the Discord SDK's participant list and never reaches
+   Postgres. So we send a map, and each entry is checked server-side against
+   that row's own verified discord_user_id before it is stored. */
 export function registerMpScores() {
     if (!supabaseConfigured()) return;
     const mpState = window.GTL_MULTIPLAYER.state;
-    if (!mpState.isAdmin) return;
-    const mode = (mpState.room && mpState.room.mode) || state.mode;
-    const rows = mpState.players
-        // Never post a 0 (or negative) result to the global board — a player who
-        // scored nothing shouldn't create a "— 0 pts" leaderboard entry.
-        .filter((p) => (p.score || 0) > 0 && !p.spectator)
-        .map((p) => ({
-            player: p.name,
-            score: p.score,
-            mode,
-            multiplayer: true,
-            // Persist each player's real Discord photo so EVERYONE sees it on the
-            // board later (not just the local player via the live render override).
-            // The host resolves it from the shared Activity participants; null → emoji.
-            avatar: mpDiscordAvatarUrl(p) || null
-        }));
-    if (!rows.length) return;
-    submitMpScores(rows).catch((e) => console.error('register mp scores:', e));
+    const avatars = {};
+    mpState.players.forEach((p) => {
+        const url = mpDiscordAvatarUrl(p);
+        if (url) avatars[p.id] = url;
+    });
+    window.GTL_MULTIPLAYER.registerScores(avatars)
+        .catch((e) => console.error('register mp scores:', e));
 }
 
 // "Play again": host resets the room to its lobby; everyone else returns to the

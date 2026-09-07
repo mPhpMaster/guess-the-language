@@ -576,6 +576,21 @@
     })) || [];
   }
 
+  /* Register the finished room's results on the global board. The server reads
+     the scores it computed and the discord ids it verified; `avatars` is the
+     only thing sent, and each entry is validated server-side against that
+     player's own verified discord_user_id. Idempotent — the room row claims the
+     registration, so extra callers are a no-op rather than a duplicate entry. */
+  async function registerScores(avatars) {
+    if (!mp.roomId || !mp.playerId || !mp.playerToken) return null;
+    return rpc('register_room_scores', {
+      p_room_id: mp.roomId,
+      p_player_id: mp.playerId,
+      p_token: mp.playerToken,
+      p_avatars: avatars || {}
+    });
+  }
+
   async function kickPlayer(targetPlayerId) {
     if (!mp.isAdmin) throw new Error('Admin access required');
     await rpc('kick_player', {
@@ -697,6 +712,7 @@
     restartRoom,
     updateRoomSettings,
     fetchAnswers,
+    registerScores,
     kickPlayer,
     makeHost,
     leaveRoom,
