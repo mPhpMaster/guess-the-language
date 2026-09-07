@@ -1,4 +1,4 @@
-import { fetchDailyTop, fetchGamesFor, fetchPersonalRank, fetchTopScores, lbScope, lbViewMode, submitDailyScore, submitScore, supabaseConfigured } from './api.js';
+import { LB_WEEKLY, fetchDailyTop, fetchGamesFor, fetchPersonalRank, fetchTopScores, fetchWeeklyTop, lbScope, lbViewMode, submitDailyScore, submitScore, supabaseConfigured, weekStartDateKey } from './api.js';
 import { FRIENDS } from './constants.js';
 import { $, announce, closeDialog, openDialog, setTitlebar } from './dom.js';
 import { formatScore } from './format.js';
@@ -90,7 +90,18 @@ export function updateLbModeSwitch() {
     const show = state.viewOnly && supabaseConfigured();
     wrap.classList.toggle('hidden', !show);
     const sel = $('#lb-mode-select');
-    if (sel) sel.value = lbViewMode();
+    if (!sel) return;
+    // The weekly challenge is a this-week-only board (it sums the week's dailies),
+    // so it only joins the list once the scope pill is on "this week".
+    const weekly = sel.querySelector(`option[value="${LB_WEEKLY}"]`);
+    if (weekly) weekly.hidden = lbScope() !== 'week';
+    sel.value = isWeeklyBoard() ? LB_WEEKLY : lbViewMode();
+}
+
+// Is the board pointed at the weekly challenge? lbViewMode() deliberately falls
+// back to a real mode for it, so the pseudo-mode is checked on state directly.
+export function isWeeklyBoard() {
+    return !!state.viewOnly && lbScope() === 'week' && state.lbViewMode === LB_WEEKLY;
 }
 
 // All-time / This-week toggle: shown on any real mode board (not the daily board).
@@ -146,6 +157,55 @@ export async function buildDailyLeaderboard() {
     }
 }
 
+// The weekly challenge board: every daily challenge played since Monday 00:00 UTC,
+// summed per player. Reached from the leaderboard screen by picking "this week"
+// and then "weekly challenge" in the mode list. Nothing is submitted here — it is
+// a view over the daily board, which the daily round already writes.
+export async function buildWeeklyLeaderboard() {
+    const note = $('#lb-note');
+    const label = t('weeklyChallenge');
+    setBoardHeading(t('comparison'), `${label} · ${weekStartDateKey()} → ${dailyDateKey()}`, label);
+    setTitlebar(`${t('tbLeaderboard')} ${label.toLowerCase()}`);
+    // A weekly total is not this round's score, so the personal line has nothing to say.
+    $('#personal-result')?.classList.add('hidden');
+
+    if (!supabaseConfigured()) {
+        $('#leaderboard').innerHTML = '';
+        note.className = 'lb-note';
+        note.textContent = '';
+        return;
+    }
+    note.className = 'lb-note';
+    note.textContent = t('lbLoading');
+    try {
+        const top = await fetchWeeklyTop(20);
+        const myKey = safeDisplayName(getPlayerName()).trim().toLowerCase();
+        const myAvatarNow = discordAvatarUrl(getDiscordProfile());
+        const daysByName = {};
+        const list = top.map((r, index) => {
+            const you = !!myKey && r.key === myKey;
+            daysByName[r.key] = r.days;
+            return {
+                // No single row backs an aggregate, so there is nothing reportable
+                // here — id 0 keeps the report button off this board.
+                id: 0,
+                name: r.player,
+                avatar: (you && myAvatarNow) || r.avatar || avatarFor(r.player),
+                score: r.score,
+                rank: index + 1,
+                you
+            };
+        });
+        renderLeaderboard(list, daysByName, { countLabel: t('lbColDays') });
+        note.className = 'lb-note online';
+        note.textContent = list.length ? t('lbOnline') : t('weeklyChallengeEmpty');
+    } catch (e) {
+        console.error('Weekly leaderboard error:', e);
+        note.className = 'lb-note offline';
+        note.textContent = t('lbOffline');
+    }
+}
+
 export async function buildResultsLeaderboard() {
     // Practice rounds aren't scored — no submit, no leaderboard.
     if (state.learn && !state.viewOnly) {
@@ -165,6 +225,8 @@ export async function buildResultsLeaderboard() {
     if (!state.viewOnly) state.lbViewMode = state.mode;
     updateLbModeSwitch();
     updateLbScopeSwitch();
+    // "this week" + "weekly challenge" swaps the mode board for the week's dailies.
+    if (isWeeklyBoard()) return buildWeeklyLeaderboard();
     const note = $('#lb-note');
     const playerName = getPlayerName();
 
@@ -263,7 +325,10 @@ export function currentModeLabel() {
     return Array.isArray(title) ? title.join(' ') : String(title || mode.key || '');
 }
 
-export function renderLeaderboard(list, gamesByName = {}) {
+// `gamesByName` fills the last column, keyed by lowercased player name. `opts.countLabel`
+// renames that column for boards where the number is not a game count (the weekly
+// board counts days played).
+export function renderLeaderboard(list, gamesByName = {}, opts = {}) {
     const sorted = list.slice().sort((a, b) => b.score - a.score);
     let display = sorted.slice(0, 10);
     const youIdx = sorted.findIndex((p) => p.you);
@@ -283,7 +348,7 @@ export function renderLeaderboard(list, gamesByName = {}) {
         `<span class="lb-avatar" aria-hidden="true"></span>` +
         `<span class="lb-bar-wrap">${t('lbColPlayer')}</span>` +
         `<span class="lb-score">${t('lbColScore')}</span>` +
-        `<span class="lb-games">${t('lbColGames')}</span>` +
+        `<span class="lb-games">${opts.countLabel || t('lbColGames')}</span>` +
         `<span class="lb-report-cell"></span>`;
     lb.appendChild(head);
     display.forEach((p, i) => {

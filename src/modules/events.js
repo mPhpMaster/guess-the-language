@@ -1,10 +1,11 @@
 import { closeAdminPanel, requestAdminAccess } from './admin.js';
+import { LB_WEEKLY } from './api.js';
 import { $, closeDialog, openDialog, showScreen } from './dom.js';
 import { advanceAfterFeedback, clearTimer, endQuiz, onGameKeydown, showCodeTab, startGame, startPractice, submitFill, useFifty } from './game.js';
 import { renderHome } from './home.js';
 import { MODES, t } from './i18n.js';
 import { discordAvatarUrl, discordLogout, getDiscordProfile, startDiscordLogin } from './identity.js';
-import { buildResultsLeaderboard, challengeFriend, flashButton, hideChallengeBanner, submitLeaderboardReport, updateLbScopeSwitch } from './leaderboard.js';
+import { buildResultsLeaderboard, challengeFriend, flashButton, hideChallengeBanner, submitLeaderboardReport, updateLbModeSwitch, updateLbScopeSwitch } from './leaderboard.js';
 import { closeJoinModal, confirmJoinRoom, enterDiscordLobby, hostRoomFlow, inviteFromLobby, invitePlayersToRoom, leaveMultiplayer, lobbyStartGame, mpPlayAgain, openJoinModal, pushLobbySettings } from './mp-ui.js';
 import { pushPresence } from './presence.js';
 import { handleDiscordActivityJoin, openProfileCard, refreshPlayerCard, setPlayerCardId } from './profile.js';
@@ -87,7 +88,11 @@ export function bindEvents() {
         const btn = e.target.closest('.lb-scope-btn');
         if (!btn) return;
         state.lbScope = btn.dataset.scope === 'week' ? 'week' : 'all';
+        // The weekly challenge board only exists inside "this week"; leaving that
+        // scope drops the board back to the mode the player is playing.
+        if (state.lbScope !== 'week' && state.lbViewMode === LB_WEEKLY) state.lbViewMode = state.mode;
         updateLbScopeSwitch();
+        updateLbModeSwitch();
         buildResultsLeaderboard();
     });
     // Click your name/avatar on Home to open your own profile (rank per mode).
