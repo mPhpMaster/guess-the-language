@@ -92,6 +92,17 @@ export function amSpectator() {
     return !!(me && me.spectator);
 }
 
+// Drop a LEADING EMOJI so the 🔒 prefix on a locked button does not stack onto
+// one. This used to strip the first whitespace-delimited token instead, which
+// was right back when the labels read "🎮 Host room" — but the redesign dropped
+// the emoji and the strip started eating a real word: "Host room" and "Join
+// room" both rendered as "🔒 room", so a signed-out player saw two identical,
+// meaningless buttons. Matching the emoji itself means the label survives
+// whether or not it has one.
+function stripLeadingEmoji(label) {
+    return String(label).replace(/^[\p{Extended_Pictographic}️‍\s]+/u, '');
+}
+
 export function refreshMultiplayerButtons() {
     const on = mpOnline();
     const discord = isDiscordActivity();
@@ -127,8 +138,8 @@ export function refreshMultiplayerButtons() {
     $('#btn-join').disabled = !enable;
     $('#btn-host').classList.toggle('auth-locked', authLocked);
     $('#btn-join').classList.toggle('auth-locked', authLocked);
-    $('#btn-host').textContent = authLocked ? `🔒 ${t('hostRoom').replace(/^\S+\s*/, '')}` : t('hostRoom');
-    $('#btn-join').textContent = authLocked ? `🔒 ${t('joinRoom').replace(/^\S+\s*/, '')}` : t('joinRoom');
+    $('#btn-host').textContent = authLocked ? `🔒 ${stripLeadingEmoji(t('hostRoom'))}` : t('hostRoom');
+    $('#btn-join').textContent = authLocked ? `🔒 ${stripLeadingEmoji(t('joinRoom'))}` : t('joinRoom');
     if (!enable || authLocked) {
         const msg = !ready
             ? (requiresDiscordLogin() ? t('loginDiscordToPlay') : t('nameRequired'))
