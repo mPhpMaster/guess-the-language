@@ -608,7 +608,10 @@ grant execute on function public.room_answers_for(uuid, int) to anon, authentica
 -- admin_join_room is service-role only (revoked from anon); /api/admin calls it
 -- and hands the seat back to the admin's browser, which then drives it as an
 -- ordinary player. Without a token that seat could not answer or leave.
-create or replace function public.admin_join_room(p_room_id uuid, p_name text, p_by text)
+-- `p_by` keeps its DEFAULT NULL: CREATE OR REPLACE refuses to drop an existing
+-- parameter default ("cannot remove parameter defaults from existing function"),
+-- and /api/admin always passes it anyway.
+create or replace function public.admin_join_room(p_room_id uuid, p_name text, p_by text default null::text)
 returns jsonb language plpgsql security definer set search_path = public as $$
 declare
   v_room      public.rooms;
