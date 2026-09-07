@@ -2,7 +2,7 @@ import { isPerfectRound, logError, recordPlay, supabaseConfigured } from './api.
 import { $, setTitlebar, showScreen } from './dom.js';
 import { formatScore } from './format.js';
 import { t } from './i18n.js';
-import { discordAvatarUrl, getDiscordProfile, isDiscordActivity, loadCrossOriginImage, safeDisplayName } from './identity.js';
+import { appApiPrefix, discordAvatarUrl, getAppSessionToken, getDiscordProfile, isDiscordActivity, loadCrossOriginImage, safeDisplayName } from './identity.js';
 import { buildResultsLeaderboard, currentModeLabel, renderChallengeVerdict, setBoardHeading } from './leaderboard.js';
 import { modeLabel } from './mp-ui.js';
 import { getPlayerName } from './settings.js';
@@ -248,15 +248,41 @@ export async function shareResultCard() {
 // player's browser / embeds in a Discord message.
 export async function uploadShareCard(blob) {
     if (!supabaseConfigured() || !blob) return null;
-    const c = window.SUPABASE_CONFIG;
-    const name = `card-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.png`;
-    const res = await fetch(`${c.url}/storage/v1/object/share-cards/${name}`, {
+    /* Goes through /api/share-card rather than straight into the bucket.
+
+       The bucket is public, writable and permanent, and the old call wrote to
+       it with the anon key — so anyone could fill it with unlimited valid 3MB
+       PNGs. A name-shape rule in RLS could not express "how many"; counting
+       needs a door, and this is it. The server also names the object, so a
+       caller cannot choose a path.
+
+       Returns null without a session token, and the caller already treats null
+       as "no hosted URL" and falls back to the local blob — which works
+       everywhere except the Discord iframe, whose whole reason for wanting a
+       hosted URL is that it blocks downloads. */
+    const token = getAppSessionToken();
+    if (!token) return null;
+    const png = await blobToBase64(blob);
+    if (!png) return null;
+    const res = await fetch(`${appApiPrefix()}/api/share-card`, {
         method: 'POST',
-        headers: { apikey: c.anonKey, Authorization: `Bearer ${c.anonKey}`, 'Content-Type': 'image/png' },
-        body: blob
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ png })
     });
     if (!res.ok) return null;
-    return `${c.url}/storage/v1/object/public/share-cards/${name}`;
+    const data = await res.json().catch(() => null);
+    return (data && data.url) || null;
+}
+
+// FileReader gives us base64 without hand-rolling a chunked btoa over a large
+// Uint8Array, which blows the argument limit on a 3MB card.
+function blobToBase64(blob) {
+    return new Promise((resolve) => {
+        const fr = new FileReader();
+        fr.onload = () => resolve(String(fr.result || '').split(',')[1] || null);
+        fr.onerror = () => resolve(null);
+        fr.readAsDataURL(blob);
+    });
 }
 
 // Overlay presenting the generated card. Actions adapt to the context: inside

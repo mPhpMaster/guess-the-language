@@ -2,15 +2,40 @@
 
 const crypto = require('crypto');
 
-function sessionSecret() {
+/* The configured secret, raw. When APP_SESSION_SECRET is unset this IS the
+   Discord OAuth client secret, which is the problem sessionKey() solves. */
+function rawSecret() {
   return process.env.APP_SESSION_SECRET || process.env.DISCORD_CLIENT_SECRET || '';
+}
+
+const SESSION_KEY_DOMAIN = 'gtl.session.v1';
+
+/* The key tokens are actually signed with: a domain-separated derivation, never
+   the configured value itself.
+
+   Why, given the fallback has always "worked": when APP_SESSION_SECRET is not
+   set, every session token — including the ones carrying `adm` — is HMAC'd with
+   the same string that authenticates this app to Discord's OAuth endpoint. One
+   secret doing two unrelated jobs is worth removing on its own, but the sharper
+   cost is operational: rotating the Discord client secret would silently
+   invalidate every signed-in session, and nothing in either system would say
+   why. Deriving a separate key breaks that coupling.
+
+   This is deliberately NOT conditional on which env var is set. Whether the
+   fallback is in play cannot be observed from outside the deployment, so the
+   code is written to be correct either way rather than guessing. Where
+   APP_SESSION_SECRET is properly configured, this is simply a no-op wrapper. */
+function sessionKey() {
+  const raw = rawSecret();
+  if (!raw) return null;
+  return crypto.createHmac('sha256', SESSION_KEY_DOMAIN).update(raw).digest();
 }
 
 // `extra` lets the token carry additional signed (unforgeable) claims — notably
 // `adm: true` for admins. Because the whole payload is HMAC-signed, a client
 // cannot flip these on by editing the token.
 function signSession(discordUserId, extra = {}, lifetimeSeconds = 60 * 60 * 24 * 7) {
-  const secret = sessionSecret();
+  const secret = sessionKey();
   if (!secret || !discordUserId) return null;
   const payload = Buffer.from(JSON.stringify({
     ...extra,
@@ -127,14 +152,25 @@ function verifyUnlock(token, discordUserId) {
    accepted for another" is the exact shape of the bugs this file exists to
    prevent, and it costs nothing to separate them. */
 function decodeToken(token) {
-  const secret = sessionSecret();
-  if (!secret || !token || typeof token !== 'string') return null;
+  const key = sessionKey();
+  if (!key || !token || typeof token !== 'string') return null;
   const [payload, signature] = token.split('.');
   if (!payload || !signature) return null;
-  const expected = crypto.createHmac('sha256', secret).update(payload).digest();
+
   let actual;
   try { actual = Buffer.from(signature, 'base64url'); } catch { return null; }
-  if (actual.length !== expected.length || !crypto.timingSafeEqual(actual, expected)) return null;
+
+  const matches = (k) => {
+    const expected = crypto.createHmac('sha256', k).update(payload).digest();
+    return actual.length === expected.length && crypto.timingSafeEqual(actual, expected);
+  };
+
+  /* Accepts the legacy raw-secret signature as well as the derived one, so
+     introducing sessionKey() does not sign every logged-in player out. Sessions
+     live seven days, so this second branch is dead once that has passed since
+     the deploy — DELETE IT THEN. Leaving it forever would keep the old key
+     valid, which is most of what this change was for. */
+  if (!matches(key) && !matches(rawSecret())) return null;
   try {
     const data = JSON.parse(Buffer.from(payload, 'base64url').toString('utf8'));
     if (!data.sub || !data.exp || data.exp <= Math.floor(Date.now() / 1000)) return null;
