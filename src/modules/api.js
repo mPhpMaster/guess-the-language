@@ -196,6 +196,43 @@ export async function fetchDailyTop(limit = 20) {
     return rows || [];
 }
 
+// Weekly Challenge: the week's daily challenges added together. There is no
+// separate weekly round to play — a player's weekly total is the sum of every
+// daily score they posted since Monday 00:00 UTC, so the board rewards turning
+// up all week instead of one lucky day. It is a view over daily_scores, so no
+// score is written for it and no server change is needed.
+export const LB_WEEKLY = 'weekly';
+
+// Monday of the current UTC week as a YYYY-MM-DD key, to compare against
+// daily_scores.day (a date, not a timestamp — weekStartIso() would not match).
+export function weekStartDateKey() { return weekStartIso().slice(0, 10); }
+
+export async function fetchWeeklyTop(limit = 20) {
+    // Bounded at both ends: Monday through today, exactly the range the board's
+    // heading names, so a row dated outside it (a skewed client clock) can never
+    // be folded into a total the player is reading as "this week". One page covers
+    // it — 7 days x one row per player per day. Ordered day-desc so the first
+    // avatar seen for a player is their most recent one.
+    const rows = await sbFetch(`daily_scores?select=id,player,score,avatar,day&day=gte.${weekStartDateKey()}&day=lte.${dailyDateKey()}&order=day.desc&limit=2000`);
+    const totals = new Map();
+    for (const r of rows || []) {
+        const player = safeDisplayName(r.player);
+        const key = player.trim().toLowerCase();
+        if (!key) continue;
+        let entry = totals.get(key);
+        if (!entry) {
+            entry = { key, player, score: 0, days: 0, avatar: null };
+            totals.set(key, entry);
+        }
+        entry.score += Math.max(0, Math.round(Number(r.score) || 0));
+        entry.days += 1;
+        if (!entry.avatar && r.avatar) entry.avatar = r.avatar;
+    }
+    return Array.from(totals.values())
+        .sort((a, b) => b.score - a.score || a.player.localeCompare(b.player))
+        .slice(0, limit);
+}
+
 // Register every player's score from a finished multiplayer room in one insert,
 // each flagged as a multiplayer result. return=minimal -> 204 (no body to parse).
 export function submitMpScores(rows) {
