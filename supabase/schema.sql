@@ -213,7 +213,7 @@ $$;
 -- this function.
 create or replace function public.record_progress(
   p_player text, p_seconds integer, p_multiplayer boolean,
-  p_won boolean, p_xp integer, p_perfect boolean
+  p_won boolean, p_xp integer, p_perfect boolean, p_discord_id text
 ) returns jsonb
 language plpgsql security definer set search_path = public as $$
 declare
@@ -224,6 +224,7 @@ declare
   v_earned text[] := array[]::text[];
   v_existing text[];
   v_new text[];
+  v_did text := nullif(btrim(coalesce(p_discord_id, '')), '');
 begin
   if p_player is null or length(btrim(p_player)) = 0 then return '{}'::jsonb; end if;
 
@@ -232,10 +233,11 @@ begin
     v_streak := 1;
     v_xp := greatest(p_xp, 0);
     insert into public.player_stats(player, games, mp_games, wins, seconds, last_seen,
-      xp, level, day_streak, best_day_streak, last_play_date, perfect_games, achievements)
+      xp, level, day_streak, best_day_streak, last_play_date, perfect_games, achievements,
+      discord_id)
     values (p_player, 1, case when p_multiplayer then 1 else 0 end, case when p_won then 1 else 0 end,
       greatest(p_seconds, 0), now(), v_xp, gtl_level_from_xp(v_xp), v_streak, v_streak, v_today,
-      case when p_perfect then 1 else 0 end, '[]'::jsonb)
+      case when p_perfect then 1 else 0 end, '[]'::jsonb, v_did)
     returning * into r;
   else
     if r.last_play_date = v_today then v_streak := r.day_streak;
@@ -253,7 +255,12 @@ begin
       day_streak = v_streak,
       best_day_streak = greatest(r.best_day_streak, v_streak),
       last_play_date = v_today,
-      perfect_games = r.perfect_games + case when p_perfect then 1 else 0 end
+      perfect_games = r.perfect_games + case when p_perfect then 1 else 0 end,
+      -- Claim the row for this Discord id only if it is UNCLAIMED. Never
+      -- overwrite a different id: rows are keyed by a display name, and a freed
+      -- name can be taken by someone else, so overwriting would let whoever
+      -- plays next silently inherit an established profile.
+      discord_id = coalesce(public.player_stats.discord_id, v_did)
     where player = p_player
     returning * into r;
   end if;
@@ -284,7 +291,26 @@ begin
   );
 end $$;
 
-grant execute on function public.record_progress(text,int,boolean,boolean,int,boolean) to anon, authenticated;
+-- Only /api/record-progress, which verifies the session, may supply an id.
+revoke all on function public.record_progress(text, integer, boolean, boolean, integer, boolean, text)
+  from public, anon, authenticated;
+grant execute on function public.record_progress(text, integer, boolean, boolean, integer, boolean, text)
+  to service_role;
+
+-- The unauthenticated path, unchanged in behaviour: delegate with no id. Kept
+-- granted to anon because the Electron desktop build has no /api to call and no
+-- session token, and refusing to record a round already played would remove a
+-- working feature to gain nothing.
+create or replace function public.record_progress(
+  p_player text, p_seconds integer, p_multiplayer boolean,
+  p_won boolean, p_xp integer, p_perfect boolean
+) returns jsonb
+language sql security definer set search_path = public as $$
+  select public.record_progress(p_player, p_seconds, p_multiplayer, p_won, p_xp, p_perfect, null);
+$$;
+
+grant execute on function public.record_progress(text, integer, boolean, boolean, integer, boolean)
+  to anon, authenticated;
 
 -- ---------------------------------------------------------------------------
 -- RLS safety net.

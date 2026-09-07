@@ -122,21 +122,53 @@ function applyOrder(a, b) {
   return a.localeCompare(b); // a new migration nobody listed yet: assume newest
 }
 
+// `drop function [if exists] public.name(types)` — migrations use this to retire
+// a signature, and the base schema files still declare the retired ones.
+const DROP_RE = /drop\s+function\s+(?:if\s+exists\s+)?(?:public\.)?([a-z0-9_]+)\s*\(([^)]*)\)/gi;
+
+/* Replays the files in apply order and tracks CREATEs and DROPs together,
+   because the end state is what production has and neither statement means
+   anything alone. schema-multiplayer.sql still declares the pre-token
+   start_room(uuid, uuid, jsonb, jsonb); migration-mp-seat-tokens.sql drops it
+   and creates the 5-argument one. Counting only CREATEs reported nine
+   "missing from production" findings that were simply superseded — noise that
+   would have taught everyone to skim the report. */
 function readRepo() {
   const declared = new Map(); // name -> [{ args, file }]
+
+  const add = (name, args, file) => {
+    if (!declared.has(name)) declared.set(name, []);
+    declared.get(name).push({ args, file });
+  };
+  const remove = (name, types) => {
+    const defs = declared.get(name);
+    if (!defs) return;
+    const kept = defs.filter((d) => typesOf(d.args) !== types);
+    if (kept.length) declared.set(name, kept); else declared.delete(name);
+  };
+
   for (const file of fs.readdirSync(SQL_DIR).filter((f) => f.endsWith('.sql')).sort(applyOrder)) {
     const sql = fs.readFileSync(path.join(SQL_DIR, file), 'utf-8');
     // Drop block and line comments so commented-out DDL is not counted.
     const live = sql.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/^\s*--[^\n]*$/gm, ' ');
+
+    // Walk both statement kinds in source order — a file may drop a signature
+    // and then create a new one under the same name.
+    const events = [];
     let m;
     FN_RE.lastIndex = 0;
     while ((m = FN_RE.exec(live)) !== null) {
-      const name = m[1].toLowerCase();
-      const args = normArgs(m[2]);
-      if (!declared.has(name)) declared.set(name, []);
-      // Later files/statements win, mirroring apply order: keep them all, the
-      // report shows which file each came from.
-      declared.get(name).push({ args, file });
+      events.push({ at: m.index, kind: 'create', name: m[1].toLowerCase(), args: normArgs(m[2]) });
+    }
+    DROP_RE.lastIndex = 0;
+    while ((m = DROP_RE.exec(live)) !== null) {
+      events.push({ at: m.index, kind: 'drop', name: m[1].toLowerCase(), args: normArgs(m[2]) });
+    }
+    events.sort((a, b) => a.at - b.at);
+
+    for (const e of events) {
+      if (e.kind === 'create') add(e.name, e.args, file);
+      else remove(e.name, typesOf(e.args));
     }
   }
   return declared;
@@ -159,32 +191,58 @@ function main() {
   }
 
   const prod = JSON.parse(fs.readFileSync(SNAPSHOT, 'utf-8'));
-  const prodByName = new Map(prod.map((f) => [f.name.toLowerCase(), f]));
+  const key = (name, args) => `${name.toLowerCase()}/${typesOf(normArgs(args))}`;
+  const prodByKey = new Map(prod.map((f) => [key(f.name, f.args), f]));
+  const prodByName = new Map();
+  for (const f of prod) {
+    const n = f.name.toLowerCase();
+    if (!prodByName.has(n)) prodByName.set(n, []);
+    prodByName.get(n).push(f);
+  }
   const findings = [];
 
+  /* Compare per ARITY, not per name. A name is not unique: record_progress has
+     a 6-argument overload granted to anon and a 7-argument one restricted to
+     service_role, and that split is exactly what stops a caller asserting its
+     own discord_id. Keying by name alone kept whichever definition came last,
+     so it compared one of the repo's two declarations against one of
+     production's and reported a difference that was not one. */
+  const seen = new Set();
   for (const [name, defs] of declared) {
-    const last = defs[defs.length - 1];
-    const p = prodByName.get(name);
-    if (!p) {
-      findings.push([name, 'declared in the repo, ABSENT from production', last.file]);
-      continue;
-    }
-    const repoTypes = typesOf(last.args);
-    const prodTypes = typesOf(normArgs(p.args));
-    if (repoTypes !== prodTypes) {
-      findings.push([name, `signature differs\n      repo: (${repoTypes})\n      prod: (${prodTypes})`, last.file]);
-    } else if (hasDefault(normArgs(p.args)) !== hasDefault(last.args)) {
-      findings.push([name,
-        `parameter defaults differ — this is what breaks CREATE OR REPLACE\n      repo: (${normArgs(last.args)})\n      prod: (${normArgs(p.args)})`,
-        last.file]);
+    const byTypes = new Map();
+    for (const d of defs) byTypes.set(typesOf(d.args), d);
+    for (const [types, d] of byTypes) {
+      const k = `${name}/${types}`;
+      seen.add(k);
+      const p = prodByKey.get(k);
+      if (!p) {
+        const others = (prodByName.get(name) || []).map((f) => typesOf(normArgs(f.args)));
+        findings.push([name,
+          others.length
+            ? `overload declared in the repo is ABSENT from production\n      repo: (${types})\n      prod has: ${others.map((o) => `(${o})`).join(', ')}`
+            : 'declared in the repo, ABSENT from production',
+          d.file]);
+        continue;
+      }
+      if (hasDefault(normArgs(p.args)) !== hasDefault(normArgs(d.args))) {
+        findings.push([name,
+          `parameter defaults differ — this is what breaks CREATE OR REPLACE\n      repo: (${normArgs(d.args)})\n      prod: (${normArgs(p.args)})`,
+          d.file]);
+      }
     }
   }
 
   const foreign = [];
   for (const p of prod) {
     const n = p.name.toLowerCase();
-    if (declared.has(n)) continue;
     if (FOREIGN.has(n)) { foreign.push(p); continue; }
+    if (seen.has(key(p.name, p.args))) continue;
+    if (declared.has(n)) {
+      findings.push([p.name,
+        `overload live in production is NOT declared in supabase/*.sql\n      prod: (${typesOf(normArgs(p.args))})`,
+        '-']);
+      continue;
+    }
     findings.push([p.name,
       `live in production, NOT declared anywhere in supabase/*.sql${p.anon ? ' — and anon can call it' : ''}`,
       '-']);

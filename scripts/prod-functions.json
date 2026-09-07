@@ -252,6 +252,12 @@
     "anon": true
   },
   {
+    "name": "record_progress",
+    "args": "p_player text, p_seconds integer, p_multiplayer boolean, p_won boolean, p_xp integer, p_perfect boolean, p_discord_id text",
+    "security": "definer",
+    "anon": false
+  },
+  {
     "name": "reject_banned_score",
     "args": "",
     "security": "definer",

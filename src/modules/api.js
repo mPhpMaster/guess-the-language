@@ -99,18 +99,51 @@ export function recordPlay(multiplayer, won, xp, perfect) {
     state.gameStartMs = null;
     const name = getPlayerName();
     if (!name) return;
+    const points = Math.max(0, Math.round(xp || 0));
+
+    /* Prefer the authenticated endpoint, which stamps player_stats.discord_id
+       from the signed session. player_stats is keyed on a display name, so a
+       rename currently orphans a player's level, streak and achievements, and a
+       freed name carries the profile behind it to whoever takes it next. The
+       column to fix that has existed since migration-score-integrity.sql; what
+       was missing was any writer — record_progress() had no such parameter, so
+       0 of 1080 rows carried one.
+
+       Falls back to the direct RPC when there is no session token: the Electron
+       desktop build has no /api to call, and refusing to record a round already
+       played would remove a working feature to gain nothing. Those rows simply
+       carry no id, exactly as every row does today. Same shape as submitScore(). */
+    const token = getAppSessionToken();
+    const celebrate = (info) => {
+        const unlocked = info && info.new_achievements;
+        if (Array.isArray(unlocked) && unlocked.length) celebrateAchievements(unlocked);
+    };
+
+    if (token) {
+        fetch(`${appApiPrefix()}/api/record-progress`, {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                player: name, seconds, multiplayer: !!multiplayer, won: !!won,
+                xp: points, perfect: !!perfect
+            })
+        })
+            .then((res) => (res.ok ? res.json() : Promise.reject(new Error(`record-progress ${res.status}`))))
+            .then((out) => celebrate(out && out.progress))
+            .catch((e) => console.warn('record_progress failed:', e.message));
+        return;
+    }
+
     // record_progress also awards XP/level, updates the daily streak, and unlocks
     // achievements atomically, returning what was newly unlocked for a celebration.
     sbFetch('rpc/record_progress', {
         method: 'POST',
         body: JSON.stringify({
             p_player: name, p_seconds: seconds, p_multiplayer: !!multiplayer, p_won: !!won,
-            p_xp: Math.max(0, Math.round(xp || 0)), p_perfect: !!perfect
+            p_xp: points, p_perfect: !!perfect
         })
     }).then((res) => {
-        const info = Array.isArray(res) ? res[0] : res;
-        const unlocked = info && info.new_achievements;
-        if (Array.isArray(unlocked) && unlocked.length) celebrateAchievements(unlocked);
+        celebrate(Array.isArray(res) ? res[0] : res);
     }).catch((e) => console.warn('record_progress failed:', e.message));
 }
 
