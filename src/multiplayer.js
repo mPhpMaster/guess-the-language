@@ -68,6 +68,20 @@
     return String(code || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 4);
   }
 
+  /* This file is a classic script, not an ES module, so it cannot import
+     appApiPrefix()/getAppSessionToken() from modules/identity.js. These mirror
+     them for the one call that needs them (/api/join-room). joinDiscordRoom is
+     only ever reached inside a Discord Activity, where the session token lives
+     on window.DISCORD_ACTIVITY and /api is reached through the /.proxy mapping. */
+  function apiPrefix() {
+    if (location.pathname.startsWith('/.proxy') || new URLSearchParams(location.search).has('frame_id')) return '/.proxy';
+    return '';
+  }
+
+  function getAppSessionToken() {
+    return (window.DISCORD_ACTIVITY && window.DISCORD_ACTIVITY.sessionToken) || null;
+  }
+
   async function rpc(name, params) {
     const { data, error } = await getClient().rpc(name, params);
     if (error) throw new Error(error.message || String(error));
@@ -220,7 +234,7 @@
      result and is re-attached below. */
   const ROOM_COLUMNS = [
     'id', 'status', 'mode', 'host_player_id', 'created_at', 'finished_at',
-    'discord_instance_id', 'settings', 'round_refs', 'question_index',
+    'settings', 'round_refs', 'question_index',
     'question_ends_at', 'phase'
   ].join(',');
 
@@ -423,14 +437,27 @@
     return result;
   }
 
-  async function joinDiscordRoom(instanceId, mode, settings, name, discordUserId) {
-    const result = await rpc('join_discord_room', {
-      p_instance_id: instanceId,
-      p_mode: mode,
-      p_settings: settings,
-      p_player_name: name,
-      p_discord_user_id: discordUserId
+  /* Goes through /api/join-room, not the RPC. `discordUserId` is accepted and
+     IGNORED: the server takes the id from the signed session token instead.
+     Passing it was the bug — join_discord_room's rejoin path looks a seat up by
+     that id, and both it and the room's instance id were readable with the
+     public anon key, so anyone could replay the pair and be handed another
+     player's seat and token. See api/join-room.js.
+
+     Fail closed: no session token, no seat. There is no unauthenticated
+     fallback, because an unauthenticated join is precisely the hole. */
+  async function joinDiscordRoom(instanceId, mode, settings, name, _discordUserId) {
+    const token = getAppSessionToken();
+    if (!token) throw new Error('Discord sign-in is required to join this room');
+    const res = await fetch(`${apiPrefix()}/api/join-room`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ instanceId, mode, settings, name })
     });
+    const data = await res.json().catch(() => null);
+    if (!res.ok) throw new Error((data && data.error) || `join-room ${res.status}`);
+    const result = data && data.room;
+    if (!result || !result.roomId) throw new Error('join-room returned no seat');
     mp.roomId = result.roomId;
     mp.playerId = result.playerId;
     mp.playerToken = result.playerToken;

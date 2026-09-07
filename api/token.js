@@ -47,14 +47,26 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    // The profile lookup only exists to mint the optional session token. It must
-    // stay best-effort: a hiccup here used to return 502, which aborted the whole
-    // Activity handshake and left the game unplayable inside Discord.
+    // The profile lookup must stay best-effort: a hiccup here used to return 502,
+    // which aborted the whole Activity handshake and left the game unplayable
+    // inside Discord.
+    //
+    // But the session token is no longer merely "optional" — /api/join-room now
+    // fails closed without one, because the Discord id it seats a player under
+    // has to come from a signed session rather than from the client. So a failed
+    // lookup costs the player multiplayer. Retry once against a transient blip
+    // before giving up; still never fatal.
     let sessionToken = null;
     try {
-      const userRes = await fetch('https://discord.com/api/users/@me', {
+      let userRes = await fetch('https://discord.com/api/users/@me', {
         headers: { Authorization: `Bearer ${data.access_token}` }
       });
+      if (!userRes.ok && userRes.status !== 401 && userRes.status !== 403) {
+        await new Promise((r) => setTimeout(r, 250));
+        userRes = await fetch('https://discord.com/api/users/@me', {
+          headers: { Authorization: `Bearer ${data.access_token}` }
+        });
+      }
       const user = await userRes.json();
       if (userRes.ok && user.id) {
         // Admin is decided here, server-side, from the real Discord username — the
