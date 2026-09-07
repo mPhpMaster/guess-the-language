@@ -144,6 +144,12 @@
     "anon": true
   },
   {
+    "name": "create_room",
+    "args": "p_mode text, p_settings jsonb, p_host_name text, p_discord_id text",
+    "security": "definer",
+    "anon": false
+  },
+  {
     "name": "end_room",
     "args": "p_room_id uuid, p_player_id uuid, p_token uuid",
     "security": "definer",
@@ -214,6 +220,12 @@
     "args": "p_code text, p_name text",
     "security": "definer",
     "anon": true
+  },
+  {
+    "name": "join_room",
+    "args": "p_code text, p_name text, p_discord_id text",
+    "security": "definer",
+    "anon": false
   },
   {
     "name": "kick_player",
