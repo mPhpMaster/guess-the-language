@@ -150,6 +150,12 @@
     "anon": true
   },
   {
+    "name": "fn_deny_public_execute",
+    "args": "",
+    "security": "definer",
+    "anon": false
+  },
+  {
     "name": "gtl_level_from_xp",
     "args": "p_xp bigint",
     "security": "invoker",

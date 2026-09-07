@@ -105,6 +105,7 @@ const SITE = 'https://guess-the-language-chi.vercel.app';
   await rpc('_score_points not callable', '_score_points',
     { p_time_left: 999999, p_streak_after: 99 }, denied);
   await rpc('rls_auto_enable not callable', 'rls_auto_enable', {}, denied);
+  await rpc('fn_deny_public_execute not callable', 'fn_deny_public_execute', {}, denied);
 
   let bad = 0;
   for (const r of results) {
