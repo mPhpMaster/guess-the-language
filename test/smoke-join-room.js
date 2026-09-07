@@ -52,7 +52,7 @@ function call(body, auth = `Bearer ${token}`, method = 'POST') {
 }
 
 (async () => {
-  const ok = { instanceId: 'inst-abc', mode: 'languages', settings: {}, name: 'Tester' };
+  const ok = { action: 'discord', instanceId: 'inst-abc', mode: 'languages', settings: {}, name: 'Tester' };
 
   check('rejects a non-POST', (await call(ok, `Bearer ${token}`, 'GET')).code === 405);
 
@@ -102,7 +102,49 @@ function call(body, auth = `Bearer ${token}`, method = 'POST') {
   check('rejects array settings', (await call({ ...ok, settings: [1, 2] })).code === 400);
   check('accepts absent settings', (await call({ ...ok, settings: undefined })).code === 200);
 
+  // --- the web seat paths -------------------------------------------------
+  // These existed as unauthenticated RPCs, so a web player's seat carried no
+  // discord id and their multiplayer results stayed unanchored.
+  const host = { action: 'host', mode: 'languages', settings: {}, name: 'Tester' };
+  check('hosting a room is accepted', (await call(host)).code === 200);
+  check('hosting calls create_room', /\/rpc\/create_room$/.test(lastRpc.url));
+  check('hosting seats the SIGNED SESSION id',
+    lastRpc.body.p_discord_id === ME, `sent ${lastRpc.body.p_discord_id}`);
+  await call({ ...host, discordId: VICTIM, p_discord_id: VICTIM });
+  check('hosting ignores an id in the body',
+    lastRpc.body.p_discord_id === ME, `body claimed ${VICTIM}`);
+
+  const join = { action: 'join', code: 'ab3d', name: 'Tester' };
+  check('joining by code is accepted', (await call(join)).code === 200);
+  check('joining calls join_room', /\/rpc\/join_room$/.test(lastRpc.url));
+  check('joining seats the SIGNED SESSION id',
+    lastRpc.body.p_discord_id === ME, `sent ${lastRpc.body.p_discord_id}`);
+  check('joining normalises the room code', lastRpc.body.p_code === 'AB3D',
+    `sent ${lastRpc.body.p_code}`);
+  await call({ ...join, p_discord_id: VICTIM });
+  check('joining ignores an id in the body',
+    lastRpc.body.p_discord_id === ME, `body claimed ${VICTIM}`);
+
+  check('rejects an unknown action', (await call({ ...host, action: 'wizardry' })).code === 400);
+  check('rejects a missing action with no instanceId',
+    (await call({ mode: 'languages', name: 'Tester' })).code === 400);
+  check('a bare instanceId still means discord (mid-deploy clients)',
+    (await call({ instanceId: 'inst-abc', mode: 'languages', name: 'Tester' })).code === 200
+    && /join_discord_room$/.test(lastRpc.url));
+  check('rejects a short room code', (await call({ ...join, code: 'ab' })).code === 400);
+  check('rejects a missing room code', (await call({ action: 'join', name: 'Tester' })).code === 400);
+
   // --- upstream failure ---------------------------------------------------
+  // A raised RPC exception is the player's problem, not an outage: PostgREST
+  // reports it as 400 and the join dialog shows the reason.
+  global.fetch = async () => ({
+    ok: false, status: 400, text: async () => JSON.stringify({ message: 'Room not found' })
+  });
+  let bad = await call(join);
+  check('passes a room-not-found through as 400', bad.code === 400, `code=${bad.code}`);
+  check('and keeps the reason', bad.payload && bad.payload.error === 'Room not found',
+    JSON.stringify(bad.payload));
+
   global.fetch = async () => ({ ok: false, status: 500, text: async () => 'boom' });
   check('reports an upstream failure as 502', (await call(ok)).code === 502);
 

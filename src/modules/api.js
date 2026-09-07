@@ -99,18 +99,51 @@ export function recordPlay(multiplayer, won, xp, perfect) {
     state.gameStartMs = null;
     const name = getPlayerName();
     if (!name) return;
+    const points = Math.max(0, Math.round(xp || 0));
+
+    /* Prefer the authenticated endpoint, which stamps player_stats.discord_id
+       from the signed session. player_stats is keyed on a display name, so a
+       rename currently orphans a player's level, streak and achievements, and a
+       freed name carries the profile behind it to whoever takes it next. The
+       column to fix that has existed since migration-score-integrity.sql; what
+       was missing was any writer — record_progress() had no such parameter, so
+       0 of 1080 rows carried one.
+
+       Falls back to the direct RPC when there is no session token: the Electron
+       desktop build has no /api to call, and refusing to record a round already
+       played would remove a working feature to gain nothing. Those rows simply
+       carry no id, exactly as every row does today. Same shape as submitScore(). */
+    const token = getAppSessionToken();
+    const celebrate = (info) => {
+        const unlocked = info && info.new_achievements;
+        if (Array.isArray(unlocked) && unlocked.length) celebrateAchievements(unlocked);
+    };
+
+    if (token) {
+        fetch(`${appApiPrefix()}/api/record-progress`, {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                player: name, seconds, multiplayer: !!multiplayer, won: !!won,
+                xp: points, perfect: !!perfect
+            })
+        })
+            .then((res) => (res.ok ? res.json() : Promise.reject(new Error(`record-progress ${res.status}`))))
+            .then((out) => celebrate(out && out.progress))
+            .catch((e) => console.warn('record_progress failed:', e.message));
+        return;
+    }
+
     // record_progress also awards XP/level, updates the daily streak, and unlocks
     // achievements atomically, returning what was newly unlocked for a celebration.
     sbFetch('rpc/record_progress', {
         method: 'POST',
         body: JSON.stringify({
             p_player: name, p_seconds: seconds, p_multiplayer: !!multiplayer, p_won: !!won,
-            p_xp: Math.max(0, Math.round(xp || 0)), p_perfect: !!perfect
+            p_xp: points, p_perfect: !!perfect
         })
     }).then((res) => {
-        const info = Array.isArray(res) ? res[0] : res;
-        const unlocked = info && info.new_achievements;
-        if (Array.isArray(unlocked) && unlocked.length) celebrateAchievements(unlocked);
+        celebrate(Array.isArray(res) ? res[0] : res);
     }).catch((e) => console.warn('record_progress failed:', e.message));
 }
 
@@ -150,20 +183,23 @@ async function postScoreViaApi(body) {
     return res.json();
 }
 
-export async function submitScore(player, score, mode = state.mode, multiplayer = false) {
+/* Single-player only. The `multiplayer` parameter is gone: multiplayer results
+   are registered by register_room_scores() in Postgres now, and this was the
+   client's only remaining way to set that flag — which meant anyone could post a
+   single-player score wearing the "👥 multiplayer" badge. Removing the parameter
+   removes the claim. */
+export async function submitScore(player, score, mode = state.mode) {
     const row = {
         player: safeDisplayName(player),
         score,
         mode,
-        multiplayer,
+        multiplayer: false,
         avatar: discordAvatarUrl(getDiscordProfile()) || null
     };
-    // Multiplayer rows are registered in bulk by the host (submitMpScores) from
-    // scores Postgres itself computed, so they keep the direct path.
-    if (!multiplayer) {
-        const out = await postScoreViaApi({ board: 'scores', ...row });
-        if (out !== undefined) return (out && out.row) || null;
-    }
+    const out = await postScoreViaApi({ board: 'scores', ...row });
+    if (out !== undefined) return (out && out.row) || null;
+    // No session token (the Electron desktop build has no /api): fall back to the
+    // direct insert, which RLS still bounds. Same trust level desktop always had.
     const rows = await sbFetch('scores', {
         method: 'POST',
         headers: { Prefer: 'return=representation' },
@@ -233,18 +269,15 @@ export async function fetchWeeklyTop(limit = 20) {
         .slice(0, limit);
 }
 
-// Register every player's score from a finished multiplayer room in one insert,
-// each flagged as a multiplayer result. return=minimal -> 204 (no body to parse).
-export function submitMpScores(rows) {
-    if (!rows.length) return Promise.resolve(null);
-    return sbFetch('scores', {
-        method: 'POST',
-        headers: {
-            Prefer: 'return=minimal'
-        },
-        body: JSON.stringify(rows.map((row) => ({ ...row, player: safeDisplayName(row.player) })))
-    });
-}
+/* Multiplayer results are no longer posted from here. They are registered by
+   register_room_scores() in Postgres, which reads the scores it computed itself
+   and the discord ids it verified at join — see registerMpScores() in
+   src/modules/mp-ui.js and supabase/migration-identity-mp-scores.sql.
+
+   The function that used to live here took rows the HOST had built from its own
+   client state and posted them with the anon key, so one player asserted every
+   other player's score. It is deleted rather than left unused: it is exactly the
+   shape of call that should not exist, and an unused helper is an invitation. */
 
 // Which mode's leaderboard to show. Defaults to the play mode, but the leaderboard
 // screen's own mode picker can point it elsewhere without leaving the screen.

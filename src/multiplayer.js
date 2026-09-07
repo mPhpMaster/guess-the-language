@@ -69,17 +69,46 @@
   }
 
   /* This file is a classic script, not an ES module, so it cannot import
-     appApiPrefix()/getAppSessionToken() from modules/identity.js. These mirror
-     them for the one call that needs them (/api/join-room). joinDiscordRoom is
-     only ever reached inside a Discord Activity, where the session token lives
-     on window.DISCORD_ACTIVITY and /api is reached through the /.proxy mapping. */
+     appApiPrefix()/getAppSessionToken() from modules/identity.js. The two below
+     mirror them for the seat calls. Inside a Discord Activity /api is reached
+     through the /.proxy URL mapping; on the web it is same-origin. */
   function apiPrefix() {
     if (location.pathname.startsWith('/.proxy') || new URLSearchParams(location.search).has('frame_id')) return '/.proxy';
     return '';
   }
 
+  /* Mirrors getAppSessionToken() in modules/identity.js, which this classic
+     script cannot import: inside a Discord Activity the token lives on the SDK
+     wrapper, and on the web it is stored with the linked Discord user at login. */
   function getAppSessionToken() {
-    return (window.DISCORD_ACTIVITY && window.DISCORD_ACTIVITY.sessionToken) || null;
+    const fromActivity = window.DISCORD_ACTIVITY && window.DISCORD_ACTIVITY.sessionToken;
+    if (fromActivity) return fromActivity;
+    try {
+      return JSON.parse(localStorage.getItem('gtl_discord_user') || 'null')?.sessionToken || null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /* Ask the server to seat us, so room_players.discord_user_id carries an id
+     taken from the signed session instead of one the client asserts. Returns
+     null when there is no session token, and the caller falls back to the
+     direct RPC — the Electron desktop build has no /api to reach, and refusing
+     to let it play would remove working multiplayer to gain an id it cannot
+     produce. Those seats record no id, exactly as every seat did before. */
+  async function seatViaApi(body) {
+    const token = getAppSessionToken();
+    if (!token) return null;
+    const res = await fetch(`${apiPrefix()}/api/join-room`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    const data = await res.json().catch(() => null);
+    if (!res.ok) throw new Error((data && data.error) || `join-room ${res.status}`);
+    const seat = data && data.room;
+    if (!seat || !seat.roomId) throw new Error('join-room returned no seat');
+    return seat;
   }
 
   async function rpc(name, params) {
@@ -407,7 +436,9 @@
   }
 
   async function hostRoom(mode, settings, hostName) {
-    const result = await rpc('create_room', {
+    const result = (await seatViaApi({
+      action: 'host', mode, settings, name: hostName
+    })) || await rpc('create_room', {
       p_mode: mode,
       p_settings: settings,
       p_host_name: hostName
@@ -423,7 +454,9 @@
   }
 
   async function joinRoom(code, name) {
-    const result = await rpc('join_room', {
+    const result = (await seatViaApi({
+      action: 'join', code: normalizeCode(code), name
+    })) || await rpc('join_room', {
       p_code: normalizeCode(code),
       p_name: name
     });
@@ -447,17 +480,15 @@
      Fail closed: no session token, no seat. There is no unauthenticated
      fallback, because an unauthenticated join is precisely the hole. */
   async function joinDiscordRoom(instanceId, mode, settings, name, _discordUserId) {
-    const token = getAppSessionToken();
-    if (!token) throw new Error('Discord sign-in is required to join this room');
-    const res = await fetch(`${apiPrefix()}/api/join-room`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ instanceId, mode, settings, name })
+    /* Fail closed here, unlike hostRoom/joinRoom. A seat inside a Discord
+       Activity is claimed against a Discord identity — join_discord_room's
+       rejoin path hands back an EXISTING seat matching that id — so seating
+       someone unproven is exactly the hole that was closed. Hosting or joining
+       by code claims nothing, so those may fall back. */
+    const result = await seatViaApi({
+      action: 'discord', instanceId, mode, settings, name
     });
-    const data = await res.json().catch(() => null);
-    if (!res.ok) throw new Error((data && data.error) || `join-room ${res.status}`);
-    const result = data && data.room;
-    if (!result || !result.roomId) throw new Error('join-room returned no seat');
+    if (!result) throw new Error('Discord sign-in is required to join this room');
     mp.roomId = result.roomId;
     mp.playerId = result.playerId;
     mp.playerToken = result.playerToken;
@@ -574,6 +605,21 @@
       p_room_id: mp.roomId,
       p_index: questionIndex
     })) || [];
+  }
+
+  /* Register the finished room's results on the global board. The server reads
+     the scores it computed and the discord ids it verified; `avatars` is the
+     only thing sent, and each entry is validated server-side against that
+     player's own verified discord_user_id. Idempotent — the room row claims the
+     registration, so extra callers are a no-op rather than a duplicate entry. */
+  async function registerScores(avatars) {
+    if (!mp.roomId || !mp.playerId || !mp.playerToken) return null;
+    return rpc('register_room_scores', {
+      p_room_id: mp.roomId,
+      p_player_id: mp.playerId,
+      p_token: mp.playerToken,
+      p_avatars: avatars || {}
+    });
   }
 
   async function kickPlayer(targetPlayerId) {
@@ -697,6 +743,7 @@
     restartRoom,
     updateRoomSettings,
     fetchAnswers,
+    registerScores,
     kickPlayer,
     makeHost,
     leaveRoom,
