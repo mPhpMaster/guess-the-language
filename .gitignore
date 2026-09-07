@@ -24,6 +24,11 @@ public/supabase-config.js
 src/discord-config.js
 public/discord-config.js
 
+# Local admin passcode used by the session tests. Holds the real ADMIN_PASSCODE,
+# and this is a public repo — it was untracked but not ignored, which is one
+# `git add -A` away from being published permanently in the history.
+test/session-passcode.js
+
 # Environment variables (Vite / Vercel build)
 .env
 .env.*
