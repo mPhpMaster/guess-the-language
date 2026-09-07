@@ -63,6 +63,9 @@ create policy "public can read scores"
 -- derivation). The client goes through /api/submit-score, which verifies a signed
 -- Discord session — but this check is what stops someone POSTing with the public
 -- anon key directly, so the bound has to live here as well.
+-- See supabase/migration-anon-score-bounds.sql for why each clause is here.
+-- This is the only anon write path left to the board and it serves one caller:
+-- the Electron desktop build, which has no /api and no session token.
 drop policy if exists "public can insert scores" on public.scores;
 create policy "public can insert scores"
   on public.scores for insert
@@ -70,6 +73,14 @@ create policy "public can insert scores"
     score >= 0
     and score <= 21000
     and public.is_safe_player_name(player)
+    -- Multiplayer rows come from register_room_scores(), which is SECURITY
+    -- DEFINER and so bypasses this policy. anon has no reason to set the flag.
+    and multiplayer = false
+    and mode in ('languages','cybersecurity','devops','network','gamedev','algorithms','all')
+    -- The player's own Discord photo or nothing, as safeAvatar() enforces in
+    -- /api/submit-score.
+    and (avatar is null or (avatar like 'https://cdn.discordapp.com/avatars/%'
+                            and char_length(avatar) <= 300))
   );
 
 -- Player reports are written only through /api/report with the service-role

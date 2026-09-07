@@ -111,12 +111,22 @@ function signUnlock(discordUserId) {
 }
 
 function verifyUnlock(token, discordUserId) {
-  const data = verifySession(token);
+  const data = decodeToken(token);
   if (!data || data.unl !== true) return false;
   return String(data.sub) === String(discordUserId || '');
 }
 
-function verifySession(token) {
+/* Signature + expiry only. Says nothing about what KIND of token this is, which
+   is why it is private: the two public verifiers below each add their own
+   requirement on top. Previously verifySession() was the shared implementation
+   and verifyUnlock() layered onto it, which meant an unlock token also passed
+   as a session token anywhere a session was required.
+
+   The impact was small — an unlock token carries no `adm`, and is bound to the
+   same user and lives 30 minutes — but "a credential minted for one purpose is
+   accepted for another" is the exact shape of the bugs this file exists to
+   prevent, and it costs nothing to separate them. */
+function decodeToken(token) {
   const secret = sessionSecret();
   if (!secret || !token || typeof token !== 'string') return null;
   const [payload, signature] = token.split('.');
@@ -132,6 +142,16 @@ function verifySession(token) {
   } catch {
     return null;
   }
+}
+
+/* A LOGIN session. Rejects an unlock token outright rather than merely ignoring
+   its claims: `unl` is only ever set by signUnlock(), so refusing it here cannot
+   affect a real session token, including ones already issued and still inside
+   their seven days. */
+function verifySession(token) {
+  const data = decodeToken(token);
+  if (!data || data.unl === true) return null;
+  return data;
 }
 
 module.exports = {
