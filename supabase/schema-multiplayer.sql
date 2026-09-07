@@ -1,6 +1,16 @@
 -- ===========================================================================
 -- Guess the Language — Multiplayer rooms (run after schema.sql)
 -- ===========================================================================
+--
+-- !! SUPERSEDED IN PART BY supabase/migration-mp-seat-tokens.sql !!
+-- Run that migration AFTER this file. It replaces every host-only RPC below
+-- (start_room, end_room, restart_room, update_room_settings, kick_player,
+-- make_host, leave_room, submit_answer) with a version that takes a seat
+-- TOKEN, and it revokes SELECT on room_answers. The versions in this file
+-- authenticate with a client-supplied room_players.id — which anon can read
+-- straight out of room_players / rooms.host_player_id, so they authenticate
+-- nothing. Do not ship this file on its own.
+--
 
 -- ---------------------------------------------------------------------------
 -- Tables

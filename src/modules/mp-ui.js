@@ -997,6 +997,10 @@ export async function adminJoinRoomFlow(roomId) {
         const data = await adminApi('join_room', { roomId, name: getPlayerName() });
         const seat = (data && data.room) || null;
         if (!seat || !seat.roomId || !seat.playerId) throw new Error('join_room returned no seat');
+        // The seat's credential, minted server-side by admin_join_room. Without
+        // it this seat could be watched but not played — every room RPC proves
+        // itself with the token now, not with the (publicly readable) player id.
+        if (!seat.playerToken) throw new Error('join_room returned no seat token');
         // seat.name may be a SUFFIXED variant of the name we sent (" (2)") when it
         // collided inside that room. We deliberately don't write it back to the
         // local player name: the suffix disambiguates one room, while getPlayerName()
@@ -1006,6 +1010,7 @@ export async function adminJoinRoomFlow(roomId) {
         await window.GTL_MULTIPLAYER.adoptSession({
             roomId: seat.roomId,
             playerId: seat.playerId,
+            playerToken: seat.playerToken,
             code: seat.code
         });
         // ---- landing tail, same as confirmJoinRoom() ----

@@ -14,7 +14,16 @@
 
   const mp = {
     roomId: null,
+    /* `playerId` is this seat's PUBLIC id — the lobby renders by it, kicks
+       target it, rooms.host_player_id points at it, and anon can read all of
+       that. `playerToken` is the seat's CREDENTIAL: a random uuid the server
+       hands out once at create/join and keeps in a table anon cannot read.
+       Every RPC that acts as this player proves it with the token, never with
+       the id. They used to be the same value, so anyone who listed a room's
+       players could act as any of them — see
+       supabase/migration-mp-seat-tokens.sql. */
     playerId: null,
+    playerToken: null,
     code: null,
     isAdmin: false,
     room: null,
@@ -39,6 +48,8 @@
     return client;
   }
 
+  // Deliberately does NOT persist playerToken. Nothing reads this back today,
+  // and a bearer credential sitting in localStorage for no reader is pure risk.
   function saveSession() {
     if (!mp.roomId || !mp.playerId) return;
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
@@ -389,6 +400,7 @@
     });
     mp.roomId = result.roomId;
     mp.playerId = result.playerId;
+    mp.playerToken = result.playerToken;
     mp.code = result.code;
     mp.isAdmin = true;
     saveSession();
@@ -403,6 +415,7 @@
     });
     mp.roomId = result.roomId;
     mp.playerId = result.playerId;
+    mp.playerToken = result.playerToken;
     mp.code = result.code;
     mp.isAdmin = false;
     saveSession();
@@ -420,6 +433,7 @@
     });
     mp.roomId = result.roomId;
     mp.playerId = result.playerId;
+    mp.playerToken = result.playerToken;
     mp.code = result.code;
     mp.isAdmin = !!result.isHost;
     saveSession();
@@ -431,10 +445,12 @@
   // "Join" on a Live row, where /api/admin does the join and hands back the ids.
   // Same tail as hostRoom/joinRoom: store the ids, persist, subscribe (which
   // ends in refresh(), pulling the room + players and emitting an update).
-  async function adoptSession({ roomId, playerId, code } = {}) {
+  async function adoptSession({ roomId, playerId, playerToken, code } = {}) {
     if (!roomId || !playerId) throw new Error('adoptSession requires roomId and playerId');
+    if (!playerToken) throw new Error('adoptSession requires playerToken');
     mp.roomId = roomId;
     mp.playerId = playerId;
+    mp.playerToken = playerToken;
     mp.code = code || null;
     // isAdmin here means "I am this room's HOST" — a joining admin never is.
     // emitUpdate() recomputes it from room.host_player_id on every update anyway.
@@ -449,6 +465,7 @@
     const updated = await rpc('start_room', {
       p_room_id: mp.roomId,
       p_player_id: mp.playerId,
+      p_token: mp.playerToken,
       p_round_refs: roundRefs,
       p_answer_keys: answerKeys
     });
@@ -459,12 +476,17 @@
     return updated;
   }
 
-  async function submitAnswer(answer, timeLeft) {
+  /* `timeLeft` is accepted and ignored on purpose: the server now reads the
+     remaining time off rooms.question_ends_at, which it set itself. It used to
+     trust this number, floored only at zero — so any value scored, and
+     _score_points would mint an arbitrary total. The three call sites still
+     pass it, so the parameter stays rather than making them lie about it. */
+  async function submitAnswer(answer, _timeLeft) {
     return rpc('submit_answer', {
       p_room_id: mp.roomId,
       p_player_id: mp.playerId,
-      p_answer: answer,
-      p_time_left: Math.max(0, timeLeft)
+      p_token: mp.playerToken,
+      p_answer: answer
     });
   }
 
@@ -473,7 +495,8 @@
     // The room is kept (status -> finished) so "Play again" can reuse it.
     const updated = await rpc('end_room', {
       p_room_id: mp.roomId,
-      p_player_id: mp.playerId
+      p_player_id: mp.playerId,
+      p_token: mp.playerToken
     });
     stopTick();
     mp.room = updated;
@@ -488,7 +511,8 @@
     if (!mp.isAdmin) throw new Error('Admin access required');
     const updated = await rpc('restart_room', {
       p_room_id: mp.roomId,
-      p_player_id: mp.playerId
+      p_player_id: mp.playerId,
+      p_token: mp.playerToken
     });
     mp.room = updated;
     mp.lastSyncKey = syncKey(mp.room);
@@ -503,6 +527,7 @@
     const updated = await rpc('update_room_settings', {
       p_room_id: mp.roomId,
       p_player_id: mp.playerId,
+      p_token: mp.playerToken,
       p_mode: mode,
       p_settings: settings
     });
@@ -511,16 +536,17 @@
     return updated;
   }
 
-  // Read every player's submitted answer for a question (used at reveal time).
+  /* Read every player's submitted answer for a question (used at reveal time).
+     Goes through an RPC because room_answers is no longer readable by anon: it
+     stores each pick and its is_correct the moment it lands, so polling the
+     table during an open question read the answer key off whoever got it right
+     first. room_answers_for() returns nothing until that question is revealed. */
   async function fetchAnswers(questionIndex) {
     if (!mp.roomId) return [];
-    const { data, error } = await getClient()
-      .from('room_answers')
-      .select('player_id,answer')
-      .eq('room_id', mp.roomId)
-      .eq('question_index', questionIndex);
-    if (error) throw new Error(error.message);
-    return data || [];
+    return (await rpc('room_answers_for', {
+      p_room_id: mp.roomId,
+      p_index: questionIndex
+    })) || [];
   }
 
   async function kickPlayer(targetPlayerId) {
@@ -528,6 +554,7 @@
     await rpc('kick_player', {
       p_room_id: mp.roomId,
       p_admin_player_id: mp.playerId,
+      p_token: mp.playerToken,
       p_target_player_id: targetPlayerId
     });
     await refresh();
@@ -539,6 +566,7 @@
     await rpc('make_host', {
       p_room_id: mp.roomId,
       p_player_id: mp.playerId,
+      p_token: mp.playerToken,
       p_target_player_id: targetPlayerId
     });
     await refresh();
@@ -549,7 +577,8 @@
       try {
         await rpc('leave_room', {
           p_room_id: mp.roomId,
-          p_player_id: mp.playerId
+          p_player_id: mp.playerId,
+          p_token: mp.playerToken
         });
       } catch (e) {
         console.warn('leave_room:', e);
@@ -563,7 +592,7 @@
   // endpoint with keepalive:true, which the browser flushes during unload.
   let beaconSent = false;
   function leaveBeacon() {
-    if (beaconSent || !configured() || !mp.roomId || !mp.playerId) return;
+    if (beaconSent || !configured() || !mp.roomId || !mp.playerId || !mp.playerToken) return;
     beaconSent = true;
     const c = window.SUPABASE_CONFIG;
     const base = String(c.url || '').replace(/\/+$/, '');
@@ -576,7 +605,11 @@
           apikey: c.anonKey,
           Authorization: `Bearer ${c.anonKey}`
         },
-        body: JSON.stringify({ p_room_id: mp.roomId, p_player_id: mp.playerId })
+        body: JSON.stringify({
+          p_room_id: mp.roomId,
+          p_player_id: mp.playerId,
+          p_token: mp.playerToken
+        })
       }).catch(() => {});
     } catch (e) {
       /* page is unloading; nothing more we can do */
@@ -588,6 +621,7 @@
     beaconSent = false;
     mp.roomId = null;
     mp.playerId = null;
+    mp.playerToken = null;
     mp.code = null;
     mp.isAdmin = false;
     mp.room = null;
