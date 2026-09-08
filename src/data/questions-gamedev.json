@@ -2525,5 +2525,860 @@
     "explanation": {
       "en": "Measure before optimising — the spike's real cause is rarely the first guess."
     }
+  },
+  {
+    "id": 134,
+    "category": "timing",
+    "difficulty": "easy",
+    "codeSnippet": "pos.x += speed * dt;",
+    "question": {
+      "en": "Why multiply by dt?"
+    },
+    "options": [
+      "To match real time",
+      "To smooth the input",
+      "To reduce draw calls",
+      "To clamp the speed"
+    ],
+    "answer": "To match real time",
+    "explanation": {
+      "en": "Scaling by delta time makes movement frame-rate independent."
+    }
+  },
+  {
+    "id": 135,
+    "category": "rendering",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What makes draw calls costly?"
+    },
+    "options": [
+      "CPU work per submission",
+      "GPU memory per submission",
+      "Disk reads per submission",
+      "Audio mixing per frame"
+    ],
+    "answer": "CPU work per submission",
+    "explanation": {
+      "en": "Each submission carries driver and state-setup cost on the CPU, so thousands add up."
+    }
+  },
+  {
+    "id": 136,
+    "category": "physics",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Where should physics run?"
+    },
+    "options": [
+      "On a fixed timestep",
+      "On the render frame",
+      "On the input event",
+      "On the audio thread"
+    ],
+    "answer": "On a fixed timestep",
+    "explanation": {
+      "en": "A fixed step keeps simulation stable and repeatable regardless of frame rate."
+    }
+  },
+  {
+    "id": 137,
+    "category": "collision",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a broad phase for?"
+    },
+    "options": [
+      "Cheaply rejecting pairs",
+      "Solving exact contacts",
+      "Drawing debug outlines",
+      "Resolving deep overlap"
+    ],
+    "answer": "Cheaply rejecting pairs",
+    "explanation": {
+      "en": "Broad phase discards distant pairs fast so narrow phase runs on far fewer."
+    }
+  },
+  {
+    "id": 138,
+    "category": "assets",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why use a texture atlas?"
+    },
+    "options": [
+      "Fewer state switches",
+      "Sharper mipmap edges",
+      "Smaller source images",
+      "Faster disk decoding"
+    ],
+    "answer": "Fewer state switches",
+    "explanation": {
+      "en": "Sharing one texture lets sprites batch into a single draw call."
+    }
+  },
+  {
+    "id": 139,
+    "category": "input",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is input buffering?"
+    },
+    "options": [
+      "Storing early presses",
+      "Ignoring fast presses",
+      "Delaying every press",
+      "Merging held presses"
+    ],
+    "answer": "Storing early presses",
+    "explanation": {
+      "en": "Holding a press for a few frames lets a slightly early input still register."
+    }
+  },
+  {
+    "id": 140,
+    "category": "audio",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why pool audio sources?"
+    },
+    "options": [
+      "Allocation costs time",
+      "Sounds play louder",
+      "Files decode faster",
+      "Mixing needs fewer"
+    ],
+    "answer": "Allocation costs time",
+    "explanation": {
+      "en": "Reusing sources avoids per-shot allocation, a common cause of audio hitches."
+    }
+  },
+  {
+    "id": 141,
+    "category": "ui",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a safe area?"
+    },
+    "options": [
+      "Space always visible",
+      "Space behind the HUD",
+      "Space for debug text",
+      "Space the GPU skips"
+    ],
+    "answer": "Space always visible",
+    "explanation": {
+      "en": "Notches and rounded corners can clip UI drawn outside the safe area."
+    }
+  },
+  {
+    "id": 142,
+    "category": "state",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why use a state machine?"
+    },
+    "options": [
+      "Transitions stay explicit",
+      "Rendering gets batched",
+      "Physics becomes stable",
+      "Assets load in order"
+    ],
+    "answer": "Transitions stay explicit",
+    "explanation": {
+      "en": "Naming states and their edges stops the tangle of interacting boolean flags."
+    }
+  },
+  {
+    "id": 143,
+    "category": "math",
+    "difficulty": "easy",
+    "codeSnippet": "dot(a, b) == 0",
+    "question": {
+      "en": "What does this mean?"
+    },
+    "options": [
+      "Vectors are perpendicular",
+      "Vectors point the same way",
+      "Vectors have zero length",
+      "Vectors are unit length"
+    ],
+    "answer": "Vectors are perpendicular",
+    "explanation": {
+      "en": "A dot product of zero means the angle between the two vectors is 90 degrees."
+    }
+  },
+  {
+    "id": 144,
+    "category": "optimization",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does frustum culling skip?"
+    },
+    "options": [
+      "Objects outside the view",
+      "Objects behind other ones",
+      "Objects with no material",
+      "Objects far from the light"
+    ],
+    "answer": "Objects outside the view",
+    "explanation": {
+      "en": "Anything outside the camera's frustum is never submitted; occlusion culling handles the hidden rest."
+    }
+  },
+  {
+    "id": 145,
+    "category": "animation",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is animation blending?"
+    },
+    "options": [
+      "Mixing two clips",
+      "Looping one clip",
+      "Baking a clip",
+      "Reversing a clip"
+    ],
+    "answer": "Mixing two clips",
+    "explanation": {
+      "en": "Weighted blending smooths the transition between poses instead of snapping."
+    }
+  },
+  {
+    "id": 146,
+    "category": "save",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why version a save file?"
+    },
+    "options": [
+      "Old saves stay loadable",
+      "Files compress better",
+      "Writes become atomic",
+      "Saving gets faster"
+    ],
+    "answer": "Old saves stay loadable",
+    "explanation": {
+      "en": "A version field lets you migrate data written by earlier builds instead of failing."
+    }
+  },
+  {
+    "id": 147,
+    "category": "rendering",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does overdraw cost?"
+    },
+    "options": [
+      "Fragment shading work",
+      "Vertex transform work",
+      "Index buffer uploads",
+      "Texture memory space"
+    ],
+    "answer": "Fragment shading work",
+    "explanation": {
+      "en": "Pixels shaded then hidden waste fragment cycles — the usual cost of layered transparency."
+    }
+  },
+  {
+    "id": 148,
+    "category": "rendering",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why sort transparent objects?"
+    },
+    "options": [
+      "Blending is order-dependent",
+      "Depth testing gets faster",
+      "Batching needs an order",
+      "Culling requires sorting"
+    ],
+    "answer": "Blending is order-dependent",
+    "explanation": {
+      "en": "Alpha blending is not commutative, so back-to-front order is what makes it correct."
+    }
+  },
+  {
+    "id": 149,
+    "category": "rendering",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a G-buffer for?"
+    },
+    "options": [
+      "Deferred shading inputs",
+      "Immediate mode drawing",
+      "Compressed mesh storage",
+      "Streaming texture pages"
+    ],
+    "answer": "Deferred shading inputs",
+    "explanation": {
+      "en": "Deferred rendering writes normals, albedo and depth first, then lights the screen once."
+    }
+  },
+  {
+    "id": 150,
+    "category": "physics",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What causes tunnelling?"
+    },
+    "options": [
+      "Movement exceeds thickness",
+      "Mass values are too high",
+      "Restitution is set to one",
+      "Friction is left at zero"
+    ],
+    "answer": "Movement exceeds thickness",
+    "explanation": {
+      "en": "A fast body can step past a thin collider between ticks; continuous detection fixes it."
+    }
+  },
+  {
+    "id": 151,
+    "category": "physics",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does restitution control?"
+    },
+    "options": [
+      "How much bounce remains",
+      "How much drag applies",
+      "How much mass resists",
+      "How much friction bites"
+    ],
+    "answer": "How much bounce remains",
+    "explanation": {
+      "en": "Restitution is the coefficient of elasticity: 0 absorbs the impact, 1 bounces fully."
+    }
+  },
+  {
+    "id": 152,
+    "category": "collision",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why is a trigger not solid?"
+    },
+    "options": [
+      "It reports without blocking",
+      "It has no attached shape",
+      "It runs on another thread",
+      "It updates once per second"
+    ],
+    "answer": "It reports without blocking",
+    "explanation": {
+      "en": "Triggers fire overlap callbacks but generate no contact response."
+    }
+  },
+  {
+    "id": 153,
+    "category": "gameplay",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is coyote time?"
+    },
+    "options": [
+      "Jumping just after leaving",
+      "Jumping just before landing",
+      "Holding jump for height",
+      "Double jumping in midair"
+    ],
+    "answer": "Jumping just after leaving",
+    "explanation": {
+      "en": "A short grace window after walking off a ledge makes platforming feel fair."
+    }
+  },
+  {
+    "id": 154,
+    "category": "gameplay",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why add a hit stop?"
+    },
+    "options": [
+      "Impact reads as heavy",
+      "Damage numbers align",
+      "Animation loops evenly",
+      "Netcode stays in sync"
+    ],
+    "answer": "Impact reads as heavy",
+    "explanation": {
+      "en": "Freezing a few frames on contact sells the weight of the hit."
+    }
+  },
+  {
+    "id": 155,
+    "category": "math",
+    "difficulty": "medium",
+    "codeSnippet": "lerp(a, b, t)",
+    "question": {
+      "en": "What is t normally?"
+    },
+    "options": [
+      "A value from 0 to 1",
+      "A distance in metres",
+      "A time in milliseconds",
+      "An angle in radians"
+    ],
+    "answer": "A value from 0 to 1",
+    "explanation": {
+      "en": "Linear interpolation takes a normalised factor; 0 returns a and 1 returns b."
+    }
+  },
+  {
+    "id": 156,
+    "category": "math",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why use squared distance?"
+    },
+    "options": [
+      "It skips a square root",
+      "It avoids overflow risk",
+      "It handles negatives well",
+      "It keeps units consistent"
+    ],
+    "answer": "It skips a square root",
+    "explanation": {
+      "en": "Comparisons only need relative order, so the root can be left out."
+    }
+  },
+  {
+    "id": 157,
+    "category": "math",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why prefer quaternions?"
+    },
+    "options": [
+      "They avoid gimbal lock",
+      "They store fewer values",
+      "They render more quickly",
+      "They need no normalising"
+    ],
+    "answer": "They avoid gimbal lock",
+    "explanation": {
+      "en": "Euler angles lose a degree of freedom when two axes align; quaternions do not."
+    }
+  },
+  {
+    "id": 158,
+    "category": "optimization",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why reuse instances from a pool?"
+    },
+    "options": [
+      "Allocation causes hitches",
+      "Instances render faster",
+      "Physics needs stable ids",
+      "Scenes load more quickly"
+    ],
+    "answer": "Allocation causes hitches",
+    "explanation": {
+      "en": "Recycling avoids per-spawn allocation and the garbage collection it eventually triggers."
+    }
+  },
+  {
+    "id": 159,
+    "category": "optimization",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What are LODs for?"
+    },
+    "options": [
+      "Cheaper distant meshes",
+      "Sharper nearby shadows",
+      "Faster physics queries",
+      "Smaller texture memory"
+    ],
+    "answer": "Cheaper distant meshes",
+    "explanation": {
+      "en": "Levels of detail swap in lower-poly models as objects recede from the camera."
+    }
+  },
+  {
+    "id": 160,
+    "category": "optimization",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why avoid per-frame allocation?"
+    },
+    "options": [
+      "It invites GC hitches",
+      "It fragments the atlas",
+      "It stalls the GPU queue",
+      "It breaks the fixed step"
+    ],
+    "answer": "It invites GC hitches",
+    "explanation": {
+      "en": "Garbage generated every frame eventually forces a collection mid-gameplay."
+    }
+  },
+  {
+    "id": 161,
+    "category": "animation",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is root motion?"
+    },
+    "options": [
+      "Movement driven by the clip",
+      "Movement driven by input",
+      "Movement driven by physics",
+      "Movement driven by a path"
+    ],
+    "answer": "Movement driven by the clip",
+    "explanation": {
+      "en": "The animation itself carries the character's displacement instead of code doing it."
+    }
+  },
+  {
+    "id": 162,
+    "category": "animation",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does an IK solver do?"
+    },
+    "options": [
+      "Poses joints to a target",
+      "Blends two clips evenly",
+      "Compresses keyframe data",
+      "Retimes a looping clip"
+    ],
+    "answer": "Poses joints to a target",
+    "explanation": {
+      "en": "Inverse kinematics computes joint angles so an end effector reaches a position."
+    }
+  },
+  {
+    "id": 163,
+    "category": "netcode",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is client prediction?"
+    },
+    "options": [
+      "Acting before the server replies",
+      "Waiting until the server replies",
+      "Sending input at a fixed rate",
+      "Replaying the last server state"
+    ],
+    "answer": "Acting before the server replies",
+    "explanation": {
+      "en": "The client simulates its own input immediately so the game feels responsive."
+    }
+  },
+  {
+    "id": 164,
+    "category": "netcode",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is interpolation used for?"
+    },
+    "options": [
+      "Smoothing remote players",
+      "Predicting local input",
+      "Compressing state packets",
+      "Detecting dropped packets"
+    ],
+    "answer": "Smoothing remote players",
+    "explanation": {
+      "en": "Rendering remote entities slightly in the past hides the gaps between updates."
+    }
+  },
+  {
+    "id": 165,
+    "category": "architecture",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does ECS separate?"
+    },
+    "options": [
+      "Data from behaviour",
+      "Render from update",
+      "Client from server",
+      "Assets from scenes"
+    ],
+    "answer": "Data from behaviour",
+    "explanation": {
+      "en": "Entity-component-system keeps plain component data apart from the systems acting on it."
+    }
+  },
+  {
+    "id": 166,
+    "category": "scene",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why stream a large level?"
+    },
+    "options": [
+      "Memory stays bounded",
+      "Physics runs faster",
+      "Lighting bakes sooner",
+      "Saves become smaller"
+    ],
+    "answer": "Memory stays bounded",
+    "explanation": {
+      "en": "Loading regions on demand keeps a big world inside a fixed memory budget."
+    }
+  },
+  {
+    "id": 167,
+    "category": "pathfinding",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a navmesh?"
+    },
+    "options": [
+      "Walkable surface polygons",
+      "A grid of blocked cells",
+      "A graph of waypoints",
+      "A cone of vision data"
+    ],
+    "answer": "Walkable surface polygons",
+    "explanation": {
+      "en": "Navigation meshes describe where agents can stand, giving smoother paths than grids."
+    }
+  },
+  {
+    "id": 168,
+    "category": "effects",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why cap particle counts?"
+    },
+    "options": [
+      "Fill rate is finite",
+      "Colours blend badly",
+      "Physics ticks slow",
+      "Memory fragments fast"
+    ],
+    "answer": "Fill rate is finite",
+    "explanation": {
+      "en": "Large overlapping particles shade the same pixels repeatedly and swamp the GPU."
+    }
+  },
+  {
+    "id": 169,
+    "category": "ui",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why anchor UI elements?"
+    },
+    "options": [
+      "Layout survives resizing",
+      "Text renders more sharply",
+      "Batching groups them up",
+      "Input hits register sooner"
+    ],
+    "answer": "Layout survives resizing",
+    "explanation": {
+      "en": "Anchors express position relative to edges, so the layout adapts to any resolution."
+    }
+  },
+  {
+    "id": 170,
+    "category": "rendering",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What breaks GPU instancing?"
+    },
+    "options": [
+      "Per-object material edits",
+      "Shared vertex buffers",
+      "Identical mesh topology",
+      "A single shared shader"
+    ],
+    "answer": "Per-object material edits",
+    "explanation": {
+      "en": "Changing a material per instance creates a unique copy, splitting the batch."
+    }
+  },
+  {
+    "id": 171,
+    "category": "rendering",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is shadow acne?"
+    },
+    "options": [
+      "Depth precision artifacts",
+      "Aliasing on hard edges",
+      "Light leaking through walls",
+      "Peter-panning of contacts"
+    ],
+    "answer": "Depth precision artifacts",
+    "explanation": {
+      "en": "Self-shadowing stripes come from limited shadow-map depth precision; a bias reduces them."
+    }
+  },
+  {
+    "id": 172,
+    "category": "physics",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why iterate a solver?"
+    },
+    "options": [
+      "Constraints fight each other",
+      "Floats drift between ticks",
+      "Contacts arrive unsorted",
+      "Masses vary too widely"
+    ],
+    "answer": "Constraints fight each other",
+    "explanation": {
+      "en": "Solving contacts in sequence repeatedly converges on a state satisfying all of them."
+    }
+  },
+  {
+    "id": 173,
+    "category": "netcode",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is lag compensation?"
+    },
+    "options": [
+      "Rewinding to the shot time",
+      "Delaying every player input",
+      "Interpolating remote motion",
+      "Dropping late state packets"
+    ],
+    "answer": "Rewinding to the shot time",
+    "explanation": {
+      "en": "The server rewinds hitboxes to what the shooter saw, so aiming at a target lands."
+    }
+  },
+  {
+    "id": 174,
+    "category": "netcode",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why must lockstep be deterministic?"
+    },
+    "options": [
+      "Peers simulate independently",
+      "Packets arrive out of order",
+      "State is never transmitted",
+      "Inputs compress more tightly"
+    ],
+    "answer": "Peers simulate independently",
+    "explanation": {
+      "en": "Lockstep sends only inputs, so any float divergence desyncs the whole match."
+    }
+  },
+  {
+    "id": 175,
+    "category": "optimization",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why is the game CPU-bound?"
+    },
+    "options": [
+      "GPU idles between frames",
+      "GPU queue is always full",
+      "VRAM is fully committed",
+      "Shaders recompile often"
+    ],
+    "answer": "GPU idles between frames",
+    "explanation": {
+      "en": "If the GPU finishes and waits, the frame time is being set by CPU work."
+    }
+  },
+  {
+    "id": 176,
+    "category": "systems",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why is cache locality fast?"
+    },
+    "options": [
+      "Neighbours load together",
+      "Branches predict better",
+      "Threads contend less",
+      "Registers spill later"
+    ],
+    "answer": "Neighbours load together",
+    "explanation": {
+      "en": "A cache line brings adjacent data along, so contiguous iteration avoids stalls."
+    }
+  },
+  {
+    "id": 177,
+    "category": "ai",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a behaviour tree add?"
+    },
+    "options": [
+      "Composable decision nodes",
+      "Guaranteed shortest paths",
+      "Deterministic frame timing",
+      "Automatic navmesh baking"
+    ],
+    "answer": "Composable decision nodes",
+    "explanation": {
+      "en": "Selectors and sequences compose reusable subtrees, unlike a flat state machine."
+    }
+  },
+  {
+    "id": 178,
+    "category": "save",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why write saves atomically?"
+    },
+    "options": [
+      "A crash could truncate",
+      "Disks reorder the bytes",
+      "Compression needs it",
+      "Checksums demand it"
+    ],
+    "answer": "A crash could truncate",
+    "explanation": {
+      "en": "Writing to a temp file then renaming means an interrupted save never corrupts the old one."
+    }
   }
 ]

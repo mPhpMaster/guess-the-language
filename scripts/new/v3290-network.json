@@ -1,0 +1,857 @@
+[
+ {
+  "id": 145,
+  "category": "ports",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which port does SMTP submission use?"
+  },
+  "options": [
+   "587",
+   "110",
+   "143",
+   "993"
+  ],
+  "answer": "587",
+  "explanation": {
+   "en": "Port 587 is mail submission; 25 is server-to-server relay."
+  }
+ },
+ {
+  "id": 146,
+  "category": "ports",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which port does RDP listen on?"
+  },
+  "options": [
+   "3389",
+   "5900",
+   "1521",
+   "5432"
+  ],
+  "answer": "3389",
+  "explanation": {
+   "en": "Remote Desktop uses 3389; 5900 is VNC."
+  }
+ },
+ {
+  "id": 147,
+  "category": "ports",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which port does PostgreSQL default to?"
+  },
+  "options": [
+   "5432",
+   "3306",
+   "1433",
+   "27017"
+  ],
+  "answer": "5432",
+  "explanation": {
+   "en": "5432 is PostgreSQL; 3306 MySQL, 1433 SQL Server, 27017 MongoDB."
+  }
+ },
+ {
+  "id": 148,
+  "category": "protocols",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does DHCP hand out?"
+  },
+  "options": [
+   "Address configuration",
+   "Domain name records",
+   "Routing table rows",
+   "Encryption key pairs"
+  ],
+  "answer": "Address configuration",
+  "explanation": {
+   "en": "DHCP leases an address plus gateway, mask and DNS servers."
+  }
+ },
+ {
+  "id": 149,
+  "category": "protocols",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "When is a gratuitous ARP sent?"
+  },
+  "options": [
+   "After an address change",
+   "Before every TCP handshake",
+   "Whenever a cache expires",
+   "Only during DHCP renewal"
+  ],
+  "answer": "After an address change",
+  "explanation": {
+   "en": "Announcing your own mapping unprompted refreshes neighbours after a failover or move."
+  }
+ },
+ {
+  "id": 150,
+  "category": "ip",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "How many hosts fit a /30?"
+  },
+  "options": [
+   "2",
+   "4",
+   "6",
+   "8"
+  ],
+  "answer": "2",
+  "explanation": {
+   "en": "A /30 has 4 addresses; network and broadcast leave 2 usable — the classic point-to-point link."
+  }
+ },
+ {
+  "id": 151,
+  "category": "ip",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which range is link-local IPv4?"
+  },
+  "options": [
+   "169.254.0.0/16",
+   "192.168.0.0/16",
+   "172.16.0.0/12",
+   "100.64.0.0/10"
+  ],
+  "answer": "169.254.0.0/16",
+  "explanation": {
+   "en": "A host self-assigns from 169.254.0.0/16 when DHCP fails."
+  }
+ },
+ {
+  "id": 152,
+  "category": "osi",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which layer does a switch work at?"
+  },
+  "options": [
+   "Data link",
+   "Network",
+   "Transport",
+   "Session"
+  ],
+  "answer": "Data link",
+  "explanation": {
+   "en": "A classic switch forwards on MAC addresses at layer 2."
+  }
+ },
+ {
+  "id": 153,
+  "category": "osi",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which layer does TLS sit above?"
+  },
+  "options": [
+   "Transport",
+   "Data link",
+   "Physical",
+   "Network"
+  ],
+  "answer": "Transport",
+  "explanation": {
+   "en": "TLS runs on top of a reliable transport, normally TCP."
+  }
+ },
+ {
+  "id": 154,
+  "category": "tools",
+  "difficulty": "easy",
+  "codeSnippet": "ss -tlnp",
+  "question": {
+   "en": "What does this list?"
+  },
+  "options": [
+   "Listening TCP sockets",
+   "Established UDP flows",
+   "Kernel routing entries",
+   "Configured interfaces"
+  ],
+  "answer": "Listening TCP sockets",
+  "explanation": {
+   "en": "`-t` TCP, `-l` listening, `-n` numeric, `-p` the owning process."
+  }
+ },
+ {
+  "id": 155,
+  "category": "tools",
+  "difficulty": "easy",
+  "codeSnippet": "ip route get 8.8.8.8",
+  "question": {
+   "en": "What does this show?"
+  },
+  "options": [
+   "The chosen route",
+   "The full route table",
+   "The ARP neighbours",
+   "The DNS resolvers"
+  ],
+  "answer": "The chosen route",
+  "explanation": {
+   "en": "It asks the kernel which route and source address it would pick for that destination."
+  }
+ },
+ {
+  "id": 156,
+  "category": "dns",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why can a zone apex not hold a CNAME?"
+  },
+  "options": [
+   "It must coexist with SOA",
+   "It would exceed the TTL",
+   "It breaks reverse lookups",
+   "It duplicates the NS set"
+  ],
+  "answer": "It must coexist with SOA",
+  "explanation": {
+   "en": "CNAME cannot sit beside other records, and the apex always carries SOA and NS — hence ALIAS records."
+  }
+ },
+ {
+  "id": 157,
+  "category": "dns",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does the TTL on a record control?"
+  },
+  "options": [
+   "How long resolvers cache",
+   "How many hops it survives",
+   "How long the query waits",
+   "How often the zone reloads"
+  ],
+  "answer": "How long resolvers cache",
+  "explanation": {
+   "en": "TTL is a caching lifetime in seconds, unrelated to the IP header's TTL."
+  }
+ },
+ {
+  "id": 158,
+  "category": "transport",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why might a service pick UDP?"
+  },
+  "options": [
+   "Latency beats delivery",
+   "Delivery beats latency",
+   "Ordering must be kept",
+   "Congestion must be managed"
+  ],
+  "answer": "Latency beats delivery",
+  "explanation": {
+   "en": "Voice and games prefer a dropped packet over a retransmitted stale one."
+  }
+ },
+ {
+  "id": 159,
+  "category": "tcp",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What ends a TCP connection cleanly?"
+  },
+  "options": [
+   "A FIN exchange",
+   "A RST packet",
+   "An ICMP unreachable",
+   "A zero-window probe"
+  ],
+  "answer": "A FIN exchange",
+  "explanation": {
+   "en": "Each side sends FIN and is acknowledged; RST is the abrupt abort instead."
+  }
+ },
+ {
+  "id": 160,
+  "category": "tcp",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does TIME_WAIT protect against?"
+  },
+  "options": [
+   "Stale duplicate segments",
+   "Half-open connections",
+   "Sequence number guessing",
+   "Silent window shrinking"
+  ],
+  "answer": "Stale duplicate segments",
+  "explanation": {
+   "en": "Holding the tuple briefly stops an old delayed segment landing in a new connection."
+  }
+ },
+ {
+  "id": 161,
+  "category": "tcp",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does the receive window advertise?"
+  },
+  "options": [
+   "Free buffer space",
+   "Round-trip latency",
+   "Congestion estimate",
+   "Maximum segment size"
+  ],
+  "answer": "Free buffer space",
+  "explanation": {
+   "en": "It is flow control: how much more the receiver can accept right now."
+  }
+ },
+ {
+  "id": 162,
+  "category": "tcp",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does Nagle's algorithm do?"
+  },
+  "options": [
+   "Coalesces small writes",
+   "Doubles the send window",
+   "Retransmits duplicates",
+   "Reorders queued segments"
+  ],
+  "answer": "Coalesces small writes",
+  "explanation": {
+   "en": "It waits for an ACK before sending another small segment, which can add latency."
+  }
+ },
+ {
+  "id": 163,
+  "category": "routing",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which route wins when two match?"
+  },
+  "options": [
+   "The longest prefix",
+   "The shortest prefix",
+   "The oldest entry",
+   "The lowest metric"
+  ],
+  "answer": "The longest prefix",
+  "explanation": {
+   "en": "Longest-prefix match decides first; metric only breaks ties within equal prefixes."
+  }
+ },
+ {
+  "id": 164,
+  "category": "routing",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is administrative distance?"
+  },
+  "options": [
+   "Trust between protocols",
+   "Hop count to a network",
+   "Delay across a link",
+   "Cost of an interface"
+  ],
+  "answer": "Trust between protocols",
+  "explanation": {
+   "en": "When two protocols offer the same prefix, the lower distance source is believed."
+  }
+ },
+ {
+  "id": 165,
+  "category": "routing",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does BGP exchange between peers?"
+  },
+  "options": [
+   "Reachability and paths",
+   "Link state databases",
+   "Hop counts per route",
+   "Interface bandwidths"
+  ],
+  "answer": "Reachability and paths",
+  "explanation": {
+   "en": "BGP is a path-vector protocol carrying prefixes with their AS paths."
+  }
+ },
+ {
+  "id": 166,
+  "category": "addressing",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does NAT rewrite?"
+  },
+  "options": [
+   "Addresses and ports",
+   "Only the source port",
+   "Only the MAC header",
+   "The TCP sequence"
+  ],
+  "answer": "Addresses and ports",
+  "explanation": {
+   "en": "Port address translation maps many private sources onto one public address."
+  }
+ },
+ {
+  "id": 167,
+  "category": "addressing",
+  "difficulty": "medium",
+  "codeSnippet": "10.0.4.0/22",
+  "question": {
+   "en": "How many addresses is that?"
+  },
+  "options": [
+   "1024",
+   "512",
+   "2048",
+   "256"
+  ],
+  "answer": "1024",
+  "explanation": {
+   "en": "A /22 leaves 10 host bits, so 2^10 = 1024 addresses."
+  }
+ },
+ {
+  "id": 168,
+  "category": "dns",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is a recursive resolver?"
+  },
+  "options": [
+   "It chases the full chain",
+   "It answers from its zone",
+   "It forwards to the root",
+   "It caches negative replies"
+  ],
+  "answer": "It chases the full chain",
+  "explanation": {
+   "en": "A recursive resolver queries root, TLD and authoritative servers on the client's behalf."
+  }
+ },
+ {
+  "id": 169,
+  "category": "dns",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why does an SOA carry a serial?"
+  },
+  "options": [
+   "Secondaries detect changes",
+   "Resolvers order the answers",
+   "Clients verify signatures",
+   "Registrars bill per change"
+  ],
+  "answer": "Secondaries detect changes",
+  "explanation": {
+   "en": "A higher serial tells a secondary the zone changed and a transfer is due."
+  }
+ },
+ {
+  "id": 170,
+  "category": "dns",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does DNSSEC provide?"
+  },
+  "options": [
+   "Origin authentication",
+   "Query confidentiality",
+   "Faster resolution",
+   "Load distribution"
+  ],
+  "answer": "Origin authentication",
+  "explanation": {
+   "en": "It signs records so answers can be validated; it does not encrypt the query."
+  }
+ },
+ {
+  "id": 171,
+  "category": "protocols",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What transport does QUIC build on?"
+  },
+  "options": [
+   "UDP",
+   "TCP",
+   "SCTP",
+   "ICMP"
+  ],
+  "answer": "UDP",
+  "explanation": {
+   "en": "QUIC implements reliability and congestion control itself on top of UDP."
+  }
+ },
+ {
+  "id": 172,
+  "category": "protocols",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What problem does HTTP/2 multiplexing solve?"
+  },
+  "options": [
+   "Head-of-line blocking",
+   "Certificate validation",
+   "Cache invalidation",
+   "Cookie duplication"
+  ],
+  "answer": "Head-of-line blocking",
+  "explanation": {
+   "en": "Concurrent streams on one connection remove the per-request queue of HTTP/1.1."
+  }
+ },
+ {
+  "id": 173,
+  "category": "services",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does a reverse proxy sit in front of?"
+  },
+  "options": [
+   "Backend servers",
+   "Client browsers",
+   "Border routers",
+   "Recursive resolvers"
+  ],
+  "answer": "Backend servers",
+  "explanation": {
+   "en": "It terminates client connections and forwards to origins, unlike a forward proxy."
+  }
+ },
+ {
+  "id": 174,
+  "category": "services",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is anycast used for?"
+  },
+  "options": [
+   "Nearest of many nodes",
+   "All nodes in a group",
+   "Exactly one fixed node",
+   "A random node each time"
+  ],
+  "answer": "Nearest of many nodes",
+  "explanation": {
+   "en": "The same prefix is announced from many sites; routing picks the closest."
+  }
+ },
+ {
+  "id": 175,
+  "category": "switching",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does a VLAN separate?"
+  },
+  "options": [
+   "Broadcast domains",
+   "Collision domains",
+   "Routing domains",
+   "Failure domains"
+  ],
+  "answer": "Broadcast domains",
+  "explanation": {
+   "en": "Each VLAN is its own broadcast domain, so traffic between them needs routing."
+  }
+ },
+ {
+  "id": 176,
+  "category": "switching",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does spanning tree prevent?"
+  },
+  "options": [
+   "Layer-2 loops",
+   "MAC spoofing",
+   "VLAN hopping",
+   "ARP poisoning"
+  ],
+  "answer": "Layer-2 loops",
+  "explanation": {
+   "en": "STP blocks redundant links so frames cannot circulate forever."
+  }
+ },
+ {
+  "id": 177,
+  "category": "diagnostics",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "How does traceroute find each hop?"
+  },
+  "options": [
+   "It increments the TTL",
+   "It reads the route table",
+   "It queries each router",
+   "It follows ICMP redirects"
+  ],
+  "answer": "It increments the TTL",
+  "explanation": {
+   "en": "Each expiring TTL provokes a Time Exceeded reply that identifies the hop."
+  }
+ },
+ {
+  "id": 178,
+  "category": "diagnostics",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why can ping fail while HTTP works?"
+  },
+  "options": [
+   "ICMP may be filtered",
+   "TCP retries more often",
+   "DNS resolves differently",
+   "MTU differs per protocol"
+  ],
+  "answer": "ICMP may be filtered",
+  "explanation": {
+   "en": "Many networks drop ICMP while permitting TCP, so ping is a poor reachability test."
+  }
+ },
+ {
+  "id": 179,
+  "category": "security",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does mTLS add over TLS?"
+  },
+  "options": [
+   "Client certificate proof",
+   "Stronger cipher suites",
+   "Faster session resumption",
+   "Server name indication"
+  ],
+  "answer": "Client certificate proof",
+  "explanation": {
+   "en": "Mutual TLS authenticates both ends rather than the server alone."
+  }
+ },
+ {
+  "id": 180,
+  "category": "security",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does SNI reveal?"
+  },
+  "options": [
+   "The requested hostname",
+   "The client IP address",
+   "The chosen cipher",
+   "The session ticket"
+  ],
+  "answer": "The requested hostname",
+  "explanation": {
+   "en": "Plain SNI is sent before encryption, which is what Encrypted Client Hello addresses."
+  }
+ },
+ {
+  "id": 181,
+  "category": "ipv6",
+  "difficulty": "medium",
+  "codeSnippet": "fe80::1",
+  "question": {
+   "en": "What kind of address is this?"
+  },
+  "options": [
+   "Link-local",
+   "Global unicast",
+   "Unique local",
+   "Multicast"
+  ],
+  "answer": "Link-local",
+  "explanation": {
+   "en": "fe80::/10 is link-local and is never routed off the segment."
+  }
+ },
+ {
+  "id": 182,
+  "category": "ipv6",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What replaces ARP in IPv6?"
+  },
+  "options": [
+   "Neighbour discovery",
+   "Router advertisement",
+   "Path MTU discovery",
+   "Duplicate detection"
+  ],
+  "answer": "Neighbour discovery",
+  "explanation": {
+   "en": "NDP uses ICMPv6 messages to map addresses to link-layer addresses."
+  }
+ },
+ {
+  "id": 183,
+  "category": "tcp",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does bufferbloat cause?"
+  },
+  "options": [
+   "Latency under load",
+   "Packet reordering",
+   "Checksum failures",
+   "Window shrinking"
+  ],
+  "answer": "Latency under load",
+  "explanation": {
+   "en": "Oversized queues delay packets instead of dropping them, so congestion control reacts late."
+  }
+ },
+ {
+  "id": 184,
+  "category": "tcp",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does slow start actually grow?"
+  },
+  "options": [
+   "The congestion window",
+   "The receive window",
+   "The segment size",
+   "The retransmit timer"
+  ],
+  "answer": "The congestion window",
+  "explanation": {
+   "en": "cwnd roughly doubles per RTT until loss or the slow-start threshold."
+  }
+ },
+ {
+  "id": 185,
+  "category": "protocols",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why does path MTU discovery break silently?"
+  },
+  "options": [
+   "Blocked ICMP fragmentation needed",
+   "Missing DNS reverse records",
+   "Mismatched TCP window scaling",
+   "Disabled TCP selective ack"
+  ],
+  "answer": "Blocked ICMP fragmentation needed",
+  "explanation": {
+   "en": "If that ICMP message is filtered the sender never learns to shrink, so large packets vanish."
+  }
+ },
+ {
+  "id": 186,
+  "category": "routing",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is a BGP route leak?"
+  },
+  "options": [
+   "Prefixes announced too widely",
+   "Prefixes withdrawn too quickly",
+   "Prefixes aggregated too coarsely",
+   "Prefixes filtered too strictly"
+  ],
+  "answer": "Prefixes announced too widely",
+  "explanation": {
+   "en": "Re-announcing routes beyond policy pulls traffic through a network that should not carry it."
+  }
+ },
+ {
+  "id": 187,
+  "category": "osi",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why does encapsulation reduce payload?"
+  },
+  "options": [
+   "Each header takes bytes",
+   "Each layer re-encrypts",
+   "Each hop recalculates",
+   "Each frame is padded"
+  ],
+  "answer": "Each header takes bytes",
+  "explanation": {
+   "en": "Tunnels stack headers inside the same MTU, which is why VPNs often lower the MSS."
+  }
+ },
+ {
+  "id": 188,
+  "category": "security",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "What makes DNS amplification effective?"
+  },
+  "options": [
+   "Replies dwarf the queries",
+   "Queries bypass firewalls",
+   "Replies are always cached",
+   "Queries need no resolver"
+  ],
+  "answer": "Replies dwarf the queries",
+  "explanation": {
+   "en": "A small spoofed query yields a large answer aimed at the victim's address."
+  }
+ },
+ {
+  "id": 189,
+  "category": "diagnostics",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why can traceroute show varying paths?"
+  },
+  "options": [
+   "Load balancing per flow",
+   "Routers rewriting the TTL",
+   "Clocks drifting per hop",
+   "Caches expiring mid-run"
+  ],
+  "answer": "Load balancing per flow",
+  "explanation": {
+   "en": "ECMP hashes each probe's headers, so different probes can take different links."
+  }
+ }
+]

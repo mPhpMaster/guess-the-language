@@ -3418,5 +3418,765 @@
     "explanation": {
       "en": "Layered controls mean one bypassed defence does not hand over the whole system."
     }
+  },
+  {
+    "id": 185,
+    "category": "web",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does the SameSite cookie attribute limit?"
+    },
+    "options": [
+      "Cross-site sending",
+      "Cookie total size",
+      "Cookie lifetime",
+      "Subdomain sharing"
+    ],
+    "answer": "Cross-site sending",
+    "explanation": {
+      "en": "SameSite=Lax or Strict stops the browser attaching the cookie to cross-site requests, blunting CSRF."
+    }
+  },
+  {
+    "id": 186,
+    "category": "web",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does the HttpOnly flag prevent?"
+    },
+    "options": [
+      "Script reading the cookie",
+      "Sending over plain HTTP",
+      "Sharing with subdomains",
+      "Storing beyond the session"
+    ],
+    "answer": "Script reading the cookie",
+    "explanation": {
+      "en": "HttpOnly hides the cookie from document.cookie, so an XSS payload cannot steal it directly."
+    }
+  },
+  {
+    "id": 187,
+    "category": "web",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is the point of a CSRF token?"
+    },
+    "options": [
+      "Proving intent to submit",
+      "Encrypting the form body",
+      "Rate limiting submissions",
+      "Validating the field types"
+    ],
+    "answer": "Proving intent to submit",
+    "explanation": {
+      "en": "A value the attacker's site cannot read shows the request came from your own page."
+    }
+  },
+  {
+    "id": 188,
+    "category": "auth",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why salt a password hash?"
+    },
+    "options": [
+      "Identical passwords differ",
+      "Hashing becomes slower",
+      "The hash gets shorter",
+      "Rotation becomes possible"
+    ],
+    "answer": "Identical passwords differ",
+    "explanation": {
+      "en": "A unique salt per user defeats precomputed rainbow tables and reveals no repeats."
+    }
+  },
+  {
+    "id": 189,
+    "category": "auth",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why is bcrypt preferred over SHA-256 for passwords?"
+    },
+    "options": [
+      "It is deliberately slow",
+      "It produces longer output",
+      "It is newer and stronger",
+      "It needs no salt value"
+    ],
+    "answer": "It is deliberately slow",
+    "explanation": {
+      "en": "A tunable work factor makes offline guessing expensive; fast hashes are the wrong tool here."
+    }
+  },
+  {
+    "id": 190,
+    "category": "crypto",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does hashing not give you?"
+    },
+    "options": [
+      "Reversibility",
+      "A fixed length",
+      "Determinism",
+      "Collision resistance"
+    ],
+    "answer": "Reversibility",
+    "explanation": {
+      "en": "Hashes are one-way; encryption is the reversible one."
+    }
+  },
+  {
+    "id": 191,
+    "category": "crypto",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is an IV for?"
+    },
+    "options": [
+      "Making ciphertexts differ",
+      "Authenticating the sender",
+      "Deriving the actual key",
+      "Padding the final block"
+    ],
+    "answer": "Making ciphertexts differ",
+    "explanation": {
+      "en": "A fresh initialisation vector means the same plaintext never encrypts to the same bytes."
+    }
+  },
+  {
+    "id": 192,
+    "category": "principles",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does least privilege mean?"
+    },
+    "options": [
+      "Only what the task needs",
+      "Only what the role allows",
+      "Only what the owner grants",
+      "Only what the audit shows"
+    ],
+    "answer": "Only what the task needs",
+    "explanation": {
+      "en": "Rights are scoped to the job at hand, so a compromise reaches as little as possible."
+    }
+  },
+  {
+    "id": 193,
+    "category": "principles",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What should a system do when a check errors?"
+    },
+    "options": [
+      "Deny the request",
+      "Allow and log it",
+      "Retry it silently",
+      "Cache the outcome"
+    ],
+    "answer": "Deny the request",
+    "explanation": {
+      "en": "Failing closed means an outage in the authoriser cannot become an authorisation bypass."
+    }
+  },
+  {
+    "id": 194,
+    "category": "concepts",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is the difference between a vulnerability and an exploit?"
+    },
+    "options": [
+      "A flaw versus its use",
+      "A bug versus a feature",
+      "A risk versus a threat",
+      "A patch versus a fix"
+    ],
+    "answer": "A flaw versus its use",
+    "explanation": {
+      "en": "The vulnerability is the weakness; the exploit is working code that takes advantage of it."
+    }
+  },
+  {
+    "id": 195,
+    "category": "web",
+    "difficulty": "medium",
+    "codeSnippet": "db.query(`SELECT * FROM users WHERE id = ${req.query.id}`)",
+    "question": {
+      "en": "What is the fix?"
+    },
+    "options": [
+      "Use a parameterised query",
+      "Escape the quote characters",
+      "Validate the length first",
+      "Cast the value to a number"
+    ],
+    "answer": "Use a parameterised query",
+    "explanation": {
+      "en": "Binding sends data separately from SQL, so no input can change the statement's shape."
+    }
+  },
+  {
+    "id": 196,
+    "category": "web",
+    "difficulty": "medium",
+    "codeSnippet": "el.innerHTML = userComment;",
+    "question": {
+      "en": "Which class of bug is this?"
+    },
+    "options": [
+      "Cross-site scripting",
+      "Cross-site forgery",
+      "Server-side inclusion",
+      "Prototype pollution"
+    ],
+    "answer": "Cross-site scripting",
+    "explanation": {
+      "en": "Untrusted markup in innerHTML executes; textContent assigns it as text instead."
+    }
+  },
+  {
+    "id": 197,
+    "category": "web",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does SSRF abuse?"
+    },
+    "options": [
+      "The server making requests",
+      "The client following redirects",
+      "The proxy caching responses",
+      "The browser storing cookies"
+    ],
+    "answer": "The server making requests",
+    "explanation": {
+      "en": "Attacker-chosen URLs let the server reach internal addresses the attacker cannot."
+    }
+  },
+  {
+    "id": 198,
+    "category": "web",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a strict CSP mainly stop?"
+    },
+    "options": [
+      "Injected script executing",
+      "Cookies being read",
+      "Requests being forged",
+      "Frames being nested"
+    ],
+    "answer": "Injected script executing",
+    "explanation": {
+      "en": "Restricting script sources means an injected tag has no permitted origin to load from."
+    }
+  },
+  {
+    "id": 199,
+    "category": "web",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is an IDOR?"
+    },
+    "options": [
+      "Missing ownership check",
+      "Missing input encoding",
+      "Missing rate limiting",
+      "Missing session timeout"
+    ],
+    "answer": "Missing ownership check",
+    "explanation": {
+      "en": "Changing an id in the URL reaches another user's record because authorisation was never verified."
+    }
+  },
+  {
+    "id": 200,
+    "category": "web",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why is open redirect dangerous?"
+    },
+    "options": [
+      "It lends your domain",
+      "It leaks the session",
+      "It bypasses the CSP",
+      "It disables the cookie"
+    ],
+    "answer": "It lends your domain",
+    "explanation": {
+      "en": "A phishing link on your trusted host bounces the victim somewhere hostile."
+    }
+  },
+  {
+    "id": 201,
+    "category": "auth",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why rotate a session id at login?"
+    },
+    "options": [
+      "It defeats fixation",
+      "It shortens the cookie",
+      "It speeds up lookup",
+      "It enables remember-me"
+    ],
+    "answer": "It defeats fixation",
+    "explanation": {
+      "en": "If the attacker planted the pre-login id, rotating means the one they hold is now useless."
+    }
+  },
+  {
+    "id": 202,
+    "category": "auth",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why is SMS a weak second factor?"
+    },
+    "options": [
+      "Numbers can be ported",
+      "Codes expire too slowly",
+      "Messages are always logged",
+      "Carriers rate limit them"
+    ],
+    "answer": "Numbers can be ported",
+    "explanation": {
+      "en": "SIM swapping moves the number to the attacker; app-based TOTP or a security key resists it."
+    }
+  },
+  {
+    "id": 203,
+    "category": "auth",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What makes a security key phishing resistant?"
+    },
+    "options": [
+      "It binds to the origin",
+      "It stores a longer secret",
+      "It requires a fingerprint",
+      "It rotates every minute"
+    ],
+    "answer": "It binds to the origin",
+    "explanation": {
+      "en": "WebAuthn signs over the real origin, so a lookalike domain gets nothing usable."
+    }
+  },
+  {
+    "id": 204,
+    "category": "crypto",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why compare secrets in constant time?"
+    },
+    "options": [
+      "Timing leaks the prefix",
+      "Comparison may overflow",
+      "Encoding can differ",
+      "Lengths may not match"
+    ],
+    "answer": "Timing leaks the prefix",
+    "explanation": {
+      "en": "An early-exit compare reveals how many leading bytes matched, one byte at a time."
+    }
+  },
+  {
+    "id": 205,
+    "category": "crypto",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does an HMAC provide that a plain hash does not?"
+    },
+    "options": [
+      "Proof of a shared key",
+      "A shorter digest",
+      "Faster verification",
+      "Collision resistance"
+    ],
+    "answer": "Proof of a shared key",
+    "explanation": {
+      "en": "Only a holder of the key can produce a valid tag, so the message is authenticated."
+    }
+  },
+  {
+    "id": 206,
+    "category": "crypto",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does forward secrecy protect?"
+    },
+    "options": [
+      "Past sessions after a leak",
+      "Future sessions after a leak",
+      "Keys stored on disk",
+      "Certificates near expiry"
+    ],
+    "answer": "Past sessions after a leak",
+    "explanation": {
+      "en": "Ephemeral key exchange means a stolen long-term key cannot decrypt recorded traffic."
+    }
+  },
+  {
+    "id": 207,
+    "category": "attacks",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is credential stuffing?"
+    },
+    "options": [
+      "Replaying leaked pairs",
+      "Guessing one password",
+      "Flooding the login form",
+      "Forging a session token"
+    ],
+    "answer": "Replaying leaked pairs",
+    "explanation": {
+      "en": "It exploits reuse: breached credentials from one site are tried en masse on another."
+    }
+  },
+  {
+    "id": 208,
+    "category": "attacks",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does password spraying avoid?"
+    },
+    "options": [
+      "Account lockout limits",
+      "Network rate limits",
+      "Captcha challenges",
+      "Geolocation checks"
+    ],
+    "answer": "Account lockout limits",
+    "explanation": {
+      "en": "One common password against many accounts stays under each account's failure threshold."
+    }
+  },
+  {
+    "id": 209,
+    "category": "attacks",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a supply chain attack?"
+    },
+    "options": [
+      "Compromising a dependency",
+      "Flooding the build server",
+      "Stealing the signing key",
+      "Phishing the release manager"
+    ],
+    "answer": "Compromising a dependency",
+    "explanation": {
+      "en": "Poisoning something you trust and pull in reaches everyone who builds against it."
+    }
+  },
+  {
+    "id": 210,
+    "category": "malware",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a rootkit try hardest to do?"
+    },
+    "options": [
+      "Hide its own presence",
+      "Encrypt the user files",
+      "Spread to other hosts",
+      "Harvest browser cookies"
+    ],
+    "answer": "Hide its own presence",
+    "explanation": {
+      "en": "Rootkits subvert the tools you would inspect with, so the system reports itself as clean."
+    }
+  },
+  {
+    "id": 211,
+    "category": "malware",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a dropper do?"
+    },
+    "options": [
+      "Installs the real payload",
+      "Encrypts the victim's disk",
+      "Exfiltrates stored secrets",
+      "Persists across reboots"
+    ],
+    "answer": "Installs the real payload",
+    "explanation": {
+      "en": "A small first stage fetches and runs the heavier malware, keeping the initial file innocuous."
+    }
+  },
+  {
+    "id": 212,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a WAF good at?"
+    },
+    "options": [
+      "Blocking known patterns",
+      "Fixing the underlying bug",
+      "Proving code is safe",
+      "Replacing input validation"
+    ],
+    "answer": "Blocking known patterns",
+    "explanation": {
+      "en": "It buys time against known payloads but is a filter, not a fix."
+    }
+  },
+  {
+    "id": 213,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does SAST analyse?"
+    },
+    "options": [
+      "Source without running",
+      "A running application",
+      "Network traffic flows",
+      "Deployed configuration"
+    ],
+    "answer": "Source without running",
+    "explanation": {
+      "en": "Static analysis reads the code; DAST is the one that probes a live instance."
+    }
+  },
+  {
+    "id": 214,
+    "category": "defense",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why segment a network?"
+    },
+    "options": [
+      "Lateral movement gets harder",
+      "Bandwidth is shared better",
+      "Latency drops between hosts",
+      "Logging becomes centralised"
+    ],
+    "answer": "Lateral movement gets harder",
+    "explanation": {
+      "en": "One compromised host should not reach everything else on a flat network."
+    }
+  },
+  {
+    "id": 215,
+    "category": "defense",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is the value of a canary token?"
+    },
+    "options": [
+      "It signals unauthorised access",
+      "It blocks the intrusion attempt",
+      "It encrypts the sensitive file",
+      "It rotates the exposed secret"
+    ],
+    "answer": "It signals unauthorised access",
+    "explanation": {
+      "en": "A decoy nobody should ever touch turns any access into a high-confidence alert."
+    }
+  },
+  {
+    "id": 216,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a CVSS score describe?"
+    },
+    "options": [
+      "Severity, not risk",
+      "Risk, not severity",
+      "Likelihood of exploit",
+      "Cost of remediation"
+    ],
+    "answer": "Severity, not risk",
+    "explanation": {
+      "en": "It rates the flaw's technical severity; your actual risk depends on exposure and context."
+    }
+  },
+  {
+    "id": 217,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a zero-day?"
+    },
+    "options": [
+      "No patch exists yet",
+      "No exploit exists yet",
+      "No disclosure was made",
+      "No CVE was assigned"
+    ],
+    "answer": "No patch exists yet",
+    "explanation": {
+      "en": "Defenders have had zero days to fix it, so mitigation rather than patching is the answer."
+    }
+  },
+  {
+    "id": 218,
+    "category": "social",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What makes pretexting effective?"
+    },
+    "options": [
+      "A plausible reason to comply",
+      "A technical exploit chain",
+      "A forged digital signature",
+      "A compromised mail server"
+    ],
+    "answer": "A plausible reason to comply",
+    "explanation": {
+      "en": "An invented but believable scenario gets the target to help, no software flaw needed."
+    }
+  },
+  {
+    "id": 219,
+    "category": "web",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What enables request smuggling?"
+    },
+    "options": [
+      "Front and back disagree",
+      "Cookies are not scoped",
+      "TLS terminates too early",
+      "Keep-alive is disabled"
+    ],
+    "answer": "Front and back disagree",
+    "explanation": {
+      "en": "Differing interpretations of Content-Length and Transfer-Encoding let one request hide inside another."
+    }
+  },
+  {
+    "id": 220,
+    "category": "web",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why is CORS not an access control?"
+    },
+    "options": [
+      "The server still responded",
+      "The browser ignores it",
+      "It only affects cookies",
+      "It applies after auth"
+    ],
+    "answer": "The server still responded",
+    "explanation": {
+      "en": "CORS governs what a browser lets script read; a non-browser client is unaffected."
+    }
+  },
+  {
+    "id": 221,
+    "category": "crypto",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why must a nonce never repeat in AES-GCM?"
+    },
+    "options": [
+      "Reuse can expose the key",
+      "Decryption becomes slower",
+      "The tag grows in length",
+      "Padding becomes ambiguous"
+    ],
+    "answer": "Reuse can expose the key",
+    "explanation": {
+      "en": "Two messages under one nonce leak the keystream and allow forging the authentication tag."
+    }
+  },
+  {
+    "id": 222,
+    "category": "auth",
+    "difficulty": "hard",
+    "codeSnippet": "{ \"alg\": \"none\" }",
+    "question": {
+      "en": "Why is this JWT header dangerous?"
+    },
+    "options": [
+      "Verification may be skipped",
+      "The payload is compressed",
+      "The token never expires",
+      "The claims are encrypted"
+    ],
+    "answer": "Verification may be skipped",
+    "explanation": {
+      "en": "A library honouring `alg: none` accepts an unsigned token, so anyone can mint claims."
+    }
+  },
+  {
+    "id": 223,
+    "category": "attacks",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a TOCTOU bug?"
+    },
+    "options": [
+      "State changes after the check",
+      "Input changes during parsing",
+      "Clocks drift between hosts",
+      "Cache expires mid-request"
+    ],
+    "answer": "State changes after the check",
+    "explanation": {
+      "en": "Time-of-check to time-of-use: the thing you validated is not the thing you then acted on."
+    }
+  },
+  {
+    "id": 224,
+    "category": "defense",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does zero trust actually replace?"
+    },
+    "options": [
+      "Trust based on location",
+      "Passwords with biometrics",
+      "Firewalls with proxies",
+      "Audits with monitoring"
+    ],
+    "answer": "Trust based on location",
+    "explanation": {
+      "en": "Being inside the perimeter grants nothing; every request is authenticated and authorised."
+    }
   }
 ]

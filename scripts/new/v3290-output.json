@@ -1,0 +1,382 @@
+[
+ {
+  "id": 154,
+  "category": "javascript",
+  "difficulty": "easy",
+  "codeSnippet": "console.log([1, 2, 3] + [4]);",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "1,2,34",
+   "1,2,3,4",
+   "[1,2,3,4]",
+   "NaN"
+  ],
+  "answer": "1,2,34",
+  "explanation": {
+   "en": "Both arrays stringify and concatenate: '1,2,3' + '4'."
+  }
+ },
+ {
+  "id": 155,
+  "category": "javascript",
+  "difficulty": "easy",
+  "codeSnippet": "console.log(typeof NaN, typeof []);",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "number object",
+   "NaN object",
+   "number array",
+   "undefined object"
+  ],
+  "answer": "number object",
+  "explanation": {
+   "en": "NaN is a numeric value, and arrays report as 'object' — Array.isArray is the real test."
+  }
+ },
+ {
+  "id": 156,
+  "category": "javascript",
+  "difficulty": "easy",
+  "codeSnippet": "console.log((0.1 + 0.2).toFixed(2));",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "0.30",
+   "0.3",
+   "0.30000000000000004",
+   "0.31"
+  ],
+  "answer": "0.30",
+  "explanation": {
+   "en": "toFixed rounds and returns a STRING, hiding the underlying float drift."
+  }
+ },
+ {
+  "id": 157,
+  "category": "javascript",
+  "difficulty": "easy",
+  "codeSnippet": "console.log([10, 1, 5].sort());",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "[1, 10, 5]",
+   "[1, 5, 10]",
+   "[10, 5, 1]",
+   "[5, 1, 10]"
+  ],
+  "answer": "[1, 10, 5]",
+  "explanation": {
+   "en": "Default sort compares strings, so '10' precedes '5'."
+  }
+ },
+ {
+  "id": 158,
+  "category": "python",
+  "difficulty": "easy",
+  "codeSnippet": "print(bool('False'))",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "True",
+   "False",
+   "None",
+   "Error"
+  ],
+  "answer": "True",
+  "explanation": {
+   "en": "Any non-empty string is truthy, whatever it happens to spell."
+  }
+ },
+ {
+  "id": 159,
+  "category": "python",
+  "difficulty": "easy",
+  "codeSnippet": "print(3 / 2, 3 // 2)",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "1.5 1",
+   "1 1",
+   "1.5 1.5",
+   "1.5 2"
+  ],
+  "answer": "1.5 1",
+  "explanation": {
+   "en": "In Python 3, `/` is true division and `//` floors."
+  }
+ },
+ {
+  "id": 160,
+  "category": "python",
+  "difficulty": "easy",
+  "codeSnippet": "print('ab' * 3)",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "ababab",
+   "ab3",
+   "abababab",
+   "Error"
+  ],
+  "answer": "ababab",
+  "explanation": {
+   "en": "Multiplying a sequence by an integer repeats it."
+  }
+ },
+ {
+  "id": 161,
+  "category": "javascript",
+  "difficulty": "medium",
+  "codeSnippet": "console.log([1, 2, 3].map(parseInt));",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "[1, NaN, NaN]",
+   "[1, 2, 3]",
+   "[NaN, NaN, NaN]",
+   "[1, 2, NaN]"
+  ],
+  "answer": "[1, NaN, NaN]",
+  "explanation": {
+   "en": "map passes the index as radix: parseInt('2',1) and parseInt('3',2) are both NaN."
+  }
+ },
+ {
+  "id": 162,
+  "category": "javascript",
+  "difficulty": "medium",
+  "codeSnippet": "console.log(1 < 2 < 3, 3 > 2 > 1);",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "true false",
+   "true true",
+   "false true",
+   "false false"
+  ],
+  "answer": "true false",
+  "explanation": {
+   "en": "It evaluates left to right: `3 > 2` is true, and `true > 1` is false."
+  }
+ },
+ {
+  "id": 163,
+  "category": "javascript",
+  "difficulty": "medium",
+  "codeSnippet": "setTimeout(() => console.log('a'), 0);\nPromise.resolve().then(() => console.log('b'));\nconsole.log('c');",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "c b a",
+   "c a b",
+   "a b c",
+   "b c a"
+  ],
+  "answer": "c b a",
+  "explanation": {
+   "en": "Synchronous first, then the microtask queue, then the timer macrotask."
+  }
+ },
+ {
+  "id": 164,
+  "category": "javascript",
+  "difficulty": "medium",
+  "codeSnippet": "const o = { a: 1 };\nconst p = o;\np.a = 2;\nconsole.log(o.a);",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "2",
+   "1",
+   "undefined",
+   "Error"
+  ],
+  "answer": "2",
+  "explanation": {
+   "en": "Both names reference the same object, so the mutation is visible through either."
+  }
+ },
+ {
+  "id": 165,
+  "category": "javascript",
+  "difficulty": "medium",
+  "codeSnippet": "console.log([] + {}, typeof ([] + {}));",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "[object Object] string",
+   "[object Object] object",
+   "{} string",
+   "NaN string"
+  ],
+  "answer": "[object Object] string",
+  "explanation": {
+   "en": "Both operands stringify: '' plus '[object Object]', and the result is a string."
+  }
+ },
+ {
+  "id": 166,
+  "category": "python",
+  "difficulty": "medium",
+  "codeSnippet": "a = [1, 2, 3]\nb = a\nb.append(4)\nprint(len(a))",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "4",
+   "3",
+   "5",
+   "Error"
+  ],
+  "answer": "4",
+  "explanation": {
+   "en": "Assignment binds another name to the same list; it does not copy."
+  }
+ },
+ {
+  "id": 167,
+  "category": "python",
+  "difficulty": "medium",
+  "codeSnippet": "print([x for x in range(5) if x % 2][-1])",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "3",
+   "4",
+   "1",
+   "Error"
+  ],
+  "answer": "3",
+  "explanation": {
+   "en": "The comprehension keeps the odd values [1, 3], and [-1] takes the last."
+  }
+ },
+ {
+  "id": 168,
+  "category": "python",
+  "difficulty": "medium",
+  "codeSnippet": "print({'a': 1} | {'a': 2, 'b': 3})",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "{'a': 2, 'b': 3}",
+   "{'a': 1, 'b': 3}",
+   "{'a': 3, 'b': 3}",
+   "Error"
+  ],
+  "answer": "{'a': 2, 'b': 3}",
+  "explanation": {
+   "en": "The dict union operator added in 3.9 lets the right operand win on conflicts."
+  }
+ },
+ {
+  "id": 169,
+  "category": "python",
+  "difficulty": "medium",
+  "codeSnippet": "print(list(zip([1, 2, 3], 'ab')))",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "[(1, 'a'), (2, 'b')]",
+   "[(1, 'a'), (2, 'b'), (3, '')]",
+   "[(1, 'ab'), (2, None)]",
+   "Error"
+  ],
+  "answer": "[(1, 'a'), (2, 'b')]",
+  "explanation": {
+   "en": "zip stops at the shortest input, so the trailing 3 is dropped."
+  }
+ },
+ {
+  "id": 170,
+  "category": "typescript",
+  "difficulty": "medium",
+  "codeSnippet": "const arr = [1, 2, 3] as const;\nconsole.log(arr.length);",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "3",
+   "0",
+   "undefined",
+   "Error"
+  ],
+  "answer": "3",
+  "explanation": {
+   "en": "`as const` only narrows the type; the runtime value is an ordinary array."
+  }
+ },
+ {
+  "id": 171,
+  "category": "javascript",
+  "difficulty": "hard",
+  "codeSnippet": "console.log(('b' + 'a' + +'a' + 'a').toLowerCase());",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "banana",
+   "baaa",
+   "baNaNa",
+   "NaN"
+  ],
+  "answer": "banana",
+  "explanation": {
+   "en": "Unary plus on 'a' yields NaN, which stringifies into the middle."
+  }
+ },
+ {
+  "id": 172,
+  "category": "javascript",
+  "difficulty": "hard",
+  "codeSnippet": "const a = { x: 1 };\nconst b = { x: 1 };\nconsole.log(a == b, JSON.stringify(a) === JSON.stringify(b));",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "false true",
+   "true true",
+   "false false",
+   "true false"
+  ],
+  "answer": "false true",
+  "explanation": {
+   "en": "Objects compare by reference; their serialised forms are identical strings."
+  }
+ },
+ {
+  "id": 173,
+  "category": "python",
+  "difficulty": "hard",
+  "codeSnippet": "def f(n, acc=[]):\n    acc.append(n)\n    return acc\nf(1)\nprint(f(2))",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "[1, 2]",
+   "[2]",
+   "[1]",
+   "[[1], [2]]"
+  ],
+  "answer": "[1, 2]",
+  "explanation": {
+   "en": "The default list is created once, so it persists between calls."
+  }
+ }
+]

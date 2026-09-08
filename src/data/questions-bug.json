@@ -2905,5 +2905,385 @@
     "explanation": {
       "en": "The assertion lies to the compiler: `u.name` is undefined at runtime."
     }
+  },
+  {
+    "id": 154,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "const nums = [1, 2, 3];\nconst doubled = nums.forEach((n) => n * 2);\nconsole.log(doubled);",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `map` instead",
+      "Add a return statement",
+      "Wrap it in `Array.from`",
+      "Declare `doubled` with let"
+    ],
+    "answer": "Use `map` instead",
+    "explanation": {
+      "en": "`forEach` always returns undefined; `map` is what collects the results."
+    }
+  },
+  {
+    "id": 155,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "const total = '5' + 3;\nconsole.log(total === 8);",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Coerce with Number()",
+      "Compare with `==`",
+      "Swap the operands",
+      "Use a template string"
+    ],
+    "answer": "Coerce with Number()",
+    "explanation": {
+      "en": "`+` concatenates when either side is a string, producing '53' rather than 8."
+    }
+  },
+  {
+    "id": 156,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "const items = ['a', 'b', 'c'];\nfor (let i = 0; i <= items.length; i++) {\n  console.log(items[i].toUpperCase());\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Change `<=` to `<`",
+      "Start the index at 1",
+      "Use `items.length - 1`",
+      "Guard with a try block"
+    ],
+    "answer": "Change `<=` to `<`",
+    "explanation": {
+      "en": "The final iteration reads index 3, which is undefined, so the method call throws."
+    }
+  },
+  {
+    "id": 157,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "def add_item(item, bucket=[]):\n    bucket.append(item)\n    return bucket",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Default to None instead",
+      "Copy the list on entry",
+      "Annotate the parameter",
+      "Return a new list only"
+    ],
+    "answer": "Default to None instead",
+    "explanation": {
+      "en": "The default list is created once at definition, so it accumulates across every call."
+    }
+  },
+  {
+    "id": 158,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "counts = {}\nfor word in words:\n    counts[word] += 1",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `counts.get(word, 0)`",
+      "Sort the words first",
+      "Convert words to a set",
+      "Initialise counts to zero"
+    ],
+    "answer": "Use `counts.get(word, 0)`",
+    "explanation": {
+      "en": "The first sighting of a word has no key yet, so `+= 1` raises KeyError."
+    }
+  },
+  {
+    "id": 159,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "for item in items:\n    if item.expired:\n        items.remove(item)",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Iterate over a copy",
+      "Break after removing",
+      "Reverse the list first",
+      "Use a while loop"
+    ],
+    "answer": "Iterate over a copy",
+    "explanation": {
+      "en": "Mutating the list you are iterating shifts positions and silently skips elements."
+    }
+  },
+  {
+    "id": 160,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "async function load() {\n  const res = fetch('/api/data');\n  return res.json();\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Await the fetch call",
+      "Return the promise",
+      "Mark json() as async",
+      "Add a catch handler"
+    ],
+    "answer": "Await the fetch call",
+    "explanation": {
+      "en": "Without await, `res` is a Promise and has no `json` method."
+    }
+  },
+  {
+    "id": 161,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "class Timer {\n  constructor() { this.ticks = 0; }\n  start() { setInterval(function () { this.ticks++; }, 1000); }\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use an arrow function",
+      "Store `this` in `self`",
+      "Bind inside the constructor",
+      "Call start with apply"
+    ],
+    "answer": "Use an arrow function",
+    "explanation": {
+      "en": "A plain function gets its own `this`; an arrow keeps the enclosing one."
+    }
+  },
+  {
+    "id": 162,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "const sorted = [10, 9, 1].sort();\nconsole.log(sorted);",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Pass a compare function",
+      "Call `reverse` afterwards",
+      "Map to numbers first",
+      "Use `toSorted` instead"
+    ],
+    "answer": "Pass a compare function",
+    "explanation": {
+      "en": "The default sort compares stringified values, so 10 sorts before 9."
+    }
+  },
+  {
+    "id": 163,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "const copy = { ...original };\ncopy.address.city = 'Riyadh';",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Clone nested objects too",
+      "Freeze the original first",
+      "Use Object.assign instead",
+      "Declare copy with `let`"
+    ],
+    "answer": "Clone nested objects too",
+    "explanation": {
+      "en": "Spread is shallow, so `address` is still the same object the original references."
+    }
+  },
+  {
+    "id": 164,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "if (user.age = 18) {\n  grantAccess();\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Compare with `===`",
+      "Wrap it in Boolean()",
+      "Check for null first",
+      "Use `>=` instead"
+    ],
+    "answer": "Compare with `===`",
+    "explanation": {
+      "en": "A single `=` assigns and yields 18, which is truthy, so the branch always runs."
+    }
+  },
+  {
+    "id": 165,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "handlers = []\nfor i in range(3):\n    handlers.append(lambda: print(i))\nfor h in handlers:\n    h()",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Bind i as a default arg",
+      "Use a list comprehension",
+      "Call the lambda at once",
+      "Declare i as nonlocal"
+    ],
+    "answer": "Bind i as a default arg",
+    "explanation": {
+      "en": "The closures share one `i`, so all three print 2; `lambda i=i:` captures per iteration."
+    }
+  },
+  {
+    "id": 166,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "if value == None:\n    return",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `is None`",
+      "Use `not value`",
+      "Use `bool(value)`",
+      "Use `value != True`"
+    ],
+    "answer": "Use `is None`",
+    "explanation": {
+      "en": "`==` can be overridden by __eq__; identity is the correct test for the None singleton."
+    }
+  },
+  {
+    "id": 167,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "with open(path) as f:\n    pass\ndata = f.read()",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Read inside the block",
+      "Reopen the file after",
+      "Use `open` without with",
+      "Flush before reading"
+    ],
+    "answer": "Read inside the block",
+    "explanation": {
+      "en": "The context manager closes the file on exit, so the later read fails."
+    }
+  },
+  {
+    "id": 168,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "total = 0\ndef add(n):\n    total += n",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Declare total global",
+      "Return the new total",
+      "Initialise total inside",
+      "Pass total as an arg"
+    ],
+    "answer": "Declare total global",
+    "explanation": {
+      "en": "Assigning inside a function makes the name local, so reading it first is an error."
+    }
+  },
+  {
+    "id": 169,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "function parse(input: string): number {\n  return JSON.parse(input);\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Validate the parsed value",
+      "Change the return to any",
+      "Cast the result as number",
+      "Add a try/catch block"
+    ],
+    "answer": "Validate the parsed value",
+    "explanation": {
+      "en": "`JSON.parse` returns `any`, so the annotation is a promise the code never checks."
+    }
+  },
+  {
+    "id": 170,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "const ids: number[] = [];\nids.push('7' as unknown as number);",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Parse the string first",
+      "Widen the array type",
+      "Use a const assertion",
+      "Declare ids as any[]"
+    ],
+    "answer": "Parse the string first",
+    "explanation": {
+      "en": "The double assertion silences the compiler while leaving a string in a number array."
+    }
+  },
+  {
+    "id": 171,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "const results = [];\nitems.forEach(async (i) => {\n  results.push(await load(i));\n});\nconsole.log(results.length);",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use a for...of loop",
+      "Await inside forEach",
+      "Return from the callback",
+      "Wrap in Promise.race"
+    ],
+    "answer": "Use a for...of loop",
+    "explanation": {
+      "en": "`forEach` ignores the returned promises, so the log runs before anything resolves."
+    }
+  },
+  {
+    "id": 172,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "try {\n  await work();\n} catch (e) {\n  retry();\n} finally {\n  return 'done';\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Return outside finally",
+      "Rethrow inside catch",
+      "Await the retry call",
+      "Drop the catch block"
+    ],
+    "answer": "Return outside finally",
+    "explanation": {
+      "en": "A return in `finally` overrides any pending return or thrown error, swallowing failures."
+    }
+  },
+  {
+    "id": 173,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "class Cache:\n    store = {}\n    def put(self, k, v):\n        self.store[k] = v",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Create store in __init__",
+      "Copy store on each put",
+      "Mark store as private",
+      "Use a classmethod here"
+    ],
+    "answer": "Create store in __init__",
+    "explanation": {
+      "en": "A class attribute is shared by every instance, so all caches see each other's entries."
+    }
   }
 ]
