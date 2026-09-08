@@ -15,6 +15,8 @@
       would have silently invalidated every session. */
 
 const crypto = require('crypto');
+const fs = require('fs');
+const path = require('path');
 
 const SECRET = 'test-secret-for-smoke-only';
 process.env.APP_SESSION_SECRET = SECRET;
@@ -59,11 +61,44 @@ check('is signed with the derived key',
     crypto.createHmac('sha256', 'gtl.session.v1').update(SECRET).digest())
     .update(payload).digest('base64url'));
 
-// Transitional: tokens issued before the derivation must keep working for their
-// seven days. Delete this check together with the legacy branch it guards.
-const legacy = signWith(SECRET, b64({ sub: 'u1', adm: true, exp: now() + 3600 }));
-check('still accepts a token signed the old way (transition window)',
-  !!S.verifySession(legacy) && S.verifySession(legacy).adm === true);
+/* Transitional: tokens issued before the key derivation must keep working for
+   their seven days. v3.26.2 deployed 2026-09-08, and a session lives 7 days, so
+   the last legacy-signed token expires 2026-09-15 — one day later than the
+   fourteenth, because a token signed in the final hours of the 8th is still
+   valid through the 14th.
+
+   From that date the second branch in decodeToken() is dead weight that keeps
+   the OLD key valid, which is most of what deriving a new one was for. Rather
+   than rely on anyone remembering, the check below FAILS once the date has
+   passed while the branch is still there, and says exactly what to remove. */
+const LEGACY_DEAD_FROM = Date.parse('2026-09-15T00:00:00Z');
+const legacyBranchPresent = /matches\(rawSecret\(\)\)/.test(
+  fs.readFileSync(path.join(__dirname, '..', 'api', '_session.js'), 'utf-8')
+);
+
+if (Date.now() < LEGACY_DEAD_FROM) {
+  const legacy = signWith(SECRET, b64({ sub: 'u1', adm: true, exp: now() + 3600 }));
+  check('still accepts a token signed the old way (transition window)',
+    !!S.verifySession(legacy) && S.verifySession(legacy).adm === true);
+  check('the transition branch is still present, as it should be during the window',
+    legacyBranchPresent);
+} else {
+  check('the transition branch has been REMOVED (window closed 2026-09-15)',
+    !legacyBranchPresent,
+    [
+      'Every token signed with the raw secret has now expired, so accepting that',
+      'signature only keeps the old key alive — which is most of what deriving a',
+      'new one was for. In api/_session.js, decodeToken() currently reads:',
+      '',
+      '    if (!matches(key) && !matches(rawSecret())) return null;',
+      '',
+      'Change it to:',
+      '',
+      '    if (!matches(key)) return null;',
+      '',
+      'then delete this else-branch and the LEGACY_DEAD_FROM constant above.'
+    ].join('\n        '));
+}
 
 // --- the two token kinds are distinct ---------------------------------------
 const unlock = S.signUnlock('u1');
