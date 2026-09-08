@@ -1,0 +1,47 @@
+{
+  "_comment": "Production's security posture, pulled with supabase/snapshot.sql and checked in so scripts/schema-drift.js can hold it to the invariants in that file. Regenerate after ANY migration that touches RLS, policies or grants.",
+  "_pulledAt": "2026-09-08",
+  "tablesWithoutRls": [],
+  "anonWritePolicies": [
+    "daily_scores:INSERT",
+    "error_logs:INSERT",
+    "scores:INSERT"
+  ],
+  "roomsColumnsAnonMayRead": [
+    "created_at",
+    "finished_at",
+    "host_player_id",
+    "id",
+    "mode",
+    "phase",
+    "question_ends_at",
+    "question_index",
+    "round_refs",
+    "settings",
+    "status"
+  ],
+  "anonExecutableFunctions": [
+    "apply_faint_penalty(p_character_id uuid)",
+    "claim_host(p_room_id uuid)",
+    "cleanup_rooms()",
+    "create_room(p_mode text, p_settings jsonb, p_host_name text)",
+    "end_room(p_room_id uuid, p_player_id uuid, p_token uuid)",
+    "gtl_level_from_xp(p_xp bigint)",
+    "heartbeat(p_player text, p_discord_id text, p_guild_id text, p_channel_id text, p_mode text, p_activity text, p_platform text)",
+    "is_safe_player_name(p_name text)",
+    "join_room(p_code text, p_name text)",
+    "kick_player(p_room_id uuid, p_admin_player_id uuid, p_token uuid, p_target_player_id uuid)",
+    "leave_room(p_room_id uuid, p_player_id uuid, p_token uuid)",
+    "make_host(p_room_id uuid, p_player_id uuid, p_token uuid, p_target_player_id uuid)",
+    "publish_score(p_name text, p_level integer, p_coins integer, p_kills integer, p_catches integer)",
+    "record_progress(p_player text, p_seconds integer, p_multiplayer boolean, p_won boolean, p_xp integer, p_perfect boolean)",
+    "register_room_scores(p_room_id uuid, p_player_id uuid, p_token uuid, p_avatars jsonb)",
+    "restart_room(p_room_id uuid, p_player_id uuid, p_token uuid)",
+    "room_answers_for(p_room_id uuid, p_index integer)",
+    "set_active_monster(p_character_id uuid, p_slot integer)",
+    "start_room(p_room_id uuid, p_player_id uuid, p_token uuid, p_round_refs jsonb, p_answer_keys jsonb)",
+    "submit_answer(p_room_id uuid, p_player_id uuid, p_token uuid, p_answer text)",
+    "tick_room(p_room_id uuid)",
+    "update_room_settings(p_room_id uuid, p_player_id uuid, p_token uuid, p_mode text, p_settings jsonb)"
+  ]
+}

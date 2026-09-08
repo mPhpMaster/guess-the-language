@@ -1,49 +1,50 @@
 -- ===========================================================================
--- Production snapshot query — feeds scripts/schema-drift.js
+-- Regenerate scripts/prod-security.json.
 --
--- The files in this directory are hand-maintained and applied by hand, so they
--- drift from the live project silently. That is not a tidiness problem: a
--- migration written against these files failed in production because
--- admin_join_room carried `p_by text DEFAULT NULL` the files never showed
--- ("cannot remove parameter defaults from existing function"). Everyone reads
--- these files before writing SQL, so when they lie the next migration is wrong.
+-- Paste into the Supabase SQL editor, run, and save the single returned value
+-- over scripts/prod-security.json (keeping the _comment and _pulledAt keys).
+-- Then run `node scripts/schema-drift.js`, which holds the result to the
+-- invariants encoded there.
 --
--- HOW TO USE
---   1. Paste this into the Supabase SQL editor (project lgpimeppmekfgxpheeqp)
---      and run it.
---   2. Copy the single JSON value it returns into scripts/prod-functions.json.
---   3. node scripts/schema-drift.js
+-- Do this after ANY migration that touches RLS, a policy, or a grant. The
+-- checked-in file is a baseline, not a source of truth: it only helps if it is
+-- refreshed, and the diff it produces is the review.
 --
--- Signatures, not bodies, on purpose: bodies differ in whitespace and comments
--- for no reason and would bury the real findings, while every drift that has
--- actually bitten here is visible in the signature alone.
+-- Why a snapshot rather than parsing supabase/*.sql to predict the end state:
+-- modelling create/alter/grant/revoke from SQL text well enough to be right is
+-- a large job, and a model that is subtly wrong produces false findings — which
+-- teaches everyone to skim the report, which is worse than having no report.
+-- Reading what production actually has needs no model and cannot be subtly
+-- wrong. What it cannot do is notice a change nobody re-ran this for, which is
+-- exactly why the invariants in schema-drift.js exist alongside it.
 -- ===========================================================================
+select jsonb_pretty(jsonb_build_object(
+  -- Every table must have RLS. The ensure_rls event trigger enforces this on
+  -- creation; this is the check that it is still true.
+  'tablesWithoutRls', coalesce((select jsonb_agg(c.relname order by c.relname)
+     from pg_class c join pg_namespace n on n.oid=c.relnamespace
+     where n.nspname='public' and c.relkind='r' and not c.relrowsecurity), '[]'::jsonb),
 
-select jsonb_pretty(jsonb_agg(f order by f->>'name'))
-from (
-  select jsonb_build_object(
-           'name',     p.proname,
-           -- pg_get_function_arguments includes DEFAULTs; the identity form
-           -- does not. The defaults are the whole point, so use this one.
-           'args',     pg_get_function_arguments(p.oid),
-           'security', case when p.prosecdef then 'definer' else 'invoker' end,
-           'anon',     has_function_privilege('anon', p.oid, 'EXECUTE')
-         ) as f
-  from pg_proc p
-  join pg_namespace n on n.oid = p.pronamespace
-  where n.nspname = 'public'
-    and p.prokind = 'f'
-) s;
+  -- The real write surface. A table-level INSERT privilege means nothing on its
+  -- own — RLS decides — so this lists tables where anon has BOTH a policy and
+  -- the verb. Anything new here needs justifying in schema-drift.js.
+  'anonWritePolicies', coalesce((select jsonb_agg(t order by t)
+     from (select tablename || ':' || cmd as t from pg_policies
+           where schemaname='public' and cmd in ('INSERT','UPDATE','DELETE','ALL')
+             and roles::text like '%anon%') y), '[]'::jsonb),
 
--- ---------------------------------------------------------------------------
--- Companion query: grants and policies, for eyeballing after a migration.
--- Not consumed by the script — the drift checker deliberately stays focused on
--- function signatures rather than growing into a half-built pg_dump.
--- ---------------------------------------------------------------------------
--- select table_name, string_agg(distinct privilege_type, '+' order by privilege_type)
--- from information_schema.table_privileges
--- where table_schema='public' and grantee in ('anon','authenticated')
--- group by table_name order by table_name;
---
--- select tablename, policyname, cmd, roles::text
--- from pg_policies where schemaname='public' order by tablename, policyname;
+  -- rooms is on an explicit column grant: `code` would let a stranger join a
+  -- room, `discord_instance_id` was half of the seat-takeover pair.
+  'roomsColumnsAnonMayRead', coalesce((select jsonb_agg(column_name order by column_name)
+     from information_schema.column_privileges
+     where table_schema='public' and table_name='rooms' and grantee='anon'
+       and privilege_type='SELECT'), '[]'::jsonb),
+
+  -- Everything a stranger can call. _answer_for_index sat here once, handing
+  -- out the answer key to anyone who asked.
+  'anonExecutableFunctions', coalesce((select jsonb_agg(p.proname || '(' ||
+       pg_get_function_identity_arguments(p.oid) || ')' order by p.proname)
+     from pg_proc p join pg_namespace n on n.oid=p.pronamespace
+     where n.nspname='public' and p.prokind='f'
+       and has_function_privilege('anon', p.oid, 'EXECUTE')), '[]'::jsonb)
+)) as snapshot;

@@ -1,7 +1,14 @@
 'use strict';
 
-/* Schema drift detector.
+/* Does production still match what we think it is?
  *
+ *   node scripts/schema-drift.js
+ *
+ * Two halves, answering two different questions.
+ *
+ * ---------------------------------------------------------------------------
+ * 1. Schema drift — does the repo DESCRIBE production?
+ * ---------------------------------------------------------------------------
  * The supabase/*.sql files are hand-maintained and applied by hand, so they
  * drift from the live project silently. That is not a tidiness problem: a
  * migration written against the checked-in files failed in production because
@@ -10,20 +17,34 @@
  * thing everyone reads before writing SQL, so when they lie, the next migration
  * is written wrong.
  *
- * This compares the FUNCTION SIGNATURES the repo declares against the ones
- * production actually has. Signatures, not bodies, on purpose: bodies differ in
- * whitespace and comments for no reason and would bury the real findings, while
- * every drift that has actually bitten here — a missing default, a stale
- * parameter list, a function nobody remembered existed — is visible in the
- * signature alone.
+ * Compares FUNCTION SIGNATURES, not bodies: bodies differ in whitespace and
+ * comments for no reason and would bury the real findings, while every drift
+ * that has actually bitten here — a missing default, a stale parameter list, a
+ * function nobody remembered existed — is visible in the signature alone.
  *
- * Usage:
- *   1. Run supabase/snapshot.sql in the Supabase SQL editor.
- *   2. Save the result as scripts/prod-functions.json (an array of
- *      { name, args, security, anon }).
- *   3. node scripts/schema-drift.js
+ * ---------------------------------------------------------------------------
+ * 2. Security posture — is production still what we DECIDED it should be?
+ * ---------------------------------------------------------------------------
+ * The more important half, because that is where the damage happened. RLS,
+ * policies and grants had no guard at all: eleven internal helpers were
+ * reachable with the public anon key, one of them handing out the answer key.
+ * Held to allowlists with written reasons rather than a plain diff — see the
+ * Security posture section below for why that distinction matters.
  *
- * Exits non-zero when the repo and production disagree.
+ * ---------------------------------------------------------------------------
+ * Refreshing the two snapshots
+ * ---------------------------------------------------------------------------
+ * Both halves read a checked-in snapshot of production, because this script has
+ * no database credentials. Run supabase/snapshot.sql in the Supabase SQL editor
+ * and save its output over scripts/prod-security.json; keep
+ * scripts/prod-functions.json in step the same way.
+ *
+ * A stale snapshot is the known weakness: this catches a change nobody recorded
+ * only once somebody re-runs it. That is what test/probe-anon-surface.js is
+ * for — it hits the live deployment with the public key and needs no snapshot.
+ * Run both after any migration that touches grants or policies.
+ *
+ * Exits non-zero on any finding from either half.
  */
 
 const fs = require('fs');
@@ -107,13 +128,31 @@ function applyOrder(a, b) {
     const ia = base.indexOf(a); const ib = base.indexOf(b);
     if (ia !== -1 && ib !== -1) return ia - ib;
   }
-  // Migrations, in the order they were applied to production.
+  /* Migrations, in the order they were applied to production — which is the
+     order they were committed, recoverable with:
+       git log --diff-filter=A --format=%ct -1 -- supabase/migration-*.sql
+
+     KEEP THIS LIST COMPLETE. Anything missing falls through to the alphabetical
+     tie-break below, which is not apply order: alphabetically
+     migration-anon-score-bounds sorts before migration-mp-seat-tokens, so a
+     function the latter replaced would be read from the wrong file. It only
+     matters when two migrations touch the same signature, which is exactly the
+     case nobody notices until the report is wrong. */
   const applied = [
     'migration-score-integrity.sql',
     'migration-anon-write-bounds.sql',
     'migration-mp-seat-tokens.sql',
     'migration-discord-join-auth.sql',
-    'migration-revoke-truncate.sql'
+    'migration-revoke-truncate.sql',
+    'migration-revoke-internal-helpers.sql',
+    'migration-default-deny-execute.sql',
+    'migration-identity-progress.sql',
+    'migration-identity-mp-scores.sql',
+    'migration-identity-web-rooms.sql',
+    'migration-anon-score-bounds.sql',
+    'migration-share-cards-authed.sql',
+    'migration-identity-step-c.sql',
+    'migration-follows-authed.sql'
   ];
   const ia = applied.indexOf(a); const ib = applied.indexOf(b);
   if (ia !== -1 && ib !== -1) return ia - ib;
@@ -264,4 +303,157 @@ function main() {
   return 1;
 }
 
-process.exit(main());
+
+// ===========================================================================
+// Security posture
+// ===========================================================================
+/* The half above answers "does the repo describe production". This half answers
+   a different question: "is production still what we decided it should be" —
+   which is where the damage actually happened.
+
+   It reads scripts/prod-security.json (regenerate with supabase/snapshot.sql)
+   and holds it to invariants written as ALLOWLISTS WITH REASONS. That shape is
+   the point. A plain snapshot diff tells you something changed; an allowlist
+   refuses to pass until somebody writes down why the new thing is acceptable,
+   and it fails on things that never appeared in a diff because nobody re-ran
+   the snapshot. _answer_for_index — SECURITY DEFINER so that it could read the
+   answer key, and callable by anon — would have failed here the day it was
+   created.
+
+   Deliberately NOT done by parsing supabase/*.sql to predict the end state:
+   modelling create/alter/grant/revoke from SQL text well enough to be right is
+   a large job, and a model that is subtly wrong emits false findings, which
+   teaches everyone to skim the report. That is worse than no report. */
+
+const SECURITY_SNAPSHOT = path.join(__dirname, 'prod-security.json');
+
+// Tables anon may write to at all. A table-level privilege means nothing on its
+// own — RLS decides — so these are the ones where a policy grants the verb.
+const ALLOWED_ANON_WRITES = {
+  'scores:INSERT':
+    'Electron desktop has no /api and no session. Bounded by '
+    + 'migration-anon-score-bounds.sql: score ceiling, safe name, multiplayer=false, '
+    + 'known mode, own Discord avatar or none.',
+  'daily_scores:INSERT':
+    'Same caller, same bounds, plus a today/yesterday date window.',
+  'error_logs:INSERT':
+    'Best-effort client error reporting from every platform. Row size and field '
+    + 'lengths bounded by migration-anon-write-bounds.sql; reads are closed.'
+};
+
+// Functions a stranger may call. Keyed by full signature on purpose: a new
+// overload is a new entry point, and the tokenless room RPCs were overloads.
+const ALLOWED_ANON_FUNCTIONS = {
+  'claim_host(p_room_id uuid)': 'Heals a hostless room to its earliest joiner. Grants the caller nothing.',
+  'cleanup_rooms()': 'Reaps stale rooms. No arguments, no caller-controlled effect.',
+  'create_room(p_mode text, p_settings jsonb, p_host_name text)': 'Unauthenticated host path for Electron; records no discord id.',
+  'join_room(p_code text, p_name text)': 'Unauthenticated join path for Electron; records no discord id.',
+  'end_room(p_room_id uuid, p_player_id uuid, p_token uuid)': 'Host action, proved by the seat token.',
+  'kick_player(p_room_id uuid, p_admin_player_id uuid, p_token uuid, p_target_player_id uuid)': 'Host action, proved by the seat token.',
+  'leave_room(p_room_id uuid, p_player_id uuid, p_token uuid)': 'Own seat only, proved by the seat token.',
+  'make_host(p_room_id uuid, p_player_id uuid, p_token uuid, p_target_player_id uuid)': 'Host action, proved by the seat token.',
+  'restart_room(p_room_id uuid, p_player_id uuid, p_token uuid)': 'Host action, proved by the seat token.',
+  'start_room(p_room_id uuid, p_player_id uuid, p_token uuid, p_round_refs jsonb, p_answer_keys jsonb)': 'Host action, proved by the seat token.',
+  'submit_answer(p_room_id uuid, p_player_id uuid, p_token uuid, p_answer text)': 'Own seat only; returns no correctness signal.',
+  'update_room_settings(p_room_id uuid, p_player_id uuid, p_token uuid, p_mode text, p_settings jsonb)': 'Host action, proved by the seat token.',
+  'register_room_scores(p_room_id uuid, p_player_id uuid, p_token uuid, p_avatars jsonb)': 'Any seat may register; values come from the server, avatars are validated against the row own id.',
+  'room_answers_for(p_room_id uuid, p_index integer)': 'Discloses nothing for a question still in play.',
+  'tick_room(p_room_id uuid)': 'Advances the clock only once question_ends_at has passed.',
+  'heartbeat(p_player text, p_discord_id text, p_guild_id text, p_channel_id text, p_mode text, p_activity text, p_platform text)': 'Presence upsert, length-bounded and name-checked.',
+  'record_progress(p_player text, p_seconds integer, p_multiplayer boolean, p_won boolean, p_xp integer, p_perfect boolean)': 'Unauthenticated arity for Electron; cannot supply a discord id.',
+  'is_safe_player_name(p_name text)': 'Pure predicate the client mirrors for instant feedback.',
+  'gtl_level_from_xp(p_xp bigint)': 'Pure arithmetic.'
+};
+
+// The explicit column grant on rooms. `code` lets a stranger join;
+// discord_instance_id was half of the seat-takeover pair.
+const EXPECTED_ROOMS_COLUMNS = [
+  'created_at', 'finished_at', 'host_player_id', 'id', 'mode', 'phase',
+  'question_ends_at', 'question_index', 'round_refs', 'settings', 'status'
+];
+
+/* The apply-order list is hand-maintained, so it goes stale exactly like the
+   schema files it exists to read. An unlisted migration falls back to the
+   alphabetical tie-break, which quietly produces a wrong answer instead of an
+   error — the failure mode this whole script is here to prevent. So the script
+   checks its own list. */
+function checkApplyOrderIsComplete() {
+  const listed = new Set(
+    [...fs.readFileSync(__filename, 'utf-8').matchAll(/'(migration-[a-z0-9-]+\.sql)'/g)].map((m) => m[1])
+  );
+  const missing = fs.readdirSync(SQL_DIR)
+    .filter((f) => f.startsWith('migration-') && f.endsWith('.sql') && !listed.has(f));
+  if (!missing.length) return 0;
+  console.log(`\n${missing.length} migration file(s) missing from applyOrder():\n`);
+  for (const f of missing) {
+    console.log(`  ${f}\n      Add it to the \`applied\` list in apply order, or this file is sorted`
+      + '\n      alphabetically and a function it replaces may be read from the wrong one.\n');
+  }
+  return 1;
+}
+
+function checkSecurity() {
+  if (!fs.existsSync(SECURITY_SNAPSHOT)) {
+    console.log('No scripts/prod-security.json - run supabase/snapshot.sql and save it there.');
+    return 1;
+  }
+  const snap = JSON.parse(fs.readFileSync(SECURITY_SNAPSHOT, 'utf-8'));
+  const bad = [];
+
+  for (const t of snap.tablesWithoutRls || []) {
+    bad.push(['table ' + t + ' has RLS DISABLED',
+      'Every table must have it; the ensure_rls trigger sets it on creation.']);
+  }
+
+  for (const w of snap.anonWritePolicies || []) {
+    if (!ALLOWED_ANON_WRITES[w]) {
+      bad.push(['anon can write: ' + w,
+        'Not on the allowlist. Add it to ALLOWED_ANON_WRITES with the reason it is safe, or drop the policy.']);
+    }
+  }
+
+  for (const f of snap.anonExecutableFunctions || []) {
+    const name = f.split('(')[0];
+    if (FOREIGN.has(name.toLowerCase())) continue;
+    if (name.startsWith('_')) {
+      bad.push(['anon can call the internal helper ' + f,
+        'Underscore-prefixed functions are helpers. _answer_for_index handed out the answer key exactly this way.']);
+      continue;
+    }
+    if (name.startsWith('admin_')) {
+      bad.push(['anon can call ' + f, 'admin_* functions are service_role only.']);
+      continue;
+    }
+    if (!ALLOWED_ANON_FUNCTIONS[f]) {
+      bad.push(['anon can call ' + f,
+        'Not on the allowlist. Add it to ALLOWED_ANON_FUNCTIONS with the reason, or revoke it.']);
+    }
+  }
+
+  const rooms = (snap.roomsColumnsAnonMayRead || []).slice().sort();
+  for (const c of rooms.filter((x) => !EXPECTED_ROOMS_COLUMNS.includes(x))) {
+    bad.push(['anon can read rooms.' + c,
+      c === 'code' ? 'The room code lets a stranger join a room.'
+        : c === 'discord_instance_id' ? 'Half of the seat-takeover pair.'
+          : 'Not part of the expected column grant.']);
+  }
+  const missing = EXPECTED_ROOMS_COLUMNS.filter((c) => !rooms.includes(c));
+  if (missing.length) {
+    bad.push(['rooms columns anon can NO LONGER read: ' + missing.join(', '),
+      'ROOM_COLUMNS in src/multiplayer.js names these; a missing one fails the whole select with "permission denied for table rooms".']);
+  }
+
+  if (!bad.length) {
+    console.log('Security posture OK: ' + (snap.anonWritePolicies || []).length
+      + ' anon write policies, ' + (snap.anonExecutableFunctions || []).length
+      + ' anon-callable functions, all accounted for.');
+    console.log('  (snapshot pulled ' + (snap._pulledAt || 'at an unrecorded time')
+      + ' - re-run supabase/snapshot.sql after any policy or grant change)');
+    return 0;
+  }
+  console.log('\n' + bad.length + ' security finding(s):\n');
+  for (const [what, why] of bad) console.log('  ' + what + '\n      ' + why + '\n');
+  return 1;
+}
+
+process.exit(main() | checkApplyOrderIsComplete() | checkSecurity());
