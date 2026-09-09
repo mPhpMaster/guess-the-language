@@ -9,15 +9,26 @@ const fs = require('fs');
 
 const SRC = path.join(__dirname, '..', 'src');
 const OUT = path.join(__dirname, '..', 'screenshots');
+// Mirrors src/main.js exactly. A shorter stub here is not a shortcut: the home
+// screen prints the loaded question count, so a partial map bakes a wrong
+// number into every screenshot.
 const FILES = {
   languages: 'questions.json', cybersecurity: 'questions-cyber.json',
-  devops: 'questions-devops.json', network: 'questions-network.json'
+  devops: 'questions-devops.json', network: 'questions-network.json',
+  gamedev: 'questions-gamedev.json', algorithms: 'questions-algo.json',
+  bug: 'questions-bug.json', output: 'questions-output.json'
+};
+const MODE_BANKS = {
+  languages: ['languages'], cybersecurity: ['cybersecurity'], devops: ['devops'],
+  network: ['network'], gamedev: ['gamedev'], algorithms: ['algorithms', 'bug', 'output']
 };
 const readBank = async (f) => JSON.parse(await fs.promises.readFile(path.join(SRC, 'data', f), 'utf-8'));
+const loadBanks = async (banks) => (await Promise.all(banks.map(async (bank) =>
+  (await readBank(FILES[bank])).map((q) => Object.assign({}, q, { bank }))))).flat();
 
 ipcMain.handle('questions:get', async (_e, mode) => {
-  if (mode === 'all') return (await Promise.all(Object.values(FILES).map(readBank))).flat();
-  return readBank(FILES[mode] || FILES.languages);
+  if (mode === 'all') return loadBanks(Object.keys(FILES));
+  return loadBanks(MODE_BANKS[mode] || MODE_BANKS.languages);
 });
 ipcMain.handle('app:version', () => require('../package.json').version);
 

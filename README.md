@@ -4,8 +4,9 @@
 An interactive quiz game for **Windows** (Electron), the **web** (also an
 installable **PWA / mobile app**), and **Discord** (as an embedded Activity).
 From a single home page you pick one of seven quiz modes and race the timer — with
-scoring, streaks, a correct/total counter, and a per-mode **live global
-leaderboard** (Supabase). The UI is English.
+scoring, streaks, a correct/total counter, XP and levels, daily challenges, and a
+per-mode **live global leaderboard** (Supabase). **2,026 questions** across eight
+banks. The UI is English.
 
 ### Seven game modes
 - **💻 Programming Languages** — a code snippet appears; guess the language.
@@ -20,12 +21,22 @@ leaderboard** (Supabase). The UI is English.
   (OSPF/BGP), ports and protocols.
 - **🎮 Game Dev** — game loops, physics, rendering, ECS, pathfinding, netcode,
   assets and UI systems.
-- **🧩 Problem Solving** — **fill-in-the-blank code completion**: type the
-  missing token in a snippet. Covers algorithms, data structures, Big-O and
-  LeetCode-style patterns (two pointers, sliding window, BFS/DFS, DP…). Grading
-  ignores case and spacing.
-- **🎲 All (Mixed)** — all six banks shuffled together; each question renders
+- **🧩 Problem Solving** — three banks in one mode. **Fill-in-the-blank code
+  completion** (type the missing token; grading ignores case and spacing) over
+  algorithms, data structures, Big-O and LeetCode-style patterns, plus
+  **spot-the-bug** and **predict-the-output** multiple choice.
+- **🎲 All (Mixed)** — all eight banks shuffled together; each question renders
   with its own answer style.
+
+| Mode | Bank(s) | Questions |
+| --- | --- | ---: |
+| Programming Languages | `questions.json` | 522 |
+| Cybersecurity | `questions-cyber.json` | 238 |
+| DevOps | `questions-devops.json` | 200 |
+| Networking | `questions-network.json` | 200 |
+| Game Dev | `questions-gamedev.json` | 200 |
+| Problem Solving | `questions-algo.json` + `-bug` + `-output` | 666 |
+| **All (Mixed)** | every bank | **2026** |
 
 ![Home](screenshots/8-modeselect.png)
 
@@ -77,7 +88,7 @@ pnpm run dist     # produces an NSIS installer in dist/
 pnpm run pack
 ```
 
-The output is written to `dist/` (e.g. `Guess The Language Setup 3.1.0.exe`).
+The output is written to `dist/` (e.g. `Guess The Language Setup 3.30.0.exe`).
 On the dev machine, build to `release/` to avoid a `dist/` file lock:
 `pnpm exec electron-builder --win -c.directories.output=release`.
 
@@ -100,10 +111,22 @@ Discord iframe.
 2. Vercel reads [`vercel.json`](vercel.json) — build command `pnpm run build:web`,
    output directory `dist-web`.
 3. Add environment variables (Project Settings → Environment Variables):
-   - `VITE_SUPABASE_URL` — your Supabase project URL
-   - `VITE_SUPABASE_ANON_KEY` — public anon key
-   - `SUPABASE_SERVICE_ROLE_KEY` — server-only key used by `/api/report`
-   - `APP_SESSION_SECRET` — server-only session-signing secret
+
+   | Variable | Exposed to | Used for |
+   | --- | --- | --- |
+   | `VITE_SUPABASE_URL` | client | Supabase project URL |
+   | `VITE_SUPABASE_ANON_KEY` | client | public anon key (RLS-governed) |
+   | `VITE_DISCORD_CLIENT_ID` | client | Discord Activity / login |
+   | `SUPABASE_URL` | server | project URL for the API routes |
+   | `SUPABASE_SERVICE_ROLE_KEY` | server | privileged key used by `api/*` |
+   | `APP_SESSION_SECRET` | server | HMAC key for session tokens |
+   | `DISCORD_CLIENT_ID` | server | OAuth token exchange |
+   | `DISCORD_CLIENT_SECRET` | server | OAuth token exchange |
+   | `ADMIN_DISCORD_USERNAMES` | server | who may open the admin panel |
+   | `ADMIN_PASSCODE` | server | second factor for the admin panel |
+
+   Only the `VITE_`-prefixed values reach the browser. The rest are read by the
+   serverless functions in `api/` and never appear in the bundle.
 4. Deploy. If the vars are left empty, the game still runs with a local mock
    leaderboard (same as desktop without Supabase).
 
@@ -148,48 +171,90 @@ are masked, and signed-in Discord users can report an entry for review.
 prog-game2/
 ├─ package.json                 # scripts + electron-builder + web (Vite) config
 ├─ vite.config.js               # web dev/build (root = src/)
-├─ vercel.json                  # Vercel static deploy
+├─ vercel.json                  # Vercel static deploy + serverless functions
 ├─ pnpm-workspace.yaml          # allows Electron's build script under pnpm
+├─ api/                         # Vercel serverless functions (server-only keys)
+│  ├─ _session.js               # HMAC session tokens: issue, verify, admin claim
+│  ├─ token.js                  # Discord OAuth code -> access token
+│  ├─ discord-login.js          # web sign-in; mints the app session cookie
+│  ├─ join-room.js              # the only way to take a seat in a room
+│  ├─ submit-score.js           # server-validated single-player scores
+│  ├─ record-progress.js        # XP, levels, streaks, achievements
+│  ├─ share-card.js             # challenge/share card creation
+│  ├─ follow.js                 # follow / unfollow, attributed to the session
+│  ├─ report.js                 # leaderboard-name reports
+│  └─ admin.js                  # admin panel: reports, bans, resets, live view
 ├─ public/                      # web static assets copied to the site root
 │  ├─ manifest.webmanifest      # PWA manifest (installable mobile app)
-│  ├─ sw.js                     # service worker (offline shell)
+│  ├─ sw.js                     # service worker (offline shell, versioned cache)
 │  ├─ icon-192.png / icon-512.png # PWA icons
-│  ├─ privacy.html / terms.html # legal pages
+│  └─ privacy.html / terms.html # legal pages
 ├─ supabase/
 │  ├─ schema.sql                # leaderboard safety, reports, scores + RLS
 │  ├─ schema-multiplayer.sql    # rooms, players, RPCs, Realtime
-│  └─ schema-discord-rooms.sql  # Discord voice-channel rooms (by instanceId)
+│  ├─ schema-discord-rooms.sql  # Discord voice-channel rooms (by instanceId)
+│  ├─ schema-admin.sql          # admin RPCs, bans, presence heartbeat
+│  ├─ snapshot.sql              # the live schema, for drift checking
+│  └─ migration-*.sql           # applied in order; see scripts/schema-drift.js
 ├─ src/
 │  ├─ main.js                   # Electron main process (window + IPC)
 │  ├─ preload.js                # secure bridge (window controls + question load)
 │  ├─ index.html                # the screens (home / lobby / game / results)
-│  ├─ styles.css                # dark + neon theme
-│  ├─ renderer.js               # game logic, modes, timer, scoring, leaderboard
+│  ├─ styles.css                # terminal / IDE theme
+│  ├─ renderer.js               # entry point; boots the modules below
+│  ├─ modules/                  # the game logic, split by concern
+│  │  ├─ game.js round.js results.js home.js     # play loop and screens
+│  │  ├─ state.js events.js boot.js app.js       # wiring
+│  │  ├─ identity.js profile.js api.js           # who you are, server calls
+│  │  ├─ leaderboard.js mp-ui.js presence.js     # boards, rooms, Discord card
+│  │  ├─ admin.js settings.js                    # admin panel, preferences
+│  │  └─ highlight.js format.js dom.js util.js   # rendering helpers
 │  ├─ web-shim.js               # browser gameAPI/appWindow + SW registration
 │  ├─ multiplayer.js            # Supabase Realtime rooms (host/join/sync)
 │  ├─ discord-activity.js       # Discord Embedded App SDK bootstrap
-│  ├─ vendor/supabase.js          # bundled @supabase/supabase-js (UMD)
-│  ├─ supabase-config.js         # Supabase creds (local, git-ignored)
-│  ├─ discord-config.js          # Discord client id (local, git-ignored)
-│  └─ data/
-│     ├─ questions.json          # languages bank (365 questions, 15 languages)
-│     ├─ questions-cyber.json    # cybersecurity bank (110 questions)
-│     ├─ questions-devops.json   # devops bank (68 questions)
-│     ├─ questions-network.json  # networking bank (67 questions)
-│     ├─ questions-gamedev.json  # game-dev bank (50 questions)
-│     └─ questions-algo.json     # problem-solving fill-in bank (54 questions)
+│  ├─ vendor/supabase.js        # bundled @supabase/supabase-js (UMD)
+│  ├─ supabase-config.js        # Supabase creds (local, git-ignored)
+│  ├─ discord-config.js         # Discord client id (local, git-ignored)
+│  └─ data/                     # 2026 questions, English only
+│     ├─ questions.json          # languages bank (522, 15 languages)
+│     ├─ questions-cyber.json    # cybersecurity bank (238)
+│     ├─ questions-devops.json   # devops bank (200)
+│     ├─ questions-network.json  # networking bank (200)
+│     ├─ questions-gamedev.json  # game-dev bank (200)
+│     ├─ questions-algo.json     # fill-in-the-blank bank (276)
+│     ├─ questions-bug.json      # spot-the-bug bank (195)
+│     └─ questions-output.json   # predict-the-output bank (195)
+├─ scripts/
+│  ├─ validate-questions.js     # schema, duplicates, answer-length bias
+│  ├─ check-new-bias.js         # pre-flights a staged batch before appending
+│  ├─ append-questions.js       # the safe appender (guards id collisions)
+│  ├─ schema-drift.js           # repo SQL vs. production: signatures + grants
+│  └─ copy-web-assets.js        # build-time config and asset generation
 └─ test/
    ├─ smoke-main.js             # languages mode end-to-end (14 checks)
    ├─ smoke-cyber.js            # cybersecurity mode (12 checks)
    ├─ smoke-newmodes.js         # devops + networking modes (10 checks)
-   ├─ smoke-i18n.js             # English-only UI strings + stale-language migration (11 checks)
-   ├─ smoke-online.js           # Supabase online-path test (10 checks)
-   ├─ smoke-multiplayer.js      # multiplayer UI + client smoke test (26 checks)
-   ├─ smoke-all.js              # All (mixed) mode (10 checks)
-   ├─ smoke-gamedev.js          # game-dev bank sanity check
-   ├─ smoke-algo.js             # problem-solving fill-in bank sanity check
    ├─ smoke-fill.js             # fill-in-the-blank mode play (16 checks)
+   ├─ smoke-all.js              # All (mixed) mode (14 checks)
    ├─ smoke-shuffle.js          # option-shuffle fairness (3 checks)
+   ├─ smoke-i18n.js             # English-only UI strings + migration (11 checks)
+   ├─ smoke-online.js           # Supabase online-path test (10 checks)
+   ├─ smoke-multiplayer.js      # multiplayer UI + client (33 checks)
+   ├─ smoke-arena.js            # room lifecycle and scoring (29 checks)
+   ├─ smoke-presence.js         # Discord presence + player card (53 checks)
+   ├─ smoke-discord.js          # Activity bootstrap (12 checks)
+   ├─ smoke-ux.js               # responsive + accessibility (19 checks)
+   ├─ smoke-session.js          # session tokens, admin claim, key domain (27)
+   ├─ smoke-join-room.js        # every seat path goes through /api/join-room (38)
+   ├─ smoke-mp-auth.js          # room RPC seat tokens and admin checks (41)
+   ├─ smoke-submit-score.js     # score bounds and identity stamping (23)
+   ├─ smoke-record-progress.js  # XP/level/streak server rules (23)
+   ├─ smoke-share-card.js       # share cards are authenticated (14)
+   ├─ smoke-follow.js           # follows are attributable (22)
+   ├─ smoke-report-api.js       # report endpoint (8 checks)
+   ├─ smoke-weekly-board.mjs    # weekly leaderboard window (10 checks)
+   ├─ smoke-algo.js / smoke-gamedev.js  # bank sanity checks
+   ├─ probe-anon-surface.js     # black-box probe of production with the anon key
    ├─ capture.js                # render screenshots of each screen
    ├─ capture-mp.js             # multiplayer lobby / reveal / results screenshots
    └─ reset-state.js            # clear persisted local state
@@ -197,8 +262,13 @@ prog-game2/
 
 ## Questions databases
 
-**Languages** — `src/data/questions.json` holds **365 questions** across 15
-languages and three difficulty levels:
+**2,026 questions** live in `src/data/`, split into eight banks. Every bank
+numbers its own ids from 1; the app de-duplicates on the composite key
+`bank|id`. All content is **English only** — the `ar` keys were removed in
+`257b1f5`, and the validator rejects them.
+
+**Languages** — `questions.json` (**522**), 15 languages, three difficulties.
+There is no `question` field: the prompt is always "which language is this?".
 
 ```json
 {
@@ -206,14 +276,14 @@ languages and three difficulty levels:
   "correctLanguage": "Python",
   "difficulty": "easy",
   "codeSnippet": "print('Hello, World!')",
-  "explanation": { "en": "...", "ar": "..." }
+  "explanation": { "en": "..." }
 }
 ```
 
-**Cybersecurity / DevOps / Networking / Game Dev** — `questions-cyber.json`
-(92), `questions-devops.json` (51), `questions-network.json` (49) and
-`questions-gamedev.json` (34) are multiple-choice banks. Each entry has its own
-options:
+**Multiple choice** — `questions-cyber.json` (**238**), `questions-devops.json`
+(**200**), `questions-network.json` (**200**), `questions-gamedev.json`
+(**200**), `questions-bug.json` (**195**) and `questions-output.json` (**195**).
+Exactly four options each:
 
 ```json
 {
@@ -221,16 +291,16 @@ options:
   "category": "nmap",
   "difficulty": "easy",
   "codeSnippet": "nmap -sS 10.0.0.5",
-  "question": { "en": "What scan does -sS perform?", "ar": "..." },
+  "question": { "en": "What scan does -sS perform?" },
   "options": ["TCP SYN (stealth) scan", "UDP scan", "TCP connect scan", "Ping sweep"],
   "answer": "TCP SYN (stealth) scan",
-  "explanation": { "en": "...", "ar": "..." }
+  "explanation": { "en": "..." }
 }
 ```
 
-**Problem Solving** — `questions-algo.json` (34) is a **fill-in-the-blank** bank:
-a `codeSnippet` with a `____` blank, a typed `answer` (with optional `accept`
-variants), and a bilingual `question` + `explanation` — no `options`:
+**Fill-in-the-blank** — `questions-algo.json` (**276**): a `codeSnippet`
+containing a `____` blank, a typed `answer` with optional `accept` variants,
+and no `options`:
 
 ```json
 {
@@ -238,14 +308,37 @@ variants), and a bilingual `question` + `explanation` — no `options`:
   "category": "python",
   "difficulty": "easy",
   "codeSnippet": "____ greet(name):\n    return \"Hi \" + name",
-  "question": { "en": "Fill the Python keyword that defines a function.", "ar": "..." },
+  "question": { "en": "Fill the Python keyword that defines a function." },
   "answer": "def",
   "accept": ["def"],
-  "explanation": { "en": "...", "ar": "..." }
+  "explanation": { "en": "..." }
 }
 ```
 
-The quiz banks are generated by helper scripts in `scripts/` and load automatically.
+### Adding questions
+
+`pnpm run build:web` runs the validator first, so a bad bank fails the build.
+
+```powershell
+# 1. stage the batch as scripts/new/<name>.json (complete objects, explicit ids)
+node scripts/check-new-bias.js <name>.json          # BEFORE appending
+node scripts/append-questions.js questions-cyber.json <name>.json
+node scripts/validate-questions.js --strict         # after each bank
+```
+
+Two guards matter, and they measure different things:
+
+- **Content duplicates.** The key is `norm(question.en) + '||' + norm(codeSnippet)`,
+  checked within and across every bank. Most knowledge questions carry an empty
+  snippet, so the prompt alone has to be unique.
+- **Answer-length bias.** A question is *exploitable* when the correct option is
+  strictly the longest **and** the gap is visible (`(max − min) / mean > 0.6`) —
+  length alone would point at it. `validate-questions.js --strict` fails a bank
+  above 15%.
+
+`check-new-bias.js` runs both rules over the staged file **alone**. That is the
+point: the validator averages a bad batch of 20 against a bank of 200, dilute
+enough to pass while still making the bank worse.
 
 ---
 
@@ -268,9 +361,13 @@ leaderboard **and multiplayer rooms**:
 
 > The `anon` key is meant to be public in client apps; access is governed by RLS
 > policies. If left blank, the game falls back to a local mock leaderboard.
-> **Security note:** anon inserts are spoofable from a client. To prevent
-> cheating, move score submission behind an Edge Function that validates the run
-> (see the comment in `schema.sql`).
+> **The anon key can no longer write a score.** Scores, progress, room seats,
+> share cards and follows all go through the authenticated endpoints in `api/`,
+> which verify a signed session, bound the values and stamp the Discord id
+> server-side. Run `node scripts/schema-drift.js` and
+> `node test/probe-anon-surface.js` after any RLS, policy or grant change — the
+> first checks the repo's SQL against production, the second probes the live
+> deployment with the public key and asserts what it *cannot* do.
 
 Electron leaderboard names are set in **Settings**. Public web and Discord
 Activity builds use the authenticated Discord name and avatar.
@@ -337,17 +434,48 @@ Click a player and you get their **round, score and game mode** — in two place
 - **Security:** `contextIsolation` on, `nodeIntegration` off, `sandbox` on, a
   strict CSP, and DOM built with `textContent` (leaderboard names can't inject
   markup). High score is stored locally via `localStorage`.
+- **Server-authoritative writes:** the client never holds a privileged key. Each
+  `api/` route verifies an HMAC-signed session, rate-limits per identity, and
+  takes the Discord id from the token rather than from the request body.
+- **Identity:** `player_stats` is keyed by `discord_id`, so a rename carries your
+  XP, level and streak with you; rows with no Discord id stay claimable by name.
 
 ## Tests
 
+Two runners. Suites that drive the UI need Electron; the rest are plain Node.
+
 ```powershell
-pnpm exec electron test/smoke-main.js      # offline end-to-end (13 checks)
-pnpm exec electron test/smoke-online.js    # Supabase online path (10 checks)
-pnpm exec electron test/smoke-multiplayer.js  # multiplayer smoke (UI + helpers)
-pnpm exec electron test/smoke-presence.js  # Discord presence + player card (53 checks)
-pnpm exec electron scripts/make-discord-cover.js  # re-render the invite banner PNG
-pnpm run test:ux                           # responsive/accessibility + report API
+pnpm run validate       # question schema, duplicates, answer-length bias
+pnpm run test:data      # validator + every plain-node suite (session, api, banks)
+pnpm run test:ux        # responsive/accessibility + report API
+pnpm run check:schema   # repo SQL vs. production: signatures, RLS, policies, grants
 ```
+
+```powershell
+# Electron-driven suites, one process each
+pnpm exec electron --disable-gpu test/smoke-main.js         # 14 checks
+pnpm exec electron --disable-gpu test/smoke-multiplayer.js  # 33 checks
+pnpm exec electron --disable-gpu test/smoke-presence.js     # 53 checks
+pnpm exec electron --disable-gpu test/smoke-arena.js        # 29 checks
+```
+
+```powershell
+# against the live deployment, with the public anon key only
+node test/probe-anon-surface.js
+```
+
+The screenshots in this README are generated, not hand-taken:
+
+```powershell
+pnpm exec electron --disable-gpu test/capture.js     # every single-player screen
+pnpm exec electron --disable-gpu test/capture-mp.js  # lobby / reveal / results
+pnpm exec electron scripts/make-discord-cover.js     # re-render the invite banner
+```
+
+> Two traps worth knowing. A plain-node suite launched under Electron hangs until
+> it times out. And `node --check` on an ES module does not apply the module
+> goal — it reports OK on a file that really does have a syntax error, so use the
+> Electron suites to catch that.
 
 ## Roadmap
 
@@ -357,8 +485,10 @@ pnpm run test:ux                           # responsive/accessibility + report A
 - ✅ Discord Rich Presence (round / score / mode + Ask to Join) and player cards
 - ✅ Login with Discord
 - ✅ Installable PWA / mobile app
-- ⏳ Real friends system (add / follow) instead of a global board only
-- ⏳ Server-validated score submission (anti-cheat) via Edge Function
+- ✅ Real friends system (follow / unfollow, attributed to your Discord identity)
+- ✅ Server-validated score submission (anti-cheat) via authenticated `api/` routes
+- ✅ Discord-id-keyed identity: a rename keeps your XP, level and streak
+- ✅ Admin panel (reports, bans, resets, live view) behind a signed admin claim
 - ⏳ Native mobile (Android/iOS) build
 
 ## License

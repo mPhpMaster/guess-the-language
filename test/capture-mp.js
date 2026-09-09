@@ -12,7 +12,9 @@ const SRC = path.join(__dirname, '..', 'src');
 const OUT = path.join(__dirname, '..', 'screenshots');
 const FILES = {
   languages: 'questions.json', cybersecurity: 'questions-cyber.json',
-  devops: 'questions-devops.json', network: 'questions-network.json'
+  devops: 'questions-devops.json', network: 'questions-network.json',
+  gamedev: 'questions-gamedev.json', algorithms: 'questions-algo.json',
+  bug: 'questions-bug.json', output: 'questions-output.json'
 };
 const readBank = async (f) => JSON.parse(await fs.promises.readFile(path.join(SRC, 'data', f), 'utf-8'));
 
@@ -24,7 +26,7 @@ ipcMain.handle('questions:get', async (_e, mode) => {
   }
   return (await readBank(FILES[mode] || FILES.languages)).map((q) => Object.assign({}, q, { bank: mode }));
 });
-ipcMain.handle('app:version', () => '3.0.1');
+ipcMain.handle('app:version', () => require('../package.json').version);
 
 // A unified, table-aware Supabase mock injected into the page. Reads its data
 // from sessionStorage so the harness can flip room phase between snapshots.

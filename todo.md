@@ -16,9 +16,13 @@ All items below are implemented (kept here as a changelog of requests).
 - [x] Login with Discord
 - [x] Installable PWA / mobile app
 - [x] "Problem Solving" mode — fill-in-the-blank code completion (type the missing token; not multiple choice)
+- [x] Real friends system (follow / unfollow), attributed to your Discord identity
+- [x] Server-validated score submission (anti-cheat) — done with authenticated
+      routes under `api/`, not an Edge Function
+- [x] Discord-id-keyed identity, so a rename keeps your XP, level and streak
+- [x] Admin panel (reports, bans, resets, live view) behind a signed admin claim
+- [x] Spot-the-bug and predict-the-output banks folded into Problem Solving
 
 ## Open ideas
 
-- [ ] Real friends system (add / follow) instead of a global board only
-- [ ] Server-validated score submission (anti-cheat) via Edge Function
 - [ ] Native mobile (Android / iOS) build
