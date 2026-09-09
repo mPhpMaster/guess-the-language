@@ -1,0 +1,420 @@
+[
+ {
+  "id": 174,
+  "category": "javascript",
+  "difficulty": "easy",
+  "codeSnippet": "const el = document.getElementById('save');\nel.addEventListener('click', handleSave());",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Pass the function, not a call",
+   "Wrap the handler in async",
+   "Use onclick instead",
+   "Query with querySelector"
+  ],
+  "answer": "Pass the function, not a call",
+  "explanation": {
+   "en": "The parentheses invoke handleSave immediately and register its return value as the listener."
+  }
+ },
+ {
+  "id": 175,
+  "category": "javascript",
+  "difficulty": "easy",
+  "codeSnippet": "function greet(name) {\n  return 'Hi ' + name;\n}\nconsole.log(greet());",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Give name a default value",
+   "Rename the function param",
+   "Return a template literal",
+   "Declare greet with const"
+  ],
+  "answer": "Give name a default value",
+  "explanation": {
+   "en": "A missing argument is undefined, which concatenates into the literal text 'Hi undefined'."
+  }
+ },
+ {
+  "id": 176,
+  "category": "javascript",
+  "difficulty": "easy",
+  "codeSnippet": "const age = input.value;\nif (age > 18) allow();",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Convert with Number()",
+   "Compare against '18'",
+   "Trim the input first",
+   "Check the field exists"
+  ],
+  "answer": "Convert with Number()",
+  "explanation": {
+   "en": "input.value is always a string, so the comparison relies on implicit coercion that fails on ''."
+  }
+ },
+ {
+  "id": 177,
+  "category": "python",
+  "difficulty": "easy",
+  "codeSnippet": "nums = [1, 2, 3]\nprint(nums[len(nums)])",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Index with len - 1",
+   "Use a while loop",
+   "Convert to a tuple",
+   "Slice with [0:len]"
+  ],
+  "answer": "Index with len - 1",
+  "explanation": {
+   "en": "Indices run 0..len-1, so len itself is always one past the end."
+  }
+ },
+ {
+  "id": 178,
+  "category": "python",
+  "difficulty": "easy",
+  "codeSnippet": "s = 'hello'\ns[0] = 'H'",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Rebuild the string",
+   "Use a list instead",
+   "Call s.upper() first",
+   "Decode s to bytes"
+  ],
+  "answer": "Rebuild the string",
+  "explanation": {
+   "en": "Strings are immutable; build a new one with slicing or str.replace."
+  }
+ },
+ {
+  "id": 179,
+  "category": "python",
+  "difficulty": "easy",
+  "codeSnippet": "def divide(a, b):\n    return a / b\nprint(divide(4, 0))",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Guard against zero b",
+   "Cast both to floats",
+   "Return None on error",
+   "Use // instead of /"
+  ],
+  "answer": "Guard against zero b",
+  "explanation": {
+   "en": "Division by zero raises ZeroDivisionError; the caller needs a checked path."
+  }
+ },
+ {
+  "id": 180,
+  "category": "typescript",
+  "difficulty": "easy",
+  "codeSnippet": "let count: number;\nconsole.log(count + 1);",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Initialise count first",
+   "Type count as any",
+   "Use a const instead",
+   "Add a null check"
+  ],
+  "answer": "Initialise count first",
+  "explanation": {
+   "en": "The variable is declared but never assigned, so it is used before being definitely assigned."
+  }
+ },
+ {
+  "id": 181,
+  "category": "javascript",
+  "difficulty": "medium",
+  "codeSnippet": "const map = {};\nmap[{ id: 1 }] = 'a';\nconsole.log(Object.keys(map));",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Use a Map for object keys",
+   "Stringify before indexing",
+   "Freeze the key object",
+   "Declare map with let"
+  ],
+  "answer": "Use a Map for object keys",
+  "explanation": {
+   "en": "Object keys are coerced to strings, so every object collapses to '[object Object]'."
+  }
+ },
+ {
+  "id": 182,
+  "category": "javascript",
+  "difficulty": "medium",
+  "codeSnippet": "const btn = document.querySelector('#go');\nbtn.disabled = 'false';",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Assign the boolean false",
+   "Remove the attribute",
+   "Compare with === false",
+   "Use setAttribute here"
+  ],
+  "answer": "Assign the boolean false",
+  "explanation": {
+   "en": "Any non-empty string is truthy, so the string 'false' leaves the button disabled."
+  }
+ },
+ {
+  "id": 183,
+  "category": "javascript",
+  "difficulty": "medium",
+  "codeSnippet": "const total = items.reduce((sum, i) => sum + i.price);",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Give reduce a seed of 0",
+   "Map to prices first",
+   "Use forEach and a sum",
+   "Check items is not empty"
+  ],
+  "answer": "Give reduce a seed of 0",
+  "explanation": {
+   "en": "Without an initial value the first element becomes sum, so an object is added to a number."
+  }
+ },
+ {
+  "id": 184,
+  "category": "javascript",
+  "difficulty": "medium",
+  "codeSnippet": "if (config.retry.count) {\n  schedule(config.retry);\n}",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Use optional chaining",
+   "Wrap it in a try block",
+   "Compare count with 0",
+   "Default config to null"
+  ],
+  "answer": "Use optional chaining",
+  "explanation": {
+   "en": "Reading `.count` on a missing `retry` throws; `config.retry?.count` short-circuits instead."
+  }
+ },
+ {
+  "id": 185,
+  "category": "python",
+  "difficulty": "medium",
+  "codeSnippet": "import json\ndata = json.load(open(path))",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Open inside a with block",
+   "Use json.loads on text",
+   "Pass encoding to open",
+   "Catch a decode error"
+  ],
+  "answer": "Open inside a with block",
+  "explanation": {
+   "en": "The file handle is never closed, so descriptors leak until the collector happens to run."
+  }
+ },
+ {
+  "id": 186,
+  "category": "python",
+  "difficulty": "medium",
+  "codeSnippet": "class Node:\n    def __eq__(self, other):\n        return self.id == other.id",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Define __hash__ as well",
+   "Compare with `is` too",
+   "Subclass from object",
+   "Add a __repr__ method"
+  ],
+  "answer": "Define __hash__ as well",
+  "explanation": {
+   "en": "Defining __eq__ sets __hash__ to None, so instances can no longer go in a set or dict."
+  }
+ },
+ {
+  "id": 187,
+  "category": "python",
+  "difficulty": "medium",
+  "codeSnippet": "try:\n    run()\nexcept:\n    pass",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Catch specific exceptions",
+   "Return a default value",
+   "Wrap run in a thread",
+   "Move run outside try"
+  ],
+  "answer": "Catch specific exceptions",
+  "explanation": {
+   "en": "A bare except also swallows KeyboardInterrupt and SystemExit, and hides every real failure."
+  }
+ },
+ {
+  "id": 188,
+  "category": "python",
+  "difficulty": "medium",
+  "codeSnippet": "for i in range(len(items)):\n    if items[i] is None:\n        del items[i]",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Build a filtered list",
+   "Sort the list first",
+   "Use enumerate instead",
+   "Convert to a tuple"
+  ],
+  "answer": "Build a filtered list",
+  "explanation": {
+   "en": "Deleting shifts the tail left while range keeps counting, so items are skipped and indexes run past the end."
+  }
+ },
+ {
+  "id": 189,
+  "category": "typescript",
+  "difficulty": "medium",
+  "codeSnippet": "interface User { name: string }\nconst u = {} as User;\nconsole.log(u.name.length);",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Build a real User object",
+   "Mark name as optional",
+   "Add a non-null assert",
+   "Widen User to any"
+  ],
+  "answer": "Build a real User object",
+  "explanation": {
+   "en": "The assertion only silences the compiler; at runtime `name` is undefined and `.length` throws."
+  }
+ },
+ {
+  "id": 190,
+  "category": "javascript",
+  "difficulty": "hard",
+  "codeSnippet": "window.addEventListener('scroll', () => recalcLayout());\n// recalcLayout reads offsetHeight",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Throttle the handler",
+   "Use the capture phase",
+   "Bind it to document",
+   "Cache the element"
+  ],
+  "answer": "Throttle the handler",
+  "explanation": {
+   "en": "Scroll fires per frame or faster, and each forced layout read stalls rendering."
+  }
+ },
+ {
+  "id": 191,
+  "category": "javascript",
+  "difficulty": "hard",
+  "codeSnippet": "const cache = new Map();\nfunction remember(node, value) {\n  cache.set(node, value);\n}",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Use a WeakMap or evict",
+   "Clear it on each call",
+   "Store values as JSON",
+   "Key the map by index"
+  ],
+  "answer": "Use a WeakMap or evict",
+  "explanation": {
+   "en": "A strong Map key keeps detached nodes alive forever, so the cache is a memory leak."
+  }
+ },
+ {
+  "id": 192,
+  "category": "javascript",
+  "difficulty": "hard",
+  "codeSnippet": "const [a, b] = await Promise.all([one(), two()]);\n// two() rejects, one() keeps running",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Use allSettled and check",
+   "Await the calls in order",
+   "Wrap each in a timeout",
+   "Return early on reject"
+  ],
+  "answer": "Use allSettled and check",
+  "explanation": {
+   "en": "Promise.all rejects on the first failure and leaves the other work unhandled and unreported."
+  }
+ },
+ {
+  "id": 193,
+  "category": "python",
+  "difficulty": "hard",
+  "codeSnippet": "import threading\ncount = 0\ndef bump():\n    global count\n    count += 1",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Guard it with a Lock",
+   "Make count a float",
+   "Use a nested function",
+   "Declare count nonlocal"
+  ],
+  "answer": "Guard it with a Lock",
+  "explanation": {
+   "en": "`+=` is a read, add and write; two threads can interleave and lose an increment."
+  }
+ },
+ {
+  "id": 194,
+  "category": "python",
+  "difficulty": "hard",
+  "codeSnippet": "def gen():\n    yield from range(3)\ng = gen()\nlist(g)\nprint(list(g))",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Recreate the generator",
+   "Convert gen to a list",
+   "Add a return statement",
+   "Call next() manually"
+  ],
+  "answer": "Recreate the generator",
+  "explanation": {
+   "en": "A generator is exhausted after one pass, so the second list() is always empty."
+  }
+ },
+ {
+  "id": 195,
+  "category": "typescript",
+  "difficulty": "hard",
+  "codeSnippet": "const handlers: Record<string, () => void> = {};\nhandlers[key]();",
+  "question": {
+   "en": "Which fix removes the bug?"
+  },
+  "options": [
+   "Check the key exists",
+   "Type key as string",
+   "Use a Map instead",
+   "Add a default handler"
+  ],
+  "answer": "Check the key exists",
+  "explanation": {
+   "en": "Record claims every string key is present, so a missing entry throws only at runtime."
+  }
+ }
+]

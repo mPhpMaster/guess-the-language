@@ -1,0 +1,325 @@
+[
+ {
+  "id": 188,
+  "category": "docker",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does a Dockerfile CMD define?"
+  },
+  "options": [
+   "Default container command",
+   "The build context path",
+   "The base image digest",
+   "Exposed port mappings"
+  ],
+  "answer": "Default container command",
+  "explanation": {
+   "en": "It is what runs when no command is given at `docker run`, and it can be overridden."
+  }
+ },
+ {
+  "id": 189,
+  "category": "docker",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why order Dockerfile layers by change rate?"
+  },
+  "options": [
+   "To reuse the build cache",
+   "To shrink the base image",
+   "To speed up container exit",
+   "To avoid root privileges"
+  ],
+  "answer": "To reuse the build cache",
+  "explanation": {
+   "en": "A changed layer invalidates every layer after it, so copy source code last."
+  }
+ },
+ {
+  "id": 190,
+  "category": "kubernetes",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does kubectl apply do with a manifest?"
+  },
+  "options": [
+   "Reconciles to desired state",
+   "Restarts every matched pod",
+   "Streams the container logs",
+   "Deletes and recreates it"
+  ],
+  "answer": "Reconciles to desired state",
+  "explanation": {
+   "en": "It is declarative: the control loop moves the cluster towards the file, changing only what differs."
+  }
+ },
+ {
+  "id": 191,
+  "category": "cicd",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does a CI cache speed up?"
+  },
+  "options": [
+   "Dependency install steps",
+   "Container image scanning",
+   "Merge conflict detection",
+   "Static type generation"
+  ],
+  "answer": "Dependency install steps",
+  "explanation": {
+   "en": "Restoring the module directory by lockfile hash skips the slowest step of most pipelines."
+  }
+ },
+ {
+  "id": 192,
+  "category": "observability",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What do structured logs make easier?"
+  },
+  "options": [
+   "Querying by field",
+   "Reducing disk use",
+   "Rotating log files",
+   "Colouring output"
+  ],
+  "answer": "Querying by field",
+  "explanation": {
+   "en": "Machine-readable key/value records let you filter by request id without brittle regexes."
+  }
+ },
+ {
+  "id": 193,
+  "category": "kubernetes",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does a CPU request affect?"
+  },
+  "options": [
+   "Where the pod is scheduled",
+   "How fast the image pulls",
+   "When the probe first runs",
+   "Which registry is used"
+  ],
+  "answer": "Where the pod is scheduled",
+  "explanation": {
+   "en": "The scheduler sums requests to pick a node; the limit, not the request, is what throttles."
+  }
+ },
+ {
+  "id": 194,
+  "category": "kubernetes",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does kubectl drain do to a node?"
+  },
+  "options": [
+   "Evicts pods and cordons",
+   "Deletes its stored volumes",
+   "Restarts the kubelet only",
+   "Removes it from the cluster"
+  ],
+  "answer": "Evicts pods and cordons",
+  "explanation": {
+   "en": "Workloads move elsewhere and nothing new is scheduled, which is how a node is prepared for maintenance."
+  }
+ },
+ {
+  "id": 195,
+  "category": "kubernetes",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does a StatefulSet guarantee?"
+  },
+  "options": [
+   "Stable names and storage",
+   "Faster pod scheduling",
+   "Automatic node scaling",
+   "Zero-downtime upgrades"
+  ],
+  "answer": "Stable names and storage",
+  "explanation": {
+   "en": "Ordinal identities and sticky volumes are what databases need and Deployments do not offer."
+  }
+ },
+ {
+  "id": 196,
+  "category": "iac",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does terraform plan produce?"
+  },
+  "options": [
+   "A preview of changes",
+   "A new state backend",
+   "A destroyed resource",
+   "A provider upgrade"
+  ],
+  "answer": "A preview of changes",
+  "explanation": {
+   "en": "It diffs desired configuration against recorded state without touching anything."
+  }
+ },
+ {
+  "id": 197,
+  "category": "iac",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why lock the Terraform state file?"
+  },
+  "options": [
+   "To stop concurrent writes",
+   "To keep secrets encrypted",
+   "To version every resource",
+   "To speed up plan output"
+  ],
+  "answer": "To stop concurrent writes",
+  "explanation": {
+   "en": "Two applies at once can interleave and leave the recorded state describing neither."
+  }
+ },
+ {
+  "id": 198,
+  "category": "cicd",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does a canary deployment do?"
+  },
+  "options": [
+   "Shifts a slice of traffic",
+   "Runs tests before merge",
+   "Rebuilds every service",
+   "Reverts the last commit"
+  ],
+  "answer": "Shifts a slice of traffic",
+  "explanation": {
+   "en": "A small share of real users exercises the new version while metrics decide whether to widen it."
+  }
+ },
+ {
+  "id": 199,
+  "category": "secrets",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why inject secrets at runtime?"
+  },
+  "options": [
+   "So images stay free of them",
+   "So builds run in parallel",
+   "So logs rotate correctly",
+   "So layers cache better"
+  ],
+  "answer": "So images stay free of them",
+  "explanation": {
+   "en": "A secret baked into a layer stays in the history even after a later layer deletes it."
+  }
+ },
+ {
+  "id": 200,
+  "category": "cloud",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does an autoscaling group replace?"
+  },
+  "options": [
+   "Unhealthy instances",
+   "Expired certificates",
+   "Stale DNS records",
+   "Failed deployments"
+  ],
+  "answer": "Unhealthy instances",
+  "explanation": {
+   "en": "Failing a health check takes the instance out and launches a fresh one to hold capacity."
+  }
+ },
+ {
+  "id": 201,
+  "category": "reliability",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does an error budget measure?"
+  },
+  "options": [
+   "Allowed unreliability",
+   "Total incident cost",
+   "Mean time to repair",
+   "Number of rollbacks"
+  ],
+  "answer": "Allowed unreliability",
+  "explanation": {
+   "en": "It is whatever the SLO leaves over, and spending it all is what pauses risky releases."
+  }
+ },
+ {
+  "id": 202,
+  "category": "kubernetes",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does a pod disruption budget limit?"
+  },
+  "options": [
+   "Voluntary evictions at once",
+   "Total CPU per namespace",
+   "Restarts before backoff",
+   "Images pulled in parallel"
+  ],
+  "answer": "Voluntary evictions at once",
+  "explanation": {
+   "en": "A node drain waits rather than dropping a quorum below its minimum available replicas."
+  }
+ },
+ {
+  "id": 203,
+  "category": "deployment",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why keep deployments backward compatible?"
+  },
+  "options": [
+   "So a rollback stays safe",
+   "So builds finish faster",
+   "So logs stay readable",
+   "So images shrink in size"
+  ],
+  "answer": "So a rollback stays safe",
+  "explanation": {
+   "en": "If the new version wrote data the old one cannot read, going back is no longer an option."
+  }
+ },
+ {
+  "id": 204,
+  "category": "observability",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does a trace span record?"
+  },
+  "options": [
+   "One timed operation",
+   "Every log line emitted",
+   "A full request payload",
+   "All downstream errors"
+  ],
+  "answer": "One timed operation",
+  "explanation": {
+   "en": "Spans nest by parent id, so the tree shows where a slow request actually spent its time."
+  }
+ }
+]

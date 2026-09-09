@@ -4178,5 +4178,347 @@
     "explanation": {
       "en": "Being inside the perimeter grants nothing; every request is authenticated and authorised."
     }
+  },
+  {
+    "id": 225,
+    "category": "web",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does an HttpOnly cookie block?"
+    },
+    "options": [
+      "Script access to the value",
+      "Cross-origin form posts",
+      "Cookie expiry refresh",
+      "Server-side rewriting"
+    ],
+    "answer": "Script access to the value",
+    "explanation": {
+      "en": "document.cookie cannot read it, so an injected script cannot exfiltrate the session."
+    }
+  },
+  {
+    "id": 226,
+    "category": "auth",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does MFA add beyond a password?"
+    },
+    "options": [
+      "A second proof factor",
+      "A longer session time",
+      "A stronger hash round",
+      "A shared secret key"
+    ],
+    "answer": "A second proof factor",
+    "explanation": {
+      "en": "Something you have or are, so a leaked password alone no longer grants access."
+    }
+  },
+  {
+    "id": 227,
+    "category": "crypto",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does hashing a password prevent?"
+    },
+    "options": [
+      "Reading it after a leak",
+      "Reusing it across sites",
+      "Sending it over TLS",
+      "Typing it incorrectly"
+    ],
+    "answer": "Reading it after a leak",
+    "explanation": {
+      "en": "A stolen database yields digests, not the plaintext users typed — provided the hash is slow."
+    }
+  },
+  {
+    "id": 228,
+    "category": "tools",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is Burp Suite typically used for?"
+    },
+    "options": [
+      "Testing web applications",
+      "Reversing binary files",
+      "Monitoring switch ports",
+      "Recovering deleted files"
+    ],
+    "answer": "Testing web applications",
+    "explanation": {
+      "en": "It proxies browser traffic so requests can be intercepted, replayed and tampered with."
+    }
+  },
+  {
+    "id": 229,
+    "category": "defense",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does defence in depth mean?"
+    },
+    "options": [
+      "Multiple layered controls",
+      "One very strong firewall",
+      "Encrypting all the disks",
+      "Auditing users each year"
+    ],
+    "answer": "Multiple layered controls",
+    "explanation": {
+      "en": "No single control is assumed to hold, so a bypass of one still meets another."
+    }
+  },
+  {
+    "id": 230,
+    "category": "web",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does the SameSite cookie attribute mitigate?"
+    },
+    "options": [
+      "Cross-site request forgery",
+      "Stored cross-site scripting",
+      "SQL injection in forms",
+      "Server-side request forgery"
+    ],
+    "answer": "Cross-site request forgery",
+    "explanation": {
+      "en": "The browser withholds the cookie on requests started by another site, so the forged call is anonymous."
+    }
+  },
+  {
+    "id": 231,
+    "category": "web",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a Content Security Policy restrict?"
+    },
+    "options": [
+      "Sources scripts may load",
+      "Which users may log in",
+      "How cookies are signed",
+      "Where TLS terminates"
+    ],
+    "answer": "Sources scripts may load",
+    "explanation": {
+      "en": "Even if markup is injected, the browser refuses to execute code from an unlisted origin."
+    }
+  },
+  {
+    "id": 232,
+    "category": "web",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why are prepared statements safer?"
+    },
+    "options": [
+      "Data never becomes code",
+      "They run inside a cache",
+      "They validate every field",
+      "They escape output tags"
+    ],
+    "answer": "Data never becomes code",
+    "explanation": {
+      "en": "The query is parsed before values arrive, so a quote in the input stays a quote."
+    }
+  },
+  {
+    "id": 233,
+    "category": "crypto",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a salt stop attackers reusing?"
+    },
+    "options": [
+      "Precomputed hash tables",
+      "Stolen session cookies",
+      "Expired TLS certificates",
+      "Leaked API tokens"
+    ],
+    "answer": "Precomputed hash tables",
+    "explanation": {
+      "en": "A unique per-password salt makes every rainbow table useless and forces per-user work."
+    }
+  },
+  {
+    "id": 234,
+    "category": "crypto",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why is bcrypt preferred over SHA-256?"
+    },
+    "options": [
+      "It is deliberately slow",
+      "It produces longer output",
+      "It needs no salt at all",
+      "It cannot be reversed"
+    ],
+    "answer": "It is deliberately slow",
+    "explanation": {
+      "en": "A tunable work factor keeps offline guessing expensive as hardware gets faster."
+    }
+  },
+  {
+    "id": 235,
+    "category": "attacks",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What makes a supply chain attack effective?"
+    },
+    "options": [
+      "Trust in the dependency",
+      "Speed of the exploit",
+      "Size of the payload",
+      "Age of the target host"
+    ],
+    "answer": "Trust in the dependency",
+    "explanation": {
+      "en": "Code pulled in by the build is executed with full privileges and rarely reviewed."
+    }
+  },
+  {
+    "id": 236,
+    "category": "principles",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does separation of duties prevent?"
+    },
+    "options": [
+      "One person acting alone",
+      "Two admins disagreeing",
+      "Shared service accounts",
+      "Slow approval queues"
+    ],
+    "answer": "One person acting alone",
+    "explanation": {
+      "en": "Splitting a sensitive action across two people means no single account can complete it."
+    }
+  },
+  {
+    "id": 237,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does threat modelling produce?"
+    },
+    "options": [
+      "Ranked attack scenarios",
+      "A patched application",
+      "A firewall rule export",
+      "A signed audit report"
+    ],
+    "answer": "Ranked attack scenarios",
+    "explanation": {
+      "en": "Naming assets, entry points and adversaries early is cheaper than discovering them in production."
+    }
+  },
+  {
+    "id": 238,
+    "category": "auth",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why are refresh tokens stored server-side?"
+    },
+    "options": [
+      "They can be revoked there",
+      "They compress much better",
+      "They expire more slowly",
+      "They avoid CORS issues"
+    ],
+    "answer": "They can be revoked there",
+    "explanation": {
+      "en": "A self-contained token stays valid until it expires; a stored one can be cancelled on logout."
+    }
+  },
+  {
+    "id": 239,
+    "category": "nmap",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does an nmap SYN scan avoid?"
+    },
+    "options": [
+      "Completing the handshake",
+      "Sending any IP packets",
+      "Touching closed ports",
+      "Using raw socket access"
+    ],
+    "answer": "Completing the handshake",
+    "explanation": {
+      "en": "It answers SYN-ACK with RST, so many applications never log a connection at all."
+    }
+  },
+  {
+    "id": 240,
+    "category": "malware",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a packer do to malware?"
+    },
+    "options": [
+      "Compresses and obfuscates",
+      "Signs it with a real cert",
+      "Adds a persistence key",
+      "Splits it across hosts"
+    ],
+    "answer": "Compresses and obfuscates",
+    "explanation": {
+      "en": "The payload is unpacked in memory at run time, which defeats static signature matching."
+    }
+  },
+  {
+    "id": 241,
+    "category": "defense",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a honeytoken reveal?"
+    },
+    "options": [
+      "Unauthorised data access",
+      "A misconfigured firewall",
+      "An expired certificate",
+      "A slow database query"
+    ],
+    "answer": "Unauthorised data access",
+    "explanation": {
+      "en": "Nothing legitimate ever touches the planted credential, so any use of it is a real signal."
+    }
+  },
+  {
+    "id": 242,
+    "category": "attacks",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What makes a timing side channel exploitable?"
+    },
+    "options": [
+      "Secret-dependent delays",
+      "Reused session tokens",
+      "Weak password policies",
+      "Unpatched web servers"
+    ],
+    "answer": "Secret-dependent delays",
+    "explanation": {
+      "en": "An early-exit comparison leaks how many bytes matched, which is why constant-time equality exists."
+    }
   }
 ]

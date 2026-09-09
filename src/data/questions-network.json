@@ -3418,5 +3418,385 @@
     "explanation": {
       "en": "ECMP hashes each probe's headers, so different probes can take different links."
     }
+  },
+  {
+    "id": 190,
+    "category": "tcp",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "How many messages form the TCP handshake?"
+    },
+    "options": [
+      "Three",
+      "Two",
+      "Four",
+      "One"
+    ],
+    "answer": "Three",
+    "explanation": {
+      "en": "SYN, SYN-ACK and ACK, after which both directions are open."
+    }
+  },
+  {
+    "id": 191,
+    "category": "transport",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which transport protocol has no handshake?"
+    },
+    "options": [
+      "UDP",
+      "TCP",
+      "SCTP",
+      "TLS"
+    ],
+    "answer": "UDP",
+    "explanation": {
+      "en": "Datagrams are sent without setting up a connection, which is why it is cheap and lossy."
+    }
+  },
+  {
+    "id": 192,
+    "category": "addressing",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does /24 mean in CIDR notation?"
+    },
+    "options": [
+      "24 network bits",
+      "24 usable hosts",
+      "24 subnets total",
+      "24 byte prefix"
+    ],
+    "answer": "24 network bits",
+    "explanation": {
+      "en": "The first 24 bits identify the network, leaving 8 bits and 254 usable host addresses."
+    }
+  },
+  {
+    "id": 193,
+    "category": "dns",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which DNS record maps a name to IPv6?"
+    },
+    "options": [
+      "AAAA",
+      "A",
+      "CNAME",
+      "MX"
+    ],
+    "answer": "AAAA",
+    "explanation": {
+      "en": "Four As for the four-times-longer address; a plain A record holds IPv4."
+    }
+  },
+  {
+    "id": 194,
+    "category": "devices",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a router connect?"
+    },
+    "options": [
+      "Different IP networks",
+      "Two identical subnets",
+      "Ports on one switch",
+      "Hosts to one VLAN"
+    ],
+    "answer": "Different IP networks",
+    "explanation": {
+      "en": "It forwards between networks at layer 3, where a switch only moves frames inside one."
+    }
+  },
+  {
+    "id": 195,
+    "category": "diagnostics",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which tool shows the path packets take?"
+    },
+    "options": [
+      "traceroute",
+      "ping -c 4",
+      "netstat -r",
+      "dig +trace"
+    ],
+    "answer": "traceroute",
+    "explanation": {
+      "en": "It sends probes with rising TTLs so each hop in turn reports back an expiry."
+    }
+  },
+  {
+    "id": 196,
+    "category": "tcp",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does the TCP window size control?"
+    },
+    "options": [
+      "Unacknowledged bytes in flight",
+      "Maximum segment lifetime",
+      "Number of open sockets",
+      "Retransmission timeout"
+    ],
+    "answer": "Unacknowledged bytes in flight",
+    "explanation": {
+      "en": "It is the receiver's flow control: a small window throttles a fast sender."
+    }
+  },
+  {
+    "id": 197,
+    "category": "tcp",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is the purpose of TCP slow start?"
+    },
+    "options": [
+      "Probing available bandwidth",
+      "Delaying the first handshake",
+      "Reordering out-of-order data",
+      "Limiting the header size"
+    ],
+    "answer": "Probing available bandwidth",
+    "explanation": {
+      "en": "The congestion window doubles each round trip until loss reveals the path's capacity."
+    }
+  },
+  {
+    "id": 198,
+    "category": "ip",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What happens when TTL reaches zero?"
+    },
+    "options": [
+      "The packet is discarded",
+      "It is queued for retry",
+      "It loops back to source",
+      "Its checksum is reset"
+    ],
+    "answer": "The packet is discarded",
+    "explanation": {
+      "en": "The router drops it and returns ICMP time-exceeded, which is exactly what traceroute reads."
+    }
+  },
+  {
+    "id": 199,
+    "category": "routing",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does BGP exchange between networks?"
+    },
+    "options": [
+      "Reachability of prefixes",
+      "Link-state cost tables",
+      "Interface MTU values",
+      "Directly attached routes"
+    ],
+    "answer": "Reachability of prefixes",
+    "explanation": {
+      "en": "Each autonomous system advertises which address blocks it can reach and by what AS path."
+    }
+  },
+  {
+    "id": 200,
+    "category": "routing",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which metric does OSPF use by default?"
+    },
+    "options": [
+      "Interface cost",
+      "Hop count only",
+      "Path bandwidth",
+      "Delay in ms"
+    ],
+    "answer": "Interface cost",
+    "explanation": {
+      "en": "Cost is derived from bandwidth, so a fast link is preferred over a shorter slow one."
+    }
+  },
+  {
+    "id": 201,
+    "category": "dns",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a DNS TTL value control?"
+    },
+    "options": [
+      "Cache lifetime in seconds",
+      "Number of retries allowed",
+      "Depth of the delegation",
+      "Size of the response"
+    ],
+    "answer": "Cache lifetime in seconds",
+    "explanation": {
+      "en": "Lowering it before a migration is why cutovers are planned days ahead."
+    }
+  },
+  {
+    "id": 202,
+    "category": "protocols",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does NAT rewrite in a packet?"
+    },
+    "options": [
+      "Source address and port",
+      "The full payload body",
+      "Only the TTL field",
+      "The Ethernet preamble"
+    ],
+    "answer": "Source address and port",
+    "explanation": {
+      "en": "A translation table maps each internal socket to a unique external port."
+    }
+  },
+  {
+    "id": 203,
+    "category": "security",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does 802.1X provide on a LAN?"
+    },
+    "options": [
+      "Port-based access control",
+      "Encrypted DNS lookups",
+      "Automatic VLAN routing",
+      "Loop-free switching"
+    ],
+    "answer": "Port-based access control",
+    "explanation": {
+      "en": "A device must authenticate before the switch port carries any ordinary traffic."
+    }
+  },
+  {
+    "id": 204,
+    "category": "switching",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What problem does STP prevent?"
+    },
+    "options": [
+      "Switching loops",
+      "Duplicate IPs",
+      "MAC flooding",
+      "VLAN hopping"
+    ],
+    "answer": "Switching loops",
+    "explanation": {
+      "en": "Frames have no TTL at layer 2, so a loop would broadcast-storm the segment forever."
+    }
+  },
+  {
+    "id": 205,
+    "category": "ipv6",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What replaced ARP in IPv6?"
+    },
+    "options": [
+      "Neighbor Discovery",
+      "Router Solicitation",
+      "Stateless DHCP",
+      "Path MTU probing"
+    ],
+    "answer": "Neighbor Discovery",
+    "explanation": {
+      "en": "It rides on ICMPv6 and uses multicast rather than the broadcasts ARP relied on."
+    }
+  },
+  {
+    "id": 206,
+    "category": "services",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does an HTTP 502 usually mean?"
+    },
+    "options": [
+      "A bad upstream response",
+      "The client sent bad data",
+      "The path was not found",
+      "The server is rate limiting"
+    ],
+    "answer": "A bad upstream response",
+    "explanation": {
+      "en": "The proxy reached the backend but got something it could not use, so the fault is behind it."
+    }
+  },
+  {
+    "id": 207,
+    "category": "tcp",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What causes TCP head-of-line blocking?"
+    },
+    "options": [
+      "One lost segment stalls all",
+      "Two sockets sharing a port",
+      "A window scale mismatch",
+      "Nagle disabled on send"
+    ],
+    "answer": "One lost segment stalls all",
+    "explanation": {
+      "en": "Ordered delivery means later bytes wait in the buffer until the gap is retransmitted."
+    }
+  },
+  {
+    "id": 208,
+    "category": "transport",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why does QUIC run over UDP?"
+    },
+    "options": [
+      "To control loss recovery itself",
+      "To skip encryption entirely",
+      "To reuse the DNS port range",
+      "To avoid needing an IP header"
+    ],
+    "answer": "To control loss recovery itself",
+    "explanation": {
+      "en": "Building streams in userspace sidesteps both the kernel's TCP and middlebox ossification."
+    }
+  },
+  {
+    "id": 209,
+    "category": "ip",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does Path MTU Discovery avoid?"
+    },
+    "options": [
+      "Fragmentation in transit",
+      "Duplicate ACK storms",
+      "Routing loops forming",
+      "Checksum recalculation"
+    ],
+    "answer": "Fragmentation in transit",
+    "explanation": {
+      "en": "The sender probes with don't-fragment set and shrinks to the smallest link on the path."
+    }
   }
 ]

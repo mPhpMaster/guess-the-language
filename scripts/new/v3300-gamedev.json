@@ -1,0 +1,420 @@
+[
+ {
+  "id": 179,
+  "category": "timing",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why is movement multiplied by delta time?"
+  },
+  "options": [
+   "To stay frame-rate independent",
+   "To reduce total draw calls",
+   "To keep the physics step fixed",
+   "To smooth the camera follow"
+  ],
+  "answer": "To stay frame-rate independent",
+  "explanation": {
+   "en": "Scaling by elapsed seconds makes a character cover the same ground at 30fps and 144fps."
+  }
+ },
+ {
+  "id": 180,
+  "category": "rendering",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does packing sprites into one atlas reduce?"
+  },
+  "options": [
+   "Texture state changes",
+   "Total polygon count",
+   "Shader compile time",
+   "Audio buffer size"
+  ],
+  "answer": "Texture state changes",
+  "explanation": {
+   "en": "One bound texture lets many sprites share a batch instead of each forcing a rebind."
+  }
+ },
+ {
+  "id": 181,
+  "category": "input",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does an input buffer allow?"
+  },
+  "options": [
+   "Presses just before a window",
+   "Two players on one pad",
+   "Faster analogue stick reads",
+   "Remapping keys at runtime"
+  ],
+  "answer": "Presses just before a window",
+  "explanation": {
+   "en": "Storing the press for a few frames makes slightly-early inputs still register, which feels fair."
+  }
+ },
+ {
+  "id": 182,
+  "category": "audio",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why keep short sound effects decompressed?"
+  },
+  "options": [
+   "To avoid decode latency",
+   "To lower memory usage",
+   "To keep files smaller",
+   "To allow pitch shifting"
+  ],
+  "answer": "To avoid decode latency",
+  "explanation": {
+   "en": "A hit sound must start this frame; streaming and decoding it first would be audibly late."
+  }
+ },
+ {
+  "id": 183,
+  "category": "rendering",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does mipmapping store?"
+  },
+  "options": [
+   "Pre-scaled copies of a texture",
+   "A cache of vertex normals",
+   "The order of draw calls",
+   "Per-pixel lighting data"
+  ],
+  "answer": "Pre-scaled copies of a texture",
+  "explanation": {
+   "en": "Distant surfaces sample a smaller level, which removes shimmer and reads less memory."
+  }
+ },
+ {
+  "id": 184,
+  "category": "ui",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is a nine-slice sprite for?"
+  },
+  "options": [
+   "Scaling panels without distortion",
+   "Packing nine sprites at once",
+   "Splitting a screen nine ways",
+   "Blending nine texture layers"
+  ],
+  "answer": "Scaling panels without distortion",
+  "explanation": {
+   "en": "Corners stay fixed while the edges and centre stretch, so borders keep their thickness."
+  }
+ },
+ {
+  "id": 185,
+  "category": "collision",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is a trigger volume?"
+  },
+  "options": [
+   "A collider that reports overlaps",
+   "A timer that fires on entry",
+   "A mesh used for rendering",
+   "A zone that blocks movement"
+  ],
+  "answer": "A collider that reports overlaps",
+  "explanation": {
+   "en": "It detects entry and exit without producing a physical response, unlike a solid collider."
+  }
+ },
+ {
+  "id": 186,
+  "category": "physics",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why is physics run on a fixed timestep?"
+  },
+  "options": [
+   "For deterministic simulation",
+   "For lower memory traffic",
+   "For fewer draw calls",
+   "For smoother animation"
+  ],
+  "answer": "For deterministic simulation",
+  "explanation": {
+   "en": "Variable steps make the same inputs produce different results, which breaks replays and netcode."
+  }
+ },
+ {
+  "id": 187,
+  "category": "physics",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What causes tunnelling through thin walls?"
+  },
+  "options": [
+   "Large steps skip the contact",
+   "Colliders set to trigger mode",
+   "Gravity applied twice a frame",
+   "Restitution values above one"
+  ],
+  "answer": "Large steps skip the contact",
+  "explanation": {
+   "en": "A fast body moves from one side to the other between samples, so no overlap is ever seen."
+  }
+ },
+ {
+  "id": 188,
+  "category": "optimization",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does object pooling avoid?"
+  },
+  "options": [
+   "Runtime allocation spikes",
+   "Reading from disk twice",
+   "Extra shader variants",
+   "Duplicate mesh imports"
+  ],
+  "answer": "Runtime allocation spikes",
+  "explanation": {
+   "en": "Reusing dormant instances keeps the collector quiet during bullet-heavy moments."
+  }
+ },
+ {
+  "id": 189,
+  "category": "optimization",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is frustum culling?"
+  },
+  "options": [
+   "Skipping off-camera objects",
+   "Merging nearby light probes",
+   "Reducing texture resolution",
+   "Sorting objects by material"
+  ],
+  "answer": "Skipping off-camera objects",
+  "explanation": {
+   "en": "Anything outside the camera's viewing volume is never submitted to the GPU at all."
+  }
+ },
+ {
+  "id": 190,
+  "category": "rendering",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why are transparent objects drawn last?"
+  },
+  "options": [
+   "Depth writes would hide them",
+   "They use more texture memory",
+   "Their shaders compile slowly",
+   "They need a separate camera"
+  ],
+  "answer": "Depth writes would hide them",
+  "explanation": {
+   "en": "Opaque geometry fills the depth buffer first; blended surfaces then sort back-to-front over it."
+  }
+ },
+ {
+  "id": 191,
+  "category": "netcode",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does snapshot interpolation smooth?"
+  },
+  "options": [
+   "Remote entity movement",
+   "Local input response",
+   "Audio playback drift",
+   "Texture streaming pops"
+  ],
+  "answer": "Remote entity movement",
+  "explanation": {
+   "en": "Rendering slightly in the past lets the client draw between two received states instead of jittering."
+  }
+ },
+ {
+  "id": 192,
+  "category": "netcode",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is server reconciliation for?"
+  },
+  "options": [
+   "Correcting mispredicted state",
+   "Choosing the closest region",
+   "Compressing snapshot data",
+   "Assigning unique player ids"
+  ],
+  "answer": "Correcting mispredicted state",
+  "explanation": {
+   "en": "The client replays unacknowledged inputs on top of the authoritative snapshot it just received."
+  }
+ },
+ {
+  "id": 193,
+  "category": "animation",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does an animation blend tree do?"
+  },
+  "options": [
+   "Mixes clips by parameters",
+   "Compresses keyframe data",
+   "Retargets to a new rig",
+   "Bakes motion into a mesh"
+  ],
+  "answer": "Mixes clips by parameters",
+  "explanation": {
+   "en": "Speed or direction drives the weights, so walk and run merge without a visible snap."
+  }
+ },
+ {
+  "id": 194,
+  "category": "math",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why normalise a movement vector?"
+  },
+  "options": [
+   "So diagonals are not faster",
+   "So the frame rate stays high",
+   "So gravity applies evenly",
+   "So rotations stay in range"
+  ],
+  "answer": "So diagonals are not faster",
+  "explanation": {
+   "en": "Two axes at once give a length of about 1.41 unless the vector is scaled back to one."
+  }
+ },
+ {
+  "id": 195,
+  "category": "pathfinding",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does the A* heuristic estimate?"
+  },
+  "options": [
+   "Cost from a node to goal",
+   "Total nodes in the graph",
+   "Time spent in the queue",
+   "Width of the navigation mesh"
+  ],
+  "answer": "Cost from a node to goal",
+  "explanation": {
+   "en": "An admissible estimate never overshoots, which keeps the found path optimal."
+  }
+ },
+ {
+  "id": 196,
+  "category": "state",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What do state machines replace in gameplay code?"
+  },
+  "options": [
+   "Tangled boolean flags",
+   "Slow texture loading",
+   "Excess draw batching",
+   "Large save file sizes"
+  ],
+  "answer": "Tangled boolean flags",
+  "explanation": {
+   "en": "One explicit current state removes impossible combinations like jumping while dead."
+  }
+ },
+ {
+  "id": 197,
+  "category": "rendering",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does a depth pre-pass buy you?"
+  },
+  "options": [
+   "Cheaper overdraw shading",
+   "Fewer vertex transforms",
+   "Smaller texture memory",
+   "Faster shadow filtering"
+  ],
+  "answer": "Cheaper overdraw shading",
+  "explanation": {
+   "en": "Filling depth first lets hidden fragments fail the test before an expensive shader ever runs."
+  }
+ },
+ {
+  "id": 198,
+  "category": "netcode",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does lag compensation rewind?"
+  },
+  "options": [
+   "World state to the shot time",
+   "The client input buffer only",
+   "The animation blend weights",
+   "The server tick rate itself"
+  ],
+  "answer": "World state to the shot time",
+  "explanation": {
+   "en": "The server rebuilds where everyone was when the shooter fired, so aiming at what you saw hits."
+  }
+ },
+ {
+  "id": 199,
+  "category": "optimization",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why does GPU instancing help crowds?"
+  },
+  "options": [
+   "One draw call, many copies",
+   "It halves the vertex count",
+   "It skips the depth buffer",
+   "It merges all the shaders"
+  ],
+  "answer": "One draw call, many copies",
+  "explanation": {
+   "en": "Per-instance data supplies each transform, so a thousand identical meshes cost one submission."
+  }
+ },
+ {
+  "id": 200,
+  "category": "physics",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does continuous collision detection cost?"
+  },
+  "options": [
+   "More CPU per moving body",
+   "Extra video memory only",
+   "One more render target",
+   "Additional shader passes"
+  ],
+  "answer": "More CPU per moving body",
+  "explanation": {
+   "en": "Sweeping the shape along its path is far pricier than one overlap test, so it is enabled selectively."
+  }
+ }
+]
