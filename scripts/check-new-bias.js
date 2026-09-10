@@ -35,20 +35,40 @@ const DATA = path.join(__dirname, '..', 'src', 'data');
 const norm = (s) => String(s == null ? '' : s).replace(/\s+/g, ' ').trim().toLowerCase();
 const keyOf = (q) => `${norm(q.question && q.question.en)}||${norm(q.codeSnippet)}`;
 
+// In the Problem Solving banks the snippet IS the question (see the note in
+// validate-questions.js), so a batch aimed at one of them is also checked on the
+// snippet alone against that bank. The target bank comes from the file name's
+// suffix (v3301-output.json -> questions-output.json), the naming every staged
+// batch already uses.
+const SNIPPET_BANK = { bug: 'questions-bug.json', output: 'questions-output.json', algo: 'questions-algo.json' };
+const suffix = (file.match(/-([a-z]+)\.json$/) || [])[1];
+const snippetBank = SNIPPET_BANK[suffix] || null;
+
 const seen = new Map(); // key -> "bank#id"
+const seenSnippet = new Map(); // snippet -> "bank#id", target bank only
 for (const f of fs.readdirSync(DATA).filter((n) => n.endsWith('.json'))) {
   const bank = JSON.parse(fs.readFileSync(path.join(DATA, f), 'utf8'));
   if (!Array.isArray(bank)) continue;
-  for (const q of bank) seen.set(keyOf(q), `${f}#${q.id}`);
+  for (const q of bank) {
+    seen.set(keyOf(q), `${f}#${q.id}`);
+    if (f === snippetBank && norm(q.codeSnippet)) seenSnippet.set(norm(q.codeSnippet), `${f}#${q.id}`);
+  }
 }
 
 const dupes = [];
 const within = new Map();
+const withinSnippet = new Map();
 for (const q of qs) {
   const k = keyOf(q);
+  const sn = snippetBank ? norm(q.codeSnippet) : '';
   if (seen.has(k)) dupes.push([q.id, 'already in ' + seen.get(k)]);
   else if (within.has(k)) dupes.push([q.id, 'duplicates #' + within.get(k) + ' in this batch']);
-  else within.set(k, q.id);
+  else if (sn && seenSnippet.has(sn)) dupes.push([q.id, 'same snippet as ' + seenSnippet.get(sn)]);
+  else if (sn && withinSnippet.has(sn)) dupes.push([q.id, 'same snippet as #' + withinSnippet.get(sn) + ' in this batch']);
+  else {
+    within.set(k, q.id);
+    if (sn) withinSnippet.set(sn, q.id);
+  }
 }
 if (dupes.length) {
   console.log(`${file}: ${dupes.length} DUPLICATE prompt(s) — rewrite before appending:

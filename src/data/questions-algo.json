@@ -4294,17 +4294,17 @@
     "id": 259,
     "category": "strings",
     "difficulty": "easy",
-    "codeSnippet": "# drop surrounding whitespace\nclean = raw.____()",
+    "codeSnippet": "# capitalise the first letter of each word\nheading = text.____()",
     "question": {
       "en": "What goes in the blank?"
     },
-    "answer": "strip",
+    "answer": "title",
     "accept": [
-      "strip",
-      "strip()"
+      "title",
+      "title()"
     ],
     "explanation": {
-      "en": "Python's `strip` removes leading and trailing whitespace; JavaScript spells it `trim`."
+      "en": "str.title() uppercases the first letter of every word; capitalize() only touches the first character."
     }
   },
   {

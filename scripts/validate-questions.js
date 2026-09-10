@@ -60,8 +60,18 @@ function checkCommon(file, q) {
 //
 // The check spans every bank, not just each file: "All" mode mixes all eight banks
 // into one round, so the same question in cyber and network would surface twice.
+// A second key, for the three Problem Solving banks. Their prompt is boilerplate
+// ("What is the output?", "What is printed?", "Which fix removes the bug?") and
+// it is the SNIPPET that is the question, so one snippet under two wordings of
+// the boilerplate is one question asked twice. Prompt + snippet alone let eight
+// of those through. Scoped to one bank at a time on purpose: a snippet asked as
+// "fix it" in bug and "what prints" in output is two different questions, and
+// the knowledge banks legitimately ask several things about one command
+// (`docker run -d -p 8080:80 nginx`: what -d does, what -p does).
+const SNIPPET_IS_QUESTION = new Set(['questions-bug.json', 'questions-output.json', 'questions-algo.json']);
 const normContent = (s) => String(s == null ? '' : s).replace(/\s+/g, ' ').trim().toLowerCase();
 const seenContent = new Map(); // key -> ["file#id", ...]
+const seenSnippet = new Map(); // "file||snippet" -> ["file#id", ...]
 
 function contentKey(q) {
   if (q.correctLanguage != null) return normContent(q.codeSnippet);
@@ -74,18 +84,38 @@ function noteContent(file, q) {
   const hits = seenContent.get(key);
   if (hits) hits.push(where);
   else seenContent.set(key, [where]);
+
+  const snippet = normContent(q.codeSnippet);
+  if (SNIPPET_IS_QUESTION.has(file) && snippet) {
+    const skey = file + '||' + snippet;
+    const shits = seenSnippet.get(skey);
+    if (shits) shits.push(where);
+    else seenSnippet.set(skey, [where]);
+  }
 }
 
 function reportContentDuplicates() {
   const dups = [...seenContent.values()].filter((v) => v.length > 1);
-  if (!dups.length) {
-    console.log('\nNo duplicate questions (prompt + snippet, across all banks).');
+  // A group already reported on prompt + snippet is not reported twice.
+  const reported = new Set(dups.map((v) => v.join()));
+  const snippetDups = [...seenSnippet.values()].filter((v) => v.length > 1 && !reported.has(v.join()));
+  if (!dups.length && !snippetDups.length) {
+    console.log('\nNo duplicate questions (prompt + snippet across all banks; snippet alone within bug/output/algo).');
     return;
   }
-  console.error(`\nDuplicate questions (prompt + snippet), ${dups.length} group(s):`);
-  for (const where of dups) {
-    hardErrors++;
-    console.error(`  ✗ ${where.join('  ==  ')}`);
+  if (dups.length) {
+    console.error(`\nDuplicate questions (prompt + snippet), ${dups.length} group(s):`);
+    for (const where of dups) {
+      hardErrors++;
+      console.error(`  ✗ ${where.join('  ==  ')}`);
+    }
+  }
+  if (snippetDups.length) {
+    console.error(`\nDuplicate snippets inside a Problem Solving bank, ${snippetDups.length} group(s):`);
+    for (const where of snippetDups) {
+      hardErrors++;
+      console.error(`  ✗ ${where.join('  ==  ')}`);
+    }
   }
 }
 

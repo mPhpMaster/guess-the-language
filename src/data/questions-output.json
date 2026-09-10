@@ -2929,19 +2929,19 @@
     "id": 155,
     "category": "javascript",
     "difficulty": "easy",
-    "codeSnippet": "console.log(typeof NaN, typeof []);",
+    "codeSnippet": "console.log(typeof function () {});",
     "question": {
       "en": "What is the output?"
     },
     "options": [
-      "number object",
-      "NaN object",
-      "number array",
-      "undefined object"
+      "function",
+      "object",
+      "undefined",
+      "string"
     ],
-    "answer": "number object",
+    "answer": "function",
     "explanation": {
-      "en": "NaN is a numeric value, and arrays report as 'object' — Array.isArray is the real test."
+      "en": "Functions are objects, but typeof reports them separately as 'function'."
     }
   },
   {
@@ -3138,38 +3138,38 @@
     "id": 166,
     "category": "python",
     "difficulty": "medium",
-    "codeSnippet": "a = [1, 2, 3]\nb = a\nb.append(4)\nprint(len(a))",
+    "codeSnippet": "a = [1, 2]\nb = a + [3]\nprint(a)",
     "question": {
       "en": "What is the output?"
     },
     "options": [
-      "4",
-      "3",
-      "5",
+      "[1, 2]",
+      "[1, 2, 3]",
+      "[3]",
       "Error"
     ],
-    "answer": "4",
+    "answer": "[1, 2]",
     "explanation": {
-      "en": "Assignment binds another name to the same list; it does not copy."
+      "en": "`+` builds a new list, so `a` is untouched — unlike `append`, which mutates in place."
     }
   },
   {
     "id": 167,
     "category": "python",
     "difficulty": "medium",
-    "codeSnippet": "print([x for x in range(5) if x % 2][-1])",
+    "codeSnippet": "print([n * n for n in range(4)][1:3])",
     "question": {
       "en": "What is the output?"
     },
     "options": [
-      "3",
-      "4",
-      "1",
-      "Error"
+      "[1, 4]",
+      "[0, 1]",
+      "[4, 9]",
+      "[1, 4, 9]"
     ],
-    "answer": "3",
+    "answer": "[1, 4]",
     "explanation": {
-      "en": "The comprehension keeps the odd values [1, 3], and [-1] takes the last."
+      "en": "The squares are [0, 1, 4, 9]; the slice [1:3] takes indices 1 and 2."
     }
   },
   {
@@ -3385,19 +3385,19 @@
     "id": 179,
     "category": "python",
     "difficulty": "easy",
-    "codeSnippet": "print([1, 2, 3][::-1])",
+    "codeSnippet": "print('-'.join('abc'))",
     "question": {
       "en": "What is the output?"
     },
     "options": [
-      "[3, 2, 1]",
-      "[1, 2, 3]",
-      "[3, 2]",
-      "Error"
+      "a-b-c",
+      "-abc-",
+      "abc",
+      "a-bc"
     ],
-    "answer": "[3, 2, 1]",
+    "answer": "a-b-c",
     "explanation": {
-      "en": "A step of -1 walks the sequence backwards, producing a reversed copy."
+      "en": "A string is an iterable of characters, so join places the separator between each one."
     }
   },
   {
@@ -3708,19 +3708,19 @@
     "id": 196,
     "category": "python",
     "difficulty": "medium",
-    "codeSnippet": "print(round(2.5), round(3.5))",
+    "codeSnippet": "print(list(range(10, 0, -3)))",
     "question": {
       "en": "What is the output?"
     },
     "options": [
-      "2 4",
-      "3 4",
-      "2 3",
-      "3 3"
+      "[10, 7, 4, 1]",
+      "[10, 7, 4]",
+      "[9, 6, 3]",
+      "[10, 7, 4, 1, -2]"
     ],
-    "answer": "2 4",
+    "answer": "[10, 7, 4, 1]",
     "explanation": {
-      "en": "Python rounds halves to the nearest even number (banker's rounding)."
+      "en": "The start is included and the stop never is; stepping by -3 from 10 reaches 1 and stops before 0."
     }
   },
   {

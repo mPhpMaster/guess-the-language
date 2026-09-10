@@ -3138,19 +3138,19 @@
     "id": 166,
     "category": "python",
     "difficulty": "medium",
-    "codeSnippet": "if value == None:\n    return",
+    "codeSnippet": "total = 0\nfor price in prices:\n    total =+ price",
     "question": {
       "en": "Which fix removes the bug?"
     },
     "options": [
-      "Use `is None`",
-      "Use `not value`",
-      "Use `bool(value)`",
-      "Use `value != True`"
+      "Swap `=+` for `+=`",
+      "Initialise total to 1",
+      "Cast price to int",
+      "Move total inside the loop"
     ],
-    "answer": "Use `is None`",
+    "answer": "Swap `=+` for `+=`",
     "explanation": {
-      "en": "`==` can be overridden by __eq__; identity is the correct test for the None singleton."
+      "en": "`=+ price` parses as `= (+price)`, so each pass overwrites the total instead of adding to it."
     }
   },
   {
@@ -3537,19 +3537,19 @@
     "id": 187,
     "category": "python",
     "difficulty": "medium",
-    "codeSnippet": "try:\n    run()\nexcept:\n    pass",
+    "codeSnippet": "import os\npath = os.path.join('/data', '/logs')\nprint(path)",
     "question": {
       "en": "Which fix removes the bug?"
     },
     "options": [
-      "Catch specific exceptions",
-      "Return a default value",
-      "Wrap run in a thread",
-      "Move run outside try"
+      "Drop the second leading slash",
+      "Use string concatenation",
+      "Call os.path.abspath first",
+      "Swap the two arguments"
     ],
-    "answer": "Catch specific exceptions",
+    "answer": "Drop the second leading slash",
     "explanation": {
-      "en": "A bare except also swallows KeyboardInterrupt and SystemExit, and hides every real failure."
+      "en": "An absolute component discards everything before it, so the result is just '/logs'."
     }
   },
   {
@@ -3708,19 +3708,19 @@
     "id": 196,
     "category": "javascript",
     "difficulty": "easy",
-    "codeSnippet": "const user = { name: 'Ana' };\nconsole.log(user.Name);",
+    "codeSnippet": "const items = document.querySelectorAll('li');\nconst texts = items.map((li) => li.textContent);",
     "question": {
       "en": "Which fix removes the bug?"
     },
     "options": [
-      "Match the key's casing",
-      "Quote the property name",
-      "Use bracket notation",
-      "Freeze the object first"
+      "Spread into an array first",
+      "Use getElementsByTagName",
+      "Query with querySelector",
+      "Wrap it in a try block"
     ],
-    "answer": "Match the key's casing",
+    "answer": "Spread into an array first",
     "explanation": {
-      "en": "Property names are case-sensitive, so `Name` is a different key and reads as undefined."
+      "en": "A NodeList has forEach but no map; `[...items]` or Array.from gives a real array."
     }
   },
   {
@@ -3765,19 +3765,19 @@
     "id": 199,
     "category": "python",
     "difficulty": "medium",
-    "codeSnippet": "import datetime\ndef log(msg, at=datetime.datetime.now()):\n    print(at, msg)",
+    "codeSnippet": "import math\ndef area(r):\n    return math.pi * r ^ 2",
     "question": {
       "en": "Which fix removes the bug?"
     },
     "options": [
-      "Default at to None",
-      "Import now directly",
-      "Use a lambda default",
-      "Make at keyword-only"
+      "Use ** instead of ^",
+      "Import math at the top",
+      "Wrap r in float()",
+      "Round the result"
     ],
-    "answer": "Default at to None",
+    "answer": "Use ** instead of ^",
     "explanation": {
-      "en": "Defaults are evaluated once at definition, so every call prints the same timestamp."
+      "en": "`^` is bitwise XOR in Python, and XOR on a float raises TypeError; exponentiation is `**`."
     }
   },
   {

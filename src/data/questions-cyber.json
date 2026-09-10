@@ -4527,17 +4527,17 @@
     "difficulty": "medium",
     "codeSnippet": "",
     "question": {
-      "en": "What does CORS actually control?"
+      "en": "What does Subresource Integrity verify?"
     },
     "options": [
-      "Which origins may read responses",
-      "Which servers may send cookies",
-      "How TLS certificates are chained",
-      "Where scripts are allowed to run"
+      "A fetched file's hash",
+      "The server's TLS chain",
+      "The user's session token",
+      "A cookie's signature"
     ],
-    "answer": "Which origins may read responses",
+    "answer": "A fetched file's hash",
     "explanation": {
-      "en": "The request is often still sent; CORS decides whether the browser lets the calling page see the reply."
+      "en": "The integrity attribute pins a hash, so a tampered CDN copy of the script is refused."
     }
   },
   {

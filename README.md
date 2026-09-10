@@ -330,7 +330,11 @@ Two guards matter, and they measure different things:
 
 - **Content duplicates.** The key is `norm(question.en) + '||' + norm(codeSnippet)`,
   checked within and across every bank. Most knowledge questions carry an empty
-  snippet, so the prompt alone has to be unique.
+  snippet, so the prompt alone has to be unique. In the three Problem Solving
+  banks (`bug`, `output`, `algo`) the prompt is boilerplate and the snippet *is*
+  the question, so there the **snippet alone** must also be unique within the
+  bank — otherwise "What is printed?" and "What is the output?" over one snippet
+  pass as two questions.
 - **Answer-length bias.** A question is *exploitable* when the correct option is
   strictly the longest **and** the gap is visible (`(max − min) / mean > 0.6`) —
   length alone would point at it. `validate-questions.js --strict` fails a bank
