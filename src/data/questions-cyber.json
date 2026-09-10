@@ -4520,5 +4520,43 @@
     "explanation": {
       "en": "An early-exit comparison leaks how many bytes matched, which is why constant-time equality exists."
     }
+  },
+  {
+    "id": 243,
+    "category": "web",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does CORS actually control?"
+    },
+    "options": [
+      "Which origins may read responses",
+      "Which servers may send cookies",
+      "How TLS certificates are chained",
+      "Where scripts are allowed to run"
+    ],
+    "answer": "Which origins may read responses",
+    "explanation": {
+      "en": "The request is often still sent; CORS decides whether the browser lets the calling page see the reply."
+    }
+  },
+  {
+    "id": 244,
+    "category": "attacks",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a DNS rebinding attack bypass?"
+    },
+    "options": [
+      "The same-origin policy",
+      "Certificate pinning",
+      "Rate limiting rules",
+      "Password hashing"
+    ],
+    "answer": "The same-origin policy",
+    "explanation": {
+      "en": "The attacker's domain re-resolves to an internal IP, so the browser treats the internal service as same-origin."
+    }
   }
 ]

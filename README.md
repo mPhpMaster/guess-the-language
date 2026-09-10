@@ -5,7 +5,7 @@ An interactive quiz game for **Windows** (Electron), the **web** (also an
 installable **PWA / mobile app**), and **Discord** (as an embedded Activity).
 From a single home page you pick one of seven quiz modes and race the timer — with
 scoring, streaks, a correct/total counter, XP and levels, daily challenges, and a
-per-mode **live global leaderboard** (Supabase). **2,026 questions** across eight
+per-mode **live global leaderboard** (Supabase). **2,035 questions** across eight
 banks. The UI is English.
 
 ### Seven game modes
@@ -31,12 +31,12 @@ banks. The UI is English.
 | Mode | Bank(s) | Questions |
 | --- | --- | ---: |
 | Programming Languages | `questions.json` | 522 |
-| Cybersecurity | `questions-cyber.json` | 238 |
+| Cybersecurity | `questions-cyber.json` | 240 |
 | DevOps | `questions-devops.json` | 200 |
 | Networking | `questions-network.json` | 200 |
 | Game Dev | `questions-gamedev.json` | 200 |
-| Problem Solving | `questions-algo.json` + `-bug` + `-output` | 666 |
-| **All (Mixed)** | every bank | **2026** |
+| Problem Solving | `questions-algo.json` + `-bug` + `-output` | 673 |
+| **All (Mixed)** | every bank | **2035** |
 
 ![Home](screenshots/8-modeselect.png)
 
@@ -215,15 +215,15 @@ prog-game2/
 │  ├─ vendor/supabase.js        # bundled @supabase/supabase-js (UMD)
 │  ├─ supabase-config.js        # Supabase creds (local, git-ignored)
 │  ├─ discord-config.js         # Discord client id (local, git-ignored)
-│  └─ data/                     # 2026 questions, English only
+│  └─ data/                     # 2035 questions, English only
 │     ├─ questions.json          # languages bank (522, 15 languages)
-│     ├─ questions-cyber.json    # cybersecurity bank (238)
+│     ├─ questions-cyber.json    # cybersecurity bank (240)
 │     ├─ questions-devops.json   # devops bank (200)
 │     ├─ questions-network.json  # networking bank (200)
 │     ├─ questions-gamedev.json  # game-dev bank (200)
 │     ├─ questions-algo.json     # fill-in-the-blank bank (276)
-│     ├─ questions-bug.json      # spot-the-bug bank (195)
-│     └─ questions-output.json   # predict-the-output bank (195)
+│     ├─ questions-bug.json      # spot-the-bug bank (200)
+│     └─ questions-output.json   # predict-the-output bank (197)
 ├─ scripts/
 │  ├─ validate-questions.js     # schema, duplicates, answer-length bias
 │  ├─ check-new-bias.js         # pre-flights a staged batch before appending
@@ -262,7 +262,7 @@ prog-game2/
 
 ## Questions databases
 
-**2,026 questions** live in `src/data/`, split into eight banks. Every bank
+**2,035 questions** live in `src/data/`, split into eight banks. Every bank
 numbers its own ids from 1; the app de-duplicates on the composite key
 `bank|id`. All content is **English only** — the `ar` keys were removed in
 `257b1f5`, and the validator rejects them.
@@ -280,9 +280,9 @@ There is no `question` field: the prompt is always "which language is this?".
 }
 ```
 
-**Multiple choice** — `questions-cyber.json` (**238**), `questions-devops.json`
+**Multiple choice** — `questions-cyber.json` (**240**), `questions-devops.json`
 (**200**), `questions-network.json` (**200**), `questions-gamedev.json`
-(**200**), `questions-bug.json` (**195**) and `questions-output.json` (**195**).
+(**200**), `questions-bug.json` (**200**) and `questions-output.json` (**197**).
 Exactly four options each:
 
 ```json

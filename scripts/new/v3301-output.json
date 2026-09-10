@@ -1,0 +1,40 @@
+[
+ {
+  "id": 196,
+  "category": "python",
+  "difficulty": "medium",
+  "codeSnippet": "print(round(2.5), round(3.5))",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "2 4",
+   "3 4",
+   "2 3",
+   "3 3"
+  ],
+  "answer": "2 4",
+  "explanation": {
+   "en": "Python rounds halves to the nearest even number (banker's rounding)."
+  }
+ },
+ {
+  "id": 197,
+  "category": "javascript",
+  "difficulty": "medium",
+  "codeSnippet": "console.log(Number.isInteger(5.0), Number.isInteger('5'));",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "true false",
+   "false false",
+   "true true",
+   "false true"
+  ],
+  "answer": "true false",
+  "explanation": {
+   "en": "5.0 is the same number as 5, but a string is never coerced by Number.isInteger."
+  }
+ }
+]
