@@ -1,0 +1,420 @@
+{
+  "questions-network.json": {
+    "38": {
+      "category": "osi",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What is a collision domain?"
+      },
+      "options": [
+        "Where frames can collide",
+        "A range of IP addresses",
+        "A set of DNS records",
+        "One VLAN's broadcast area"
+      ],
+      "answer": "Where frames can collide",
+      "explanation": {
+        "en": "A hub shares one collision domain; each switch port is its own, which is why switches replaced hubs."
+      }
+    },
+    "68": {
+      "category": "osi",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does CSMA/CD do on legacy Ethernet?"
+      },
+      "options": [
+        "Detects and backs off collisions",
+        "Encrypts the frame payload",
+        "Assigns IP addresses",
+        "Routes between networks"
+      ],
+      "answer": "Detects and backs off collisions",
+      "explanation": {
+        "en": "Stations listen before sending and retry after a random wait; full-duplex switching makes it unnecessary."
+      }
+    },
+    "90": {
+      "category": "osi",
+      "difficulty": "easy",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does a hub do with an incoming frame?"
+      },
+      "options": [
+        "Repeats it to every port",
+        "Forwards it by MAC",
+        "Routes it by IP",
+        "Drops it if unknown"
+      ],
+      "answer": "Repeats it to every port",
+      "explanation": {
+        "en": "A hub is a dumb repeater, so all ports share bandwidth and one collision domain."
+      }
+    },
+    "39": {
+      "category": "osi",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does a trunk port carry?"
+      },
+      "options": [
+        "Many VLANs at once",
+        "A single host's traffic",
+        "Only management data",
+        "Routed layer-3 packets"
+      ],
+      "answer": "Many VLANs at once",
+      "explanation": {
+        "en": "A trunk tags frames (802.1Q) so multiple VLANs share one link between switches."
+      }
+    },
+    "63": {
+      "category": "osi",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What is the transport-layer PDU called?"
+      },
+      "options": [
+        "A segment",
+        "A frame",
+        "A packet",
+        "A bit"
+      ],
+      "answer": "A segment",
+      "explanation": {
+        "en": "Layer 4 data units are segments (TCP); the network layer wraps them in packets, the link layer in frames."
+      }
+    },
+    "69": {
+      "category": "osi",
+      "difficulty": "easy",
+      "codeSnippet": "",
+      "question": {
+        "en": "What defines one broadcast domain?"
+      },
+      "options": [
+        "All of a switch's ports",
+        "One cable segment only",
+        "A single physical port",
+        "A fixed range of ports"
+      ],
+      "answer": "All of a switch's ports",
+      "explanation": {
+        "en": "A switch floods broadcasts to every port, so its ports form one domain; a router or VLAN ends it."
+      }
+    },
+    "40": {
+      "category": "tcp",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does a TCP RST do?"
+      },
+      "options": [
+        "Aborts the connection now",
+        "Acknowledges data",
+        "Opens the connection",
+        "Resends lost bytes"
+      ],
+      "answer": "Aborts the connection now",
+      "explanation": {
+        "en": "Reset tears the connection down immediately, unlike the graceful four-way FIN close."
+      }
+    },
+    "54": {
+      "category": "tcp",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does the TCP sequence number track?"
+      },
+      "options": [
+        "Byte order in the stream",
+        "The remaining window",
+        "The source port",
+        "The checksum value"
+      ],
+      "answer": "Byte order in the stream",
+      "explanation": {
+        "en": "It numbers bytes so the receiver can reorder segments and detect what is missing."
+      }
+    },
+    "72": {
+      "category": "tcp",
+      "difficulty": "easy",
+      "codeSnippet": "",
+      "question": {
+        "en": "What is an ephemeral port?"
+      },
+      "options": [
+        "A short-lived client port",
+        "A reserved server port",
+        "A blocked port",
+        "A multicast port"
+      ],
+      "answer": "A short-lived client port",
+      "explanation": {
+        "en": "The OS picks a high-numbered port for each outbound connection and frees it when the socket closes."
+      }
+    },
+    "60": {
+      "category": "protocols",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What are the four DHCP steps in order?"
+      },
+      "options": [
+        "Discover, Offer, Request, Ack",
+        "Request, Offer, Ack, Renew",
+        "Offer, Discover, Ack, Request",
+        "Discover, Request, Offer, Ack"
+      ],
+      "answer": "Discover, Offer, Request, Ack",
+      "explanation": {
+        "en": "DORA: the client discovers, the server offers, the client requests, the server acknowledges."
+      }
+    },
+    "84": {
+      "category": "protocols",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "When does a DHCP client first try to renew?"
+      },
+      "options": [
+        "At half the lease",
+        "At lease expiry",
+        "Every reboot",
+        "After an ARP fails"
+      ],
+      "answer": "At half the lease",
+      "explanation": {
+        "en": "At T1 (50%) it renews with its own server; at T2 (~87.5%) it rebinds by broadcasting to any server."
+      }
+    },
+    "116": {
+      "category": "services",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does a DHCP relay let you do?"
+      },
+      "options": [
+        "Serve DHCP across subnets",
+        "Assign static IPs only",
+        "Encrypt the DHCP offer",
+        "Skip the lease step"
+      ],
+      "answer": "Serve DHCP across subnets",
+      "explanation": {
+        "en": "Broadcasts do not cross routers, so a relay (IP helper) forwards them to a central DHCP server."
+      }
+    },
+    "61": {
+      "category": "protocols",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does proxy ARP let a router do?"
+      },
+      "options": [
+        "Answer ARP for another host",
+        "Cache DNS records",
+        "Translate private IPs",
+        "Assign IP leases"
+      ],
+      "answer": "Answer ARP for another host",
+      "explanation": {
+        "en": "The router replies with its own MAC for a remote IP, so the sender delivers frames to it to forward on."
+      }
+    },
+    "85": {
+      "category": "security",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does ARP spoofing enable?"
+      },
+      "options": [
+        "A man-in-the-middle",
+        "A port scan",
+        "A DNS cache hit",
+        "A faster handshake"
+      ],
+      "answer": "A man-in-the-middle",
+      "explanation": {
+        "en": "Forged ARP replies bind the attacker's MAC to a gateway IP, so traffic flows through them."
+      }
+    },
+    "157": {
+      "category": "dns",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What is DNS negative caching?"
+      },
+      "options": [
+        "Remembering a name does not exist",
+        "Caching only A records",
+        "Dropping expired entries",
+        "Refusing recursive queries"
+      ],
+      "answer": "Remembering a name does not exist",
+      "explanation": {
+        "en": "An NXDOMAIN is cached (bounded by the SOA minimum) so repeated lookups of a missing name are cheap."
+      }
+    },
+    "201": {
+      "category": "dns",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does the AA flag in a DNS reply mean?"
+      },
+      "options": [
+        "The answer is authoritative",
+        "The query was recursive",
+        "The record is cached",
+        "The response was truncated"
+      ],
+      "answer": "The answer is authoritative",
+      "explanation": {
+        "en": "It is set when the answer comes from a zone's own nameserver rather than a resolver's cache."
+      }
+    },
+    "49": {
+      "category": "protocols",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does PAT add over basic NAT?"
+      },
+      "options": [
+        "Many hosts share one IP",
+        "It encrypts the packets",
+        "It routes by hostname",
+        "It assigns leases"
+      ],
+      "answer": "Many hosts share one IP",
+      "explanation": {
+        "en": "Port Address Translation multiplexes many internal hosts onto one public IP by tracking ports."
+      }
+    },
+    "80": {
+      "category": "dns",
+      "difficulty": "hard",
+      "codeSnippet": "",
+      "question": {
+        "en": "What problem does an ALIAS record solve?"
+      },
+      "options": [
+        "A CNAME at the zone apex",
+        "A missing reverse record",
+        "A slow recursive lookup",
+        "An expired TTL"
+      ],
+      "answer": "A CNAME at the zone apex",
+      "explanation": {
+        "en": "The apex cannot hold a CNAME, so an ALIAS/ANAME resolves the target and returns its address instead."
+      }
+    },
+    "176": {
+      "category": "switching",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What is the root bridge in spanning tree?"
+      },
+      "options": [
+        "The reference for all paths",
+        "The busiest switch",
+        "The default gateway",
+        "The newest switch"
+      ],
+      "answer": "The reference for all paths",
+      "explanation": {
+        "en": "The switch with the lowest bridge ID is elected root; every other switch picks its lowest-cost path to it."
+      }
+    },
+    "65": {
+      "category": "dns",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What do DoH and DoT add to DNS?"
+      },
+      "options": [
+        "Encryption of queries",
+        "Faster resolution",
+        "Automatic caching",
+        "Load balancing"
+      ],
+      "answer": "Encryption of queries",
+      "explanation": {
+        "en": "DNS over HTTPS/TLS hides lookups from on-path observers, which plain UDP port 53 exposes."
+      }
+    }
+  },
+  "questions-cyber.json": {
+    "73": {
+      "category": "web",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does certificate pinning defend against?"
+      },
+      "options": [
+        "A forged valid cert",
+        "An expired session cookie",
+        "A guessable weak password",
+        "A single open TCP port"
+      ],
+      "answer": "A forged valid cert",
+      "explanation": {
+        "en": "The client accepts only a known cert or key, so a mis-issued one from any CA is rejected."
+      }
+    },
+    "75": {
+      "category": "concepts",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What is a jump host (bastion)?"
+      },
+      "options": [
+        "A gateway into a private network",
+        "A backup domain controller",
+        "A load-balanced web server",
+        "A cache in front of DNS"
+      ],
+      "answer": "A gateway into a private network",
+      "explanation": {
+        "en": "One hardened, audited host is the single controlled entry point to otherwise unreachable systems."
+      }
+    },
+    "76": {
+      "category": "attacks",
+      "difficulty": "hard",
+      "codeSnippet": "",
+      "question": {
+        "en": "What is DNS tunneling used for?"
+      },
+      "options": [
+        "Smuggling data in queries",
+        "Speeding up lookups",
+        "Blocking a domain",
+        "Signing a zone"
+      ],
+      "answer": "Smuggling data in queries",
+      "explanation": {
+        "en": "Encoding payload into DNS names slips data past filters that let port 53 through unquestioned."
+      }
+    }
+  }
+}

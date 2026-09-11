@@ -1369,21 +1369,21 @@
  },
  {
   "id": 73,
-  "category": "concepts",
-  "difficulty": "easy",
+  "category": "web",
+  "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "Which port does HTTPS use by default?"
+   "en": "What does certificate pinning defend against?"
   },
   "options": [
-   "443",
-   "80",
-   "22",
-   "3389"
+   "A forged valid cert",
+   "An expired session cookie",
+   "A guessable weak password",
+   "A single open TCP port"
   ],
-  "answer": "443",
+  "answer": "A forged valid cert",
   "explanation": {
-   "en": "HTTPS uses TCP port 443."
+   "en": "The client accepts only a known cert or key, so a mis-issued one from any CA is rejected."
   }
  },
  {
@@ -1411,36 +1411,36 @@
   "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "Which port does RDP use by default?"
+   "en": "What is a jump host (bastion)?"
   },
   "options": [
-   "3389",
-   "3306",
-   "5900",
-   "8080"
+   "A gateway into a private network",
+   "A backup domain controller",
+   "A load-balanced web server",
+   "A cache in front of DNS"
   ],
-  "answer": "3389",
+  "answer": "A gateway into a private network",
   "explanation": {
-   "en": "Remote Desktop (RDP) uses TCP port 3389."
+   "en": "One hardened, audited host is the single controlled entry point to otherwise unreachable systems."
   }
  },
  {
   "id": 76,
-  "category": "concepts",
-  "difficulty": "medium",
+  "category": "attacks",
+  "difficulty": "hard",
   "codeSnippet": "",
   "question": {
-   "en": "Which port does DNS primarily use?"
+   "en": "What is DNS tunneling used for?"
   },
   "options": [
-   "53",
-   "80",
-   "443",
-   "123"
+   "Smuggling data in queries",
+   "Speeding up lookups",
+   "Blocking a domain",
+   "Signing a zone"
   ],
-  "answer": "53",
+  "answer": "Smuggling data in queries",
   "explanation": {
-   "en": "DNS primarily uses port 53 (UDP/TCP)."
+   "en": "Encoding payload into DNS names slips data past filters that let port 53 through unquestioned."
   }
  },
  {

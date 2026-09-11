@@ -708,17 +708,17 @@
   "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "At which OSI layer does a router primarily operate?"
+   "en": "What is a collision domain?"
   },
   "options": [
-   "Layer 3 (Network)",
-   "Layer 2 (Data Link)",
-   "Layer 4 (Transport)",
-   "Layer 7 (Application)"
+   "Where frames can collide",
+   "A range of IP addresses",
+   "A set of DNS records",
+   "One VLAN's broadcast area"
   ],
-  "answer": "Layer 3 (Network)",
+  "answer": "Where frames can collide",
   "explanation": {
-   "en": "Routers forward packets based on IP addresses at Layer 3, the Network layer."
+   "en": "A hub shares one collision domain; each switch port is its own, which is why switches replaced hubs."
   }
  },
  {
@@ -727,17 +727,17 @@
   "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "Which OSI layer uses MAC addresses?"
+   "en": "What does a trunk port carry?"
   },
   "options": [
-   "Layer 2 (Data Link)",
-   "Layer 1 (Physical)",
-   "Layer 3 (Network)",
-   "Layer 5 (Session)"
+   "Many VLANs at once",
+   "A single host's traffic",
+   "Only management data",
+   "Routed layer-3 packets"
   ],
-  "answer": "Layer 2 (Data Link)",
+  "answer": "Many VLANs at once",
   "explanation": {
-   "en": "MAC addressing and switching happen at Layer 2, the Data Link layer."
+   "en": "A trunk tags frames (802.1Q) so multiple VLANs share one link between switches."
   }
  },
  {
@@ -746,17 +746,17 @@
   "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "What is the correct order of the TCP three-way handshake?"
+   "en": "What does a TCP RST do?"
   },
   "options": [
-   "SYN, SYN-ACK, ACK",
-   "ACK, SYN, FIN",
-   "SYN, ACK, SYN",
-   "FIN, ACK, RST"
+   "Aborts the connection now",
+   "Acknowledges data",
+   "Opens the connection",
+   "Resends lost bytes"
   ],
-  "answer": "SYN, SYN-ACK, ACK",
+  "answer": "Aborts the connection now",
   "explanation": {
-   "en": "TCP establishes a connection with SYN, then SYN-ACK, then ACK."
+   "en": "Reset tears the connection down immediately, unlike the graceful four-way FIN close."
   }
  },
  {
@@ -913,21 +913,21 @@
  },
  {
   "id": 49,
-  "category": "routing",
+  "category": "protocols",
   "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "What does NAT (Network Address Translation) do?"
+   "en": "What does PAT add over basic NAT?"
   },
   "options": [
-   "Maps private IPs to a public IP",
-   "Encrypts all traffic",
-   "Resolves domain names",
-   "Assigns MAC addresses"
+   "Many hosts share one IP",
+   "It encrypts the packets",
+   "It routes by hostname",
+   "It assigns leases"
   ],
-  "answer": "Maps private IPs to a public IP",
+  "answer": "Many hosts share one IP",
   "explanation": {
-   "en": "NAT lets many devices with private IPs share one public IP for internet access."
+   "en": "Port Address Translation multiplexes many internal hosts onto one public IP by tracking ports."
   }
  },
  {
@@ -952,20 +952,20 @@
  {
   "id": 54,
   "category": "tcp",
-  "difficulty": "easy",
+  "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "The TCP connection setup uses what?"
+   "en": "What does the TCP sequence number track?"
   },
   "options": [
-   "A three-way handshake (SYN, SYN-ACK, ACK)",
-   "A simple two-way request-reply exchange",
-   "No handshake at all before sending",
-   "A four-way connection setup sequence"
+   "Byte order in the stream",
+   "The remaining window",
+   "The source port",
+   "The checksum value"
   ],
-  "answer": "A three-way handshake (SYN, SYN-ACK, ACK)",
+  "answer": "Byte order in the stream",
   "explanation": {
-   "en": "TCP opens with SYN, SYN-ACK, then ACK."
+   "en": "It numbers bytes so the receiver can reorder segments and detect what is missing."
   }
  },
  {
@@ -1028,20 +1028,20 @@
  {
   "id": 60,
   "category": "protocols",
-  "difficulty": "easy",
+  "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "What does DHCP do?"
+   "en": "What are the four DHCP steps in order?"
   },
   "options": [
-   "Automatically assigns IP addresses to hosts",
-   "Resolves domain names into IP addresses",
-   "Encrypts web traffic between endpoints",
-   "Routes packets between separate networks"
+   "Discover, Offer, Request, Ack",
+   "Request, Offer, Ack, Renew",
+   "Offer, Discover, Ack, Request",
+   "Discover, Request, Offer, Ack"
   ],
-  "answer": "Automatically assigns IP addresses to hosts",
+  "answer": "Discover, Offer, Request, Ack",
   "explanation": {
-   "en": "DHCP leases IP configuration to clients."
+   "en": "DORA: the client discovers, the server offers, the client requests, the server acknowledges."
   }
  },
  {
@@ -1050,17 +1050,17 @@
   "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "What does ARP resolve?"
+   "en": "What does proxy ARP let a router do?"
   },
   "options": [
-   "An IP address to a MAC address",
-   "A domain name to an IP address",
-   "A port number to a service",
-   "A route to the default gateway"
+   "Answer ARP for another host",
+   "Cache DNS records",
+   "Translate private IPs",
+   "Assign IP leases"
   ],
-  "answer": "An IP address to a MAC address",
+  "answer": "Answer ARP for another host",
   "explanation": {
-   "en": "ARP maps IPv4 addresses to hardware MACs."
+   "en": "The router replies with its own MAC for a remote IP, so the sender delivers frames to it to forward on."
   }
  },
  {
@@ -1069,17 +1069,17 @@
   "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "At which OSI layer does a switch primarily operate?"
+   "en": "What is the transport-layer PDU called?"
   },
   "options": [
-   "Layer 2 (Data Link)",
-   "Layer 1 (Physical)",
-   "Layer 3 (Network)",
-   "Layer 4 (Transport)"
+   "A segment",
+   "A frame",
+   "A packet",
+   "A bit"
   ],
-  "answer": "Layer 2 (Data Link)",
+  "answer": "A segment",
   "explanation": {
-   "en": "Switches forward frames using MAC addresses."
+   "en": "Layer 4 data units are segments (TCP); the network layer wraps them in packets, the link layer in frames."
   }
  },
  {
@@ -1104,20 +1104,20 @@
  {
   "id": 65,
   "category": "dns",
-  "difficulty": "easy",
+  "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "Which port does DNS use by default?"
+   "en": "What do DoH and DoT add to DNS?"
   },
   "options": [
-   "53",
-   "80",
-   "443",
-   "25"
+   "Encryption of queries",
+   "Faster resolution",
+   "Automatic caching",
+   "Load balancing"
   ],
-  "answer": "53",
+  "answer": "Encryption of queries",
   "explanation": {
-   "en": "DNS uses port 53 (UDP, and TCP for large replies)."
+   "en": "DNS over HTTPS/TLS hides lookups from on-path observers, which plain UDP port 53 exposes."
   }
  },
  {
@@ -1161,20 +1161,20 @@
  {
   "id": 68,
   "category": "osi",
-  "difficulty": "easy",
+  "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "At which OSI layer does a router operate?"
+   "en": "What does CSMA/CD do on legacy Ethernet?"
   },
   "options": [
-   "Layer 3 (Network)",
-   "Layer 2 (Data Link)",
-   "Layer 4 (Transport)",
-   "Layer 7 (Application)"
+   "Detects and backs off collisions",
+   "Encrypts the frame payload",
+   "Assigns IP addresses",
+   "Routes between networks"
   ],
-  "answer": "Layer 3 (Network)",
+  "answer": "Detects and backs off collisions",
   "explanation": {
-   "en": "Routers forward packets using layer-3 IP addresses."
+   "en": "Stations listen before sending and retry after a random wait; full-duplex switching makes it unnecessary."
   }
  },
  {
@@ -1183,17 +1183,17 @@
   "difficulty": "easy",
   "codeSnippet": "",
   "question": {
-   "en": "Which OSI layer do MAC addresses belong to?"
+   "en": "What defines one broadcast domain?"
   },
   "options": [
-   "Layer 2 (Data Link)",
-   "Layer 1 (Physical)",
-   "Layer 3 (Network)",
-   "Layer 5 (Session)"
+   "All of a switch's ports",
+   "One cable segment only",
+   "A single physical port",
+   "A fixed range of ports"
   ],
-  "answer": "Layer 2 (Data Link)",
+  "answer": "All of a switch's ports",
   "explanation": {
-   "en": "MAC addressing is how switches identify hosts on a local segment."
+   "en": "A switch floods broadcasts to every port, so its ports form one domain; a router or VLAN ends it."
   }
  },
  {
@@ -1240,17 +1240,17 @@
   "difficulty": "easy",
   "codeSnippet": "",
   "question": {
-   "en": "Which sequence forms the TCP three-way handshake?"
+   "en": "What is an ephemeral port?"
   },
   "options": [
-   "SYN, SYN-ACK, ACK",
-   "ACK, SYN, FIN",
-   "SYN, FIN, ACK",
-   "PSH, ACK, RST"
+   "A short-lived client port",
+   "A reserved server port",
+   "A blocked port",
+   "A multicast port"
   ],
-  "answer": "SYN, SYN-ACK, ACK",
+  "answer": "A short-lived client port",
   "explanation": {
-   "en": "The client offers, the server answers, the client confirms."
+   "en": "The OS picks a high-numbered port for each outbound connection and frees it when the socket closes."
   }
  },
  {
@@ -1389,20 +1389,20 @@
  {
   "id": 80,
   "category": "dns",
-  "difficulty": "easy",
+  "difficulty": "hard",
   "codeSnippet": "",
   "question": {
-   "en": "Which DNS record points one name at another name?"
+   "en": "What problem does an ALIAS record solve?"
   },
   "options": [
-   "CNAME",
-   "AAAA",
-   "HTTPS",
-   "MX"
+   "A CNAME at the zone apex",
+   "A missing reverse record",
+   "A slow recursive lookup",
+   "An expired TTL"
   ],
-  "answer": "CNAME",
+  "answer": "A CNAME at the zone apex",
   "explanation": {
-   "en": "A CNAME is an alias that resolves through to its target."
+   "en": "The apex cannot hold a CNAME, so an ALIAS/ANAME resolves the target and returns its address instead."
   }
  },
  {
@@ -1446,39 +1446,39 @@
  {
   "id": 84,
   "category": "protocols",
-  "difficulty": "easy",
+  "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "Which protocol hands out IP addresses automatically?"
+   "en": "When does a DHCP client first try to renew?"
   },
   "options": [
-   "DHCP",
-   "DNS",
-   "ARP",
-   "ICMP"
+   "At half the lease",
+   "At lease expiry",
+   "Every reboot",
+   "After an ARP fails"
   ],
-  "answer": "DHCP",
+  "answer": "At half the lease",
   "explanation": {
-   "en": "A DHCP server leases addresses and options to clients."
+   "en": "At T1 (50%) it renews with its own server; at T2 (~87.5%) it rebinds by broadcasting to any server."
   }
  },
  {
   "id": 85,
-  "category": "protocols",
+  "category": "security",
   "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "Which protocol resolves an IP address to a MAC address?"
+   "en": "What does ARP spoofing enable?"
   },
   "options": [
-   "ARP",
-   "DNS",
-   "DHCP",
-   "NAT"
+   "A man-in-the-middle",
+   "A port scan",
+   "A DNS cache hit",
+   "A faster handshake"
   ],
-  "answer": "ARP",
+  "answer": "A man-in-the-middle",
   "explanation": {
-   "en": "ARP asks the local segment who owns a given IP."
+   "en": "Forged ARP replies bind the attacker's MAC to a gateway IP, so traffic flows through them."
   }
  },
  {
@@ -1560,20 +1560,20 @@
  {
   "id": 90,
   "category": "osi",
-  "difficulty": "medium",
+  "difficulty": "easy",
   "codeSnippet": "",
   "question": {
-   "en": "At which OSI layer does IP operate?"
+   "en": "What does a hub do with an incoming frame?"
   },
   "options": [
-   "The network layer (layer 3)",
-   "The transport layer (layer 4)",
-   "The data-link layer (layer 2)",
-   "The session layer (layer 5)"
+   "Repeats it to every port",
+   "Forwards it by MAC",
+   "Routes it by IP",
+   "Drops it if unknown"
   ],
-  "answer": "The network layer (layer 3)",
+  "answer": "Repeats it to every port",
   "explanation": {
-   "en": "IP handles addressing and routing at layer 3; TCP/UDP sit above at layer 4."
+   "en": "A hub is a dumb repeater, so all ports share bandwidth and one collision domain."
   }
  },
  {
@@ -2016,20 +2016,20 @@
  {
   "id": 116,
   "category": "services",
-  "difficulty": "easy",
-  "codeSnippet": "// laptop gets an IP automatically",
+  "difficulty": "medium",
+  "codeSnippet": "",
   "question": {
-   "en": "Which protocol assigns IP addresses automatically?"
+   "en": "What does a DHCP relay let you do?"
   },
   "options": [
-   "DHCP address leasing",
-   "DNS name lookup",
-   "SMTP mail relay",
-   "SNMP device polling"
+   "Serve DHCP across subnets",
+   "Assign static IPs only",
+   "Encrypt the DHCP offer",
+   "Skip the lease step"
   ],
-  "answer": "DHCP address leasing",
+  "answer": "Serve DHCP across subnets",
   "explanation": {
-   "en": "DHCP leases IP configuration to clients automatically."
+   "en": "Broadcasts do not cross routers, so a relay (IP helper) forwards them to a central DHCP server."
   }
  },
  {
@@ -2795,20 +2795,20 @@
  {
   "id": 157,
   "category": "dns",
-  "difficulty": "easy",
+  "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "What does the TTL on a record control?"
+   "en": "What is DNS negative caching?"
   },
   "options": [
-   "How long resolvers cache",
-   "How many hops it survives",
-   "How long the query waits",
-   "How often the zone reloads"
+   "Remembering a name does not exist",
+   "Caching only A records",
+   "Dropping expired entries",
+   "Refusing recursive queries"
   ],
-  "answer": "How long resolvers cache",
+  "answer": "Remembering a name does not exist",
   "explanation": {
-   "en": "TTL is a caching lifetime in seconds, unrelated to the IP header's TTL."
+   "en": "An NXDOMAIN is cached (bounded by the SOA minimum) so repeated lookups of a missing name are cheap."
   }
  },
  {
@@ -3159,17 +3159,17 @@
   "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "What does spanning tree prevent?"
+   "en": "What is the root bridge in spanning tree?"
   },
   "options": [
-   "Layer-2 loops",
-   "MAC spoofing",
-   "VLAN hopping",
-   "ARP poisoning"
+   "The reference for all paths",
+   "The busiest switch",
+   "The default gateway",
+   "The newest switch"
   ],
-  "answer": "Layer-2 loops",
+  "answer": "The reference for all paths",
   "explanation": {
-   "en": "STP blocks redundant links so frames cannot circulate forever."
+   "en": "The switch with the lowest bridge ID is elected root; every other switch picks its lowest-cost path to it."
   }
  },
  {
@@ -3634,17 +3634,17 @@
   "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "What does a DNS TTL value control?"
+   "en": "What does the AA flag in a DNS reply mean?"
   },
   "options": [
-   "Cache lifetime in seconds",
-   "Number of retries allowed",
-   "Depth of the delegation",
-   "Size of the response"
+   "The answer is authoritative",
+   "The query was recursive",
+   "The record is cached",
+   "The response was truncated"
   ],
-  "answer": "Cache lifetime in seconds",
+  "answer": "The answer is authoritative",
   "explanation": {
-   "en": "Lowering it before a migration is why cutovers are planned days ahead."
+   "en": "It is set when the answer comes from a zone's own nameserver rather than a resolver's cache."
   }
  },
  {
