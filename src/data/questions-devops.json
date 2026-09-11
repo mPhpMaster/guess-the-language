@@ -1123,20 +1123,20 @@
  {
   "id": 63,
   "category": "kubernetes",
-  "difficulty": "medium",
+  "difficulty": "hard",
   "codeSnippet": "",
   "question": {
-   "en": "What does a Kubernetes Service provide?"
+   "en": "What does a headless Service give you?"
   },
   "options": [
-   "A stable network endpoint for a set of pods",
-   "Persistent disk storage for stateful data",
-   "A private container image registry",
-   "An automated CI/CD build pipeline"
+   "Direct per-pod DNS",
+   "One shared cluster IP",
+   "An external load balancer",
+   "A stable node port"
   ],
-  "answer": "A stable network endpoint for a set of pods",
+  "answer": "Direct per-pod DNS",
   "explanation": {
-   "en": "A Service gives pods a stable IP/DNS name."
+   "en": "With no cluster IP it returns each pod's own address, which is how StatefulSet pods are found."
   }
  },
  {
@@ -3555,20 +3555,20 @@
  {
   "id": 192,
   "category": "observability",
-  "difficulty": "easy",
+  "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "What do structured logs make easier?"
+   "en": "Why sample traces or logs?"
   },
   "options": [
-   "Querying by field",
-   "Reducing disk use",
-   "Rotating log files",
-   "Colouring output"
+   "To cut volume and cost",
+   "To encrypt the data",
+   "To order events",
+   "To add more fields"
   ],
-  "answer": "Querying by field",
+  "answer": "To cut volume and cost",
   "explanation": {
-   "en": "Machine-readable key/value records let you filter by request id without brittle regexes."
+   "en": "Keeping a representative fraction preserves the signal while avoiding the storage of every event."
   }
  },
  {
@@ -3615,17 +3615,17 @@
   "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "What does a StatefulSet guarantee?"
+   "en": "What does an init container do?"
   },
   "options": [
-   "Stable names and storage",
-   "Faster pod scheduling",
-   "Automatic node scaling",
-   "Zero-downtime upgrades"
+   "Runs before the app starts",
+   "Restarts a crashed pod",
+   "Holds the pod's storage",
+   "Balances incoming traffic"
   ],
-  "answer": "Stable names and storage",
+  "answer": "Runs before the app starts",
   "explanation": {
-   "en": "Ordinal identities and sticky volumes are what databases need and Deployments do not offer."
+   "en": "It runs to completion first — fetching config or waiting on a dependency — before the main containers."
   }
  },
  {
@@ -3729,17 +3729,17 @@
   "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "What does an error budget measure?"
+   "en": "What is a service level indicator (SLI)?"
   },
   "options": [
-   "Allowed unreliability",
-   "Total incident cost",
-   "Mean time to repair",
-   "Number of rollbacks"
+   "A measured reliability metric",
+   "A promise to customers",
+   "A budget for outages",
+   "A limit on requests"
   ],
-  "answer": "Allowed unreliability",
+  "answer": "A measured reliability metric",
   "explanation": {
-   "en": "It is whatever the SLO leaves over, and spending it all is what pauses risky releases."
+   "en": "An SLI is the number itself — say request success rate — that an SLO then sets a target for."
   }
  },
  {

@@ -1,0 +1,352 @@
+{
+  "questions-network.json": {
+    "42": {
+      "category": "ip",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What is 255.255.255.255 used for?"
+      },
+      "options": [
+        "A limited broadcast",
+        "A loopback test",
+        "A default route",
+        "A subnet mask"
+      ],
+      "answer": "A limited broadcast",
+      "explanation": {
+        "en": "It reaches every host on the local link and is never forwarded by a router."
+      }
+    },
+    "114": {
+      "category": "addressing",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does a /32 prefix describe?"
+      },
+      "options": [
+        "A single host route",
+        "A whole subnet",
+        "A private range",
+        "A multicast group"
+      ],
+      "answer": "A single host route",
+      "explanation": {
+        "en": "All 32 bits are fixed, so it matches exactly one address — used for host routes and loopbacks."
+      }
+    },
+    "58": {
+      "category": "ip",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "How many usable hosts does a /25 have?"
+      },
+      "options": [
+        "126",
+        "128",
+        "254",
+        "62"
+      ],
+      "answer": "126",
+      "explanation": {
+        "en": "A /25 has 128 addresses; subtracting the network and broadcast leaves 126 usable."
+      }
+    },
+    "76": {
+      "category": "ip",
+      "difficulty": "hard",
+      "codeSnippet": "",
+      "question": {
+        "en": "How many /26 subnets fit in a /24?"
+      },
+      "options": [
+        "4",
+        "2",
+        "8",
+        "16"
+      ],
+      "answer": "4",
+      "explanation": {
+        "en": "Borrowing two host bits (/24 to /26) yields 2 squared, which is four equal subnets."
+      }
+    },
+    "79": {
+      "category": "dns",
+      "difficulty": "hard",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does an SRV record specify?"
+      },
+      "options": [
+        "A service's host and port",
+        "A mail server's priority",
+        "A name's IPv6 address",
+        "An alias to another name"
+      ],
+      "answer": "A service's host and port",
+      "explanation": {
+        "en": "SRV records let clients discover where a service (SIP, XMPP, LDAP) runs, port included."
+      }
+    },
+    "59": {
+      "category": "routing",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does the route 0.0.0.0/0 mean?"
+      },
+      "options": [
+        "The default route",
+        "A blocked network",
+        "The local subnet",
+        "A loopback route"
+      ],
+      "answer": "The default route",
+      "explanation": {
+        "en": "It matches any destination not covered by a more specific route — the gateway of last resort."
+      }
+    },
+    "153": {
+      "category": "osi",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does the presentation layer handle?"
+      },
+      "options": [
+        "Encoding and encryption",
+        "Routing between networks",
+        "Reliable delivery",
+        "Physical signalling"
+      ],
+      "answer": "Encoding and encryption",
+      "explanation": {
+        "en": "Layer 6 translates data formats — character sets, compression, encryption — for the application layer."
+      }
+    },
+    "25": {
+      "category": "osi",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does the session layer manage?"
+      },
+      "options": [
+        "Dialogue between hosts",
+        "Routing of packets",
+        "Physical signalling",
+        "Byte-order in a stream"
+      ],
+      "answer": "Dialogue between hosts",
+      "explanation": {
+        "en": "Layer 5 sets up, maintains and tears down conversations, including checkpoints for long transfers."
+      }
+    },
+    "154": {
+      "category": "tools",
+      "difficulty": "medium",
+      "codeSnippet": "ss -tlnp",
+      "question": {
+        "en": "What does the -p flag add here?"
+      },
+      "options": [
+        "The owning process",
+        "The UDP sockets",
+        "The routing table",
+        "The interface stats"
+      ],
+      "answer": "The owning process",
+      "explanation": {
+        "en": "-p shows which program holds each socket, so you can tell what is listening on a port."
+      }
+    }
+  },
+  "questions-cyber.json": {
+    "100": {
+      "category": "crypto",
+      "difficulty": "hard",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does key stretching do to a password?"
+      },
+      "options": [
+        "Makes hashing costly",
+        "Adds a random salt",
+        "Encrypts it at rest",
+        "Shortens the digest"
+      ],
+      "answer": "Makes hashing costly",
+      "explanation": {
+        "en": "Functions like PBKDF2 or Argon2 repeat the work so each guess is expensive for an attacker."
+      }
+    },
+    "234": {
+      "category": "crypto",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What is a pepper in password hashing?"
+      },
+      "options": [
+        "A secret kept apart",
+        "A per-user random salt",
+        "A slower hash round",
+        "A longer output digest"
+      ],
+      "answer": "A secret kept apart",
+      "explanation": {
+        "en": "Unlike the salt, a pepper is stored outside the database, so a dump alone cannot verify guesses."
+      }
+    }
+  },
+  "questions-devops.json": {
+    "63": {
+      "category": "kubernetes",
+      "difficulty": "hard",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does a headless Service give you?"
+      },
+      "options": [
+        "Direct per-pod DNS",
+        "One shared cluster IP",
+        "An external load balancer",
+        "A stable node port"
+      ],
+      "answer": "Direct per-pod DNS",
+      "explanation": {
+        "en": "With no cluster IP it returns each pod's own address, which is how StatefulSet pods are found."
+      }
+    },
+    "195": {
+      "category": "kubernetes",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does an init container do?"
+      },
+      "options": [
+        "Runs before the app starts",
+        "Restarts a crashed pod",
+        "Holds the pod's storage",
+        "Balances incoming traffic"
+      ],
+      "answer": "Runs before the app starts",
+      "explanation": {
+        "en": "It runs to completion first — fetching config or waiting on a dependency — before the main containers."
+      }
+    },
+    "192": {
+      "category": "observability",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "Why sample traces or logs?"
+      },
+      "options": [
+        "To cut volume and cost",
+        "To encrypt the data",
+        "To order events",
+        "To add more fields"
+      ],
+      "answer": "To cut volume and cost",
+      "explanation": {
+        "en": "Keeping a representative fraction preserves the signal while avoiding the storage of every event."
+      }
+    },
+    "201": {
+      "category": "reliability",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What is a service level indicator (SLI)?"
+      },
+      "options": [
+        "A measured reliability metric",
+        "A promise to customers",
+        "A budget for outages",
+        "A limit on requests"
+      ],
+      "answer": "A measured reliability metric",
+      "explanation": {
+        "en": "An SLI is the number itself — say request success rate — that an SLO then sets a target for."
+      }
+    }
+  },
+  "questions-gamedev.json": {
+    "53": {
+      "category": "optimization",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does a spatial partition like a quadtree speed up?"
+      },
+      "options": [
+        "Finding nearby objects",
+        "Loading textures",
+        "Playing sound effects",
+        "Saving the game"
+      ],
+      "answer": "Finding nearby objects",
+      "explanation": {
+        "en": "Dividing space cuts collision and query checks from every-pair to only the objects that could be near."
+      }
+    },
+    "84": {
+      "category": "timing",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What causes visible frame pacing stutter?"
+      },
+      "options": [
+        "Uneven frame times",
+        "A low texture count",
+        "Too few draw calls",
+        "A small view frustum"
+      ],
+      "answer": "Uneven frame times",
+      "explanation": {
+        "en": "Frames delivered at irregular intervals read as jitter even when the average frame rate is high."
+      }
+    },
+    "41": {
+      "category": "animation",
+      "difficulty": "easy",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does an easing function shape?"
+      },
+      "options": [
+        "How a value changes over time",
+        "How a mesh is lit",
+        "How input is buffered",
+        "How audio is mixed"
+      ],
+      "answer": "How a value changes over time",
+      "explanation": {
+        "en": "Easing maps linear progress to an accelerating or decelerating curve, so motion feels natural."
+      }
+    },
+    "186": {
+      "category": "rendering",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does triple buffering add over double?"
+      },
+      "options": [
+        "A spare back buffer",
+        "A second GPU pass",
+        "A deeper depth test",
+        "A larger texture cache"
+      ],
+      "answer": "A spare back buffer",
+      "explanation": {
+        "en": "A third buffer lets rendering continue when a frame misses vsync, smoothing the frame rate at a small latency cost."
+      }
+    }
+  }
+}

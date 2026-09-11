@@ -457,21 +457,21 @@
  },
  {
   "id": 25,
-  "category": "routing",
+  "category": "osi",
   "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "A switch operates primarily at OSI layer?"
+   "en": "What does the session layer manage?"
   },
   "options": [
-   "Layer 2 (Data Link)",
-   "Layer 3 (Network)",
-   "Layer 1 (Physical)",
-   "Layer 4 (Transport)"
+   "Dialogue between hosts",
+   "Routing of packets",
+   "Physical signalling",
+   "Byte-order in a stream"
   ],
-  "answer": "Layer 2 (Data Link)",
+  "answer": "Dialogue between hosts",
   "explanation": {
-   "en": "Switches forward frames using MAC addresses at Layer 2."
+   "en": "Layer 5 sets up, maintains and tears down conversations, including checkpoints for long transfers."
   }
  },
  {
@@ -781,20 +781,20 @@
  {
   "id": 42,
   "category": "ip",
-  "difficulty": "easy",
+  "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "What is the IPv4 loopback address?"
+   "en": "What is 255.255.255.255 used for?"
   },
   "options": [
-   "127.0.0.1",
-   "192.168.0.1",
-   "10.0.0.1",
-   "255.255.255.255"
+   "A limited broadcast",
+   "A loopback test",
+   "A default route",
+   "A subnet mask"
   ],
-  "answer": "127.0.0.1",
+  "answer": "A limited broadcast",
   "explanation": {
-   "en": "127.0.0.1 (localhost) always refers to the local machine."
+   "en": "It reaches every host on the local link and is never forwarded by a router."
   }
  },
  {
@@ -993,17 +993,17 @@
   "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "How many usable host addresses are in a /24 subnet?"
+   "en": "How many usable hosts does a /25 have?"
   },
   "options": [
+   "126",
+   "128",
    "254",
-   "256",
-   "255",
-   "512"
+   "62"
   ],
-  "answer": "254",
+  "answer": "126",
   "explanation": {
-   "en": "A /24 has 256 addresses minus network and broadcast."
+   "en": "A /25 has 128 addresses; subtracting the network and broadcast leaves 126 usable."
   }
  },
  {
@@ -1012,17 +1012,17 @@
   "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "What is a default gateway?"
+   "en": "What does the route 0.0.0.0/0 mean?"
   },
   "options": [
-   "The router used to reach non-local networks",
-   "A resolver that turns names into IPs",
-   "A server that hands out DHCP leases",
-   "A single rule inside the firewall"
+   "The default route",
+   "A blocked network",
+   "The local subnet",
+   "A loopback route"
   ],
-  "answer": "The router used to reach non-local networks",
+  "answer": "The default route",
   "explanation": {
-   "en": "Traffic to other subnets goes via the default gateway."
+   "en": "It matches any destination not covered by a more specific route — the gateway of last resort."
   }
  },
  {
@@ -1313,20 +1313,20 @@
  {
   "id": 76,
   "category": "ip",
-  "difficulty": "easy",
+  "difficulty": "hard",
   "codeSnippet": "",
   "question": {
-   "en": "How many usable host addresses does a /24 provide?"
+   "en": "How many /26 subnets fit in a /24?"
   },
   "options": [
-   "254",
-   "256",
-   "255",
-   "128"
+   "4",
+   "2",
+   "8",
+   "16"
   ],
-  "answer": "254",
+  "answer": "4",
   "explanation": {
-   "en": "256 addresses minus the network and broadcast address."
+   "en": "Borrowing two host bits (/24 to /26) yields 2 squared, which is four equal subnets."
   }
  },
  {
@@ -1370,20 +1370,20 @@
  {
   "id": 79,
   "category": "dns",
-  "difficulty": "easy",
+  "difficulty": "hard",
   "codeSnippet": "",
   "question": {
-   "en": "Which DNS record maps a name to an IPv4 address?"
+   "en": "What does an SRV record specify?"
   },
   "options": [
-   "A",
-   "AAAA",
-   "CNAME",
-   "TXT"
+   "A service's host and port",
+   "A mail server's priority",
+   "A name's IPv6 address",
+   "An alias to another name"
   ],
-  "answer": "A",
+  "answer": "A service's host and port",
   "explanation": {
-   "en": "An A record holds an IPv4 address; AAAA holds IPv6."
+   "en": "SRV records let clients discover where a service (SIP, XMPP, LDAP) runs, port included."
   }
  },
  {
@@ -1978,20 +1978,20 @@
  {
   "id": 114,
   "category": "addressing",
-  "difficulty": "easy",
-  "codeSnippet": "ping 127.0.0.1",
+  "difficulty": "medium",
+  "codeSnippet": "",
   "question": {
-   "en": "What is 127.0.0.1 known as?"
+   "en": "What does a /32 prefix describe?"
   },
   "options": [
-   "The loopback address",
-   "The default gateway",
-   "A broadcast address",
-   "A public DNS server"
+   "A single host route",
+   "A whole subnet",
+   "A private range",
+   "A multicast group"
   ],
-  "answer": "The loopback address",
+  "answer": "A single host route",
   "explanation": {
-   "en": "127.0.0.1 loops back to the local host itself."
+   "en": "All 32 bits are fixed, so it matches exactly one address — used for host routes and loopbacks."
   }
  },
  {
@@ -2719,39 +2719,39 @@
  {
   "id": 153,
   "category": "osi",
-  "difficulty": "easy",
+  "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "Which layer does TLS sit above?"
+   "en": "What does the presentation layer handle?"
   },
   "options": [
-   "Transport",
-   "Data link",
-   "Physical",
-   "Network"
+   "Encoding and encryption",
+   "Routing between networks",
+   "Reliable delivery",
+   "Physical signalling"
   ],
-  "answer": "Transport",
+  "answer": "Encoding and encryption",
   "explanation": {
-   "en": "TLS runs on top of a reliable transport, normally TCP."
+   "en": "Layer 6 translates data formats — character sets, compression, encryption — for the application layer."
   }
  },
  {
   "id": 154,
   "category": "tools",
-  "difficulty": "easy",
+  "difficulty": "medium",
   "codeSnippet": "ss -tlnp",
   "question": {
-   "en": "What does this list?"
+   "en": "What does the -p flag add here?"
   },
   "options": [
-   "Listening TCP sockets",
-   "Established UDP flows",
-   "Kernel routing entries",
-   "Configured interfaces"
+   "The owning process",
+   "The UDP sockets",
+   "The routing table",
+   "The interface stats"
   ],
-  "answer": "Listening TCP sockets",
+  "answer": "The owning process",
   "explanation": {
-   "en": "`-t` TCP, `-l` listening, `-n` numeric, `-p` the owning process."
+   "en": "-p shows which program holds each socket, so you can tell what is listening on a port."
   }
  },
  {

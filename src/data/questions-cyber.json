@@ -1863,21 +1863,21 @@
  },
  {
   "id": 100,
-  "category": "tools",
-  "difficulty": "medium",
-  "codeSnippet": "hydra -l admin -P pass.txt ssh://10.0.0.1",
+  "category": "crypto",
+  "difficulty": "hard",
+  "codeSnippet": "",
   "question": {
-   "en": "What is this command doing?"
+   "en": "What does key stretching do to a password?"
   },
   "options": [
-   "Brute-forcing an SSH login",
-   "Scanning open ports",
-   "Sniffing traffic",
-   "Encrypting a file"
+   "Makes hashing costly",
+   "Adds a random salt",
+   "Encrypts it at rest",
+   "Shortens the digest"
   ],
-  "answer": "Brute-forcing an SSH login",
+  "answer": "Makes hashing costly",
   "explanation": {
-   "en": "Hydra tries each password against the SSH service."
+   "en": "Functions like PBKDF2 or Argon2 repeat the work so each guess is expensive for an attacker."
   }
  },
  {
@@ -4356,17 +4356,17 @@
   "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "Why is bcrypt preferred over SHA-256?"
+   "en": "What is a pepper in password hashing?"
   },
   "options": [
-   "It is deliberately slow",
-   "It produces longer output",
-   "It needs no salt at all",
-   "It cannot be reversed"
+   "A secret kept apart",
+   "A per-user random salt",
+   "A slower hash round",
+   "A longer output digest"
   ],
-  "answer": "It is deliberately slow",
+  "answer": "A secret kept apart",
   "explanation": {
-   "en": "A tunable work factor keeps offline guessing expensive as hardware gets faster."
+   "en": "Unlike the salt, a pepper is stored outside the database, so a dump alone cannot verify guesses."
   }
  },
  {

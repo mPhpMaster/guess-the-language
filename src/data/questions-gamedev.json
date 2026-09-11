@@ -761,21 +761,21 @@
  },
  {
   "id": 41,
-  "category": "collision",
-  "difficulty": "medium",
+  "category": "animation",
+  "difficulty": "easy",
   "codeSnippet": "",
   "question": {
-   "en": "What is an AABB?"
+   "en": "What does an easing function shape?"
   },
   "options": [
-   "An axis-aligned bounding box",
-   "A navigation pathfinding node",
-   "An animation blend-tree node",
-   "A single shader render pass"
+   "How a value changes over time",
+   "How a mesh is lit",
+   "How input is buffered",
+   "How audio is mixed"
   ],
-  "answer": "An axis-aligned bounding box",
+  "answer": "How a value changes over time",
   "explanation": {
-   "en": "AABBs give fast, simple collision bounds."
+   "en": "Easing maps linear progress to an accelerating or decelerating curve, so motion feels natural."
   }
  },
  {
@@ -989,21 +989,21 @@
  },
  {
   "id": 53,
-  "category": "physics",
+  "category": "optimization",
   "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "Why multiply movement by deltaTime?"
+   "en": "What does a spatial partition like a quadtree speed up?"
   },
   "options": [
-   "To make motion frame-rate independent",
-   "To make the whole game run faster",
-   "To lower the game's memory usage",
-   "To smooth out the blurry textures"
+   "Finding nearby objects",
+   "Loading textures",
+   "Playing sound effects",
+   "Saving the game"
   ],
-  "answer": "To make motion frame-rate independent",
+  "answer": "Finding nearby objects",
   "explanation": {
-   "en": "Scaling by elapsed time keeps speed equal on fast and slow machines."
+   "en": "Dividing space cuts collision and query checks from every-pair to only the objects that could be near."
   }
  },
  {
@@ -1578,21 +1578,21 @@
  },
  {
   "id": 84,
-  "category": "gameplay",
-  "difficulty": "easy",
-  "codeSnippet": "transform.Translate(Vector3.forward * speed * Time.deltaTime);",
+  "category": "timing",
+  "difficulty": "medium",
+  "codeSnippet": "",
   "question": {
-   "en": "Why multiply by Time.deltaTime here?"
+   "en": "What causes visible frame pacing stutter?"
   },
   "options": [
-   "Make movement frame-rate independent",
-   "Double the movement speed value",
-   "Convert the vector into degrees",
-   "Cache the transform component"
+   "Uneven frame times",
+   "A low texture count",
+   "Too few draw calls",
+   "A small view frustum"
   ],
-  "answer": "Make movement frame-rate independent",
+  "answer": "Uneven frame times",
   "explanation": {
-   "en": "deltaTime scales motion by elapsed time so speed is consistent across frame rates."
+   "en": "Frames delivered at irregular intervals read as jitter even when the average frame rate is high."
   }
  },
  {
@@ -3516,21 +3516,21 @@
  },
  {
   "id": 186,
-  "category": "physics",
+  "category": "rendering",
   "difficulty": "medium",
   "codeSnippet": "",
   "question": {
-   "en": "Why is physics run on a fixed timestep?"
+   "en": "What does triple buffering add over double?"
   },
   "options": [
-   "For deterministic simulation",
-   "For lower memory traffic",
-   "For fewer draw calls",
-   "For smoother animation"
+   "A spare back buffer",
+   "A second GPU pass",
+   "A deeper depth test",
+   "A larger texture cache"
   ],
-  "answer": "For deterministic simulation",
+  "answer": "A spare back buffer",
   "explanation": {
-   "en": "Variable steps make the same inputs produce different results, which breaks replays and netcode."
+   "en": "A third buffer lets rendering continue when a frame misses vsync, smoothing the frame rate at a small latency cost."
   }
  },
  {
