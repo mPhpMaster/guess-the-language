@@ -344,6 +344,14 @@ Two guards matter, and they measure different things:
 point: the validator averages a bad batch of 20 against a bank of 200, dilute
 enough to pass while still making the bank worse.
 
+Neither guard catches a **paraphrase** — the same concept asked in different
+words, e.g. "What does terraform plan show?" and "What does terraform plan
+produce?". `scripts/find-near-duplicates.js` ranks every pair of knowledge
+questions by token overlap of prompt + answer (and flags any pair sharing an
+answer) so those can be found and rewritten. It is advisory — a shared answer is
+not proof (`254` hosts on a /24 and `62` on a /26 are different questions with
+close prompts) — so it never fails a build; a human decides.
+
 ---
 
 ## Cloud leaderboard (Supabase)

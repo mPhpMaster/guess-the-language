@@ -1,0 +1,586 @@
+{
+  "questions-cyber.json": {
+    "111": {
+      "category": "nmap",
+      "difficulty": "medium",
+      "codeSnippet": "nmap -sT 10.0.0.5",
+      "question": {
+        "en": "What is a -sT connect scan?"
+      },
+      "options": [
+        "Full TCP handshake",
+        "Raw SYN probe only",
+        "A UDP port sweep",
+        "An ICMP echo ping"
+      ],
+      "answer": "Full TCP handshake",
+      "explanation": {
+        "en": "It completes the handshake, so it needs no root but is easier for the target to log."
+      }
+    },
+    "178": {
+      "category": "nmap",
+      "difficulty": "hard",
+      "codeSnippet": "nmap -sA 10.0.0.5",
+      "question": {
+        "en": "What does an -sA ACK scan map?"
+      },
+      "options": [
+        "Firewall filtering rules",
+        "Running service versions",
+        "The target's OS",
+        "Open UDP ports"
+      ],
+      "answer": "Firewall filtering rules",
+      "explanation": {
+        "en": "It cannot tell open from closed, but which ACKs are dropped reveals whether a port is filtered."
+      }
+    },
+    "112": {
+      "category": "nmap",
+      "difficulty": "medium",
+      "codeSnippet": "nmap -6 ::1",
+      "question": {
+        "en": "What does the -6 flag enable?"
+      },
+      "options": [
+        "Scanning an IPv6 host",
+        "Six parallel probes",
+        "Layer-6 inspection",
+        "A six-second timeout"
+      ],
+      "answer": "Scanning an IPv6 host",
+      "explanation": {
+        "en": "Without it nmap assumes IPv4; the target must be given as an IPv6 address."
+      }
+    },
+    "80": {
+      "category": "nmap",
+      "difficulty": "easy",
+      "codeSnippet": "nmap --top-ports 20 10.0.0.5",
+      "question": {
+        "en": "What does --top-ports 20 scan?"
+      },
+      "options": [
+        "The commonest 20 ports",
+        "Ports 1 to 20",
+        "The top 20 hosts",
+        "20 random ports"
+      ],
+      "answer": "The commonest 20 ports",
+      "explanation": {
+        "en": "It scans the ports most likely to be open by frequency data, a quick first look."
+      }
+    },
+    "114": {
+      "category": "nmap",
+      "difficulty": "easy",
+      "codeSnippet": "nmap --open 10.0.0.5",
+      "question": {
+        "en": "What does the --open flag limit output to?"
+      },
+      "options": [
+        "Only open ports",
+        "Only the OS guess",
+        "Only UDP results",
+        "Only filtered ports"
+      ],
+      "answer": "Only open ports",
+      "explanation": {
+        "en": "It hides closed and filtered ports so the report shows just what is reachable."
+      }
+    },
+    "179": {
+      "category": "nmap",
+      "difficulty": "medium",
+      "codeSnippet": "nmap -iL targets.txt",
+      "question": {
+        "en": "What does -iL read from the file?"
+      },
+      "options": [
+        "A list of targets",
+        "A set of scripts",
+        "A port range",
+        "A login wordlist"
+      ],
+      "answer": "A list of targets",
+      "explanation": {
+        "en": "Each line is a host or range to scan, which is how large sweeps are driven."
+      }
+    },
+    "113": {
+      "category": "nmap",
+      "difficulty": "hard",
+      "codeSnippet": "nmap -g 53 10.0.0.5",
+      "question": {
+        "en": "Why set a source port with -g 53?"
+      },
+      "options": [
+        "To slip past weak filters",
+        "To scan port 53 only",
+        "To speed up the scan",
+        "To resolve DNS names"
+      ],
+      "answer": "To slip past weak filters",
+      "explanation": {
+        "en": "Some firewalls trust traffic from port 53 (DNS), so spoofing it can bypass a naive rule."
+      }
+    },
+    "90": {
+      "category": "metasploit",
+      "difficulty": "medium",
+      "codeSnippet": "sessions -l",
+      "question": {
+        "en": "What does this Metasploit command list?"
+      },
+      "options": [
+        "Open sessions",
+        "Available exploits",
+        "Set options",
+        "Scan results"
+      ],
+      "answer": "Open sessions",
+      "explanation": {
+        "en": "It shows active sessions from successful exploits, each of which you can interact with."
+      }
+    },
+    "89": {
+      "category": "metasploit",
+      "difficulty": "medium",
+      "codeSnippet": "set PAYLOAD windows/x64/meterpreter/reverse_tcp",
+      "question": {
+        "en": "What does this line choose?"
+      },
+      "options": [
+        "The code run on success",
+        "The vulnerable service",
+        "The target address",
+        "The scan technique"
+      ],
+      "answer": "The code run on success",
+      "explanation": {
+        "en": "The payload executes once the exploit lands; Meterpreter is an in-memory agent."
+      }
+    },
+    "99": {
+      "category": "metasploit",
+      "difficulty": "easy",
+      "codeSnippet": "set LPORT 4444",
+      "question": {
+        "en": "In Metasploit, what does LPORT set?"
+      },
+      "options": [
+        "The listener's port",
+        "The target's port",
+        "The local user",
+        "The payload size"
+      ],
+      "answer": "The listener's port",
+      "explanation": {
+        "en": "A reverse shell connects back to LHOST on this port, so a handler must be listening there."
+      }
+    },
+    "92": {
+      "category": "attacks",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What is a watering-hole attack?"
+      },
+      "options": [
+        "Poisoning a site they visit",
+        "Flooding one target host",
+        "Guessing a weak password",
+        "Sniffing an open network"
+      ],
+      "answer": "Poisoning a site they visit",
+      "explanation": {
+        "en": "The attacker compromises a site the target group frequents and waits for them to come to it."
+      }
+    },
+    "116": {
+      "category": "concepts",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What makes offline hash cracking possible?"
+      },
+      "options": [
+        "A stolen hash dump",
+        "An open SSH port",
+        "A live login form",
+        "A valid session cookie"
+      ],
+      "answer": "A stolen hash dump",
+      "explanation": {
+        "en": "With the hashes in hand, an attacker guesses at full speed with no server to rate-limit them."
+      }
+    },
+    "115": {
+      "category": "concepts",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What best defends a login against online brute force?"
+      },
+      "options": [
+        "Lockout after failures",
+        "A longer session cookie",
+        "A faster password hash",
+        "A wider port range"
+      ],
+      "answer": "Lockout after failures",
+      "explanation": {
+        "en": "Throttling or locking after repeated failures makes guess-by-guess attacks impractical."
+      }
+    },
+    "120": {
+      "category": "web",
+      "difficulty": "medium",
+      "codeSnippet": "X-Frame-Options: DENY",
+      "question": {
+        "en": "Which attack does this header stop?"
+      },
+      "options": [
+        "Clickjacking",
+        "SQL injection",
+        "Port scanning",
+        "Password reuse"
+      ],
+      "answer": "Clickjacking",
+      "explanation": {
+        "en": "Refusing to be framed stops an attacker overlaying your page under invisible buttons."
+      }
+    },
+    "84": {
+      "category": "concepts",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does non-repudiation provide?"
+      },
+      "options": [
+        "Proof of who acted",
+        "Secrecy of the data",
+        "Uptime of the service",
+        "Freshness of a token"
+      ],
+      "answer": "Proof of who acted",
+      "explanation": {
+        "en": "A signature ties an action to an identity so the actor cannot later deny having done it."
+      }
+    },
+    "93": {
+      "category": "concepts",
+      "difficulty": "easy",
+      "codeSnippet": "",
+      "question": {
+        "en": "How does authorization differ from authentication?"
+      },
+      "options": [
+        "It decides what you may do",
+        "It proves who you are",
+        "It encrypts the session",
+        "It logs every request"
+      ],
+      "answer": "It decides what you may do",
+      "explanation": {
+        "en": "Authentication establishes identity; authorization then governs which actions it may take."
+      }
+    },
+    "88": {
+      "category": "malware",
+      "difficulty": "easy",
+      "codeSnippet": "",
+      "question": {
+        "en": "What defines adware?"
+      },
+      "options": [
+        "It forces unwanted ads",
+        "It encrypts your files",
+        "It spreads over a LAN",
+        "It hides from the OS"
+      ],
+      "answer": "It forces unwanted ads",
+      "explanation": {
+        "en": "It injects or redirects to advertising, often bundled with free software, sometimes tracking too."
+      }
+    },
+    "106": {
+      "category": "malware",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What is a backdoor?"
+      },
+      "options": [
+        "Hidden access left behind",
+        "A flood of requests",
+        "A fake login page",
+        "A patched exploit"
+      ],
+      "answer": "Hidden access left behind",
+      "explanation": {
+        "en": "It bypasses normal authentication so an attacker can return even after the entry point is closed."
+      }
+    },
+    "129": {
+      "category": "malware",
+      "difficulty": "hard",
+      "codeSnippet": "",
+      "question": {
+        "en": "What is polymorphic malware?"
+      },
+      "options": [
+        "It rewrites its own code",
+        "It targets many ports",
+        "It needs no payload",
+        "It runs only in memory"
+      ],
+      "answer": "It rewrites its own code",
+      "explanation": {
+        "en": "Changing its byte pattern each infection defeats signature matching while the behaviour stays the same."
+      }
+    },
+    "172": {
+      "category": "malware",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What is double-extortion ransomware?"
+      },
+      "options": [
+        "It steals then encrypts",
+        "It asks twice the ransom",
+        "It infects two hosts",
+        "It uses two keys"
+      ],
+      "answer": "It steals then encrypts",
+      "explanation": {
+        "en": "The data is exfiltrated before encryption, so paying to decrypt still risks it being leaked."
+      }
+    },
+    "149": {
+      "category": "principles",
+      "difficulty": "easy",
+      "codeSnippet": "// access limited to the current case file",
+      "question": {
+        "en": "Which principle is this?"
+      },
+      "options": [
+        "Need to know",
+        "Fail secure",
+        "Defence in depth",
+        "Zero trust"
+      ],
+      "answer": "Need to know",
+      "explanation": {
+        "en": "Access is limited to the specific data a task requires, a tighter cut than a broad role grant."
+      }
+    },
+    "192": {
+      "category": "principles",
+      "difficulty": "medium",
+      "codeSnippet": "",
+      "question": {
+        "en": "What does an access control list define?"
+      },
+      "options": [
+        "Who may touch a resource",
+        "How long a token lasts",
+        "Which cipher is used",
+        "When logs rotate"
+      ],
+      "answer": "Who may touch a resource",
+      "explanation": {
+        "en": "An ACL binds identities to the operations they are permitted on a specific object."
+      }
+    }
+  },
+  "questions-devops.json": {
+    "52": {
+      "category": "docker",
+      "difficulty": "easy",
+      "codeSnippet": "docker images",
+      "question": {
+        "en": "What does this command list?"
+      },
+      "options": [
+        "Locally stored images",
+        "Running containers",
+        "Open networks",
+        "Mounted volumes"
+      ],
+      "answer": "Locally stored images",
+      "explanation": {
+        "en": "It shows images on the host with their tags and sizes, not containers."
+      }
+    },
+    "54": {
+      "category": "kubernetes",
+      "difficulty": "medium",
+      "codeSnippet": "kubectl delete pod web",
+      "question": {
+        "en": "What usually happens after this?"
+      },
+      "options": [
+        "A controller recreates it",
+        "The node is drained",
+        "The image is removed",
+        "The service is deleted"
+      ],
+      "answer": "A controller recreates it",
+      "explanation": {
+        "en": "A Deployment reconciles back to its replica count, so deleting a managed pod just replaces it."
+      }
+    },
+    "48": {
+      "category": "iac",
+      "difficulty": "medium",
+      "codeSnippet": "terraform output",
+      "question": {
+        "en": "What does this command print?"
+      },
+      "options": [
+        "Declared output values",
+        "The full plan diff",
+        "Provider versions",
+        "The state file path"
+      ],
+      "answer": "Declared output values",
+      "explanation": {
+        "en": "It reads recorded outputs from state — handy for feeding an IP or URL into another tool."
+      }
+    },
+    "60": {
+      "category": "iac",
+      "difficulty": "easy",
+      "codeSnippet": "terraform init",
+      "question": {
+        "en": "What does this command do?"
+      },
+      "options": [
+        "Downloads providers",
+        "Applies the changes",
+        "Previews a diff",
+        "Destroys resources"
+      ],
+      "answer": "Downloads providers",
+      "explanation": {
+        "en": "It prepares the directory: fetches providers and sets up the backend before any plan."
+      }
+    },
+    "84": {
+      "category": "iac",
+      "difficulty": "easy",
+      "codeSnippet": "terraform validate",
+      "question": {
+        "en": "What does this command check?"
+      },
+      "options": [
+        "Config is well formed",
+        "The live infrastructure",
+        "Provider credentials",
+        "The remote state lock"
+      ],
+      "answer": "Config is well formed",
+      "explanation": {
+        "en": "It checks syntax and internal consistency locally, without contacting any provider."
+      }
+    },
+    "106": {
+      "category": "iac",
+      "difficulty": "medium",
+      "codeSnippet": "terraform workspace list",
+      "question": {
+        "en": "What does a Terraform workspace isolate?"
+      },
+      "options": [
+        "A separate state",
+        "A provider plugin",
+        "A module source",
+        "A variable file"
+      ],
+      "answer": "A separate state",
+      "explanation": {
+        "en": "Each workspace keeps its own state under one config, a common way to split dev from prod."
+      }
+    },
+    "72": {
+      "category": "docker",
+      "difficulty": "medium",
+      "codeSnippet": "docker stop web",
+      "question": {
+        "en": "How does stop differ from kill?"
+      },
+      "options": [
+        "It asks the process first",
+        "It removes the image",
+        "It detaches the terminal",
+        "It pauses the CPU only"
+      ],
+      "answer": "It asks the process first",
+      "explanation": {
+        "en": "stop sends SIGTERM then SIGKILL after a grace period, so the app can exit cleanly; kill is immediate."
+      }
+    }
+  },
+  "questions-network.json": {
+    "89": {
+      "category": "diagnostics",
+      "difficulty": "medium",
+      "codeSnippet": "mtr example.com",
+      "question": {
+        "en": "What does mtr combine?"
+      },
+      "options": [
+        "Ping with traceroute",
+        "DNS with a DHCP lease",
+        "ARP with a NAT table",
+        "TLS with a TCP reset"
+      ],
+      "answer": "Ping with traceroute",
+      "explanation": {
+        "en": "It traces the path and keeps pinging each hop, so per-hop loss and latency show up live."
+      }
+    }
+  },
+  "questions-gamedev.json": {
+    "52": {
+      "category": "physics",
+      "difficulty": "easy",
+      "codeSnippet": "velocity.y = Mathf.Max(velocity.y, -maxFall);",
+      "question": {
+        "en": "What does clamping the fall speed model?"
+      },
+      "options": [
+        "Terminal velocity",
+        "A double jump",
+        "Air friction off",
+        "Zero gravity"
+      ],
+      "answer": "Terminal velocity",
+      "explanation": {
+        "en": "Capping downward speed stops endless acceleration, as real drag limits a falling body."
+      }
+    },
+    "91": {
+      "category": "gameplay",
+      "difficulty": "easy",
+      "codeSnippet": "if (Input.GetKey(KeyCode.W)) MoveForward();",
+      "question": {
+        "en": "How does GetKey differ from GetKeyDown?"
+      },
+      "options": [
+        "True every held frame",
+        "True on release only",
+        "True once per press",
+        "True after a delay"
+      ],
+      "answer": "True every held frame",
+      "explanation": {
+        "en": "GetKey reports the key is down each frame it is held; GetKeyDown fires only on the press frame."
+      }
+    }
+  }
+}
