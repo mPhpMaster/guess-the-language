@@ -79,8 +79,8 @@ module.exports = async function handler(req, res) {
   if (action !== 'follow' && action !== 'unfollow') {
     return res.status(400).json({ error: 'Bad action' });
   }
-  if (!follower || follower.length > 24) return res.status(400).json({ error: 'Bad follower' });
-  if (!followee || followee.length > 24) return res.status(400).json({ error: 'Bad followee' });
+  if (!follower || [...follower].length > 24) return res.status(400).json({ error: 'Bad follower' });
+  if (!followee || [...followee].length > 24) return res.status(400).json({ error: 'Bad followee' });
   if (follower.toLowerCase() === followee.toLowerCase()) {
     return res.status(400).json({ error: 'Cannot follow yourself' });
   }

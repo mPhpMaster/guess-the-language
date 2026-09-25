@@ -67,7 +67,7 @@ module.exports = async function handler(req, res) {
   const seconds = Number(req.body?.seconds);
   const xp = Number(req.body?.xp);
 
-  if (!player || player.length > 24) return res.status(400).json({ error: 'Bad player name' });
+  if (!player || [...player].length > 24) return res.status(400).json({ error: 'Bad player name' });
   if (!Number.isSafeInteger(seconds) || seconds < 0 || seconds > MAX_SECONDS) {
     return res.status(400).json({ error: 'Bad seconds' });
   }

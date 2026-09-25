@@ -89,27 +89,4 @@ export const OPTION_COLORS = [
     'linear-gradient(135deg,#ff7a9c,#d8436c)'
 ];
 
-// ---------- Mock friends for the comparison screen ----------
-export const FRIENDS = [{
-        name: 'Ahmed',
-        avatar: '🧔🏽',
-        score: 2450
-    },
-    {
-        name: 'Sarah',
-        avatar: '👩🏼',
-        score: 2180
-    },
-    {
-        name: 'Omar',
-        avatar: '🧑🏻',
-        score: 1920
-    },
-    {
-        name: 'Layla',
-        avatar: '👩🏻‍🦰',
-        score: 1750
-    }
-];
-
 export const RING_CIRCUMFERENCE = 2 * Math.PI * 52; // r = 52 -> ~326.7

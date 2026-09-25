@@ -319,7 +319,7 @@ module.exports = async function handler(req, res) {
          suffixes a colliding name instead of failing. */
       case 'join_room': {
         const roomId = String(req.body?.roomId || '').trim();
-        const name = String(req.body?.name || '').trim().slice(0, 24);
+        const name = Array.from(String(req.body?.name || '').trim()).slice(0, 24).join('');
         if (!UUID_RE.test(roomId)) return res.status(400).json({ error: 'Bad roomId' });
         if (!name) return res.status(400).json({ error: 'Bad name' });
         const out = await rpc(cfg, 'admin_join_room', {

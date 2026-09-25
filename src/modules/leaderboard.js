@@ -1,5 +1,4 @@
 import { LB_WEEKLY, fetchDailyTop, fetchGamesFor, fetchPersonalRank, fetchTopScores, fetchWeeklyTop, lbScope, lbViewMode, submitDailyScore, submitScore, supabaseConfigured, weekStartDateKey } from './api.js';
-import { FRIENDS } from './constants.js';
 import { $, announce, closeDialog, openDialog, setTitlebar } from './dom.js';
 import { formatScore } from './format.js';
 import { MODES, challengeText, t } from './i18n.js';
@@ -235,7 +234,19 @@ export async function buildResultsLeaderboard() {
         note.textContent = t('lbLoading');
         try {
             // Only submit a real score; viewing scores (score 0) must not write a row.
-            const me = state.score > 0 ? await submitScore(playerName, state.score) : null;
+            // A rejected submit must not take the whole board down with it: the
+            // reads below still work, so show the real board and say the score
+            // wasn't saved instead of falling back to a fake one.
+            let me = null;
+            let submitFailed = false;
+            if (state.score > 0) {
+                try {
+                    me = await submitScore(playerName, state.score);
+                } catch (e) {
+                    console.error('Score submit error:', e);
+                    submitFailed = true;
+                }
+            }
             const [top, personalRank] = await Promise.all([
                 fetchTopScores(10),
                 state.score > 0 ? fetchPersonalRank(state.score) : Promise.resolve(null)
@@ -296,8 +307,8 @@ export async function buildResultsLeaderboard() {
             if (state.viewOnly) setTitlebar(`${t('tbLeaderboard')} ${modeName.toLowerCase()}`);
             const games = await fetchGamesFor(list.map((p) => safeDisplayName(p.name)));
             renderLeaderboard(list, games);
-            note.className = 'lb-note online';
-            note.textContent = t('lbOnline');
+            note.className = submitFailed ? 'lb-note offline' : 'lb-note online';
+            note.textContent = t(submitFailed ? 'lbScoreNotSaved' : 'lbOnline');
             return;
         } catch (e) {
             console.error('Leaderboard error:', e);
@@ -309,14 +320,14 @@ export async function buildResultsLeaderboard() {
         note.textContent = '';
     }
 
-    // Offline / fallback: mock friends + the player.
+    // Offline / fallback: just the player's own result — never invented rivals.
     setBoardHeading(t('comparison'), modeLabel(lbViewMode()));
-    renderLeaderboard(FRIENDS.concat([{
+    renderLeaderboard([{
         name: playerName,
         avatar: discordAvatarUrl(getDiscordProfile()) || '🧑‍💻',
         score: state.score,
         you: true
-    }]));
+    }]);
 }
 
 export function currentModeLabel() {

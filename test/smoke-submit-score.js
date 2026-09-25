@@ -58,6 +58,11 @@ function call(body, auth = `Bearer ${token}`, method = 'POST') {
   check('rejects an unknown mode', (await call({ ...ok, mode: 'wizardry' })).code === 400);
   check('rejects an empty player', (await call({ ...ok, player: '  ' })).code === 400);
   check('rejects an over-long player', (await call({ ...ok, player: 'x'.repeat(25) })).code === 400);
+  // The limit is 24 characters, as the client and the DB count them — not 24
+  // UTF-16 units. An emoji / styled-letter name is two units per character.
+  check('accepts a 24-char emoji/styled name',
+    (await call({ ...ok, player: '𝚂'.repeat(12) + '🍁'.repeat(12) })).code === 200);
+  check('rejects a 25-char emoji name', (await call({ ...ok, player: '🍁'.repeat(25) })).code === 400);
 
   // The avatar must belong to the authenticated user.
   await call({ ...ok, avatar: `https://cdn.discordapp.com/avatars/${DISCORD_ID}/abc.png` });

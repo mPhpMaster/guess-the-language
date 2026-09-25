@@ -109,7 +109,7 @@ module.exports = async function handler(req, res) {
   if (!Number.isSafeInteger(score) || score < 0 || score > MAX_ROUND_SCORE) {
     return res.status(400).json({ error: 'Score out of range' });
   }
-  if (!player || player.length > 24) return res.status(400).json({ error: 'Bad player name' });
+  if (!player || [...player].length > 24) return res.status(400).json({ error: 'Bad player name' });
   if (board === 'scores' && !MODES.has(mode)) return res.status(400).json({ error: 'Bad mode' });
 
   const url = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;

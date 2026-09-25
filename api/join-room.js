@@ -90,7 +90,7 @@ module.exports = async function handler(req, res) {
   if (!['discord', 'host', 'join'].includes(action)) {
     return res.status(400).json({ error: 'Bad action' });
   }
-  if (!name || name.length > 24) return res.status(400).json({ error: 'Bad name' });
+  if (!name || [...name].length > 24) return res.status(400).json({ error: 'Bad name' });
   if (settings != null && (typeof settings !== 'object' || Array.isArray(settings))) {
     return res.status(400).json({ error: 'Bad settings' });
   }
