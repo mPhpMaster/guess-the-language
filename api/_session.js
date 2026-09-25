@@ -165,12 +165,7 @@ function decodeToken(token) {
     return actual.length === expected.length && crypto.timingSafeEqual(actual, expected);
   };
 
-  /* Accepts the legacy raw-secret signature as well as the derived one, so
-     introducing sessionKey() does not sign every logged-in player out. Sessions
-     live seven days, so this second branch is dead once that has passed since
-     the deploy — DELETE IT THEN. Leaving it forever would keep the old key
-     valid, which is most of what this change was for. */
-  if (!matches(key) && !matches(rawSecret())) return null;
+  if (!matches(key)) return null;
   try {
     const data = JSON.parse(Buffer.from(payload, 'base64url').toString('utf8'));
     if (!data.sub || !data.exp || data.exp <= Math.floor(Date.now() / 1000)) return null;
