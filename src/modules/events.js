@@ -144,7 +144,7 @@ export function bindEvents() {
         openAbout();
     });
     $('#about-close').addEventListener('click', () => closeDialog($('#about-panel')));
-    document.querySelectorAll('.about-link, .about-legal-link').forEach((b) => {
+    document.querySelectorAll('.about-link, .about-legal-link, #btn-support').forEach((b) => {
         b.addEventListener('click', (event) => {
             event.preventDefault();
             // Buttons carry data-url; the legal <a> links carry an href (already

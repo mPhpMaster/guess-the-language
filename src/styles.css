@@ -3673,6 +3673,16 @@ html.platform-discord #screen-home #btn-start { position: static; width: 100%; }
   cursor: pointer;
 }
 .about-link:hover { border-color: var(--accent-line); color: var(--neon); }
+.about-donate { border-color: var(--accent-line); color: var(--neon); }
+/* Tip-jar line under the results actions: small and dim so it never competes
+   with "play again". Hidden when the screen is the standalone leaderboard. */
+.results-support { margin: 14px 0 0; text-align: center; font-size: 12px; color: var(--dimmer); }
+.results-support-link {
+  background: none; border: 0; padding: 2px 4px; margin-left: 4px;
+  font: inherit; color: var(--dim); text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
+}
+.results-support-link:hover, .results-support-link:focus-visible { color: var(--neon); }
+#screen-results.is-leaderboard-view .results-support { display: none; }
 .about-legal { display: flex; gap: 10px; font-size: 12px; color: var(--dimmer); margin-top: 4px; }
 
 /* 47 — close is the dialog's full-width footer action. */
