@@ -3,6 +3,7 @@ import { $, announce } from './dom.js';
 import { t } from './i18n.js';
 import { applySettingsToUI, getPlayerNameInputValue } from './settings.js';
 import { defaultSettings, state, store } from './state.js';
+import { roomFromUrl } from './util.js';
 
 // ============================================================
 //  Settings
@@ -193,7 +194,13 @@ export function updateHomeProfile() {
     const signedOutWeb = requiresDiscordLogin() && !isDiscordLinked();
     const cta = $('#home-login-cta');
     if (cta) cta.classList.add('hidden');
-    $('#web-auth-hint')?.classList.toggle('hidden', !signedOutWeb);
+    const hint = $('#web-auth-hint');
+    if (hint) {
+        hint.classList.toggle('hidden', !signedOutWeb);
+        // Arrived from a room link while signed out: say why they are on Home.
+        const pendingRoom = signedOutWeb ? roomFromUrl() : '';
+        hint.textContent = pendingRoom ? t('loginToJoinRoom').replace('{code}', pendingRoom) : t('webAuthHint');
+    }
     updateAdminButton();
 }
 

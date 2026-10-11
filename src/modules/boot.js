@@ -4,7 +4,7 @@ import { $, announce, showScreen } from './dom.js';
 import { bindEvents, selectMode } from './events.js';
 import { maybeShowOnboarding, renderModeCounts } from './home.js';
 import { MODES, applyLanguage, t } from './i18n.js';
-import { handleDiscordOAuthReturn, isDiscordActivity, isDiscordEmbedded } from './identity.js';
+import { handleDiscordOAuthReturn, isDiscordActivity, isDiscordEmbedded, isDiscordLinked, requiresDiscordLogin } from './identity.js';
 import { applyChallengeSettings, getChallengeFromUrl, parseChallengePayload, showChallengeBanner } from './leaderboard.js';
 import { autoJoinDiscordVoiceRoom, handleMultiplayerUpdate, joinRoomByCode, onDiscordSessionReady, onMpKicked, refreshMultiplayerButtons } from './mp-ui.js';
 import { startHeartbeat } from './presence.js';
@@ -91,8 +91,14 @@ export async function boot() {
     // A shared room link (?room=CODE) drops the visitor straight into that lobby,
     // the same way the code modal would. Inside a Discord Activity the room comes
     // from the voice channel instead, so the param is ignored there.
+    // A signed-out web visitor is NOT dropped in: they land on Home with a
+    // "sign in to join room X" hint, and the code stays in the URL so the
+    // Discord OAuth round-trip (which restores the query) brings them back here
+    // signed in, and this join then goes ahead.
     const roomCode = isDiscordActivity() ? '' : roomFromUrl();
-    if (roomCode && !challengeInfo && supabaseConfigured()) {
+    const roomNeedsLogin = !!roomCode && requiresDiscordLogin() && !isDiscordLinked();
+    if (roomNeedsLogin) announce(t('loginToJoinRoom').replace('{code}', roomCode));
+    if (roomCode && !roomNeedsLogin && !challengeInfo && supabaseConfigured()) {
         try {
             await joinRoomByCode(roomCode);
             hideBootLoading();

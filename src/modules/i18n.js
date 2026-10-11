@@ -90,6 +90,7 @@ export const I18N = {
         replay: 'play again ▸',
         backMenu: 'Home',
         webAuthHint: 'Sign in with Discord to save your identity and play on the global leaderboard.',
+        loginToJoinRoom: 'Sign in with Discord to join room {code}.',
         retry: 'Retry',
         nextQuestion: 'next ▸',
         gameTitle: 'Quiz in progress',
