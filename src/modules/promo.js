@@ -26,7 +26,7 @@ export const OTHER_GAMES = [
             en: 'A party game for the whole room, in Arabic or English.',
             ar: 'لعبة حفلات جماعية بالعربي أو الإنجليزي.'
         },
-        url: ''
+        url: 'https://maqlab.onrender.com'
     }
 ];
 
