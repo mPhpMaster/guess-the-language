@@ -72,6 +72,12 @@
     "anon": false
   },
   {
+    "name": "admin_analytics",
+    "args": "",
+    "security": "definer",
+    "anon": false
+  },
+  {
     "name": "admin_ban",
     "args": "p_player text, p_reason text, p_by text",
     "security": "definer",
@@ -146,6 +152,12 @@
   {
     "name": "create_room",
     "args": "p_mode text, p_settings jsonb, p_host_name text, p_discord_id text",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "duel_take_offer",
+    "args": "p_discord_id text, p_rating integer, p_ttl_seconds integer DEFAULT 30",
     "security": "definer",
     "anon": false
   },
@@ -260,6 +272,12 @@
   {
     "name": "record_progress",
     "args": "p_player text, p_seconds integer, p_multiplayer boolean, p_won boolean, p_xp integer, p_perfect boolean, p_discord_id text",
+    "security": "definer",
+    "anon": false
+  },
+  {
+    "name": "record_question_answers",
+    "args": "p_answers jsonb",
     "security": "definer",
     "anon": false
   },

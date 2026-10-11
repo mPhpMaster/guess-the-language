@@ -152,7 +152,8 @@ function applyOrder(a, b) {
     'migration-anon-score-bounds.sql',
     'migration-share-cards-authed.sql',
     'migration-identity-step-c.sql',
-    'migration-follows-authed.sql'
+    'migration-follows-authed.sql',
+    'migration-duel-and-feedback.sql'
   ];
   const ia = applied.indexOf(a); const ib = applied.indexOf(b);
   if (ia !== -1 && ib !== -1) return ia - ib;

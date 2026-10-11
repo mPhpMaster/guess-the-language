@@ -1,6 +1,6 @@
 {
   "_comment": "Production's security posture, pulled with supabase/snapshot.sql and checked in so scripts/schema-drift.js can hold it to the invariants in that file. Regenerate after ANY migration that touches RLS, policies or grants.",
-  "_pulledAt": "2026-09-08",
+  "_pulledAt": "2026-10-11",
   "tablesWithoutRls": [],
   "anonWritePolicies": [
     "daily_scores:INSERT",
