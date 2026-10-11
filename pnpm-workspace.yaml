@@ -18,11 +18,20 @@ onlyBuiltDependencies:
 # Ranges stay inside the current major on purpose: a bare ">=3.1.6" on fast-uri
 # resolves to 4.x, which ajv does not expect.
 #
-# extract-zip (electron's own, symlink path traversal) has NO patched version
-# published, so there is nothing to override. It is reachable only while
-# unpacking an archive during a desktop build.
+# extract-zip (electron's own, symlink path traversal), sprintf-js and
+# http-cache-semantics (both under @electron/get) have NO patched version
+# published, so there is nothing to override. All three run only while a
+# desktop build downloads or unpacks Electron.
+#
+# brace-expansion is pinned per major because three majors coexist in the tree
+# (minimatch 3 / 5 / 10 each want their own).
 overrides:
-  fast-uri: "^3.1.6"
+  fast-uri: "^3.1.8"
+  source-map-js: "^1.2.2"
+  "undici@6": "^6.29.0"
+  "brace-expansion@1": "^1.1.21"
+  "brace-expansion@2": "^2.1.7"
+  "brace-expansion@5": "^5.0.12"
   js-yaml: "^4.3.1"
   "@xmldom/xmldom@0.8": "0.8.15"
   "@xmldom/xmldom@0.9": "0.9.12"
