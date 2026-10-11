@@ -16,7 +16,7 @@ export const OTHER_GAMES = [
             en: 'Human, Animal, Plant, Object — the classic word game, live in a Discord voice channel.',
             ar: 'إنسان، حيوان، نبات، جماد — اللعبة الكلاسيكية مباشرة في قناة Discord الصوتية.'
         },
-        url: ''
+        url: 'https://letterup-two.vercel.app'
     },
     {
         id: 'maqlab',
