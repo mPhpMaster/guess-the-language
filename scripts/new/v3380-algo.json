@@ -1,0 +1,339 @@
+[
+  {
+    "id": 297,
+    "category": "strings",
+    "difficulty": "easy",
+    "codeSnippet": "// true for \"\", \"  \" and \"\\t\" (Java 11+)\nboolean blank = s.____();",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "isBlank",
+    "accept": [
+      "isBlank",
+      "isBlank()"
+    ],
+    "explanation": {
+      "en": "isBlank returns true when the string is empty or contains only whitespace; isEmpty ignores whitespace."
+    }
+  },
+  {
+    "id": 298,
+    "category": "data-structures",
+    "difficulty": "easy",
+    "codeSnippet": "// Go: grow the slice by one element\nxs = ____(xs, 4)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "append",
+    "accept": [
+      "append"
+    ],
+    "explanation": {
+      "en": "append returns the (possibly reallocated) slice, which is why the result is assigned back to xs."
+    }
+  },
+  {
+    "id": 299,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// 3.14159 -> \"3.14\"\nconst label = x.____(2);",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "toFixed",
+    "accept": [
+      "toFixed",
+      "toFixed()"
+    ],
+    "explanation": {
+      "en": "toFixed formats a number with a fixed count of decimals and returns a string."
+    }
+  },
+  {
+    "id": 300,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "import math\n# whole-number square root: 17 -> 4\nr = math.____(n)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "isqrt",
+    "accept": [
+      "isqrt",
+      "math.isqrt",
+      "isqrt()"
+    ],
+    "explanation": {
+      "en": "math.isqrt returns the floor of the square root using exact integer arithmetic, safe for huge n."
+    }
+  },
+  {
+    "id": 301,
+    "category": "math",
+    "difficulty": "easy",
+    "codeSnippet": "import math\n# greatest common divisor: (12, 18) -> 6\ng = math.____(a, b)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "gcd",
+    "accept": [
+      "gcd",
+      "math.gcd",
+      "gcd()"
+    ],
+    "explanation": {
+      "en": "math.gcd implements Euclid's algorithm in the standard library."
+    }
+  },
+  {
+    "id": 302,
+    "category": "bit-manipulation",
+    "difficulty": "medium",
+    "codeSnippet": "# number of 1 bits: 13 (0b1101) -> 3\nones = n.____()",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "bit_count",
+    "accept": [
+      "bit_count",
+      "bit_count()"
+    ],
+    "explanation": {
+      "en": "int.bit_count (Python 3.10+) returns the population count, the number of set bits."
+    }
+  },
+  {
+    "id": 303,
+    "category": "algorithms",
+    "difficulty": "medium",
+    "codeSnippet": "// Java: sort the array in place, ascending\nint[] a = {3, 1, 2};\n____.sort(a);",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "Arrays",
+    "accept": [
+      "Arrays",
+      "java.util.Arrays"
+    ],
+    "explanation": {
+      "en": "java.util.Arrays.sort sorts primitive arrays in place (a dual-pivot quicksort for ints)."
+    }
+  },
+  {
+    "id": 304,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "codeSnippet": "// Go: runs only when key k is present in m\nif _, found := m[k]; ____ {\n\thit++\n}",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "found",
+    "accept": [
+      "found",
+      "found == true"
+    ],
+    "explanation": {
+      "en": "The comma-ok form returns a second bool that tells a missing key apart from a stored zero value."
+    }
+  },
+  {
+    "id": 305,
+    "category": "strings",
+    "difficulty": "medium",
+    "codeSnippet": "# keep only the digits: 'a1b2' -> '12'\ndigits = ''.join(c for c in s if c.____())",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "isdigit",
+    "accept": [
+      "isdigit",
+      "isdigit()",
+      "isdecimal",
+      "isdecimal()",
+      "isnumeric",
+      "isnumeric()"
+    ],
+    "explanation": {
+      "en": "isdigit is True for digit characters, so the generator keeps just those."
+    }
+  },
+  {
+    "id": 306,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// deep copy that keeps Dates and Maps intact\nconst copy = ____(state);",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "structuredClone",
+    "accept": [
+      "structuredClone",
+      "globalThis.structuredClone"
+    ],
+    "explanation": {
+      "en": "structuredClone deep-copies Dates, Maps, Sets and cycles, which a JSON round-trip loses."
+    }
+  },
+  {
+    "id": 307,
+    "category": "graphs",
+    "difficulty": "medium",
+    "codeSnippet": "# 4-way neighbours of grid cell (r, c)\nfor dr, dc in ((1, 0), (-1, 0), (0, 1), (0, ____)):\n    nr, nc = r + dr, c + dc",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "-1",
+    "accept": [
+      "-1"
+    ],
+    "explanation": {
+      "en": "The four moves are down, up, right and left; left is a column step of -1."
+    }
+  },
+  {
+    "id": 308,
+    "category": "dynamic-programming",
+    "difficulty": "medium",
+    "codeSnippet": "# ways to climb n steps, 1 or 2 at a time\ndef ways(n):\n    a, b = 1, 1\n    for _ in range(n):\n        a, b = b, a ____ b\n    return a",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "+",
+    "accept": [
+      "+"
+    ],
+    "explanation": {
+      "en": "ways(n) = ways(n-1) + ways(n-2), the Fibonacci recurrence kept in two rolling variables."
+    }
+  },
+  {
+    "id": 309,
+    "category": "complexity",
+    "difficulty": "medium",
+    "codeSnippet": "# insert at the FRONT of a Python list of n items\nitems.insert(0, x)\n# time: O(____)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "n",
+    "accept": [
+      "n"
+    ],
+    "explanation": {
+      "en": "A list is a contiguous array, so every existing element shifts right by one; use a deque for O(1)."
+    }
+  },
+  {
+    "id": 310,
+    "category": "recursion",
+    "difficulty": "hard",
+    "codeSnippet": "# all subsets: each item is either left out or taken\ndef subsets(xs):\n    if not xs:\n        return [[]]\n    rest = subsets(xs[1:])\n    return rest + [[xs[0]] + r for r in ____]",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "rest",
+    "accept": [
+      "rest"
+    ],
+    "explanation": {
+      "en": "The subsets without xs[0] are rest; adding xs[0] to each of them gives the other half."
+    }
+  },
+  {
+    "id": 311,
+    "category": "algorithms",
+    "difficulty": "hard",
+    "codeSnippet": "// Java: midpoint that cannot overflow int\nint mid = lo + (hi - lo) ____ 2;",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "/",
+    "accept": [
+      "/"
+    ],
+    "explanation": {
+      "en": "(lo + hi) can exceed Integer.MAX_VALUE; hi - lo cannot. `>> 1` would bind after the + and give the wrong value."
+    }
+  },
+  {
+    "id": 312,
+    "category": "bit-manipulation",
+    "difficulty": "hard",
+    "codeSnippet": "# isolate the lowest set bit: 12 (0b1100) -> 4\nlow = x & (____x)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "-",
+    "accept": [
+      "-"
+    ],
+    "explanation": {
+      "en": "In two's complement -x is ~x + 1, which shares only the lowest set bit with x."
+    }
+  },
+  {
+    "id": 313,
+    "category": "graphs",
+    "difficulty": "hard",
+    "codeSnippet": "# directed cycle check: GRAY = still on the DFS path\ndef visit(u):\n    color[u] = GRAY\n    for v in graph[u]:\n        if color[v] == ____:\n            return True  # back edge\n        if color[v] == WHITE and visit(v):\n            return True\n    color[u] = BLACK\n    return False",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "GRAY",
+    "accept": [
+      "GRAY"
+    ],
+    "explanation": {
+      "en": "Reaching a vertex that is still on the current path (GRAY) is a back edge, which means a cycle; BLACK vertices are finished and safe."
+    }
+  },
+  {
+    "id": 314,
+    "category": "dynamic-programming",
+    "difficulty": "hard",
+    "codeSnippet": "# length of the longest STRICTLY increasing subsequence\nfrom bisect import bisect_left, bisect_right\ntails = []\nfor x in nums:\n    i = ____(tails, x)\n    if i == len(tails):\n        tails.append(x)\n    else:\n        tails[i] = x",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "bisect_left",
+    "accept": [
+      "bisect_left",
+      "bisect.bisect_left"
+    ],
+    "explanation": {
+      "en": "bisect_left replaces an equal tail instead of extending past it, so repeats never lengthen the run; bisect_right would count non-decreasing runs."
+    }
+  },
+  {
+    "id": 315,
+    "category": "patterns",
+    "difficulty": "hard",
+    "codeSnippet": "# sliding-window maximum: keep a deque of indexes\n# whose values are decreasing from front to back\nwhile dq and nums[dq[-1]] ____ x:\n    dq.pop()\ndq.append(i)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "<=",
+    "accept": [
+      "<=",
+      "<"
+    ],
+    "explanation": {
+      "en": "Smaller (or equal) values behind x can never be a window maximum again, so they are popped before x joins."
+    }
+  },
+  {
+    "id": 316,
+    "category": "math",
+    "difficulty": "hard",
+    "codeSnippet": "# fast modular power: square the base, halve the exponent\nr = 1\nwhile e:\n    if e & 1:\n        r = r * b % m\n    b = b * b % m\n    e ____= 1",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": ">>",
+    "accept": [
+      ">>"
+    ],
+    "explanation": {
+      "en": "Shifting the exponent right by one halves it and exposes the next bit, giving O(log e) multiplications."
+    }
+  }
+]

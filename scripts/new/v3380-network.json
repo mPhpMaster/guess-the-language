@@ -1,0 +1,347 @@
+[
+  {
+    "id": 235,
+    "category": "ports",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": { "en": "Which port does unencrypted LDAP use by default?" },
+    "options": ["389", "636", "3306", "3389"],
+    "answer": "389",
+    "explanation": { "en": "LDAP uses TCP 389 in the clear, while LDAPS over TLS uses 636." }
+  },
+  {
+    "id": 236,
+    "category": "ports",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": { "en": "Which UDP port does TFTP use by default?" },
+    "options": ["69", "21", "161", "514"],
+    "answer": "69",
+    "explanation": { "en": "TFTP is a lightweight, connectionless file transfer protocol that listens on UDP 69." }
+  },
+  {
+    "id": 237,
+    "category": "protocols",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": { "en": "Which transport and port does syslog traditionally use to collect log messages?" },
+    "options": ["UDP port 514", "TCP port 22", "UDP port 161", "TCP port 443"],
+    "answer": "UDP port 514",
+    "explanation": { "en": "Classic syslog ships log lines over UDP 514, trading reliability for low overhead; modern setups may use TCP or TLS." }
+  },
+  {
+    "id": 238,
+    "category": "addressing",
+    "difficulty": "easy",
+    "codeSnippet": "192.168.1.0/29",
+    "question": { "en": "How many usable host addresses does a /29 subnet provide?" },
+    "options": ["6", "8", "14", "2"],
+    "answer": "6",
+    "explanation": { "en": "A /29 has 3 host bits, giving 8 addresses minus the network and broadcast, so 6 usable hosts." }
+  },
+  {
+    "id": 239,
+    "category": "switching",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": { "en": "What does full-duplex Ethernet allow a device to do?" },
+    "options": [
+      "Send and receive at the same time",
+      "Use two IP addresses at once",
+      "Reach twice as many VLANs",
+      "Skip the need for a switch"
+    ],
+    "answer": "Send and receive at the same time",
+    "explanation": { "en": "Full duplex uses separate transmit and receive paths, so there are no collisions and both directions run simultaneously." }
+  },
+  {
+    "id": 240,
+    "category": "protocols",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": { "en": "HTTP/3 runs over which underlying transport?" },
+    "options": [
+      "QUIC, which runs on UDP",
+      "TCP secured with TLS 1.2",
+      "SCTP with multihoming",
+      "IP packets directly"
+    ],
+    "answer": "QUIC, which runs on UDP",
+    "explanation": { "en": "HTTP/3 maps onto QUIC, a UDP-based transport that builds in encryption and avoids TCP head-of-line blocking." }
+  },
+  {
+    "id": 241,
+    "category": "switching",
+    "difficulty": "medium",
+    "codeSnippet": "spanning-tree portfast\nspanning-tree bpduguard enable",
+    "question": { "en": "On an access port with PortFast, what does enabling BPDU guard do?" },
+    "options": [
+      "Disables the port if it receives a BPDU",
+      "Forces the port to become the root bridge",
+      "Doubles the forwarding speed of the port",
+      "Tags every frame with the native VLAN"
+    ],
+    "answer": "Disables the port if it receives a BPDU",
+    "explanation": { "en": "PortFast skips STP listening and learning for end hosts; BPDU guard err-disables the port if a BPDU arrives, stopping a rogue switch from altering the topology." }
+  },
+  {
+    "id": 242,
+    "category": "switching",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "What is the goal of a MAC flooding attack against a switch?" },
+    "options": [
+      "Overflow the CAM table so it floods frames",
+      "Exhaust the DHCP address pool quickly",
+      "Spoof the default gateway's IP address",
+      "Crack the wireless pre-shared key"
+    ],
+    "answer": "Overflow the CAM table so it floods frames",
+    "explanation": { "en": "Filling the MAC address table forces the switch to fail open and flood frames out every port, letting the attacker sniff other hosts' traffic." }
+  },
+  {
+    "id": 243,
+    "category": "switching",
+    "difficulty": "medium",
+    "codeSnippet": "frame tagged VLAN 1 (native), then inner tag VLAN 20",
+    "question": { "en": "Double-tagging a frame so it jumps from the native VLAN into another VLAN is known as?" },
+    "options": ["VLAN hopping", "ARP poisoning", "MAC spoofing", "Port mirroring"],
+    "answer": "VLAN hopping",
+    "explanation": { "en": "The outer native-VLAN tag is stripped at the first trunk, leaving the inner tag to deliver the frame into a VLAN the attacker should not reach." }
+  },
+  {
+    "id": 244,
+    "category": "security",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "What does Dynamic ARP Inspection (DAI) on a switch protect against?" },
+    "options": [
+      "Forged ARP replies used for man-in-the-middle",
+      "Rogue DHCP servers that hand out false leases",
+      "Spanning-tree loops between redundant switches",
+      "Untagged frames arriving on a trunk link"
+    ],
+    "answer": "Forged ARP replies used for man-in-the-middle",
+    "explanation": { "en": "DAI validates ARP packets against the DHCP snooping binding table and drops spoofed replies, blocking ARP-based interception." }
+  },
+  {
+    "id": 245,
+    "category": "security",
+    "difficulty": "medium",
+    "codeSnippet": "switchport port-security mac-address sticky",
+    "question": { "en": "What does switchport port-security with sticky MAC learning enforce?" },
+    "options": [
+      "Only learned MAC addresses may use the port",
+      "Only tagged VLAN frames may cross the port",
+      "Only signed firmware runs on the switch",
+      "Only encrypted frames leave the port"
+    ],
+    "answer": "Only learned MAC addresses may use the port",
+    "explanation": { "en": "Sticky learning records the first MAC seen and pins it to the port, so plugging in another device violates the policy and triggers an action." }
+  },
+  {
+    "id": 246,
+    "category": "ipv6",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "What does stateful DHCPv6 provide that SLAAC alone does not?" },
+    "options": [
+      "A server that records each host's assigned address",
+      "A shorthand that compresses the IPv6 address",
+      "Automatic conversion of a MAC into an address",
+      "A substitute for configuring a default route"
+    ],
+    "answer": "A server that records each host's assigned address",
+    "explanation": { "en": "Stateful DHCPv6 keeps a lease table of which host got which address, giving central tracking that autonomous SLAAC does not." }
+  },
+  {
+    "id": 247,
+    "category": "ipv6",
+    "difficulty": "medium",
+    "codeSnippet": "00:1a:2b:3c:4d:5e -> 021a:2bff:fe3c:4d5e",
+    "question": { "en": "What does the EUI-64 process build for an IPv6 interface identifier?" },
+    "options": [
+      "A 64-bit ID derived from the MAC address",
+      "A shortened form of the subnet prefix",
+      "A checksum of the whole IPv6 packet",
+      "A random temporary privacy address"
+    ],
+    "answer": "A 64-bit ID derived from the MAC address",
+    "explanation": { "en": "EUI-64 inserts ff:fe into the 48-bit MAC and flips a bit to form the lower 64 bits of the address; privacy extensions randomise this instead." }
+  },
+  {
+    "id": 248,
+    "category": "routing",
+    "difficulty": "medium",
+    "codeSnippet": "10.0.0.0/24 + 10.0.1.0/24",
+    "question": { "en": "The routes 10.0.0.0/24 and 10.0.1.0/24 summarise into which single prefix?" },
+    "options": ["10.0.0.0/23", "10.0.0.0/22", "10.0.0.0/25", "10.0.1.0/23"],
+    "answer": "10.0.0.0/23",
+    "explanation": { "en": "The two adjacent /24s share the first 23 bits, so a /23 covers both as one aggregate route." }
+  },
+  {
+    "id": 249,
+    "category": "services",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "In NTP, what does a server's stratum number indicate?" },
+    "options": [
+      "Its distance from the reference clock",
+      "The UDP port that it listens on",
+      "Its clock accuracy in milliseconds",
+      "The number of clients it serves"
+    ],
+    "answer": "Its distance from the reference clock",
+    "explanation": { "en": "Stratum counts hops from the authoritative time source: stratum 0 is the reference clock, stratum 1 syncs to it directly, and so on." }
+  },
+  {
+    "id": 250,
+    "category": "protocols",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "What does a GRE tunnel provide on its own?" },
+    "options": [
+      "Encapsulation of packets, but no encryption",
+      "Strong end-to-end encryption of all traffic",
+      "Automatic assignment of host IP addresses",
+      "Loop prevention across redundant switches"
+    ],
+    "answer": "Encapsulation of packets, but no encryption",
+    "explanation": { "en": "GRE wraps one protocol inside another to build a virtual point-to-point link; it adds no confidentiality, so it is often paired with IPsec." }
+  },
+  {
+    "id": 251,
+    "category": "dns",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": { "en": "What does a DNS CAA record control for a domain?" },
+    "options": [
+      "Which certificate authorities may issue certs",
+      "Which mail servers accept the domain's email",
+      "Which IPv6 address the name resolves to",
+      "Which nameservers are authoritative"
+    ],
+    "answer": "Which certificate authorities may issue certs",
+    "explanation": { "en": "A CAA record lists the CAs permitted to issue certificates for the domain, so a compliant CA refuses requests from anyone else." }
+  },
+  {
+    "id": 252,
+    "category": "ipv6",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": { "en": "How do NAT64 and DNS64 work together to let an IPv6-only client reach an IPv4-only server?" },
+    "options": [
+      "DNS64 forges a AAAA and NAT64 rewrites packets",
+      "They tunnel the IPv6 traffic inside IPv4 hops",
+      "They hand the client a second public IPv4 address",
+      "They broadcast an ARP request to find the server"
+    ],
+    "answer": "DNS64 forges a AAAA and NAT64 rewrites packets",
+    "explanation": { "en": "DNS64 synthesises an AAAA record embedding the IPv4 address in an IPv6 prefix, and NAT64 translates those packets to and from real IPv4." }
+  },
+  {
+    "id": 253,
+    "category": "security",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": { "en": "How does IPsec tunnel mode differ from transport mode?" },
+    "options": [
+      "It encrypts the entire packet and adds a new IP header",
+      "It functions only over UDP port 500 and nothing else",
+      "It serves as a drop-in replacement for browser TLS",
+      "It protects only the TCP source and destination ports"
+    ],
+    "answer": "It encrypts the entire packet and adds a new IP header",
+    "explanation": { "en": "Tunnel mode protects the whole original packet and prepends a new outer header, which is why it suits gateway-to-gateway VPNs; transport mode keeps the original header and secures only the payload." }
+  },
+  {
+    "id": 254,
+    "category": "security",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": { "en": "What design choice makes WireGuard simpler and faster than IPsec?" },
+    "options": [
+      "A small, fixed set of modern crypto algorithms",
+      "It runs completely inside the user's web browser",
+      "It works without using any encryption keys at all",
+      "It depends on TCP to guarantee reliable delivery"
+    ],
+    "answer": "A small, fixed set of modern crypto algorithms",
+    "explanation": { "en": "WireGuard hard-codes a lean set of modern primitives instead of IPsec's negotiable suites, shrinking the code and removing complex negotiation." }
+  },
+  {
+    "id": 255,
+    "category": "transport",
+    "difficulty": "hard",
+    "codeSnippet": "TCP option: Window Scale = 7",
+    "question": { "en": "Why does the TCP window scale option exist?" },
+    "options": [
+      "To allow receive windows above 65,535 bytes",
+      "To encrypt the TCP payload while in transit",
+      "To skip the three-way handshake on reconnect",
+      "To detect duplicate acknowledgements faster"
+    ],
+    "answer": "To allow receive windows above 65,535 bytes",
+    "explanation": { "en": "The 16-bit window field caps at 65,535 bytes; the scale factor left-shifts it so high-bandwidth, high-latency links can keep enough data in flight." }
+  },
+  {
+    "id": 256,
+    "category": "transport",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": { "en": "What does QUIC's connection ID let a session do that TCP cannot?" },
+    "options": [
+      "Survive the client's IP or port changing",
+      "Run without any encryption at all",
+      "Guarantee in-order bytes across streams",
+      "Open only on a well-known port"
+    ],
+    "answer": "Survive the client's IP or port changing",
+    "explanation": { "en": "QUIC identifies a connection by an ID rather than the IP and port tuple, so a phone switching from Wi-Fi to cellular keeps the same session." }
+  },
+  {
+    "id": 257,
+    "category": "routing",
+    "difficulty": "hard",
+    "codeSnippet": "label 17 -> swap 22 -> pop",
+    "question": { "en": "How does an MPLS router forward a labelled packet through the core?" },
+    "options": [
+      "It switches on the label, not an IP lookup",
+      "It floods it out of every interface",
+      "It rewrites the destination IP each hop",
+      "It encrypts the packet before sending"
+    ],
+    "answer": "It switches on the label, not an IP lookup",
+    "explanation": { "en": "Core routers swap short labels along a pre-built path, avoiding a full routing-table lookup at every hop." }
+  },
+  {
+    "id": 258,
+    "category": "dns",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": { "en": "What problem does EDNS0 (extension mechanisms for DNS) mainly address?" },
+    "options": [
+      "UDP responses larger than the old 512-byte cap",
+      "Encrypting the query between client and resolver",
+      "Signing each record so its origin can be verified",
+      "Resolving hostnames to their IPv6 addresses"
+    ],
+    "answer": "UDP responses larger than the old 512-byte cap",
+    "explanation": { "en": "EDNS0 advertises a larger acceptable UDP payload size, avoiding truncation and TCP fallback for big replies like DNSSEC-signed answers." }
+  },
+  {
+    "id": 259,
+    "category": "security",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": { "en": "What does WPA3's SAE handshake improve over WPA2's 4-way handshake?" },
+    "options": [
+      "It resists offline cracking of a captured handshake",
+      "It does away with needing any Wi-Fi password at all",
+      "It roughly doubles the available wireless data rate",
+      "It fully hides the network SSID from any scanner"
+    ],
+    "answer": "It resists offline cracking of a captured handshake",
+    "explanation": { "en": "SAE (Simultaneous Authentication of Equals) uses a zero-knowledge exchange, so capturing the handshake no longer lets an attacker brute-force the password offline." }
+  }
+]

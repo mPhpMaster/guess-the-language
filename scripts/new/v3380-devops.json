@@ -1,0 +1,477 @@
+[
+  {
+    "id": 230,
+    "category": "cicd",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "In semantic versioning, what does a bump from 2.4.1 to 3.0.0 signal?"
+    },
+    "options": [
+      "A backwards-compatible bug fix",
+      "A new feature that stays compatible",
+      "A breaking API change",
+      "A rebuild with no code changes"
+    ],
+    "answer": "A breaking API change",
+    "explanation": {
+      "en": "MAJOR.MINOR.PATCH: the major number rises only for incompatible changes; minor adds compatible features and patch fixes bugs."
+    }
+  },
+  {
+    "id": 231,
+    "category": "reliability",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "In SRE terms, what is \"toil\"?"
+    },
+    "options": [
+      "Manual, repetitive operational work",
+      "Time spent writing postmortems",
+      "Any work done outside of office hours",
+      "Planned refactoring of old code"
+    ],
+    "answer": "Manual, repetitive operational work",
+    "explanation": {
+      "en": "Toil is hands-on, repetitive, automatable work that scales with the service; SRE teams cap it and automate it away."
+    }
+  },
+  {
+    "id": 232,
+    "category": "docker",
+    "difficulty": "easy",
+    "codeSnippet": "docker run --rm alpine echo hi",
+    "question": {
+      "en": "What does --rm do here?"
+    },
+    "options": [
+      "Removes the alpine image afterwards",
+      "Runs the container with a read-only disk",
+      "Deletes the container when it exits",
+      "Removes any old container with that name"
+    ],
+    "answer": "Deletes the container when it exits",
+    "explanation": {
+      "en": "--rm cleans up the container (and its anonymous volumes) once it stops; the image stays in the local cache."
+    }
+  },
+  {
+    "id": 233,
+    "category": "kubernetes",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a Kubernetes CronJob do?"
+    },
+    "options": [
+      "Restarts every pod each night",
+      "Rotates node certificates on a timer",
+      "Scales Deployments at set hours",
+      "Runs Jobs on a repeating schedule"
+    ],
+    "answer": "Runs Jobs on a repeating schedule",
+    "explanation": {
+      "en": "A CronJob creates a Job from its template each time its cron schedule fires, for tasks like backups or reports."
+    }
+  },
+  {
+    "id": 234,
+    "category": "cicd",
+    "difficulty": "easy",
+    "codeSnippet": "on:\n  workflow_dispatch:",
+    "question": {
+      "en": "When does this workflow trigger?"
+    },
+    "options": [
+      "When started by hand",
+      "On every push to main",
+      "On a nightly schedule",
+      "When a release is tagged"
+    ],
+    "answer": "When started by hand",
+    "explanation": {
+      "en": "workflow_dispatch adds a \"Run workflow\" button (and API call) so the workflow runs only when someone starts it manually."
+    }
+  },
+  {
+    "id": 235,
+    "category": "reliability",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is the aim of a blameless postmortem?"
+    },
+    "options": [
+      "Finding who caused the outage",
+      "Fixing systems, not punishing people",
+      "Skipping write-ups for minor incidents",
+      "Keeping incidents hidden from customers"
+    ],
+    "answer": "Fixing systems, not punishing people",
+    "explanation": {
+      "en": "People share what really happened when they are not blamed, so the review finds the process and system gaps that allowed the failure."
+    }
+  },
+  {
+    "id": 236,
+    "category": "kubernetes",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a Kustomize overlay do?"
+    },
+    "options": [
+      "Renders Helm charts into plain YAML",
+      "Patches a shared base per environment",
+      "Merges two clusters into one view",
+      "Encrypts manifests before they are committed"
+    ],
+    "answer": "Patches a shared base per environment",
+    "explanation": {
+      "en": "Kustomize keeps one base set of manifests and applies per-environment overlays (patches, name prefixes, images) without templating."
+    }
+  },
+  {
+    "id": 237,
+    "category": "iac",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is HashiCorp Packer used for?"
+    },
+    "options": [
+      "Packing Terraform state into archives",
+      "Bundling Helm charts for a release",
+      "Building VM images from a template",
+      "Compressing container image layers"
+    ],
+    "answer": "Building VM images from a template",
+    "explanation": {
+      "en": "Packer builds identical machine images (AMIs, VM templates, etc.) from one config, which suits immutable infrastructure."
+    }
+  },
+  {
+    "id": 238,
+    "category": "reliability",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does chaos engineering do?"
+    },
+    "options": [
+      "Randomly reorders CI pipeline steps",
+      "Injects failures to test resilience",
+      "Rotates on-call staff at random",
+      "Lets users file bugs without a template"
+    ],
+    "answer": "Injects failures to test resilience",
+    "explanation": {
+      "en": "Teams deliberately kill instances, add latency or cut dependencies in a controlled way to prove the system copes before a real outage does."
+    }
+  },
+  {
+    "id": 239,
+    "category": "cicd",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which of these is one of the four DORA metrics?"
+    },
+    "options": [
+      "Lines of code per day",
+      "Number of open tickets",
+      "Test coverage percent",
+      "Change failure rate"
+    ],
+    "answer": "Change failure rate",
+    "explanation": {
+      "en": "DORA tracks deployment frequency, lead time for changes, change failure rate and time to restore service."
+    }
+  },
+  {
+    "id": 240,
+    "category": "containers",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is left out of a distroless base image?"
+    },
+    "options": [
+      "A shell and package manager",
+      "Any way to expose ports",
+      "Support for non-root users",
+      "The ability to set ENTRYPOINT"
+    ],
+    "answer": "A shell and package manager",
+    "explanation": {
+      "en": "Distroless images ship only the app runtime and its libraries, shrinking the attack surface; there is no shell to exec into."
+    }
+  },
+  {
+    "id": 241,
+    "category": "docker",
+    "difficulty": "medium",
+    "codeSnippet": "HEALTHCHECK --interval=30s \\\n  CMD curl -f http://localhost/ || exit 1",
+    "question": {
+      "en": "What does this instruction add to the container?"
+    },
+    "options": [
+      "A load balancer in front of it",
+      "A status probe marking it unhealthy",
+      "Auto-restarts in plain Docker",
+      "A log line written every 30 seconds"
+    ],
+    "answer": "A status probe marking it unhealthy",
+    "explanation": {
+      "en": "Docker runs the command periodically and reports the container as healthy or unhealthy; plain Docker does not restart it on its own, but orchestrators and depends_on conditions can act on it."
+    }
+  },
+  {
+    "id": 242,
+    "category": "kubernetes",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a Service of type LoadBalancer add?"
+    },
+    "options": [
+      "An Ingress controller for the cluster",
+      "Session affinity between pods",
+      "An external cloud load balancer",
+      "A second replica of each pod"
+    ],
+    "answer": "An external cloud load balancer",
+    "explanation": {
+      "en": "On a cloud provider, the Service gets a provisioned external load balancer and public address that forwards to its pods."
+    }
+  },
+  {
+    "id": 243,
+    "category": "iac",
+    "difficulty": "medium",
+    "codeSnippet": "data \"aws_ami\" \"ubuntu\" {\n  most_recent = true\n  owners      = [\"099720109477\"]\n}",
+    "question": {
+      "en": "What does this block do?"
+    },
+    "options": [
+      "Builds and registers a new AMI",
+      "Saves the AMI ID into the remote state file",
+      "Declares an input variable",
+      "Looks up an existing AMI to reference"
+    ],
+    "answer": "Looks up an existing AMI to reference",
+    "explanation": {
+      "en": "A data source only reads existing infrastructure; nothing is created, and its attributes can be used by resources."
+    }
+  },
+  {
+    "id": 244,
+    "category": "iac",
+    "difficulty": "medium",
+    "codeSnippet": "terraform apply -replace=\"aws_instance.web\"",
+    "question": {
+      "en": "What does -replace do here?"
+    },
+    "options": [
+      "Renames the resource in state",
+      "Forces that instance to be recreated",
+      "Swaps it for a cheaper instance type",
+      "Replaces only its tags in place"
+    ],
+    "answer": "Forces that instance to be recreated",
+    "explanation": {
+      "en": "-replace plans a destroy-and-create for that one resource even though its config is unchanged; it supersedes terraform taint."
+    }
+  },
+  {
+    "id": 245,
+    "category": "docker",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "How does ARG differ from ENV in a Dockerfile?"
+    },
+    "options": [
+      "ARG values are encrypted in the image",
+      "ENV can only hold numeric values",
+      "ARG exists only during the build",
+      "ARG is set at docker run time"
+    ],
+    "answer": "ARG exists only during the build",
+    "explanation": {
+      "en": "ARG values are available to build steps only; ENV persists into the image and the running container."
+    }
+  },
+  {
+    "id": 246,
+    "category": "kubernetes",
+    "difficulty": "hard",
+    "codeSnippet": "resources:\n  requests: { cpu: 500m, memory: 256Mi }\n  limits:   { cpu: 500m, memory: 256Mi }",
+    "question": {
+      "en": "Which QoS class does a pod get if every container looks like this?"
+    },
+    "options": [
+      "BestEffort",
+      "Burstable",
+      "Guaranteed",
+      "Reserved"
+    ],
+    "answer": "Guaranteed",
+    "explanation": {
+      "en": "Requests equal to limits for CPU and memory in every container gives Guaranteed, the last class evicted under node pressure."
+    }
+  },
+  {
+    "id": 247,
+    "category": "iac",
+    "difficulty": "hard",
+    "codeSnippet": "moved {\n  from = aws_instance.web\n  to   = aws_instance.app\n}",
+    "question": {
+      "en": "What does this block prevent on the next apply?"
+    },
+    "options": [
+      "Drift detection on that resource",
+      "Any later change to its tags",
+      "A destroy-and-recreate of it",
+      "A second import of the instance"
+    ],
+    "answer": "A destroy-and-recreate of it",
+    "explanation": {
+      "en": "Renaming a resource address would normally plan a destroy and create; moved tells Terraform to update the state address instead."
+    }
+  },
+  {
+    "id": 248,
+    "category": "observability",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "How does Grafana Loki keep log storage cheap?"
+    },
+    "options": [
+      "It stores only error-level logs",
+      "It indexes labels, not log text",
+      "It drops logs older than a day",
+      "It converts logs into metrics"
+    ],
+    "answer": "It indexes labels, not log text",
+    "explanation": {
+      "en": "Loki indexes only a small label set per stream and keeps compressed log chunks in object storage, scanning text at query time."
+    }
+  },
+  {
+    "id": 249,
+    "category": "deployment",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What do Argo CD sync waves control?"
+    },
+    "options": [
+      "How often the repo is polled",
+      "Which clusters receive the app",
+      "The order resources are applied in",
+      "Rate limits on calls to the Kubernetes API"
+    ],
+    "answer": "The order resources are applied in",
+    "explanation": {
+      "en": "Annotating resources with sync-wave numbers makes Argo CD apply lower waves first and wait for them to be healthy, e.g. a migration Job before the Deployment."
+    }
+  },
+  {
+    "id": 250,
+    "category": "kubernetes",
+    "difficulty": "hard",
+    "codeSnippet": "podAntiAffinity:\n  requiredDuringSchedulingIgnoredDuringExecution:\n  - labelSelector:\n      matchLabels: { app: web }\n    topologyKey: kubernetes.io/hostname",
+    "question": {
+      "en": "What does this rule mean for app=web replicas?"
+    },
+    "options": [
+      "They always share one node",
+      "No two land on the same node",
+      "They only run on labelled nodes",
+      "They evict other apps' pods"
+    ],
+    "answer": "No two land on the same node",
+    "explanation": {
+      "en": "Hard anti-affinity on the hostname topology forbids scheduling a web pod onto a node that already runs one, so a node loss takes out one replica."
+    }
+  },
+  {
+    "id": 251,
+    "category": "iac",
+    "difficulty": "hard",
+    "codeSnippet": "required_providers {\n  aws = { source = \"hashicorp/aws\", version = \"~> 5.1\" }\n}",
+    "question": {
+      "en": "Which versions does this constraint allow?"
+    },
+    "options": [
+      "Exactly 5.1 and nothing else",
+      "Any version from 5.1 upward",
+      "Only 5.1.x patch releases",
+      "5.1 and later 5.x releases"
+    ],
+    "answer": "5.1 and later 5.x releases",
+    "explanation": {
+      "en": "The pessimistic operator lets only the rightmost given part grow: \"~> 5.1\" means >= 5.1 and < 6.0, while \"~> 5.1.0\" would mean < 5.2."
+    }
+  },
+  {
+    "id": 252,
+    "category": "observability",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "In the USE method, what does the S stand for?"
+    },
+    "options": [
+      "Scalability",
+      "Saturation",
+      "Success rate",
+      "Sampling"
+    ],
+    "answer": "Saturation",
+    "explanation": {
+      "en": "USE checks every resource for Utilisation, Saturation (queued work it cannot serve yet) and Errors."
+    }
+  },
+  {
+    "id": 253,
+    "category": "reliability",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does an SLO burn-rate alert fire on?"
+    },
+    "options": [
+      "CPU usage above a fixed threshold",
+      "Any single failed request",
+      "A host running out of disk",
+      "Error budget used up too fast"
+    ],
+    "answer": "Error budget used up too fast",
+    "explanation": {
+      "en": "Burn rate compares how fast errors consume the budget with the rate that would exactly exhaust it over the SLO window, paging only when that pace is threatening."
+    }
+  },
+  {
+    "id": 254,
+    "category": "cicd",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why use OIDC federation from a CI job to a cloud provider?"
+    },
+    "options": [
+      "Builds run on faster runners",
+      "No long-lived cloud keys in CI",
+      "Secrets get encrypted at rest",
+      "It caches dependencies across repos"
+    ],
+    "answer": "No long-lived cloud keys in CI",
+    "explanation": {
+      "en": "The job presents a short-lived signed identity token and exchanges it for temporary cloud credentials, so no static access keys are stored as CI secrets."
+    }
+  }
+]

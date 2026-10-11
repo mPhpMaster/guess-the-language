@@ -5033,5 +5033,480 @@
   "explanation": {
    "en": "Nmap spoofs ten random decoy addresses alongside yours so the target's logs cannot easily single out the real scanner."
   }
+ },
+ {
+  "id": 270,
+  "category": "tools",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which security tool continuously watches endpoints for malicious behaviour and can isolate a compromised host?"
+  },
+  "options": [
+   "Endpoint detection and response",
+   "A tool that captures and decodes packets",
+   "A GPU-accelerated password cracker",
+   "An intercepting web application proxy"
+  ],
+  "answer": "Endpoint detection and response",
+  "explanation": {
+   "en": "EDR agents record and flag suspicious endpoint behaviour and let responders quarantine a host, going beyond signature-only antivirus."
+  }
+ },
+ {
+  "id": 271,
+  "category": "auth",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which XML-based standard lets one identity provider sign a user into many separate web applications?"
+  },
+  "options": [
+   "SAML",
+   "SNMP",
+   "SMTP",
+   "SOAP"
+  ],
+  "answer": "SAML",
+  "explanation": {
+   "en": "SAML passes signed assertions from an identity provider to service providers, enabling single sign-on across web apps."
+  }
+ },
+ {
+  "id": 272,
+  "category": "defense",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "A network kept physically isolated with no connection to the internet or other networks is called?"
+  },
+  "options": [
+   "Air-gapped",
+   "Load-balanced",
+   "Dual-homed",
+   "Fault-tolerant"
+  ],
+  "answer": "Air-gapped",
+  "explanation": {
+   "en": "An air-gapped system has no network link to untrusted networks, so attacks must cross the gap physically, for example via removable media."
+  }
+ },
+ {
+  "id": 273,
+  "category": "defense",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Permitting only pre-approved applications to run and blocking everything else is known as?"
+  },
+  "options": [
+   "Application allowlisting",
+   "Privilege escalation",
+   "Network segmentation",
+   "Credential stuffing"
+  ],
+  "answer": "Application allowlisting",
+  "explanation": {
+   "en": "Allowlisting denies by default and runs only vetted software, stopping unknown or malicious binaries from executing."
+  }
+ },
+ {
+  "id": 274,
+  "category": "defense",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which control inspects outbound traffic and files to stop sensitive data from leaving the organisation?"
+  },
+  "options": [
+   "Data loss prevention",
+   "Intrusion detection system",
+   "A reverse proxy cache",
+   "A certificate authority"
+  ],
+  "answer": "Data loss prevention",
+  "explanation": {
+   "en": "DLP tools detect and block regulated or confidential data in email, uploads and endpoints before it exfiltrates."
+  }
+ },
+ {
+  "id": 275,
+  "category": "social",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "An attacker scatters malware-infected USB drives in a car park hoping staff plug them in. This social-engineering tactic is?"
+  },
+  "options": [
+   "Baiting",
+   "Vishing",
+   "Pretexting",
+   "Tailgating"
+  ],
+  "answer": "Baiting",
+  "explanation": {
+   "en": "Baiting dangles something tempting, like a found USB stick, to lure a victim into triggering the attacker's payload."
+  }
+ },
+ {
+  "id": 276,
+  "category": "defense",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which platform automates and orchestrates incident response using predefined playbooks across security tools?"
+  },
+  "options": [
+   "SOAR",
+   "SIEM",
+   "A honeypot",
+   "A WAF"
+  ],
+  "answer": "SOAR",
+  "explanation": {
+   "en": "SOAR runs playbooks to triage and act on alerts automatically, whereas a SIEM mainly collects and correlates logs."
+  }
+ },
+ {
+  "id": 277,
+  "category": "web",
+  "difficulty": "medium",
+  "codeSnippet": "name={{7*7}}  ->  page renders: 49",
+  "question": {
+   "en": "A page echoes user input into a template engine and {{7*7}} renders as 49. Which vulnerability is this?"
+  },
+  "options": [
+   "Server-side template injection",
+   "Reflected cross-site scripting",
+   "SQL injection through the ORM",
+   "HTTP response splitting"
+  ],
+  "answer": "Server-side template injection",
+  "explanation": {
+   "en": "When user input is evaluated by the server's template engine, attackers can run template expressions and often reach code execution."
+  }
+ },
+ {
+  "id": 278,
+  "category": "web",
+  "difficulty": "medium",
+  "codeSnippet": "<!ENTITY lol \"lol\"><!ENTITY lol2 \"&lol;&lol;\"> ... &lol9;",
+  "question": {
+   "en": "A tiny XML file defines entities that reference each other repeatedly, expanding to gigabytes in memory. This attack is?"
+  },
+  "options": [
+   "The billion laughs attack",
+   "A padding oracle attack",
+   "A cross-site scripting attack",
+   "An IDOR vulnerability"
+  ],
+  "answer": "The billion laughs attack",
+  "explanation": {
+   "en": "Nested entity expansion blows up exponentially, exhausting memory and CPU: a denial-of-service distinct from XXE file disclosure."
+  }
+ },
+ {
+  "id": 279,
+  "category": "web",
+  "difficulty": "medium",
+  "codeSnippet": "POST /users  {\"name\":\"al\",\"isAdmin\":true}",
+  "question": {
+   "en": "A user adds an unexpected isAdmin field to a request and the framework binds it straight onto the model. This flaw is?"
+  },
+  "options": [
+   "Mass assignment",
+   "Open redirect",
+   "Clickjacking",
+   "Session fixation"
+  ],
+  "answer": "Mass assignment",
+  "explanation": {
+   "en": "Auto-binding every request field to model attributes lets attackers set fields they should not control, like isAdmin, unless inputs are allowlisted."
+  }
+ },
+ {
+  "id": 280,
+  "category": "web",
+  "difficulty": "medium",
+  "codeSnippet": "Content-Security-Policy: script-src 'nonce-a1b2c3'",
+  "question": {
+   "en": "What does adding a nonce value to a Content-Security-Policy script-src directive achieve?"
+  },
+  "options": [
+   "Only scripts with that nonce run",
+   "It encrypts inline scripts before they run",
+   "It signs each outgoing HTTP response",
+   "It disables all JavaScript on the page"
+  ],
+  "answer": "Only scripts with that nonce run",
+  "explanation": {
+   "en": "The browser executes only inline or loaded scripts whose nonce attribute matches the per-response value, so injected scripts without it are blocked."
+  }
+ },
+ {
+  "id": 281,
+  "category": "web",
+  "difficulty": "medium",
+  "codeSnippet": "X-Content-Type-Options: nosniff",
+  "question": {
+   "en": "What does the response header X-Content-Type-Options: nosniff instruct the browser to do?"
+  },
+  "options": [
+   "Not guess a resource's content type",
+   "Force the whole site onto HTTPS",
+   "Block framing by other origins",
+   "Strip cookies from the request"
+  ],
+  "answer": "Not guess a resource's content type",
+  "explanation": {
+   "en": "nosniff makes the browser trust the declared Content-Type instead of MIME-sniffing, preventing a text or image response being treated as script."
+  }
+ },
+ {
+  "id": 282,
+  "category": "crypto",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why is elliptic-curve cryptography often preferred over RSA at an equivalent security level?"
+  },
+  "options": [
+   "The same strength needs far smaller keys",
+   "It avoids any underlying hard math problem",
+   "It lets one shared key encrypt and decrypt",
+   "It removes all need for a random generator"
+  ],
+  "answer": "The same strength needs far smaller keys",
+  "explanation": {
+   "en": "A 256-bit ECC key rivals a 3072-bit RSA key, giving smaller keys and faster operations for the same resistance."
+  }
+ },
+ {
+  "id": 283,
+  "category": "auth",
+  "difficulty": "medium",
+  "codeSnippet": "code = HOTP(secret, floor(unix_time / 30))",
+  "question": {
+   "en": "How does an authenticator-app TOTP code stay valid for only about 30 seconds?"
+  },
+  "options": [
+   "It combines a shared secret with the time window",
+   "The server pushes a new code to the app each cycle",
+   "A counter kept only on the server is incremented",
+   "The phone fetches fresh codes from a cloud service"
+  ],
+  "answer": "It combines a shared secret with the time window",
+  "explanation": {
+   "en": "Both sides hash the same shared secret with the current time step, so the code rotates each window with no network traffic."
+  }
+ },
+ {
+  "id": 284,
+  "category": "concepts",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is a software bill of materials (SBOM) used for?"
+  },
+  "options": [
+   "Listing every component and dependency shipped",
+   "Encrypting the source code before shipping it",
+   "Signing each release binary with a private key",
+   "Scanning a live app for exploitable open ports"
+  ],
+  "answer": "Listing every component and dependency shipped",
+  "explanation": {
+   "en": "An SBOM inventories all libraries and versions in a product, so teams can quickly tell whether a newly disclosed CVE affects them."
+  }
+ },
+ {
+  "id": 285,
+  "category": "concepts",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "How does an indicator of attack (IOA) differ from an indicator of compromise (IOC)?"
+  },
+  "options": [
+   "It flags attacker behaviour rather than artefacts",
+   "It is always a hash of a file found on disk later",
+   "It can be gathered only once an incident is over",
+   "It is a vendor signature shared across products"
+  ],
+  "answer": "It flags attacker behaviour rather than artefacts",
+  "explanation": {
+   "en": "IOAs describe what an attacker is doing, intent and technique, in real time, while IOCs are forensic artefacts left behind after the fact."
+  }
+ },
+ {
+  "id": 286,
+  "category": "defense",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "In the common incident-response lifecycle, which phase immediately follows identifying an incident?"
+  },
+  "options": [
+   "Containment",
+   "Eradication",
+   "Recovery",
+   "Preparation"
+  ],
+  "answer": "Containment",
+  "explanation": {
+   "en": "After detection and identification, responders contain the incident to limit spread, then eradicate the threat and recover services."
+  }
+ },
+ {
+  "id": 287,
+  "category": "crypto",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Roughly how many hashes must be computed before a 50% chance of a collision in an n-bit hash?"
+  },
+  "options": [
+   "About 2^(n/2)",
+   "About 2^n",
+   "About n^2",
+   "About 2^(n-1)"
+  ],
+  "answer": "About 2^(n/2)",
+  "explanation": {
+   "en": "The birthday bound puts collisions near 2^(n/2) tries, which is why a 128-bit hash offers only about 64 bits of collision resistance."
+  }
+ },
+ {
+  "id": 288,
+  "category": "crypto",
+  "difficulty": "hard",
+  "codeSnippet": "mac = SHA256(secret || message)",
+  "question": {
+   "en": "Why is a MAC built as SHA256(secret concatenated with message) vulnerable to a length-extension attack?"
+  },
+  "options": [
+   "An attacker can extend the message and forge a MAC",
+   "The output digest reveals the secret key directly",
+   "Collisions in SHA-256 let the hash be reversed",
+   "The exact message length leaks from the digest"
+  ],
+  "answer": "An attacker can extend the message and forge a MAC",
+  "explanation": {
+   "en": "Merkle-Damgard hashes expose internal state in the digest, so an attacker can append data and compute a valid MAC; HMAC avoids this."
+  }
+ },
+ {
+  "id": 289,
+  "category": "web",
+  "difficulty": "hard",
+  "codeSnippet": "/redirect?url=%0d%0aSet-Cookie:admin=1",
+  "question": {
+   "en": "Injecting %0d%0a into a parameter so extra HTTP headers appear in the response is known as?"
+  },
+  "options": [
+   "CRLF injection / response splitting",
+   "A server-side request forgery flaw",
+   "A cross-origin resource sharing bug",
+   "A frame-overlay clickjacking attack"
+  ],
+  "answer": "CRLF injection / response splitting",
+  "explanation": {
+   "en": "Unencoded carriage-return and line-feed bytes let an attacker inject headers or split the response, enabling cache poisoning or cookie setting."
+  }
+ },
+ {
+  "id": 290,
+  "category": "attacks",
+  "difficulty": "hard",
+  "codeSnippet": "shop.example.com  CNAME  myapp.cloudhost.net  (unclaimed)",
+  "question": {
+   "en": "A dangling DNS CNAME still points to a deprovisioned cloud service an attacker can register. This enables?"
+  },
+  "options": [
+   "A subdomain takeover",
+   "A DNS cache poisoning",
+   "An ARP spoofing attack",
+   "A BGP route hijack"
+  ],
+  "answer": "A subdomain takeover",
+  "explanation": {
+   "en": "If the referenced service is unclaimed, an attacker registers it and serves their own content from the victim's trusted subdomain."
+  }
+ },
+ {
+  "id": 291,
+  "category": "principles",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "In Microsoft's STRIDE threat model, the letter R stands for which threat?"
+  },
+  "options": [
+   "Repudiation",
+   "Replay",
+   "Ransomware",
+   "Reconnaissance"
+  ],
+  "answer": "Repudiation",
+  "explanation": {
+   "en": "STRIDE is Spoofing, Tampering, Repudiation, Information disclosure, Denial of service and Elevation of privilege; R is repudiation, countered by logging and signatures."
+  }
+ },
+ {
+  "id": 292,
+  "category": "malware",
+  "difficulty": "hard",
+  "codeSnippet": "app.exe loads \"utils.dll\" from its own folder first",
+  "question": {
+   "en": "Planting a malicious DLL where a program searches before the real system path is called?"
+  },
+  "options": [
+   "DLL search-order hijacking",
+   "Pass-the-hash",
+   "Process hollowing",
+   "Return-oriented programming"
+  ],
+  "answer": "DLL search-order hijacking",
+  "explanation": {
+   "en": "Windows searches certain directories before system folders, so a same-named DLL dropped there is loaded, running attacker code inside a trusted process."
+  }
+ },
+ {
+  "id": 293,
+  "category": "defense",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is the primary security benefit of generating and storing keys inside a hardware security module (HSM)?"
+  },
+  "options": [
+   "Keys never leave the tamper-resistant hardware",
+   "Encryption runs much faster than it does in software",
+   "Keys no longer ever need to be rotated at all",
+   "Any app on the host can read the keys on demand"
+  ],
+  "answer": "Keys never leave the tamper-resistant hardware",
+  "explanation": {
+   "en": "An HSM performs crypto operations internally so the private key material is never exported, resisting theft even if the host is compromised."
+  }
+ },
+ {
+  "id": 294,
+  "category": "defense",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "How does UEFI Secure Boot help defend against bootkits?"
+  },
+  "options": [
+   "It checks each boot component's signature first",
+   "It encrypts every disk sector while powered off",
+   "It keeps all user passwords inside the TPM chip",
+   "It isolates the kernel from all user processes"
+  ],
+  "answer": "It checks each boot component's signature first",
+  "explanation": {
+   "en": "Secure Boot verifies the digital signature of each bootloader and kernel against trusted keys, refusing to run tampered or unsigned early-boot code."
+  }
  }
 ]

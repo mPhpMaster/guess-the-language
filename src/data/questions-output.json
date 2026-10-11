@@ -4121,5 +4121,385 @@
     "explanation": {
       "en": "Classes are functions under the hood, and Symbol() returns a primitive of type symbol."
     }
+  },
+  {
+    "id": 218,
+    "category": "go",
+    "difficulty": "easy",
+    "codeSnippet": "m := map[string]int{}\nm[\"a\"]++\nfmt.Println(m[\"a\"], m[\"b\"])",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "1 0",
+      "0 0",
+      "1 1",
+      "panic"
+    ],
+    "answer": "1 0",
+    "explanation": {
+      "en": "Reading a missing key yields the zero value, so m[\"a\"]++ starts from 0 and m[\"b\"] prints 0."
+    }
+  },
+  {
+    "id": 219,
+    "category": "java",
+    "difficulty": "easy",
+    "codeSnippet": "char c = 'A';\nc += 2;\nSystem.out.println(c);",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "67",
+      "C",
+      "A2",
+      "B"
+    ],
+    "answer": "C",
+    "explanation": {
+      "en": "Compound assignment casts back to char, so A moves two code points forward to C."
+    }
+  },
+  {
+    "id": 220,
+    "category": "sql",
+    "difficulty": "easy",
+    "codeSnippet": "SELECT COALESCE(NULL, 0, 5);",
+    "question": {
+      "en": "What does the query return?"
+    },
+    "options": [
+      "5",
+      "NULL",
+      "0",
+      "1"
+    ],
+    "answer": "0",
+    "explanation": {
+      "en": "COALESCE returns the first argument that is not NULL; 0 is not NULL even though it is falsy."
+    }
+  },
+  {
+    "id": 221,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print('banana'.replace('a', 'o', 2))",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "bonana",
+      "bonono",
+      "banono",
+      "bonona"
+    ],
+    "answer": "bonona",
+    "explanation": {
+      "en": "The third argument caps the number of replacements, so only the first two a characters change."
+    }
+  },
+  {
+    "id": 222,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log('abc'.repeat(2).length);",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "6",
+      "3",
+      "2",
+      "5"
+    ],
+    "answer": "6",
+    "explanation": {
+      "en": "repeat(2) builds 'abcabc', which has six characters."
+    }
+  },
+  {
+    "id": 223,
+    "category": "typescript",
+    "difficulty": "easy",
+    "codeSnippet": "function twice(x: number | string) {\n  return typeof x === 'number' ? x * 2 : x.repeat(2);\n}\nconsole.log(twice(3), twice('ab'));",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "6 NaN",
+      "6 abab",
+      "33 abab",
+      "6 ab2"
+    ],
+    "answer": "6 abab",
+    "explanation": {
+      "en": "The typeof check narrows x: numbers are doubled, strings are repeated."
+    }
+  },
+  {
+    "id": 224,
+    "category": "go",
+    "difficulty": "medium",
+    "codeSnippet": "for i := 0; i < 3; i++ {\n\tdefer fmt.Print(i)\n}",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "012",
+      "0",
+      "210",
+      "222"
+    ],
+    "answer": "210",
+    "explanation": {
+      "en": "Deferred calls run last-in, first-out when the function returns, and each captured i at defer time."
+    }
+  },
+  {
+    "id": 225,
+    "category": "java",
+    "difficulty": "medium",
+    "codeSnippet": "System.out.println('a' + 'b' + \"c\");",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "abc",
+      "97bc",
+      "ab c",
+      "195c"
+    ],
+    "answer": "195c",
+    "explanation": {
+      "en": "Evaluation is left to right: 'a' + 'b' adds two chars as ints (97 + 98 = 195), then the String joins."
+    }
+  },
+  {
+    "id": 226,
+    "category": "sql",
+    "difficulty": "medium",
+    "codeSnippet": "CREATE TABLE t (x INT);\nINSERT INTO t VALUES (1), (NULL), (3);\nSELECT COUNT(*), COUNT(x) FROM t;",
+    "question": {
+      "en": "What does the final query return?"
+    },
+    "options": [
+      "3 | 2",
+      "3 | 3",
+      "2 | 2",
+      "2 | 3"
+    ],
+    "answer": "3 | 2",
+    "explanation": {
+      "en": "COUNT(*) counts rows; COUNT(x) skips rows where x is NULL."
+    }
+  },
+  {
+    "id": 227,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "d = {}\nd.setdefault('k', []).append(1)\nd.setdefault('k', []).append(2)\nprint(d)",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "{'k': [2]}",
+      "{'k': [1, 2]}",
+      "{'k': [1]}",
+      "{'k': [[1], [2]]}"
+    ],
+    "answer": "{'k': [1, 2]}",
+    "explanation": {
+      "en": "setdefault only inserts the default when the key is missing and always returns the stored list."
+    }
+  },
+  {
+    "id": 228,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "x = [1, 2, 3]\nx[1:2] = [7, 8, 9]\nprint(x)",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "[1, [7, 8, 9], 3]",
+      "[1, 7, 3]",
+      "[1, 7, 8, 9, 3]",
+      "[1, 7, 8, 9, 2, 3]"
+    ],
+    "answer": "[1, 7, 8, 9, 3]",
+    "explanation": {
+      "en": "Assigning to a slice replaces that range with the items of the new list, so the list can grow."
+    }
+  },
+  {
+    "id": 229,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "a = [1, 2, 3]\nprint(a[10:], a[-10:2])",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "IndexError",
+      "None [1, 2]",
+      "[3] [1, 2]",
+      "[] [1, 2]"
+    ],
+    "answer": "[] [1, 2]",
+    "explanation": {
+      "en": "Slices clamp out-of-range bounds instead of raising, unlike plain indexing."
+    }
+  },
+  {
+    "id": 230,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "const m = new Map([[1, 'a']]);\nconsole.log(m.get('1'), m.get(1));",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "undefined a",
+      "a a",
+      "a undefined",
+      "undefined 1"
+    ],
+    "answer": "undefined a",
+    "explanation": {
+      "en": "Map keys are compared by SameValueZero, so the string '1' and the number 1 are different keys."
+    }
+  },
+  {
+    "id": 231,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log(Number(' 12 '), Number('1_000'), Number(null));",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "12 1000 0",
+      "12 NaN 0",
+      "NaN NaN 0",
+      "12 NaN NaN"
+    ],
+    "answer": "12 NaN 0",
+    "explanation": {
+      "en": "Number trims whitespace, rejects numeric separators inside strings, and converts null to 0."
+    }
+  },
+  {
+    "id": 232,
+    "category": "go",
+    "difficulty": "hard",
+    "codeSnippet": "s := []int{1, 2, 3}\nt := s[:2]\nt = append(t, 9)\nfmt.Println(s)",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "[1 2 3]",
+      "[1 2 3 9]",
+      "[1 2 9]",
+      "[1 2 9 3]"
+    ],
+    "answer": "[1 2 9]",
+    "explanation": {
+      "en": "t shares s's backing array and still has spare capacity, so append overwrites s[2] in place."
+    }
+  },
+  {
+    "id": 233,
+    "category": "java",
+    "difficulty": "hard",
+    "codeSnippet": "Integer a = 127, b = 127;\nInteger c = 128, d = 128;\nSystem.out.println((a == b) + \" \" + (c == d));",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "true true",
+      "false false",
+      "false true",
+      "true false"
+    ],
+    "answer": "true false",
+    "explanation": {
+      "en": "Autoboxing caches Integer values from -128 to 127, so == compares the same object only for 127."
+    }
+  },
+  {
+    "id": 234,
+    "category": "java",
+    "difficulty": "hard",
+    "codeSnippet": "int x = 5;\nx = x++;\nSystem.out.println(x);",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "5",
+      "6",
+      "4",
+      "7"
+    ],
+    "answer": "5",
+    "explanation": {
+      "en": "x++ yields the old value 5, then the assignment writes that 5 back over the incremented x."
+    }
+  },
+  {
+    "id": 235,
+    "category": "sql",
+    "difficulty": "hard",
+    "codeSnippet": "CREATE TABLE t (x INT);\nINSERT INTO t VALUES (2), (3);\nSELECT COUNT(*) FROM t WHERE x NOT IN (1, NULL);",
+    "question": {
+      "en": "What does the final query return?"
+    },
+    "options": [
+      "2",
+      "0",
+      "1",
+      "NULL"
+    ],
+    "answer": "0",
+    "explanation": {
+      "en": "x <> NULL is unknown, so NOT IN with a NULL in the list is never true and no row qualifies."
+    }
+  },
+  {
+    "id": 236,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "console.log([...'héllo'].length, '😀'.length);",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "5 1",
+      "6 2",
+      "5 2",
+      "6 1"
+    ],
+    "answer": "5 2",
+    "explanation": {
+      "en": "Spreading iterates by code point (5), but .length counts UTF-16 units and the emoji is a surrogate pair."
+    }
+  },
+  {
+    "id": 237,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "let s = 0;\nfor (const k in [5, 6]) s += k;\nconsole.log(s);",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "11",
+      "01",
+      "0011",
+      "001"
+    ],
+    "answer": "001",
+    "explanation": {
+      "en": "for...in yields the indexes as strings '0' and '1', so += concatenates onto 0."
+    }
   }
 ]

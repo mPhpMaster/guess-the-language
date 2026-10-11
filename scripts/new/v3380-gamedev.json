@@ -1,0 +1,477 @@
+[
+  {
+    "id": 226,
+    "category": "rendering",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "In a 2D side-scroller, why do far background layers scroll slower?"
+    },
+    "options": [
+      "To save GPU memory on big images",
+      "To fake depth through parallax",
+      "To keep the HUD from overlapping",
+      "To stop the camera from jittering"
+    ],
+    "answer": "To fake depth through parallax",
+    "explanation": {
+      "en": "Distant layers moving less than near ones mimics how far objects shift less as you move, giving a flat scene a sense of depth."
+    }
+  },
+  {
+    "id": 227,
+    "category": "gameplay",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What are invincibility frames (i-frames)?"
+    },
+    "options": [
+      "Frames dropped to keep up the frame rate",
+      "A brief window where hits are ignored",
+      "Keyframes where an attack deals damage",
+      "The opening frames before input is read"
+    ],
+    "answer": "A brief window where hits are ignored",
+    "explanation": {
+      "en": "After taking a hit or during a dodge, the character briefly cannot be damaged, which stops one attack from landing many times in a row."
+    }
+  },
+  {
+    "id": 228,
+    "category": "animation",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "How does a sprite sheet animate a 2D character?"
+    },
+    "options": [
+      "By bending a skeleton under the sprite",
+      "By morphing between two vertex sets",
+      "By showing its frames one after another",
+      "By rotating a single image around a pivot"
+    ],
+    "answer": "By showing its frames one after another",
+    "explanation": {
+      "en": "A sprite sheet packs every frame into one texture; the game swaps which region it draws at a set rate, like a flipbook."
+    }
+  },
+  {
+    "id": 229,
+    "category": "rendering",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What visual problem does anti-aliasing reduce?"
+    },
+    "options": [
+      "Screen tearing during camera pans",
+      "Jagged, stair-stepped edges",
+      "Blurry textures at a distance",
+      "Flicker between overlapping faces"
+    ],
+    "answer": "Jagged, stair-stepped edges",
+    "explanation": {
+      "en": "Edges rasterised onto a pixel grid look stepped; MSAA, FXAA and TAA blend edge pixels to smooth them."
+    }
+  },
+  {
+    "id": 230,
+    "category": "rendering",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a decal in a 3D game?"
+    },
+    "options": [
+      "A low-poly stand-in for a far mesh",
+      "A quad that always faces the camera",
+      "A texture projected onto surfaces",
+      "A baked shadow under a character"
+    ],
+    "answer": "A texture projected onto surfaces",
+    "explanation": {
+      "en": "Decals project details such as bullet holes, scorch marks or graffiti onto existing geometry without changing its mesh or texture."
+    }
+  },
+  {
+    "id": 231,
+    "category": "animation",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "In animation, what is \"anticipation\"?"
+    },
+    "options": [
+      "A wind-up before the main action",
+      "Looping a clip once it has finished",
+      "Easing out at the end of a move",
+      "Playing a clip slightly faster"
+    ],
+    "answer": "A wind-up before the main action",
+    "explanation": {
+      "en": "A small opposite movement, like crouching before a jump, tells the player what is about to happen and makes the action read clearly."
+    }
+  },
+  {
+    "id": 232,
+    "category": "netcode",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why do fast action games usually send state over UDP rather than TCP?"
+    },
+    "options": [
+      "UDP encrypts every packet by default",
+      "A lost packet does not stall later ones",
+      "UDP guarantees that packets arrive in order",
+      "TCP cannot cross home routers at all"
+    ],
+    "answer": "A lost packet does not stall later ones",
+    "explanation": {
+      "en": "TCP holds back newer data until a lost packet is resent, causing stalls; with UDP the game simply uses the next, more recent update."
+    }
+  },
+  {
+    "id": 233,
+    "category": "math",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What defines the shape of a cubic Bezier curve?"
+    },
+    "options": [
+      "A centre point and a radius",
+      "Two angles and a speed value",
+      "Four control points",
+      "One point and a surface normal"
+    ],
+    "answer": "Four control points",
+    "explanation": {
+      "en": "The curve starts at the first point and ends at the fourth; the middle two pull it into shape without usually lying on it."
+    }
+  },
+  {
+    "id": 234,
+    "category": "netcode",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does dead reckoning do for a remote player?"
+    },
+    "options": [
+      "Rewinds them to the time of a shot",
+      "Extrapolates from their last velocity",
+      "Interpolates between two past snapshots",
+      "Hides them when packets are lost"
+    ],
+    "answer": "Extrapolates from their last velocity",
+    "explanation": {
+      "en": "Between updates, the client projects the entity forward from its last known position and velocity, then corrects when real data arrives."
+    }
+  },
+  {
+    "id": 235,
+    "category": "ai",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "How does a utility AI decide what to do next?"
+    },
+    "options": [
+      "Follows a fixed sequence of states",
+      "Plans a whole chain of actions to a goal",
+      "Scores each option and picks the best",
+      "Picks an action uniformly at random"
+    ],
+    "answer": "Scores each option and picks the best",
+    "explanation": {
+      "en": "Each candidate action gets a score from curves over inputs like health or distance, and the agent chooses the highest-scoring one."
+    }
+  },
+  {
+    "id": 236,
+    "category": "pathfinding",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why use a flow field when a huge crowd heads for one goal?"
+    },
+    "options": [
+      "Units avoid each other for free",
+      "One grid serves every unit",
+      "Each unit gets a unique path",
+      "It removes the need for a map"
+    ],
+    "answer": "One grid serves every unit",
+    "explanation": {
+      "en": "A single pass from the goal stores a direction in every cell, so any number of units just follow the arrow under them instead of each running A*."
+    }
+  },
+  {
+    "id": 237,
+    "category": "rendering",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does SSAO add to a rendered scene?"
+    },
+    "options": [
+      "Reflections of on-screen objects",
+      "Darkening in creases and corners",
+      "Hard shadows cast by the sun",
+      "Light scattering through fog"
+    ],
+    "answer": "Darkening in creases and corners",
+    "explanation": {
+      "en": "Screen-space ambient occlusion samples the depth buffer around each pixel to estimate how enclosed it is, darkening crevices and contact areas."
+    }
+  },
+  {
+    "id": 238,
+    "category": "rendering",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "In Phong-style lighting, what does the specular term model?"
+    },
+    "options": [
+      "Light bounced from other surfaces",
+      "Colour of the surface in shadow",
+      "Shiny highlights from the light",
+      "Soft light scattered under skin"
+    ],
+    "answer": "Shiny highlights from the light",
+    "explanation": {
+      "en": "Specular depends on the view and light directions and produces the bright highlight on glossy surfaces; diffuse handles the matte part."
+    }
+  },
+  {
+    "id": 239,
+    "category": "assets",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "How do cellular automata turn random noise into caves?"
+    },
+    "options": [
+      "A random walker carves out the tunnels",
+      "Rooms are split with a binary tree",
+      "Tiles follow adjacency constraints",
+      "Cells flip based on neighbour counts"
+    ],
+    "answer": "Cells flip based on neighbour counts",
+    "explanation": {
+      "en": "Each pass makes a cell solid or empty depending on how many neighbours are solid, so scattered noise smooths into organic cave walls."
+    }
+  },
+  {
+    "id": 240,
+    "category": "ui",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why offer a colourblind mode in a game?"
+    },
+    "options": [
+      "To make it run on older monitors and TVs",
+      "So colour-coded info stays readable",
+      "To cut the GPU cost of colour",
+      "To shrink texture memory use"
+    ],
+    "answer": "So colour-coded info stays readable",
+    "explanation": {
+      "en": "Swapping palettes or adding shapes and icons lets players who cannot tell certain hues apart still read team colours, warnings and rarity."
+    }
+  },
+  {
+    "id": 241,
+    "category": "audio",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why route sounds through mixer groups (buses)?"
+    },
+    "options": [
+      "To make each sound play in 3D",
+      "To compress clips on import",
+      "To set volume per category at once",
+      "To loop music tracks without any gap"
+    ],
+    "answer": "To set volume per category at once",
+    "explanation": {
+      "en": "Grouping music, SFX and dialogue into buses lets volume sliders, ducking and effects apply to a whole category in one place."
+    }
+  },
+  {
+    "id": 242,
+    "category": "ui",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why leave spare room in UI layouts for translated text?"
+    },
+    "options": [
+      "Fonts render a lot larger on consoles",
+      "Other languages often run longer",
+      "Translations add extra buttons",
+      "Screen readers need the spacing"
+    ],
+    "answer": "Other languages often run longer",
+    "explanation": {
+      "en": "Text in languages such as German or French is often noticeably longer than English, so tight labels would clip or overflow."
+    }
+  },
+  {
+    "id": 243,
+    "category": "gameplay",
+    "difficulty": "easy",
+    "codeSnippet": "const drops = { common: 70, uncommon: 25, rare: 5 };",
+    "question": {
+      "en": "With these weights, how often does \"rare\" drop?"
+    },
+    "options": [
+      "1 in 70 rolls",
+      "25% of the time",
+      "5% of the time",
+      "1 in 3 rolls"
+    ],
+    "answer": "5% of the time",
+    "explanation": {
+      "en": "The weights total 100, so each one is its share of the total: rare gets 5 / 100 = 5% of rolls."
+    }
+  },
+  {
+    "id": 244,
+    "category": "ai",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does goal-oriented action planning (GOAP) do?"
+    },
+    "options": [
+      "Picks the single highest-scoring action",
+      "Runs a fixed tree of priority nodes",
+      "Searches for an action chain to a goal",
+      "Follows one scripted state per animation"
+    ],
+    "answer": "Searches for an action chain to a goal",
+    "explanation": {
+      "en": "Actions declare preconditions and effects, and a planner (often A*) searches for the cheapest sequence that turns the current world state into the goal."
+    }
+  },
+  {
+    "id": 245,
+    "category": "rendering",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why split the view into cascaded shadow maps?"
+    },
+    "options": [
+      "To let each cascade use a different light",
+      "To spend shadow resolution near the camera",
+      "To render each light in its own separate pass",
+      "To blur shadow edges at a distance"
+    ],
+    "answer": "To spend shadow resolution near the camera",
+    "explanation": {
+      "en": "One shadow map over a large view gives blurry near shadows; cascades give nearby slices of the frustum their own map with far more texels per metre."
+    }
+  },
+  {
+    "id": 246,
+    "category": "rendering",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is the stencil buffer typically used for?"
+    },
+    "options": [
+      "Storing per-pixel surface normals",
+      "Holding depth for shadow maps",
+      "Masking which pixels may be drawn",
+      "Caching the previous frame image"
+    ],
+    "answer": "Masking which pixels may be drawn",
+    "explanation": {
+      "en": "Draws can write reference values to the stencil and later draws test against them, enabling portals, outlines, mirrors and masked UI."
+    }
+  },
+  {
+    "id": 247,
+    "category": "assets",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "How does wave function collapse generate a level?"
+    },
+    "options": [
+      "Carves rooms by splitting space in two",
+      "Picks tiles that satisfy adjacency rules",
+      "Smooths random noise into organic cave walls",
+      "Adds up octaves of noise into heights"
+    ],
+    "answer": "Picks tiles that satisfy adjacency rules",
+    "explanation": {
+      "en": "Each cell starts with every tile possible; the most constrained cell is collapsed to one tile and the neighbour rules propagate, repeating until all cells are fixed."
+    }
+  },
+  {
+    "id": 248,
+    "category": "physics",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "In position Verlet integration, where does velocity come from?"
+    },
+    "options": [
+      "The current and previous positions",
+      "A velocity stored on each body",
+      "The collision normal each step",
+      "The force that was applied in the last frame"
+    ],
+    "answer": "The current and previous positions",
+    "explanation": {
+      "en": "Verlet stores no explicit velocity; it is implied by the difference between this and the previous position, which makes constraints simple to apply."
+    }
+  },
+  {
+    "id": 249,
+    "category": "physics",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why can explicit Euler integration make a stiff spring explode?"
+    },
+    "options": [
+      "It ignores the mass of the body",
+      "It only runs once per frame",
+      "Its error adds energy each step",
+      "It rounds positions to integers"
+    ],
+    "answer": "Its error adds energy each step",
+    "explanation": {
+      "en": "Explicit Euler uses the old velocity for the whole step, which systematically overshoots oscillators; with a stiff spring the gained energy grows until it blows up."
+    }
+  },
+  {
+    "id": 250,
+    "category": "rendering",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does premultiplied alpha fix when blending textures?"
+    },
+    "options": [
+      "Dark fringes on filtered edges",
+      "The need to sort transparency",
+      "Texture compression artefacts",
+      "Gaps between tiles in an atlas"
+    ],
+    "answer": "Dark fringes on filtered edges",
+    "explanation": {
+      "en": "Filtering straight-alpha texels blends in the colour of fully transparent pixels, often black; premultiplying weights colour by alpha first, so edges stay clean."
+    }
+  }
+]

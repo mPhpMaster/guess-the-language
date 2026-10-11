@@ -1,0 +1,326 @@
+[
+  {
+    "id": 568,
+    "correctLanguage": "TypeScript",
+    "difficulty": "easy",
+    "codeSnippet": "let pair: [string, number] = [\"age\", 30];\nlet tags: string[] = [];\ntags.push(pair[0]);\nconsole.log(tags.length);",
+    "explanation": {
+      "en": "Type annotations such as the tuple type `[string, number]` and `string[]` after a colon are TypeScript, not plain JavaScript."
+    }
+  },
+  {
+    "id": 569,
+    "correctLanguage": "TypeScript",
+    "difficulty": "medium",
+    "codeSnippet": "interface Todo {\n  title: string;\n  done: boolean;\n  due: Date;\n}\ntype Preview = Pick<Todo, \"title\" | \"done\">;\ntype Draft = Partial<Omit<Todo, \"due\">>;",
+    "explanation": {
+      "en": "The built-in utility types `Pick`, `Omit` and `Partial` applied to an `interface` are TypeScript-only."
+    }
+  },
+  {
+    "id": 570,
+    "correctLanguage": "TypeScript",
+    "difficulty": "medium",
+    "codeSnippet": "const palette = {\n  red: [255, 0, 0],\n  green: \"#00ff00\",\n} satisfies Record<string, string | number[]>;\n\nconst hex = palette.green.toUpperCase();",
+    "explanation": {
+      "en": "The `satisfies` operator checking an object literal against `Record<string, ...>` is TypeScript syntax."
+    }
+  },
+  {
+    "id": 571,
+    "correctLanguage": "TypeScript",
+    "difficulty": "hard",
+    "codeSnippet": "const env = { dev: 3000, prod: 80 };\n\nfunction port(name: keyof typeof env) {\n  return env[name];\n}\n\nconsole.log(port(\"dev\"));",
+    "explanation": {
+      "en": "It reads like JavaScript, but the parameter annotation `name: keyof typeof env` is a TypeScript type query that JavaScript cannot parse."
+    }
+  },
+  {
+    "id": 572,
+    "correctLanguage": "C",
+    "difficulty": "easy",
+    "codeSnippet": "#include <stdio.h>\n\nenum color { RED, GREEN, BLUE };\n\nint main(void) {\n    enum color c = GREEN;\n    printf(\"color #%d\\n\", c);\n    return 0;\n}",
+    "explanation": {
+      "en": "`#include <stdio.h>`, `int main(void)` and `printf` with a `%d` format string are classic C."
+    }
+  },
+  {
+    "id": 573,
+    "correctLanguage": "C",
+    "difficulty": "medium",
+    "codeSnippet": "int add(int a, int b) { return a + b; }\nint sub(int a, int b) { return a - b; }\n\nint (*ops[])(int, int) = { add, sub };\nprintf(\"%d\\n\", ops[1](9, 4));",
+    "explanation": {
+      "en": "An array of function pointers declared as `int (*ops[])(int, int)` and called alongside `printf` is C."
+    }
+  },
+  {
+    "id": 574,
+    "correctLanguage": "C",
+    "difficulty": "medium",
+    "codeSnippet": "union value {\n    int i;\n    float f;\n    unsigned char bytes[4];\n};\nunion value v;\nv.f = 1.5f;\nprintf(\"%02x\\n\", v.bytes[0]);",
+    "explanation": {
+      "en": "A `union` whose members share the same memory, declared with `union value v;` and printed via `printf`, is C."
+    }
+  },
+  {
+    "id": 575,
+    "correctLanguage": "C",
+    "difficulty": "hard",
+    "codeSnippet": "static const char *names[] = { [2] = \"two\", [5] = \"five\" };\n\nvoid scale(float *restrict out, const float *restrict in, size_t n) {\n    for (size_t i = 0; i < n; i++)\n        out[i] = in[i] * 2.0f;\n}",
+    "explanation": {
+      "en": "Array designated initialisers like `[2] = \"two\"` and the `restrict` qualifier are C99 features that are not valid C++."
+    }
+  },
+  {
+    "id": 576,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "string? input = Console.ReadLine();\nint n = int.Parse(input ?? \"0\");\nConsole.WriteLine($\"Double: {n * 2}\");",
+    "explanation": {
+      "en": "`Console.ReadLine`, `int.Parse` and an interpolated `$\"...\"` string passed to `Console.WriteLine` are C#."
+    }
+  },
+  {
+    "id": 577,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "var byCity = people\n    .GroupBy(p => p.City)\n    .Select(g => new { City = g.Key, Count = g.Count() })\n    .OrderByDescending(x => x.Count);",
+    "explanation": {
+      "en": "LINQ method chaining with `GroupBy`, `g.Key` and an anonymous type `new { ... }` is C#."
+    }
+  },
+  {
+    "id": 578,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "public async Task<string[]> FetchAllAsync(IEnumerable<string> urls)\n{\n    using var http = new HttpClient();\n    var tasks = urls.Select(u => http.GetStringAsync(u));\n    return await Task.WhenAll(tasks);\n}",
+    "explanation": {
+      "en": "An `async Task<string[]>` method with a `using var` declaration and `await Task.WhenAll` is C#."
+    }
+  },
+  {
+    "id": 579,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "public record Order(int Id, decimal Total);\n\nvar first = new Order(1, 9.99m);\nvar copy = first with { Total = 19.99m };\nConsole.WriteLine(copy.Total);",
+    "explanation": {
+      "en": "It looks like a Java record, but the non-destructive `with { ... }` expression and the `m` decimal literal suffix exist only in C#."
+    }
+  },
+  {
+    "id": 580,
+    "correctLanguage": "Kotlin",
+    "difficulty": "easy",
+    "codeSnippet": "fun main() {\n    for (i in 10 downTo 1 step 3) {\n        println(\"Countdown: $i\")\n    }\n}",
+    "explanation": {
+      "en": "`fun main()`, a `for (i in 10 downTo 1 step 3)` range and `println` with a `$i` template are Kotlin."
+    }
+  },
+  {
+    "id": 581,
+    "correctLanguage": "Kotlin",
+    "difficulty": "medium",
+    "codeSnippet": "fun String.isPalindrome(): Boolean =\n    this == this.reversed()\n\nfun main() {\n    println(\"level\".isPalindrome())\n}",
+    "explanation": {
+      "en": "An extension function declared as `fun String.isPalindrome()` with an expression body is Kotlin."
+    }
+  },
+  {
+    "id": 582,
+    "correctLanguage": "Kotlin",
+    "difficulty": "medium",
+    "codeSnippet": "class Config private constructor(val url: String) {\n    companion object {\n        fun default() = Config(\"http://localhost\")\n    }\n}\n\nval cfg = Config.default()",
+    "explanation": {
+      "en": "A `companion object` inside a class with a `private constructor(val url: String)` is Kotlin."
+    }
+  },
+  {
+    "id": 583,
+    "correctLanguage": "Kotlin",
+    "difficulty": "hard",
+    "codeSnippet": "class Report(private val loader: () -> String) {\n    val body: String by lazy { loader() }\n    var title: String = \"\"\n        private set\n}",
+    "explanation": {
+      "en": "Swift has lazy properties too, but delegated properties with `by lazy { }` and an indented `private set` accessor are Kotlin syntax."
+    }
+  },
+  {
+    "id": 584,
+    "correctLanguage": "Swift",
+    "difficulty": "easy",
+    "codeSnippet": "let fruits = [\"apple\", \"pear\", \"plum\"]\nfor (index, fruit) in fruits.enumerated() {\n    print(\"\\(index): \\(fruit)\")\n}",
+    "explanation": {
+      "en": "String interpolation with `\\(...)` inside `print` and `.enumerated()` in a tuple `for` loop are Swift."
+    }
+  },
+  {
+    "id": 585,
+    "correctLanguage": "Swift",
+    "difficulty": "medium",
+    "codeSnippet": "enum Shape {\n    case circle(radius: Double)\n    case rect(width: Double, height: Double)\n}\n\nlet s = Shape.circle(radius: 2)\nif case .circle(let r) = s { print(r) }",
+    "explanation": {
+      "en": "Enum cases with associated values and pattern matching via `if case .circle(let r)` are Swift."
+    }
+  },
+  {
+    "id": 586,
+    "correctLanguage": "Swift",
+    "difficulty": "medium",
+    "codeSnippet": "@propertyWrapper\nstruct Clamped {\n    private var value = 0\n    var wrappedValue: Int {\n        get { value }\n        set { value = min(max(newValue, 0), 100) }\n    }\n}",
+    "explanation": {
+      "en": "The `@propertyWrapper` attribute with a `wrappedValue` property and the implicit `newValue` setter parameter are Swift."
+    }
+  },
+  {
+    "id": 587,
+    "correctLanguage": "Swift",
+    "difficulty": "hard",
+    "codeSnippet": "func bump(_ n: inout Int, by step: Int = 1) {\n    n += step\n}\n\nvar score = 10\nbump(&score, by: 5)",
+    "explanation": {
+      "en": "It resembles Kotlin, but `func`, the `inout` parameter, the `_` external label and passing `&score` are Swift-only."
+    }
+  },
+  {
+    "id": 588,
+    "correctLanguage": "Ruby",
+    "difficulty": "easy",
+    "codeSnippet": "person = { name: \"Ana\", age: 30 }\nputs \"#{person[:name]} is #{person[:age]}\"",
+    "explanation": {
+      "en": "`puts` with `#{}` interpolation and symbol keys like `person[:name]` are Ruby."
+    }
+  },
+  {
+    "id": 589,
+    "correctLanguage": "Ruby",
+    "difficulty": "medium",
+    "codeSnippet": "words = [\"apple\", \"avocado\", \"banana\"]\nindex = words.each_with_object(Hash.new { |h, k| h[k] = [] }) do |w, acc|\n  acc[w[0]] << w\nend\np index",
+    "explanation": {
+      "en": "`each_with_object` with a `do |w, acc| ... end` block and a `Hash.new { |h, k| ... }` default are Ruby."
+    }
+  },
+  {
+    "id": 590,
+    "correctLanguage": "Ruby",
+    "difficulty": "medium",
+    "codeSnippet": "class Version\n  include Comparable\n  attr_reader :major\n  def initialize(major)\n    @major = major\n  end\n  def <=>(other)\n    major <=> other.major\n  end\nend",
+    "explanation": {
+      "en": "Mixing in `Comparable` with `include`, `attr_reader :major`, `@major` and defining the `<=>` operator method are Ruby."
+    }
+  },
+  {
+    "id": 591,
+    "correctLanguage": "Ruby",
+    "difficulty": "hard",
+    "codeSnippet": "def describe(n)\n  return \"none\" if n.nil?\n  case n\n  when 0..9 then \"small\"\n  when 10..99 then \"medium\"\n  else \"large\"\n  end\nend",
+    "explanation": {
+      "en": "It could pass for Python at a glance, but `case`/`when ... then` with `0..9` ranges, a trailing `if` modifier and `end` are Ruby."
+    }
+  },
+  {
+    "id": 592,
+    "correctLanguage": "PHP",
+    "difficulty": "easy",
+    "codeSnippet": "<?php\n$name = \"world\";\necho strtoupper($name) . PHP_EOL;\necho str_repeat(\"-\", 10);",
+    "explanation": {
+      "en": "The `<?php` opening tag, `$` variables, `echo` and `.` string concatenation are PHP."
+    }
+  },
+  {
+    "id": 593,
+    "correctLanguage": "PHP",
+    "difficulty": "medium",
+    "codeSnippet": "enum Suit: string\n{\n    case Hearts = 'H';\n    case Spades = 'S';\n}\n\necho Suit::from('H')->name;",
+    "explanation": {
+      "en": "A backed `enum Suit: string` with `case` entries and the `Suit::from()` static call are PHP 8.1."
+    }
+  },
+  {
+    "id": 594,
+    "correctLanguage": "PHP",
+    "difficulty": "medium",
+    "codeSnippet": "function makeUrl(string $host, int $port = 80, bool $tls = false): string {\n    return ($tls ? 'https' : 'http') . \"://$host:$port\";\n}\n\n$opts['host'] ??= 'localhost';\necho makeUrl(host: $opts['host'], tls: true);",
+    "explanation": {
+      "en": "Typed `$` parameters, the `??=` null-coalescing assignment and named arguments like `host:` are PHP 8."
+    }
+  },
+  {
+    "id": 595,
+    "correctLanguage": "PHP",
+    "difficulty": "hard",
+    "codeSnippet": "$parts = explode(',', $line);\n[$first, $last] = $parts;\n$out = '';\nforeach ($parts as $i => $p) {\n    $out .= str_pad($p, 8) . \"\\n\";\n}",
+    "explanation": {
+      "en": "The sigils look like Perl, but `foreach (... as $i => $p)`, `[$first, $last] =` destructuring and built-ins `explode`/`str_pad` are PHP."
+    }
+  },
+  {
+    "id": 596,
+    "correctLanguage": "SQL",
+    "difficulty": "easy",
+    "codeSnippet": "SELECT DISTINCT country\nFROM customers\nWHERE country IS NOT NULL;",
+    "explanation": {
+      "en": "`SELECT DISTINCT ... FROM ... WHERE ... IS NOT NULL` is a SQL query."
+    }
+  },
+  {
+    "id": 597,
+    "correctLanguage": "SQL",
+    "difficulty": "medium",
+    "codeSnippet": "SELECT p.name, COALESCE(SUM(s.qty), 0) AS sold\nFROM products p\nLEFT JOIN sales s USING (product_id)\nGROUP BY p.name;",
+    "explanation": {
+      "en": "A `LEFT JOIN ... USING (product_id)` with `COALESCE(SUM(...), 0)` and `GROUP BY` is SQL."
+    }
+  },
+  {
+    "id": 598,
+    "correctLanguage": "SQL",
+    "difficulty": "medium",
+    "codeSnippet": "SELECT c.name\nFROM customers c\nWHERE NOT EXISTS (\n  SELECT 1 FROM orders o WHERE o.customer_id = c.id\n);",
+    "explanation": {
+      "en": "A correlated `WHERE NOT EXISTS (SELECT 1 ...)` subquery is SQL."
+    }
+  },
+  {
+    "id": 599,
+    "correctLanguage": "SQL",
+    "difficulty": "hard",
+    "codeSnippet": "SELECT day, revenue,\n  revenue - LAG(revenue) OVER (ORDER BY day) AS change,\n  SUM(revenue) OVER (\n    ORDER BY day ROWS BETWEEN 6 PRECEDING AND CURRENT ROW\n  ) AS week_total\nFROM daily_sales;",
+    "explanation": {
+      "en": "Window functions `LAG(...) OVER (...)` and a `ROWS BETWEEN 6 PRECEDING AND CURRENT ROW` frame are SQL."
+    }
+  },
+  {
+    "id": 600,
+    "correctLanguage": "Bash",
+    "difficulty": "easy",
+    "codeSnippet": "#!/bin/bash\nread -p \"Your name: \" name\necho \"Hi, $name\"",
+    "explanation": {
+      "en": "The `#!/bin/bash` shebang, `read -p` and `echo` with `$name` are a Bash script."
+    }
+  },
+  {
+    "id": 601,
+    "correctLanguage": "Bash",
+    "difficulty": "medium",
+    "codeSnippet": "cat <<EOF > config.ini\n[server]\nhost=$HOSTNAME\nport=${PORT:-8080}\nEOF",
+    "explanation": {
+      "en": "A here-document `<<EOF ... EOF` redirected to a file, with `${PORT:-8080}` default-value expansion, is Bash shell scripting."
+    }
+  },
+  {
+    "id": 602,
+    "correctLanguage": "Bash",
+    "difficulty": "medium",
+    "codeSnippet": "file=\"/var/log/app/error.log\"\necho \"${file##*/}\"\necho \"${file%/*}\"\necho \"${file^^}\"",
+    "explanation": {
+      "en": "Parameter expansions `${file##*/}`, `${file%/*}` and the `${file^^}` upper-case operator are Bash."
+    }
+  },
+  {
+    "id": 603,
+    "correctLanguage": "Bash",
+    "difficulty": "hard",
+    "codeSnippet": "if [[ $version =~ ^([0-9]+)\\.([0-9]+) ]]; then\n  major=${BASH_REMATCH[1]}\n  (( major >= 2 )) && echo \"supported\"\nfi",
+    "explanation": {
+      "en": "POSIX sh has no `[[ ... =~ ... ]]` regex test, `BASH_REMATCH` array or `(( ))` arithmetic command; those are Bash-only."
+    }
+  }
+]

@@ -4178,5 +4178,385 @@
     "explanation": {
       "en": "A declared `boolean` return does not narrow v, so v stays unknown; a type predicate tells the compiler what passed."
     }
+  },
+  {
+    "id": 221,
+    "category": "go",
+    "difficulty": "easy",
+    "codeSnippet": "var counts map[string]int\ncounts[\"go\"] = 1",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Create it with `make(map[string]int)`",
+      "Use `counts.Set(\"go\", 1)` instead",
+      "Write the key as a rune: `'g'`",
+      "Change the map's value type to `int64`"
+    ],
+    "answer": "Create it with `make(map[string]int)`",
+    "explanation": {
+      "en": "A nil map can be read but not written; assigning to it panics until the map is created with make."
+    }
+  },
+  {
+    "id": 222,
+    "category": "sql",
+    "difficulty": "easy",
+    "codeSnippet": "SELECT name FROM users\nWHERE email = NULL;\n-- expected: users without an email",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Write `email == NULL`",
+      "Write `email IS NULL`",
+      "Write `email = 'NULL'`",
+      "Write `email <> NULL`"
+    ],
+    "answer": "Write `email IS NULL`",
+    "explanation": {
+      "en": "Any comparison with NULL using = is unknown, never true; IS NULL is the test for missing values."
+    }
+  },
+  {
+    "id": 223,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "for n in [1, 2, 3]:\n    total = 0\n    total += n\nprint(total)  # expected 6",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `total = total + n` here",
+      "Loop over `range(3)` instead",
+      "Set `total = 0` before the loop",
+      "Print total inside the loop body"
+    ],
+    "answer": "Set `total = 0` before the loop",
+    "explanation": {
+      "en": "The accumulator is reset on every pass, so only the last value survives."
+    }
+  },
+  {
+    "id": 224,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# print 1 through 10\nfor i in range(1, 10):\n    print(i)",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `range(0, 10)`",
+      "Use `range(10)` instead",
+      "Use `range(1, 10, 1)`",
+      "Use `range(1, 11)`"
+    ],
+    "answer": "Use `range(1, 11)`",
+    "explanation": {
+      "en": "The stop value of range is excluded, so it must be one past the last number wanted."
+    }
+  },
+  {
+    "id": 225,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "const price = 2.567;\nconst shown = Math.round(price, 2);\nconsole.log(shown); // expected 2.57",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `Math.round(price * 100) / 100`",
+      "Use `Math.floor(price, 2)` there instead",
+      "Use `Math.round(price) / 100` here",
+      "Pass the digits as a string: `\"2\"`"
+    ],
+    "answer": "Use `Math.round(price * 100) / 100`",
+    "explanation": {
+      "en": "Math.round takes one argument and always rounds to an integer; scale up, round, then scale back."
+    }
+  },
+  {
+    "id": 226,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "const ids = [4, 8, 15];\nif (ids.contains(8)) {\n  console.log('found');\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Call `ids.has(8)`",
+      "Call `ids.includes(8)`",
+      "Write `8 in ids`",
+      "Call `ids.contains?.(8)`"
+    ],
+    "answer": "Call `ids.includes(8)`",
+    "explanation": {
+      "en": "Arrays have no contains method; includes is the membership test (has is for Set and Map)."
+    }
+  },
+  {
+    "id": 227,
+    "category": "go",
+    "difficulty": "medium",
+    "codeSnippet": "for _, p := range people {\n\tp.Age++\n}\nfmt.Println(people) // ages unchanged",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `p.Age += 1` instead",
+      "Range with `for p := range`",
+      "Index it: `people[i].Age++`",
+      "Make Age an `int64` field"
+    ],
+    "answer": "Index it: `people[i].Age++`",
+    "explanation": {
+      "en": "range copies each struct into p, so the change is made to the copy; index into the slice to modify it."
+    }
+  },
+  {
+    "id": 228,
+    "category": "java",
+    "difficulty": "medium",
+    "codeSnippet": "String answer = scanner.nextLine();\nif (answer == \"yes\") {\n    proceed();\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `answer === \"yes\"`",
+      "Cast it: `(String) answer`",
+      "Call `answer.trim()` first",
+      "Use `answer.equals(\"yes\")`"
+    ],
+    "answer": "Use `answer.equals(\"yes\")`",
+    "explanation": {
+      "en": "== compares object references; text read at runtime is a different object from the literal."
+    }
+  },
+  {
+    "id": 229,
+    "category": "java",
+    "difficulty": "medium",
+    "codeSnippet": "String role = user.getRole(); // may be null\nif (role.equals(\"admin\")) {\n    grant();\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Write `\"admin\".equals(role)`",
+      "Write `role.equalsIgnoreCase(\"admin\")`",
+      "Write `role.compareTo(\"admin\") == 0`",
+      "Write `role.contentEquals(\"admin\")`"
+    ],
+    "answer": "Write `\"admin\".equals(role)`",
+    "explanation": {
+      "en": "Calling any method on a null role throws NullPointerException; calling equals on the literal is null-safe."
+    }
+  },
+  {
+    "id": 230,
+    "category": "sql",
+    "difficulty": "medium",
+    "codeSnippet": "SELECT dept, COUNT(*)\nFROM emp\nWHERE COUNT(*) > 5\nGROUP BY dept;",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `COUNT(dept)` in WHERE",
+      "Move the test into `HAVING`",
+      "Put WHERE after the GROUP BY",
+      "Alias it: `COUNT(*) AS n`"
+    ],
+    "answer": "Move the test into `HAVING`",
+    "explanation": {
+      "en": "WHERE filters rows before grouping, so aggregates are not allowed there; HAVING filters the groups."
+    }
+  },
+  {
+    "id": 231,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "if 'admin' or 'root' in roles:\n    grant()",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Group it: `('admin' or 'root') in roles`",
+      "Use `and` instead of `or` between them",
+      "Test each: `'admin' in roles or 'root' in roles`",
+      "Call `roles.contains('admin', 'root')` on the list"
+    ],
+    "answer": "Test each: `'admin' in roles or 'root' in roles`",
+    "explanation": {
+      "en": "It parses as 'admin' or ('root' in roles), and the non-empty string 'admin' is always truthy."
+    }
+  },
+  {
+    "id": 232,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "prices = {'tea': 2, 'jam': 5}\nfor name, cost in prices:\n    print(name, cost)",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Loop over `prices.keys()`",
+      "Loop over `prices.values()`",
+      "Loop over `enumerate(prices)`",
+      "Loop over `prices.items()`"
+    ],
+    "answer": "Loop over `prices.items()`",
+    "explanation": {
+      "en": "Iterating a dict yields only its keys; items() yields (key, value) pairs to unpack."
+    }
+  },
+  {
+    "id": 233,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "colors = ('red')\nfor c in colors:\n    print(c)  # expected: red",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Add a comma: `('red',)`",
+      "Use `list('red')` there",
+      "Write `tuple('red')`",
+      "Use `str('red')` here"
+    ],
+    "answer": "Add a comma: `('red',)`",
+    "explanation": {
+      "en": "Parentheses alone do not make a tuple, so colors is a string and the loop walks its letters."
+    }
+  },
+  {
+    "id": 234,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "const queue = [1, 2, 3, 4];\nconst preview = queue.splice(0, 2);\nconsole.log(queue); // expected [1, 2, 3, 4]",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `queue.splice(0, 1)`",
+      "Use `queue.slice(0, 2)`",
+      "Use `queue.slice(2)` here",
+      "Use `queue.splice(2)` here"
+    ],
+    "answer": "Use `queue.slice(0, 2)`",
+    "explanation": {
+      "en": "splice removes the items from the original array; slice returns a copy and leaves it untouched."
+    }
+  },
+  {
+    "id": 235,
+    "category": "go",
+    "difficulty": "hard",
+    "codeSnippet": "var n int\nvar err error\nif s != \"\" {\n\tn, err := strconv.Atoi(s)\n\tfmt.Println(n, err)\n}\nreturn n, err // always 0, nil",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Move `var err error` into the if",
+      "Rename err to `e` in the if block",
+      "Use `=` instead of `:=` inside",
+      "Check `err != nil` before return"
+    ],
+    "answer": "Use `=` instead of `:=` inside",
+    "explanation": {
+      "en": ":= declares new n and err that shadow the outer ones, so the outer variables are never assigned."
+    }
+  },
+  {
+    "id": 236,
+    "category": "java",
+    "difficulty": "hard",
+    "codeSnippet": "int days = 30;\nlong ms = days * 24 * 60 * 60 * 1000;\nSystem.out.println(ms); // -1702967296",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Cast the result: `(long) (...)`",
+      "Declare ms as a `double` instead",
+      "Wrap the result in `Math.abs`",
+      "Make one factor long: `24L`"
+    ],
+    "answer": "Make one factor long: `24L`",
+    "explanation": {
+      "en": "The product is computed in int and overflows before it is widened; a long operand makes it long arithmetic."
+    }
+  },
+  {
+    "id": 237,
+    "category": "sql",
+    "difficulty": "hard",
+    "codeSnippet": "SELECT u.name, o.id\nFROM users u\nLEFT JOIN orders o ON o.user_id = u.id\nWHERE o.status = 'paid';\n-- users with no paid order vanish",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Move the status test into `ON`",
+      "Use a `RIGHT JOIN` for orders",
+      "Add `GROUP BY u.name` at the end",
+      "Write `o.status IS 'paid'` instead"
+    ],
+    "answer": "Move the status test into `ON`",
+    "explanation": {
+      "en": "For unmatched users o.status is NULL, so the WHERE drops them and the LEFT JOIN acts like an inner join."
+    }
+  },
+  {
+    "id": 238,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "name = 'report.txt'.strip('.txt')\nprint(name)  # expected report",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `rstrip('.txt')` instead",
+      "Use `removesuffix('.txt')`",
+      "Use `lstrip('.txt')` instead",
+      "Use `split('.txt')[1]` here"
+    ],
+    "answer": "Use `removesuffix('.txt')`",
+    "explanation": {
+      "en": "strip removes any of the characters . t x from both ends, eating the final t of 'report' too."
+    }
+  },
+  {
+    "id": 239,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "const scores = new Map([['ana', 3]]);\nconst body = JSON.stringify(scores);\nsend(body); // sends \"{}\"",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Pass a spacer: `JSON.stringify(scores, null, 2)`",
+      "Spread it first into `{ ...scores }`",
+      "Convert first: `Object.fromEntries(scores)`",
+      "Send `scores.toString()` as the body"
+    ],
+    "answer": "Convert first: `Object.fromEntries(scores)`",
+    "explanation": {
+      "en": "A Map has no enumerable own properties, so JSON sees an empty object; convert it to a plain object first."
+    }
+  },
+  {
+    "id": 240,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "const ids = new Array(3).map((_, i) => i);\nconsole.log(ids); // expected [0, 1, 2]",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `Array.of(3).map(...)`",
+      "Call `.flat()` before `.map()`",
+      "Call `.sort()` before the `.map()`",
+      "Fill it first: `.fill(0).map(...)`"
+    ],
+    "answer": "Fill it first: `.fill(0).map(...)`",
+    "explanation": {
+      "en": "new Array(3) has empty slots, and map skips holes; filling the array gives map real elements to visit."
+    }
   }
 ]
