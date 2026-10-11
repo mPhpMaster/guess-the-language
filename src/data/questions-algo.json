@@ -5258,5 +5258,329 @@
     "explanation": {
       "en": "Shifting the exponent right by one halves it and exposes the next bit, giving O(log e) multiplications."
     }
+  },
+  {
+    "id": 317,
+    "category": "math",
+    "difficulty": "easy",
+    "codeSnippet": "import math\n# least common multiple: (4, 6) -> 12\nlcm = a * b ____ math.gcd(a, b)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "//",
+    "accept": [
+      "//"
+    ],
+    "explanation": {
+      "en": "lcm(a, b) = a * b / gcd(a, b); integer division keeps the result an int."
+    }
+  },
+  {
+    "id": 318,
+    "category": "algorithms",
+    "difficulty": "easy",
+    "codeSnippet": "# prefix sums: prefix[i] = sum of nums[:i]\nprefix = [0] * (len(nums) + 1)\nfor i in range(len(nums)):\n    prefix[i + 1] = prefix[i] + nums[____]",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "i",
+    "accept": [
+      "i"
+    ],
+    "explanation": {
+      "en": "Each prefix adds the next element. Any range sum is then prefix[r] - prefix[l] in O(1)."
+    }
+  },
+  {
+    "id": 319,
+    "category": "data-structures",
+    "difficulty": "easy",
+    "codeSnippet": "# trie as nested dicts: insert one word\nnode = root\nfor ch in word:\n    node = node.setdefault(ch, ____)\nnode['$'] = True",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "{}",
+    "accept": [
+      "{}",
+      "dict()"
+    ],
+    "explanation": {
+      "en": "setdefault returns the existing child or creates an empty dict for it, so the walk continues one level deeper per character."
+    }
+  },
+  {
+    "id": 320,
+    "category": "strings",
+    "difficulty": "easy",
+    "codeSnippet": "# palindrome check with mirrored indexes\nn = len(s)\nfor i in range(n // 2):\n    if s[i] != s[n - 1 - ____]:\n        return False\nreturn True",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "i",
+    "accept": [
+      "i"
+    ],
+    "explanation": {
+      "en": "Index i from the front is mirrored by n - 1 - i from the back."
+    }
+  },
+  {
+    "id": 321,
+    "category": "bit-manipulation",
+    "difficulty": "easy",
+    "codeSnippet": "# is n a power of two? (one bit set)\nok = n > 0 and (n & (n - 1)) == ____",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "0",
+    "accept": [
+      "0"
+    ],
+    "explanation": {
+      "en": "n - 1 flips the lowest set bit and the zeros below it; if that was the only bit, the AND is 0."
+    }
+  },
+  {
+    "id": 322,
+    "category": "algorithms",
+    "difficulty": "medium",
+    "codeSnippet": "# lower_bound: first index with a[i] >= x\nlo, hi = 0, len(a)\nwhile lo < hi:\n    mid = (lo + hi) // 2\n    if a[mid] < x:\n        lo = mid + 1\n    else:\n        hi = ____",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "mid",
+    "accept": [
+      "mid"
+    ],
+    "explanation": {
+      "en": "a[mid] >= x, so mid may itself be the answer and must stay in the window [lo, hi). Using mid - 1 would skip it."
+    }
+  },
+  {
+    "id": 323,
+    "category": "math",
+    "difficulty": "medium",
+    "codeSnippet": "# sieve of Eratosthenes, prime i found\nfor j in range(i * i, n + 1, ____):\n    is_prime[j] = False",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "i",
+    "accept": [
+      "i"
+    ],
+    "explanation": {
+      "en": "Step by i to hit every multiple. Starting at i * i is safe because smaller multiples were crossed off by smaller primes."
+    }
+  },
+  {
+    "id": 324,
+    "category": "algorithms",
+    "difficulty": "medium",
+    "codeSnippet": "# Floyd cycle detection on a linked list\nslow = fast = head\nwhile fast and fast.next:\n    slow = slow.next\n    fast = fast.next.____\n    if slow is fast:\n        return True\nreturn False",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "next",
+    "accept": [
+      "next"
+    ],
+    "explanation": {
+      "en": "The fast pointer moves two nodes per step; inside a cycle it must eventually land on the slow one."
+    }
+  },
+  {
+    "id": 325,
+    "category": "graphs",
+    "difficulty": "medium",
+    "codeSnippet": "# BFS shortest path in an unweighted graph\nfor v in graph[u]:\n    if v not in dist:\n        dist[v] = dist[u] + ____\n        queue.append(v)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "1",
+    "accept": [
+      "1"
+    ],
+    "explanation": {
+      "en": "Every edge costs one hop, and BFS reaches each node first along a shortest path, so its distance is its parent's plus 1."
+    }
+  },
+  {
+    "id": 326,
+    "category": "patterns",
+    "difficulty": "medium",
+    "codeSnippet": "# next greater element with a monotonic stack of indexes\nfor i in range(len(nums)):\n    while stack and nums[stack[-1]] ____ nums[i]:\n        res[stack.pop()] = nums[i]\n    stack.append(i)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "<",
+    "accept": [
+      "<"
+    ],
+    "explanation": {
+      "en": "Every index still waiting on the stack whose value is smaller than nums[i] has just found its next greater element."
+    }
+  },
+  {
+    "id": 327,
+    "category": "algorithms",
+    "difficulty": "medium",
+    "codeSnippet": "# stable merge step of merge sort\nif left[i] ____ right[j]:\n    out.append(left[i]); i += 1\nelse:\n    out.append(right[j]); j += 1",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "<=",
+    "accept": [
+      "<="
+    ],
+    "explanation": {
+      "en": "On ties, taking from the left half keeps equal items in their original order, which is what makes merge sort stable. < still sorts but is not stable."
+    }
+  },
+  {
+    "id": 328,
+    "category": "data-structures",
+    "difficulty": "medium",
+    "codeSnippet": "from collections import OrderedDict\n# LRU cache: mark key as most recently used\ndef get(self, key):\n    if key not in self.cache:\n        return -1\n    self.cache.____(key)\n    return self.cache[key]",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "move_to_end",
+    "accept": [
+      "move_to_end"
+    ],
+    "explanation": {
+      "en": "move_to_end puts the key at the back; eviction pops from the front with popitem(last=False)."
+    }
+  },
+  {
+    "id": 329,
+    "category": "recursion",
+    "difficulty": "medium",
+    "codeSnippet": "# permutations by backtracking\nfor x in choices:\n    if x in path:\n        continue\n    path.append(x)\n    dfs(path)\n    path.____()  # undo the choice",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "pop",
+    "accept": [
+      "pop"
+    ],
+    "explanation": {
+      "en": "Backtracking undoes each choice after exploring it, so the shared path is clean for the next sibling."
+    }
+  },
+  {
+    "id": 330,
+    "category": "data-structures",
+    "difficulty": "hard",
+    "codeSnippet": "# Fenwick tree prefix sum of [1..i]\ns = 0\nwhile i > 0:\n    s += tree[i]\n    i -= i ____ -i\nreturn s",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "&",
+    "accept": [
+      "&"
+    ],
+    "explanation": {
+      "en": "i & -i is the lowest set bit of i, the size of the range tree[i] covers. Removing it jumps to the previous disjoint range."
+    }
+  },
+  {
+    "id": 331,
+    "category": "strings",
+    "difficulty": "hard",
+    "codeSnippet": "# KMP failure table: fail[i] = longest proper prefix\n# of p[:i+1] that is also its suffix\nk = 0\nfor i in range(1, len(p)):\n    while k > 0 and p[i] != p[k]:\n        k = fail[____]\n    if p[i] == p[k]:\n        k += 1\n    fail[i] = k",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "k - 1",
+    "accept": [
+      "k - 1",
+      "k-1"
+    ],
+    "explanation": {
+      "en": "On a mismatch, fall back to the next shorter border: the longest border of the current match p[:k], stored at fail[k - 1]."
+    }
+  },
+  {
+    "id": 332,
+    "category": "algorithms",
+    "difficulty": "hard",
+    "codeSnippet": "import random\n# reservoir sampling: keep k items from a stream\nfor i, x in enumerate(stream):\n    if i < k:\n        res.append(x)\n    else:\n        j = random.randint(0, i)\n        if j < ____:\n            res[j] = x",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "k",
+    "accept": [
+      "k"
+    ],
+    "explanation": {
+      "en": "Item i is kept with probability k / (i + 1), replacing a random slot, which leaves every item seen so far equally likely to be in the sample."
+    }
+  },
+  {
+    "id": 333,
+    "category": "dynamic-programming",
+    "difficulty": "hard",
+    "codeSnippet": "# bitmask DP (travelling salesman): visit city v next\nfor v in range(n):\n    if mask & (1 << v):\n        continue  # already visited\n    nmask = mask ____ (1 << v)\n    dp[nmask][v] = min(dp[nmask][v], dp[mask][u] + w[u][v])",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "|",
+    "accept": [
+      "|",
+      "^",
+      "+"
+    ],
+    "explanation": {
+      "en": "OR sets bit v, adding city v to the visited set. Because the bit is known to be 0 here, ^ and + give the same result, but | is the idiom."
+    }
+  },
+  {
+    "id": 334,
+    "category": "data-structures",
+    "difficulty": "hard",
+    "codeSnippet": "# recursive segment tree over n leaves (root = 1,\n# children 2k and 2k+1): a safe array size\ntree = [0] * (____ * n)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "4",
+    "accept": [
+      "4"
+    ],
+    "explanation": {
+      "en": "For n that is not a power of two the tree is deeper than log2(n), and indexes can exceed 2n; 4n always fits."
+    }
+  },
+  {
+    "id": 335,
+    "category": "math",
+    "difficulty": "hard",
+    "codeSnippet": "# modular inverse when m is prime (Fermat)\ninv = pow(a, m - ____, m)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "2",
+    "accept": [
+      "2"
+    ],
+    "explanation": {
+      "en": "Fermat: a^(m-1) = 1 (mod m), so a^(m-2) is a's inverse."
+    }
+  },
+  {
+    "id": 336,
+    "category": "algorithms",
+    "difficulty": "hard",
+    "codeSnippet": "# quickselect: k-th smallest, p = pivot's final index\nif k == p:\n    return a[p]\nelif k < p:\n    return select(a, lo, ____ - 1, k)\nelse:\n    return select(a, p + 1, hi, k)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "p",
+    "accept": [
+      "p"
+    ],
+    "explanation": {
+      "en": "After partitioning, everything left of p is smaller, so the k-th smallest lies in [lo, p - 1]. Only one side is searched, giving O(n) average time."
+    }
   }
 ]

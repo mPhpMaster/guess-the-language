@@ -5508,5 +5508,480 @@
   "explanation": {
    "en": "Secure Boot verifies the digital signature of each bootloader and kernel against trusted keys, refusing to run tampered or unsigned early-boot code."
   }
+ },
+ {
+  "id": 295,
+  "category": "principles",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "A threat-intel report is marked TLP:RED. Who may it be shared with?"
+  },
+  "options": [
+   "Anyone in your sector's community",
+   "Only the named recipients",
+   "Your whole organisation",
+   "The general public freely"
+  ],
+  "answer": "Only the named recipients",
+  "explanation": {
+   "en": "Under the Traffic Light Protocol, RED is for the eyes of the specific recipients only; AMBER allows limited internal sharing, GREEN the community, CLEAR the public."
+  }
+ },
+ {
+  "id": 296,
+  "category": "concepts",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "In a purple team exercise, what are the attackers and defenders doing?"
+  },
+  "options": [
+   "Competing without any contact",
+   "Auditing only written policies",
+   "Testing physical building access",
+   "Working together in real time"
+  ],
+  "answer": "Working together in real time",
+  "explanation": {
+   "en": "Purple teaming blends red and blue: the red team runs techniques while the blue team watches, and both tune detections together instead of reporting weeks later."
+  }
+ },
+ {
+  "id": 297,
+  "category": "principles",
+  "difficulty": "easy",
+  "codeSnippet": "In scope:  *.shop.example\nOut of scope: corp.example, third-party payment pages",
+  "question": {
+   "en": "A bug bounty hunter finds a likely flaw on corp.example. What should they do?"
+  },
+  "options": [
+   "Test it lightly, then report it fast",
+   "Exploit it to prove impact",
+   "Leave it alone; it is out of scope",
+   "Post details publicly at once"
+  ],
+  "answer": "Leave it alone; it is out of scope",
+  "explanation": {
+   "en": "Programme scope is the legal permission boundary; testing outside it is unauthorised even with good intent. Out-of-scope issues are reported only through channels the owner allows, without testing."
+  }
+ },
+ {
+  "id": 298,
+  "category": "principles",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why do organisations label data as Public, Internal, Confidential or Restricted?"
+  },
+  "options": [
+   "To match controls to sensitivity",
+   "To compress files by category",
+   "To speed up database queries",
+   "To decide file naming conventions"
+  ],
+  "answer": "To match controls to sensitivity",
+  "explanation": {
+   "en": "Data classification tells people and tools how much protection each item needs, so encryption, access and retention rules scale with how damaging a leak would be."
+  }
+ },
+ {
+  "id": 299,
+  "category": "crypto",
+  "difficulty": "easy",
+  "codeSnippet": "$2b$12$R9h/cIPz0gi.URNNX3kh2OPST9/PgBkqquzi.Ss7KIUgO2t0jWMUW",
+  "question": {
+   "en": "Which password-hashing algorithm produced this stored value?"
+  },
+  "options": [
+   "SHA-512 crypt",
+   "bcrypt",
+   "PBKDF2",
+   "MD5 crypt"
+  ],
+  "answer": "bcrypt",
+  "explanation": {
+   "en": "The $2b$ prefix marks bcrypt, and 12 is the cost factor (2^12 rounds). $6$ is SHA-512 crypt and $1$ is MD5 crypt."
+  }
+ },
+ {
+  "id": 300,
+  "category": "defense",
+  "difficulty": "easy",
+  "codeSnippet": "https://example.com/.well-known/security.txt",
+  "question": {
+   "en": "What is this file meant to tell a security researcher?"
+  },
+  "options": [
+   "Which ports the firewall allows",
+   "How to report a vulnerability",
+   "Which pages search engines skip",
+   "The site's TLS cipher settings"
+  ],
+  "answer": "How to report a vulnerability",
+  "explanation": {
+   "en": "RFC 9116 security.txt lists a contact, policy link and expiry so people who find a flaw know where to disclose it responsibly."
+  }
+ },
+ {
+  "id": 301,
+  "category": "concepts",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is the OWASP ASVS?"
+  },
+  "options": [
+   "A list of verifiable app security requirements",
+   "A free scanner for finding web flaws",
+   "A ranking of the ten most common web app risks",
+   "A certificate issued to secure websites"
+  ],
+  "answer": "A list of verifiable app security requirements",
+  "explanation": {
+   "en": "The Application Security Verification Standard defines testable controls in levels 1 to 3, unlike the Top 10, which is an awareness list of risks."
+  }
+ },
+ {
+  "id": 302,
+  "category": "web",
+  "difficulty": "medium",
+  "codeSnippet": "POST /graphql\n{\"query\":\"{ __schema { types { name fields { name } } } }\"}",
+  "question": {
+   "en": "Why do many teams disable this kind of GraphQL query in production?"
+  },
+  "options": [
+   "It disables the API's rate limits",
+   "It deletes cached query results",
+   "It forces responses over plain HTTP",
+   "It reveals the whole API schema"
+  ],
+  "answer": "It reveals the whole API schema",
+  "explanation": {
+   "en": "Introspection returns every type, field and mutation, handing an attacker a full map of hidden or internal operations. It is useful in development but often turned off publicly."
+  }
+ },
+ {
+  "id": 303,
+  "category": "defense",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "On Windows, what does AMSI let antivirus do?"
+  },
+  "options": [
+   "Scan scripts after deobfuscation, before run",
+   "Encrypt the disk while the system sleeps",
+   "Sign drivers before the kernel loads them",
+   "Block USB storage devices by their vendor ID"
+  ],
+  "answer": "Scan scripts after deobfuscation, before run",
+  "explanation": {
+   "en": "The Antimalware Scan Interface lets PowerShell, VBScript, Office macros and others hand content to the AV engine at runtime, after layers of obfuscation are unwrapped."
+  }
+ },
+ {
+  "id": 304,
+  "category": "tools",
+  "difficulty": "medium",
+  "codeSnippet": "title: Suspicious Encoded PowerShell\nlogsource:\n  product: windows\ndetection:\n  selection:\n    CommandLine|contains: ' -enc '\n  condition: selection",
+  "question": {
+   "en": "What is this YAML file?"
+  },
+  "options": [
+   "A YARA rule for scanning files",
+   "A Snort rule for network packets",
+   "A Sigma rule for log detection",
+   "An Ansible task for patching"
+  ],
+  "answer": "A Sigma rule for log detection",
+  "explanation": {
+   "en": "Sigma is a generic, SIEM-agnostic format for log detections; converters translate it into Splunk, Elastic, Sentinel and other query languages."
+  }
+ },
+ {
+  "id": 305,
+  "category": "concepts",
+  "difficulty": "medium",
+  "codeSnippet": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+  "question": {
+   "en": "What does AV:N tell you about this vulnerability?"
+  },
+  "options": [
+   "No availability impact exists",
+   "It is exploitable over a network",
+   "No privileges at all are ever needed",
+   "It needs no user to interact"
+  ],
+  "answer": "It is exploitable over a network",
+  "explanation": {
+   "en": "AV is Attack Vector; N (Network) means remotely exploitable. PR:N covers privileges, UI:N user interaction, and A:H availability impact."
+  }
+ },
+ {
+  "id": 306,
+  "category": "concepts",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does an EPSS score estimate for a CVE?"
+  },
+  "options": [
+   "Its technical severity",
+   "The cost of patching it",
+   "How many hosts it affects worldwide",
+   "Its chance of exploitation soon"
+  ],
+  "answer": "Its chance of exploitation soon",
+  "explanation": {
+   "en": "The Exploit Prediction Scoring System gives the probability a CVE is exploited in the wild in the next 30 days, complementing CVSS severity when prioritising patches."
+  }
+ },
+ {
+  "id": 307,
+  "category": "defense",
+  "difficulty": "medium",
+  "codeSnippet": "-rwsr-xr-x 1 root root 54096 /usr/local/bin/backup",
+  "question": {
+   "en": "Why would an auditor flag this file?"
+  },
+  "options": [
+   "It runs with its owner's (root) rights",
+   "Any user is able to overwrite it",
+   "It is hidden from normal directory listings",
+   "It can only be run by the root user"
+  ],
+  "answer": "It runs with its owner's (root) rights",
+  "explanation": {
+   "en": "The s in the owner execute slot is the SUID bit, so anyone running it gets root's privileges. Custom SUID binaries widen the attack surface and should be reviewed."
+  }
+ },
+ {
+  "id": 308,
+  "category": "web",
+  "difficulty": "medium",
+  "codeSnippet": "Referrer-Policy: strict-origin-when-cross-origin",
+  "question": {
+   "en": "What does this response header limit?"
+  },
+  "options": [
+   "Which sites may frame the page",
+   "What URL data leaks to other sites",
+   "Which scripts the page is allowed to load",
+   "How long the browser caches it"
+  ],
+  "answer": "What URL data leaks to other sites",
+  "explanation": {
+   "en": "Cross-origin requests get only the origin in the Referer header, not the full path and query, which can carry tokens or private identifiers."
+  }
+ },
+ {
+  "id": 309,
+  "category": "web",
+  "difficulty": "medium",
+  "codeSnippet": "<a href=\"https://other.example\" target=\"_blank\" rel=\"noopener\">",
+  "question": {
+   "en": "What does rel=\"noopener\" protect against here?"
+  },
+  "options": [
+   "The link being crawled by bots",
+   "Mixed content on the new page",
+   "The new tab redirecting this one",
+   "Cookies being sent to other sites"
+  ],
+  "answer": "The new tab redirecting this one",
+  "explanation": {
+   "en": "Without it, the opened page gets window.opener and can silently navigate the original tab to a phishing page (reverse tabnabbing)."
+  }
+ },
+ {
+  "id": 310,
+  "category": "defense",
+  "difficulty": "medium",
+  "codeSnippet": "Event ID 4625  Logon Type 3  Account: svc_backup  Source: 10.0.4.17  (x 480 in 2 min)",
+  "question": {
+   "en": "What does this burst in the Windows Security log most likely show?"
+  },
+  "options": [
+   "A routine service restart",
+   "Many failed network logons",
+   "A successful admin login",
+   "A scheduled group policy refresh"
+  ],
+  "answer": "Many failed network logons",
+  "explanation": {
+   "en": "4625 is 'an account failed to log on' and type 3 is a network logon. Hundreds in minutes from one source suggests password guessing worth investigating."
+  }
+ },
+ {
+  "id": 311,
+  "category": "defense",
+  "difficulty": "medium",
+  "codeSnippet": "1  ACCEPT  tcp  dport 22  src 10.0.0.0/8\n2  DROP    tcp  dport 22  src 0.0.0.0/0\n3  ACCEPT  tcp  dport 22  src 203.0.113.5",
+  "question": {
+   "en": "With first-match processing, what happens to SSH from 203.0.113.5?"
+  },
+  "options": [
+   "Accepted by rule 3",
+   "Accepted by rule 1",
+   "Logged, then accepted",
+   "Dropped by rule 2"
+  ],
+  "answer": "Dropped by rule 2",
+  "explanation": {
+   "en": "Rules are checked top-down and the first match wins. 203.0.113.5 is not in 10.0.0.0/8, so rule 2 drops it before rule 3 is ever reached."
+  }
+ },
+ {
+  "id": 312,
+  "category": "web",
+  "difficulty": "hard",
+  "codeSnippet": "Access-Control-Allow-Origin: *\nAccess-Control-Allow-Credentials: true",
+  "question": {
+   "en": "How does a browser treat a credentialed cross-origin fetch receiving these headers?"
+  },
+  "options": [
+   "It reads the response normally",
+   "It blocks the response from script",
+   "It strips cookies, then allows it",
+   "It retries the fetch without credentials"
+  ],
+  "answer": "It blocks the response from script",
+  "explanation": {
+   "en": "The CORS spec forbids the * wildcard when credentials are allowed; the server must echo a specific origin. Servers that reflect any Origin to dodge this create a real hole."
+  }
+ },
+ {
+  "id": 313,
+  "category": "web",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "A CDN caches a page that reflects an unkeyed X-Forwarded-Host header. What is the main defence against web cache poisoning?"
+  },
+  "options": [
+   "Raise the cache TTL",
+   "Enable HTTP/2 everywhere",
+   "Key or ignore that input",
+   "Add a CSRF token there"
+  ],
+  "answer": "Key or ignore that input",
+  "explanation": {
+   "en": "Poisoning works when an input changes the response but is not part of the cache key. Either add it to the key or stop the app from trusting and reflecting it."
+  }
+ },
+ {
+  "id": 314,
+  "category": "defense",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which setting most directly blocks NTLM relay attacks against SMB servers?"
+  },
+  "options": [
+   "Requiring SMB signing",
+   "Disabling IPv6 support",
+   "Raising password length",
+   "Enabling disk encryption"
+  ],
+  "answer": "Requiring SMB signing",
+  "explanation": {
+   "en": "With signing required, each SMB message is signed with a session key a relaying party never learns, so a relayed authentication is useless. EPA plays the same role for HTTP and LDAPS."
+  }
+ },
+ {
+  "id": 315,
+  "category": "crypto",
+  "difficulty": "hard",
+  "codeSnippet": "$argon2id$v=19$m=65536,t=3,p=4$c2FsdHNhbHQ$...",
+  "question": {
+   "en": "What does m=65536 configure in this Argon2id hash?"
+  },
+  "options": [
+   "The number of passes",
+   "The parallel thread count",
+   "The output length in bits",
+   "The memory cost in KiB"
+  ],
+  "answer": "The memory cost in KiB",
+  "explanation": {
+   "en": "m is memory (64 MiB here), t the iteration count and p the parallelism. The memory cost is what makes GPU and ASIC cracking expensive."
+  }
+ },
+ {
+  "id": 316,
+  "category": "web",
+  "difficulty": "hard",
+  "codeSnippet": "Set-Cookie: sid=abc123; SameSite=None; HttpOnly",
+  "question": {
+   "en": "Why will modern browsers reject this cookie?"
+  },
+  "options": [
+   "HttpOnly needs a Domain set",
+   "SameSite=None needs Secure",
+   "The value is far too short",
+   "It has no Max-Age attribute"
+  ],
+  "answer": "SameSite=None needs Secure",
+  "explanation": {
+   "en": "Chromium-based browsers and Firefox require any SameSite=None cookie to also carry Secure, so it is only sent over HTTPS; otherwise the cookie is dropped."
+  }
+ },
+ {
+  "id": 317,
+  "category": "attacks",
+  "difficulty": "hard",
+  "codeSnippet": "^(a+)+$   tested against  \"aaaaaaaaaaaaaaaaaaaaaaaa!\"",
+  "question": {
+   "en": "Why can this regex freeze a server on that input?"
+  },
+  "options": [
+   "It allocates a huge capture",
+   "Nested quantifiers backtrack exponentially",
+   "Anchors force a full rescan of each line",
+   "The long input string overflows a fixed buffer"
+  ],
+  "answer": "Nested quantifiers backtrack exponentially",
+  "explanation": {
+   "en": "When the match fails at the end, the engine tries every way to split the a's between the inner and outer groups: a regular-expression denial of service (ReDoS)."
+  }
+ },
+ {
+  "id": 318,
+  "category": "web",
+  "difficulty": "hard",
+  "codeSnippet": "archive.zip contains: ../../../etc/cron.d/job",
+  "question": {
+   "en": "What must an upload handler do to stop this archive entry escaping its target folder?"
+  },
+  "options": [
+   "Check the archive's file size",
+   "Rename the zip before extracting any of it",
+   "Verify the resolved path stays inside",
+   "Scan the archive with antivirus"
+  ],
+  "answer": "Verify the resolved path stays inside",
+  "explanation": {
+   "en": "This is Zip Slip: entry names with ../ write outside the extraction directory. Canonicalise each destination path and reject any not under the target root."
+  }
+ },
+ {
+  "id": 319,
+  "category": "web",
+  "difficulty": "hard",
+  "codeSnippet": "Set-Cookie: __Host-sid=abc; Secure; Path=/",
+  "question": {
+   "en": "What does the __Host- prefix require of this cookie?"
+  },
+  "options": [
+   "HttpOnly and SameSite=Strict",
+   "Secure and a Max-Age value",
+   "A Domain matching the host",
+   "Secure, Path=/ and no Domain"
+  ],
+  "answer": "Secure, Path=/ and no Domain",
+  "explanation": {
+   "en": "Browsers only accept a __Host- cookie set over HTTPS with Secure, Path=/ and no Domain attribute, locking it to the exact host so sibling subdomains cannot overwrite it."
+  }
  }
 ]

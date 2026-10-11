@@ -1,0 +1,477 @@
+[
+  {
+    "id": 255,
+    "category": "kubernetes",
+    "difficulty": "medium",
+    "codeSnippet": "containers:\n- name: api\n  image: registry.example.com/api:1.4.2\n  imagePullPolicy: IfNotPresent",
+    "question": {
+      "en": "When will the kubelet pull this image?"
+    },
+    "options": [
+      "Each time any pod using it starts",
+      "Never; nodes must be preloaded",
+      "Only if the node lacks that image",
+      "Once a day, to look for updates"
+    ],
+    "answer": "Only if the node lacks that image",
+    "explanation": {
+      "en": "IfNotPresent uses a cached copy when the node already has it and pulls only when it does not. Always pulls on every start; Never relies entirely on preloaded images."
+    }
+  },
+  {
+    "id": 256,
+    "category": "kubernetes",
+    "difficulty": "hard",
+    "codeSnippet": "replicas: 4\nstrategy:\n  type: RollingUpdate\n  rollingUpdate:\n    maxSurge: 1\n    maxUnavailable: 0",
+    "question": {
+      "en": "During a rollout, what is the most pods this Deployment can have at once?"
+    },
+    "options": [
+      "3",
+      "4",
+      "5",
+      "8"
+    ],
+    "answer": "5",
+    "explanation": {
+      "en": "maxSurge: 1 allows one pod above the desired 4, and maxUnavailable: 0 means an old pod is removed only after a new one is ready, so the count peaks at 5."
+    }
+  },
+  {
+    "id": 257,
+    "category": "kubernetes",
+    "difficulty": "medium",
+    "codeSnippet": "kind: PersistentVolumeClaim\nspec:\n  accessModes: [ReadWriteOnce]\n  resources:\n    requests: { storage: 10Gi }",
+    "question": {
+      "en": "What does the ReadWriteOnce access mode mean?"
+    },
+    "options": [
+      "It is mounted read-write by a single node",
+      "Only one pod in the cluster may ever use it",
+      "It can be written once, then is read-only",
+      "Every node may read it, one node may write"
+    ],
+    "answer": "It is mounted read-write by a single node",
+    "explanation": {
+      "en": "RWO limits the volume to one node at a time; several pods on that node can still share it. ReadWriteOncePod is the mode that restricts it to a single pod."
+    }
+  },
+  {
+    "id": 258,
+    "category": "kubernetes",
+    "difficulty": "medium",
+    "codeSnippet": "kind: Service\nmetadata: { name: db }\nspec:\n  type: ExternalName\n  externalName: db.prod.example.com",
+    "question": {
+      "en": "What does looking up the name db return in the cluster?"
+    },
+    "options": [
+      "A CNAME pointing at db.prod.example.com",
+      "A ClusterIP that kube-proxy forwards on",
+      "A node port mapped to the external host",
+      "The address of a new cloud load balancer"
+    ],
+    "answer": "A CNAME pointing at db.prod.example.com",
+    "explanation": {
+      "en": "An ExternalName Service has no selector or proxying; cluster DNS simply answers with a CNAME record to the external host name."
+    }
+  },
+  {
+    "id": 259,
+    "category": "kubernetes",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does applying a CustomResourceDefinition (CRD) give a cluster?"
+    },
+    "options": [
+      "A second etcd for one namespace",
+      "A custom scheduler for its pods",
+      "A plugin that adds container runtimes",
+      "A new API resource type to store"
+    ],
+    "answer": "A new API resource type to store",
+    "explanation": {
+      "en": "A CRD extends the Kubernetes API with a new kind that kubectl and the API server can store and serve; an operator's controller usually acts on those objects."
+    }
+  },
+  {
+    "id": 260,
+    "category": "kubernetes",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What can a mutating admission webhook do that a validating one cannot?"
+    },
+    "options": [
+      "Reject requests that break policy",
+      "Edit an object before it is stored",
+      "Restart pods that are already running",
+      "Move running pods to another node"
+    ],
+    "answer": "Edit an object before it is stored",
+    "explanation": {
+      "en": "Mutating webhooks run first and may patch the incoming object, for example to inject a sidecar; validating webhooks can only accept or reject. Neither touches pods that already exist."
+    }
+  },
+  {
+    "id": 261,
+    "category": "kubernetes",
+    "difficulty": "hard",
+    "codeSnippet": "kind: Namespace\nmetadata:\n  name: payments\n  labels:\n    pod-security.kubernetes.io/enforce: restricted",
+    "question": {
+      "en": "A pod in this namespace asks to run as root. What happens?"
+    },
+    "options": [
+      "It runs, and a warning is shown",
+      "It is evicted after a grace period",
+      "It is rejected when it is admitted",
+      "It is quietly switched to a user id"
+    ],
+    "answer": "It is rejected when it is admitted",
+    "explanation": {
+      "en": "Pod Security Admission in enforce mode refuses pods that violate the level; the restricted level requires running as non-root. The warn and audit modes only report."
+    }
+  },
+  {
+    "id": 262,
+    "category": "kubernetes",
+    "difficulty": "easy",
+    "codeSnippet": "kubectl cordon node-2",
+    "question": {
+      "en": "What happens to the pods already running on node-2?"
+    },
+    "options": [
+      "They are evicted at once",
+      "They keep running there",
+      "They are paused in place",
+      "They restart on new nodes"
+    ],
+    "answer": "They keep running there",
+    "explanation": {
+      "en": "Cordon only marks the node unschedulable so no new pods land on it. Evicting the existing pods is what kubectl drain adds on top."
+    }
+  },
+  {
+    "id": 263,
+    "category": "iac",
+    "difficulty": "easy",
+    "codeSnippet": "resource \"aws_instance\" \"web\" {\n  count = 3\n  tags  = { Name = \"web-${count.index}\" }\n}",
+    "question": {
+      "en": "What Name tags do the three instances get?"
+    },
+    "options": [
+      "web-1, web-2, web-3",
+      "web-0, web-1, web-2",
+      "web-3, web-3, web-3",
+      "web-0, web-0, web-0"
+    ],
+    "answer": "web-0, web-1, web-2",
+    "explanation": {
+      "en": "count.index is the zero-based position of each copy, so three copies are numbered 0, 1 and 2."
+    }
+  },
+  {
+    "id": 264,
+    "category": "iac",
+    "difficulty": "hard",
+    "codeSnippet": "lifecycle {\n  ignore_changes = [tags]\n}",
+    "question": {
+      "en": "Someone edits this resource's tags in the cloud console. What does the next plan do?"
+    },
+    "options": [
+      "Leaves the edited tags in place",
+      "Reverts the tags to the config",
+      "Destroys and recreates the resource",
+      "Fails until the tags are restored"
+    ],
+    "answer": "Leaves the edited tags in place",
+    "explanation": {
+      "en": "ignore_changes tells Terraform not to plan updates for the listed attributes, so drift in tags (and edits to tags in the config) no longer produce a diff."
+    }
+  },
+  {
+    "id": 265,
+    "category": "iac",
+    "difficulty": "medium",
+    "codeSnippet": "terraform plan -out=tfplan\nterraform apply tfplan",
+    "question": {
+      "en": "Why save the plan to a file before applying it?"
+    },
+    "options": [
+      "So apply skips the state lock",
+      "So apply runs just what was reviewed",
+      "So providers stay cached on the runner",
+      "So the plan is exported as plain JSON"
+    ],
+    "answer": "So apply runs just what was reviewed",
+    "explanation": {
+      "en": "Applying a saved plan carries out that exact change set without re-planning, and Terraform refuses it if the state changed in between."
+    }
+  },
+  {
+    "id": 266,
+    "category": "iac",
+    "difficulty": "medium",
+    "codeSnippet": "-/+ resource \"aws_instance\" \"web\" {\n      ~ ami = \"ami-0a1\" -> \"ami-0b2\" # forces replacement",
+    "question": {
+      "en": "What does the -/+ marker in this plan mean?"
+    },
+    "options": [
+      "Update the instance in place",
+      "Create a new one, then destroy",
+      "Drop it from state, keep it running",
+      "Destroy it, then create a new one"
+    ],
+    "answer": "Destroy it, then create a new one",
+    "explanation": {
+      "en": "-/+ is a replacement where the old object goes first; +/- appears when create_before_destroy builds the new one first, and ~ is an in-place update."
+    }
+  },
+  {
+    "id": 267,
+    "category": "iac",
+    "difficulty": "easy",
+    "codeSnippet": "- name: restart sshd\n  service: name=sshd state=restarted\n  become: true",
+    "question": {
+      "en": "What does become: true do for this Ansible task?"
+    },
+    "options": [
+      "Turns the task into a handler",
+      "Runs the task on the control node",
+      "Runs it with escalated privileges",
+      "Retries the task until it succeeds"
+    ],
+    "answer": "Runs it with escalated privileges",
+    "explanation": {
+      "en": "become enables privilege escalation, by default sudo to root, which is needed to manage system services."
+    }
+  },
+  {
+    "id": 268,
+    "category": "secrets",
+    "difficulty": "hard",
+    "codeSnippet": "output \"db_password\" {\n  value     = random_password.db.result\n  sensitive = true\n}",
+    "question": {
+      "en": "Where can this output's value still be read in plain text?"
+    },
+    "options": [
+      "In the Terraform state file",
+      "In the plan's console output",
+      "In every apply log in CI",
+      "Nowhere; it is encrypted"
+    ],
+    "answer": "In the Terraform state file",
+    "explanation": {
+      "en": "sensitive only redacts the value in CLI output; state stores it unencrypted, which is why state needs encrypted, access-controlled storage."
+    }
+  },
+  {
+    "id": 269,
+    "category": "docker",
+    "difficulty": "easy",
+    "codeSnippet": "COPY --chown=app:app . /app",
+    "question": {
+      "en": "What does --chown do in this instruction?"
+    },
+    "options": [
+      "Switches USER for later steps",
+      "Makes the copied files read-only",
+      "Creates the app user in the image",
+      "Gives the copied files to app:app"
+    ],
+    "answer": "Gives the copied files to app:app",
+    "explanation": {
+      "en": "Files added by COPY are owned by root by default; --chown sets their owner and group in the same layer, avoiding a separate RUN chown that duplicates them."
+    }
+  },
+  {
+    "id": 270,
+    "category": "docker",
+    "difficulty": "medium",
+    "codeSnippet": "services:\n  api:\n    image: api\n  adminer:\n    image: adminer\n    profiles: [\"debug\"]",
+    "question": {
+      "en": "When does docker compose up start the adminer service?"
+    },
+    "options": [
+      "Always; profiles are only labels",
+      "Only when the debug profile is on",
+      "Only after api reports healthy",
+      "Only when logging is set to debug"
+    ],
+    "answer": "Only when the debug profile is on",
+    "explanation": {
+      "en": "Services with profiles are skipped unless a matching profile is enabled, e.g. with --profile debug or COMPOSE_PROFILES; services without profiles always start."
+    }
+  },
+  {
+    "id": 271,
+    "category": "docker",
+    "difficulty": "hard",
+    "codeSnippet": "RUN apt-get update\nRUN apt-get install -y curl",
+    "question": {
+      "en": "Why is splitting these into two RUN lines a problem?"
+    },
+    "options": [
+      "The image gets a second base layer",
+      "apt-get cannot run twice in one build",
+      "A cached, stale update can be reused",
+      "curl ends up installed as non-root"
+    ],
+    "answer": "A cached, stale update can be reused",
+    "explanation": {
+      "en": "If only the install line changes later, the update layer comes from cache with old package lists, so installs can fail or get outdated versions. Combine them in one RUN."
+    }
+  },
+  {
+    "id": 272,
+    "category": "cicd",
+    "difficulty": "medium",
+    "codeSnippet": "- name: Upload test logs\n  if: always()\n  uses: actions/upload-artifact@v4",
+    "question": {
+      "en": "When does this GitHub Actions step run?"
+    },
+    "options": [
+      "Even when an earlier step failed",
+      "Only when all prior steps have passed",
+      "Only on the default branch",
+      "Only when the run is re-tried"
+    ],
+    "answer": "Even when an earlier step failed",
+    "explanation": {
+      "en": "Steps normally have an implicit success() condition; always() makes this one run regardless of earlier failures (and even on cancellation), which suits collecting logs."
+    }
+  },
+  {
+    "id": 273,
+    "category": "cicd",
+    "difficulty": "medium",
+    "codeSnippet": "- uses: actions/cache@v4\n  with:\n    path: ~/.npm\n    key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}",
+    "question": {
+      "en": "With this key, what makes the job save a fresh cache entry?"
+    },
+    "options": [
+      "Any push to the main branch",
+      "Any new commit to the repo",
+      "A version bump in package.json",
+      "A change to the lockfile"
+    ],
+    "answer": "A change to the lockfile",
+    "explanation": {
+      "en": "hashFiles fingerprints the lockfile, so the key, and therefore a new cache, changes only when the resolved dependencies do; otherwise the existing entry is restored."
+    }
+  },
+  {
+    "id": 274,
+    "category": "cicd",
+    "difficulty": "medium",
+    "codeSnippet": "deploy:\n  runs-on: ubuntu-latest\n  environment: production",
+    "question": {
+      "en": "What can the production environment's protection rules require before this job runs?"
+    },
+    "options": [
+      "A green build on every fork",
+      "Approval by named reviewers",
+      "A signed tag on the commit",
+      "A self-hosted runner pool"
+    ],
+    "answer": "Approval by named reviewers",
+    "explanation": {
+      "en": "GitHub environments can hold jobs until required reviewers approve, add a wait timer, limit which branches deploy, and scope secrets to that environment."
+    }
+  },
+  {
+    "id": 275,
+    "category": "cicd",
+    "difficulty": "easy",
+    "codeSnippet": "on:\n  push:\n    paths:\n      - 'services/api/**'",
+    "question": {
+      "en": "When does this workflow run?"
+    },
+    "options": [
+      "On every push, inside services/api",
+      "Only on pushes to an api branch",
+      "When a push changes services/api",
+      "When services/api is newly created"
+    ],
+    "answer": "When a push changes services/api",
+    "explanation": {
+      "en": "A paths filter triggers the workflow only if the pushed commits touch a matching file, a common way to keep monorepo CI from building everything."
+    }
+  },
+  {
+    "id": 276,
+    "category": "cicd",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a merge queue test before it merges a pull request?"
+    },
+    "options": [
+      "The PR with those queued ahead",
+      "Only the PR branch on its own",
+      "That every reviewer approved",
+      "That the PR has a single commit"
+    ],
+    "answer": "The PR with those queued ahead",
+    "explanation": {
+      "en": "The queue builds the PR on top of main plus every PR ahead of it, so two changes that pass alone but break together are caught before either lands."
+    }
+  },
+  {
+    "id": 277,
+    "category": "cicd",
+    "difficulty": "hard",
+    "codeSnippet": "cosign sign registry.example.com/api@sha256:4f1c...",
+    "question": {
+      "en": "What does this Sigstore cosign command produce?"
+    },
+    "options": [
+      "A copy of the image re-encrypted",
+      "A signature bound to that digest",
+      "A new tag named after the digest",
+      "A scan report of the image's CVEs"
+    ],
+    "answer": "A signature bound to that digest",
+    "explanation": {
+      "en": "cosign signs the immutable image digest and stores the signature in the registry beside it; deploy-time policy can then verify it. Signing a digest rather than a tag avoids a moved tag."
+    }
+  },
+  {
+    "id": 278,
+    "category": "observability",
+    "difficulty": "medium",
+    "codeSnippet": "rate(http_requests_total[5m])",
+    "question": {
+      "en": "What does this PromQL expression return for each series?"
+    },
+    "options": [
+      "Total requests made in 5 minutes",
+      "Requests per minute, smoothed out",
+      "The rise between the last 2 samples",
+      "Per-second average rise over 5m"
+    ],
+    "answer": "Per-second average rise over 5m",
+    "explanation": {
+      "en": "rate() gives the per-second average increase of a counter across the window, handling resets; increase() gives the total, and irate() uses only the last two samples."
+    }
+  },
+  {
+    "id": 279,
+    "category": "observability",
+    "difficulty": "hard",
+    "codeSnippet": "histogram_quantile(0.95,\n  sum by (le) (rate(req_duration_seconds_bucket[5m])))",
+    "question": {
+      "en": "What does this query estimate?"
+    },
+    "options": [
+      "Mean latency, excluding the top 5%",
+      "Share of requests under 0.95 seconds",
+      "The 95th percentile request latency",
+      "The number of buckets above 95%"
+    ],
+    "answer": "The 95th percentile request latency",
+    "explanation": {
+      "en": "histogram_quantile interpolates the 0.95 quantile from cumulative bucket counts grouped by the le (upper bound) label, so the result is an estimate limited by bucket boundaries."
+    }
+  }
+]

@@ -4748,5 +4748,480 @@
   "explanation": {
    "en": "SAE (Simultaneous Authentication of Equals) uses a zero-knowledge exchange, so capturing the handshake no longer lets an attacker brute-force the password offline."
   }
+ },
+ {
+  "id": 260,
+  "category": "protocols",
+  "difficulty": "easy",
+  "codeSnippet": "IP 10.0.0.1 > 10.0.0.9: ICMP echo reply, id 4, seq 1",
+  "question": {
+   "en": "Which ICMP type number does this message carry?"
+  },
+  "options": [
+   "Type 8",
+   "Type 3",
+   "Type 0",
+   "Type 11"
+  ],
+  "answer": "Type 0",
+  "explanation": {
+   "en": "Echo reply is type 0 and echo request is type 8. Type 3 is destination unreachable and type 11 is time exceeded."
+  }
+ },
+ {
+  "id": 261,
+  "category": "protocols",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "In the 2.4 GHz band, which channel set avoids overlap between neighbouring access points?"
+  },
+  "options": [
+   "1, 2 and 3",
+   "1, 6 and 11",
+   "2, 7 and 12",
+   "4, 8 and 13"
+  ],
+  "answer": "1, 6 and 11",
+  "explanation": {
+   "en": "Each 2.4 GHz channel is about 20 MHz wide but spaced only 5 MHz apart, so 1, 6 and 11 are the classic non-overlapping trio."
+  }
+ },
+ {
+  "id": 262,
+  "category": "services",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "On hotel Wi-Fi, every web request first lands on a login and terms page. What is this called?"
+  },
+  "options": [
+   "A DNS sinkhole",
+   "A reverse proxy",
+   "A walled garden VPN",
+   "A captive portal"
+  ],
+  "answer": "A captive portal",
+  "explanation": {
+   "en": "A captive portal intercepts traffic from new clients and redirects HTTP to a sign-in page until the user authenticates or accepts the terms."
+  }
+ },
+ {
+  "id": 263,
+  "category": "services",
+  "difficulty": "easy",
+  "codeSnippet": "HTTP/1.1 504 Gateway Timeout\nServer: nginx",
+  "question": {
+   "en": "What does this response from a reverse proxy mean?"
+  },
+  "options": [
+   "The upstream never answered in time",
+   "The upstream sent an invalid reply",
+   "The client's request was badly malformed",
+   "The page was moved permanently"
+  ],
+  "answer": "The upstream never answered in time",
+  "explanation": {
+   "en": "504 means the proxy gave up waiting for the backend. A 502 instead means the backend answered but with something invalid."
+  }
+ },
+ {
+  "id": 264,
+  "category": "switching",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which vendor-neutral protocol lets a switch advertise its name and port to directly connected neighbours?"
+  },
+  "options": [
+   "LLDP",
+   "STP",
+   "VTP",
+   "LACP"
+  ],
+  "answer": "LLDP",
+  "explanation": {
+   "en": "Link Layer Discovery Protocol (802.1AB) shares device identity and port details with neighbours; CDP is Cisco's proprietary equivalent."
+  }
+ },
+ {
+  "id": 265,
+  "category": "routing",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "In RIP, which hop count means a network is unreachable?"
+  },
+  "options": [
+   "8",
+   "15",
+   "255",
+   "16"
+  ],
+  "answer": "16",
+  "explanation": {
+   "en": "RIP allows at most 15 hops; a metric of 16 is treated as infinity, which limits RIP to small networks."
+  }
+ },
+ {
+  "id": 266,
+  "category": "tcp",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which values together uniquely identify one TCP connection on a host?"
+  },
+  "options": [
+   "Source and destination MAC addresses only",
+   "The protocol plus both IPs and both ports",
+   "The destination IP address and port only",
+   "The sequence and acknowledgement numbers"
+  ],
+  "answer": "The protocol plus both IPs and both ports",
+  "explanation": {
+   "en": "The 5-tuple distinguishes connections, which is why one server port can serve thousands of clients at once."
+  }
+ },
+ {
+  "id": 267,
+  "category": "tools",
+  "difficulty": "medium",
+  "codeSnippet": "$ arp -a\n? (192.168.1.1) at 3c:84:6a:12:9e:01 [ether] on eth0",
+  "question": {
+   "en": "What is this command listing?"
+  },
+  "options": [
+   "Open TCP ports on the host",
+   "The host's IP-to-MAC mappings",
+   "DHCP leases handed out on the network",
+   "The kernel's routing table"
+  ],
+  "answer": "The host's IP-to-MAC mappings",
+  "explanation": {
+   "en": "arp -a prints the local ARP cache: IPv4 neighbours the host has resolved to MAC addresses on each interface."
+  }
+ },
+ {
+  "id": 268,
+  "category": "routing",
+  "difficulty": "medium",
+  "codeSnippet": "route-map GUEST permit 10\n match ip address GUEST-NET\n set ip next-hop 203.0.113.1",
+  "question": {
+   "en": "What does this configuration implement?"
+  },
+  "options": [
+   "Policy-based routing by source",
+   "A static default route",
+   "OSPF route summarisation",
+   "Port address translation for guests"
+  ],
+  "answer": "Policy-based routing by source",
+  "explanation": {
+   "en": "Policy-based routing forwards matching traffic (here the guest subnet) to a chosen next hop, overriding the normal destination-based routing table lookup."
+  }
+ },
+ {
+  "id": 269,
+  "category": "routing",
+  "difficulty": "medium",
+  "codeSnippet": "10.5.0.0/16 learned via static (AD 1) and OSPF (AD 110)",
+  "question": {
+   "en": "Which route does the router install for this same prefix?"
+  },
+  "options": [
+   "The OSPF route",
+   "Both, load-balanced",
+   "The static route",
+   "Neither of the two"
+  ],
+  "answer": "The static route",
+  "explanation": {
+   "en": "With identical prefixes, the lower administrative distance wins: static 1 beats OSPF 110. A floating static uses a higher AD to act only as a backup."
+  }
+ },
+ {
+  "id": 270,
+  "category": "services",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What can a layer 7 load balancer do that a layer 4 one cannot?"
+  },
+  "options": [
+   "Spread connections by IP and port",
+   "Route requests by URL path or header",
+   "Balance UDP traffic across servers",
+   "Forward packets without any proxying"
+  ],
+  "answer": "Route requests by URL path or header",
+  "explanation": {
+   "en": "An L7 balancer parses HTTP, so it can send /api to one pool and /images to another. An L4 balancer only sees addresses and ports."
+  }
+ },
+ {
+  "id": 271,
+  "category": "services",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "A load balancer keeps sending each user to the same backend using a cookie. What is this called?"
+  },
+  "options": [
+   "Health checking",
+   "Connection draining",
+   "Round-robin DNS",
+   "Sticky sessions"
+  ],
+  "answer": "Sticky sessions",
+  "explanation": {
+   "en": "Session affinity pins a client to one server, useful when session state lives in memory, at the cost of uneven load and failover pain."
+  }
+ },
+ {
+  "id": 272,
+  "category": "protocols",
+  "difficulty": "medium",
+  "codeSnippet": "Connection: keep-alive",
+  "question": {
+   "en": "What does HTTP keep-alive save the client?"
+  },
+  "options": [
+   "Re-sending cookies each time",
+   "Encrypting every response",
+   "A new TCP handshake per request",
+   "Resolving DNS again for each image"
+  ],
+  "answer": "A new TCP handshake per request",
+  "explanation": {
+   "en": "Persistent connections reuse one TCP (and TLS) session for many requests, cutting handshake latency. It is the default in HTTP/1.1."
+  }
+ },
+ {
+  "id": 273,
+  "category": "tcp",
+  "difficulty": "medium",
+  "codeSnippet": "10.0.0.5.51522 > 10.0.0.9.8080: Flags [S]\n10.0.0.9.8080 > 10.0.0.5.51522: Flags [R.]",
+  "question": {
+   "en": "What does this two-packet exchange tell you about port 8080?"
+  },
+  "options": [
+   "It is filtered by a firewall",
+   "It is closed on a reachable host",
+   "It is open and accepting",
+   "It is rate-limiting this one client"
+  ],
+  "answer": "It is closed on a reachable host",
+  "explanation": {
+   "en": "A RST-ACK in reply to a SYN means the host is up but nothing listens there. An open port answers SYN-ACK; a filtered one usually gives no reply."
+  }
+ },
+ {
+  "id": 274,
+  "category": "diagnostics",
+  "difficulty": "medium",
+  "codeSnippet": " 4  72.14.215.85   11.2 ms\n 5  * * *\n 6  142.250.62.3   14.0 ms",
+  "question": {
+   "en": "What does hop 5 most likely mean?"
+  },
+  "options": [
+   "The path is broken at hop 5",
+   "That router does not send ICMP replies",
+   "Hop 5 is dropping all traffic",
+   "The DNS lookup failed for hop 5's name"
+  ],
+  "answer": "That router does not send ICMP replies",
+  "explanation": {
+   "en": "Later hops answer, so traffic passes through. The hop 5 router simply does not return (or rate-limits) Time Exceeded messages."
+  }
+ },
+ {
+  "id": 275,
+  "category": "switching",
+  "difficulty": "medium",
+  "codeSnippet": "interface Gi0/0.10\n encapsulation dot1Q 10\n ip address 10.10.10.1 255.255.255.0",
+  "question": {
+   "en": "What design does this subinterface configuration belong to?"
+  },
+  "options": [
+   "A port channel bundle",
+   "Router-on-a-stick",
+   "A GRE tunnel endpoint",
+   "A private VLAN host port"
+  ],
+  "answer": "Router-on-a-stick",
+  "explanation": {
+   "en": "One physical router link trunks several VLANs, with a tagged subinterface per VLAN acting as that VLAN's gateway for inter-VLAN routing."
+  }
+ },
+ {
+  "id": 276,
+  "category": "routing",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "In EIGRP, what is a feasible successor?"
+  },
+  "options": [
+   "The current best route",
+   "A neighbour on the same LAN",
+   "The router with the highest ID",
+   "A pre-checked loop-free backup"
+  ],
+  "answer": "A pre-checked loop-free backup",
+  "explanation": {
+   "en": "DUAL keeps backup routes that meet the feasibility condition, so EIGRP can switch over instantly when the successor fails without recomputing."
+  }
+ },
+ {
+  "id": 277,
+  "category": "tcp",
+  "difficulty": "hard",
+  "codeSnippet": "$ ss -tan state close-wait | wc -l\n4127",
+  "question": {
+   "en": "What does a growing pile of CLOSE_WAIT sockets on a server usually indicate?"
+  },
+  "options": [
+   "The application is not closing its sockets",
+   "The clients are sending SYN floods",
+   "The network is dropping FIN segments",
+   "The kernel's TIME_WAIT timer is set too long"
+  ],
+  "answer": "The application is not closing its sockets",
+  "explanation": {
+   "en": "CLOSE_WAIT means the peer sent FIN and the kernel ACKed it, but the local app never called close(). It is almost always a leak in the application."
+  }
+ },
+ {
+  "id": 278,
+  "category": "routing",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does VRF let a single router do?"
+  },
+  "options": [
+   "Run several isolated routing tables",
+   "Verify route origins cryptographically",
+   "Mirror ports for traffic analysis",
+   "Fail over between two gateways"
+  ],
+  "answer": "Run several isolated routing tables",
+  "explanation": {
+   "en": "Virtual Routing and Forwarding keeps separate tables per instance, so overlapping prefixes from different customers or zones can coexist on one device."
+  }
+ },
+ {
+  "id": 279,
+  "category": "routing",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "How do BGP local preference and MED differ?"
+  },
+  "options": [
+   "Local-pref is higher-wins only for eBGP",
+   "MED picks your exit; local-pref is sent out",
+   "Both are compared before the AS path",
+   "Local-pref picks your exit; MED hints entry"
+  ],
+  "answer": "Local-pref picks your exit; MED hints entry",
+  "explanation": {
+   "en": "Local preference stays inside your AS and steers outbound traffic (higher wins). MED is sent to a neighbouring AS to suggest which link it should use to enter (lower wins)."
+  }
+ },
+ {
+  "id": 280,
+  "category": "routing",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why pair OSPF or BGP with BFD?"
+  },
+  "options": [
+   "To encrypt routing updates",
+   "To detect link failure in milliseconds",
+   "To summarise routes at borders",
+   "To balance traffic over equal-cost paths"
+  ],
+  "answer": "To detect link failure in milliseconds",
+  "explanation": {
+   "en": "Bidirectional Forwarding Detection sends fast lightweight hellos and tells the routing protocol of a failure far sooner than its own dead or hold timers."
+  }
+ },
+ {
+  "id": 281,
+  "category": "protocols",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does 802.11r (fast BSS transition) speed up?"
+  },
+  "options": [
+   "Channel scanning on boot",
+   "Roaming between access points",
+   "Frame aggregation on the link",
+   "Band steering to 5 GHz"
+  ],
+  "answer": "Roaming between access points",
+  "explanation": {
+   "en": "It lets a client pre-establish keys with the next AP, so an 802.1X client avoids a full re-authentication when it moves, keeping calls from dropping."
+  }
+ },
+ {
+  "id": 282,
+  "category": "protocols",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why might a 5 GHz access point suddenly leave a DFS channel?"
+  },
+  "options": [
+   "It detected radar on that channel",
+   "Too many clients joined the cell",
+   "Its DHCP pool was exhausted",
+   "The 2.4 GHz radio became overloaded"
+  ],
+  "answer": "It detected radar on that channel",
+  "explanation": {
+   "en": "Dynamic Frequency Selection channels are shared with radar; regulations require the AP to vacate within seconds when radar is detected."
+  }
+ },
+ {
+  "id": 283,
+  "category": "routing",
+  "difficulty": "hard",
+  "codeSnippet": "cost = reference bandwidth / interface bandwidth\n(default reference 100 Mbps)",
+  "question": {
+   "en": "With the default reference, why can OSPF not prefer a 10 Gbps link over a 1 Gbps link?"
+  },
+  "options": [
+   "OSPF ignores link speed entirely",
+   "Both links end up with a cost of 1",
+   "Costs above 100 are not permitted",
+   "Faster links are given a higher cost"
+  ],
+  "answer": "Both links end up with a cost of 1",
+  "explanation": {
+   "en": "Any link of 100 Mbps or faster rounds to the minimum cost of 1, so the reference bandwidth must be raised consistently on all routers."
+  }
+ },
+ {
+  "id": 284,
+  "category": "ip",
+  "difficulty": "hard",
+  "codeSnippet": "IPv4 header: Flags=MF, Fragment Offset=185",
+  "question": {
+   "en": "At which byte of the original payload does this fragment's data begin?"
+  },
+  "options": [
+   "Byte 185",
+   "Byte 370",
+   "Byte 2960",
+   "Byte 1480"
+  ],
+  "answer": "Byte 1480",
+  "explanation": {
+   "en": "The fragment offset counts 8-byte units, so 185 x 8 = 1480, the usual first-fragment payload on a 1500-byte MTU. MF means more fragments follow."
+  }
  }
 ]

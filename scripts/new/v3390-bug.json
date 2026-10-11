@@ -1,0 +1,382 @@
+[
+  {
+    "id": 241,
+    "category": "java",
+    "difficulty": "easy",
+    "codeSnippet": "String name = \"Ada\";\nSystem.out.println(name.length); // compile error",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Call it as a method: `name.length()`",
+      "Use the size field: `name.size`",
+      "Cast first: `((Object) name).length`",
+      "Use `String.length(name)` instead"
+    ],
+    "answer": "Call it as a method: `name.length()`",
+    "explanation": {
+      "en": "For a String, length is a method, not a field. Arrays have a length field, which is why the two get mixed up."
+    }
+  },
+  {
+    "id": 242,
+    "category": "go",
+    "difficulty": "easy",
+    "codeSnippet": "sum := 7\navg := sum / 2\nfmt.Println(avg) // expected 3.5",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Write `avg := sum / 2.0`",
+      "Convert: `float64(sum) / 2`",
+      "Use `math.Round(sum / 2)`",
+      "Declare `var avg float64` first"
+    ],
+    "answer": "Convert: `float64(sum) / 2`",
+    "explanation": {
+      "en": "Dividing two ints truncates. 2.0 is an untyped constant that becomes an int here, so it still prints 3; converting sum to float64 does real division."
+    }
+  },
+  {
+    "id": 243,
+    "category": "sql",
+    "difficulty": "easy",
+    "codeSnippet": "SELECT name FROM users\nWHERE age > 18 AND < 30; -- syntax error",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Wrap it: `age > (18 AND < 30)`",
+      "Swap the `AND` for an `OR`",
+      "Repeat the column: `AND age < 30`",
+      "Write it as `age > 18 < 30`"
+    ],
+    "answer": "Repeat the column: `AND age < 30`",
+    "explanation": {
+      "en": "Each side of AND must be a complete condition, so the column has to be named again (or use `age BETWEEN 19 AND 29`)."
+    }
+  },
+  {
+    "id": 244,
+    "category": "typescript",
+    "difficulty": "easy",
+    "codeSnippet": "const prices: Record<string, number> = { tea: 2, jam: 5 };\nfor (const p of prices) {\n  console.log(p); // expected 2, then 5\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `for (const p in prices)`",
+      "Type it as `number[]` instead",
+      "Add `as const` to the object",
+      "Loop over `Object.values(prices)`"
+    ],
+    "answer": "Loop over `Object.values(prices)`",
+    "explanation": {
+      "en": "Plain objects are not iterable, so for...of throws. Object.values gives an array of the values; for...in would give the keys."
+    }
+  },
+  {
+    "id": 245,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "const n = Number(input);\nif (n === NaN) {\n  showError(); // never runs\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Test with `Number.isNaN(n)`",
+      "Use `n == NaN` instead",
+      "Use `typeof n === 'NaN'`",
+      "Compare `n === undefined`"
+    ],
+    "answer": "Test with `Number.isNaN(n)`",
+    "explanation": {
+      "en": "NaN is not equal to anything, including itself, so both == and === comparisons are always false. Number.isNaN checks for it directly."
+    }
+  },
+  {
+    "id": 246,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "score = 95\nif score >= 50:\n    grade = 'pass'\nelif score >= 90:\n    grade = 'distinction'\nprint(grade)  # expected distinction",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Change the `elif` to `else`",
+      "Test `>= 90` first, then `>= 50`",
+      "Use `>` instead of `>=`",
+      "Add `break` after the 'pass' line"
+    ],
+    "answer": "Test `>= 90` first, then `>= 50`",
+    "explanation": {
+      "en": "Only the first true branch of an if/elif chain runs. 95 >= 50 matches first, so the stricter test must come before the looser one."
+    }
+  },
+  {
+    "id": 247,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "line = 'red  green blue'\nwords = line.split(' ')\nprint(len(words))  # expected 3",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `line.split(' ', 3)`",
+      "Use `line.partition(' ')`",
+      "Call `line.split()` with no argument",
+      "Call `line.strip().split(' ')`"
+    ],
+    "answer": "Call `line.split()` with no argument",
+    "explanation": {
+      "en": "split(' ') splits on every single space, so the double space yields an empty string. split() splits on runs of whitespace and drops empties."
+    }
+  },
+  {
+    "id": 248,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "from collections import defaultdict\ncounts = defaultdict(int, {'a': 1, 'b': 2})\nif counts['zz'] > 0:\n    print('zz seen')\nprint(len(counts))  # expected 2",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Compare with `counts['zz'] >= 1`",
+      "Use `defaultdict(list, ...)`",
+      "Wrap it in `try/except KeyError`",
+      "Read with `counts.get('zz', 0)`"
+    ],
+    "answer": "Read with `counts.get('zz', 0)`",
+    "explanation": {
+      "en": "Indexing a defaultdict with a missing key inserts it with the default, so just reading counts['zz'] adds a third key. get() reads without inserting."
+    }
+  },
+  {
+    "id": 249,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "const cfg = Object.freeze({ db: { host: 'x' } });\ncfg.db.host = 'y';\nconsole.log(cfg.db.host); // expected x",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Freeze the nested objects too",
+      "Use `Object.seal` instead",
+      "Declare cfg with `let`",
+      "Add `'use strict'` at the top"
+    ],
+    "answer": "Freeze the nested objects too",
+    "explanation": {
+      "en": "Object.freeze is shallow: cfg itself is frozen, but cfg.db is an ordinary object that can still change. Freeze it as well (a deep freeze)."
+    }
+  },
+  {
+    "id": 250,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "function keysOf(v) {\n  if (typeof v === 'object') return Object.keys(v);\n  return [];\n}\nkeysOf(null); // TypeError",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Write `typeof v == 'object'`",
+      "Also require `v !== null`",
+      "Use `Object.entries(v)` instead",
+      "Check `typeof v !== 'undefined'`"
+    ],
+    "answer": "Also require `v !== null`",
+    "explanation": {
+      "en": "typeof null is 'object' (a historic quirk), so null passes the check and Object.keys(null) throws. Rule null out explicitly."
+    }
+  },
+  {
+    "id": 251,
+    "category": "go",
+    "difficulty": "medium",
+    "codeSnippet": "src := []int{1, 2, 3}\ndst := make([]int, 0, len(src))\ncopy(dst, src)\nfmt.Println(dst) // expected [1 2 3]",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Swap the args: `copy(src, dst)`",
+      "Raise the cap to `len(src)+1`",
+      "Use `make([]int, len(src))`",
+      "Pass a pointer: `copy(&dst, src)`"
+    ],
+    "answer": "Use `make([]int, len(src))`",
+    "explanation": {
+      "en": "copy moves min(len(dst), len(src)) elements and ignores capacity. dst has length 0, so nothing is copied; give it length len(src)."
+    }
+  },
+  {
+    "id": 252,
+    "category": "java",
+    "difficulty": "medium",
+    "codeSnippet": "List<Integer> ids = Arrays.asList(1, 2);\nids.add(3); // UnsupportedOperationException",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Build it with `List.of(1, 2)`",
+      "Call `ids.addAll(List.of(3))`",
+      "Write `ids.add(Integer.valueOf(3))`",
+      "Copy it: `new ArrayList<>(ids)`"
+    ],
+    "answer": "Copy it: `new ArrayList<>(ids)`",
+    "explanation": {
+      "en": "Arrays.asList returns a fixed-size view of an array; add and remove throw. Copying into an ArrayList gives a list that can grow. List.of is fully immutable."
+    }
+  },
+  {
+    "id": 253,
+    "category": "sql",
+    "difficulty": "medium",
+    "codeSnippet": "SELECT AVG(score) FROM results;\n-- scores: 10, NULL, 20\n-- expected 10 (a missing score counts as 0)",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `AVG(COALESCE(score, 0))`",
+      "Use `AVG(DISTINCT score)`",
+      "Use `SUM(score) / COUNT(score)`",
+      "Add `WHERE score IS NOT NULL`"
+    ],
+    "answer": "Use `AVG(COALESCE(score, 0))`",
+    "explanation": {
+      "en": "AVG skips NULLs, giving 15. COALESCE turns the NULL into 0 so it is counted: (10 + 0 + 20) / 3 = 10."
+    }
+  },
+  {
+    "id": 254,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "type User = { name?: string };\nfunction nameLen(user?: User) {\n  return user?.name.length;\n}\nnameLen({}); // TypeError",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Write `user?.name?.length`",
+      "Write `user!.name.length`",
+      "Use `user?.['name'].length`",
+      "Declare `name: string | null`"
+    ],
+    "answer": "Write `user!.name.length`",
+    "explanation": {
+      "en": "?. only guards the value directly before it. user exists but name is undefined, so .length still throws; each optional link needs its own ?."
+    }
+  },
+  {
+    "id": 255,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "from functools import lru_cache\n\n@lru_cache(maxsize=None)\ndef total(items):\n    return sum(items)\n\ntotal([1, 2, 3])  # TypeError",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `@lru_cache(maxsize=128)`",
+      "Add `typed=True` to the decorator",
+      "Pass a tuple: `total((1, 2, 3))`",
+      "Return `sum(list(items))` instead"
+    ],
+    "answer": "Pass a tuple: `total((1, 2, 3))`",
+    "explanation": {
+      "en": "lru_cache hashes the arguments to build its cache key, and a list is unhashable. A tuple is hashable and sums the same way."
+    }
+  },
+  {
+    "id": 256,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "from dataclasses import dataclass\n\n@dataclass\nclass Cart:\n    items: list = []  # ValueError",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Add `frozen=True` to the decorator",
+      "Annotate it as `items: tuple = []`",
+      "Write it as `items: list = list()`",
+      "Use `field(default_factory=list)`"
+    ],
+    "answer": "Use `field(default_factory=list)`",
+    "explanation": {
+      "en": "dataclass refuses a mutable default because every instance would share it. default_factory builds a fresh list per instance."
+    }
+  },
+  {
+    "id": 257,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "const qty = 0.0000005;\nconst whole = parseInt(qty);\nconsole.log(whole); // expected 0, prints 5",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Truncate with `Math.trunc(qty)`",
+      "Use `parseInt(qty, 10)`",
+      "Use `Number.parseInt(qty)`",
+      "Use `parseInt(String(qty))`"
+    ],
+    "answer": "Truncate with `Math.trunc(qty)`",
+    "explanation": {
+      "en": "parseInt converts its argument to a string first, and 0.0000005 becomes \"5e-7\", whose leading digits are 5. Math.trunc works on the number."
+    }
+  },
+  {
+    "id": 258,
+    "category": "go",
+    "difficulty": "hard",
+    "codeSnippet": "func process(items []string) {\n\tn := 0\n\tdefer fmt.Println(\"processed\", n)\n\tfor range items {\n\t\tn++\n\t}\n} // always prints \"processed 0\"",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Declare n with `var n int`",
+      "Defer a closure: `defer func() {...}()`",
+      "Increment with `n += 1` instead",
+      "Pass a pointer: `defer fmt.Println(&n)`"
+    ],
+    "answer": "Defer a closure: `defer func() {...}()`",
+    "explanation": {
+      "en": "A deferred call evaluates its arguments when the defer statement runs, so n is captured as 0. A deferred closure reads n when it finally runs."
+    }
+  },
+  {
+    "id": 259,
+    "category": "java",
+    "difficulty": "hard",
+    "codeSnippet": "for (String n : names) {\n    if (n.isEmpty()) names.remove(n);\n} // ConcurrentModificationException",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Mark the list field `volatile`",
+      "Wrap it in `synchronized (names)`",
+      "Use `names.removeIf(String::isEmpty)`",
+      "Use `names.remove(names.indexOf(n))`"
+    ],
+    "answer": "Use `names.removeIf(String::isEmpty)`",
+    "explanation": {
+      "en": "Changing an ArrayList structurally during for-each breaks its iterator, even in one thread. removeIf (or Iterator.remove) removes safely."
+    }
+  },
+  {
+    "id": 260,
+    "category": "sql",
+    "difficulty": "hard",
+    "codeSnippet": "SELECT u.name, COUNT(*) AS orders\nFROM users u\nLEFT JOIN orders o ON o.user_id = u.id\nGROUP BY u.id;\n-- users with no orders show 1, not 0",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Switch to an `INNER JOIN`",
+      "Use `COUNT(DISTINCT u.id)`",
+      "Add `HAVING COUNT(*) >= 0`",
+      "Count a right-side column: `COUNT(o.id)`"
+    ],
+    "answer": "Count a right-side column: `COUNT(o.id)`",
+    "explanation": {
+      "en": "A user with no orders still gets one joined row (with NULLs), and COUNT(*) counts it. COUNT(o.id) skips the NULL and gives 0."
+    }
+  }
+]

@@ -5344,5 +5344,329 @@
     "explanation": {
       "en": "POSIX sh has no `[[ ... =~ ... ]]` regex test, `BASH_REMATCH` array or `(( ))` arithmetic command; those are Bash-only."
     }
+  },
+  {
+    "id": 604,
+    "correctLanguage": "TypeScript",
+    "difficulty": "easy",
+    "codeSnippet": "const days: readonly string[] = [\"mon\", \"tue\", \"wed\"];\nlet total: number = days.length;\nconsole.log(`Days: ${total}`);",
+    "explanation": {
+      "en": "The `: readonly string[]` and `: number` type annotations on plain variables are TypeScript."
+    }
+  },
+  {
+    "id": 605,
+    "correctLanguage": "TypeScript",
+    "difficulty": "medium",
+    "codeSnippet": "abstract class Shape {\n  protected constructor(public readonly name: string) {}\n  abstract area(): number;\n}\n\nclass Square extends Shape {\n  constructor(private side: number) { super(\"square\"); }\n  area(): number { return this.side ** 2; }\n}",
+    "explanation": {
+      "en": "`abstract class`, `protected`/`private` constructor parameter properties and `: number` return types are TypeScript."
+    }
+  },
+  {
+    "id": 606,
+    "correctLanguage": "TypeScript",
+    "difficulty": "medium",
+    "codeSnippet": "function parse(input: string): number;\nfunction parse(input: number): string;\nfunction parse(input: string | number) {\n  return typeof input === \"string\" ? Number(input) : String(input);\n}",
+    "explanation": {
+      "en": "Body-less overload signatures stacked above one implementation with a `string | number` parameter are TypeScript function overloads."
+    }
+  },
+  {
+    "id": 607,
+    "correctLanguage": "TypeScript",
+    "difficulty": "hard",
+    "codeSnippet": "type Method = \"get\" | \"post\";\ntype Handler = `on${Capitalize<Method>}`;\n\nconst button = document.querySelector(\"#save\")!;\nconst name: Handler = \"onGet\";\nbutton.textContent = name;",
+    "explanation": {
+      "en": "A template literal type built with `Capitalize<Method>` and the postfix non-null `!` after `querySelector(...)` are TypeScript, not valid JavaScript."
+    }
+  },
+  {
+    "id": 608,
+    "correctLanguage": "C",
+    "difficulty": "easy",
+    "codeSnippet": "#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char word[] = \"hello\";\n    printf(\"%zu letters\\n\", strlen(word));\n    return 0;\n}",
+    "explanation": {
+      "en": "`#include <stdio.h>`, `int main(void)` and `printf` with `strlen` are classic C."
+    }
+  },
+  {
+    "id": 609,
+    "correctLanguage": "C",
+    "difficulty": "medium",
+    "codeSnippet": "struct flags {\n    unsigned int ready : 1;\n    unsigned int error : 1;\n    unsigned int mode  : 3;\n};\n\nstruct flags f = {0};\nf.mode = 5;",
+    "explanation": {
+      "en": "Bit-field members like `unsigned int ready : 1;` inside a `struct` and the `struct flags f` declaration are C."
+    }
+  },
+  {
+    "id": 610,
+    "correctLanguage": "C",
+    "difficulty": "medium",
+    "codeSnippet": "#include <stdarg.h>\n\nint sum(int count, ...) {\n    va_list ap;\n    va_start(ap, count);\n    int total = 0;\n    for (int i = 0; i < count; i++) total += va_arg(ap, int);\n    va_end(ap);\n    return total;\n}",
+    "explanation": {
+      "en": "A `...` variadic parameter read with `va_list`, `va_start`, `va_arg` and `va_end` from `<stdarg.h>` is C."
+    }
+  },
+  {
+    "id": 611,
+    "correctLanguage": "C",
+    "difficulty": "hard",
+    "codeSnippet": "int process(size_t n) {\n    int rc = -1;\n    char *buf = malloc(n);\n    if (!buf) goto out;\n    memset(buf, 'x', n);\n    rc = buf[0];\n    free(buf);\nout:\n    return rc;\n}",
+    "explanation": {
+      "en": "Assigning `malloc(n)` straight to a `char *` without a cast (an error in C++) plus a `goto out;` cleanup label marks this as C."
+    }
+  },
+  {
+    "id": 612,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "using System;\n\nint[] nums = { 3, 1, 2 };\nArray.Sort(nums);\nConsole.WriteLine(string.Join(\", \", nums));",
+    "explanation": {
+      "en": "`using System;`, `Array.Sort` and `Console.WriteLine` with `string.Join` are C#."
+    }
+  },
+  {
+    "id": 613,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "public class Settings\n{\n    public string Theme { get; init; } = \"light\";\n    public List<string>? Plugins { get; set; }\n}\n\nvar s = new Settings { Theme = \"dark\" };\ns.Plugins ??= new List<string>();",
+    "explanation": {
+      "en": "An `{ get; init; }` init-only property, the nullable `List<string>?` and the `??=` assignment are C#."
+    }
+  },
+  {
+    "id": 614,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "static IEnumerable<(int Index, string Word)> Numbered(string[] words)\n{\n    for (int i = 0; i < words.Length; i++)\n        yield return (i + 1, words[i]);\n}\n\nforeach (var (index, word) in Numbered(new[] { \"a\", \"b\" }))\n    Console.WriteLine($\"{index}. {word}\");",
+    "explanation": {
+      "en": "`yield return` of a named tuple `(int Index, string Word)` and the `var (index, word)` deconstruction are C#."
+    }
+  },
+  {
+    "id": 615,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "public static class StringExtensions\n{\n    public static bool IsBlank(this string s) => string.IsNullOrWhiteSpace(s);\n}\n\npublic class Downloader\n{\n    public event Action<int>? ProgressChanged;\n    protected void Report(int pct) => ProgressChanged?.Invoke(pct);\n}",
+    "explanation": {
+      "en": "A `this string s` extension-method parameter and an `event Action<int>?` field are C# features with no Java equivalent."
+    }
+  },
+  {
+    "id": 616,
+    "correctLanguage": "Kotlin",
+    "difficulty": "easy",
+    "codeSnippet": "fun main() {\n    val nums = intArrayOf(4, 8, 15)\n    println(\"Sum is ${nums.sum()}\")\n}",
+    "explanation": {
+      "en": "`fun main()`, `val`, `intArrayOf` and `${...}` string templates are Kotlin."
+    }
+  },
+  {
+    "id": 617,
+    "correctLanguage": "Kotlin",
+    "difficulty": "medium",
+    "codeSnippet": "sealed interface Event\ndata class Click(val x: Int, val y: Int) : Event\nobject Close : Event\n\nfun handle(e: Event): String = when (e) {\n    is Click -> \"click at ${e.x},${e.y}\"\n    Close -> \"closing\"\n}",
+    "explanation": {
+      "en": "A `sealed interface` implemented by a `data class` and an `object`, matched exhaustively in `when` with `is`, is Kotlin."
+    }
+  },
+  {
+    "id": 618,
+    "correctLanguage": "Kotlin",
+    "difficulty": "medium",
+    "codeSnippet": "infix fun Int.pow(exp: Int): Int =\n    (1..exp).fold(1) { acc, _ -> acc * this }\n\nfun largest(vararg values: Int): Int = values.maxOrNull() ?: 0\n\nprintln(2 pow 10)\nprintln(largest(3, 9, 4))",
+    "explanation": {
+      "en": "An `infix fun Int.pow` extension called as `2 pow 10` and a `vararg` parameter are Kotlin."
+    }
+  },
+  {
+    "id": 619,
+    "correctLanguage": "Kotlin",
+    "difficulty": "hard",
+    "codeSnippet": "object Registry {\n    private val users = mutableMapOf<String, String>()\n    fun find(id: String): String? = users[id]\n}\n\nRegistry.find(\"42\")?.let { name ->\n    println(\"found $name\")\n} ?: println(\"missing\")",
+    "explanation": {
+      "en": "An `object` singleton declaration, `fun` and the `?.let { } ?:` Elvis chain are Kotlin, none of which Swift accepts."
+    }
+  },
+  {
+    "id": 620,
+    "correctLanguage": "Swift",
+    "difficulty": "easy",
+    "codeSnippet": "let scores = [88, 92, 75]\nlet best = scores.max() ?? 0\nprint(\"Best score: \\(best)\")",
+    "explanation": {
+      "en": "`let` constants, the `??` fallback and `\\(best)` string interpolation inside `print` are Swift."
+    }
+  },
+  {
+    "id": 621,
+    "correctLanguage": "Swift",
+    "difficulty": "medium",
+    "codeSnippet": "struct Counter {\n    private(set) var value = 0\n    mutating func increment(by step: Int = 1) {\n        value += step\n    }\n}\n\nvar c = Counter()\nc.increment(by: 3)",
+    "explanation": {
+      "en": "A `mutating func` on a `struct` with a `private(set) var` and the labelled `by:` argument are Swift."
+    }
+  },
+  {
+    "id": 622,
+    "correctLanguage": "Swift",
+    "difficulty": "medium",
+    "codeSnippet": "class Logger {\n    lazy var formatter: DateFormatter = {\n        let f = DateFormatter()\n        return f\n    }()\n    func write(_ msg: String) {\n        defer { print(\"flushed\") }\n        print(formatter.string(from: Date()), msg)\n    }\n}",
+    "explanation": {
+      "en": "A `lazy var` initialised by an immediately-called closure `{ ... }()`, a `defer` block and the `_ msg` parameter are Swift."
+    }
+  },
+  {
+    "id": 623,
+    "correctLanguage": "Swift",
+    "difficulty": "hard",
+    "codeSnippet": "@MainActor\nfunc loadProfile() async throws -> (User, [Post]) {\n    async let user = api.fetchUser()\n    async let posts = api.fetchPosts()\n    return try await (user, posts)\n}",
+    "explanation": {
+      "en": "The `@MainActor` attribute, `async let` bindings, the `-> (User, [Post])` tuple return and `try await` are Swift, not Kotlin."
+    }
+  },
+  {
+    "id": 624,
+    "correctLanguage": "Ruby",
+    "difficulty": "easy",
+    "codeSnippet": "count = nil\ncount ||= 0\ncount += 1\nputs \"Visits: #{count}\"",
+    "explanation": {
+      "en": "The `||=` conditional assignment, `nil` and `puts` with `#{}` interpolation are Ruby."
+    }
+  },
+  {
+    "id": 625,
+    "correctLanguage": "Ruby",
+    "difficulty": "medium",
+    "codeSnippet": "name = \"Ana\"\nmessage = <<~TEXT\n  Dear #{name},\n  Your order has shipped.\nTEXT\nputs message.lines.count",
+    "explanation": {
+      "en": "A squiggly heredoc `<<~TEXT ... TEXT` with `#{name}` interpolation is Ruby."
+    }
+  },
+  {
+    "id": 626,
+    "correctLanguage": "Ruby",
+    "difficulty": "medium",
+    "codeSnippet": "module Greetable\n  def greet\n    \"Hello from #{self.class.name}\"\n  end\nend\n\nclass Robot\n  include Greetable\nend\nputs Robot.new.greet",
+    "explanation": {
+      "en": "A `module` mixed into a class with `include Greetable` and `def ... end` blocks is Ruby."
+    }
+  },
+  {
+    "id": 627,
+    "correctLanguage": "Ruby",
+    "difficulty": "hard",
+    "codeSnippet": "class Ghost\n  def method_missing(name, *args)\n    name.to_s.start_with?(\"say_\") ? name.to_s.sub(\"say_\", \"\") : super\n  end\n\n  def respond_to_missing?(name, include_private = false)\n    name.to_s.start_with?(\"say_\") || super\n  end\nend\nputs Ghost.new.say_boo",
+    "explanation": {
+      "en": "Overriding `method_missing` and `respond_to_missing?` with a bare `super` and method names ending in `?` is Ruby metaprogramming."
+    }
+  },
+  {
+    "id": 628,
+    "correctLanguage": "PHP",
+    "difficulty": "easy",
+    "codeSnippet": "<?php\n$items = [\"pen\", \"cup\"];\narray_push($items, \"map\");\necho \"Items: \" . count($items);",
+    "explanation": {
+      "en": "The `<?php` tag, `$` variables, `array_push` and `.` string concatenation with `echo` are PHP."
+    }
+  },
+  {
+    "id": 629,
+    "correctLanguage": "PHP",
+    "difficulty": "medium",
+    "codeSnippet": "trait Timestamps\n{\n    public function touch(): void { $this->updatedAt = time(); }\n}\n\nclass Post\n{\n    use Timestamps;\n    public int $updatedAt = 0;\n}",
+    "explanation": {
+      "en": "A `trait` pulled into a class with `use Timestamps;` and `$this->` property access are PHP."
+    }
+  },
+  {
+    "id": 630,
+    "correctLanguage": "PHP",
+    "difficulty": "medium",
+    "codeSnippet": "list($user, $domain) = explode('@', $email);\n$html = <<<EOT\n<p>User: {$user}</p>\n<p>Domain: {$domain}</p>\nEOT;\necho $html;",
+    "explanation": {
+      "en": "`list(...) = explode(...)` and a `<<<EOT` heredoc with `{$user}` interpolation are PHP."
+    }
+  },
+  {
+    "id": 631,
+    "correctLanguage": "PHP",
+    "difficulty": "hard",
+    "codeSnippet": "class Base\n{\n    const LABEL = 'base';\n    public function label(): string { return static::LABEL; }\n}\nclass Child extends Base\n{\n    const LABEL = 'child';\n}\necho (new Child()) instanceof Base ? (new Child())->label() : '';",
+    "explanation": {
+      "en": "Late static binding via `static::LABEL`, the `instanceof` operator and `->label()` method calls are PHP, not Perl."
+    }
+  },
+  {
+    "id": 632,
+    "correctLanguage": "SQL",
+    "difficulty": "easy",
+    "codeSnippet": "SELECT name, email\nFROM members\nWHERE joined_on BETWEEN '2025-01-01' AND '2025-06-30';",
+    "explanation": {
+      "en": "`SELECT ... FROM ... WHERE` with a `BETWEEN ... AND ...` date range is SQL."
+    }
+  },
+  {
+    "id": 633,
+    "correctLanguage": "SQL",
+    "difficulty": "medium",
+    "codeSnippet": "SELECT name, 'staff' AS kind FROM employees\nUNION ALL\nSELECT name, 'guest' FROM visitors\nORDER BY name;",
+    "explanation": {
+      "en": "Two `SELECT` statements combined with `UNION ALL` and a final `ORDER BY` are SQL."
+    }
+  },
+  {
+    "id": 634,
+    "correctLanguage": "SQL",
+    "difficulty": "medium",
+    "codeSnippet": "BEGIN;\nALTER TABLE orders\n  ADD CONSTRAINT fk_orders_customer\n  FOREIGN KEY (customer_id) REFERENCES customers (id);\nGRANT SELECT ON orders TO reporting;\nCOMMIT;",
+    "explanation": {
+      "en": "`ALTER TABLE ... ADD CONSTRAINT ... FOREIGN KEY ... REFERENCES` and `GRANT SELECT` inside a `BEGIN; ... COMMIT;` transaction are SQL."
+    }
+  },
+  {
+    "id": 635,
+    "correctLanguage": "SQL",
+    "difficulty": "hard",
+    "codeSnippet": "WITH RECURSIVE chain (id, manager_id, depth) AS (\n  SELECT id, manager_id, 0 FROM employees WHERE manager_id IS NULL\n  UNION ALL\n  SELECT e.id, e.manager_id, c.depth + 1\n  FROM employees e JOIN chain c ON e.manager_id = c.id\n)\nSELECT id, depth FROM chain ORDER BY depth;",
+    "explanation": {
+      "en": "A `WITH RECURSIVE` common table expression whose anchor and recursive member are joined by `UNION ALL` is SQL."
+    }
+  },
+  {
+    "id": 636,
+    "correctLanguage": "Bash",
+    "difficulty": "easy",
+    "codeSnippet": "#!/bin/bash\ncount=$(ls | wc -l)\necho \"There are $count entries here\"",
+    "explanation": {
+      "en": "The `#!/bin/bash` shebang, `$(...)` command substitution and `echo` with `$count` are a Bash script."
+    }
+  },
+  {
+    "id": 637,
+    "correctLanguage": "Bash",
+    "difficulty": "medium",
+    "codeSnippet": "while getopts \"vo:\" opt; do\n  case $opt in\n    v) verbose=1 ;;\n    o) out=\"$OPTARG\" ;;\n  esac\ndone\nshift $((OPTIND - 1))",
+    "explanation": {
+      "en": "A `while getopts` loop reading `$OPTARG` followed by `shift $((OPTIND - 1))` is Bash option parsing."
+    }
+  },
+  {
+    "id": 638,
+    "correctLanguage": "Bash",
+    "difficulty": "medium",
+    "codeSnippet": "mapfile -t hosts < servers.txt\necho \"Loaded ${#hosts[@]} hosts\"\nfor (( i = 0; i < ${#hosts[@]}; i++ )); do\n  ping -c1 \"${hosts[i]}\" >/dev/null && echo \"${hosts[i]} up\"\ndone",
+    "explanation": {
+      "en": "`mapfile -t` into an array, `${#hosts[@]}` and a C-style `for (( ... ))` loop are Bash."
+    }
+  },
+  {
+    "id": 639,
+    "correctLanguage": "Bash",
+    "difficulty": "hard",
+    "codeSnippet": "shopt -s nullglob\ndiff <(sort old.txt) <(sort new.txt) > changes.txt\nwhile read -r user; do\n  echo \"missing: $user\"\ndone < <(comm -23 <(sort expected.txt) <(sort actual.txt))",
+    "explanation": {
+      "en": "`shopt -s` and `<( ... )` process substitution fed via `done < <(...)` are Bash-only; plain sh has neither and zsh has no `shopt`."
+    }
   }
 ]

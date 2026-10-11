@@ -4748,5 +4748,480 @@
   "explanation": {
    "en": "Filtering straight-alpha texels blends in the colour of fully transparent pixels, often black; premultiplying weights colour by alpha first, so edges stay clean."
   }
+ },
+ {
+  "id": 251,
+  "category": "gameplay",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "In the MDA framework for game design, what does the A stand for?"
+  },
+  "options": [
+   "Accessibility",
+   "Animation",
+   "Agency",
+   "Aesthetics"
+  ],
+  "answer": "Aesthetics",
+  "explanation": {
+   "en": "MDA is Mechanics, Dynamics, Aesthetics: rules produce run-time behaviour, which produces the emotional experience players have."
+  }
+ },
+ {
+  "id": 252,
+  "category": "gameplay",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is a game's core loop?"
+  },
+  "options": [
+   "The engine's main update function",
+   "The cycle of actions players repeat",
+   "The final boss fight and its ending",
+   "The loading sequence between levels"
+  ],
+  "answer": "The cycle of actions players repeat",
+  "explanation": {
+   "en": "The core loop is the moment-to-moment cycle a player repeats, such as explore, fight, loot, upgrade; it is a design idea, unlike the technical game loop."
+  }
+ },
+ {
+  "id": 253,
+  "category": "physics",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is a ragdoll in game physics?"
+  },
+  "options": [
+   "A cloth sim draped over a mesh",
+   "An animation clip of a character's fall",
+   "Jointed rigid bodies that go limp",
+   "A low-poly stand-in for culling"
+  ],
+  "answer": "Jointed rigid bodies that go limp",
+  "explanation": {
+   "en": "A ragdoll swaps the animated skeleton for rigid bodies linked by joints, so a character collapses physically, typically on death."
+  }
+ },
+ {
+  "id": 254,
+  "category": "scene",
+  "difficulty": "easy",
+  "codeSnippet": "SceneManager.LoadSceneAsync(\"Level2\");",
+  "question": {
+   "en": "Why use the async version of scene loading?"
+  },
+  "options": [
+   "The game keeps running as it loads",
+   "It unloads every other scene",
+   "It makes the scene file smaller",
+   "It skips running the scene's Awake calls"
+  ],
+  "answer": "The game keeps running as it loads",
+  "explanation": {
+   "en": "Async loading spreads the work over several frames, so a loading screen or the current level keeps updating instead of freezing."
+  }
+ },
+ {
+  "id": 255,
+  "category": "rendering",
+  "difficulty": "easy",
+  "codeSnippet": "col.rgb = 1.0 - col.rgb;",
+  "question": {
+   "en": "What does this fragment shader line do?"
+  },
+  "options": [
+   "Inverts the colour",
+   "Darkens it by half",
+   "Converts it to grey",
+   "Clears it to black"
+  ],
+  "answer": "Inverts the colour",
+  "explanation": {
+   "en": "Subtracting each channel from 1 maps black to white and every colour to its complement: a negative image."
+  }
+ },
+ {
+  "id": 256,
+  "category": "systems",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Under Elo, a low-rated player beats a much higher-rated one. What happens?"
+  },
+  "options": [
+   "Both ratings stay the same",
+   "The winner gains a large amount",
+   "Only the loser's rating changes",
+   "The winner gains the minimum"
+  ],
+  "answer": "The winner gains a large amount",
+  "explanation": {
+   "en": "Elo moves ratings by the gap between result and expectation; an unexpected win gives the underdog many points and costs the favourite the same."
+  }
+ },
+ {
+  "id": 257,
+  "category": "collision",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "In a fighting game, what is a hurtbox?"
+  },
+  "options": [
+   "Where an attack deals damage",
+   "Where the camera stops moving",
+   "Where blocking is disabled",
+   "Where a character can be hit"
+  ],
+  "answer": "Where a character can be hit",
+  "explanation": {
+   "en": "Hitboxes belong to attacks and hurtboxes to the body that can take damage; a hit lands when an active hitbox overlaps an opposing hurtbox."
+  }
+ },
+ {
+  "id": 258,
+  "category": "effects",
+  "difficulty": "medium",
+  "codeSnippet": "float shake = trauma * trauma;\noffset = maxOffset * shake * noise(t);",
+  "question": {
+   "en": "Why square the trauma value here?"
+  },
+  "options": [
+   "To make the shake last twice as long",
+   "Small hits shake far less than big ones",
+   "To keep the camera offset always positive",
+   "To sync the shake with the music"
+  ],
+  "answer": "Small hits shake far less than big ones",
+  "explanation": {
+   "en": "With trauma in 0..1, squaring (or cubing) makes the response non-linear: light hits barely move the camera while big ones shake hard, and the shake eases out as trauma decays."
+  }
+ },
+ {
+  "id": 259,
+  "category": "animation",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "In a Unity Animator, when does a transition with Has Exit Time enabled fire?"
+  },
+  "options": [
+   "Not before the clip hits its exit time",
+   "As soon as its transition condition is true",
+   "Only when the clip is interrupted",
+   "When the game object is disabled"
+  ],
+  "answer": "Not before the clip hits its exit time",
+  "explanation": {
+   "en": "Has Exit Time holds the transition until the source state reaches the normalized exit time; any conditions must also be true by then."
+  }
+ },
+ {
+  "id": 260,
+  "category": "effects",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is a common drawback of GPU-simulated particles?"
+  },
+  "options": [
+   "They cannot use any textures",
+   "They are capped at a few hundred per system",
+   "Gameplay code can't easily read them",
+   "They only work in 2D games"
+  ],
+  "answer": "Gameplay code can't easily read them",
+  "explanation": {
+   "en": "GPU particles scale to huge counts, but their state lives in GPU memory, so CPU-side gameplay such as hit tests needs a costly readback."
+  }
+ },
+ {
+  "id": 261,
+  "category": "assets",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does texture streaming load on demand?"
+  },
+  "options": [
+   "Whole levels before they begin",
+   "Higher-res mips as they're needed",
+   "Audio clips for nearby sounds",
+   "Every shader variant as it gets compiled"
+  ],
+  "answer": "Higher-res mips as they're needed",
+  "explanation": {
+   "en": "Streaming keeps low mip levels resident and loads the sharper ones only for textures close enough to need them, bounding texture memory."
+  }
+ },
+ {
+  "id": 262,
+  "category": "optimization",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "In C#, why keep millions of particle records as structs in an array?"
+  },
+  "options": [
+   "Structs can't be copied by accident",
+   "Structs are garbage collected faster",
+   "Arrays of classes can't be sorted",
+   "They sit inline with no heap objects"
+  ],
+  "answer": "They sit inline with no heap objects",
+  "explanation": {
+   "en": "An array of structs is one contiguous block, so there are no per-item objects for the GC to track and iteration is cache-friendly; classes would mean millions of references."
+  }
+ },
+ {
+  "id": 263,
+  "category": "assets",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "How does BSP dungeon generation lay out its rooms?"
+  },
+  "options": [
+   "Splits space recursively, a room per leaf",
+   "Picks rooms from a hand-made list",
+   "Flips cells by neighbour count",
+   "Grows rooms outward from a random walk path"
+  ],
+  "answer": "Splits space recursively, a room per leaf",
+  "explanation": {
+   "en": "Binary space partitioning cuts the map in two again and again; each final leaf gets a room and corridors join sibling regions, so rooms never overlap."
+  }
+ },
+ {
+  "id": 264,
+  "category": "gameplay",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "Flow theory says players stay engaged when what holds?"
+  },
+  "options": [
+   "The game never gets harder",
+   "Rewards arrive every few seconds",
+   "Challenge keeps pace with skill",
+   "Players can skip any section"
+  ],
+  "answer": "Challenge keeps pace with skill",
+  "explanation": {
+   "en": "Flow sits between boredom (too easy) and anxiety (too hard), which is why difficulty curves rise as the player improves."
+  }
+ },
+ {
+  "id": 265,
+  "category": "rendering",
+  "difficulty": "medium",
+  "codeSnippet": "float d = max(0.0, dot(normalize(n), L));",
+  "question": {
+   "en": "Which lighting term is d?"
+  },
+  "options": [
+   "Specular highlight power",
+   "Lambert diffuse intensity",
+   "Fresnel reflectance factor",
+   "Ambient occlusion amount"
+  ],
+  "answer": "Lambert diffuse intensity",
+  "explanation": {
+   "en": "Lambert's cosine law: diffuse light scales with the cosine between the surface normal and the light direction, clamped at zero for faces turned away."
+  }
+ },
+ {
+  "id": 266,
+  "category": "rendering",
+  "difficulty": "medium",
+  "codeSnippet": "if (tex.a < 0.5) discard;",
+  "question": {
+   "en": "What does this fragment shader line do?"
+  },
+  "options": [
+   "Blends the pixel at half alpha",
+   "Deletes the texture from memory",
+   "Skips the whole draw call",
+   "Drops pixels below the cutoff"
+  ],
+  "answer": "Drops pixels below the cutoff",
+  "explanation": {
+   "en": "This is alpha testing (cutout): discard writes nothing for that fragment, giving hard-edged foliage or fences without sorting for blending."
+  }
+ },
+ {
+  "id": 267,
+  "category": "math",
+  "difficulty": "medium",
+  "codeSnippet": "float y = smoothstep(0.4, 0.6, x);  // x = 0.3",
+  "question": {
+   "en": "What is y?"
+  },
+  "options": [
+   "0",
+   "0.3",
+   "0.5",
+   "1"
+  ],
+  "answer": "0",
+  "explanation": {
+   "en": "smoothstep returns 0 below the first edge, 1 above the second and a smooth S-curve between, so x = 0.3 gives 0."
+  }
+ },
+ {
+  "id": 268,
+  "category": "timing",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why can enabling VSync add input lag?"
+  },
+  "options": [
+   "The GPU renders at lower quality",
+   "Input is polled only at 30 Hz",
+   "Frames wait for the display refresh",
+   "The CPU sleeps through input events"
+  ],
+  "answer": "Frames wait for the display refresh",
+  "explanation": {
+   "en": "With VSync a finished frame is held until the next refresh, and queued frames add more delay, so input shows up later than without it."
+  }
+ },
+ {
+  "id": 269,
+  "category": "timing",
+  "difficulty": "hard",
+  "codeSnippet": "void Update() {\n  cam.position = Vector3.Lerp(cam.position, target.position, 0.1f);\n}",
+  "question": {
+   "en": "What is wrong with this camera follow?"
+  },
+  "options": [
+   "It never moves the camera at all",
+   "It smooths faster at higher frame rates",
+   "It snaps instantly to the target",
+   "It moves the target instead of the camera"
+  ],
+  "answer": "It smooths faster at higher frame rates",
+  "explanation": {
+   "en": "Covering 10% of the gap per frame means more frames close the gap faster. Use a dt-based factor such as 1 - exp(-k * dt), or SmoothDamp."
+  }
+ },
+ {
+  "id": 270,
+  "category": "netcode",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why do some lockstep RTS games use fixed-point maths instead of floats?"
+  },
+  "options": [
+   "Floats can differ across machines",
+   "Fixed-point always uses less bandwidth",
+   "GPUs cannot handle float maths",
+   "Fixed-point avoids all overflow"
+  ],
+  "answer": "Floats can differ across machines",
+  "explanation": {
+   "en": "Different CPUs, compilers and instruction sets can round floats differently; integer fixed-point gives bit-identical results so every peer stays in sync."
+  }
+ },
+ {
+  "id": 271,
+  "category": "assets",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does Poisson disk sampling guarantee when scattering trees?"
+  },
+  "options": [
+   "They form a perfect, evenly spaced grid",
+   "Every tree lies on flat ground",
+   "Density follows a bell curve",
+   "No two are closer than a set gap"
+  ],
+  "answer": "No two are closer than a set gap",
+  "explanation": {
+   "en": "Poisson disk sampling places random points while enforcing a minimum distance, giving natural-looking spacing with no clumps or grid pattern."
+  }
+ },
+ {
+  "id": 272,
+  "category": "systems",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does the Glicko rating system track that plain Elo does not?"
+  },
+  "options": [
+   "Each player's win streak length",
+   "The map each match was on",
+   "How uncertain each rating is",
+   "Points scored per match"
+  ],
+  "answer": "How uncertain each rating is",
+  "explanation": {
+   "en": "Glicko adds a rating deviation: new or inactive players have high uncertainty, so their ratings move faster until more games pin them down."
+  }
+ },
+ {
+  "id": 273,
+  "category": "input",
+  "difficulty": "hard",
+  "codeSnippet": "void FixedUpdate() {\n  if (Input.GetKeyDown(KeyCode.Space)) Jump();\n}",
+  "question": {
+   "en": "Why are some jump presses ignored?"
+  },
+  "options": [
+   "GetKeyDown only works in menus",
+   "FixedUpdate may not run that frame",
+   "Space is reserved by the physics engine",
+   "Jump() runs before input is read"
+  ],
+  "answer": "FixedUpdate may not run that frame",
+  "explanation": {
+   "en": "GetKeyDown is true only for the rendered frame of the press; if no fixed step runs that frame, the press is missed. Read input in Update and apply it in FixedUpdate."
+  }
+ },
+ {
+  "id": 274,
+  "category": "architecture",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why give loot drops and level generation separate random streams?"
+  },
+  "options": [
+   "One RNG cannot produce floats",
+   "It makes loot rolls truly random",
+   "Separate streams always run a lot faster",
+   "Extra loot rolls can't shift the levels"
+  ],
+  "answer": "Extra loot rolls can't shift the levels",
+  "explanation": {
+   "en": "With one shared generator, any extra roll elsewhere changes every later value, so a seed would no longer reproduce the same level; separate streams keep systems independent."
+  }
+ },
+ {
+  "id": 275,
+  "category": "math",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why do huge open worlds periodically shift everything back toward the origin?"
+  },
+  "options": [
+   "Float precision drops far from zero",
+   "Shadows only render near the origin",
+   "Save files store offsets from zero",
+   "Navmeshes must contain the origin"
+  ],
+  "answer": "Float precision drops far from zero",
+  "explanation": {
+   "en": "32-bit floats have fewer fractional bits at large magnitudes, so far from the origin positions jitter; floating-origin systems recentre the world around the player."
+  }
  }
 ]

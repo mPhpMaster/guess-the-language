@@ -4501,5 +4501,385 @@
     "explanation": {
       "en": "for...in yields the indexes as strings '0' and '1', so += concatenates onto 0."
     }
+  },
+  {
+    "id": 238,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "a, *b, c = [1, 2, 3, 4, 5]\nprint(b)",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "[2, 3, 4]",
+      "[2, 3]",
+      "(2, 3, 4)",
+      "[1, 2, 3, 4]"
+    ],
+    "answer": "[2, 3, 4]",
+    "explanation": {
+      "en": "The starred name collects everything the other targets do not take, always as a list: a gets 1, c gets 5, b gets [2, 3, 4]."
+    }
+  },
+  {
+    "id": 239,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "x = 5\nprint(1 < x < 3, 1 < x > 3)",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "True True",
+      "False True",
+      "False False",
+      "True False"
+    ],
+    "answer": "False True",
+    "explanation": {
+      "en": "Python chains comparisons: 1 < x < 3 means 1 < x and x < 3 (False), and 1 < x > 3 means 1 < x and x > 3 (True)."
+    }
+  },
+  {
+    "id": 240,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "const o = {\n  n: 1,\n  get d() { return this.n * 2; }\n};\no.n = 5;\nconsole.log(o.d);",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "2",
+      "1",
+      "10",
+      "NaN"
+    ],
+    "answer": "10",
+    "explanation": {
+      "en": "A getter runs every time the property is read, so o.d is computed from the current n: 5 * 2 = 10."
+    }
+  },
+  {
+    "id": 241,
+    "category": "java",
+    "difficulty": "easy",
+    "codeSnippet": "String s = \"ab\";\ns.toUpperCase();\nSystem.out.println(s);",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "AB",
+      "Ab",
+      "null",
+      "ab"
+    ],
+    "answer": "ab",
+    "explanation": {
+      "en": "Strings are immutable: toUpperCase returns a new string, and the result is thrown away, so s is still \"ab\"."
+    }
+  },
+  {
+    "id": 242,
+    "category": "sql",
+    "difficulty": "easy",
+    "codeSnippet": "SELECT 7 / 2, 7 / 2.0;",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "3 | 3.5",
+      "3.5 | 3.5",
+      "3 | 3",
+      "4 | 3.5"
+    ],
+    "answer": "3 | 3.5",
+    "explanation": {
+      "en": "Two integers divide as integers (truncated to 3); making one operand a real number gives 3.5."
+    }
+  },
+  {
+    "id": 243,
+    "category": "typescript",
+    "difficulty": "easy",
+    "codeSnippet": "function f(a: number, b = a * 2): number {\n  return b;\n}\nconsole.log(f(3), f(3, 0));",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "6 6",
+      "6 0",
+      "6 undefined",
+      "0 0"
+    ],
+    "answer": "6 0",
+    "explanation": {
+      "en": "A default can use earlier parameters, so f(3) returns 6. Defaults apply only to undefined, so an explicit 0 is kept."
+    }
+  },
+  {
+    "id": 244,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "nums = [1, 5, 8, 3]\nprint([y for x in nums if (y := x * 2) > 6])",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "[16]",
+      "[5, 8]",
+      "[10, 16]",
+      "[2, 10, 16, 6]"
+    ],
+    "answer": "[10, 16]",
+    "explanation": {
+      "en": "The walrus assigns y = x * 2 inside the filter, so the kept values are the doubled ones above 6: 10 and 16."
+    }
+  },
+  {
+    "id": 245,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "print(len('a  b'.split()), len('a  b'.split(' ')))",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "2 2",
+      "3 3",
+      "3 2",
+      "2 3"
+    ],
+    "answer": "2 3",
+    "explanation": {
+      "en": "split() with no argument splits on runs of whitespace; split(' ') splits on every single space, leaving an empty string between the two spaces: ['a', '', 'b']."
+    }
+  },
+  {
+    "id": 246,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "d = {'a': 1, 'b': 2}\ndel d['a']\nd['a'] = 3\nprint(list(d))",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "['b', 'a']",
+      "['a', 'b']",
+      "['b']",
+      "['a', 'b', 'a']"
+    ],
+    "answer": "['b', 'a']",
+    "explanation": {
+      "en": "Dicts keep insertion order. Deleting 'a' and adding it again inserts it as a new key at the end."
+    }
+  },
+  {
+    "id": 247,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "const { a = 1, b = 2 } = { a: null, b: undefined };\nconsole.log(a, b);",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "1 2",
+      "null 2",
+      "null undefined",
+      "1 undefined"
+    ],
+    "answer": "null 2",
+    "explanation": {
+      "en": "Destructuring defaults apply only when the value is undefined. null is a real value, so a stays null while b falls back to 2."
+    }
+  },
+  {
+    "id": 248,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "let out = '';\nouter: for (let i = 0; i < 3; i++) {\n  for (let j = 0; j < 3; j++) {\n    if (j === 1) continue outer;\n    out += i + '' + j + ' ';\n  }\n}\nconsole.log(out.trim());",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "00",
+      "00 01 02",
+      "00 10 20",
+      "00 02 10 12 20 22"
+    ],
+    "answer": "00 10 20",
+    "explanation": {
+      "en": "continue outer abandons the inner loop and moves to the next i, so only j = 0 is ever recorded for each i."
+    }
+  },
+  {
+    "id": 249,
+    "category": "go",
+    "difficulty": "medium",
+    "codeSnippet": "fmt.Println(-7/2, -7%2)",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "-4 1",
+      "-3 1",
+      "-4 -1",
+      "-3 -1"
+    ],
+    "answer": "-3 -1",
+    "explanation": {
+      "en": "Go integer division truncates toward zero (-3), and the remainder takes the sign of the dividend (-1). Python would give -4 1."
+    }
+  },
+  {
+    "id": 250,
+    "category": "java",
+    "difficulty": "medium",
+    "codeSnippet": "int x = 2;\nString r = \"\";\nswitch (x) {\n  case 1: r += \"a\";\n  case 2: r += \"b\";\n  case 3: r += \"c\"; break;\n  default: r += \"d\";\n}\nSystem.out.println(r);",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "bc",
+      "b",
+      "bcd",
+      "abc"
+    ],
+    "answer": "bc",
+    "explanation": {
+      "en": "Execution jumps to case 2 and falls through into case 3 because there is no break, then stops at the break before default."
+    }
+  },
+  {
+    "id": 251,
+    "category": "sql",
+    "difficulty": "medium",
+    "codeSnippet": "CREATE TABLE t (x INT);\nINSERT INTO t VALUES (2), (NULL), (4);\nSELECT AVG(x) FROM t;",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "2.0",
+      "3.0",
+      "NULL",
+      "6.0"
+    ],
+    "answer": "3.0",
+    "explanation": {
+      "en": "Aggregates skip NULLs, so AVG averages only 2 and 4: (2 + 4) / 2 = 3.0."
+    }
+  },
+  {
+    "id": 252,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "def g():\n    x = yield 1\n    yield x * 10\n\nit = g()\nprint(next(it), it.send(4))",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "1 None",
+      "1 10",
+      "1 40",
+      "4 40"
+    ],
+    "answer": "1 40",
+    "explanation": {
+      "en": "next() runs to the first yield and returns 1. send(4) resumes the generator with x = 4 and runs to the next yield, returning 40."
+    }
+  },
+  {
+    "id": 253,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "async function f() {\n  console.log(1);\n  await null;\n  console.log(2);\n}\nf();\nconsole.log(3);",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "1 2 3",
+      "3 1 2",
+      "2 1 3",
+      "1 3 2"
+    ],
+    "answer": "1 3 2",
+    "explanation": {
+      "en": "An async function runs synchronously up to its first await. The rest is queued as a microtask, which runs after the current script logs 3."
+    }
+  },
+  {
+    "id": 254,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "let n = 0;\nconst p = null;\np?.f(n++);\nconsole.log(n);",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "0",
+      "1",
+      "undefined",
+      "TypeError"
+    ],
+    "answer": "0",
+    "explanation": {
+      "en": "Optional chaining short-circuits the whole call when p is null, so the argument n++ is never evaluated."
+    }
+  },
+  {
+    "id": 255,
+    "category": "go",
+    "difficulty": "hard",
+    "codeSnippet": "for i := range \"hé!\" {\n\tfmt.Print(i)\n}",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "012",
+      "013",
+      "0123",
+      "123"
+    ],
+    "answer": "013",
+    "explanation": {
+      "en": "Ranging over a string yields the byte offset of each rune. é takes two bytes in UTF-8, so the offsets are 0, 1 and 3."
+    }
+  },
+  {
+    "id": 256,
+    "category": "java",
+    "difficulty": "hard",
+    "codeSnippet": "List<Integer> l = new ArrayList<>(List.of(10, 20, 30));\nl.remove(1);\nSystem.out.println(l);",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "[20, 30]",
+      "[10, 20]",
+      "[10, 30]",
+      "[10, 20, 30]"
+    ],
+    "answer": "[10, 30]",
+    "explanation": {
+      "en": "An int argument picks the overload remove(int index), so the element at index 1 (20) goes. remove(Integer.valueOf(1)) would remove by value."
+    }
+  },
+  {
+    "id": 257,
+    "category": "sql",
+    "difficulty": "hard",
+    "codeSnippet": "CREATE TABLE t (x INT);\nINSERT INTO t VALUES (1), (NULL), (NULL), (1);\nSELECT COUNT(*) FROM (SELECT DISTINCT x FROM t);",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "1",
+      "4",
+      "3",
+      "2"
+    ],
+    "answer": "2",
+    "explanation": {
+      "en": "DISTINCT treats all NULLs as one group, so the subquery returns two rows: 1 and NULL. COUNT(*) counts rows, NULL included."
+    }
   }
 ]

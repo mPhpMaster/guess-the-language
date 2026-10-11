@@ -5,7 +5,7 @@ An interactive quiz game for **Windows** (Electron), the **web** (also an
 installable **PWA / mobile app**), and **Discord** (as an embedded Activity).
 From a single home page you pick one of seven quiz modes and race the timer — with
 scoring, streaks, a correct/total counter, XP and levels, daily challenges, and a
-per-mode **live global leaderboard** (Supabase). **2,427 questions** across eight
+per-mode **live global leaderboard** (Supabase). **2,623 questions** across eight
 banks. The UI is English.
 
 ### Seven game modes
@@ -30,13 +30,13 @@ banks. The UI is English.
 
 | Mode | Bank(s) | Questions |
 | --- | --- | ---: |
-| Programming Languages | `questions.json` | 594 |
-| Cybersecurity | `questions-cyber.json` | 290 |
-| DevOps | `questions-devops.json` | 250 |
-| Networking | `questions-network.json` | 250 |
-| Game Dev | `questions-gamedev.json` | 250 |
-| Problem Solving | `questions-algo.json` + `-bug` + `-output` | 793 |
-| **All (Mixed)** | every bank | **2427** |
+| Programming Languages | `questions.json` | 630 |
+| Cybersecurity | `questions-cyber.json` | 315 |
+| DevOps | `questions-devops.json` | 275 |
+| Networking | `questions-network.json` | 275 |
+| Game Dev | `questions-gamedev.json` | 275 |
+| Problem Solving | `questions-algo.json` + `-bug` + `-output` | 853 |
+| **All (Mixed)** | every bank | **2623** |
 
 ![Home](screenshots/8-modeselect.png)
 
@@ -215,7 +215,7 @@ prog-game2/
 │  ├─ vendor/supabase.js        # bundled @supabase/supabase-js (UMD)
 │  ├─ supabase-config.js        # Supabase creds (local, git-ignored)
 │  ├─ discord-config.js         # Discord client id (local, git-ignored)
-│  └─ data/                     # 2427 questions, English only
+│  └─ data/                     # 2623 questions, English only
 │     ├─ questions.json          # languages bank (522, 15 languages)
 │     ├─ questions-cyber.json    # cybersecurity bank (240)
 │     ├─ questions-devops.json   # devops bank (200)
