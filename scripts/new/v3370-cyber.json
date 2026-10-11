@@ -1,0 +1,477 @@
+[
+  {
+    "id": 245,
+    "category": "social",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "A scam phone call posing as your bank to extract account details is called?"
+    },
+    "options": [
+      "Smishing",
+      "Vishing",
+      "Pharming",
+      "Whaling"
+    ],
+    "answer": "Vishing",
+    "explanation": {
+      "en": "Vishing is voice phishing; smishing uses SMS and pharming redirects traffic to fake sites."
+    }
+  },
+  {
+    "id": 246,
+    "category": "social",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Slipping through a badge-controlled door behind an employee is called?"
+    },
+    "options": [
+      "Shoulder surfing",
+      "Dumpster diving",
+      "Baiting",
+      "Tailgating"
+    ],
+    "answer": "Tailgating",
+    "explanation": {
+      "en": "Tailgating (piggybacking) exploits politeness to bypass physical access control without a badge."
+    }
+  },
+  {
+    "id": 247,
+    "category": "crypto",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Hiding a secret message inside an ordinary image file is called?"
+    },
+    "options": [
+      "Obfuscation",
+      "Steganography",
+      "Tokenization",
+      "Cryptanalysis"
+    ],
+    "answer": "Steganography",
+    "explanation": {
+      "en": "Steganography conceals the existence of the message rather than scrambling its content."
+    }
+  },
+  {
+    "id": 248,
+    "category": "defense",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which system gathers logs from many sources and correlates them into alerts?"
+    },
+    "options": [
+      "A load balancer",
+      "A VPN concentrator",
+      "A SIEM platform",
+      "A proxy cache"
+    ],
+    "answer": "A SIEM platform",
+    "explanation": {
+      "en": "A SIEM centralises event logs and applies correlation rules so analysts see one alert instead of scattered entries."
+    }
+  },
+  {
+    "id": 249,
+    "category": "tools",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which search engine indexes internet-exposed devices and their service banners?"
+    },
+    "options": [
+      "Shodan",
+      "Maltego",
+      "Recon-ng",
+      "VirusTotal"
+    ],
+    "answer": "Shodan",
+    "explanation": {
+      "en": "Shodan continuously scans the internet and lets you search banners for exposed cameras, databases and ICS gear."
+    }
+  },
+  {
+    "id": 250,
+    "category": "concepts",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "In a security exercise, what is the blue team's job?"
+    },
+    "options": [
+      "Simulating the real attacker",
+      "Refereeing the exercise rules",
+      "Detecting and defending",
+      "Auditing the security budget"
+    ],
+    "answer": "Detecting and defending",
+    "explanation": {
+      "en": "The red team plays the adversary while the blue team monitors, detects and responds."
+    }
+  },
+  {
+    "id": 251,
+    "category": "web",
+    "difficulty": "medium",
+    "codeSnippet": "<!DOCTYPE foo [<!ENTITY xxe SYSTEM \"file:///etc/passwd\">]>\n<user>&xxe;</user>",
+    "question": {
+      "en": "Which attack does this XML payload attempt?"
+    },
+    "options": [
+      "LDAP injection",
+      "Server-side template injection",
+      "XML external entity (XXE)",
+      "Stored cross-site scripting"
+    ],
+    "answer": "XML external entity (XXE)",
+    "explanation": {
+      "en": "A parser that resolves external entities will inline the local file; disabling DTDs or external entities fixes it."
+    }
+  },
+  {
+    "id": 252,
+    "category": "auth",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does the OAuth 2.0 state parameter mainly defend against?"
+    },
+    "options": [
+      "CSRF on the redirect callback",
+      "Token replay at the resource API",
+      "Brute force of the client secret",
+      "Expiry of the access token"
+    ],
+    "answer": "CSRF on the redirect callback",
+    "explanation": {
+      "en": "The client binds a random state to the user session and rejects callbacks that return a different value."
+    }
+  },
+  {
+    "id": 253,
+    "category": "crypto",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why is ECB mode unsafe for encrypting images or structured data?"
+    },
+    "options": [
+      "Equal blocks give equal ciphertext",
+      "It cannot be decrypted in parallel",
+      "It needs a key longer than the data",
+      "It only supports stream ciphers"
+    ],
+    "answer": "Equal blocks give equal ciphertext",
+    "explanation": {
+      "en": "Each block is encrypted independently, so repeated plaintext patterns stay visible, as in the famous ECB penguin."
+    }
+  },
+  {
+    "id": 254,
+    "category": "crypto",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a Diffie-Hellman exchange let two parties do?"
+    },
+    "options": [
+      "Sign a document with a private key",
+      "Hash a password with a unique salt",
+      "Agree on a key over an open channel",
+      "Prove identity without a certificate"
+    ],
+    "answer": "Agree on a key over an open channel",
+    "explanation": {
+      "en": "Each side combines its private value with the other's public value to reach the same secret; DH alone does not authenticate."
+    }
+  },
+  {
+    "id": 255,
+    "category": "crypto",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which protocol lets a client ask a CA whether a certificate has been revoked?"
+    },
+    "options": [
+      "ACME",
+      "HPKP",
+      "SCEP",
+      "OCSP"
+    ],
+    "answer": "OCSP",
+    "explanation": {
+      "en": "OCSP returns a signed good/revoked/unknown status for one certificate instead of downloading a whole CRL."
+    }
+  },
+  {
+    "id": 256,
+    "category": "attacks",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "A rogue access point broadcasting a trusted Wi-Fi network's name is a?"
+    },
+    "options": [
+      "War driving",
+      "Deauth flood",
+      "Bluejacking",
+      "Evil twin"
+    ],
+    "answer": "Evil twin",
+    "explanation": {
+      "en": "Clients auto-join the familiar SSID, letting the attacker intercept their traffic or capture logins."
+    }
+  },
+  {
+    "id": 257,
+    "category": "attacks",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Publishing a public package with an internal package's name but a higher version is?"
+    },
+    "options": [
+      "Typosquatting a package",
+      "Version pinning bypass",
+      "Watering-hole attack",
+      "Dependency confusion"
+    ],
+    "answer": "Dependency confusion",
+    "explanation": {
+      "en": "Build tools that check public registries may prefer the higher version and pull the attacker's code."
+    }
+  },
+  {
+    "id": 258,
+    "category": "malware",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Running a sample in an isolated VM to watch what it actually does is?"
+    },
+    "options": [
+      "Dynamic analysis",
+      "Signature matching",
+      "Static analysis",
+      "Code decompiling"
+    ],
+    "answer": "Dynamic analysis",
+    "explanation": {
+      "en": "Dynamic analysis observes runtime behaviour such as files, registry keys and network calls inside a sandbox."
+    }
+  },
+  {
+    "id": 259,
+    "category": "concepts",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is MITRE ATT&CK?"
+    },
+    "options": [
+      "A list of vulnerable software versions",
+      "A knowledge base of attacker techniques",
+      "A scoring scale for vulnerability severity",
+      "A certification for penetration testers"
+    ],
+    "answer": "A knowledge base of attacker techniques",
+    "explanation": {
+      "en": "ATT&CK catalogues real adversary tactics and techniques, giving defenders a shared vocabulary for detection coverage."
+    }
+  },
+  {
+    "id": 260,
+    "category": "tools",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What are YARA rules used for?"
+    },
+    "options": [
+      "Filtering packets at the host firewall",
+      "Scheduling vulnerability scans nightly",
+      "Rate limiting login attempts on web apps",
+      "Matching patterns that identify malware"
+    ],
+    "answer": "Matching patterns that identify malware",
+    "explanation": {
+      "en": "YARA rules combine strings and conditions to classify files or memory as belonging to a malware family."
+    }
+  },
+  {
+    "id": 261,
+    "category": "metasploit",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What sets a Metasploit auxiliary module apart from an exploit module?"
+    },
+    "options": [
+      "It only targets Windows SMB services",
+      "It must be paired with a staged payload",
+      "It runs without delivering a payload",
+      "It stores loot found after compromise"
+    ],
+    "answer": "It runs without delivering a payload",
+    "explanation": {
+      "en": "Auxiliary modules cover scanners, fuzzers and sniffers that do their job without dropping a payload on the target."
+    }
+  },
+  {
+    "id": 262,
+    "category": "web",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why is deserializing untrusted data in Java or PHP dangerous?"
+    },
+    "options": [
+      "Crafted objects can trigger code on load",
+      "It doubles the memory used per request",
+      "It disables the TLS session on the server",
+      "It leaks the server's private key to clients"
+    ],
+    "answer": "Crafted objects can trigger code on load",
+    "explanation": {
+      "en": "Gadget chains in the classpath run during object reconstruction, which can lead to remote code execution."
+    }
+  },
+  {
+    "id": 263,
+    "category": "web",
+    "difficulty": "hard",
+    "codeSnippet": "{\"__proto__\": {\"isAdmin\": true}}",
+    "question": {
+      "en": "Merging this JSON into an object unsafely causes what in JavaScript?"
+    },
+    "options": [
+      "Prototype pollution",
+      "Cross-site JSON hijacking",
+      "DOM clobbering",
+      "PHP type juggling"
+    ],
+    "answer": "Prototype pollution",
+    "explanation": {
+      "en": "A naive deep merge writes onto Object.prototype, so every object suddenly inherits isAdmin."
+    }
+  },
+  {
+    "id": 264,
+    "category": "auth",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does PKCE add to the OAuth authorization code flow?"
+    },
+    "options": [
+      "A refresh token bound to the device",
+      "Consent screens for each requested scope",
+      "A signed ID token describing the user",
+      "Proof the code redeemer started the flow"
+    ],
+    "answer": "Proof the code redeemer started the flow",
+    "explanation": {
+      "en": "The client sends a hash of a secret verifier up front and the verifier at redemption, so a stolen code alone is useless."
+    }
+  },
+  {
+    "id": 265,
+    "category": "attacks",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "In Kerberoasting, what does the attacker crack offline?"
+    },
+    "options": [
+      "The krbtgt account's hash",
+      "A user's NTLM challenge",
+      "A service account's ticket",
+      "The domain's LAPS password"
+    ],
+    "answer": "A service account's ticket",
+    "explanation": {
+      "en": "Any domain user can request a service ticket encrypted with the service account's key and brute-force it offline."
+    }
+  },
+  {
+    "id": 266,
+    "category": "attacks",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does an attacker need to forge a Kerberos golden ticket?"
+    },
+    "options": [
+      "A user's cleartext password",
+      "The domain admin's MFA token",
+      "A valid service's SPN list",
+      "The krbtgt account's hash"
+    ],
+    "answer": "The krbtgt account's hash",
+    "explanation": {
+      "en": "The krbtgt key signs every TGT, so holding it lets an attacker mint tickets for any user in the domain."
+    }
+  },
+  {
+    "id": 267,
+    "category": "crypto",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a padding oracle attack exploit?"
+    },
+    "options": [
+      "Errors that reveal valid padding",
+      "Keys reused across two sessions",
+      "Weak random number generators",
+      "Hash collisions in the MAC check"
+    ],
+    "answer": "Errors that reveal valid padding",
+    "explanation": {
+      "en": "Distinct responses for bad padding let an attacker decrypt CBC ciphertext byte by byte without the key."
+    }
+  },
+  {
+    "id": 268,
+    "category": "defense",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "How does ASLR hinder memory-corruption exploits?"
+    },
+    "options": [
+      "It marks the stack as non-executable",
+      "It encrypts process memory at rest",
+      "It randomises where code and data load",
+      "It checks return addresses for tampering"
+    ],
+    "answer": "It randomises where code and data load",
+    "explanation": {
+      "en": "Without fixed addresses, an exploit cannot reliably jump to known code or gadgets unless it first leaks a pointer."
+    }
+  },
+  {
+    "id": 269,
+    "category": "nmap",
+    "difficulty": "hard",
+    "codeSnippet": "nmap -D RND:10 10.0.0.5",
+    "question": {
+      "en": "What does the -D option do here?"
+    },
+    "options": [
+      "Runs ten parallel scans against the target",
+      "Hides the real scan among decoy source IPs",
+      "Delays each probe by ten random seconds",
+      "Dumps the results in ten separate files"
+    ],
+    "answer": "Hides the real scan among decoy source IPs",
+    "explanation": {
+      "en": "Nmap spoofs ten random decoy addresses alongside yours so the target's logs cannot easily single out the real scanner."
+    }
+  }
+]

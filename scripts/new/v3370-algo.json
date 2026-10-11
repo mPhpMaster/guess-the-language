@@ -1,0 +1,330 @@
+[
+  {
+    "id": 277,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// last element, without changing the array\nconst last = arr.at(____);",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "-1",
+    "accept": [
+      "-1"
+    ],
+    "explanation": {
+      "en": "A negative index counts back from the end, so `at(-1)` is the final element."
+    }
+  },
+  {
+    "id": 278,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "# count the vowels in a word\nn = sum(1 for ch in word if ch ____ 'aeiou')",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "in",
+    "accept": [
+      "in"
+    ],
+    "explanation": {
+      "en": "`in` tests membership, so each character found in the vowel string adds one."
+    }
+  },
+  {
+    "id": 279,
+    "category": "math",
+    "difficulty": "easy",
+    "codeSnippet": "import math\n# pages needed for n items, 10 per page\npages = math.____(n / 10)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "ceil",
+    "accept": [
+      "ceil",
+      "math.ceil",
+      "ceil()"
+    ],
+    "explanation": {
+      "en": "A partly filled last page still counts, so the quotient is rounded up with ceil."
+    }
+  },
+  {
+    "id": 280,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "// random whole number from 0 to 5\nconst r = Math.____(Math.random() * 6);",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "floor",
+    "accept": [
+      "floor",
+      "Math.floor",
+      "trunc"
+    ],
+    "explanation": {
+      "en": "Math.random() * 6 lies in [0, 6); flooring it gives 0..5 with equal odds."
+    }
+  },
+  {
+    "id": 281,
+    "category": "data-structures",
+    "difficulty": "easy",
+    "codeSnippet": "# last item of a Python list\nlast = items[____]",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "-1",
+    "accept": [
+      "-1",
+      "len(items)-1",
+      "len(items) - 1"
+    ],
+    "explanation": {
+      "en": "Python lists accept negative indices; -1 is the final element."
+    }
+  },
+  {
+    "id": 282,
+    "category": "math",
+    "difficulty": "medium",
+    "codeSnippet": "# sum of the digits of n\ntotal = 0\nwhile n > 0:\n    total += n % 10\n    n ____= 10",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "//",
+    "accept": [
+      "//"
+    ],
+    "explanation": {
+      "en": "`n % 10` reads the last digit and `n //= 10` drops it; `/=` would turn n into a float."
+    }
+  },
+  {
+    "id": 283,
+    "category": "math",
+    "difficulty": "medium",
+    "codeSnippet": "# Gregorian leap year rule\nleap = y % 4 == 0 and (y % 100 != 0 ____ y % 400 == 0)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "or",
+    "accept": [
+      "or"
+    ],
+    "explanation": {
+      "en": "Century years are leap years only when divisible by 400, so either condition rescues the year."
+    }
+  },
+  {
+    "id": 284,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "// clamp n into the range [lo, hi]\nconst c = Math.min(hi, Math.____(lo, n));",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "max",
+    "accept": [
+      "max",
+      "Math.max"
+    ],
+    "explanation": {
+      "en": "The inner max lifts n up to lo, then the outer min caps it at hi."
+    }
+  },
+  {
+    "id": 285,
+    "category": "strings",
+    "difficulty": "medium",
+    "codeSnippet": "# are a and b anagrams?\nok = ____(a) == sorted(b)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "sorted",
+    "accept": [
+      "sorted"
+    ],
+    "explanation": {
+      "en": "Two words are anagrams when their letters sort into the same list."
+    }
+  },
+  {
+    "id": 286,
+    "category": "graphs",
+    "difficulty": "medium",
+    "codeSnippet": "# store an undirected edge (u, v)\ngraph[u].append(v)\ngraph[____].append(u)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "v",
+    "accept": [
+      "v"
+    ],
+    "explanation": {
+      "en": "An undirected edge is recorded in both adjacency lists, so v must also point back to u."
+    }
+  },
+  {
+    "id": 287,
+    "category": "math",
+    "difficulty": "medium",
+    "codeSnippet": "def is_prime(n):\n    i = 2\n    while i * i ____ n:\n        if n % i == 0:\n            return False\n        i += 1\n    return n > 1",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "<=",
+    "accept": [
+      "<="
+    ],
+    "explanation": {
+      "en": "Divisors pair up around the square root, so trial division stops once i * i passes n; `<` would miss perfect squares like 9."
+    }
+  },
+  {
+    "id": 288,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "// count words with a Map\nconst counts = new Map<string, number>();\nfor (const w of words) {\n  counts.set(w, (counts.____(w) ?? 0) + 1);\n}",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "get",
+    "accept": [
+      "get"
+    ],
+    "explanation": {
+      "en": "Map values are read with get(); `?? 0` covers words that have not been seen yet."
+    }
+  },
+  {
+    "id": 289,
+    "category": "bit-manipulation",
+    "difficulty": "medium",
+    "codeSnippet": "# flip bit k of x\nx = x ____ (1 << k)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "^",
+    "accept": [
+      "^"
+    ],
+    "explanation": {
+      "en": "XOR with a one-bit mask toggles exactly that bit and leaves the rest unchanged."
+    }
+  },
+  {
+    "id": 290,
+    "category": "dynamic-programming",
+    "difficulty": "hard",
+    "codeSnippet": "# fewest coins for every amount up to target\ndp = [0] + [float('inf')] * target\nfor a in range(1, target + 1):\n    for c in coins:\n        if c <= a:\n            dp[a] = min(dp[a], dp[a - c] + ____)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "1",
+    "accept": [
+      "1"
+    ],
+    "explanation": {
+      "en": "Using coin c costs one coin on top of the best answer for the remaining a - c."
+    }
+  },
+  {
+    "id": 291,
+    "category": "graphs",
+    "difficulty": "hard",
+    "codeSnippet": "# Dijkstra: relax edge u -> v of weight w\nif d + w ____ dist[v]:\n    dist[v] = d + w\n    heapq.heappush(pq, (dist[v], v))",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "<",
+    "accept": [
+      "<"
+    ],
+    "explanation": {
+      "en": "An edge is relaxed only when it strictly improves the best known distance to v."
+    }
+  },
+  {
+    "id": 292,
+    "category": "algorithms",
+    "difficulty": "hard",
+    "codeSnippet": "# union-find with path compression\ndef find(x):\n    if parent[x] != x:\n        parent[x] = ____(parent[x])\n    return parent[x]",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "find",
+    "accept": [
+      "find"
+    ],
+    "explanation": {
+      "en": "Recursing to the root and storing it in parent[x] flattens the tree for later lookups."
+    }
+  },
+  {
+    "id": 293,
+    "category": "complexity",
+    "difficulty": "hard",
+    "codeSnippet": "# heapify: sift down from the last parent to the root\nfor i in range(n // 2 - 1, -1, -1):\n    sift_down(a, i)\n# total time: O(____)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "n",
+    "accept": [
+      "n"
+    ],
+    "explanation": {
+      "en": "Most nodes sit near the bottom and sift only a little, so bottom-up heap construction sums to O(n), not O(n log n)."
+    }
+  },
+  {
+    "id": 294,
+    "category": "dynamic-programming",
+    "difficulty": "hard",
+    "codeSnippet": "// longest common subsequence table\ndp[i][j] = a[i - 1] === b[j - 1]\n  ? dp[i - 1][j - 1] + 1\n  : Math.____(dp[i - 1][j], dp[i][j - 1]);",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "max",
+    "accept": [
+      "max",
+      "Math.max"
+    ],
+    "explanation": {
+      "en": "When the characters differ, the best subsequence drops one of them, so take the larger neighbour."
+    }
+  },
+  {
+    "id": 295,
+    "category": "algorithms",
+    "difficulty": "hard",
+    "codeSnippet": "# Kadane: best sum of a contiguous subarray\nbest = cur = nums[0]\nfor x in nums[1:]:\n    cur = max(x, cur ____ x)\n    best = max(best, cur)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "+",
+    "accept": [
+      "+"
+    ],
+    "explanation": {
+      "en": "Each step either extends the running subarray by x or starts fresh at x."
+    }
+  },
+  {
+    "id": 296,
+    "category": "graphs",
+    "difficulty": "hard",
+    "codeSnippet": "# Kahn's topological sort\nfor v in graph[u]:\n    indeg[v] -= 1\n    if indeg[v] == ____:\n        queue.append(v)",
+    "question": {
+      "en": "What goes in the blank?"
+    },
+    "answer": "0",
+    "accept": [
+      "0"
+    ],
+    "explanation": {
+      "en": "A node becomes ready once all its incoming edges are processed, i.e. its in-degree hits zero."
+    }
+  }
+]

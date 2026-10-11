@@ -1,0 +1,477 @@
+[
+  {
+    "id": 201,
+    "category": "rendering",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does back-face culling skip?"
+    },
+    "options": [
+      "Triangles facing away from the camera",
+      "Objects fully hidden behind other geometry",
+      "Meshes outside the camera's view",
+      "Pixels that fail the alpha test"
+    ],
+    "answer": "Triangles facing away from the camera",
+    "explanation": {
+      "en": "Winding order shows which side a triangle faces; the back faces of closed meshes are never visible, so the GPU drops them."
+    }
+  },
+  {
+    "id": 202,
+    "category": "rendering",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a skybox?"
+    },
+    "options": [
+      "A bounding box that limits the camera",
+      "A light that tints the whole sky blue",
+      "A distant backdrop drawn around the scene",
+      "A volume in which all weather effects spawn"
+    ],
+    "answer": "A distant backdrop drawn around the scene",
+    "explanation": {
+      "en": "Usually a cubemap rendered behind everything, it fakes far-away sky and scenery cheaply."
+    }
+  },
+  {
+    "id": 203,
+    "category": "effects",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does a bloom effect imitate?"
+    },
+    "options": [
+      "Blur from fast camera movement",
+      "Darkening toward the edges of the screen",
+      "Haze that thickens with distance",
+      "Light bleeding around bright areas"
+    ],
+    "answer": "Light bleeding around bright areas",
+    "explanation": {
+      "en": "Bright pixels are blurred and added back, mimicking how lenses and eyes glow around intense light."
+    }
+  },
+  {
+    "id": 204,
+    "category": "audio",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does crossfading two music tracks do?"
+    },
+    "options": [
+      "Plays both tracks at full volume together",
+      "Fades one out as the other fades in",
+      "Cuts instantly at a beat boundary",
+      "Lowers the music under dialogue"
+    ],
+    "answer": "Fades one out as the other fades in",
+    "explanation": {
+      "en": "The outgoing track fades down while the incoming one fades up, so the transition has no hard cut."
+    }
+  },
+  {
+    "id": 205,
+    "category": "timing",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "At 60 FPS, about how long is each frame?"
+    },
+    "options": [
+      "8.3 ms",
+      "16.7 ms",
+      "33.3 ms",
+      "60 ms"
+    ],
+    "answer": "16.7 ms",
+    "explanation": {
+      "en": "1000 ms divided by 60 is about 16.7 ms, the whole budget for logic, physics and rendering each frame."
+    }
+  },
+  {
+    "id": 206,
+    "category": "rendering",
+    "difficulty": "easy",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a baked lightmap?"
+    },
+    "options": [
+      "A mask of where lights may be placed",
+      "A list of lights sorted by brightness",
+      "Lighting precomputed into a texture",
+      "A map of each light's live position"
+    ],
+    "answer": "Lighting precomputed into a texture",
+    "explanation": {
+      "en": "Static lighting and shadows are calculated offline and stored in textures, so the runtime cost is just a lookup."
+    }
+  },
+  {
+    "id": 207,
+    "category": "rendering",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does anisotropic filtering improve?"
+    },
+    "options": [
+      "Textures seen at steep angles",
+      "Jagged edges on polygon outlines",
+      "Shadow resolution near the camera",
+      "Colour banding in dark gradients"
+    ],
+    "answer": "Textures seen at steep angles",
+    "explanation": {
+      "en": "Floors viewed at a grazing angle blur with plain mipmapping; anisotropic filtering samples along the stretch to keep them sharp."
+    }
+  },
+  {
+    "id": 208,
+    "category": "rendering",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does tone mapping do?"
+    },
+    "options": [
+      "Converts textures to grayscale",
+      "Fits HDR values into display range",
+      "Shifts the palette toward one hue",
+      "Raises the contrast of the UI only"
+    ],
+    "answer": "Fits HDR values into display range",
+    "explanation": {
+      "en": "Lighting is computed in high dynamic range; a tone-mapping curve compresses it into what a monitor can show without clipping."
+    }
+  },
+  {
+    "id": 209,
+    "category": "rendering",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What is a billboard in 3D rendering?"
+    },
+    "options": [
+      "A texture painted onto the skybox",
+      "An on-screen panel for ad banners",
+      "A flat mesh that only ever casts shadows",
+      "A quad that always faces the camera"
+    ],
+    "answer": "A quad that always faces the camera",
+    "explanation": {
+      "en": "Turning a flat quad toward the viewer makes particles, grass and distant trees look solid at almost no cost."
+    }
+  },
+  {
+    "id": 210,
+    "category": "animation",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "In skeletal animation, what do vertex weights set?"
+    },
+    "options": [
+      "The order bones are evaluated in",
+      "The vertex's mass for ragdolls",
+      "How much each bone moves a vertex",
+      "How quickly each clip plays at runtime"
+    ],
+    "answer": "How much each bone moves a vertex",
+    "explanation": {
+      "en": "Each vertex blends the transforms of the bones that influence it by its weights, so joints bend smoothly."
+    }
+  },
+  {
+    "id": 211,
+    "category": "animation",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does animation retargeting allow?"
+    },
+    "options": [
+      "Aiming a limb at a moving target",
+      "Reusing clips on a different rig",
+      "Splitting a clip into short loops",
+      "Compressing curves to save memory"
+    ],
+    "answer": "Reusing clips on a different rig",
+    "explanation": {
+      "en": "Mapping bones between skeletons lets one set of clips drive characters with different proportions."
+    }
+  },
+  {
+    "id": 212,
+    "category": "ai",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does the arrive steering behaviour add over seek?"
+    },
+    "options": [
+      "It slows down near the target",
+      "It predicts the target's position",
+      "It steers away from the target",
+      "It avoids obstacles on the way"
+    ],
+    "answer": "It slows down near the target",
+    "explanation": {
+      "en": "Seek overshoots at full speed; arrive scales speed down inside a slowing radius so the agent stops on the spot."
+    }
+  },
+  {
+    "id": 213,
+    "category": "ai",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Which three rules drive classic boids flocking?"
+    },
+    "options": [
+      "Attraction, gravity and friction",
+      "Seek, flee and random wandering",
+      "Separation, alignment, cohesion",
+      "Pursuit, evasion and path following"
+    ],
+    "answer": "Separation, alignment, cohesion",
+    "explanation": {
+      "en": "Boids avoid crowding, match neighbours' heading and steer toward their centre; flocking emerges from just those rules."
+    }
+  },
+  {
+    "id": 214,
+    "category": "architecture",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why wrap player actions as command objects?"
+    },
+    "options": [
+      "To run each action on the GPU",
+      "To make undo and replay easy",
+      "To skip input validation",
+      "To store them in the scene file"
+    ],
+    "answer": "To make undo and replay easy",
+    "explanation": {
+      "en": "Each command records what it did, so it can be reversed, queued, logged for replays or sent over the network."
+    }
+  },
+  {
+    "id": 215,
+    "category": "netcode",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does interest management limit?"
+    },
+    "options": [
+      "How often the server saves state",
+      "Which regions the server hosts in",
+      "Which entities each client is sent",
+      "How many players may join one lobby at once"
+    ],
+    "answer": "Which entities each client is sent",
+    "explanation": {
+      "en": "Servers replicate only what is relevant to each player, such as nearby objects, saving bandwidth and hiding far-off data."
+    }
+  },
+  {
+    "id": 216,
+    "category": "netcode",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does delta compression send in snapshots?"
+    },
+    "options": [
+      "Every object's full state at full precision",
+      "Only changes since an acked state",
+      "Inputs rather than world state",
+      "A zipped copy of the save file"
+    ],
+    "answer": "Only changes since an acked state",
+    "explanation": {
+      "en": "The server diffs against the last snapshot the client acknowledged, so unchanged fields cost nothing."
+    }
+  },
+  {
+    "id": 217,
+    "category": "physics",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why do physics engines put resting bodies to sleep?"
+    },
+    "options": [
+      "They lock in place permanently",
+      "Their colliders are freed from memory",
+      "They skip work until disturbed",
+      "They stop firing trigger events"
+    ],
+    "answer": "They skip work until disturbed",
+    "explanation": {
+      "en": "Bodies at rest are left out of integration and solving until a contact or force wakes them, saving CPU."
+    }
+  },
+  {
+    "id": 218,
+    "category": "audio",
+    "difficulty": "medium",
+    "codeSnippet": "",
+    "question": {
+      "en": "What does the Doppler effect change in game audio?"
+    },
+    "options": [
+      "Volume based on distance",
+      "Reverb based on the size of the room",
+      "Panning based on direction",
+      "Pitch based on relative speed"
+    ],
+    "answer": "Pitch based on relative speed",
+    "explanation": {
+      "en": "A source approaching the listener sounds higher and one moving away sounds lower, like a passing car."
+    }
+  },
+  {
+    "id": 219,
+    "category": "netcode",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "In rollback netcode, what happens when a late input differs from the guess?"
+    },
+    "options": [
+      "The game pauses until it arrives",
+      "The frames are re-simulated with it",
+      "The server's version is trusted as final",
+      "The input is dropped as stale"
+    ],
+    "answer": "The frames are re-simulated with it",
+    "explanation": {
+      "en": "Peers predict remote inputs instead of waiting; on a mismatch they restore a saved state and replay the frames with the real input."
+    }
+  },
+  {
+    "id": 220,
+    "category": "rendering",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why does deferred shading handle transparency poorly?"
+    },
+    "options": [
+      "Transparent meshes cannot use normal maps",
+      "It renders the scene at half resolution",
+      "Lights cannot reach alpha-blended meshes",
+      "The G-buffer holds one surface per pixel"
+    ],
+    "answer": "The G-buffer holds one surface per pixel",
+    "explanation": {
+      "en": "Each pixel stores a single surface's normal, albedo and depth, so layered transparent surfaces are usually drawn in a separate forward pass."
+    }
+  },
+  {
+    "id": 221,
+    "category": "rendering",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why should lighting maths run in linear colour space?"
+    },
+    "options": [
+      "sRGB values aren't proportional to light",
+      "Linear textures use less GPU memory",
+      "Monitors expect linear input signals",
+      "It removes any need for a tone-mapping pass"
+    ],
+    "answer": "sRGB values aren't proportional to light",
+    "explanation": {
+      "en": "Gamma-encoded sRGB spends more values on darks; adding or scaling light in that space gives wrong falloff and blending."
+    }
+  },
+  {
+    "id": 222,
+    "category": "math",
+    "difficulty": "hard",
+    "codeSnippet": "vec4 dir = vec4(d, 0.0);\nvec4 pos = vec4(p, 1.0);",
+    "question": {
+      "en": "Why does the direction use w = 0?"
+    },
+    "options": [
+      "So it gets normalised automatically",
+      "So the GPU stores it in fewer bits",
+      "So translation has no effect on it",
+      "So it always points at the camera"
+    ],
+    "answer": "So translation has no effect on it",
+    "explanation": {
+      "en": "A 4x4 transform multiplies its translation column by w, so w = 0 keeps rotation and scale but ignores position offsets."
+    }
+  },
+  {
+    "id": 223,
+    "category": "timing",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "In a fixed-timestep loop, why clamp the accumulated frame time?"
+    },
+    "options": [
+      "To keep the render rate at 60 FPS",
+      "To stop a spiral of ever-slower frames",
+      "To make deltaTime always positive",
+      "To keep physics in sync with the audio clock"
+    ],
+    "answer": "To stop a spiral of ever-slower frames",
+    "explanation": {
+      "en": "If a frame needs more physics steps than it has time for, the next one falls further behind; capping the steps breaks that loop."
+    }
+  },
+  {
+    "id": 224,
+    "category": "collision",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "For two convex shapes, what does the separating axis theorem say?"
+    },
+    "options": [
+      "They overlap if their centres are close",
+      "They overlap only if they share an edge",
+      "They collide whenever their AABBs overlap",
+      "They're apart if any axis splits them"
+    ],
+    "answer": "They're apart if any axis splits them",
+    "explanation": {
+      "en": "If their projections onto some axis, such as an edge normal, do not overlap, the shapes are disjoint; if none separates them, they intersect."
+    }
+  },
+  {
+    "id": 225,
+    "category": "rendering",
+    "difficulty": "hard",
+    "codeSnippet": "",
+    "question": {
+      "en": "Why does moving the near clip plane further out reduce z-fighting?"
+    },
+    "options": [
+      "Depth precision bunches up near it",
+      "Fewer objects are drawn in total",
+      "The far plane moves in to match",
+      "Shadows are rendered at a higher res"
+    ],
+    "answer": "Depth precision bunches up near it",
+    "explanation": {
+      "en": "Perspective depth is non-linear and spends most precision just past the near plane; pushing it out spreads precision over the visible range."
+    }
+  }
+]

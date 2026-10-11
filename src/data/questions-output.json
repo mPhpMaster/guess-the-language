@@ -3741,5 +3741,385 @@
     "explanation": {
       "en": "5.0 is the same number as 5, but a string is never coerced by Number.isInteger."
     }
+  },
+  {
+    "id": 198,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print('a,b,c'.count(','))",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "3",
+      "1",
+      "0",
+      "2"
+    ],
+    "answer": "2",
+    "explanation": {
+      "en": "count returns how many times the substring appears; there are two commas."
+    }
+  },
+  {
+    "id": 199,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log('abc'.toUpperCase().charAt(1));",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "B",
+      "b",
+      "A",
+      "C"
+    ],
+    "answer": "B",
+    "explanation": {
+      "en": "The string becomes ABC and index 1 is the second character."
+    }
+  },
+  {
+    "id": 200,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print(abs(-3) + max(1, 4))",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "1",
+      "-7",
+      "7",
+      "5"
+    ],
+    "answer": "7",
+    "explanation": {
+      "en": "abs(-3) is 3 and max(1, 4) is 4."
+    }
+  },
+  {
+    "id": 201,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "console.log([5, 10, 15].includes(10));",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "1",
+      "false",
+      "10",
+      "true"
+    ],
+    "answer": "true",
+    "explanation": {
+      "en": "includes returns a boolean, and 10 is in the array."
+    }
+  },
+  {
+    "id": 202,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "print('Py' + str(3) * 2)",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "Py6",
+      "Py3Py3",
+      "Py33",
+      "PyPy3"
+    ],
+    "answer": "Py33",
+    "explanation": {
+      "en": "Multiplication binds tighter, so '3' * 2 is '33' before the concatenation."
+    }
+  },
+  {
+    "id": 203,
+    "category": "typescript",
+    "difficulty": "easy",
+    "codeSnippet": "const word: string = 'stack';\nconsole.log(word.slice(1, 3));",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "ta",
+      "tac",
+      "st",
+      "sta"
+    ],
+    "answer": "ta",
+    "explanation": {
+      "en": "slice keeps the start index and stops before the end index: characters 1 and 2."
+    }
+  },
+  {
+    "id": 204,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "print(*[1, 2, 3], sep='-')",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "[1, 2, 3]",
+      "1-2-3",
+      "1 2 3",
+      "-1-2-3"
+    ],
+    "answer": "1-2-3",
+    "explanation": {
+      "en": "The star unpacks the list into three arguments, joined by the sep string."
+    }
+  },
+  {
+    "id": 205,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log('a-b-c-d'.split('-', 2));",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "['a', 'b-c-d']",
+      "['a', 'b', 'c']",
+      "['a', 'b']",
+      "['a-b', 'c-d']"
+    ],
+    "answer": "['a', 'b']",
+    "explanation": {
+      "en": "In JavaScript the limit truncates the result array; it does not keep the rest of the string like Python does."
+    }
+  },
+  {
+    "id": 206,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "print(list(enumerate('ab', 1)))",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "[(0, 'a'), (1, 'b')]",
+      "[(1, 'a'), (2, 'b')]",
+      "[('a', 1), ('b', 2)]",
+      "[(1, 'b')]"
+    ],
+    "answer": "[(1, 'a'), (2, 'b')]",
+    "explanation": {
+      "en": "The second argument sets the starting index, so counting begins at 1."
+    }
+  },
+  {
+    "id": 207,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "console.log([1, 2, 3].indexOf('2'));",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "1",
+      "2",
+      "undefined",
+      "-1"
+    ],
+    "answer": "-1",
+    "explanation": {
+      "en": "indexOf uses strict equality, so the string '2' never matches the number 2."
+    }
+  },
+  {
+    "id": 208,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "print(min([3, -5, 2], key=abs))",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "2",
+      "-5",
+      "3",
+      "5"
+    ],
+    "answer": "2",
+    "explanation": {
+      "en": "The key compares absolute values (3, 5, 2), but min returns the original element."
+    }
+  },
+  {
+    "id": 209,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "const m = new Map<string, number>([['a', 1]]);\nm.set('a', 2);\nconsole.log(m.size, m.get('a'));",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "1 2",
+      "2 1",
+      "2 2",
+      "1 1"
+    ],
+    "answer": "1 2",
+    "explanation": {
+      "en": "Setting an existing key overwrites its value instead of adding a second entry."
+    }
+  },
+  {
+    "id": 210,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "print(any([]), all([]))",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "False False",
+      "True True",
+      "False True",
+      "True False"
+    ],
+    "answer": "False True",
+    "explanation": {
+      "en": "any needs at least one truthy item; all is vacuously true when there is nothing to fail."
+    }
+  },
+  {
+    "id": 211,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "function f(x?: number) {\n  return x ?? -1;\n}\nconsole.log(f(0), f());",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "-1 -1",
+      "0 -1",
+      "0 undefined",
+      "-1 0"
+    ],
+    "answer": "0 -1",
+    "explanation": {
+      "en": "`??` only replaces null or undefined, so 0 is kept while the missing argument falls back."
+    }
+  },
+  {
+    "id": 212,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "x = 5\ndef f():\n    print(x)\n    x = 3\nf()",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "5",
+      "3",
+      "Nothing",
+      "Error"
+    ],
+    "answer": "Error",
+    "explanation": {
+      "en": "The assignment makes x local to the whole function, so reading it first raises UnboundLocalError."
+    }
+  },
+  {
+    "id": 213,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "console.log([0, 1, 2].map(String).filter(Boolean));",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "['1', '2']",
+      "[1, 2]",
+      "['0', '1', '2']",
+      "[true, true, true]"
+    ],
+    "answer": "['0', '1', '2']",
+    "explanation": {
+      "en": "After map every item is a non-empty string, and even '0' is truthy."
+    }
+  },
+  {
+    "id": 214,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "let a = 1;\n{\n  console.log(typeof a);\n  let a = 2;\n}",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "Error",
+      "number",
+      "undefined",
+      "2"
+    ],
+    "answer": "Error",
+    "explanation": {
+      "en": "The inner `let a` shadows the outer one for the whole block, and reading it before its declaration is a ReferenceError (temporal dead zone)."
+    }
+  },
+  {
+    "id": 215,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "a = [1, 2, 3]\nfor x in a:\n    a.remove(x)\nprint(a)",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "[]",
+      "[3]",
+      "[1, 3]",
+      "[2]"
+    ],
+    "answer": "[2]",
+    "explanation": {
+      "en": "Removing 1 shifts 2 into index 0, so the loop skips it, removes 3, and stops."
+    }
+  },
+  {
+    "id": 216,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "g = (i * i for i in range(3))\nprint(sum(g), sum(g))",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "5 5",
+      "5 0",
+      "0 5",
+      "3 3"
+    ],
+    "answer": "5 0",
+    "explanation": {
+      "en": "A generator is consumed by the first sum; the second sees nothing and returns 0."
+    }
+  },
+  {
+    "id": 217,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "console.log(typeof class {}, typeof Symbol());",
+    "question": {
+      "en": "What is the output?"
+    },
+    "options": [
+      "class symbol",
+      "function symbol",
+      "object symbol",
+      "function string"
+    ],
+    "answer": "function symbol",
+    "explanation": {
+      "en": "Classes are functions under the hood, and Symbol() returns a primitive of type symbol."
+    }
   }
 ]

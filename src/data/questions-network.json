@@ -3798,5 +3798,480 @@
   "explanation": {
    "en": "The sender probes with don't-fragment set and shrinks to the smallest link on the path."
   }
+ },
+ {
+  "id": 210,
+  "category": "switching",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which IEEE standard defines VLAN tags on Ethernet trunks?"
+  },
+  "options": [
+   "802.3af",
+   "802.11ac",
+   "802.1Q",
+   "802.1X"
+  ],
+  "answer": "802.1Q",
+  "explanation": {
+   "en": "802.1Q inserts a 4-byte tag carrying a 12-bit VLAN ID into the Ethernet frame."
+  }
+ },
+ {
+  "id": 211,
+  "category": "dns",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which DNS record type carries free-form text such as SPF policies?"
+  },
+  "options": [
+   "TXT",
+   "SRV",
+   "SOA",
+   "PTR"
+  ],
+  "answer": "TXT",
+  "explanation": {
+   "en": "TXT records hold arbitrary strings and are used for SPF, DKIM keys and domain verification tokens."
+  }
+ },
+ {
+  "id": 212,
+  "category": "ipv6",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is the IPv6 loopback address?"
+  },
+  "options": [
+   "fe80::1",
+   "::",
+   "::1",
+   "ff02::1"
+  ],
+  "answer": "::1",
+  "explanation": {
+   "en": "::1 is the IPv6 equivalent of 127.0.0.1; :: alone is the unspecified address."
+  }
+ },
+ {
+  "id": 213,
+  "category": "ports",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which UDP port do SNMP managers poll agents on?"
+  },
+  "options": [
+   "162",
+   "514",
+   "123",
+   "161"
+  ],
+  "answer": "161",
+  "explanation": {
+   "en": "Agents listen on UDP 161 for queries, while unsolicited traps go to the manager on 162."
+  }
+ },
+ {
+  "id": 214,
+  "category": "protocols",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does a Wi-Fi SSID identify?"
+  },
+  "options": [
+   "The wireless network's name",
+   "The access point's MAC address",
+   "The encryption key in use",
+   "The radio channel's frequency"
+  ],
+  "answer": "The wireless network's name",
+  "explanation": {
+   "en": "The SSID is the human-readable network name; the BSSID is the access point radio's MAC address."
+  }
+ },
+ {
+  "id": 215,
+  "category": "devices",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does Power over Ethernet (PoE) add to a network cable?"
+  },
+  "options": [
+   "Electrical power for the device",
+   "Encryption of the link traffic",
+   "A second data channel's bandwidth",
+   "Shielding against interference"
+  ],
+  "answer": "Electrical power for the device",
+  "explanation": {
+   "en": "PoE lets a switch power phones, cameras and access points over the same twisted pair that carries data."
+  }
+ },
+ {
+  "id": 216,
+  "category": "ipv6",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "How many times may :: appear in a single IPv6 address?"
+  },
+  "options": [
+   "Once",
+   "Twice",
+   "Once per hextet",
+   "As often as needed"
+  ],
+  "answer": "Once",
+  "explanation": {
+   "en": "The double colon replaces one run of zero groups; using it twice would make the address ambiguous."
+  }
+ },
+ {
+  "id": 217,
+  "category": "ipv6",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does IPv6 use in place of broadcast?"
+  },
+  "options": [
+   "Multicast",
+   "Unicast flooding",
+   "Anycast",
+   "Directed broadcast"
+  ],
+  "answer": "Multicast",
+  "explanation": {
+   "en": "IPv6 has no broadcast at all; functions like neighbour discovery use targeted multicast groups instead."
+  }
+ },
+ {
+  "id": 218,
+  "category": "routing",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "In OSPF, what is area 0?"
+  },
+  "options": [
+   "A stub area that blocks external routes",
+   "A default for unconfigured interfaces",
+   "The area that holds only loopbacks",
+   "The backbone all areas connect to"
+  ],
+  "answer": "The backbone all areas connect to",
+  "explanation": {
+   "en": "Inter-area traffic must transit area 0, so every other area attaches to the backbone directly or via a virtual link."
+  }
+ },
+ {
+  "id": 219,
+  "category": "routing",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What do VRRP and HSRP provide?"
+  },
+  "options": [
+   "Load balancing of DNS queries",
+   "Encryption between two routers",
+   "A shared virtual default gateway",
+   "Loop prevention across switch links"
+  ],
+  "answer": "A shared virtual default gateway",
+  "explanation": {
+   "en": "Several routers share one virtual IP, and a standby takes it over if the active router fails."
+  }
+ },
+ {
+  "id": 220,
+  "category": "switching",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does LACP negotiate between two switches?"
+  },
+  "options": [
+   "Which port becomes the root port",
+   "Bundling links into one logical link",
+   "Tag numbers for each VLAN",
+   "Power budgets for the attached IP phones"
+  ],
+  "answer": "Bundling links into one logical link",
+  "explanation": {
+   "en": "LACP (802.3ad) aggregates parallel links for extra bandwidth and failover while STP sees a single link."
+  }
+ },
+ {
+  "id": 221,
+  "category": "switching",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "On a trunk link, how are native VLAN frames sent?"
+  },
+  "options": [
+   "Double-tagged",
+   "Encrypted",
+   "Tagged with VLAN 4095",
+   "Untagged"
+  ],
+  "answer": "Untagged",
+  "explanation": {
+   "en": "Frames on the native VLAN cross the trunk without a tag, so both ends must agree on which VLAN that is."
+  }
+ },
+ {
+  "id": 222,
+  "category": "security",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "How many round trips does a full TLS 1.3 handshake add before app data flows?"
+  },
+  "options": [
+   "Two",
+   "Three",
+   "Zero",
+   "One"
+  ],
+  "answer": "One",
+  "explanation": {
+   "en": "TLS 1.3 sends key shares in the first flight, cutting a full handshake to one round trip from TLS 1.2's two."
+  }
+ },
+ {
+  "id": 223,
+  "category": "tcp",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What triggers TCP fast retransmit?"
+  },
+  "options": [
+   "Three duplicate ACKs",
+   "A retransmit timeout",
+   "A zero window probe",
+   "An ICMP source quench"
+  ],
+  "answer": "Three duplicate ACKs",
+  "explanation": {
+   "en": "Repeated ACKs for the same byte signal a single lost segment, so it is resent without waiting for the timer."
+  }
+ },
+ {
+  "id": 224,
+  "category": "tcp",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does the TCP MSS option advertise?"
+  },
+  "options": [
+   "The free space left in the receive buffer",
+   "The maximum number of open sockets",
+   "The largest segment payload it accepts",
+   "The longest time a segment may live"
+  ],
+  "answer": "The largest segment payload it accepts",
+  "explanation": {
+   "en": "Each side announces its MSS in the SYN, usually the MTU minus the IP and TCP headers."
+  }
+ },
+ {
+  "id": 225,
+  "category": "dns",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does a DNS client do when a UDP reply has the TC bit set?"
+  },
+  "options": [
+   "Drops the answer and fails",
+   "Asks a different root server",
+   "Lowers the record's TTL",
+   "Retries the query over TCP"
+  ],
+  "answer": "Retries the query over TCP",
+  "explanation": {
+   "en": "TC means the response was truncated to fit UDP, so the client repeats the query over TCP to get it whole."
+  }
+ },
+ {
+  "id": 226,
+  "category": "security",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does DHCP snooping on a switch block?"
+  },
+  "options": [
+   "Clients asking for two leases",
+   "Offers from rogue DHCP servers",
+   "Leases longer than one day",
+   "Relayed requests from other subnets"
+  ],
+  "answer": "Offers from rogue DHCP servers",
+  "explanation": {
+   "en": "Only trusted ports may send DHCP server messages, so a rogue server on an access port cannot hand out leases."
+  }
+ },
+ {
+  "id": 227,
+  "category": "routing",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why does OSPF elect a designated router on a broadcast segment?"
+  },
+  "options": [
+   "To cut the number of full adjacencies",
+   "To pick the exit toward the backbone",
+   "To assign every router its ID automatically",
+   "To summarise routes between areas"
+  ],
+  "answer": "To cut the number of full adjacencies",
+  "explanation": {
+   "en": "Routers form full adjacencies only with the DR and BDR, avoiding an n-squared mesh of LSA exchanges."
+  }
+ },
+ {
+  "id": 228,
+  "category": "routing",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why does iBGP need a full mesh or route reflectors?"
+  },
+  "options": [
+   "The IGP must carry every external prefix",
+   "iBGP routes aren't passed to iBGP peers",
+   "Each peer needs its own AS number",
+   "eBGP sessions require multihop"
+  ],
+  "answer": "iBGP routes aren't passed to iBGP peers",
+  "explanation": {
+   "en": "To prevent loops inside an AS, a route learned from one iBGP peer is not re-advertised to another iBGP peer."
+  }
+ },
+ {
+  "id": 229,
+  "category": "routing",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "How does BGP stop routing loops between autonomous systems?"
+  },
+  "options": [
+   "It drops paths containing its own AS",
+   "It runs spanning tree between peers",
+   "It lowers the TTL on every update",
+   "It rejects routes with a high MED value"
+  ],
+  "answer": "It drops paths containing its own AS",
+  "explanation": {
+   "en": "A router that sees its own AS number in a received AS_PATH discards the route."
+  }
+ },
+ {
+  "id": 230,
+  "category": "services",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Where is a packet's DiffServ QoS class marked?"
+  },
+  "options": [
+   "The TCP urgent pointer",
+   "The Ethernet frame checksum",
+   "The UDP source port number",
+   "DSCP bits in the IP header"
+  ],
+  "answer": "DSCP bits in the IP header",
+  "explanation": {
+   "en": "Six DSCP bits in the IP header select a per-hop behaviour such as EF for voice."
+  }
+ },
+ {
+  "id": 231,
+  "category": "tcp",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does TCP SACK let a receiver report?"
+  },
+  "options": [
+   "The exact round-trip time it measured",
+   "Non-contiguous blocks it already has",
+   "How much buffer space it has left",
+   "Its preferred maximum segment size"
+  ],
+  "answer": "Non-contiguous blocks it already has",
+  "explanation": {
+   "en": "Selective acknowledgment lists received ranges past a gap, so the sender resends only the missing data."
+  }
+ },
+ {
+  "id": 232,
+  "category": "dns",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why does a parent zone publish glue records?"
+  },
+  "options": [
+   "To sign the child zone's DNSKEY set",
+   "To let resolvers cache negative answers",
+   "To break a circular nameserver lookup",
+   "To merge two zones under one SOA"
+  ],
+  "answer": "To break a circular nameserver lookup",
+  "explanation": {
+   "en": "When ns1.example.com serves example.com, the parent must supply its address or resolvers could never find it."
+  }
+ },
+ {
+  "id": 233,
+  "category": "security",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "How do SYN cookies blunt a SYN flood?"
+  },
+  "options": [
+   "The server drops every second SYN",
+   "Clients must solve a puzzle first",
+   "The backlog queue grows unbounded",
+   "State is encoded in the SYN-ACK"
+  ],
+  "answer": "State is encoded in the SYN-ACK",
+  "explanation": {
+   "en": "The server keeps no half-open entry; it rebuilds the connection from the sequence number echoed in the final ACK."
+  }
+ },
+ {
+  "id": 234,
+  "category": "switching",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why can VXLAN offer far more segments than VLANs?"
+  },
+  "options": [
+   "A per-tenant spanning tree",
+   "A 24-bit segment ID",
+   "Stacked MPLS label headers",
+   "Larger jumbo frame sizes"
+  ],
+  "answer": "A 24-bit segment ID",
+  "explanation": {
+   "en": "The 24-bit VNI allows about 16 million segments versus the 4094 usable 12-bit VLAN IDs."
+  }
  }
 ]

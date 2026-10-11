@@ -1,0 +1,326 @@
+[
+  {
+    "id": 532,
+    "correctLanguage": "TypeScript",
+    "difficulty": "easy",
+    "codeSnippet": "enum Status {\n  Active = \"ACTIVE\",\n  Banned = \"BANNED\",\n}\nlet current: Status = Status.Active;",
+    "explanation": {
+      "en": "An `enum` declaration plus a `: Status` type annotation is TypeScript, not plain JavaScript."
+    }
+  },
+  {
+    "id": 533,
+    "correctLanguage": "TypeScript",
+    "difficulty": "medium",
+    "codeSnippet": "class Cache<K, V> {\n  private store = new Map<K, V>();\n  get(key: K): V | undefined {\n    return this.store.get(key);\n  }\n}",
+    "explanation": {
+      "en": "A generic class `Cache<K, V>` with a `private` field and a `V | undefined` return type is TypeScript."
+    }
+  },
+  {
+    "id": 534,
+    "correctLanguage": "TypeScript",
+    "difficulty": "medium",
+    "codeSnippet": "const ROUTES = [\"home\", \"about\", \"contact\"] as const;\ntype Route = typeof ROUTES[number];\nfunction go(r: Route) {\n  location.hash = r;\n}",
+    "explanation": {
+      "en": "`as const` followed by a `type` alias built from `typeof ROUTES[number]` is TypeScript-only syntax."
+    }
+  },
+  {
+    "id": 535,
+    "correctLanguage": "TypeScript",
+    "difficulty": "hard",
+    "codeSnippet": "const handler = (e: MouseEvent) => {\n  const target = e.target as HTMLElement | null;\n  target?.classList.toggle(\"active\");\n};\ndocument.addEventListener(\"click\", handler);",
+    "explanation": {
+      "en": "It reads like JavaScript, but the `(e: MouseEvent)` parameter annotation and the `as HTMLElement | null` cast only parse in TypeScript."
+    }
+  },
+  {
+    "id": 536,
+    "correctLanguage": "C",
+    "difficulty": "easy",
+    "codeSnippet": "#include <stdio.h>\n\nint main(void) {\n    for (int i = 1; i <= 3; i++)\n        printf(\"line %d\\n\", i);\n    return 0;\n}",
+    "explanation": {
+      "en": "`#include <stdio.h>`, `int main(void)` and `printf` with a `%d` format string are classic C."
+    }
+  },
+  {
+    "id": 537,
+    "correctLanguage": "C",
+    "difficulty": "medium",
+    "codeSnippet": "int compare(const void *a, const void *b) {\n    return *(const int *)a - *(const int *)b;\n}\n\nqsort(nums, count, sizeof(int), compare);",
+    "explanation": {
+      "en": "A `const void *` comparator passed to the standard library `qsort` is idiomatic C."
+    }
+  },
+  {
+    "id": 538,
+    "correctLanguage": "C",
+    "difficulty": "medium",
+    "codeSnippet": "FILE *fp = fopen(\"scores.txt\", \"r\");\nint score, total = 0;\nwhile (fscanf(fp, \"%d\", &score) == 1)\n    total += score;\nfclose(fp);",
+    "explanation": {
+      "en": "A `FILE *` handle read with `fscanf` and closed with `fclose` is C stdio file handling."
+    }
+  },
+  {
+    "id": 539,
+    "correctLanguage": "C",
+    "difficulty": "hard",
+    "codeSnippet": "struct point { int x, y; };\n\nstruct point *p = malloc(sizeof *p);\n*p = (struct point){ .x = 3, .y = 4 };\nprintf(\"%d\\n\", p->x + p->y);",
+    "explanation": {
+      "en": "Assigning `malloc` to a typed pointer without a cast and the `(struct point){ .x = 3 }` compound literal are C99 and not valid C++."
+    }
+  },
+  {
+    "id": 540,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "using System;\n\nclass Hello {\n    static void Main() {\n        string name = Console.ReadLine();\n        Console.WriteLine(\"Hi \" + name);\n    }\n}",
+    "explanation": {
+      "en": "`using System;` with `Console.ReadLine` and `Console.WriteLine` inside `static void Main` is C#."
+    }
+  },
+  {
+    "id": 541,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "public interface IRepository<T> where T : class\n{\n    Task<T?> FindAsync(int id);\n    void Add(T entity);\n}",
+    "explanation": {
+      "en": "The `I`-prefixed interface with a `where T : class` constraint and a `Task<T?>` async signature is C#."
+    }
+  },
+  {
+    "id": 542,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "string label = shape switch\n{\n    Circle c => $\"circle r={c.Radius}\",\n    Square { Side: > 10 } => \"big square\",\n    _ => \"unknown\"\n};",
+    "explanation": {
+      "en": "A `switch` expression with property patterns like `{ Side: > 10 }` and a `$\"\"` interpolated string is C#."
+    }
+  },
+  {
+    "id": 543,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "public static bool TryParseAge(string input, out int age)\n{\n    if (!int.TryParse(input, out age)) return false;\n    return age >= 0;\n}",
+    "explanation": {
+      "en": "It looks like Java, but `out` parameters, lowercase `string` and `int.TryParse` exist only in C#."
+    }
+  },
+  {
+    "id": 544,
+    "correctLanguage": "Kotlin",
+    "difficulty": "easy",
+    "codeSnippet": "fun main() {\n    val fruits = mutableListOf(\"apple\", \"pear\")\n    fruits.add(\"plum\")\n    for (f in fruits) println(f)\n}",
+    "explanation": {
+      "en": "`fun main()` with `val`, `mutableListOf` and `println` is Kotlin."
+    }
+  },
+  {
+    "id": 545,
+    "correctLanguage": "Kotlin",
+    "difficulty": "medium",
+    "codeSnippet": "class Stack<T> {\n    private val items = ArrayList<T>()\n    fun push(item: T) = items.add(item)\n    fun pop(): T? = items.removeLastOrNull()\n}",
+    "explanation": {
+      "en": "Expression-bodied `fun ... =` members, `private val` and a nullable `T?` return type are Kotlin."
+    }
+  },
+  {
+    "id": 546,
+    "correctLanguage": "Kotlin",
+    "difficulty": "medium",
+    "codeSnippet": "val user = User(\"ana\").apply {\n    email = \"ana@example.com\"\n    age = 30\n}\nprintln(user.email ?: \"no email\")",
+    "explanation": {
+      "en": "The `.apply { }` scope function and the `?:` Elvis operator with `println` are Kotlin idioms."
+    }
+  },
+  {
+    "id": 547,
+    "correctLanguage": "Kotlin",
+    "difficulty": "hard",
+    "codeSnippet": "val scores = mapOf(\"ana\" to 90, \"bo\" to 72)\nfor ((name, score) in scores) {\n    if (score in 80..100) println(\"$name passed\")\n}",
+    "explanation": {
+      "en": "Unlike Swift, it builds pairs with the `to` infix, uses a `80..100` range and `$name` string templates, which are Kotlin."
+    }
+  },
+  {
+    "id": 548,
+    "correctLanguage": "Swift",
+    "difficulty": "easy",
+    "codeSnippet": "var count = 0\nfor i in 1...5 {\n    count += i\n}\nprint(\"Total: \\(count)\")",
+    "explanation": {
+      "en": "A closed range `1...5` and `\\(count)` string interpolation inside `print` are Swift."
+    }
+  },
+  {
+    "id": 549,
+    "correctLanguage": "Swift",
+    "difficulty": "medium",
+    "codeSnippet": "struct Temperature {\n    var celsius: Double\n    var fahrenheit: Double {\n        celsius * 9 / 5 + 32\n    }\n}",
+    "explanation": {
+      "en": "A `struct` with a computed property declared as `var fahrenheit: Double { ... }` is Swift."
+    }
+  },
+  {
+    "id": 550,
+    "correctLanguage": "Swift",
+    "difficulty": "medium",
+    "codeSnippet": "switch statusCode {\ncase 200..<300:\n    print(\"success\")\ncase 404:\n    print(\"not found\")\ndefault:\n    print(\"error\")\n}",
+    "explanation": {
+      "en": "A `switch` without `break` that matches the half-open range `200..<300` is Swift."
+    }
+  },
+  {
+    "id": 551,
+    "correctLanguage": "Swift",
+    "difficulty": "hard",
+    "codeSnippet": "func divide(_ a: Int, by b: Int) -> Int? {\n    guard b != 0 else { return nil }\n    return a / b\n}\nlet half = divide(10, by: 2) ?? 0",
+    "explanation": {
+      "en": "Unlike Kotlin, it uses `func`, the `_` and `by` argument labels, a `-> Int?` return arrow and `guard ... else`, which are Swift."
+    }
+  },
+  {
+    "id": 552,
+    "correctLanguage": "Ruby",
+    "difficulty": "easy",
+    "codeSnippet": "name = gets.chomp\nif name.empty?\n  puts \"Who are you?\"\nelse\n  puts \"Welcome, #{name}!\"\nend",
+    "explanation": {
+      "en": "`gets.chomp`, the `empty?` predicate, `puts` and `#{}` interpolation closed by `end` are Ruby."
+    }
+  },
+  {
+    "id": 553,
+    "correctLanguage": "Ruby",
+    "difficulty": "medium",
+    "codeSnippet": "class Dog\n  def initialize(name)\n    @name = name\n  end\n\n  def to_s\n    \"Dog(#{@name})\"\n  end\nend",
+    "explanation": {
+      "en": "A constructor named `initialize` that sets the `@name` instance variable, with `def ... end` blocks, is Ruby."
+    }
+  },
+  {
+    "id": 554,
+    "correctLanguage": "Ruby",
+    "difficulty": "medium",
+    "codeSnippet": "prices = { apple: 1.2, pear: 0.8 }\nprices.each do |fruit, price|\n  puts \"#{fruit}: #{format('%.2f', price)}\"\nend",
+    "explanation": {
+      "en": "A hash with `apple:` symbol keys iterated by `each do |fruit, price|` is Ruby."
+    }
+  },
+  {
+    "id": 555,
+    "correctLanguage": "Ruby",
+    "difficulty": "hard",
+    "codeSnippet": "def fetch(retries: 3)\n  yield\nrescue Timeout::Error\n  retries -= 1\n  retry if retries.positive?\nend",
+    "explanation": {
+      "en": "A method-level `rescue` that calls `retry`, plus `yield` and a trailing `if` modifier, is distinctly Ruby."
+    }
+  },
+  {
+    "id": 556,
+    "correctLanguage": "PHP",
+    "difficulty": "easy",
+    "codeSnippet": "<?php\n$colors = [\"red\", \"green\", \"blue\"];\necho count($colors) . \" colors\\n\";\necho implode(\", \", $colors);",
+    "explanation": {
+      "en": "The `<?php` tag, `$` variables, `.` string concatenation and `implode` are PHP."
+    }
+  },
+  {
+    "id": 557,
+    "correctLanguage": "PHP",
+    "difficulty": "medium",
+    "codeSnippet": "$users = array_filter($users, function ($u) {\n    return $u['active'] === true;\n});\necho json_encode(array_values($users));",
+    "explanation": {
+      "en": "`$` variables with `array_filter`, `array_values` and `json_encode` are PHP built-ins."
+    }
+  },
+  {
+    "id": 558,
+    "correctLanguage": "PHP",
+    "difficulty": "medium",
+    "codeSnippet": "$status = match ($code) {\n    200, 201 => 'ok',\n    404 => 'missing',\n    default => 'error',\n};",
+    "explanation": {
+      "en": "A `match` expression over a `$code` variable with `=>` arms is PHP 8."
+    }
+  },
+  {
+    "id": 559,
+    "correctLanguage": "PHP",
+    "difficulty": "hard",
+    "codeSnippet": "final class Money\n{\n    public function __construct(\n        public readonly int $cents,\n    ) {}\n\n    public static function zero(): static { return new static(0); }\n}",
+    "explanation": {
+      "en": "Constructor property promotion with `public readonly int $cents` and the `static` return type are modern PHP."
+    }
+  },
+  {
+    "id": 560,
+    "correctLanguage": "SQL",
+    "difficulty": "easy",
+    "codeSnippet": "SELECT title, price\nFROM books\nWHERE price < 20\nORDER BY price DESC\nLIMIT 5;",
+    "explanation": {
+      "en": "`SELECT ... FROM ... WHERE ... ORDER BY ... LIMIT` is an SQL query."
+    }
+  },
+  {
+    "id": 561,
+    "correctLanguage": "SQL",
+    "difficulty": "medium",
+    "codeSnippet": "SELECT c.name, SUM(o.amount) AS spent\nFROM customers c\nJOIN orders o ON o.customer_id = c.id\nWHERE o.created_at >= '2025-01-01'\nGROUP BY c.name;",
+    "explanation": {
+      "en": "A `JOIN ... ON` between aliased tables with `SUM(...) AS` and `GROUP BY` is SQL."
+    }
+  },
+  {
+    "id": 562,
+    "correctLanguage": "SQL",
+    "difficulty": "medium",
+    "codeSnippet": "CREATE INDEX idx_orders_customer\nON orders (customer_id, created_at);\n\nDROP TABLE IF EXISTS temp_import;",
+    "explanation": {
+      "en": "`CREATE INDEX ... ON` and `DROP TABLE IF EXISTS` are SQL data-definition statements."
+    }
+  },
+  {
+    "id": 563,
+    "correctLanguage": "SQL",
+    "difficulty": "hard",
+    "codeSnippet": "SELECT name,\n  CASE\n    WHEN score >= 90 THEN 'A'\n    WHEN score >= 75 THEN 'B'\n    ELSE 'C'\n  END AS grade\nFROM students\nWHERE id IN (SELECT student_id FROM enrollments);",
+    "explanation": {
+      "en": "A `CASE WHEN ... THEN ... END AS` column plus a `WHERE id IN (SELECT ...)` subquery is SQL."
+    }
+  },
+  {
+    "id": 564,
+    "correctLanguage": "Bash",
+    "difficulty": "easy",
+    "codeSnippet": "#!/bin/bash\nname=\"world\"\necho \"Hello, $name\"\necho \"Today is $(date +%A)\"",
+    "explanation": {
+      "en": "The `#!/bin/bash` shebang, `echo` and `$(...)` command substitution mark a Bash script."
+    }
+  },
+  {
+    "id": 565,
+    "correctLanguage": "Bash",
+    "difficulty": "medium",
+    "codeSnippet": "backup() {\n  local src=\"$1\"\n  tar -czf \"${src}.tar.gz\" \"$src\"\n}\nbackup logs",
+    "explanation": {
+      "en": "A shell function using `local`, the positional `$1` and `${src}` expansion, called without parentheses, is Bash."
+    }
+  },
+  {
+    "id": 566,
+    "correctLanguage": "Bash",
+    "difficulty": "medium",
+    "codeSnippet": "fruits=(apple banana cherry)\nfor f in \"${fruits[@]}\"; do\n  echo \"${#f} $f\"\ndone",
+    "explanation": {
+      "en": "An array assigned with `( )` and expanded as `\"${fruits[@]}\"` in a `for ... do ... done` loop is Bash."
+    }
+  },
+  {
+    "id": 567,
+    "correctLanguage": "Bash",
+    "difficulty": "hard",
+    "codeSnippet": "declare -A ports=([web]=80 [db]=5432)\nfor svc in \"${!ports[@]}\"; do\n  printf '%s -> %s\\n' \"$svc\" \"${ports[$svc]}\"\ndone",
+    "explanation": {
+      "en": "`declare -A` associative arrays and `${!ports[@]}` key expansion are Bash features missing from POSIX sh."
+    }
+  }
+]

@@ -3798,5 +3798,480 @@
   "explanation": {
    "en": "Spans nest by parent id, so the tree shows where a slow request actually spent its time."
   }
+ },
+ {
+  "id": 205,
+  "category": "cicd",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is trunk-based development?"
+  },
+  "options": [
+   "Merging small changes to main often",
+   "Keeping one long branch per feature",
+   "Releasing only from tagged branches",
+   "Freezing main until each release"
+  ],
+  "answer": "Merging small changes to main often",
+  "explanation": {
+   "en": "Developers integrate into one main branch at least daily, keeping branches short-lived so merges stay small."
+  }
+ },
+ {
+  "id": 206,
+  "category": "cloud",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is a cloud spot instance?"
+  },
+  "options": [
+   "A dedicated host for one tenant",
+   "Cheap capacity that can be reclaimed",
+   "A VM reserved for a year, billed up front",
+   "A burstable VM with CPU credits"
+  ],
+  "answer": "Cheap capacity that can be reclaimed",
+  "explanation": {
+   "en": "Spot capacity is sold at a deep discount because the provider can take it back at short notice."
+  }
+ },
+ {
+  "id": 207,
+  "category": "kubernetes",
+  "difficulty": "easy",
+  "codeSnippet": "kubectl port-forward pod/web 8080:80",
+  "question": {
+   "en": "What does this command do?"
+  },
+  "options": [
+   "Exposes the pod publicly on port 8080",
+   "Tunnels local port 8080 to pod port 80",
+   "Changes the pod's container port to 8080",
+   "Creates a Service that maps 8080 to 80"
+  ],
+  "answer": "Tunnels local port 8080 to pod port 80",
+  "explanation": {
+   "en": "It opens a temporary tunnel from your machine to the pod, handy for debugging without exposing anything."
+  }
+ },
+ {
+  "id": 208,
+  "category": "reliability",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does MTTR usually measure?"
+  },
+  "options": [
+   "Average time between two failures",
+   "Time from commit to production",
+   "Average time to restore service",
+   "Share of deploys that cause incidents"
+  ],
+  "answer": "Average time to restore service",
+  "explanation": {
+   "en": "Mean time to recovery tracks how quickly incidents are resolved; MTBF is the time between failures."
+  }
+ },
+ {
+  "id": 209,
+  "category": "docker",
+  "difficulty": "easy",
+  "codeSnippet": "docker run -d --restart unless-stopped nginx",
+  "question": {
+   "en": "What does the restart policy do here?"
+  },
+  "options": [
+   "Never restarts the container after it exits",
+   "Restarts it only when the exit code is nonzero",
+   "Restarts it once and then gives up for good",
+   "Restarts it unless you stopped it by hand"
+  ],
+  "answer": "Restarts it unless you stopped it by hand",
+  "explanation": {
+   "en": "unless-stopped restarts the container after crashes and daemon restarts, but respects a manual docker stop."
+  }
+ },
+ {
+  "id": 210,
+  "category": "deployment",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "In GitOps, what normally triggers a deploy?"
+  },
+  "options": [
+   "A commit to the config repo",
+   "An engineer running kubectl",
+   "A ticket approved in Jira",
+   "A nightly cron on the server"
+  ],
+  "answer": "A commit to the config repo",
+  "explanation": {
+   "en": "An agent such as Argo CD or Flux watches Git and reconciles the cluster to match whatever was merged."
+  }
+ },
+ {
+  "id": 211,
+  "category": "kubernetes",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does a CrashLoopBackOff status mean?"
+  },
+  "options": [
+   "The container keeps exiting",
+   "The image cannot be pulled",
+   "The node is out of memory",
+   "The pod is waiting for a free node"
+  ],
+  "answer": "The container keeps exiting",
+  "explanation": {
+   "en": "The container starts and exits repeatedly, so the kubelet waits longer before each restart."
+  }
+ },
+ {
+  "id": 212,
+  "category": "kubernetes",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does a Helm chart's values.yaml hold?"
+  },
+  "options": [
+   "The chart's rendered manifests",
+   "The release history of the chart",
+   "Default inputs for the templates",
+   "Credentials for the chart registry"
+  ],
+  "answer": "Default inputs for the templates",
+  "explanation": {
+   "en": "Templates read from .Values; users override the defaults with -f or --set at install time."
+  }
+ },
+ {
+  "id": 213,
+  "category": "kubernetes",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "Where does Kubernetes keep its cluster state?"
+  },
+  "options": [
+   "On each node's local disk",
+   "Inside the kube-proxy cache",
+   "In the container registry",
+   "In etcd, a key-value store"
+  ],
+  "answer": "In etcd, a key-value store",
+  "explanation": {
+   "en": "The API server persists every object in etcd, so backing up etcd backs up the cluster."
+  }
+ },
+ {
+  "id": 214,
+  "category": "iac",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "When does an Ansible handler run?"
+  },
+  "options": [
+   "After every task in the play",
+   "Only before the first task",
+   "When a task notifies it",
+   "Only if the play has failed"
+  ],
+  "answer": "When a task notifies it",
+  "explanation": {
+   "en": "Handlers run at the end of the play, and only if a changed task notified them, e.g. to restart a service."
+  }
+ },
+ {
+  "id": 215,
+  "category": "cloud",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why give a private subnet a NAT gateway?"
+  },
+  "options": [
+   "Outbound access, no inbound",
+   "Public IPs for every host",
+   "Faster traffic between zones",
+   "DNS names for each instance"
+  ],
+  "answer": "Outbound access, no inbound",
+  "explanation": {
+   "en": "Instances can reach the internet for updates while nothing outside can open a connection to them."
+  }
+ },
+ {
+  "id": 216,
+  "category": "reliability",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "How does an SLA differ from an SLO?"
+  },
+  "options": [
+   "It is an internal target",
+   "It carries penalties if missed",
+   "It is measured per request",
+   "It is always the stricter of the two"
+  ],
+  "answer": "It carries penalties if missed",
+  "explanation": {
+   "en": "An SLA is a contract with customers that has consequences; SLOs are internal targets, usually set tighter."
+  }
+ },
+ {
+  "id": 217,
+  "category": "observability",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is OpenTelemetry?"
+  },
+  "options": [
+   "A paid hosted monitoring service",
+   "A log format used only by Kubernetes",
+   "A Prometheus alerting extension",
+   "A vendor-neutral telemetry standard"
+  ],
+  "answer": "A vendor-neutral telemetry standard",
+  "explanation": {
+   "en": "It provides APIs, SDKs and a collector for traces, metrics and logs that can export to any backend."
+  }
+ },
+ {
+  "id": 218,
+  "category": "cicd",
+  "difficulty": "medium",
+  "codeSnippet": "concurrency:\n  group: deploy-${{ github.ref }}\n  cancel-in-progress: true",
+  "question": {
+   "en": "What does this workflow setting do?"
+  },
+  "options": [
+   "Runs every job of the workflow in parallel",
+   "Cancels older runs for the same ref",
+   "Retries failed jobs until they pass",
+   "Limits the workflow to one runner"
+  ],
+  "answer": "Cancels older runs for the same ref",
+  "explanation": {
+   "en": "Runs sharing a concurrency group queue up; cancel-in-progress stops the stale one so only the newest commit deploys."
+  }
+ },
+ {
+  "id": 219,
+  "category": "docker",
+  "difficulty": "medium",
+  "codeSnippet": "ENTRYPOINT [\"python\", \"app.py\"]\nCMD [\"--port\", \"8080\"]",
+  "question": {
+   "en": "What role does CMD play here?"
+  },
+  "options": [
+   "It replaces the ENTRYPOINT",
+   "It runs before the ENTRYPOINT",
+   "It only runs during the build",
+   "It supplies default arguments"
+  ],
+  "answer": "It supplies default arguments",
+  "explanation": {
+   "en": "With both in exec form, CMD becomes default arguments to ENTRYPOINT and is overridden by arguments to docker run."
+  }
+ },
+ {
+  "id": 220,
+  "category": "kubernetes",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "How does a Role differ from a ClusterRole?"
+  },
+  "options": [
+   "A Role can only grant read access",
+   "A Role is scoped to one namespace",
+   "A Role applies only to human users",
+   "A Role must be bound to every node"
+  ],
+  "answer": "A Role is scoped to one namespace",
+  "explanation": {
+   "en": "Roles grant permissions inside one namespace; ClusterRoles cover cluster-wide and non-namespaced resources."
+  }
+ },
+ {
+  "id": 221,
+  "category": "docker",
+  "difficulty": "hard",
+  "codeSnippet": "CMD npm start",
+  "question": {
+   "en": "Why might docker stop wait for the full timeout here?"
+  },
+  "options": [
+   "The image lacks a STOPSIGNAL",
+   "The container has no HEALTHCHECK defined",
+   "A shell is PID 1 and drops SIGTERM",
+   "npm ignores every Unix signal"
+  ],
+  "answer": "A shell is PID 1 and drops SIGTERM",
+  "explanation": {
+   "en": "Shell form wraps the command in /bin/sh -c, which runs as PID 1 and does not forward SIGTERM, so Docker falls back to SIGKILL."
+  }
+ },
+ {
+  "id": 222,
+  "category": "containers",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which kernel feature enforces a container's memory limit?"
+  },
+  "options": [
+   "Network and PID namespaces",
+   "Control groups (cgroups)",
+   "Seccomp syscall profiles",
+   "Union mount filesystems"
+  ],
+  "answer": "Control groups (cgroups)",
+  "explanation": {
+   "en": "Namespaces isolate what a process can see; cgroups limit and account for what it can use, such as memory and CPU."
+  }
+ },
+ {
+  "id": 223,
+  "category": "iac",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why prefer for_each over count for a set of buckets?"
+  },
+  "options": [
+   "It creates the buckets in parallel",
+   "It skips the need for a state file",
+   "Items are keyed, so removals don't shift",
+   "It lets every bucket use a different provider"
+  ],
+  "answer": "Items are keyed, so removals don't shift",
+  "explanation": {
+   "en": "count addresses by index, so deleting one item renumbers the rest and forces replacements; for_each keys by name."
+  }
+ },
+ {
+  "id": 224,
+  "category": "iac",
+  "difficulty": "hard",
+  "codeSnippet": "lifecycle {\n  create_before_destroy = true\n}",
+  "question": {
+   "en": "What does this change when a resource must be replaced?"
+  },
+  "options": [
+   "The new one is created first",
+   "The old one is kept forever",
+   "The resource can never be destroyed",
+   "Replacement is skipped silently"
+  ],
+  "answer": "The new one is created first",
+  "explanation": {
+   "en": "Terraform normally destroys then recreates; this flips the order to avoid downtime, as long as names do not clash."
+  }
+ },
+ {
+  "id": 225,
+  "category": "kubernetes",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is a startupProbe mainly for?"
+  },
+  "options": [
+   "Running setup commands before the app",
+   "Delaying all traffic until the caches are warm",
+   "Choosing the node a pod boots on",
+   "Holding off liveness checks on slow boots"
+  ],
+  "answer": "Holding off liveness checks on slow boots",
+  "explanation": {
+   "en": "Liveness and readiness checks are disabled until the startup probe succeeds, so slow-starting apps are not killed mid-boot."
+  }
+ },
+ {
+  "id": 226,
+  "category": "kubernetes",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "If no NetworkPolicy selects a pod, what traffic may reach it?"
+  },
+  "options": [
+   "All traffic, in and out",
+   "Only traffic from its own namespace",
+   "Nothing until a policy allows it",
+   "Only traffic through an Ingress"
+  ],
+  "answer": "All traffic, in and out",
+  "explanation": {
+   "en": "Pods are non-isolated by default; once any policy selects a pod, only what the policies allow gets through."
+  }
+ },
+ {
+  "id": 227,
+  "category": "observability",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why avoid user IDs as Prometheus labels?"
+  },
+  "options": [
+   "Labels cannot hold numeric values",
+   "Each value creates a new time series",
+   "Label values are limited to eight characters",
+   "Queries cannot filter on labels"
+  ],
+  "answer": "Each value creates a new time series",
+  "explanation": {
+   "en": "Every distinct label combination is its own series, so unbounded values like user IDs explode memory and query cost."
+  }
+ },
+ {
+  "id": 228,
+  "category": "secrets",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is the main benefit of dynamic secrets, as in Vault?"
+  },
+  "options": [
+   "They never need any access policy",
+   "They can be stored safely in the Git repository",
+   "One shared password for all apps",
+   "Short-lived credentials per client"
+  ],
+  "answer": "Short-lived credentials per client",
+  "explanation": {
+   "en": "Vault issues credentials on request with a lease, so each client gets its own and they expire or can be revoked individually."
+  }
+ },
+ {
+  "id": 229,
+  "category": "docker",
+  "difficulty": "hard",
+  "codeSnippet": "services:\n  web:\n    depends_on:\n      - db",
+  "question": {
+   "en": "What does depends_on guarantee here by default?"
+  },
+  "options": [
+   "db is rebuilt whenever web is",
+   "db's container starts before web",
+   "web waits until db accepts connections",
+   "web restarts whenever db does"
+  ],
+  "answer": "db's container starts before web",
+  "explanation": {
+   "en": "Plain depends_on only orders container start-up; waiting for readiness needs condition: service_healthy with a healthcheck."
+  }
  }
 ]

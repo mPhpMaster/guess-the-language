@@ -1,0 +1,382 @@
+[
+  {
+    "id": 201,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "x = 7\nif x > 0 and < 10:\n    print('digit')",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Replace `and` with `&&` here",
+      "Wrap the test in brackets",
+      "Repeat x: `x > 0 and x < 10`",
+      "Change `<` to `<=` in the test"
+    ],
+    "answer": "Repeat x: `x > 0 and x < 10`",
+    "explanation": {
+      "en": "Each side of `and` must be a full comparison; Python also allows `0 < x < 10`."
+    }
+  },
+  {
+    "id": 202,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "const total = 0;\nfor (const n of [1, 2, 3]) {\n  total += n;\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Declare total with `let`",
+      "Use `for...in` for the loop",
+      "Start total at `null`",
+      "Add a `return total` line"
+    ],
+    "answer": "Declare total with `let`",
+    "explanation": {
+      "en": "A const binding cannot be reassigned, so `+=` throws a TypeError."
+    }
+  },
+  {
+    "id": 203,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "def greet():\n    return 'hi'\n\nprint(greet)",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Add `global greet` first",
+      "Change return to print",
+      "Rename it to `Greet`",
+      "Print `greet()` instead"
+    ],
+    "answer": "Print `greet()` instead",
+    "explanation": {
+      "en": "Without the parentheses the function object itself is printed, not its result."
+    }
+  },
+  {
+    "id": 204,
+    "category": "javascript",
+    "difficulty": "easy",
+    "codeSnippet": "const words = 'red green blue'.split();\nconsole.log(words.length); // expected 3",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `split(',')` on it",
+      "Pass a space: `split(' ')`",
+      "Call `trim()` after split",
+      "Read `words.size` instead"
+    ],
+    "answer": "Pass a space: `split(' ')`",
+    "explanation": {
+      "en": "With no separator, split returns the whole string as a single element."
+    }
+  },
+  {
+    "id": 205,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "nums = [1, 2, 3]\nnums.add(4)",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `nums.push(4)`",
+      "Use `nums.append(4)`",
+      "Use `nums += 4` here",
+      "Use `nums.insert(4)`"
+    ],
+    "answer": "Use `nums.append(4)`",
+    "explanation": {
+      "en": "Lists have no add method (that is for sets); append adds to the end."
+    }
+  },
+  {
+    "id": 206,
+    "category": "python",
+    "difficulty": "easy",
+    "codeSnippet": "name = 'Ada'\nprint('Hello, {name}')",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use double quotes instead",
+      "Escape the braces as `{{}}`",
+      "Call `str(name)` before it",
+      "Prefix the string: `f'...'`"
+    ],
+    "answer": "Prefix the string: `f'...'`",
+    "explanation": {
+      "en": "Without the f prefix the braces are printed literally instead of being interpolated."
+    }
+  },
+  {
+    "id": 207,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "scores = ['9', '10', '100']\nprint(max(scores))  # expected 100",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Compare with `key=int`",
+      "Use `sorted(scores)[-1]`",
+      "Call `max(*scores)` here",
+      "Use `scores.max()` instead"
+    ],
+    "answer": "Compare with `key=int`",
+    "explanation": {
+      "en": "Strings compare character by character, so '9' beats '100'; key=int compares them as numbers."
+    }
+  },
+  {
+    "id": 208,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "const d = new Date(2026, 2, 5);\nconsole.log(d.getDay()); // expected 5",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `getMonth()` instead",
+      "Use `getUTCDay()` here",
+      "Use `getDate()` instead",
+      "Pass the month as 3"
+    ],
+    "answer": "Use `getDate()` instead",
+    "explanation": {
+      "en": "getDay() is the weekday (0 = Sunday); the day of the month comes from getDate()."
+    }
+  },
+  {
+    "id": 209,
+    "category": "typescript",
+    "difficulty": "medium",
+    "codeSnippet": "function sum(...nums: number[]): number {\n  return nums.reduce((a, b) => a + b, 0);\n}\nsum([1, 2, 3]);",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Type nums as `number[][]`",
+      "Drop the `0` seed in reduce",
+      "Return `nums.length` instead",
+      "Spread it: `sum(...[1, 2, 3])`"
+    ],
+    "answer": "Spread it: `sum(...[1, 2, 3])`",
+    "explanation": {
+      "en": "A rest parameter collects separate arguments; passing one array gives a type error."
+    }
+  },
+  {
+    "id": 210,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "function walk(value) {\n  if (typeof value === 'array') {\n    value.forEach(walk);\n  }\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Test `typeof value == 'array'`",
+      "Test `typeof value === 'list'`",
+      "Use `Array.isArray(value)`",
+      "Use `value instanceof Object`"
+    ],
+    "answer": "Use `Array.isArray(value)`",
+    "explanation": {
+      "en": "typeof returns 'object' for arrays, so the branch never runs."
+    }
+  },
+  {
+    "id": 211,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "from datetime import datetime\nd = datetime.strptime('2026-10-11', '%Y-%d-%m')\nprint(d.month)  # expected 10",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use the format `'%Y-%m-%d'`",
+      "Use the format `'%y-%m-%d'`",
+      "Call `d.day` instead here",
+      "Parse it with `int()` first"
+    ],
+    "answer": "Use the format `'%Y-%m-%d'`",
+    "explanation": {
+      "en": "The format swaps day and month, so the date silently parses as 10 November."
+    }
+  },
+  {
+    "id": 212,
+    "category": "javascript",
+    "difficulty": "medium",
+    "codeSnippet": "const prices = ['1', '2', '3'];\nconst total = prices.reduce((a, b) => a + b, 0);\nconsole.log(total); // expected 6",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Drop the `0` seed value",
+      "Convert each: `a + Number(b)`",
+      "Use `map` instead of reduce",
+      "Seed it with `''` instead"
+    ],
+    "answer": "Convert each: `a + Number(b)`",
+    "explanation": {
+      "en": "Adding a string concatenates, so the result is the string '0123'."
+    }
+  },
+  {
+    "id": 213,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "with open('out.txt') as f:\n    f.write('hi')",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Call `f.flush()` first",
+      "Use `f.print()` to write",
+      "Open it with mode `'w'`",
+      "Open it with mode `'r'`"
+    ],
+    "answer": "Open it with mode `'w'`",
+    "explanation": {
+      "en": "open() defaults to read mode, so write() raises io.UnsupportedOperation."
+    }
+  },
+  {
+    "id": 214,
+    "category": "python",
+    "difficulty": "medium",
+    "codeSnippet": "try:\n    run()\nexcept ValueError, TypeError:\n    log('bad input')",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Write `ValueError or TypeError`",
+      "Catch `(ValueError, TypeError)`",
+      "Write `ValueError | TypeError`",
+      "Use two `try` blocks instead"
+    ],
+    "answer": "Catch `(ValueError, TypeError)`",
+    "explanation": {
+      "en": "Several exception types must be grouped in a tuple; the comma form is a Python 2 syntax error."
+    }
+  },
+  {
+    "id": 215,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "const users = [{ id: 1 }, { id: 1 }];\nconst unique = [...new Set(users)];\nconsole.log(unique.length); // expected 1",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Spread users into a new array",
+      "Use a `WeakSet` instead here",
+      "Sort users before the Set",
+      "Key a Map by each `user.id`"
+    ],
+    "answer": "Key a Map by each `user.id`",
+    "explanation": {
+      "en": "A Set compares objects by reference, and the two literals are different objects."
+    }
+  },
+  {
+    "id": 216,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "def counter():\n    total = 0\n    def add(n):\n        total += n\n        return total\n    return add",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Declare `nonlocal total` in add",
+      "Declare `global total` in add",
+      "Move `total = 0` inside add",
+      "Return `add()` from counter"
+    ],
+    "answer": "Declare `nonlocal total` in add",
+    "explanation": {
+      "en": "Assigning to total makes it local to add, so `+=` raises UnboundLocalError; nonlocal rebinds the enclosing one."
+    }
+  },
+  {
+    "id": 217,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "function shuffle(arr) {\n  return arr.sort(() => Math.random() - 0.5);\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use a Fisher-Yates swap loop",
+      "Multiply the random by two",
+      "Copy arr before sorting it",
+      "Return `Math.random() > 0.5`"
+    ],
+    "answer": "Use a Fisher-Yates swap loop",
+    "explanation": {
+      "en": "A random comparator breaks sort's assumptions and gives a biased order; Fisher-Yates is uniform."
+    }
+  },
+  {
+    "id": 218,
+    "category": "python",
+    "difficulty": "hard",
+    "codeSnippet": "keys = ['a', 'b']\ngroups = dict.fromkeys(keys, [])\ngroups['a'].append(1)\nprint(groups['b'])  # expected []",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Pass `list` instead of `[]`",
+      "Use `groups.copy()` before",
+      "Build it: `{k: [] for k in keys}`",
+      "Call `dict(keys)` instead"
+    ],
+    "answer": "Build it: `{k: [] for k in keys}`",
+    "explanation": {
+      "en": "fromkeys reuses the one list object for every key, so all keys share it."
+    }
+  },
+  {
+    "id": 219,
+    "category": "javascript",
+    "difficulty": "hard",
+    "codeSnippet": "const orderId = 9007199254740993;\nsave(orderId); // saves ...992",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Round it with `Math.round`",
+      "Keep it as a string or BigInt",
+      "Store it with `toFixed(0)`",
+      "Wrap it in `Number()` too"
+    ],
+    "answer": "Keep it as a string or BigInt",
+    "explanation": {
+      "en": "The literal is above Number.MAX_SAFE_INTEGER, so it rounds to the nearest double."
+    }
+  },
+  {
+    "id": 220,
+    "category": "typescript",
+    "difficulty": "hard",
+    "codeSnippet": "function isText(x: unknown): boolean {\n  return typeof x === 'string';\n}\nif (isText(v)) v.toUpperCase();",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Declare `x: any` as the type",
+      "Cast with `v as unknown`",
+      "Add `!` after `v` in the call",
+      "Return type `x is string`"
+    ],
+    "answer": "Return type `x is string`",
+    "explanation": {
+      "en": "A declared `boolean` return does not narrow v, so v stays unknown; a type predicate tells the compiler what passed."
+    }
+  }
+]
