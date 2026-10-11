@@ -163,6 +163,7 @@
               <button class="btn btn-ghost" id="btn-friends" data-i18n="friends">Global Leaderboard</button>
               <button class="btn btn-ghost" id="btn-settings" data-i18n="settings">Settings</button>
               <button class="btn btn-ghost" id="btn-about" data-i18n="aboutButton">About</button>
+              <button class="btn btn-ghost support-link home-support" id="btn-home-support" data-url="https://paypal.me/mfsafadi" data-i18n="supportDev">&#9749; Support</button>
               <button class="btn btn-ghost btn-admin hidden" id="btn-admin" data-i18n="adminButton">Admin</button>
             </div>
           </aside>
@@ -361,6 +362,12 @@
               <input type="checkbox" id="lobby-sound" />
             </label>
           </div>
+
+          <!-- Same quiet tip-jar line as the results screen. -->
+          <p class="results-support lobby-support">
+            <span data-i18n="supportPrompt">Enjoying the game?</span>
+            <button type="button" class="results-support-link support-link" id="btn-lobby-support" data-url="https://paypal.me/mfsafadi" data-i18n="supportDevLong">Support the developer &#9749;</button>
+          </p>
         </aside>
       </div>
     </section>
@@ -696,7 +703,7 @@
         <!-- Optional tip jar: a quiet line, never a popup, and it unlocks nothing. -->
         <p class="results-support" id="results-support">
           <span data-i18n="supportPrompt">Enjoying the game?</span>
-          <button type="button" class="results-support-link" id="btn-support" data-url="https://paypal.me/mfsafadi" data-i18n="supportDevLong">Support the developer &#9749;</button>
+          <button type="button" class="results-support-link support-link" id="btn-support" data-url="https://paypal.me/mfsafadi" data-i18n="supportDevLong">Support the developer &#9749;</button>
         </p>
       </div>
     </section>
