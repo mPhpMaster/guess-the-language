@@ -1,8 +1,10 @@
 import { renderHome } from './home.js';
 import { syncDiscordNameField } from './identity.js';
+import { AR, MODES_AR } from './i18n-ar.js';
 
 // ============================================================
-//  UI strings (English only)
+//  UI strings — English (the source of truth) and Arabic (i18n-ar.js).
+//  Question content stays English in both: the banks are English-only.
 // ============================================================
 export const I18N = {
     en: {
@@ -136,8 +138,18 @@ export const I18N = {
         modeGamedevDesc: 'Game loops, physics, rendering, assets and UI systems',
         modeAlgo: 'Problem Solving',
         modeAlgoDesc: 'Fill the blank, fix the bug or predict the output',
+        modeSql: 'SQL & Databases',
+        modeSqlDesc: 'Queries, joins, indexes, transactions & schema design',
+        modeRegex: 'Regex',
+        modeRegexDesc: 'Patterns, groups, lookarounds & flags',
+        modeGit: 'Git',
+        modeGitDesc: 'Branching, merging, rebasing, history & undo',
+        modeLinux: 'Linux CLI',
+        modeLinuxDesc: 'Files, permissions, pipes, processes & text tools',
+        modeAi: 'AI & ML',
+        modeAiDesc: 'Models, training, evaluation, neural nets & LLMs',
         modeAll: 'All (Mixed)',
-        modeAllDesc: 'Everything: all six modes together',
+        modeAllDesc: 'Everything: every mode together',
         changeMode: 'Mode',
         questionsWord: 'questions',
         soundOn: 'on',
@@ -353,7 +365,126 @@ export const I18N = {
         presenceMenu: 'In the menu',
         presenceSolo: 'Solo round',
         presenceRoom: 'Multiplayer room',
-        presenceSpectating: 'Spectating'
+        presenceSpectating: 'Spectating',
+        // ---- play styles ----
+        styleClassic: 'classic',
+        styleSurvival: 'survival',
+        styleSpeedrun: 'speed run',
+        styleHardcore: 'hardcore',
+        styleHint_classic: 'A normal round: a timer on every question.',
+        styleHint_survival: 'Three lives. It gets harder the longer you last.',
+        styleHint_speedrun: 'One 60-second clock. Answer as many as you can.',
+        styleHint_hardcore: 'Type the language yourself. No 50:50, less time.',
+        hardcoreLangPrompt: 'Type the language name',
+        hardcorePlaceholder: 'e.g. Python, C#, Bash…',
+        fillFooterHint: 'type your answer · enter to submit',
+        hudLives: 'LIVES',
+        livesLeft: '{n} lives left',
+        survivalResult: 'Survived {n} questions',
+        speedrunResult: '{n} answered in 60 seconds',
+        // ---- focus packs ----
+        packFocus: 'focus',
+        packAll: 'everything',
+        packUnranked: 'unranked · study round',
+        focusRound: 'Focus round',
+        focusNotSaved: 'Focus round — XP only, not posted to the leaderboard',
+        pack_web: 'Web (JS, TS, PHP)',
+        pack_systems: 'Systems (C, C++, Rust, Go)',
+        pack_jvm: 'JVM & mobile (Java, Kotlin, Swift, C#)',
+        pack_scripting: 'Scripting & data (Python, Ruby, Bash, SQL)',
+        pack_fill: 'Fill the blank',
+        pack_bug: 'Fix the bug',
+        pack_output: 'Predict the output',
+        pack_python: 'Python only',
+        pack_jsts: 'JavaScript & TypeScript',
+        pack_offense: 'Offense & tools',
+        pack_crypto: 'Crypto & auth',
+        pack_defense: 'Malware & defense',
+        pack_concepts: 'Concepts & principles',
+        pack_docker: 'Docker & containers',
+        pack_kubernetes: 'Kubernetes',
+        pack_cicd: 'CI/CD & deployment',
+        pack_iac: 'IaC & cloud',
+        pack_ops: 'Observability & reliability',
+        pack_fundamentals: 'TCP/IP fundamentals',
+        pack_routing: 'Routing & switching',
+        pack_services: 'DNS & services',
+        pack_netsec: 'Security & diagnostics',
+        pack_rendering: 'Rendering & animation',
+        pack_physics: 'Physics & math',
+        pack_gameplay: 'Gameplay & AI',
+        pack_engine: 'Engine & performance',
+        pack_netcode: 'Netcode',
+        // ---- mistake review ----
+        reviewMistakes: 'Review mistakes',
+        reviewNextIn: 'in {n}d',
+        reviewDueTitle: '{n} questions are due for review',
+        reviewNoneDue: 'Nothing is due for review yet.',
+        reviewRound: 'Review round',
+        reviewSummary: '{ok} recalled · {bad} back in the queue',
+        // ---- ranked duel ----
+        duelButton: '⚔ Ranked duel',
+        duelBoard: 'Ranked duel',
+        duelSearching: 'Looking for an opponent…',
+        duelSearchStatus: 'Searching for a player near your rating · {s}s',
+        duelFoundHuman: 'Opponent found: {name}',
+        duelBotFallback: 'Nobody else is searching right now — you will face a bot.',
+        duelYourRating: 'Your rating: {r}',
+        duelBotName: 'Bot ({r})',
+        duelYou: 'you',
+        duelWon: '🏆 You won the duel!',
+        duelLost: 'You lost the duel.',
+        duelDraw: 'A draw.',
+        duelRatingChange: 'Rating {from} → {to} ({delta})',
+        duelRatingOffline: 'Rating not saved — the server could not be reached.',
+        duelVs: 'vs',
+        duelNeedLogin: 'Sign in with Discord to play ranked duels.',
+        duelRatingCol: 'rating',
+        duelRecordCol: 'w-l',
+        cancel: 'Cancel',
+        // ---- question reports ----
+        reportQuestion: '⚑ report question',
+        qreportTitle: 'Report this question',
+        qreportDesc: "What's wrong with it? Reports go to the admin for review.",
+        qreportWrong: 'The marked answer is wrong',
+        qreportUnclear: 'Unclear or ambiguous',
+        qreportTypo: 'Typo or broken code',
+        qreportDuplicate: 'Duplicate of another question',
+        qreportOther: 'Something else',
+        qreportThanks: 'Thanks — the question was sent for review.',
+        qreportDuplicateSent: 'You already reported this question.',
+        qreportFailed: 'The report could not be sent. Please try again.',
+        qreportNeedLogin: 'Sign in with Discord to report questions.',
+        viewQuestionPage: 'full explanation ↗',
+        // ---- seasons ----
+        scopeSeason: 'season',
+        seasonLabel: 'Season {name}',
+        seasonEndsIn: 'ends in {n} days',
+        seasonEndsToday: 'ends today',
+        seasonChamps: 'Last season ({name})',
+        seasonChampTitle: 'Season champion',
+        // ---- admin: questions & analytics ----
+        adminQuestions: 'Questions',
+        adminStats: 'Stats',
+        adminQReportsEmpty: 'No open question reports.',
+        adminReportsCount: '{n} reports',
+        adminOpenQuestion: 'Open',
+        adminHardest: 'Hardest questions (lowest correct rate, 20+ answers)',
+        adminMostReported: 'Most reported questions',
+        adminModePlays: 'Rounds per board (last 30 days)',
+        adminActivePlayers: 'Active players',
+        adminActive1: 'today',
+        adminActive7: '7 days',
+        adminActive30: '30 days',
+        adminNewPlayers: 'New players (7 days)',
+        adminReturning: 'Came back after their first day',
+        adminTotalPlayers: 'All players',
+        adminAnswers: 'Answers recorded',
+        // ---- settings / misc ----
+        settingLanguage: 'Language',
+        otherGamesTitle: 'More games by the developer',
+        updateReady: 'A new version is ready.',
+        updateReload: 'refresh'
     }
 };
 
@@ -419,6 +550,11 @@ export const MODES = {
             en: 'Fill the blank, fix the bug or predict the output'
         }
     },
+    sql: { key: 'sql', icon: '🗄️', title: { en: ['SQL &', 'Databases Quiz'] }, desc: { en: 'Queries, joins, indexes, transactions & schema design' } },
+    regex: { key: 'regex', icon: '🔣', title: { en: ['Regex', 'Quiz'] }, desc: { en: 'Patterns, groups, lookarounds & flags' } },
+    git: { key: 'git', icon: '🌿', title: { en: ['Git', 'Quiz'] }, desc: { en: 'Branching, merging, rebasing, history & undo' } },
+    linux: { key: 'linux', icon: '🐧', title: { en: ['Linux', 'CLI Quiz'] }, desc: { en: 'Files, permissions, pipes, processes & text tools' } },
+    ai: { key: 'ai', icon: '🤖', title: { en: ['AI &', 'ML Quiz'] }, desc: { en: 'Models, training, evaluation, neural nets & LLMs' } },
     all: {
         key: 'all',
         icon: '🎲',
@@ -426,41 +562,80 @@ export const MODES = {
             en: ['All', 'Mixed Quiz']
         },
         desc: {
-            en: 'Everything mixed: all six modes together'
+            en: 'Everything mixed: every mode together'
         }
     }
 };
 
+// Every selectable mode except the 'all' mix, in display order. Boards, profile
+// rankings and pickers read this rather than keeping their own lists.
+export const PLAY_MODES = Object.keys(MODES).filter((k) => k !== 'all');
+
+I18N.ar = AR;
+export const UI_LANGS = ['en', 'ar'];
+const LANG_KEY = 'gtl_ui_lang';
+
+// The interface language. Defaults to Arabic for a browser set to Arabic,
+// English otherwise; a choice made in Settings wins.
+export function uiLang() {
+    try {
+        const saved = localStorage.getItem(LANG_KEY);
+        if (UI_LANGS.includes(saved)) return saved;
+    } catch (_) { /* fall through */ }
+    try {
+        if (String(navigator.language || '').toLowerCase().startsWith('ar')) return 'ar';
+    } catch (_) { /* fall through */ }
+    return 'en';
+}
+
+export function setUiLang(lang) {
+    const l = UI_LANGS.includes(lang) ? lang : 'en';
+    try { localStorage.setItem(LANG_KEY, l); } catch (_) {}
+    applyLanguage();
+}
+
 export function t(key) {
+    const dict = I18N[uiLang()] || I18N.en;
+    if (dict[key] != null) return dict[key];
     return I18N.en[key] != null ? I18N.en[key] : key;
 }
 
 export function diffLabel(d) {
-    return (I18N.en.diff || {})[d] || d;
+    const dict = I18N[uiLang()] || I18N.en;
+    return (dict.diff || {})[d] || (I18N.en.diff || {})[d] || d;
+}
+
+// A mode's two-line title, in the interface language.
+export function modeTitle(mode) {
+    const m = MODES[mode] || MODES.languages;
+    const ar = uiLang() === 'ar' && MODES_AR[m.key];
+    const title = ar ? ar.title : (m.title?.en || []);
+    return Array.isArray(title) ? title.join(' ') : String(title || m.key || '');
 }
 
 export function challengeText(score) {
+    if (uiLang() === 'ar') return `حققت ${score} نقطة في «Guess the Language»! هل تستطيع التغلب عليّ؟`;
     return `I scored ${score} points in "Guess the Language"! Can you beat me?`;
 }
 
-// The app is English-only. Older builds persisted a UI language in `gtl_lang`
-// and could leave the document in RTL; drop that key so a returning player who
-// had picked Arabic still boots into the English LTR layout.
+// Older builds persisted a UI language in `gtl_lang` from a time when Arabic
+// was half-supported; that key is retired in favour of gtl_ui_lang.
 function purgeLegacyLanguagePref() {
     try { localStorage.removeItem('gtl_lang'); } catch (_) {}
 }
 
-// Paints every [data-i18n] element from the English dictionary. Still needed on
-// boot (and whenever the home screen is re-rendered) even though there is no
-// longer a language to choose.
+// Paints every [data-i18n] element in the interface language and flips the
+// document direction. Code, options and the title bar stay LTR (they carry
+// their own dir="ltr").
 export function applyLanguage() {
     purgeLegacyLanguagePref();
-    const dict = I18N.en;
-    document.documentElement.lang = 'en';
-    document.documentElement.dir = 'ltr';
+    const lang = uiLang();
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
     document.querySelectorAll('[data-i18n]').forEach((el) => {
         const k = el.getAttribute('data-i18n');
-        if (dict[k] != null) el.textContent = dict[k];
+        const v = t(k);
+        if (v !== k) el.textContent = v;
     });
     // Refresh the currently-shown difficulty badge if a question is loaded.
     const dEl = document.querySelector('#code-difficulty');

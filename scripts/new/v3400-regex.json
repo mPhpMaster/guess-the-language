@@ -1,0 +1,1142 @@
+[
+ {
+  "id": 1,
+  "category": "basics",
+  "difficulty": "easy",
+  "codeSnippet": "/cat/.test('concatenate')",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "true",
+   "false",
+   "null",
+   "-1"
+  ],
+  "answer": "true",
+  "explanation": {
+   "en": "Without anchors, a regex can match anywhere in the string, and `cat` appears inside \"concatenate\"."
+  }
+ },
+ {
+  "id": 2,
+  "category": "basics",
+  "difficulty": "easy",
+  "codeSnippet": "/^a.c$/  // tested against each input",
+  "question": {
+   "en": "Which input does this pattern NOT match?"
+  },
+  "options": [
+   "\"a\\nc\"",
+   "\"a-c\"",
+   "\"abc\"",
+   "\"a c\""
+  ],
+  "answer": "\"a\\nc\"",
+  "explanation": {
+   "en": "By default `.` matches any single character except a line terminator such as `\\n`."
+  }
+ },
+ {
+  "id": 3,
+  "category": "basics",
+  "difficulty": "easy",
+  "codeSnippet": "'banana'.search(/an/)",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "1",
+   "2",
+   "3",
+   "true"
+  ],
+  "answer": "1",
+  "explanation": {
+   "en": "`search` returns the index of the first match; \"an\" first starts at index 1."
+  }
+ },
+ {
+  "id": 4,
+  "category": "basics",
+  "difficulty": "medium",
+  "codeSnippet": "['catfish', 'hotdog'].map(s => /^cat|dog$/.test(s))",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "[true, true]",
+   "[true, false]",
+   "[false, true]",
+   "[false, false]"
+  ],
+  "answer": "[true, true]",
+  "explanation": {
+   "en": "Alternation has the lowest precedence, so the pattern means `^cat` OR `dog$`, not `^(cat|dog)$`."
+  }
+ },
+ {
+  "id": 5,
+  "category": "basics",
+  "difficulty": "easy",
+  "codeSnippet": "'hello'.match(/xyz/)",
+  "question": {
+   "en": "What does this expression return when nothing matches?"
+  },
+  "options": [
+   "null",
+   "[]",
+   "undefined",
+   "false"
+  ],
+  "answer": "null",
+  "explanation": {
+   "en": "`String.prototype.match` returns `null` (not an empty array) when there is no match."
+  }
+ },
+ {
+  "id": 6,
+  "category": "basics",
+  "difficulty": "easy",
+  "codeSnippet": "'a1b2c3'.replace(/\\d/, '')",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "'ab2c3'",
+   "'abc'",
+   "'a1b2c'",
+   "'123'"
+  ],
+  "answer": "'ab2c3'",
+  "explanation": {
+   "en": "Without the `g` flag, `replace` only replaces the first match."
+  }
+ },
+ {
+  "id": 7,
+  "category": "quantifiers",
+  "difficulty": "easy",
+  "codeSnippet": "/^colou?r$/",
+  "question": {
+   "en": "Which input does this pattern match?"
+  },
+  "options": [
+   "\"color\"",
+   "\"colouur\"",
+   "\"colr\"",
+   "\"colur\""
+  ],
+  "answer": "\"color\"",
+  "explanation": {
+   "en": "`?` makes the preceding `u` optional (zero or one), so both \"color\" and \"colour\" match."
+  }
+ },
+ {
+  "id": 8,
+  "category": "quantifiers",
+  "difficulty": "easy",
+  "codeSnippet": "'a1b22c333'.match(/\\d+/g)",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "['1', '22', '333']",
+   "['a1', 'b22', 'c333']",
+   "['1', '2', '3']",
+   "['a', 'b', 'c']"
+  ],
+  "answer": "['1', '22', '333']",
+  "explanation": {
+   "en": "`\\d+` grabs each run of one or more digits, and `g` returns every match."
+  }
+ },
+ {
+  "id": 9,
+  "category": "quantifiers",
+  "difficulty": "medium",
+  "codeSnippet": "/^\\d{2,4}$/",
+  "question": {
+   "en": "Which input does this pattern match?"
+  },
+  "options": [
+   "\"2024\"",
+   "\"12345\"",
+   "\"7\"",
+   "\"12a\""
+  ],
+  "answer": "\"2024\"",
+  "explanation": {
+   "en": "`{2,4}` requires between two and four digits, and the anchors forbid anything else."
+  }
+ },
+ {
+  "id": 10,
+  "category": "quantifiers",
+  "difficulty": "hard",
+  "codeSnippet": "'aaa'.match(/a*/g)",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "['aaa', '']",
+   "['aaa']",
+   "['a', 'a', 'a']",
+   "['', 'aaa']"
+  ],
+  "answer": "['aaa', '']",
+  "explanation": {
+   "en": "`a*` first consumes \"aaa\", then can still match the empty string at the end of the input."
+  }
+ },
+ {
+  "id": 11,
+  "category": "quantifiers",
+  "difficulty": "easy",
+  "codeSnippet": "/^ab*c$/",
+  "question": {
+   "en": "Which input does this pattern NOT match?"
+  },
+  "options": [
+   "\"abbcc\"",
+   "\"ac\"",
+   "\"abc\"",
+   "\"abbbc\""
+  ],
+  "answer": "\"abbcc\"",
+  "explanation": {
+   "en": "`b*` allows zero or more b's, but only a single `c` may end the string."
+  }
+ },
+ {
+  "id": 12,
+  "category": "classes",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "In JavaScript (without the `u`/`v` flags), which class is equivalent to `\\w`?"
+  },
+  "options": [
+   "`[A-Za-z0-9_]`",
+   "`[A-Za-z0-9]`",
+   "`[A-Za-z_]`",
+   "`[A-Za-z0-9-]`"
+  ],
+  "answer": "`[A-Za-z0-9_]`",
+  "explanation": {
+   "en": "`\\w` is a word character: ASCII letters, digits and the underscore."
+  }
+ },
+ {
+  "id": 13,
+  "category": "classes",
+  "difficulty": "easy",
+  "codeSnippet": "'regex'.replace(/[aeiou]/g, '')",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "'rgx'",
+   "'ee'",
+   "'regx'",
+   "'rgex'"
+  ],
+  "answer": "'rgx'",
+  "explanation": {
+   "en": "The class `[aeiou]` matches any one vowel, and `g` removes all of them."
+  }
+ },
+ {
+  "id": 14,
+  "category": "classes",
+  "difficulty": "medium",
+  "codeSnippet": "'2024-01-15'.match(/[^-]+/g)",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "['2024', '01', '15']",
+   "['2024', '-01', '-15']",
+   "['2024-01-15']",
+   "['2', '0', '1']"
+  ],
+  "answer": "['2024', '01', '15']",
+  "explanation": {
+   "en": "A leading `^` inside brackets negates the class, so `[^-]+` matches runs of non-hyphen characters."
+  }
+ },
+ {
+  "id": 15,
+  "category": "classes",
+  "difficulty": "hard",
+  "codeSnippet": "/[\\b]/.test('a b')",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "false",
+   "true",
+   "null",
+   "SyntaxError"
+  ],
+  "answer": "false",
+  "explanation": {
+   "en": "Inside a character class `\\b` means the backspace character (U+0008), not a word boundary."
+  }
+ },
+ {
+  "id": 16,
+  "category": "classes",
+  "difficulty": "medium",
+  "codeSnippet": "/^[A-z]$/.test('_')",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "true",
+   "false",
+   "null",
+   "SyntaxError"
+  ],
+  "answer": "true",
+  "explanation": {
+   "en": "The range A-z spans code points 65-122, which includes `[ \\ ] ^ _` and the backtick between Z and a."
+  }
+ },
+ {
+  "id": 17,
+  "category": "classes",
+  "difficulty": "medium",
+  "codeSnippet": "echo \"a1 b22\" | grep -oE '<class>+'",
+  "question": {
+   "en": "In POSIX ERE (`grep -E`), which bracket expression matches a single digit?"
+  },
+  "options": [
+   "`[[:digit:]]`",
+   "`[:digit:]`",
+   "`[[:num:]]`",
+   "`[[digit]]`"
+  ],
+  "answer": "`[[:digit:]]`",
+  "explanation": {
+   "en": "POSIX character classes like `[:digit:]` are only valid inside a bracket expression, hence the double brackets."
+  }
+ },
+ {
+  "id": 18,
+  "category": "anchors",
+  "difficulty": "easy",
+  "codeSnippet": "/^hi/.test('oh hi')",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "false",
+   "true",
+   "null",
+   "undefined"
+  ],
+  "answer": "false",
+  "explanation": {
+   "en": "`^` anchors the match to the start of the string, and \"oh hi\" starts with \"oh\"."
+  }
+ },
+ {
+  "id": 19,
+  "category": "anchors",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which pattern matches file names that end in `.js`?"
+  },
+  "options": [
+   "`/\\.js$/`",
+   "`/^\\.js/`",
+   "`/.js^/`",
+   "`/$\\.js/`"
+  ],
+  "answer": "`/\\.js$/`",
+  "explanation": {
+   "en": "`$` anchors to the end of the string and `\\.` matches a literal dot."
+  }
+ },
+ {
+  "id": 20,
+  "category": "anchors",
+  "difficulty": "medium",
+  "codeSnippet": "'cat concat cats'.match(/\\bcat\\b/g)",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "['cat']",
+   "['cat', 'cat']",
+   "['cat', 'cat', 'cat']",
+   "null"
+  ],
+  "answer": "['cat']",
+  "explanation": {
+   "en": "`\\b` needs a word/non-word transition on both sides, so only the standalone word \"cat\" qualifies."
+  }
+ },
+ {
+  "id": 21,
+  "category": "anchors",
+  "difficulty": "hard",
+  "codeSnippet": "import re\n(bool(re.search(r'^abc$', 'abc\\n')),\n bool(re.search(r'^abc\\Z', 'abc\\n')))",
+  "question": {
+   "en": "In Python `re`, what does this tuple evaluate to?"
+  },
+  "options": [
+   "(True, False)",
+   "(False, False)",
+   "(True, True)",
+   "(False, True)"
+  ],
+  "answer": "(True, False)",
+  "explanation": {
+   "en": "In Python `$` also matches just before a trailing newline, while `\\Z` matches only at the very end."
+  }
+ },
+ {
+  "id": 22,
+  "category": "anchors",
+  "difficulty": "medium",
+  "codeSnippet": "'cat concat'.replace(/\\Bcat/g, 'X')",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "'cat conX'",
+   "'X conX'",
+   "'X concat'",
+   "'cat concat'"
+  ],
+  "answer": "'cat conX'",
+  "explanation": {
+   "en": "`\\B` is a non-boundary, so it only matches \"cat\" when it is preceded by another word character."
+  }
+ },
+ {
+  "id": 23,
+  "category": "groups",
+  "difficulty": "easy",
+  "codeSnippet": "'2024-06-15'.match(/(\\d+)-(\\d+)/)[2]",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "'06'",
+   "'2024'",
+   "'15'",
+   "'2024-06'"
+  ],
+  "answer": "'06'",
+  "explanation": {
+   "en": "Index 0 is the whole match; index 2 is the second capturing group, the \"06\"."
+  }
+ },
+ {
+  "id": 24,
+  "category": "groups",
+  "difficulty": "medium",
+  "codeSnippet": "'John Smith'.replace(/(\\w+) (\\w+)/, '$2, $1')",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "'Smith, John'",
+   "'John, Smith'",
+   "'$2, $1'",
+   "'Smith John'"
+  ],
+  "answer": "'Smith, John'",
+  "explanation": {
+   "en": "`$1` and `$2` in the replacement string insert the captured groups."
+  }
+ },
+ {
+  "id": 25,
+  "category": "groups",
+  "difficulty": "medium",
+  "codeSnippet": "'06/2024'.replace(/(?<m>\\d+)\\/(?<y>\\d+)/, '$<y>-$<m>')",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "'2024-06'",
+   "'06-2024'",
+   "'$<y>-$<m>'",
+   "'2024/06'"
+  ],
+  "answer": "'2024-06'",
+  "explanation": {
+   "en": "Named groups `(?<name>...)` can be referenced in a replacement string with `$<name>`."
+  }
+ },
+ {
+  "id": 26,
+  "category": "groups",
+  "difficulty": "hard",
+  "codeSnippet": "'bookkeeper'.match(/(\\w)\\1/g)",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "['oo', 'kk', 'ee']",
+   "['o', 'k', 'e']",
+   "['oo']",
+   "['bo', 'ok', 'ke']"
+  ],
+  "answer": "['oo', 'kk', 'ee']",
+  "explanation": {
+   "en": "The backreference `\\1` must repeat whatever group 1 captured, so it finds doubled letters."
+  }
+ },
+ {
+  "id": 27,
+  "category": "groups",
+  "difficulty": "hard",
+  "codeSnippet": "'abc'.match(/(\\w)+/)[1]",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "'c'",
+   "'a'",
+   "'abc'",
+   "undefined"
+  ],
+  "answer": "'c'",
+  "explanation": {
+   "en": "A quantified group keeps only its last iteration, so group 1 holds \"c\"."
+  }
+ },
+ {
+  "id": 28,
+  "category": "groups",
+  "difficulty": "medium",
+  "codeSnippet": "'a1b2c'.split(/(\\d)/)",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "['a', '1', 'b', '2', 'c']",
+   "['a', 'b', 'c', '1', '2']",
+   "['a', '', 'b', '', 'c']",
+   "['a1', 'b2', 'c']"
+  ],
+  "answer": "['a', '1', 'b', '2', 'c']",
+  "explanation": {
+   "en": "When the separator regex has a capturing group, `split` includes the captured text in the result."
+  }
+ },
+ {
+  "id": 29,
+  "category": "lookaround",
+  "difficulty": "medium",
+  "codeSnippet": "'100USD 200EUR'.match(/\\d+(?=EUR)/)[0]",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "'200'",
+   "'100'",
+   "'200EUR'",
+   "'EUR'"
+  ],
+  "answer": "'200'",
+  "explanation": {
+   "en": "The lookahead `(?=EUR)` requires \"EUR\" to follow but does not include it in the match."
+  }
+ },
+ {
+  "id": 30,
+  "category": "lookaround",
+  "difficulty": "medium",
+  "codeSnippet": "/^(?!test)\\w+$/",
+  "question": {
+   "en": "Which input does this pattern match?"
+  },
+  "options": [
+   "\"contest\"",
+   "\"testing\"",
+   "\"test\"",
+   "\"tester\""
+  ],
+  "answer": "\"contest\"",
+  "explanation": {
+   "en": "`(?!test)` at the start rejects any string that begins with \"test\"."
+  }
+ },
+ {
+  "id": 31,
+  "category": "lookaround",
+  "difficulty": "medium",
+  "codeSnippet": "'$5, $10, €7'.match(/(?<=\\$)\\d+/g)",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "['5', '10']",
+   "['$5', '$10']",
+   "['5', '10', '7']",
+   "['7']"
+  ],
+  "answer": "['5', '10']",
+  "explanation": {
+   "en": "The lookbehind `(?<=\\$)` keeps only numbers preceded by a dollar sign, without capturing the sign."
+  }
+ },
+ {
+  "id": 32,
+  "category": "lookaround",
+  "difficulty": "hard",
+  "codeSnippet": "/^(?=.*\\d)(?=.*[A-Z]).{8,}$/",
+  "question": {
+   "en": "Which password does this pattern accept?"
+  },
+  "options": [
+   "\"Passw0rd\"",
+   "\"password1\"",
+   "\"Password\"",
+   "\"PASS1\""
+  ],
+  "answer": "\"Passw0rd\"",
+  "explanation": {
+   "en": "Each lookahead checks one rule (a digit, an uppercase letter) and `.{8,}` enforces the length."
+  }
+ },
+ {
+  "id": 33,
+  "category": "lookaround",
+  "difficulty": "hard",
+  "codeSnippet": "'abc'.replace(/(?=b)/, '-')",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "'a-bc'",
+   "'a-c'",
+   "'ab-c'",
+   "'-abc'"
+  ],
+  "answer": "'a-bc'",
+  "explanation": {
+   "en": "A lookahead matches an empty position, so the replacement is inserted before \"b\" without removing it."
+  }
+ },
+ {
+  "id": 34,
+  "category": "lookaround",
+  "difficulty": "medium",
+  "codeSnippet": "'x1 y2 x3'.match(/(?<!x)\\d/g)",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "['2']",
+   "['1', '3']",
+   "['1', '2', '3']",
+   "['y2']"
+  ],
+  "answer": "['2']",
+  "explanation": {
+   "en": "The negative lookbehind `(?<!x)` skips digits that come right after an \"x\"."
+  }
+ },
+ {
+  "id": 35,
+  "category": "flags",
+  "difficulty": "easy",
+  "codeSnippet": "/hello/i",
+  "question": {
+   "en": "What does the `i` flag do?"
+  },
+  "options": [
+   "Case-insensitive matching",
+   "Finds every match",
+   "Makes `.` match newlines too",
+   "Ignores whitespace"
+  ],
+  "answer": "Case-insensitive matching",
+  "explanation": {
+   "en": "The `i` flag makes letters match regardless of case, so this pattern matches \"HeLLo\"."
+  }
+ },
+ {
+  "id": 36,
+  "category": "flags",
+  "difficulty": "medium",
+  "codeSnippet": "'aaa'.replaceAll(/a/, 'b')",
+  "question": {
+   "en": "What happens when this runs?"
+  },
+  "options": [
+   "TypeError",
+   "SyntaxError",
+   "'bbb'",
+   "'baa'"
+  ],
+  "answer": "TypeError",
+  "explanation": {
+   "en": "`replaceAll` requires a regex with the `g` flag and throws a TypeError otherwise."
+  }
+ },
+ {
+  "id": 37,
+  "category": "flags",
+  "difficulty": "medium",
+  "codeSnippet": "[/a.b/.test('a\\nb'), /a.b/s.test('a\\nb')]",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "[false, true]",
+   "[true, true]",
+   "[false, false]",
+   "[true, false]"
+  ],
+  "answer": "[false, true]",
+  "explanation": {
+   "en": "The `s` (dotAll) flag lets `.` also match line terminators such as `\\n`."
+  }
+ },
+ {
+  "id": 38,
+  "category": "flags",
+  "difficulty": "hard",
+  "codeSnippet": "const re = /\\d/y;\nre.lastIndex = 0;\n[re.test('a1'), re.test('1a')]",
+  "question": {
+   "en": "What does the final expression return?"
+  },
+  "options": [
+   "[false, true]",
+   "[true, true]",
+   "[true, false]",
+   "[false, false]"
+  ],
+  "answer": "[false, true]",
+  "explanation": {
+   "en": "A sticky (`y`) regex must match exactly at `lastIndex`; \"a1\" fails at 0 (resetting it to 0), \"1a\" succeeds."
+  }
+ },
+ {
+  "id": 39,
+  "category": "flags",
+  "difficulty": "hard",
+  "codeSnippet": "['😀'.match(/./g).length, '😀'.match(/./gu).length]",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "[2, 1]",
+   "[1, 1]",
+   "[2, 2]",
+   "[1, 2]"
+  ],
+  "answer": "[2, 1]",
+  "explanation": {
+   "en": "Without `u` the regex works on UTF-16 code units, so the emoji counts as two surrogate halves."
+  }
+ },
+ {
+  "id": 40,
+  "category": "flags",
+  "difficulty": "medium",
+  "codeSnippet": "'a1\\nb2'.match(/^\\w/gm)",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "['a', 'b']",
+   "['a']",
+   "['a1', 'b2']",
+   "null"
+  ],
+  "answer": "['a', 'b']",
+  "explanation": {
+   "en": "With the `m` flag `^` matches at the start of every line, not just the start of the string."
+  }
+ },
+ {
+  "id": 41,
+  "category": "greedy",
+  "difficulty": "easy",
+  "codeSnippet": "'\"a\" and \"b\"'.match(/\".*\"/)[0]",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "'\"a\" and \"b\"'",
+   "'\"a\"'",
+   "['\"a\"', '\"b\"']",
+   "'a\" and \"b'"
+  ],
+  "answer": "'\"a\" and \"b\"'",
+  "explanation": {
+   "en": "`.*` is greedy: it runs to the end and backtracks only as far as the LAST quote."
+  }
+ },
+ {
+  "id": 42,
+  "category": "greedy",
+  "difficulty": "easy",
+  "codeSnippet": "'<b>x</b>'.match(/<.+?>/)[0]",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "'<b>'",
+   "'<b>x</b>'",
+   "'</b>'",
+   "'b'"
+  ],
+  "answer": "'<b>'",
+  "explanation": {
+   "en": "Adding `?` makes `+` lazy, so it stops at the first `>` it can."
+  }
+ },
+ {
+  "id": 43,
+  "category": "greedy",
+  "difficulty": "hard",
+  "codeSnippet": "'aaa'.match(/^a+?$/)[0]",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "'aaa'",
+   "'a'",
+   "'aa'",
+   "['aaa']"
+  ],
+  "answer": "'aaa'",
+  "explanation": {
+   "en": "A lazy quantifier prefers fewer characters, but it must keep expanding until `$` can match."
+  }
+ },
+ {
+  "id": 44,
+  "category": "greedy",
+  "difficulty": "hard",
+  "codeSnippet": "'xaaay'.match(/a*?/)[0]",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "''",
+   "'a'",
+   "'aaa'",
+   "null"
+  ],
+  "answer": "''",
+  "explanation": {
+   "en": "`a*?` is satisfied by zero characters, so it matches the empty string at index 0."
+  }
+ },
+ {
+  "id": 45,
+  "category": "greedy",
+  "difficulty": "medium",
+  "codeSnippet": "'[a][b]'.match(PATTERN)[1] === 'a'",
+  "question": {
+   "en": "Which PATTERN captures only the first bracketed value?"
+  },
+  "options": [
+   "`/\\[(.*?)\\]/`",
+   "`/\\[(.*)\\]/`",
+   "`/\\[(.+)\\]/`",
+   "`/\\[(.)*\\]/`"
+  ],
+  "answer": "`/\\[(.*?)\\]/`",
+  "explanation": {
+   "en": "The lazy `.*?` stops at the first `]`; the greedy forms run on to the last one."
+  }
+ },
+ {
+  "id": 46,
+  "category": "greedy",
+  "difficulty": "hard",
+  "codeSnippet": "/^a++a$/   // input: \"aaa\"",
+  "question": {
+   "en": "In PCRE, does this pattern match \"aaa\"?"
+  },
+  "options": [
+   "No, `a++` never gives back",
+   "Yes, `a++` gives back one a",
+   "Yes, `++` means two or more",
+   "No, `++` is a syntax error"
+  ],
+  "answer": "No, `a++` never gives back",
+  "explanation": {
+   "en": "The possessive `a++` eats all three a's and refuses to backtrack, leaving nothing for the final `a`."
+  }
+ },
+ {
+  "id": 47,
+  "category": "escaping",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which pattern matches exactly the text `1+1`?"
+  },
+  "options": [
+   "`/^1\\+1$/`",
+   "`/^1+1$/`",
+   "`/^[1+1]$/`",
+   "`/^1\\\\+1$/`"
+  ],
+  "answer": "`/^1\\+1$/`",
+  "explanation": {
+   "en": "`+` is a quantifier, so it must be escaped as `\\+` to match a literal plus sign."
+  }
+ },
+ {
+  "id": 48,
+  "category": "escaping",
+  "difficulty": "easy",
+  "codeSnippet": "'1.5'.replace(/./g, '#')",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "'###'",
+   "'1#5'",
+   "'#.#'",
+   "'1.5'"
+  ],
+  "answer": "'###'",
+  "explanation": {
+   "en": "An unescaped `.` matches any character, so every character is replaced; use `\\.` for a literal dot."
+  }
+ },
+ {
+  "id": 49,
+  "category": "escaping",
+  "difficulty": "hard",
+  "codeSnippet": "new RegExp('\\d+').test('42')",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "false",
+   "true",
+   "null",
+   "SyntaxError"
+  ],
+  "answer": "false",
+  "explanation": {
+   "en": "In a string literal `'\\d'` is just \"d\", so the regex becomes `/d+/`; write `'\\\\d+'` instead."
+  }
+ },
+ {
+  "id": 50,
+  "category": "escaping",
+  "difficulty": "medium",
+  "codeSnippet": "'a.b*c'.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "'a\\.b\\*c'",
+   "'a\\$&b\\$&c'",
+   "'a.b*c'",
+   "'a\\\\.b\\\\*c'"
+  ],
+  "answer": "'a\\.b\\*c'",
+  "explanation": {
+   "en": "`$&` inserts the whole match, so each special character gets a backslash in front of it."
+  }
+ },
+ {
+  "id": 51,
+  "category": "escaping",
+  "difficulty": "medium",
+  "codeSnippet": "'cost'.replace(/cost/, '$$5')",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "'$5'",
+   "'$$5'",
+   "'cost5'",
+   "'5'"
+  ],
+  "answer": "'$5'",
+  "explanation": {
+   "en": "In a replacement string `$$` is the escape for a single literal `$`."
+  }
+ },
+ {
+  "id": 52,
+  "category": "escaping",
+  "difficulty": "medium",
+  "codeSnippet": "printf 'a+\\naaa\\n' | grep 'a+'",
+  "question": {
+   "en": "With plain `grep` (POSIX BRE), which lines does this print?"
+  },
+  "options": [
+   "Only `a+`",
+   "Only `aaa`",
+   "Both lines",
+   "Neither line"
+  ],
+  "answer": "Only `a+`",
+  "explanation": {
+   "en": "In basic regular expressions `+` is an ordinary character; use `grep -E` (or `\\+` in GNU grep) for \"one or more\"."
+  }
+ },
+ {
+  "id": 53,
+  "category": "practical",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which pattern matches a US ZIP code like `12345` or `12345-6789`?"
+  },
+  "options": [
+   "`/^\\d{5}(-\\d{4})?$/`",
+   "`/^\\d{5}-\\d{4}$/`",
+   "`/^\\d{5}(-\\d{4})*/`",
+   "`/\\d{5}|\\d{4}$/`"
+  ],
+  "answer": "`/^\\d{5}(-\\d{4})?$/`",
+  "explanation": {
+   "en": "The optional group `(-\\d{4})?` allows the +4 suffix, and both anchors reject extra characters."
+  }
+ },
+ {
+  "id": 54,
+  "category": "practical",
+  "difficulty": "medium",
+  "codeSnippet": "/^#([0-9a-f]{3}){1,2}$/i",
+  "question": {
+   "en": "Which input does this color pattern match?"
+  },
+  "options": [
+   "\"#FFF\"",
+   "\"#ggg\"",
+   "\"#12345\"",
+   "\"FFF000\""
+  ],
+  "answer": "\"#FFF\"",
+  "explanation": {
+   "en": "It accepts `#` followed by 3 or 6 hex digits; the `i` flag allows uppercase."
+  }
+ },
+ {
+  "id": 55,
+  "category": "practical",
+  "difficulty": "easy",
+  "codeSnippet": "'  hi  '.replace(/^\\s+|\\s+$/g, '')",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "'hi'",
+   "'hi  '",
+   "'  hi'",
+   "' hi '"
+  ],
+  "answer": "'hi'",
+  "explanation": {
+   "en": "The two alternatives strip leading and trailing whitespace; `g` lets both run."
+  }
+ },
+ {
+  "id": 56,
+  "category": "practical",
+  "difficulty": "easy",
+  "codeSnippet": "'a   b  c'.replace(/\\s+/g, ' ')",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "'a b c'",
+   "'abc'",
+   "'a  b c'",
+   "'a   b  c'"
+  ],
+  "answer": "'a b c'",
+  "explanation": {
+   "en": "`\\s+` matches each run of whitespace, which is collapsed into a single space."
+  }
+ },
+ {
+  "id": 57,
+  "category": "practical",
+  "difficulty": "hard",
+  "codeSnippet": "'1234567'.replace(/\\B(?=(\\d{3})+(?!\\d))/g, ',')",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "'1,234,567'",
+   "'123,456,7'",
+   "'1234,567'",
+   "'1,2,3,4,5,6,7'"
+  ],
+  "answer": "'1,234,567'",
+  "explanation": {
+   "en": "It inserts a comma at every inner position followed by a multiple of three digits up to the end."
+  }
+ },
+ {
+  "id": 58,
+  "category": "practical",
+  "difficulty": "hard",
+  "codeSnippet": "/^(25[0-5]|2[0-4]\\d|1?\\d?\\d)$/",
+  "question": {
+   "en": "Which IPv4 octet does this pattern accept?"
+  },
+  "options": [
+   "\"199\"",
+   "\"256\"",
+   "\"300\"",
+   "\"1000\""
+  ],
+  "answer": "\"199\"",
+  "explanation": {
+   "en": "The alternatives cover 250-255, 200-249 and 0-199, so 199 is the only valid value listed."
+  }
+ },
+ {
+  "id": 59,
+  "category": "practical",
+  "difficulty": "medium",
+  "codeSnippet": "[...'k1=v1;k2=v2'.matchAll(/(\\w+)=(\\w+)/g)].map(m => m[2])",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "['v1', 'v2']",
+   "['k1', 'k2']",
+   "['k1=v1', 'k2=v2']",
+   "['v2']"
+  ],
+  "answer": "['v1', 'v2']",
+  "explanation": {
+   "en": "`matchAll` yields a full match object per hit, so each one keeps its capture groups."
+  }
+ },
+ {
+  "id": 60,
+  "category": "practical",
+  "difficulty": "medium",
+  "codeSnippet": "'2024-06-15'.match(/^(\\d{4})-(\\d{2})-(\\d{2})$/).slice(1)",
+  "question": {
+   "en": "What does this expression return?"
+  },
+  "options": [
+   "['2024', '06', '15']",
+   "['2024-06-15']",
+   "['06', '15']",
+   "['2024-06-15', '2024']"
+  ],
+  "answer": "['2024', '06', '15']",
+  "explanation": {
+   "en": "Element 0 is the full match, so `slice(1)` keeps just the three captured date parts."
+  }
+ }
+]

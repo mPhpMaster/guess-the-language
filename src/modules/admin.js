@@ -4,6 +4,7 @@ import { appApiPrefix, getAppSessionToken, isDiscordActivity, safeDisplayName } 
 import { adminJoinRoomFlow, modeLabel } from './mp-ui.js';
 import { openProfileCard } from './profile.js';
 import { escapeHtml } from './util.js';
+import { renderAdminQuestions, renderAdminStats } from './admin-insights.js';
 
 // ============================================================
 //  Admin panel — gated by a signed `adm` claim in the session token
@@ -186,7 +187,9 @@ export function renderAdminTabs() {
         ['reports', t('adminReports')],
         ['users', t('adminUsers')],
         ['live', t('adminLive')],
-        ['bans', t('adminBans')]
+        ['bans', t('adminBans')],
+        ['questions', t('adminQuestions')],
+        ['stats', t('adminStats')]
     ];
     wrap.innerHTML = '';
     tabs.forEach(([key, label]) => {
@@ -209,6 +212,8 @@ export async function loadAdminTab(tab) {
         if (tab === 'users') return renderAdminUsers();
         if (tab === 'live') return renderAdminLive(await adminApi('live'));
         if (tab === 'bans') return renderAdminBans(await adminApi('banned'));
+        if (tab === 'questions') return renderAdminQuestions(await adminApi('qreports'));
+        if (tab === 'stats') return renderAdminStats(await adminApi('stats'));
     } catch (e) {
         body.innerHTML = `<p class="admin-msg admin-err">${t('adminError')}</p>`;
     }

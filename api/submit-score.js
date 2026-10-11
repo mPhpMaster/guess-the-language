@@ -35,8 +35,17 @@ const { verifySession } = require('./_session');
 const MAX_ROUND_SCORE = 21000;
 
 const MODES = new Set([
-  'languages', 'cybersecurity', 'devops', 'network', 'gamedev', 'algorithms', 'all'
+  'languages', 'cybersecurity', 'devops', 'network', 'gamedev', 'algorithms',
+  'sql', 'regex', 'git', 'linux', 'ai', 'all',
+  // Play-style boards. Each is one global board whatever topic was picked.
+  'survival', 'speedrun', 'hardcore'
 ]);
+
+// Survival is the one round that is not capped at 20 questions: it runs until the
+// third miss, up to SURVIVAL_MAX_QUESTIONS (src/modules/styles.js), so its bound
+// is that many maximum-value answers.
+const SURVIVAL_MAX_QUESTIONS = 50;
+const MAX_SCORE_BY_MODE = { survival: SURVIVAL_MAX_QUESTIONS * 1050 };
 
 // Best-effort throttle. Serverless instances do not share memory, so a caller
 // spread across instances gets more attempts — it still turns scripted spam into
@@ -106,7 +115,8 @@ module.exports = async function handler(req, res) {
   const board = req.body?.board === 'daily' ? 'daily' : 'scores';
   const mode = String(req.body?.mode || 'languages');
 
-  if (!Number.isSafeInteger(score) || score < 0 || score > MAX_ROUND_SCORE) {
+  const maxScore = (board === 'scores' && MAX_SCORE_BY_MODE[mode]) || MAX_ROUND_SCORE;
+  if (!Number.isSafeInteger(score) || score < 0 || score > maxScore) {
     return res.status(400).json({ error: 'Score out of range' });
   }
   if (!player || [...player].length > 24) return res.status(400).json({ error: 'Bad player name' });

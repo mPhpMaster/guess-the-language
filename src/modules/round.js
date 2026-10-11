@@ -89,7 +89,12 @@ export const BANK_MODE = {
     gamedev: 'gamedev',
     algorithms: 'algorithms',
     bug: 'algorithms',
-    output: 'algorithms'
+    output: 'algorithms',
+    sql: 'sql',
+    regex: 'regex',
+    git: 'git',
+    linux: 'linux',
+    ai: 'ai'
 };
 export function modeOfBank(bank) { return BANK_MODE[bank] || 'languages'; }
 
@@ -192,9 +197,9 @@ export function bumpAdaptive(correct) {
     state.adaptiveTarget = correct ? up[state.adaptiveTarget] : down[state.adaptiveTarget];
 }
 // Turn adaptive on for a single-player round if the setting is enabled.
-export function maybeSetupAdaptive() {
+export function maybeSetupAdaptive(pool = state.allQuestions) {
     if (getSettings().adaptive && !state.daily) {
-        setupAdaptive(state.allQuestions, Math.min(getSettings().questions || 10, (state.allQuestions || []).length || 10));
+        setupAdaptive(pool, Math.min(getSettings().questions || 10, (pool || []).length || 10));
     } else {
         state.adaptive = false;
     }
@@ -253,6 +258,9 @@ export async function startDailyChallenge() {
     state.round = round;
     state.daily = true;
     state.learn = false;
+    state.review = false;
+    state.duel = null;
+    state.style = 'classic';
     state.adaptive = false; // the daily set is fixed and identical for everyone
     state.mode = 'all'; // mixed styles; the daily board is separate from mode boards
     beginRound();

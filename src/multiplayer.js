@@ -153,7 +153,12 @@
     gamedev: 'gamedev',
     algorithms: 'algorithms',
     bug: 'algorithms',
-    output: 'algorithms'
+    output: 'algorithms',
+    sql: 'sql',
+    regex: 'regex',
+    git: 'git',
+    linux: 'linux',
+    ai: 'ai'
   };
   function modeOfBank(bank) { return BANK_MODE[bank] || 'languages'; }
 

@@ -1,6 +1,6 @@
 import { fetchTopScores, sbFetch, supabaseConfigured } from './api.js';
 import { $, announce, closeDialog, openDialog } from './dom.js';
-import { t } from './i18n.js';
+import { setUiLang, t, uiLang } from './i18n.js';
 import { canPlay, getDiscordDisplayName, getDiscordProfile, getSettings, isDiscordActivity, isDiscordLinked, isSafePlayerName, requiresDiscordLogin, sanitizeName, startDiscordLogin, syncDiscordNameField, updateDiscordLoginButton, updateHomeProfile } from './identity.js';
 import { refreshMultiplayerButtons } from './mp-ui.js';
 import { canPublishPresence, pushPresence } from './presence.js';
@@ -14,6 +14,7 @@ export function applySettingsToUI() {
     if (!isDiscordActivity()) {
         $('#set-name').value = s.name || '';
     }
+    const langEl = $('#set-language'); if (langEl) langEl.value = uiLang();
     $('#set-questions').value = String(s.questions);
     $('#set-sound').checked = !!s.sound;
     const adaptiveEl = $('#set-adaptive'); if (adaptiveEl) adaptiveEl.checked = !!s.adaptive;
@@ -55,6 +56,8 @@ export function saveSettingsFromUI() {
         discordPresence: $('#set-presence') ? $('#set-presence').checked : (getSettings().discordPresence !== false)
     };
     updateStartButtonState();
+    const langEl = $('#set-language');
+    if (langEl && langEl.value !== uiLang()) setUiLang(langEl.value);
     // Turning the toggle off must take the card down immediately, not at the next
     // question.
     pushPresence();

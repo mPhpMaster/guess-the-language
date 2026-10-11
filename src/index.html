@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" />
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" />
   <link rel="stylesheet" href="styles.css" />
 
   <!-- PWA / installable mobile app -->
@@ -111,12 +111,50 @@
                 <span class="mode-desc sr-only" data-i18n="modeAlgoDesc">Fill the blank, fix the bug or predict the output</span>
                 <span class="mode-count" data-mode-count="algorithms"></span>
               </button>
-              <button class="mode-card mode-card-all" data-mode="all" aria-pressed="false">
+              <button class="mode-card mode-card-sql" data-mode="sql" aria-pressed="false">
                 <span class="mode-index" aria-hidden="true">07</span>
+                <span class="mode-name" data-i18n="modeSql">SQL &amp; Databases</span>
+                <span class="mode-desc sr-only" data-i18n="modeSqlDesc">Queries, joins, indexes, transactions &amp; schema design</span>
+                <span class="mode-count" data-mode-count="sql"></span>
+              </button>
+              <button class="mode-card mode-card-regex" data-mode="regex" aria-pressed="false">
+                <span class="mode-index" aria-hidden="true">08</span>
+                <span class="mode-name" data-i18n="modeRegex">Regex</span>
+                <span class="mode-desc sr-only" data-i18n="modeRegexDesc">Patterns, groups, lookarounds &amp; flags</span>
+                <span class="mode-count" data-mode-count="regex"></span>
+              </button>
+              <button class="mode-card mode-card-git" data-mode="git" aria-pressed="false">
+                <span class="mode-index" aria-hidden="true">09</span>
+                <span class="mode-name" data-i18n="modeGit">Git</span>
+                <span class="mode-desc sr-only" data-i18n="modeGitDesc">Branching, merging, rebasing, history &amp; undo</span>
+                <span class="mode-count" data-mode-count="git"></span>
+              </button>
+              <button class="mode-card mode-card-linux" data-mode="linux" aria-pressed="false">
+                <span class="mode-index" aria-hidden="true">10</span>
+                <span class="mode-name" data-i18n="modeLinux">Linux CLI</span>
+                <span class="mode-desc sr-only" data-i18n="modeLinuxDesc">Files, permissions, pipes, processes &amp; text tools</span>
+                <span class="mode-count" data-mode-count="linux"></span>
+              </button>
+              <button class="mode-card mode-card-ai" data-mode="ai" aria-pressed="false">
+                <span class="mode-index" aria-hidden="true">11</span>
+                <span class="mode-name" data-i18n="modeAi">AI &amp; ML</span>
+                <span class="mode-desc sr-only" data-i18n="modeAiDesc">Models, training, evaluation, neural nets &amp; LLMs</span>
+                <span class="mode-count" data-mode-count="ai"></span>
+              </button>
+              <button class="mode-card mode-card-all" data-mode="all" aria-pressed="false">
+                <span class="mode-index" aria-hidden="true">12</span>
                 <span class="mode-name" data-i18n="modeAll">All (Mixed)</span>
                 <span class="mode-desc sr-only" data-i18n="modeAllDesc">Everything: all six modes together</span>
                 <span class="mode-count" data-mode-count="all"></span>
               </button>
+            </div>
+
+            <!-- Focus pack: narrow the picked mode to one area. Focused rounds are
+                 study rounds — XP, but no leaderboard. -->
+            <div class="pack-row hidden" id="pack-row">
+              <label class="pack-label" for="pack-select" data-i18n="packFocus">focus</label>
+              <select id="pack-select"></select>
+              <span class="pack-note hidden" id="pack-note" data-i18n="packUnranked">unranked · study round</span>
             </div>
           </div>
 
@@ -138,8 +176,17 @@
             </div>
 
             <div class="home-actions">
+              <div class="style-switch" id="style-switch" role="radiogroup" aria-label="Play style">
+                <button type="button" class="style-btn" role="radio" data-style="classic" data-i18n="styleClassic">classic</button>
+                <button type="button" class="style-btn" role="radio" data-style="survival" data-i18n="styleSurvival">survival</button>
+                <button type="button" class="style-btn" role="radio" data-style="speedrun" data-i18n="styleSpeedrun">speed run</button>
+                <button type="button" class="style-btn" role="radio" data-style="hardcore" data-i18n="styleHardcore">hardcore</button>
+              </div>
+              <p class="style-hint" id="style-hint" aria-live="polite"></p>
               <button class="btn btn-primary" id="btn-start" data-i18n="start">run ▸</button>
               <button class="btn btn-daily" id="btn-daily" data-i18n="dailyChallenge">Daily challenge</button>
+              <button class="btn btn-duel" id="btn-duel" data-i18n="duelButton">⚔ Ranked duel</button>
+              <button class="btn btn-review hidden" id="btn-review" data-i18n="reviewMistakes">Review mistakes</button>
               <div class="home-actions-row home-mp-actions">
                 <button class="btn btn-ghost" id="btn-host" data-i18n="hostRoom">Host room</button>
                 <button class="btn btn-ghost" id="btn-join" data-i18n="joinRoom">Join room</button>
@@ -165,6 +212,12 @@
               <button class="btn btn-ghost" id="btn-about" data-i18n="aboutButton">About</button>
               <button class="btn btn-ghost support-link home-support" id="btn-home-support" data-url="https://paypal.me/mfsafadi" data-i18n="supportDev">&#9749; Support</button>
               <button class="btn btn-ghost btn-admin hidden" id="btn-admin" data-i18n="adminButton">Admin</button>
+            </div>
+
+            <!-- The developer's other games (src/modules/promo.js). -->
+            <div class="other-games hidden" data-other-games>
+              <p class="other-games-title" data-i18n="otherGamesTitle">More games by the developer</p>
+              <div class="other-games-list"></div>
             </div>
           </aside>
         </div>
@@ -192,6 +245,13 @@
             <button type="button" class="ui-scale-btn" id="ui-scale-plus" aria-label="Larger interface">+</button>
           </span>
         </div>
+        <label class="setting-row">
+          <span data-i18n="settingLanguage">Language</span>
+          <select id="set-language">
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+          </select>
+        </label>
         <label class="setting-row">
           <span data-i18n="settingQuestions">Questions per round</span>
           <select id="set-questions">
@@ -260,6 +320,10 @@
           <button class="about-link" data-url="https://www.linkedin.com/in/mohammad-al-safadi/">LinkedIn</button>
           <button class="about-link about-donate" data-url="https://paypal.me/mfsafadi" data-i18n="supportDev">&#9749; Support</button>
         </div>
+        <div class="other-games hidden" data-other-games>
+          <p class="other-games-title" data-i18n="otherGamesTitle">More games by the developer</p>
+          <div class="other-games-list"></div>
+        </div>
         <div class="about-legal">
           <a class="about-legal-link" href="/terms.html" target="_blank" rel="noopener noreferrer">Terms of Service</a>
           <span class="about-legal-sep">·</span>
@@ -323,6 +387,11 @@
                 <option value="network" data-i18n="modeNetwork">Networking</option>
                 <option value="gamedev" data-i18n="modeGamedev">Game Dev</option>
                 <option value="algorithms" data-i18n="modeAlgo">Problem Solving</option>
+                <option value="sql" data-i18n="modeSql">SQL &amp; Databases</option>
+                <option value="regex" data-i18n="modeRegex">Regex</option>
+                <option value="git" data-i18n="modeGit">Git</option>
+                <option value="linux" data-i18n="modeLinux">Linux CLI</option>
+                <option value="ai" data-i18n="modeAi">AI &amp; ML</option>
                 <option value="all" data-i18n="modeAll">All (Mixed)</option>
               </select>
             </label>
@@ -431,6 +500,46 @@
       </div>
     </div>
 
+    <!-- Ranked duel matchmaking: shown while looking for a human opponent. -->
+    <dialog id="duel-search" class="modal" aria-labelledby="duel-search-title">
+      <div class="modal-card duel-search-card">
+        <h3 id="duel-search-title" data-i18n="duelSearching">Looking for an opponent…</h3>
+        <div class="duel-search-spinner" aria-hidden="true"></div>
+        <p class="modal-hint" id="duel-search-status"></p>
+        <p class="duel-rating-line" id="duel-search-rating"></p>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="btn-duel-cancel" data-i18n="cancel">Cancel</button>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Report a question: wrong answer, unclear wording, typo… -->
+    <dialog id="qreport-dialog" class="modal" aria-labelledby="qreport-title" aria-describedby="qreport-desc">
+      <form class="modal-card" id="qreport-form" method="dialog">
+        <h3 id="qreport-title" data-i18n="qreportTitle">Report this question</h3>
+        <p class="modal-hint" id="qreport-desc" data-i18n="qreportDesc">What's wrong with it? Reports go to the admin for review.</p>
+        <label class="setting-row">
+          <span data-i18n="reportReason">Reason</span>
+          <select id="qreport-reason" required>
+            <option value="wrong_answer" data-i18n="qreportWrong">The marked answer is wrong</option>
+            <option value="unclear" data-i18n="qreportUnclear">Unclear or ambiguous</option>
+            <option value="typo" data-i18n="qreportTypo">Typo or broken code</option>
+            <option value="duplicate" data-i18n="qreportDuplicate">Duplicate of another question</option>
+            <option value="other" data-i18n="qreportOther">Something else</option>
+          </select>
+        </label>
+        <label class="report-details-label">
+          <span data-i18n="reportDetails">Details (optional)</span>
+          <textarea id="qreport-details" maxlength="400" rows="4"></textarea>
+        </label>
+        <p class="modal-error hidden" id="qreport-error" role="alert"></p>
+        <div class="modal-actions">
+          <button class="btn btn-primary" id="qreport-submit" value="submit" data-i18n="reportSubmit">Submit report</button>
+          <button class="btn btn-ghost" id="qreport-cancel" value="cancel" data-i18n="close">Close</button>
+        </div>
+      </form>
+    </dialog>
+
     <dialog id="report-dialog" class="modal" aria-labelledby="report-title" aria-describedby="report-desc">
       <form class="modal-card" id="report-form" method="dialog">
         <h3 id="report-title" data-i18n="reportTitle">Report leaderboard entry</h3>
@@ -527,6 +636,8 @@
     <!-- ============ GAME SCREEN ============ -->
     <section id="screen-game" class="screen">
       <h2 class="sr-only screen-heading" tabindex="-1" data-i18n="gameTitle">Quiz in progress</h2>
+      <!-- Ranked duel: you vs the opponent, live. -->
+      <div class="duel-strip hidden" id="duel-strip" aria-live="polite"></div>
       <div class="mp-game-strip hidden" id="mp-game-strip">
         <span class="mp-room-code-pill" id="mp-room-code"></span>
         <div class="mp-player-list mp-player-list-compact" id="mp-game-players"></div>
@@ -536,6 +647,7 @@
           <div class="score-pill"><span data-i18n="hudScore">SCORE</span><span id="game-score">0</span></div>
           <div class="correct-pill"><span data-i18n="hudCorrect">CORRECT</span><span><span id="correct-count">0</span>/<span id="correct-total">10</span></span></div>
           <div class="streak-pill hidden" id="streak-pill"><span data-i18n="hudStreak">STREAK</span><span id="streak-count">×1.5</span></div>
+          <div class="lives-pill hidden" id="lives-pill"><span data-i18n="hudLives">LIVES</span><span id="lives-count" aria-hidden="true">♥♥♥</span></div>
         </div>
         <div class="topbar-right">
           <button class="lifeline-btn" id="btn-fifty" type="button" title="50:50">
@@ -595,7 +707,10 @@
             <span class="fb-headline" id="fb-headline"></span>
             <span class="fb-explanation" id="fb-explanation"></span>
           </div>
-          <button class="btn btn-primary btn-sm" id="btn-next" data-i18n="nextQuestion">next &#9656;</button>
+          <span class="feedback-actions">
+            <button type="button" class="text-btn report-q-btn" id="btn-report-q" data-i18n="reportQuestion">⚑ report question</button>
+            <button class="btn btn-primary btn-sm" id="btn-next" data-i18n="nextQuestion">next &#9656;</button>
+          </span>
         </div>
 
         <div id="question-text" class="question-text" dir="auto"></div>
@@ -634,6 +749,7 @@
             <span class="results-kicker" data-i18n="finalScore">final score</span>
             <h2 class="final-score screen-heading" tabindex="-1" id="final-score">0</h2>
           </div>
+          <p class="results-style-line hidden" id="results-style-line"></p>
           <p class="results-correct"><span id="results-correct">0</span> / <span id="results-total">0</span> <span data-i18n="correctWord">correct</span></p>
         </div>
 
@@ -660,6 +776,7 @@
             <div class="lb-scope-switch hidden" id="lb-scope-switch" role="group">
               <button type="button" class="lb-scope-btn is-active" data-scope="all" data-i18n="scopeAllTime">all-time</button>
               <button type="button" class="lb-scope-btn" data-scope="week" data-i18n="scopeWeek">this week</button>
+              <button type="button" class="lb-scope-btn" data-scope="season" data-i18n="scopeSeason">season</button>
             </div>
             <!-- View any mode's board without leaving this screen. -->
             <label class="lb-mode-switch hidden" id="lb-mode-switch">
@@ -671,7 +788,18 @@
                 <option value="network" data-i18n="modeNetwork">Networking</option>
                 <option value="gamedev" data-i18n="modeGamedev">Game Dev</option>
                 <option value="algorithms" data-i18n="modeAlgo">Problem Solving</option>
+                <option value="sql" data-i18n="modeSql">SQL &amp; Databases</option>
+                <option value="regex" data-i18n="modeRegex">Regex</option>
+                <option value="git" data-i18n="modeGit">Git</option>
+                <option value="linux" data-i18n="modeLinux">Linux CLI</option>
+                <option value="ai" data-i18n="modeAi">AI &amp; ML</option>
                 <option value="all" data-i18n="modeAll">All (Mixed)</option>
+                <!-- One board per play style, whatever topic was played. -->
+                <option value="survival" data-i18n="styleSurvival">Survival</option>
+                <option value="speedrun" data-i18n="styleSpeedrun">Speed run</option>
+                <option value="hardcore" data-i18n="styleHardcore">Hardcore</option>
+                <!-- Ranked duel ratings (player_stats.duel_rating), not scores. -->
+                <option value="duel" data-i18n="duelBoard">Ranked duel</option>
                 <!-- This-week-only board: the week's daily challenges added up.
                      Revealed by updateLbModeSwitch() once the scope pill is on "this week". -->
                 <option value="weekly" data-i18n="weeklyChallenge" hidden>Weekly challenge</option>
@@ -684,6 +812,8 @@
           <span class="results-sub-meta" id="results-sub-meta"></span>
         </p>
 
+        <!-- Last season's top three on this board (season view only). -->
+        <div class="season-champs hidden" id="season-champs"></div>
         <div class="lb-note" id="lb-note" role="status" aria-live="polite"></div>
         <div class="leaderboard" id="leaderboard" role="list"><!-- rows injected --></div>
 
@@ -705,12 +835,23 @@
           <span data-i18n="supportPrompt">Enjoying the game?</span>
           <button type="button" class="results-support-link support-link" id="btn-support" data-url="https://paypal.me/mfsafadi" data-i18n="supportDevLong">Support the developer &#9749;</button>
         </p>
+        <div class="other-games other-games-results hidden" data-other-games>
+          <p class="other-games-title" data-i18n="otherGamesTitle">More games by the developer</p>
+          <div class="other-games-list"></div>
+        </div>
       </div>
     </section>
 
   </main>
 
   <div class="sr-only" id="app-live-region" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Shown when a newer build has been installed in the background. -->
+  <div class="update-toast hidden" id="update-toast" role="status">
+    <span data-i18n="updateReady">A new version is ready.</span>
+    <button type="button" class="btn btn-primary btn-sm" id="btn-update-reload" data-i18n="updateReload">refresh</button>
+    <button type="button" class="text-btn" id="btn-update-dismiss" aria-label="Dismiss">✕</button>
+  </div>
 
   <script type="module" src="discord-activity.js"></script>
   <script defer src="vendor/supabase.js"></script>

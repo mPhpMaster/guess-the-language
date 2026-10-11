@@ -5,6 +5,10 @@ import { refreshMultiplayerButtons } from './mp-ui.js';
 import { isDailyDone, modeOfBank } from './round.js';
 import { fetchPersonalRank, supabaseConfigured } from './api.js';
 import { state, store } from './state.js';
+import { renderPackSelect } from './packs.js';
+import { renderOtherGames } from './promo.js';
+import { renderReviewButton } from './review.js';
+import { renderStyleSwitch } from './styles.js';
 
 // ---------- Home eyebrow + per-mode question counts ----------
 // The mode list shows how many questions each mode holds. One 'all' load returns
@@ -61,6 +65,10 @@ export function renderHome() {
     refreshMenu();
     refreshMultiplayerButtons();
     updateDailyButton();
+    renderStyleSwitch();
+    renderPackSelect();
+    renderReviewButton();
+    renderOtherGames();
     setTitlebar(t('appSlug'));
     renderRailStats();
 }

@@ -1,7 +1,10 @@
-import { LB_WEEKLY, fetchDailyTop, fetchGamesFor, fetchPersonalRank, fetchTopScores, fetchWeeklyTop, lbScope, lbViewMode, submitDailyScore, submitScore, supabaseConfigured, weekStartDateKey } from './api.js';
+import { LB_DUEL, LB_WEEKLY, STYLE_BOARDS, fetchDailyTop, fetchGamesFor, fetchPersonalRank, fetchSeasonChampions, fetchTopScores, fetchWeeklyTop, lbScope, lbViewMode, seasonDaysLeft, seasonName, submitDailyScore, submitScore, supabaseConfigured, weekStartDateKey } from './api.js';
+import { fetchDuelBoard } from './duel.js';
+import { reviewSummary } from './review.js';
+import { roundBoardMode, styleLabel } from './styles.js';
 import { $, announce, closeDialog, openDialog, setTitlebar } from './dom.js';
 import { formatScore } from './format.js';
-import { MODES, challengeText, t } from './i18n.js';
+import { MODES, challengeText, modeTitle, t, uiLang } from './i18n.js';
 import { appApiPrefix, discordAvatarUrl, getAppSessionToken, getDiscordProfile, getSettings, isDiscordActivity, safeDisplayName } from './identity.js';
 import { modeLabel } from './mp-ui.js';
 import { openProfileCard } from './profile.js';
@@ -205,27 +208,49 @@ export async function buildWeeklyLeaderboard() {
     }
 }
 
+// A round that is not posted to any board: practice, review, or a focus pack.
+function showUnrankedResult(title, noteText) {
+    $('#lb-mode-switch')?.classList.add('hidden');
+    $('#lb-scope-switch')?.classList.add('hidden');
+    $('#season-champs')?.classList.add('hidden');
+    $('#leaderboard').innerHTML = '';
+    setBoardHeading(title, '');
+    const note = $('#lb-note');
+    note.className = 'lb-note';
+    note.textContent = noteText;
+}
+
+// Display name of any board key: a topic, a play style, or the duel board.
+export function boardLabel(key) {
+    if (STYLE_BOARDS.includes(key)) return styleLabel(key);
+    if (key === LB_DUEL) return t('duelBoard');
+    return modeLabel(key);
+}
+
 export async function buildResultsLeaderboard() {
-    // Practice rounds aren't scored — no submit, no leaderboard.
+    $('#season-champs')?.classList.add('hidden');
+    // Practice and review rounds aren't scored — no submit, no leaderboard.
     if (state.learn && !state.viewOnly) {
-        $('#lb-mode-switch')?.classList.add('hidden');
-        $('#lb-scope-switch')?.classList.add('hidden');
-        $('#leaderboard').innerHTML = '';
-        setBoardHeading(t('practiceRound'), '');
-        const note = $('#lb-note');
-        note.className = 'lb-note';
-        note.textContent = t('practiceNotSaved');
-        return;
+        if (state.review) return showUnrankedResult(t('reviewRound'), reviewSummary());
+        return showUnrankedResult(t('practiceRound'), t('practiceNotSaved'));
+    }
+    // A focus pack is a narrowed, easier pool: XP only, never a board.
+    if (state.focused && !state.viewOnly && !state.multiplayer && !state.duel) {
+        return showUnrankedResult(t('focusRound'), t('focusNotSaved'));
     }
     // Daily challenge results (played or just viewing today's board) use the daily board.
     if (state.daily) return buildDailyLeaderboard();
-    // A real round's results always show the mode just played; only the standalone
-    // leaderboard view lets you repoint the board to another mode.
-    if (!state.viewOnly) state.lbViewMode = state.mode;
+    // A duel's board is the rating table; its score is not posted anywhere else.
+    if (state.duel && !state.viewOnly) state.lbViewMode = LB_DUEL;
+    // A real round's results always show the board just played for; only the
+    // standalone leaderboard view lets you repoint the board to another mode.
+    else if (!state.viewOnly) state.lbViewMode = roundBoardMode();
     updateLbModeSwitch();
     updateLbScopeSwitch();
     // "this week" + "weekly challenge" swaps the mode board for the week's dailies.
     if (isWeeklyBoard()) return buildWeeklyLeaderboard();
+    if (lbViewMode() === LB_DUEL) return buildDuelLeaderboard();
+    renderSeasonChampions();
     const note = $('#lb-note');
     const playerName = getPlayerName();
 
@@ -239,9 +264,9 @@ export async function buildResultsLeaderboard() {
             // wasn't saved instead of falling back to a fake one.
             let me = null;
             let submitFailed = false;
-            if (state.score > 0) {
+            if (state.score > 0 && !state.viewOnly) {
                 try {
-                    me = await submitScore(playerName, state.score);
+                    me = await submitScore(playerName, state.score, roundBoardMode());
                 } catch (e) {
                     console.error('Score submit error:', e);
                     submitFailed = true;
@@ -301,11 +326,13 @@ export async function buildResultsLeaderboard() {
                 personal.classList.remove('hidden');
             }
 
-            const modeName = modeLabel(lbViewMode());
-            setBoardHeading(t('comparison'), `${modeName} · ${t(lbScope() === 'week' ? 'scopeWeek' : 'scopeAllTime')}`, modeName);
+            const modeName = boardLabel(lbViewMode());
+            setBoardHeading(t('comparison'), `${modeName} · ${scopeText()}`, modeName);
             // The window title names the board when the board is the whole screen.
             if (state.viewOnly) setTitlebar(`${t('tbLeaderboard')} ${modeName.toLowerCase()}`);
             const games = await fetchGamesFor(list.map((p) => safeDisplayName(p.name)));
+            const champs = await fetchSeasonChampions(lbViewMode());
+            markChampions(list, champs);
             renderLeaderboard(list, games);
             note.className = submitFailed ? 'lb-note offline' : 'lb-note online';
             note.textContent = t(submitFailed ? 'lbScoreNotSaved' : 'lbOnline');
@@ -321,7 +348,7 @@ export async function buildResultsLeaderboard() {
     }
 
     // Offline / fallback: just the player's own result — never invented rivals.
-    setBoardHeading(t('comparison'), modeLabel(lbViewMode()));
+    setBoardHeading(t('comparison'), boardLabel(lbViewMode()));
     renderLeaderboard([{
         name: playerName,
         avatar: discordAvatarUrl(getDiscordProfile()) || '🧑‍💻',
@@ -331,9 +358,84 @@ export async function buildResultsLeaderboard() {
 }
 
 export function currentModeLabel() {
-    const mode = MODES[state.mode] || MODES.languages;
-    const title = mode.title?.en || [];
-    return Array.isArray(title) ? title.join(' ') : String(title || mode.key || '');
+    return modeTitle(state.mode);
+}
+
+// "all-time", "this week", or "Season October 2026 · ends in 20 days".
+export function scopeText() {
+    if (lbScope() === 'week') return t('scopeWeek');
+    if (lbScope() === 'season') {
+        const left = seasonDaysLeft();
+        return `${t('seasonLabel').replace('{name}', seasonName(0, uiLang()))} · ${left ? t('seasonEndsIn').replace('{n}', String(left)) : t('seasonEndsToday')}`;
+    }
+    return t('scopeAllTime');
+}
+
+const MEDALS = ['\u{1F947}', '\u{1F948}', '\u{1F949}'];
+
+// Last season's podium for the board on screen — shown in the season view.
+export async function renderSeasonChampions() {
+    const box = $('#season-champs');
+    if (!box) return;
+    box.classList.add('hidden');
+    if (lbScope() !== 'season' || !supabaseConfigured()) return;
+    const mode = lbViewMode();
+    const champs = await fetchSeasonChampions(mode);
+    if (!champs.length || lbScope() !== 'season' || lbViewMode() !== mode) return;
+    box.textContent = '';
+    const title = document.createElement('span');
+    title.className = 'season-champs-title';
+    title.textContent = t('seasonChamps').replace('{name}', seasonName(-1, uiLang()));
+    box.appendChild(title);
+    MEDALS.forEach((medal, i) => {
+        const c = champs[i];
+        if (!c) return;
+        const s = document.createElement('span');
+        s.className = 'season-champ';
+        s.textContent = `${medal} ${c.player} · ${formatScore(c.score)}`;
+        box.appendChild(s);
+    });
+    box.classList.remove('hidden');
+}
+
+// Crown last season's winner wherever they appear on this board.
+function markChampions(list, champs) {
+    const winner = champs && champs[0] && safeDisplayName(champs[0].player).trim().toLowerCase();
+    if (!winner) return;
+    list.forEach((p) => { if (safeDisplayName(p.name).trim().toLowerCase() === winner) p.champion = true; });
+}
+
+// Ranked duel board: ratings, not scores.
+export async function buildDuelLeaderboard() {
+    const note = $('#lb-note');
+    $('#lb-scope-switch')?.classList.add('hidden');
+    const label = t('duelBoard');
+    setBoardHeading(t('comparison'), label, label);
+    if (state.viewOnly) setTitlebar(`${t('tbLeaderboard')} ${label.toLowerCase()}`);
+    if (!state.duel) $('#personal-result')?.classList.add('hidden');
+    if (!supabaseConfigured()) { $('#leaderboard').innerHTML = ''; note.className = 'lb-note'; note.textContent = ''; return; }
+    note.className = 'lb-note';
+    note.textContent = t('lbLoading');
+    try {
+        const rows = await fetchDuelBoard(20);
+        const myKey = safeDisplayName(getPlayerName()).trim().toLowerCase();
+        const myAvatarNow = discordAvatarUrl(getDiscordProfile());
+        const record = {};
+        const list = rows.map((r, i) => {
+            const name = safeDisplayName(r.player);
+            const you = !!myKey && name.trim().toLowerCase() === myKey;
+            record[name.trim().toLowerCase()] = `${r.duel_wins || 0}-${r.duel_losses || 0}`;
+            return { id: 0, name, avatar: (you && myAvatarNow) || avatarFor(name), score: r.duel_rating, rank: i + 1, you };
+        });
+        renderLeaderboard(list, record, { countLabel: t('duelRecordCol'), scoreLabel: t('duelRatingCol'), rawScore: true });
+        note.className = 'lb-note online';
+        note.textContent = t('lbOnline');
+    } catch (e) {
+        // Before the duel migration is applied the columns do not exist yet.
+        $('#leaderboard').innerHTML = '';
+        note.className = 'lb-note offline';
+        note.textContent = t('lbOffline');
+    }
 }
 
 // `gamesByName` fills the last column, keyed by lowercased player name. `opts.countLabel`
@@ -358,7 +460,7 @@ export function renderLeaderboard(list, gamesByName = {}, opts = {}) {
         `<span class="lb-rank">${t('lbColRank')}</span>` +
         `<span class="lb-avatar" aria-hidden="true"></span>` +
         `<span class="lb-bar-wrap">${t('lbColPlayer')}</span>` +
-        `<span class="lb-score">${t('lbColScore')}</span>` +
+        `<span class="lb-score">${opts.scoreLabel || t('lbColScore')}</span>` +
         `<span class="lb-games">${opts.countLabel || t('lbColGames')}</span>` +
         `<span class="lb-report-cell"></span>`;
     lb.appendChild(head);
@@ -377,6 +479,13 @@ export function renderLeaderboard(list, gamesByName = {}, opts = {}) {
         // Name only — the score moved to its own column so the row reads as a
         // table (rank / player / score / games), as the design lays it out.
         label.textContent = displayName;
+        if (p.champion) {
+            const crown = document.createElement('span');
+            crown.className = 'lb-champ-tag';
+            crown.textContent = ' \u{1F451}';
+            crown.title = t('seasonChampTitle');
+            label.appendChild(crown);
+        }
         if (p.multiplayer) {
             const mpTag = document.createElement('span');
             mpTag.className = 'lb-mp-tag';
@@ -398,7 +507,7 @@ export function renderLeaderboard(list, gamesByName = {}, opts = {}) {
         wrap.appendChild(label);
         const scoreCell = document.createElement('div');
         scoreCell.className = 'lb-score';
-        scoreCell.textContent = formatScore(p.score);
+        scoreCell.textContent = opts.rawScore ? String(p.score) : formatScore(p.score);
         const gamesCell = document.createElement('div');
         gamesCell.className = 'lb-games';
         const g = gamesByName[safeDisplayName(p.name).trim().toLowerCase()];

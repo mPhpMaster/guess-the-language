@@ -282,12 +282,59 @@ export async function fetchWeeklyTop(limit = 20) {
 
 // Which mode's leaderboard to show. Defaults to the play mode, but the leaderboard
 // screen's own mode picker can point it elsewhere without leaving the screen.
+// Boards that are not a topic: one per play style, plus the duel rating board.
+export const STYLE_BOARDS = ['survival', 'speedrun', 'hardcore'];
+export const LB_DUEL = 'duel';
+export function isBoardKey(k) { return !!k && (!!MODES[k] || STYLE_BOARDS.includes(k) || k === LB_DUEL); }
+
 export function lbViewMode() {
-    return (state.lbViewMode && MODES[state.lbViewMode]) ? state.lbViewMode : state.mode;
+    return isBoardKey(state.lbViewMode) && state.lbViewMode !== LB_WEEKLY ? state.lbViewMode : state.mode;
 }
 
-// Leaderboard time scope: all-time (default) or just the current week.
-export function lbScope() { return state.lbScope === 'week' ? 'week' : 'all'; }
+// Leaderboard time scope: all-time (default), the current week, or the current
+// season (a calendar month, UTC).
+export function lbScope() { return state.lbScope === 'week' || state.lbScope === 'season' ? state.lbScope : 'all'; }
+
+// ---------- Seasons ----------
+// A season is a calendar month (UTC). The season board is the ordinary score
+// board filtered to this month, so it needs no table of its own; last season's
+// podium is the same query over the previous month.
+export function seasonStart(offset = 0) {
+    const d = new Date();
+    return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + offset, 1));
+}
+export function seasonName(offset = 0, locale = 'en') {
+    const s = seasonStart(offset);
+    try { return s.toLocaleString(locale, { month: 'long', year: 'numeric', timeZone: 'UTC' }); } catch (_) { return s.toISOString().slice(0, 7); }
+}
+export function seasonDaysLeft() {
+    return Math.max(0, Math.ceil((seasonStart(1).getTime() - Date.now()) / 86400000) - 1);
+}
+
+const seasonChampCache = new Map();
+// Top three distinct players of the PREVIOUS season on one board.
+export async function fetchSeasonChampions(mode) {
+    if (!supabaseConfigured() || !mode || mode === LB_DUEL) return [];
+    if (seasonChampCache.has(mode)) return seasonChampCache.get(mode);
+    const from = encodeURIComponent(seasonStart(-1).toISOString());
+    const to = encodeURIComponent(seasonStart(0).toISOString());
+    const p = sbFetch(`scores?select=player,score,avatar&mode=eq.${encodeURIComponent(mode)}&created_at=gte.${from}&created_at=lt.${to}&order=score.desc&limit=200`)
+        .then((rows) => {
+            const seen = new Set();
+            const out = [];
+            for (const r of rows || []) {
+                const key = safeDisplayName(r.player).trim().toLowerCase();
+                if (!key || seen.has(key)) continue;
+                seen.add(key);
+                out.push({ player: safeDisplayName(r.player), score: r.score, avatar: r.avatar || null });
+                if (out.length === 3) break;
+            }
+            return out;
+        })
+        .catch(() => []);
+    seasonChampCache.set(mode, p);
+    return p;
+}
 // Start of the current week — Monday 00:00 UTC.
 export function weekStartIso() {
     const d = new Date();
@@ -295,7 +342,11 @@ export function weekStartIso() {
     return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() - backToMon)).toISOString();
 }
 // PostgREST filter fragment for the chosen scope (empty for all-time).
-export function lbScopeFilter() { return lbScope() === 'week' ? `&created_at=gte.${encodeURIComponent(weekStartIso())}` : ''; }
+export function lbScopeFilter() {
+    if (lbScope() === 'week') return `&created_at=gte.${encodeURIComponent(weekStartIso())}`;
+    if (lbScope() === 'season') return `&created_at=gte.${encodeURIComponent(seasonStart(0).toISOString())}`;
+    return '';
+}
 
 export async function fetchTopScores(limit = 10) {
     // Pull a wide score-desc window, then keep only each player's single best row

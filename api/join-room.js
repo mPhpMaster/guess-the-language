@@ -34,7 +34,8 @@ const { verifySession } = require('./_session');
 
 // Mirrors the modes the client can pick; the RPC stores whatever it is given.
 const MODES = new Set([
-  'languages', 'cybersecurity', 'devops', 'network', 'gamedev', 'algorithms', 'all'
+  'languages', 'cybersecurity', 'devops', 'network', 'gamedev', 'algorithms',
+  'sql', 'regex', 'git', 'linux', 'ai', 'all'
 ]);
 
 // Best-effort throttle, same caveat as /api/submit-score: serverless instances

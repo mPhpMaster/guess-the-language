@@ -1,0 +1,1142 @@
+[
+ {
+  "id": 1,
+  "category": "files",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which `ls` option also lists files whose names start with a dot?"
+  },
+  "options": [
+   "`-a`",
+   "`-l`",
+   "`-h`",
+   "`-R`"
+  ],
+  "answer": "`-a`",
+  "explanation": {
+   "en": "`ls -a` shows all entries, including hidden dotfiles such as `.bashrc`."
+  }
+ },
+ {
+  "id": 2,
+  "category": "files",
+  "difficulty": "easy",
+  "codeSnippet": "mkdir -p projects/web/assets",
+  "question": {
+   "en": "What does the `-p` flag do here?"
+  },
+  "options": [
+   "Creates any missing parent directories",
+   "Prints a message for each directory made",
+   "Sets custom permissions on the dirs",
+   "Fails if a parent directory is absent"
+  ],
+  "answer": "Creates any missing parent directories",
+  "explanation": {
+   "en": "`mkdir -p` builds the whole path, creating `projects` and `web` if needed, and does not complain if they already exist."
+  }
+ },
+ {
+  "id": 3,
+  "category": "files",
+  "difficulty": "medium",
+  "codeSnippet": "ln -s /opt/app/v2 /opt/app/current\nrm -rf /opt/app/v2",
+  "question": {
+   "en": "What is `/opt/app/current` after these commands?"
+  },
+  "options": [
+   "A broken link to a missing path",
+   "A hard link that keeps the data",
+   "An empty directory left behind",
+   "A regular file holding old data"
+  ],
+  "answer": "A broken link to a missing path",
+  "explanation": {
+   "en": "A symbolic link only stores a path; once the target is deleted the link dangles and any access fails."
+  }
+ },
+ {
+  "id": 4,
+  "category": "files",
+  "difficulty": "medium",
+  "codeSnippet": "echo original > a.txt\nln a.txt b.txt\nrm a.txt\ncat b.txt",
+  "question": {
+   "en": "What does `cat b.txt` print?"
+  },
+  "options": [
+   "`original`",
+   "Nothing, the file is empty",
+   "`No such file or directory`",
+   "The path `a.txt`"
+  ],
+  "answer": "`original`",
+  "explanation": {
+   "en": "A hard link is a second name for the same inode; the data stays until the last name is removed."
+  }
+ },
+ {
+  "id": 5,
+  "category": "files",
+  "difficulty": "easy",
+  "codeSnippet": "tar -czf backup.tar.gz /etc",
+  "question": {
+   "en": "What does the `z` in `-czf` tell tar to do?"
+  },
+  "options": [
+   "Compress the archive with gzip",
+   "Skip zero-byte files entirely",
+   "Extract into the current dir",
+   "Only list the archive contents"
+  ],
+  "answer": "Compress the archive with gzip",
+  "explanation": {
+   "en": "`c` creates, `z` filters through gzip, and `f` names the output file."
+  }
+ },
+ {
+  "id": 6,
+  "category": "files",
+  "difficulty": "medium",
+  "codeSnippet": "find /var/log -type f -size +100M",
+  "question": {
+   "en": "Which files does this command list?"
+  },
+  "options": [
+   "Regular files larger than 100 MiB",
+   "Files exactly 100 MiB in size",
+   "The 100 largest files in the tree",
+   "Files changed in the last 100 min"
+  ],
+  "answer": "Regular files larger than 100 MiB",
+  "explanation": {
+   "en": "With `-size`, a leading `+` means \"greater than\" and `M` is mebibytes; `-type f` limits it to regular files."
+  }
+ },
+ {
+  "id": 7,
+  "category": "permissions",
+  "difficulty": "easy",
+  "codeSnippet": "-rwxr-x--- 1 alice dev 2048 Mar 3 10:12 deploy.sh",
+  "question": {
+   "en": "Who can execute `deploy.sh`?"
+  },
+  "options": [
+   "alice and members of group dev",
+   "Only the owner alice",
+   "Every user on the system",
+   "Only members of group dev"
+  ],
+  "answer": "alice and members of group dev",
+  "explanation": {
+   "en": "Owner bits `rwx` and group bits `r-x` both include execute; the \"other\" bits are `---`."
+  }
+ },
+ {
+  "id": 8,
+  "category": "permissions",
+  "difficulty": "easy",
+  "codeSnippet": "chmod 644 notes.txt",
+  "question": {
+   "en": "What does `ls -l` show for the file afterwards?"
+  },
+  "options": [
+   "`-rw-r--r--`",
+   "`-rwxr--r--`",
+   "`-rw-rw-r--`",
+   "`-rw-r-----`"
+  ],
+  "answer": "`-rw-r--r--`",
+  "explanation": {
+   "en": "6 = read+write for the owner, 4 = read-only for group and others."
+  }
+ },
+ {
+  "id": 9,
+  "category": "permissions",
+  "difficulty": "medium",
+  "codeSnippet": "$ ls -l report\n-rw-rw-rw- 1 bob staff 512 Jan 9 report\n$ chmod u+x,g-w,o=r report",
+  "question": {
+   "en": "What are the permissions after the `chmod`?"
+  },
+  "options": [
+   "`-rwxr--r--`",
+   "`-rwxrw-r--`",
+   "`-rwxr--rw-`",
+   "`-rw-r--r--`"
+  ],
+  "answer": "`-rwxr--r--`",
+  "explanation": {
+   "en": "The owner gains `x`, the group loses `w`, and others are set to exactly `r`."
+  }
+ },
+ {
+  "id": 10,
+  "category": "permissions",
+  "difficulty": "medium",
+  "codeSnippet": "umask 027\ntouch new.txt",
+  "question": {
+   "en": "What permissions does `new.txt` get?"
+  },
+  "options": [
+   "`rw-r-----`",
+   "`rwxr-x---`",
+   "`rw-rw----`",
+   "`rw-r--r--`"
+  ],
+  "answer": "`rw-r-----`",
+  "explanation": {
+   "en": "New files start from 666; masking with 027 removes group write and all \"other\" bits, giving 640."
+  }
+ },
+ {
+  "id": 11,
+  "category": "permissions",
+  "difficulty": "hard",
+  "codeSnippet": "-rwsr-xr-x 1 root root 68208 /usr/bin/passwd",
+  "question": {
+   "en": "What does the `s` in the owner execute slot mean?"
+  },
+  "options": [
+   "It runs with the owner's privileges",
+   "Only root is allowed to ever execute it",
+   "It is a symlink owned by root",
+   "Others may not delete or rename it"
+  ],
+  "answer": "It runs with the owner's privileges",
+  "explanation": {
+   "en": "The setuid bit makes the program run as its owner (root here), which lets `passwd` update the shadow file."
+  }
+ },
+ {
+  "id": 12,
+  "category": "permissions",
+  "difficulty": "hard",
+  "codeSnippet": "drwxrwxrwt 18 root root 4096 /tmp",
+  "question": {
+   "en": "What does the trailing `t` enforce on `/tmp`?"
+  },
+  "options": [
+   "Only a file's owner may delete it",
+   "Files are wiped clean at every reboot",
+   "New files inherit the root group",
+   "Only root may create new files"
+  ],
+  "answer": "Only a file's owner may delete it",
+  "explanation": {
+   "en": "The sticky bit on a world-writable directory stops users from deleting or renaming files they do not own."
+  }
+ },
+ {
+  "id": 13,
+  "category": "text",
+  "difficulty": "hard",
+  "codeSnippet": "printf 'a\\nb\\nc' | wc -l",
+  "question": {
+   "en": "What does this print?"
+  },
+  "options": [
+   "`2`",
+   "`3`",
+   "`1`",
+   "`5`"
+  ],
+  "answer": "`2`",
+  "explanation": {
+   "en": "`wc -l` counts newline characters, and the last line has no trailing newline, so only 2 are counted."
+  }
+ },
+ {
+  "id": 14,
+  "category": "text",
+  "difficulty": "medium",
+  "codeSnippet": "printf 'a\\nb\\na\\n' | uniq | wc -l",
+  "question": {
+   "en": "What does this print?"
+  },
+  "options": [
+   "`3`",
+   "`2`",
+   "`1`",
+   "`0`"
+  ],
+  "answer": "`3`",
+  "explanation": {
+   "en": "`uniq` only collapses adjacent duplicates; the two `a` lines are not next to each other, so all 3 survive. Sort first to dedupe."
+  }
+ },
+ {
+  "id": 15,
+  "category": "text",
+  "difficulty": "medium",
+  "codeSnippet": "echo 'root:x:0:0:root:/root:/bin/bash' | cut -d: -f1,3",
+  "question": {
+   "en": "What does this print?"
+  },
+  "options": [
+   "`root:0`",
+   "`root 0`",
+   "`root:x`",
+   "`root:0:0`"
+  ],
+  "answer": "`root:0`",
+  "explanation": {
+   "en": "`cut` keeps fields 1 and 3 and joins them with the same `:` delimiter."
+  }
+ },
+ {
+  "id": 16,
+  "category": "text",
+  "difficulty": "medium",
+  "codeSnippet": "printf 'a,3\\nb,5\\nc,2\\n' | awk -F, '{s+=$2} END {print s}'",
+  "question": {
+   "en": "What does this print?"
+  },
+  "options": [
+   "`10`",
+   "`352`",
+   "`3`",
+   "`abc`"
+  ],
+  "answer": "`10`",
+  "explanation": {
+   "en": "`-F,` splits on commas, the main block adds field 2 of each line, and `END` prints the total 3+5+2."
+  }
+ },
+ {
+  "id": 17,
+  "category": "text",
+  "difficulty": "easy",
+  "codeSnippet": "echo \"cat cat cat\" | sed 's/cat/dog/'",
+  "question": {
+   "en": "What does this print?"
+  },
+  "options": [
+   "`dog cat cat`",
+   "`dog dog dog`",
+   "`cat cat dog`",
+   "`dog`"
+  ],
+  "answer": "`dog cat cat`",
+  "explanation": {
+   "en": "Without the `g` flag, `s///` replaces only the first match on each line."
+  }
+ },
+ {
+  "id": 18,
+  "category": "text",
+  "difficulty": "hard",
+  "codeSnippet": "printf '10\\n9\\n100\\n' | sort | head -1",
+  "question": {
+   "en": "What does this print?"
+  },
+  "options": [
+   "`10`",
+   "`9`",
+   "`100`",
+   "`1`"
+  ],
+  "answer": "`10`",
+  "explanation": {
+   "en": "Plain `sort` compares text, so the order is 10, 100, 9; use `sort -n` for numeric order."
+  }
+ },
+ {
+  "id": 19,
+  "category": "text",
+  "difficulty": "easy",
+  "codeSnippet": "echo hello | tr a-z A-Z",
+  "question": {
+   "en": "What does this print?"
+  },
+  "options": [
+   "`HELLO`",
+   "`hello`",
+   "`Hello`",
+   "`A-Z`"
+  ],
+  "answer": "`HELLO`",
+  "explanation": {
+   "en": "`tr` maps each character in the first set to the matching one in the second, upper-casing the text."
+  }
+ },
+ {
+  "id": 20,
+  "category": "text",
+  "difficulty": "medium",
+  "codeSnippet": "printf 'bob,30\\nann,4\\ncid,12\\n' | sort -t, -k2 -n | head -1",
+  "question": {
+   "en": "What does this print?"
+  },
+  "options": [
+   "`ann,4`",
+   "`bob,30`",
+   "`cid,12`",
+   "`ann`"
+  ],
+  "answer": "`ann,4`",
+  "explanation": {
+   "en": "`-t,` sets the separator, `-k2` sorts on the second field, and `-n` compares it numerically, so 4 comes first."
+  }
+ },
+ {
+  "id": 21,
+  "category": "pipes",
+  "difficulty": "easy",
+  "codeSnippet": "./build.sh > build.log 2>&1",
+  "question": {
+   "en": "Where do the script's errors end up?"
+  },
+  "options": [
+   "In build.log with normal output",
+   "On the terminal only",
+   "In a separate file named 2",
+   "They are silently discarded entirely"
+  ],
+  "answer": "In build.log with normal output",
+  "explanation": {
+   "en": "`> build.log` sends stdout to the file, then `2>&1` points stderr at the same place."
+  }
+ },
+ {
+  "id": 22,
+  "category": "pipes",
+  "difficulty": "hard",
+  "codeSnippet": "ls nosuchfile 2>&1 > out.txt",
+  "question": {
+   "en": "Where does the \"No such file\" error message go?"
+  },
+  "options": [
+   "To the terminal",
+   "Into out.txt",
+   "Into a file named 1",
+   "Nowhere, it is lost"
+  ],
+  "answer": "To the terminal",
+  "explanation": {
+   "en": "Redirections apply left to right: `2>&1` copies stderr to the terminal before stdout is moved to out.txt."
+  }
+ },
+ {
+  "id": 23,
+  "category": "pipes",
+  "difficulty": "easy",
+  "codeSnippet": "echo \"deploy done\" >> deploy.log",
+  "question": {
+   "en": "What does `>>` do here?"
+  },
+  "options": [
+   "Appends the line to deploy.log",
+   "Replaces deploy.log's contents",
+   "Reads input from deploy.log",
+   "Sends errors into deploy.log"
+  ],
+  "answer": "Appends the line to deploy.log",
+  "explanation": {
+   "en": "`>>` appends to the end of the file (creating it if needed), while `>` truncates it first."
+  }
+ },
+ {
+  "id": 24,
+  "category": "pipes",
+  "difficulty": "medium",
+  "codeSnippet": "find . -name '*.bak' -print0 | xargs -0 rm",
+  "question": {
+   "en": "Why use `-print0` with `xargs -0` instead of a plain pipe?"
+  },
+  "options": [
+   "Names with spaces stay intact",
+   "It deletes the files in parallel",
+   "It skips hidden backup files",
+   "It asks before each deletion"
+  ],
+  "answer": "Names with spaces stay intact",
+  "explanation": {
+   "en": "Null-separated names cannot be split on spaces or newlines, so `my file.bak` reaches `rm` as one argument."
+  }
+ },
+ {
+  "id": 25,
+  "category": "pipes",
+  "difficulty": "medium",
+  "codeSnippet": "seq 1 5 | xargs -n 2 echo",
+  "question": {
+   "en": "How many lines does this print?"
+  },
+  "options": [
+   "3",
+   "5",
+   "2",
+   "1"
+  ],
+  "answer": "3",
+  "explanation": {
+   "en": "`-n 2` passes at most two arguments per `echo`, giving `1 2`, `3 4`, and `5`."
+  }
+ },
+ {
+  "id": 26,
+  "category": "pipes",
+  "difficulty": "hard",
+  "codeSnippet": "false | true\necho $?",
+  "question": {
+   "en": "What does `echo $?` print in default bash?"
+  },
+  "options": [
+   "`0`",
+   "`1`",
+   "`127`",
+   "`2`"
+  ],
+  "answer": "`0`",
+  "explanation": {
+   "en": "A pipeline's status is that of its last command; `set -o pipefail` would make it report the failure (1)."
+  }
+ },
+ {
+  "id": 27,
+  "category": "processes",
+  "difficulty": "easy",
+  "codeSnippet": "kill -9 4312",
+  "question": {
+   "en": "Which signal does this send to PID 4312?"
+  },
+  "options": [
+   "SIGKILL, which cannot be caught",
+   "SIGTERM, a polite request to exit",
+   "SIGHUP, to reload its config",
+   "SIGSTOP, to pause it for later"
+  ],
+  "answer": "SIGKILL, which cannot be caught",
+  "explanation": {
+   "en": "Signal 9 is SIGKILL: the kernel ends the process immediately with no chance to clean up."
+  }
+ },
+ {
+  "id": 28,
+  "category": "processes",
+  "difficulty": "medium",
+  "codeSnippet": "  PID  PPID STAT CMD\n 2210  1980 Z    [worker] <defunct>",
+  "question": {
+   "en": "What does the `Z` state mean for PID 2210?"
+  },
+  "options": [
+   "It exited but was not reaped yet",
+   "It is sleeping on disk I/O",
+   "It was paused by a signal",
+   "It is running at high priority"
+  ],
+  "answer": "It exited but was not reaped yet",
+  "explanation": {
+   "en": "A zombie has finished, but its parent (PID 1980) has not called `wait()` to collect its exit status."
+  }
+ },
+ {
+  "id": 29,
+  "category": "processes",
+  "difficulty": "easy",
+  "codeSnippet": "$ sleep 300 &\n[1] 5521",
+  "question": {
+   "en": "Which command brings this job back to the foreground?"
+  },
+  "options": [
+   "`fg %1`",
+   "`bg %1`",
+   "`jobs -l`",
+   "`kill %1`"
+  ],
+  "answer": "`fg %1`",
+  "explanation": {
+   "en": "`fg` resumes a job in the foreground; `%1` refers to job number 1 shown in brackets."
+  }
+ },
+ {
+  "id": 30,
+  "category": "processes",
+  "difficulty": "medium",
+  "codeSnippet": "nohup ./server.sh > server.log &",
+  "question": {
+   "en": "What does `nohup` add here?"
+  },
+  "options": [
+   "It keeps running after you log out",
+   "It runs the script with root privileges",
+   "It restarts the script on crash",
+   "It blocks all output to the log"
+  ],
+  "answer": "It keeps running after you log out",
+  "explanation": {
+   "en": "`nohup` makes the command ignore SIGHUP, the hang-up signal sent when the terminal session closes."
+  }
+ },
+ {
+  "id": 31,
+  "category": "processes",
+  "difficulty": "hard",
+  "codeSnippet": "top - 14:02:11 up 3 days,  load average: 4.00, 2.50, 1.00",
+  "question": {
+   "en": "What trend do these load averages show?"
+  },
+  "options": [
+   "Load has risen over 15 minutes",
+   "Load has fallen over 15 minutes",
+   "Load has been flat for 15 min",
+   "CPU usage is exactly 4 percent"
+  ],
+  "answer": "Load has risen over 15 minutes",
+  "explanation": {
+   "en": "The three numbers are 1-, 5- and 15-minute averages; 4.00 now versus 1.00 over 15 minutes means demand is climbing."
+  }
+ },
+ {
+  "id": 32,
+  "category": "processes",
+  "difficulty": "medium",
+  "codeSnippet": "nice -n 10 ./reindex.sh",
+  "question": {
+   "en": "What effect does this have on the job?"
+  },
+  "options": [
+   "It runs at a lower CPU priority",
+   "It runs at a higher CPU priority",
+   "It is limited to ten CPU cores",
+   "It starts after a 10 second delay"
+  ],
+  "answer": "It runs at a lower CPU priority",
+  "explanation": {
+   "en": "A positive niceness makes the process \"nicer\" to others, so the scheduler gives it less CPU when there is contention."
+  }
+ },
+ {
+  "id": 33,
+  "category": "networking",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which file maps hostnames to IP addresses locally, before DNS is asked?"
+  },
+  "options": [
+   "`/etc/hosts`",
+   "`/etc/hostname`",
+   "`/etc/networks`",
+   "`/etc/services`"
+  ],
+  "answer": "`/etc/hosts`",
+  "explanation": {
+   "en": "With the usual `/etc/nsswitch.conf` order, entries in `/etc/hosts` are checked before querying DNS."
+  }
+ },
+ {
+  "id": 34,
+  "category": "networking",
+  "difficulty": "easy",
+  "codeSnippet": "curl -I https://example.com",
+  "question": {
+   "en": "What does the `-I` flag make curl do?"
+  },
+  "options": [
+   "Fetch only the response headers",
+   "Ignore any TLS certificate errors",
+   "Save the body to a local file",
+   "Follow redirects automatically"
+  ],
+  "answer": "Fetch only the response headers",
+  "explanation": {
+   "en": "`-I` sends a HEAD request and prints the headers; `-k` ignores TLS errors and `-L` follows redirects."
+  }
+ },
+ {
+  "id": 35,
+  "category": "networking",
+  "difficulty": "medium",
+  "codeSnippet": "sudo lsof -i :8080",
+  "question": {
+   "en": "What is this command typically used for?"
+  },
+  "options": [
+   "Finding which process uses port 8080",
+   "Opening port 8080 in the host firewall",
+   "Sending a test request to port 8080",
+   "Closing every socket on port 8080"
+  ],
+  "answer": "Finding which process uses port 8080",
+  "explanation": {
+   "en": "`lsof -i :PORT` lists open network files on that port, including the owning command and PID."
+  }
+ },
+ {
+  "id": 36,
+  "category": "networking",
+  "difficulty": "hard",
+  "codeSnippet": "ssh -L 5433:localhost:5432 admin@db.example.com",
+  "question": {
+   "en": "What does this command set up?"
+  },
+  "options": [
+   "Local port 5433 forwarded to the DB",
+   "Remote port 5433 exposed to you",
+   "A SOCKS proxy listening on 5432",
+   "A copy of the database to port 5433"
+  ],
+  "answer": "Local port 5433 forwarded to the DB",
+  "explanation": {
+   "en": "`-L` listens on local port 5433 and tunnels it to `localhost:5432` as seen from the remote host."
+  }
+ },
+ {
+  "id": 37,
+  "category": "networking",
+  "difficulty": "hard",
+  "codeSnippet": "rsync -a src/ backup/",
+  "question": {
+   "en": "What does the trailing slash on `src/` change?"
+  },
+  "options": [
+   "It copies src's contents, not src",
+   "It copies only the top-level files",
+   "It deletes files missing from src",
+   "It follows symlinks inside src"
+  ],
+  "answer": "It copies src's contents, not src",
+  "explanation": {
+   "en": "With `src/`, rsync syncs the directory's contents into backup; without it you get `backup/src/`."
+  }
+ },
+ {
+  "id": 38,
+  "category": "packages",
+  "difficulty": "easy",
+  "codeSnippet": "sudo apt update",
+  "question": {
+   "en": "What does this command do?"
+  },
+  "options": [
+   "Refreshes the package index lists",
+   "Upgrades every installed package now",
+   "Updates the kernel to the latest",
+   "Removes packages no longer used"
+  ],
+  "answer": "Refreshes the package index lists",
+  "explanation": {
+   "en": "`apt update` downloads fresh package lists; `apt upgrade` is what installs newer versions."
+  }
+ },
+ {
+  "id": 39,
+  "category": "packages",
+  "difficulty": "medium",
+  "codeSnippet": "dpkg -L nginx",
+  "question": {
+   "en": "What does this command show?"
+  },
+  "options": [
+   "The files installed by nginx",
+   "Every version nginx has had",
+   "The packages nginx depends on",
+   "The nginx service log entries"
+  ],
+  "answer": "The files installed by nginx",
+  "explanation": {
+   "en": "`dpkg -L` lists every path that an installed package placed on the system."
+  }
+ },
+ {
+  "id": 40,
+  "category": "packages",
+  "difficulty": "medium",
+  "codeSnippet": "sudo apt purge nginx",
+  "question": {
+   "en": "How does `purge` differ from `remove`?"
+  },
+  "options": [
+   "It also deletes config files",
+   "It also removes all the deps",
+   "It keeps the package cached",
+   "It only stops the service"
+  ],
+  "answer": "It also deletes config files",
+  "explanation": {
+   "en": "`apt remove` leaves configuration under `/etc`; `purge` removes the package and its config files."
+  }
+ },
+ {
+  "id": 41,
+  "category": "packages",
+  "difficulty": "hard",
+  "codeSnippet": "sudo apt-mark hold linux-image-generic",
+  "question": {
+   "en": "What effect does this have?"
+  },
+  "options": [
+   "The package will not be upgraded",
+   "The package is removed at reboot",
+   "The package is pinned to testing",
+   "The package cannot be installed"
+  ],
+  "answer": "The package will not be upgraded",
+  "explanation": {
+   "en": "A held package is skipped by upgrades until `apt-mark unhold` is run."
+  }
+ },
+ {
+  "id": 42,
+  "category": "packages",
+  "difficulty": "hard",
+  "codeSnippet": "E: Could not get lock /var/lib/dpkg/lock-frontend. It is held by process 1873 (unattended-upgr)",
+  "question": {
+   "en": "What is the usual cause of this error?"
+  },
+  "options": [
+   "Another package manager is running",
+   "The disk holding /var has filled up",
+   "The user lacks sudo membership",
+   "A repository key has expired"
+  ],
+  "answer": "Another package manager is running",
+  "explanation": {
+   "en": "dpkg allows one writer at a time; here unattended-upgrades holds the lock, so wait for it to finish."
+  }
+ },
+ {
+  "id": 43,
+  "category": "packages",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which package file format do Debian and Ubuntu use?"
+  },
+  "options": [
+   "`.deb`",
+   "`.rpm`",
+   "`.apk`",
+   "`.msi`"
+  ],
+  "answer": "`.deb`",
+  "explanation": {
+   "en": "Debian-family systems install `.deb` packages; Fedora and RHEL use `.rpm`, Alpine uses `.apk`."
+  }
+ },
+ {
+  "id": 44,
+  "category": "system",
+  "difficulty": "easy",
+  "codeSnippet": "Filesystem  Size  Used Avail Use% Mounted on\n/dev/sda1    50G   48G  2.0G  97% /\n/dev/sdb1   200G   20G  180G  10% /data",
+  "question": {
+   "en": "How much free space is left on the root filesystem?"
+  },
+  "options": [
+   "2.0G",
+   "48G",
+   "180G",
+   "50G"
+  ],
+  "answer": "2.0G",
+  "explanation": {
+   "en": "The root filesystem is the one mounted on `/`, and its Avail column reads 2.0G."
+  }
+ },
+ {
+  "id": 45,
+  "category": "system",
+  "difficulty": "hard",
+  "codeSnippet": "       total   used   free  shared  buff/cache  available\nMem:    7.7Gi  2.1Gi  0.3Gi  0.1Gi  5.3Gi      5.2Gi",
+  "question": {
+   "en": "Roughly how much memory can new programs still use?"
+  },
+  "options": [
+   "About 5.2 GiB",
+   "About 0.3 GiB",
+   "About 7.7 GiB",
+   "About 2.1 GiB"
+  ],
+  "answer": "About 5.2 GiB",
+  "explanation": {
+   "en": "Page cache is reclaimed on demand, so the `available` column, not `free`, estimates usable memory."
+  }
+ },
+ {
+  "id": 46,
+  "category": "system",
+  "difficulty": "medium",
+  "codeSnippet": "sudo systemctl enable nginx",
+  "question": {
+   "en": "What does this command do?"
+  },
+  "options": [
+   "Starts nginx automatically at boot",
+   "Starts nginx immediately right now",
+   "Reloads the nginx configuration",
+   "Unmasks a disabled nginx unit"
+  ],
+  "answer": "Starts nginx automatically at boot",
+  "explanation": {
+   "en": "`enable` wires the unit into the boot targets; add `--now` (or run `start`) to launch it right away."
+  }
+ },
+ {
+  "id": 47,
+  "category": "system",
+  "difficulty": "easy",
+  "codeSnippet": "journalctl -u nginx -f",
+  "question": {
+   "en": "What does this show?"
+  },
+  "options": [
+   "Live log entries from the nginx unit",
+   "The nginx unit file plus its drop-ins",
+   "Every failed unit on the host",
+   "The nginx package changelog"
+  ],
+  "answer": "Live log entries from the nginx unit",
+  "explanation": {
+   "en": "`-u` filters the journal to one unit and `-f` follows new entries as they arrive."
+  }
+ },
+ {
+  "id": 48,
+  "category": "system",
+  "difficulty": "medium",
+  "codeSnippet": "0 2 * * 1 /usr/local/bin/backup.sh",
+  "question": {
+   "en": "When does this crontab entry run?"
+  },
+  "options": [
+   "At 02:00 every Monday",
+   "At 01:00 every Tuesday",
+   "Every 2 minutes on Mondays",
+   "At 02:00 on the 1st monthly"
+  ],
+  "answer": "At 02:00 every Monday",
+  "explanation": {
+   "en": "Fields are minute, hour, day-of-month, month, day-of-week; day-of-week 1 is Monday."
+  }
+ },
+ {
+  "id": 49,
+  "category": "system",
+  "difficulty": "hard",
+  "codeSnippet": "*/10 9-17 * * 1-5 /opt/check.sh",
+  "question": {
+   "en": "When does this crontab entry run?"
+  },
+  "options": [
+   "Every 10 min, 9:00-17:50, Mon-Fri",
+   "At 9:10 and 17:10 every weekday",
+   "Every 10 hours from 9 to 17 daily",
+   "Every 10 min, 9:00-17:00, weekends"
+  ],
+  "answer": "Every 10 min, 9:00-17:50, Mon-Fri",
+  "explanation": {
+   "en": "`*/10` fires at minutes 0,10,...,50, during hours 9 through 17, on days 1-5 (Monday to Friday)."
+  }
+ },
+ {
+  "id": 50,
+  "category": "shell",
+  "difficulty": "medium",
+  "codeSnippet": "echo '$HOME'",
+  "question": {
+   "en": "What does this print?"
+  },
+  "options": [
+   "`$HOME`",
+   "`/home/user`",
+   "`HOME`",
+   "An empty line"
+  ],
+  "answer": "`$HOME`",
+  "explanation": {
+   "en": "Single quotes stop all expansion, so the text is printed literally; double quotes would expand it."
+  }
+ },
+ {
+  "id": 51,
+  "category": "shell",
+  "difficulty": "hard",
+  "codeSnippet": "# s.sh contains: echo $#\nbash s.sh a \"b c\" d",
+  "question": {
+   "en": "What does this print?"
+  },
+  "options": [
+   "`3`",
+   "`4`",
+   "`2`",
+   "`0`"
+  ],
+  "answer": "`3`",
+  "explanation": {
+   "en": "`$#` is the number of arguments; the quoted `\"b c\"` counts as one, giving a, b c, d."
+  }
+ },
+ {
+  "id": 52,
+  "category": "shell",
+  "difficulty": "medium",
+  "codeSnippet": "make && make test || echo \"failed\"",
+  "question": {
+   "en": "When is `failed` printed?"
+  },
+  "options": [
+   "If either make or make test fails",
+   "Only if the first make fails",
+   "Only if make test fails",
+   "Always, after both commands finish"
+  ],
+  "answer": "If either make or make test fails",
+  "explanation": {
+   "en": "`||` runs when the `&&` chain before it returns non-zero, which happens if either command fails."
+  }
+ },
+ {
+  "id": 53,
+  "category": "shell",
+  "difficulty": "easy",
+  "codeSnippet": "echo f{1..3}",
+  "question": {
+   "en": "What does this print?"
+  },
+  "options": [
+   "`f1 f2 f3`",
+   "`f{1..3}`",
+   "`f3 f2 f1`",
+   "`f1 f3`"
+  ],
+  "answer": "`f1 f2 f3`",
+  "explanation": {
+   "en": "Brace expansion generates one word for each value in the sequence 1 to 3."
+  }
+ },
+ {
+  "id": 54,
+  "category": "shell",
+  "difficulty": "medium",
+  "codeSnippet": "unset NAME\necho \"${NAME:-guest}\"",
+  "question": {
+   "en": "What does this print?"
+  },
+  "options": [
+   "`guest`",
+   "An empty line",
+   "`NAME`",
+   "`${NAME}`"
+  ],
+  "answer": "`guest`",
+  "explanation": {
+   "en": "`${VAR:-default}` substitutes the default when VAR is unset or empty, without assigning it."
+  }
+ },
+ {
+  "id": 55,
+  "category": "shell",
+  "difficulty": "medium",
+  "codeSnippet": "grep timeout app.conf\necho $?",
+  "question": {
+   "en": "If `app.conf` contains no line matching \"timeout\", what does `echo $?` print?"
+  },
+  "options": [
+   "`1`",
+   "`0`",
+   "`2`",
+   "`127`"
+  ],
+  "answer": "`1`",
+  "explanation": {
+   "en": "grep exits 0 when a line matches, 1 when nothing matches, and 2 on errors such as a missing file."
+  }
+ },
+ {
+  "id": 56,
+  "category": "users",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which file holds the hashed user passwords on a modern Linux system?"
+  },
+  "options": [
+   "`/etc/shadow`",
+   "`/etc/passwd`",
+   "`/etc/group`",
+   "`/etc/sudoers`"
+  ],
+  "answer": "`/etc/shadow`",
+  "explanation": {
+   "en": "The `x` in `/etc/passwd` points to `/etc/shadow`, which only root can read."
+  }
+ },
+ {
+  "id": 57,
+  "category": "users",
+  "difficulty": "hard",
+  "codeSnippet": "sudo usermod -G docker alice",
+  "question": {
+   "en": "Why is this command risky compared with `usermod -aG docker alice`?"
+  },
+  "options": [
+   "It drops alice from her other groups",
+   "It makes docker alice's primary group",
+   "It locks alice's password until reset",
+   "It deletes the docker group's members"
+  ],
+  "answer": "It drops alice from her other groups",
+  "explanation": {
+   "en": "Without `-a`, `-G` replaces the supplementary group list instead of appending to it."
+  }
+ },
+ {
+  "id": 58,
+  "category": "users",
+  "difficulty": "medium",
+  "codeSnippet": "bob:x:1001:1001:Bob:/home/bob:/usr/sbin/nologin",
+  "question": {
+   "en": "What does the last field mean for bob?"
+  },
+  "options": [
+   "bob cannot get an interactive shell",
+   "bob has no home directory at all",
+   "bob's password field is empty",
+   "bob can only log in using his SSH keys"
+  ],
+  "answer": "bob cannot get an interactive shell",
+  "explanation": {
+   "en": "The last field is the login shell; `nologin` politely refuses logins, typical for service accounts."
+  }
+ },
+ {
+  "id": 59,
+  "category": "users",
+  "difficulty": "medium",
+  "codeSnippet": "sudo -u postgres psql",
+  "question": {
+   "en": "What does this command do?"
+  },
+  "options": [
+   "Runs psql as the postgres user",
+   "Creates a user named postgres",
+   "Logs postgres out of all sessions",
+   "Grants postgres sudo rights"
+  ],
+  "answer": "Runs psql as the postgres user",
+  "explanation": {
+   "en": "`sudo -u USER` runs the command as that user instead of root."
+  }
+ },
+ {
+  "id": 60,
+  "category": "users",
+  "difficulty": "easy",
+  "codeSnippet": "id alice",
+  "question": {
+   "en": "What does this command show?"
+  },
+  "options": [
+   "alice's UID, GID and groups",
+   "alice's running processes",
+   "alice's last login times",
+   "alice's password expiry"
+  ],
+  "answer": "alice's UID, GID and groups",
+  "explanation": {
+   "en": "`id` prints the numeric user ID, primary group ID, and every group the user belongs to."
+  }
+ }
+]

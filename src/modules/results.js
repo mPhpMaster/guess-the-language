@@ -9,15 +9,27 @@ import { getPlayerName } from './settings.js';
 import { sfx } from './sound.js';
 import { recordAccuracy } from './home.js';
 import { state, store } from './state.js';
+import { finishDuel } from './duel.js';
+import { sendAnswerStats } from './qreport.js';
+import { isStyle, isStyled, roundBoardMode } from './styles.js';
+import { questionPageUrl } from './util.js';
 
 // ============================================================
 //  Results / leaderboard
 // ============================================================
 export async function endGame() {
     const viewOnly = !!state.viewOnly;
+    // The speed-run clock outlives clearTimer(); it must stop with the round.
+    if (state.speedTimerId) { clearInterval(state.speedTimerId); state.speedTimerId = null; }
+    // Survival and speed-run rounds are dealt longer than they are played: what
+    // counts is what was answered.
+    if (!viewOnly && !state.multiplayer && (isStyle('survival') || isStyle('speedrun'))) {
+        state.round = state.round.slice(0, (state.roundHistory || []).length);
+    }
 
-    if (!viewOnly && state.score > store.highScore(state.mode)) {
-        store.setHighScore(state.mode, state.score);
+    const ranked = !viewOnly && !state.learn && !state.focused && !state.duel;
+    if (ranked && state.score > store.highScore(roundBoardMode())) {
+        store.setHighScore(roundBoardMode(), state.score);
     }
     if (!viewOnly) sfx.finish();
     showScreen('results');
@@ -28,7 +40,9 @@ export async function endGame() {
     // The board is the entire screen in that view, so the screen switches to the
     // design's left-aligned board layout instead of the centred results column.
     $('#screen-results').classList.toggle('is-leaderboard-view', viewOnly);
-    $('#btn-challenge').classList.toggle('hidden', viewOnly);
+    // A challenge link replays a classic round of a mode, so it only makes sense
+    // after one.
+    $('#btn-challenge').classList.toggle('hidden', viewOnly || isStyled() || !!state.duel || !!state.focused || !!state.learn);
     $('#btn-share-card')?.classList.toggle('hidden', viewOnly);
     $('#challenge-link').classList.add('hidden');
     // "Play again" only makes sense after an actual round — not when just browsing
@@ -42,6 +56,8 @@ export async function endGame() {
     $('#answer-review').classList.toggle('hidden', viewOnly);
     $('#personal-result').classList.add('hidden');
     renderChallengeVerdict(viewOnly);
+    renderStyleLine(viewOnly);
+    if (!viewOnly && state.duel && state.duel.kind === 'bot') finishDuel();
 
     if (!viewOnly) {
         countUp($('#final-score'), state.score, 900);
@@ -50,12 +66,29 @@ export async function endGame() {
         renderRoundSummary();
         // Single-player round finished — log play-time + games, award XP and unlock
         // achievements (not a multiplayer win). Practice rounds are not scored/tracked.
-        if (!state.multiplayer && !state.learn) {
+        // (A duel records its own play inside finishDuel.)
+        if (!state.multiplayer && !state.learn && !state.duel) {
             recordPlay(false, false, state.score, isPerfectRound());
             recordAccuracy(state.correct, state.round.length);
         }
+        if (!state.multiplayer) sendAnswerStats(state.roundHistory);
     }
     await buildResultsLeaderboard();
+}
+
+// One line under the score saying how a styled round went.
+export function renderStyleLine(viewOnly) {
+    const el = $('#results-style-line');
+    if (!el) return;
+    let text = '';
+    if (!viewOnly && !state.multiplayer) {
+        const n = (state.roundHistory || []).length;
+        if (isStyle('survival')) text = t('survivalResult').replace('{n}', String(n));
+        else if (isStyle('speedrun')) text = t('speedrunResult').replace('{n}', String(n));
+        else if (isStyle('hardcore')) text = t('styleHardcore');
+    }
+    el.textContent = text;
+    el.classList.toggle('hidden', !text);
 }
 
 export function formatSeconds(ms) {
@@ -404,6 +437,20 @@ export function renderAnswerReview(history) {
         right.textContent = ' ' + item.correctAnswer;
         answers.appendChild(right);
         article.append(code, answers);
+        // The question's own page: the full explanation, shareable by link.
+        if (item.bank && item.id != null) {
+            const more = document.createElement('a');
+            more.className = 'review-more';
+            more.href = questionPageUrl(item.bank, item.id);
+            more.target = '_blank';
+            more.rel = 'noopener noreferrer';
+            more.textContent = t('viewQuestionPage');
+            more.addEventListener('click', (e) => {
+                e.preventDefault();
+                import('./events.js').then((m) => m.openExternalUrl(more.href)).catch(() => {});
+            });
+            article.appendChild(more);
+        }
         list.appendChild(article);
     });
 }

@@ -12,6 +12,7 @@ import { applySettingsToUI } from './settings.js';
 import { state } from './state.js';
 import { applyUiScale, effectiveScale, hasManualScale } from './ui-scale.js';
 import { clearRoomInUrl, roomFromUrl } from './util.js';
+import { setupUpdateWatcher } from './update.js';
 
 // ============================================================
 //  Boot
@@ -31,6 +32,11 @@ export async function boot() {
     }
     const savedMode = localStorage.getItem('gtl_mode');
     if (savedMode && MODES[savedMode]) state.mode = savedMode;
+    // A question page's "Play" link opens the game on that topic (?mode=git).
+    try {
+        const urlMode = new URLSearchParams(location.search).get('mode');
+        if (urlMode && MODES[urlMode]) state.mode = urlMode;
+    } catch (_) { /* no usable URL (file://) */ }
     applyLanguage();
 
     // Inside Discord, show a loading veil while the handshake + auto-join run, so
@@ -121,6 +127,7 @@ export async function boot() {
     selectMode(state.mode);
     updateAdminButton();
     startHeartbeat();
+    setupUpdateWatcher();
     renderModeCounts(); // fire-and-forget: fills the eyebrow + per-mode counts
     if (challengeInfo) showChallengeBanner(challengeInfo);
     else setTimeout(maybeShowOnboarding, 500); // first-run welcome (once)

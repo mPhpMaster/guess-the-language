@@ -17,6 +17,7 @@ import { clearRoomInUrl, roomUrlFor, setRoomInUrl } from './util.js';
 import { getPlayerName, requireNameToInteract, saveSettingsFromUI } from './settings.js';
 import { note, sfx } from './sound.js';
 import { defaultSettings, state } from './state.js';
+import { finishDuel, isRankedRoom, onRankedLobbyUpdate } from './duel.js';
 
 // Invite others into the room this card belongs to.
 export async function invitePlayersToRoom() {
@@ -160,6 +161,11 @@ export function modeLabel(mode) {
         network: 'modeNetwork',
         gamedev: 'modeGamedev',
         algorithms: 'modeAlgo',
+        sql: 'modeSql',
+        regex: 'modeRegex',
+        git: 'modeGit',
+        linux: 'modeLinux',
+        ai: 'modeAi',
         all: 'modeAll'
     };
     return t(map[mode] || 'modeLanguages');
@@ -644,6 +650,13 @@ export function renderMpResults() {
     state.score = me ? me.score : 0;
     state.round = new Array(Number($('#results-total').textContent) || state.roundHistory.length);
     renderRoundSummary();
+    // A ranked duel room ends in a rating change, and "again" means a new search.
+    const ranked = isRankedRoom(mpState.room);
+    if (ranked) {
+        $('#btn-replay').textContent = t('duelButton');
+        if (!state.duel) state.duel = { kind: 'human' };
+        if (!state.mpResultsShown) finishDuel();
+    }
     setBoardHeading(t('roomResults'), '');
     renderLeaderboard(window.GTL_MULTIPLAYER.getRoomLeaderboard(mpRoomAvatarOf));
     $('#lb-note').className = 'lb-note';
@@ -734,6 +747,7 @@ export function handleMultiplayerUpdate(room, players) {
         setPresenceStartedAt(0);
         pushPresence();
         refreshPlayerCard();
+        onRankedLobbyUpdate(room, players);
         return;
     }
 
@@ -790,6 +804,7 @@ export function handleMultiplayerUpdate(room, players) {
 // overwrites state.allQuestions with the full 'all' set).
 export function returnHome() {
     state.multiplayer = false;
+    state.duel = null;
     clearRoomInUrl(); // every exit funnels through here, so the link can't go stale
     state.mpResultsShown = false;
     state.mpSyncKey = '';

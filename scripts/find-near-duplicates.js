@@ -21,7 +21,7 @@ const path = require('path');
 const THRESHOLD = Number(process.argv[2]) || 0.6;
 const BANKS = process.argv.slice(3).length
   ? process.argv.slice(3)
-  : ['cyber', 'devops', 'network', 'gamedev', 'bug', 'output'];
+  : ['cyber', 'devops', 'network', 'gamedev', 'bug', 'output', 'sql', 'regex', 'git', 'linux', 'ai'];
 
 // Words too common to carry meaning; overlap on them is noise.
 const STOP = new Set(('a an the is are what which does do of in to for on by with this that it its and or '

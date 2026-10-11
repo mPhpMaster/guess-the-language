@@ -53,3 +53,18 @@ export function clearRoomInUrl() {
         history.replaceState(history.state, '', url.toString());
     } catch (e) { /* ignore */ }
 }
+
+// ============================================================
+//  Question pages (/q/<bank>/<id>.html, generated at build time)
+// ============================================================
+// The public site's own origin when we are on it; the canonical deployment
+// otherwise — Electron runs from file:// and the Discord Activity from a proxy
+// host, and neither serves the pages.
+export const CANONICAL_ORIGIN = 'https://guess-the-language-chi.vercel.app';
+export function questionPageUrl(bank, id) {
+    let origin = CANONICAL_ORIGIN;
+    try {
+        if (/^https?:$/.test(location.protocol) && !/discordsays\.com$/.test(location.hostname)) origin = location.origin;
+    } catch (_) { /* keep canonical */ }
+    return `${origin}/q/${encodeURIComponent(bank)}/${encodeURIComponent(id)}.html`;
+}

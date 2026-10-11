@@ -15,7 +15,12 @@
     gamedev: 'questions-gamedev.json',
     algorithms: 'questions-algo.json',
     bug: 'questions-bug.json',
-    output: 'questions-output.json'
+    output: 'questions-output.json',
+    sql: 'questions-sql.json',
+    regex: 'questions-regex.json',
+    git: 'questions-git.json',
+    linux: 'questions-linux.json',
+    ai: 'questions-ai.json'
   };
   const BANK_KEYS = Object.keys(QUESTION_FILES);
 
@@ -27,7 +32,12 @@
     devops: ['devops'],
     network: ['network'],
     gamedev: ['gamedev'],
-    algorithms: ['algorithms', 'bug', 'output']
+    algorithms: ['algorithms', 'bug', 'output'],
+    sql: ['sql'],
+    regex: ['regex'],
+    git: ['git'],
+    linux: ['linux'],
+    ai: ['ai']
   };
 
   async function readBank(fileName) {

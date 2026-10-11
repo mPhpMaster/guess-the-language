@@ -1,0 +1,1142 @@
+[
+ {
+  "id": 1,
+  "category": "queries",
+  "difficulty": "easy",
+  "codeSnippet": "-- emp(name, salary): ('Ann',100), ('Bob',300), ('Cat',200)\nSELECT name FROM emp\nORDER BY salary DESC\nLIMIT 1 OFFSET 1;",
+  "question": {
+   "en": "Which name does this query return?"
+  },
+  "options": [
+   "Ann",
+   "Bob",
+   "Cat",
+   "No row"
+  ],
+  "answer": "Cat",
+  "explanation": {
+   "en": "Sorted descending the salaries are 300, 200, 100; `OFFSET 1` skips Bob, so `LIMIT 1` returns Cat."
+  }
+ },
+ {
+  "id": 2,
+  "category": "queries",
+  "difficulty": "easy",
+  "codeSnippet": "-- names: 'Jn', 'Jane', 'Jonah', 'Jean', 'Jan'\nSELECT COUNT(*) FROM people\nWHERE name LIKE 'J_n%';",
+  "question": {
+   "en": "How many rows match the pattern?"
+  },
+  "options": [
+   "3",
+   "1",
+   "4",
+   "2"
+  ],
+  "answer": "3",
+  "explanation": {
+   "en": "`_` matches exactly one character and `%` any run, so Jane, Jonah and Jan match; Jn and Jean do not."
+  }
+ },
+ {
+  "id": 3,
+  "category": "queries",
+  "difficulty": "medium",
+  "codeSnippet": "-- t(a, b): (1,'x'), (1,'x'), (1,'y'), (2,'x')\nSELECT DISTINCT a, b FROM t;",
+  "question": {
+   "en": "How many rows does this return?"
+  },
+  "options": [
+   "2",
+   "1",
+   "3",
+   "4"
+  ],
+  "answer": "3",
+  "explanation": {
+   "en": "`DISTINCT` applies to the whole selected row, so only the duplicated pair (1,'x') collapses."
+  }
+ },
+ {
+  "id": 4,
+  "category": "queries",
+  "difficulty": "hard",
+  "codeSnippet": "SELECT 1\nUNION\nSELECT 1\nUNION ALL\nSELECT 1;",
+  "question": {
+   "en": "How many rows does this return?"
+  },
+  "options": [
+   "0",
+   "3",
+   "1",
+   "2"
+  ],
+  "answer": "2",
+  "explanation": {
+   "en": "Set operators run left to right: `1 UNION 1` dedupes to one row, then `UNION ALL` appends another 1."
+  }
+ },
+ {
+  "id": 5,
+  "category": "queries",
+  "difficulty": "medium",
+  "codeSnippet": "-- PostgreSQL\nSELECT price * qty AS total\nFROM items\nWHERE total > 100;\n-- ERROR: column \"total\" does not exist",
+  "question": {
+   "en": "Why does PostgreSQL reject this query?"
+  },
+  "options": [
+   "`total` is a reserved keyword",
+   "`WHERE` runs before the alias exists",
+   "`AS` aliases need double quotes",
+   "Expressions can't be aliased in `SELECT`"
+  ],
+  "answer": "`WHERE` runs before the alias exists",
+  "explanation": {
+   "en": "Logically `WHERE` is evaluated before the `SELECT` list, so its aliases are not visible; repeat the expression or use a subquery."
+  }
+ },
+ {
+  "id": 6,
+  "category": "queries",
+  "difficulty": "hard",
+  "codeSnippet": "WITH RECURSIVE n(x) AS (\n  SELECT 1\n  UNION ALL\n  SELECT x * 2 FROM n WHERE x < 20\n)\nSELECT MAX(x) FROM n;",
+  "question": {
+   "en": "What does the query return?"
+  },
+  "options": [
+   "16",
+   "32",
+   "64",
+   "20"
+  ],
+  "answer": "32",
+  "explanation": {
+   "en": "The CTE yields 1, 2, 4, 8, 16, 32: the row 16 still passes `x < 20`, so 32 is produced before recursion stops."
+  }
+ },
+ {
+  "id": 7,
+  "category": "joins",
+  "difficulty": "easy",
+  "codeSnippet": "-- a.id: 1, 2, 3\n-- b.id: 2, 3, 4\nSELECT * FROM a\nJOIN b ON a.id = b.id;",
+  "question": {
+   "en": "How many rows does the join return?"
+  },
+  "options": [
+   "2",
+   "4",
+   "6",
+   "3"
+  ],
+  "answer": "2",
+  "explanation": {
+   "en": "An inner join keeps only matching keys, and only 2 and 3 appear in both tables."
+  }
+ },
+ {
+  "id": 8,
+  "category": "joins",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which join keeps every row of the left table, even when nothing matches on the right?"
+  },
+  "options": [
+   "`LEFT JOIN`",
+   "`CROSS JOIN`",
+   "`RIGHT JOIN`",
+   "`INNER JOIN`"
+  ],
+  "answer": "`LEFT JOIN`",
+  "explanation": {
+   "en": "A `LEFT JOIN` returns all left rows and fills the right-side columns with NULL when there is no match."
+  }
+ },
+ {
+  "id": 9,
+  "category": "joins",
+  "difficulty": "medium",
+  "codeSnippet": "-- sizes has 3 rows, colors has 4 rows\nSELECT * FROM sizes\nCROSS JOIN colors;",
+  "question": {
+   "en": "How many rows does this return?"
+  },
+  "options": [
+   "12",
+   "16",
+   "7",
+   "10"
+  ],
+  "answer": "12",
+  "explanation": {
+   "en": "A `CROSS JOIN` is a Cartesian product: every size pairs with every color, 3 x 4 = 12."
+  }
+ },
+ {
+  "id": 10,
+  "category": "joins",
+  "difficulty": "medium",
+  "codeSnippet": "-- a has 2 rows with id = 1\n-- b has 3 rows with id = 1\nSELECT * FROM a\nJOIN b ON a.id = b.id;",
+  "question": {
+   "en": "How many rows does the join produce?"
+  },
+  "options": [
+   "3",
+   "2",
+   "5",
+   "6"
+  ],
+  "answer": "6",
+  "explanation": {
+   "en": "Each matching left row pairs with each matching right row, so duplicate keys multiply: 2 x 3 = 6."
+  }
+ },
+ {
+  "id": 11,
+  "category": "joins",
+  "difficulty": "medium",
+  "codeSnippet": "-- a.id: 1, 2, 3\n-- b.id: 2, 3, 4\nSELECT * FROM a\nFULL OUTER JOIN b ON a.id = b.id;",
+  "question": {
+   "en": "How many rows does this return?"
+  },
+  "options": [
+   "6",
+   "4",
+   "2",
+   "3"
+  ],
+  "answer": "4",
+  "explanation": {
+   "en": "Matches 2 and 3 give two rows, plus unmatched 1 from the left and 4 from the right, padded with NULLs."
+  }
+ },
+ {
+  "id": 12,
+  "category": "joins",
+  "difficulty": "hard",
+  "codeSnippet": "SELECT e.name, m.name AS boss\nFROM emp e\nJOIN emp m ON e.manager_id = m.id;\n-- the CEO (manager_id NULL) is missing",
+  "question": {
+   "en": "Why is the CEO missing from the result?"
+  },
+  "options": [
+   "A table can never be joined to itself",
+   "`m.name` overwrites `e.name` here",
+   "Aliases hide rows from the output",
+   "An inner join drops the NULL manager"
+  ],
+  "answer": "An inner join drops the NULL manager",
+  "explanation": {
+   "en": "`NULL = m.id` is never true, so the inner self-join discards the CEO; a `LEFT JOIN` keeps it with a NULL boss."
+  }
+ },
+ {
+  "id": 13,
+  "category": "aggregation",
+  "difficulty": "easy",
+  "codeSnippet": "-- emp.dept: 'A', 'A', 'B', 'C'\nSELECT COUNT(DISTINCT dept) FROM emp;",
+  "question": {
+   "en": "What does the query return?"
+  },
+  "options": [
+   "1",
+   "4",
+   "3",
+   "2"
+  ],
+  "answer": "3",
+  "explanation": {
+   "en": "`COUNT(DISTINCT dept)` counts unique values: A, B and C."
+  }
+ },
+ {
+  "id": 14,
+  "category": "aggregation",
+  "difficulty": "easy",
+  "codeSnippet": "-- orders.region: 'EU', 'US', 'EU', 'APAC', 'US'\nSELECT region, SUM(total)\nFROM orders\nGROUP BY region;",
+  "question": {
+   "en": "How many rows does the result contain?"
+  },
+  "options": [
+   "2",
+   "1",
+   "3",
+   "5"
+  ],
+  "answer": "3",
+  "explanation": {
+   "en": "`GROUP BY` emits one row per distinct group: EU, US and APAC."
+  }
+ },
+ {
+  "id": 15,
+  "category": "aggregation",
+  "difficulty": "medium",
+  "codeSnippet": "SELECT SUM(amount) FROM orders\nWHERE 1 = 0;",
+  "question": {
+   "en": "What does the query return?"
+  },
+  "options": [
+   "NULL",
+   "An error",
+   "No row",
+   "0"
+  ],
+  "answer": "NULL",
+  "explanation": {
+   "en": "With no input rows, `SUM` returns a single row holding NULL, not 0; wrap it in `COALESCE` if you need zero."
+  }
+ },
+ {
+  "id": 16,
+  "category": "aggregation",
+  "difficulty": "medium",
+  "codeSnippet": "-- PostgreSQL\nSELECT dept, name, MAX(salary)\nFROM emp\nGROUP BY dept;",
+  "question": {
+   "en": "What happens when PostgreSQL runs this?"
+  },
+  "options": [
+   "It errors: `name` is not grouped",
+   "It picks a random name per dept",
+   "It returns one row per employee",
+   "It returns the top earner's name"
+  ],
+  "answer": "It errors: `name` is not grouped",
+  "explanation": {
+   "en": "Every selected column must be grouped or aggregated; PostgreSQL rejects `name` because a group has many names."
+  }
+ },
+ {
+  "id": 17,
+  "category": "aggregation",
+  "difficulty": "hard",
+  "codeSnippet": "SELECT COUNT(*) FROM t WHERE 1 = 0;\nSELECT COUNT(*) FROM t WHERE 1 = 0\nGROUP BY x;",
+  "question": {
+   "en": "How many rows does each query return?"
+  },
+  "options": [
+   "0 and 0",
+   "1 and 1",
+   "0 and 1",
+   "1 and 0"
+  ],
+  "answer": "1 and 0",
+  "explanation": {
+   "en": "An aggregate without `GROUP BY` always yields one row (count 0); with `GROUP BY` and no input there are no groups, so no rows."
+  }
+ },
+ {
+  "id": 18,
+  "category": "aggregation",
+  "difficulty": "medium",
+  "codeSnippet": "-- PostgreSQL; sales has regions EU, US, APAC\nSELECT region, SUM(total)\nFROM sales\nGROUP BY ROLLUP (region);",
+  "question": {
+   "en": "How many rows does this return?"
+  },
+  "options": [
+   "6",
+   "4",
+   "1",
+   "3"
+  ],
+  "answer": "4",
+  "explanation": {
+   "en": "`ROLLUP` adds a grand-total row (region NULL) after the three per-region rows."
+  }
+ },
+ {
+  "id": 19,
+  "category": "indexes",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is the main trade-off of adding an index to a table?"
+  },
+  "options": [
+   "Faster reads, slower writes",
+   "Stronger locks, fewer deadlocks",
+   "Less disk space, slower reads",
+   "Faster writes, slower reads"
+  ],
+  "answer": "Faster reads, slower writes",
+  "explanation": {
+   "en": "An index speeds up lookups, but every `INSERT`, `UPDATE` and `DELETE` must also maintain it and it takes space."
+  }
+ },
+ {
+  "id": 20,
+  "category": "indexes",
+  "difficulty": "medium",
+  "codeSnippet": "CREATE INDEX idx_name\n  ON people (last_name, first_name);",
+  "question": {
+   "en": "Which filter can use this index as a direct seek?"
+  },
+  "options": [
+   "`WHERE last_name = 'Lee'`",
+   "`WHERE first_name = 'Ann'`",
+   "`WHERE age = 30`",
+   "`WHERE first_name LIKE 'A%'`"
+  ],
+  "answer": "`WHERE last_name = 'Lee'`",
+  "explanation": {
+   "en": "A composite B-tree is sorted by its leftmost column first, so a seek needs a predicate on `last_name`."
+  }
+ },
+ {
+  "id": 21,
+  "category": "indexes",
+  "difficulty": "medium",
+  "codeSnippet": "CREATE INDEX idx_email ON users (email);\n\nSELECT * FROM users\nWHERE LOWER(email) = 'a@b.com';",
+  "question": {
+   "en": "The query ignores the index. What fixes it?"
+  },
+  "options": [
+   "A hash index on `email`",
+   "A `UNIQUE` index on `email`",
+   "Run `ANALYZE` on `users`",
+   "An index on `LOWER(email)`"
+  ],
+  "answer": "An index on `LOWER(email)`",
+  "explanation": {
+   "en": "Wrapping the column in a function hides it from a plain index; an expression index on `LOWER(email)` matches the predicate."
+  }
+ },
+ {
+  "id": 22,
+  "category": "indexes",
+  "difficulty": "medium",
+  "codeSnippet": "Seq Scan on orders  (cost=0.00..18334.00 rows=52 width=40)\n  Filter: (status = 'new'::text)",
+  "question": {
+   "en": "What does this PostgreSQL `EXPLAIN` line tell you?"
+  },
+  "options": [
+   "Exactly 18334 rows were returned",
+   "Every row was read and filtered",
+   "An index on `status` was used",
+   "The rows were read in sorted order"
+  ],
+  "answer": "Every row was read and filtered",
+  "explanation": {
+   "en": "A Seq Scan reads the whole table and applies the filter row by row; no index on `status` was used."
+  }
+ },
+ {
+  "id": 23,
+  "category": "indexes",
+  "difficulty": "hard",
+  "codeSnippet": "-- PostgreSQL 11+\nCREATE INDEX ON orders (customer_id)\n  INCLUDE (total);\n\nSELECT total FROM orders\nWHERE customer_id = 42;",
+  "question": {
+   "en": "What does `INCLUDE (total)` make possible?"
+  },
+  "options": [
+   "A uniqueness check on `total`",
+   "An index-only scan for this query",
+   "Partitioning the table by `total`",
+   "Sorting the index by `total` too"
+  ],
+  "answer": "An index-only scan for this query",
+  "explanation": {
+   "en": "Storing `total` in the index leaves makes it covering, so the query can be answered without visiting the table heap."
+  }
+ },
+ {
+  "id": 24,
+  "category": "indexes",
+  "difficulty": "medium",
+  "codeSnippet": "CREATE INDEX idx_name ON users (name);\n\nSELECT * FROM users\nWHERE name LIKE '%son';",
+  "question": {
+   "en": "Why can't a B-tree index seek for this filter?"
+  },
+  "options": [
+   "Strings can't be indexed at all",
+   "`SELECT *` disables the index",
+   "The leading `%` hides the prefix",
+   "`LIKE` can never use any kind of index"
+  ],
+  "answer": "The leading `%` hides the prefix",
+  "explanation": {
+   "en": "A B-tree is ordered by prefix, so a pattern starting with a wildcard has no starting point to seek to."
+  }
+ },
+ {
+  "id": 25,
+  "category": "transactions",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "In ACID, what does atomicity guarantee for a transaction?"
+  },
+  "options": [
+   "All its changes apply, or none do",
+   "Other sessions never see it run",
+   "Its data survives a power cut",
+   "Its rows always satisfy all constraints"
+  ],
+  "answer": "All its changes apply, or none do",
+  "explanation": {
+   "en": "Atomicity makes the transaction all-or-nothing; durability, isolation and consistency are the other letters."
+  }
+ },
+ {
+  "id": 26,
+  "category": "transactions",
+  "difficulty": "easy",
+  "codeSnippet": "-- acct: id 1, bal 100\nBEGIN;\nUPDATE acct SET bal = bal - 50\n  WHERE id = 1;\nROLLBACK;\nSELECT bal FROM acct WHERE id = 1;",
+  "question": {
+   "en": "What does the final `SELECT` return?"
+  },
+  "options": [
+   "150",
+   "100",
+   "50",
+   "NULL"
+  ],
+  "answer": "100",
+  "explanation": {
+   "en": "`ROLLBACK` undoes everything since `BEGIN`, so the balance is still 100."
+  }
+ },
+ {
+  "id": 27,
+  "category": "transactions",
+  "difficulty": "medium",
+  "codeSnippet": "BEGIN;\nINSERT INTO t VALUES (1);\nSAVEPOINT s;\nINSERT INTO t VALUES (2);\nROLLBACK TO s;\nINSERT INTO t VALUES (3);\nCOMMIT;",
+  "question": {
+   "en": "Which values are in `t` afterwards?"
+  },
+  "options": [
+   "Only 3",
+   "1, 2 and 3",
+   "1 and 3",
+   "Only 1"
+  ],
+  "answer": "1 and 3",
+  "explanation": {
+   "en": "`ROLLBACK TO s` undoes only the work after the savepoint; the transaction continues and commits 1 and 3."
+  }
+ },
+ {
+  "id": 28,
+  "category": "transactions",
+  "difficulty": "medium",
+  "codeSnippet": "T1: SELECT price FROM item WHERE id = 7;  -- 10\nT2: UPDATE item SET price = 12 WHERE id = 7;\nT2: COMMIT;\nT1: SELECT price FROM item WHERE id = 7;  -- 12",
+  "question": {
+   "en": "Which anomaly did T1 experience?"
+  },
+  "options": [
+   "Non-repeatable read",
+   "Phantom read",
+   "Uncommitted dirty read",
+   "Write skew on two rows"
+  ],
+  "answer": "Non-repeatable read",
+  "explanation": {
+   "en": "Re-reading the same row inside one transaction gave a different committed value; `REPEATABLE READ` prevents it."
+  }
+ },
+ {
+  "id": 29,
+  "category": "transactions",
+  "difficulty": "hard",
+  "codeSnippet": "T1: UPDATE acct SET bal = 0 WHERE id = 1;\nT2: UPDATE acct SET bal = 0 WHERE id = 2;\nT1: UPDATE acct SET bal = 0 WHERE id = 2;  -- waits\nT2: UPDATE acct SET bal = 0 WHERE id = 1;  -- waits",
+  "question": {
+   "en": "How does a database like PostgreSQL resolve this?"
+  },
+  "options": [
+   "Both commit; the last write wins",
+   "It merges the two transactions",
+   "It aborts one of them as victim",
+   "Both wait forever until restart"
+  ],
+  "answer": "It aborts one of them as victim",
+  "explanation": {
+   "en": "Each holds a lock the other needs: a deadlock. The detector cancels one transaction so the other can proceed."
+  }
+ },
+ {
+  "id": 30,
+  "category": "transactions",
+  "difficulty": "hard",
+  "codeSnippet": "-- two sessions run this at the same time\nSELECT bal FROM acct WHERE id = 1;   -- both read 100\nUPDATE acct SET bal = 110 WHERE id = 1;  -- app wrote 100+10",
+  "question": {
+   "en": "One deposit is lost. Which change prevents it?"
+  },
+  "options": [
+   "Add an index on `acct.id`",
+   "Read with `SELECT DISTINCT`",
+   "Run each step in autocommit",
+   "Use `SET bal = bal + 10`"
+  ],
+  "answer": "Use `SET bal = bal + 10`",
+  "explanation": {
+   "en": "Computing the new value in the app causes a lost update; an atomic `bal = bal + 10` (or `SELECT ... FOR UPDATE`) serializes the writes."
+  }
+ },
+ {
+  "id": 31,
+  "category": "design",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What must a primary key's values be?"
+  },
+  "options": [
+   "Unique and not NULL",
+   "Indexed but repeatable",
+   "Numeric and sequential",
+   "Unique but nullable"
+  ],
+  "answer": "Unique and not NULL",
+  "explanation": {
+   "en": "A primary key identifies each row, so its values must be unique and can never be NULL."
+  }
+ },
+ {
+  "id": 32,
+  "category": "design",
+  "difficulty": "easy",
+  "codeSnippet": "CREATE TABLE orders (\n  id INT PRIMARY KEY,\n  customer_id INT REFERENCES customers(id)\n);\n-- no customer has id 999\nINSERT INTO orders VALUES (1, 999);",
+  "question": {
+   "en": "With foreign keys enforced, what happens?"
+  },
+  "options": [
+   "The row is stored as an orphan",
+   "The insert fails a FK check",
+   "`customer_id` is set to NULL",
+   "A customer 999 is auto-created"
+  ],
+  "answer": "The insert fails a FK check",
+  "explanation": {
+   "en": "A foreign key only accepts values that exist in the referenced column, so the insert is rejected."
+  }
+ },
+ {
+  "id": 33,
+  "category": "design",
+  "difficulty": "hard",
+  "codeSnippet": "order_items(order_id, product_id, qty, product_name)\n-- key: (order_id, product_id)\n-- product_name depends only on product_id",
+  "question": {
+   "en": "Which normal form does this table violate first?"
+  },
+  "options": [
+   "First normal form (1NF)",
+   "Boyce-Codd normal form (BCNF)",
+   "Second normal form (2NF)",
+   "Third normal form (3NF)"
+  ],
+  "answer": "Second normal form (2NF)",
+  "explanation": {
+   "en": "`product_name` depends on only part of the composite key, a partial dependency that 2NF forbids."
+  }
+ },
+ {
+  "id": 34,
+  "category": "design",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "Students take many courses and courses have many students. How is this usually modeled?"
+  },
+  "options": [
+   "One table holding both entities",
+   "A course list column in students",
+   "A junction table of both keys",
+   "A foreign key on each side only"
+  ],
+  "answer": "A junction table of both keys",
+  "explanation": {
+   "en": "A many-to-many relationship needs a link table such as `enrollments(student_id, course_id)`."
+  }
+ },
+ {
+  "id": 35,
+  "category": "design",
+  "difficulty": "medium",
+  "codeSnippet": "CREATE TABLE comments (\n  id INT PRIMARY KEY,\n  post_id INT REFERENCES posts(id)\n    ON DELETE CASCADE\n);\n-- post 5 has 3 comments\nDELETE FROM posts WHERE id = 5;",
+  "question": {
+   "en": "What happens to post 5's comments?"
+  },
+  "options": [
+   "The delete is rejected",
+   "Their `post_id` becomes NULL",
+   "They stay, pointing at 5",
+   "They are deleted as well"
+  ],
+  "answer": "They are deleted as well",
+  "explanation": {
+   "en": "`ON DELETE CASCADE` propagates the parent delete to child rows that reference it."
+  }
+ },
+ {
+  "id": 36,
+  "category": "design",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which column type is the safest choice for storing money amounts?"
+  },
+  "options": [
+   "`DOUBLE PRECISION`",
+   "`REAL`",
+   "`FLOAT(24)`",
+   "`DECIMAL(12,2)`"
+  ],
+  "answer": "`DECIMAL(12,2)`",
+  "explanation": {
+   "en": "Binary floating point can't represent values like 0.10 exactly; fixed-point `DECIMAL`/`NUMERIC` avoids rounding drift."
+  }
+ },
+ {
+  "id": 37,
+  "category": "nulls",
+  "difficulty": "easy",
+  "codeSnippet": "SELECT 5 + NULL;",
+  "question": {
+   "en": "What does this return?"
+  },
+  "options": [
+   "NULL",
+   "An error",
+   "5",
+   "0"
+  ],
+  "answer": "NULL",
+  "explanation": {
+   "en": "Arithmetic with an unknown value yields an unknown value, so the result is NULL."
+  }
+ },
+ {
+  "id": 38,
+  "category": "nulls",
+  "difficulty": "easy",
+  "codeSnippet": "-- t.x: 5, NULL, 7\nSELECT COUNT(*) FROM t\nWHERE x <> 5;",
+  "question": {
+   "en": "What does the query return?"
+  },
+  "options": [
+   "1",
+   "2",
+   "3",
+   "0"
+  ],
+  "answer": "1",
+  "explanation": {
+   "en": "`NULL <> 5` is unknown, not true, so only the row with 7 passes the filter."
+  }
+ },
+ {
+  "id": 39,
+  "category": "nulls",
+  "difficulty": "medium",
+  "codeSnippet": "-- SQLite\nSELECT NULL OR 1, NULL AND 0;",
+  "question": {
+   "en": "What are the two results?"
+  },
+  "options": [
+   "NULL | NULL",
+   "1 | 0",
+   "NULL | 0",
+   "1 | NULL"
+  ],
+  "answer": "1 | 0",
+  "explanation": {
+   "en": "Three-valued logic: unknown OR true is true, and unknown AND false is false, regardless of the unknown."
+  }
+ },
+ {
+  "id": 40,
+  "category": "nulls",
+  "difficulty": "hard",
+  "codeSnippet": "-- SQLite / PostgreSQL\nCREATE TABLE u (email TEXT UNIQUE);\nINSERT INTO u VALUES (NULL);\nINSERT INTO u VALUES (NULL);\nSELECT COUNT(*) FROM u;",
+  "question": {
+   "en": "What does the final query return?"
+  },
+  "options": [
+   "Error on insert",
+   "2",
+   "0",
+   "1"
+  ],
+  "answer": "2",
+  "explanation": {
+   "en": "NULLs are not equal to each other, so a standard `UNIQUE` constraint accepts any number of them."
+  }
+ },
+ {
+  "id": 41,
+  "category": "nulls",
+  "difficulty": "hard",
+  "codeSnippet": "CREATE TABLE line (\n  qty INT CHECK (qty > 0)\n);\nINSERT INTO line VALUES (NULL);",
+  "question": {
+   "en": "What happens to the insert?"
+  },
+  "options": [
+   "It stores 1, the minimum",
+   "It stores 0 in place of NULL",
+   "It succeeds and stores NULL",
+   "It fails the `CHECK` rule"
+  ],
+  "answer": "It succeeds and stores NULL",
+  "explanation": {
+   "en": "A `CHECK` only rejects rows where the condition is false; `NULL > 0` is unknown, so it passes. Add `NOT NULL` to forbid it."
+  }
+ },
+ {
+  "id": 42,
+  "category": "nulls",
+  "difficulty": "medium",
+  "codeSnippet": "-- PostgreSQL; score: 3, NULL, 1\nSELECT score FROM t\nORDER BY score;",
+  "question": {
+   "en": "Where does the NULL appear in the output?"
+  },
+  "options": [
+   "First",
+   "Last",
+   "It is left out",
+   "In the middle"
+  ],
+  "answer": "Last",
+  "explanation": {
+   "en": "PostgreSQL sorts NULL as larger than any value, so ascending order puts it last (use `NULLS FIRST` to change)."
+  }
+ },
+ {
+  "id": 43,
+  "category": "window",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "How does `SUM(x) OVER (...)` differ from `SUM(x)` with `GROUP BY`?"
+  },
+  "options": [
+   "It ignores NULL values",
+   "It runs before `WHERE`",
+   "It keeps every input row",
+   "It only works on numbers"
+  ],
+  "answer": "It keeps every input row",
+  "explanation": {
+   "en": "A window function computes across related rows but returns a value on each row instead of collapsing them."
+  }
+ },
+ {
+  "id": 44,
+  "category": "window",
+  "difficulty": "medium",
+  "codeSnippet": "-- scores: 90, 90, 80\nSELECT score,\n  RANK() OVER (ORDER BY score DESC) AS r\nFROM t;",
+  "question": {
+   "en": "What is `r` for the score 80?"
+  },
+  "options": [
+   "1",
+   "4",
+   "3",
+   "2"
+  ],
+  "answer": "3",
+  "explanation": {
+   "en": "`RANK` leaves gaps after ties: both 90s are rank 1, so 80 is rank 3 (`DENSE_RANK` would give 2)."
+  }
+ },
+ {
+  "id": 45,
+  "category": "window",
+  "difficulty": "easy",
+  "codeSnippet": "-- t(id, x): (1,1), (2,2), (3,3)\nSELECT id,\n  SUM(x) OVER (ORDER BY id) AS run\nFROM t;",
+  "question": {
+   "en": "What is `run` on the row with id 2?"
+  },
+  "options": [
+   "3",
+   "1",
+   "2",
+   "6"
+  ],
+  "answer": "3",
+  "explanation": {
+   "en": "With `ORDER BY` the window is a running total: 1 + 2 = 3 at id 2."
+  }
+ },
+ {
+  "id": 46,
+  "category": "window",
+  "difficulty": "medium",
+  "codeSnippet": "-- t(id, x): (1,10), (2,20), (3,30)\nSELECT id,\n  LAG(x) OVER (ORDER BY id) AS prev\nFROM t;",
+  "question": {
+   "en": "What is `prev` on the row with id 1?"
+  },
+  "options": [
+   "20",
+   "Error",
+   "10",
+   "NULL"
+  ],
+  "answer": "NULL",
+  "explanation": {
+   "en": "`LAG` reads the previous row; the first row has none, so it returns NULL unless a default is given."
+  }
+ },
+ {
+  "id": 47,
+  "category": "window",
+  "difficulty": "hard",
+  "codeSnippet": "-- t(d, x): (1,1), (1,2), (2,3)\nSELECT d, x,\n  SUM(x) OVER (ORDER BY d) AS s\nFROM t;",
+  "question": {
+   "en": "What is `s` on the row (1,1)?"
+  },
+  "options": [
+   "1",
+   "6",
+   "2",
+   "3"
+  ],
+  "answer": "3",
+  "explanation": {
+   "en": "The default frame is `RANGE ... CURRENT ROW`, which includes peers with the same `d`, so both d=1 rows sum to 3."
+  }
+ },
+ {
+  "id": 48,
+  "category": "window",
+  "difficulty": "hard",
+  "codeSnippet": "SELECT * FROM emp\nWHERE ROW_NUMBER() OVER (\n  PARTITION BY dept ORDER BY salary DESC\n) = 1;",
+  "question": {
+   "en": "Why does this fail, and what is the usual fix?"
+  },
+  "options": [
+   "Add `GROUP BY dept` to the query",
+   "`PARTITION BY` must come last",
+   "`ROW_NUMBER` needs a `HAVING` clause first",
+   "No windows in `WHERE`; use a subquery"
+  ],
+  "answer": "No windows in `WHERE`; use a subquery",
+  "explanation": {
+   "en": "Window functions are computed after `WHERE`, so filter on them in an outer query or CTE."
+  }
+ },
+ {
+  "id": 49,
+  "category": "security",
+  "difficulty": "easy",
+  "codeSnippet": "-- run as an admin\nGRANT SELECT ON orders TO analyst;\n\n-- later, run as analyst\nUPDATE orders SET total = 0;",
+  "question": {
+   "en": "What happens to the analyst's `UPDATE`?"
+  },
+  "options": [
+   "Permission denied error",
+   "It updates every row",
+   "It runs as the admin",
+   "It silently updates zero rows"
+  ],
+  "answer": "Permission denied error",
+  "explanation": {
+   "en": "`GRANT SELECT` allows reading only; modifying the table needs a separate `UPDATE` privilege."
+  }
+ },
+ {
+  "id": 50,
+  "category": "security",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which SQL statement takes a privilege away from a user?"
+  },
+  "options": [
+   "`DROP USER`",
+   "`REVOKE`",
+   "`ROLLBACK`",
+   "`DENY ALL`"
+  ],
+  "answer": "`REVOKE`",
+  "explanation": {
+   "en": "`REVOKE` removes privileges granted earlier with `GRANT`; dropping the user is far more drastic."
+  }
+ },
+ {
+  "id": 51,
+  "category": "security",
+  "difficulty": "medium",
+  "codeSnippet": "# Python DB-API\ncur.execute(\"SELECT * FROM %s\", (table,))",
+  "question": {
+   "en": "Why does this not work for choosing the table?"
+  },
+  "options": [
+   "Placeholders bind values, not names",
+   "`SELECT *` can never take a parameter",
+   "Tuples can't hold string values",
+   "`%s` only works for integers"
+  ],
+  "answer": "Placeholders bind values, not names",
+  "explanation": {
+   "en": "Bound parameters are data, never identifiers; validate table names against an allowlist instead."
+  }
+ },
+ {
+  "id": 52,
+  "category": "security",
+  "difficulty": "hard",
+  "codeSnippet": "-- signup stores the name safely with a placeholder:\n--   name = \"x' OR '1'='1\"\n-- a nightly job later does:\nsql = \"DELETE FROM tmp WHERE owner = '\" + name + \"'\"",
+  "question": {
+   "en": "What kind of vulnerability is this?"
+  },
+  "options": [
+   "Blind time-based injection",
+   "Stored cross-site scripting",
+   "Privilege escalation via GRANT",
+   "Second-order SQL injection"
+  ],
+  "answer": "Second-order SQL injection",
+  "explanation": {
+   "en": "The payload is stored harmlessly, then injected when trusted-looking data from the database is concatenated into new SQL."
+  }
+ },
+ {
+  "id": 53,
+  "category": "security",
+  "difficulty": "medium",
+  "codeSnippet": "-- PostgreSQL\nALTER TABLE docs ENABLE ROW LEVEL SECURITY;\nCREATE POLICY own ON docs\n  USING (owner = current_user);",
+  "question": {
+   "en": "What effect does this policy have on queries?"
+  },
+  "options": [
+   "Users see only their own rows",
+   "Only the owner can alter docs",
+   "Docs are encrypted per user",
+   "Each user gets a private copy"
+  ],
+  "answer": "Users see only their own rows",
+  "explanation": {
+   "en": "Row-level security adds the `USING` condition to every query, filtering rows per user (table owners bypass it by default)."
+  }
+ },
+ {
+  "id": 54,
+  "category": "security",
+  "difficulty": "hard",
+  "codeSnippet": "# input = '50%'  (parameterized)\ncur.execute(\n  \"SELECT * FROM items WHERE name LIKE ?\",\n  ('%' + input + '%',))",
+  "question": {
+   "en": "Why can this return items not containing \"50%\"?"
+  },
+  "options": [
+   "The driver strips the `%` signs",
+   "Parameters disable the `LIKE` match",
+   "The `%` in input acts as a wildcard",
+   "`LIKE` here compares numbers only"
+  ],
+  "answer": "The `%` in input acts as a wildcard",
+  "explanation": {
+   "en": "Binding stops injection but not pattern meaning: escape `%` and `_` and add an `ESCAPE` clause."
+  }
+ },
+ {
+  "id": 55,
+  "category": "nosql",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "In what format does MongoDB store documents on disk?"
+  },
+  "options": [
+   "CSV",
+   "XML",
+   "YAML",
+   "BSON"
+  ],
+  "answer": "BSON",
+  "explanation": {
+   "en": "MongoDB stores documents as BSON, a binary JSON-like format with extra types such as dates and ObjectIds."
+  }
+ },
+ {
+  "id": 56,
+  "category": "nosql",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "What kind of data store is Redis primarily?"
+  },
+  "options": [
+   "Columnar warehouse",
+   "Relational row store",
+   "In-memory key-value",
+   "Graph with SQL joins"
+  ],
+  "answer": "In-memory key-value",
+  "explanation": {
+   "en": "Redis keeps data in memory as keys mapped to strings, hashes, lists, sets and more, which makes it fast for caching."
+  }
+ },
+ {
+  "id": 57,
+  "category": "nosql",
+  "difficulty": "easy",
+  "codeSnippet": "db.users.find({ age: { $gt: 30 } })",
+  "question": {
+   "en": "What does this MongoDB query return?"
+  },
+  "options": [
+   "Users younger than 30",
+   "Users older than 30",
+   "Users aged 30 or more",
+   "The first 30 users"
+  ],
+  "answer": "Users older than 30",
+  "explanation": {
+   "en": "`$gt` means strictly greater than; `$gte` would include 30."
+  }
+ },
+ {
+  "id": 58,
+  "category": "nosql",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "Under the CAP theorem, what must a distributed store choose between during a network partition?"
+  },
+  "options": [
+   "Low latency or full durability",
+   "Consistency or availability",
+   "Sharding or replication",
+   "Indexes or joins"
+  ],
+  "answer": "Consistency or availability",
+  "explanation": {
+   "en": "When nodes can't talk, a system either refuses some requests (consistent) or answers with possibly stale data (available)."
+  }
+ },
+ {
+  "id": 59,
+  "category": "nosql",
+  "difficulty": "hard",
+  "codeSnippet": "-- Cassandra (CQL)\n-- PRIMARY KEY ((user_id), ts)\nSELECT * FROM events\nWHERE kind = 'login';",
+  "question": {
+   "en": "Why does Cassandra reject this query?"
+  },
+  "options": [
+   "CQL has no `WHERE` clause",
+   "`kind` is a reserved keyword",
+   "It filters on a non-key column",
+   "It needs a `JOIN` on users"
+  ],
+  "answer": "It filters on a non-key column",
+  "explanation": {
+   "en": "Without the partition key Cassandra would scan every node; it refuses unless you add an index or `ALLOW FILTERING`."
+  }
+ },
+ {
+  "id": 60,
+  "category": "nosql",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "In MongoDB, when is embedding a sub-document usually better than referencing another collection?"
+  },
+  "options": [
+   "Grows without any upper limit",
+   "Read together, small and bounded",
+   "Shared by many parent documents",
+   "Updated far more than it is read"
+  ],
+  "answer": "Read together, small and bounded",
+  "explanation": {
+   "en": "Embed data that is fetched with its parent and stays small; reference data that is shared or unbounded (16 MB doc limit)."
+  }
+ }
+]

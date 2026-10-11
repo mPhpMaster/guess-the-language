@@ -14,6 +14,12 @@ import { isDailyDone, startDailyChallenge } from './round.js';
 import { applySettingsToUI, getPlayerName, openSettingsPanel, saveSettingsFromUI, updateStartButtonState } from './settings.js';
 import { state, store } from './state.js';
 import { UI_SCALE_STEP, nudgeUiScale } from './ui-scale.js';
+import { cancelDuelSearch, startDuel } from './duel.js';
+import { renderPackSelect, setPickedPack } from './packs.js';
+import { openQuestionReport, submitQuestionReport } from './qreport.js';
+import { renderReviewButton, startReview } from './review.js';
+import { renderStyleSwitch, setPickedStyle } from './styles.js';
+import { applyUpdateNow, dismissUpdateToast } from './update.js';
 
 // ============================================================
 //  Wire up the UI
@@ -42,6 +48,26 @@ export function bindEvents() {
 
     // home actions
     $('#btn-start').addEventListener('click', () => startGame());
+    $('#style-switch')?.addEventListener('click', (e) => {
+        const b = e.target.closest('[data-style]');
+        if (b) setPickedStyle(b.dataset.style);
+    });
+    $('#pack-select')?.addEventListener('change', (e) => {
+        setPickedPack(e.target.value);
+        renderPackSelect();
+    });
+    $('#btn-review')?.addEventListener('click', startReview);
+    $('#btn-duel')?.addEventListener('click', startDuel);
+    $('#btn-duel-cancel')?.addEventListener('click', cancelDuelSearch);
+    $('#duel-search')?.addEventListener('cancel', (e) => { e.preventDefault(); cancelDuelSearch(); });
+    $('#btn-report-q')?.addEventListener('click', () => openQuestionReport());
+    $('#qreport-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (e.submitter?.value === 'cancel') closeDialog($('#qreport-dialog'));
+        else submitQuestionReport();
+    });
+    $('#btn-update-reload')?.addEventListener('click', applyUpdateNow);
+    $('#btn-update-dismiss')?.addEventListener('click', dismissUpdateToast);
     $('#btn-host').addEventListener('click', hostRoomFlow);
     $('#btn-discord-host').addEventListener('click', enterDiscordLobby);
     $('#btn-join').addEventListener('click', openJoinModal);
@@ -87,7 +113,7 @@ export function bindEvents() {
     $('#lb-scope-switch')?.addEventListener('click', (e) => {
         const btn = e.target.closest('.lb-scope-btn');
         if (!btn) return;
-        state.lbScope = btn.dataset.scope === 'week' ? 'week' : 'all';
+        state.lbScope = ['week', 'season'].includes(btn.dataset.scope) ? btn.dataset.scope : 'all';
         // The weekly challenge board only exists inside "this week"; leaving that
         // scope drops the board back to the mode the player is playing.
         if (state.lbScope !== 'week' && state.lbViewMode === LB_WEEKLY) state.lbViewMode = state.mode;
@@ -206,7 +232,7 @@ export function bindEvents() {
     // Connected-participant list changed → an open card may gain a real avatar.
     window.addEventListener('discord-participants', () => refreshPlayerCard());
 
-    [$('#settings-panel'), $('#about-panel'), $('#join-modal'), $('#end-dialog'), $('#report-dialog'), $('#player-card')].forEach((dialog) => {
+    [$('#settings-panel'), $('#about-panel'), $('#join-modal'), $('#end-dialog'), $('#report-dialog'), $('#qreport-dialog'), $('#player-card')].forEach((dialog) => {
         if (!dialog) return;
         dialog.addEventListener('cancel', (e) => {
             e.preventDefault();
@@ -234,9 +260,15 @@ export function bindEvents() {
 
     // results
     $('#btn-challenge').addEventListener('click', challengeFriend);
-    $('#btn-replay').addEventListener('click', () => {
-        if (state.multiplayer) mpPlayAgain(); // back to the lobby
+    $('#btn-replay').addEventListener('click', async () => {
+        if (state.duel) {
+            // A duel's "again" is a fresh search, never the same room.
+            if (state.multiplayer) await leaveMultiplayer();
+            state.duel = null;
+            startDuel();
+        } else if (state.multiplayer) mpPlayAgain(); // back to the lobby
         else if (state.daily) startDailyChallenge(); // same set; only the first score counts
+        else if (state.review) startReview();
         else if (state.learn) startPractice();
         else startGame();
     });
@@ -246,6 +278,7 @@ export function bindEvents() {
         if (state.multiplayer) {
             leaveMultiplayer(); // leave the room -> main menu
         } else {
+            state.duel = null;
             showScreen('home');
             renderHome();
         }
@@ -368,6 +401,7 @@ export async function selectMode(mode) {
         console.error('Failed to load questions:', err);
         state.allQuestions = [];
     }
+    renderPackSelect(); // counts per pack need the loaded bank
     if (state.allQuestions.length) {
         updateStartButtonState();
     } else {

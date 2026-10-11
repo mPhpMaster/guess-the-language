@@ -25,7 +25,13 @@ const {
 // live / banned) keep the pre-existing `adm`-only gate.
 const MUTATING_ACTIONS = new Set([
   'delete_score', 'ban', 'unban', 'reset_profile', 'make_host', 'kick', 'resolve_report',
-  'join_room'
+  'join_room', 'qreport_resolve'
+]);
+
+// Question banks a report can name (mirrors api/questions.js).
+const QUESTION_BANKS = new Set([
+  'languages', 'cybersecurity', 'devops', 'network', 'gamedev',
+  'algorithms', 'bug', 'output', 'sql', 'regex', 'git', 'linux', 'ai'
 ]);
 
 // ---- Brute-force guard for `unlock` ----------------------------------------
@@ -326,6 +332,51 @@ module.exports = async function handler(req, res) {
           p_room_id: roomId, p_name: name, p_by: by
         });
         return res.status(200).json({ ok: true, room: out || null });
+      }
+
+      /* Question reports, grouped per question so ten reports of one broken
+         question read as one row with a count. The client resolves bank+id to
+         the question text — it has the banks loaded; this function does not. */
+      case 'qreports': {
+        const rows = await sb(cfg,
+          'question_reports?select=id,bank,question_id,reason,details,created_at' +
+          '&status=eq.open&order=created_at.desc&limit=500');
+        const groups = new Map();
+        for (const r of rows || []) {
+          const k = `${r.bank}|${r.question_id}`;
+          let g = groups.get(k);
+          if (!g) {
+            g = { bank: r.bank, id: r.question_id, count: 0, reasons: {}, details: [], latest: r.created_at };
+            groups.set(k, g);
+          }
+          g.count += 1;
+          g.reasons[r.reason] = (g.reasons[r.reason] || 0) + 1;
+          if (r.details && g.details.length < 5) g.details.push(r.details);
+        }
+        const list = [...groups.values()].sort((a, b) => b.count - a.count || String(b.latest).localeCompare(String(a.latest)));
+        return res.status(200).json({ questions: list });
+      }
+
+      case 'qreport_resolve': {
+        const bank = String(req.body?.bank || '');
+        const qid = Number(req.body?.id);
+        const status = req.body?.status === 'dismissed' ? 'dismissed' : 'resolved';
+        if (!QUESTION_BANKS.has(bank) || !Number.isSafeInteger(qid) || qid <= 0) {
+          return res.status(400).json({ error: 'Bad question' });
+        }
+        await sb(cfg, `question_reports?bank=eq.${bank}&question_id=eq.${qid}&status=eq.open`, {
+          method: 'PATCH',
+          headers: { Prefer: 'return=minimal' },
+          body: JSON.stringify({ status, resolved_at: new Date().toISOString(), resolved_by: by })
+        });
+        return res.status(200).json({ ok: true });
+      }
+
+      // Everything the Stats tab shows, computed in one service-role SQL
+      // function (supabase/migration-question-feedback.sql).
+      case 'stats': {
+        const out = await rpc(cfg, 'admin_analytics', {});
+        return res.status(200).json({ stats: out || null });
       }
 
       case 'banned': {

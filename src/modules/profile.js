@@ -646,7 +646,7 @@ export function formatLastPlayed(iso) {
     }
 }
 
-export const RANKABLE_MODES = ['languages', 'cybersecurity', 'devops', 'network', 'gamedev', 'algorithms', 'all'];
+export const RANKABLE_MODES = ['languages', 'cybersecurity', 'devops', 'network', 'gamedev', 'algorithms', 'sql', 'regex', 'git', 'linux', 'ai', 'all'];
 
 // The player's best score + rank in every mode (approximate rank: count of score
 // rows above their best, +1 — same method as the personal rank on results).

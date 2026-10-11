@@ -3,12 +3,13 @@
 
 An interactive quiz game for **Windows** (Electron), the **web** (also an
 installable **PWA / mobile app**), and **Discord** (as an embedded Activity).
-From a single home page you pick one of seven quiz modes and race the timer — with
+From a single home page you pick one of twelve quiz modes and race the timer — with
 scoring, streaks, a correct/total counter, XP and levels, daily challenges, and a
-per-mode **live global leaderboard** (Supabase). **2,623 questions** across eight
-banks. The UI is English.
+per-mode **live global leaderboard** (Supabase). **2,923 questions** across
+thirteen banks. The UI is in **English and Arabic** (full right-to-left layout);
+question content is English.
 
-### Seven game modes
+### Twelve game modes
 - **💻 Programming Languages** — a code snippet appears; guess the language.
   15-language pool (Python, JavaScript, TypeScript, C, C++, C#, Java, Kotlin,
   Swift, Rust, Go, Ruby, PHP, SQL, Bash); each question shows the correct answer
@@ -25,8 +26,34 @@ banks. The UI is English.
   completion** (type the missing token; grading ignores case and spacing) over
   algorithms, data structures, Big-O and LeetCode-style patterns, plus
   **spot-the-bug** and **predict-the-output** multiple choice.
-- **🎲 All (Mixed)** — all eight banks shuffled together; each question renders
+- **🗄️ SQL & Databases** — queries, joins, NULLs, window functions, indexes and
+  query plans, transactions and isolation, schema design, NoSQL.
+- **🔣 Regex** — classes, quantifiers, anchors, groups, lookarounds, flags,
+  greedy vs lazy, escaping (JavaScript flavour unless a question says otherwise).
+- **🌿 Git** — branching, merging, rebasing, history, undo, remotes, internals.
+- **🐧 Linux CLI** — files, permissions, pipes and text tools, processes,
+  packages, the shell.
+- **🤖 AI & ML** — supervised/unsupervised learning, evaluation metrics, neural
+  networks, training, NLP, LLMs, vision, ethics.
+- **🎲 All (Mixed)** — every bank shuffled together; each question renders
   with its own answer style.
+
+### Ways to play
+- **Play styles** (picked above *run*): **classic**; **survival** — three lives,
+  harder the longer you last; **speed run** — one 60-second clock, answer as many
+  as you can; **hardcore** — type the language name instead of picking it, no
+  50:50, less time. Each style has its own global board.
+- **⚔ Ranked duel** — one-on-one, 10 questions, Elo rating. Finds another player
+  who is searching; if nobody is, you play a bot rated near you.
+- **Review mistakes** — every missed question comes back for spaced review
+  (1, 3, 7, 14 days) until you get it right at each step.
+- **Focus packs** — narrow a mode to one area (Kubernetes only, systems
+  languages, predict-the-output…). Focus rounds earn XP but are unranked.
+- **Seasons** — the leaderboard's *season* scope is the current calendar month;
+  last season's podium is shown, and its winner wears a 👑.
+- **⚑ Report question** — flag a wrong or unclear question after answering it;
+  reports land in the admin panel. Every question also has its own page
+  (`/q/<bank>/<id>.html`) with the full explanation.
 
 | Mode | Bank(s) | Questions |
 | --- | --- | ---: |
@@ -36,7 +63,12 @@ banks. The UI is English.
 | Networking | `questions-network.json` | 275 |
 | Game Dev | `questions-gamedev.json` | 275 |
 | Problem Solving | `questions-algo.json` + `-bug` + `-output` | 853 |
-| **All (Mixed)** | every bank | **2623** |
+| SQL & Databases | `questions-sql.json` | 60 |
+| Regex | `questions-regex.json` | 60 |
+| Git | `questions-git.json` | 60 |
+| Linux CLI | `questions-linux.json` | 60 |
+| AI & ML | `questions-ai.json` | 60 |
+| **All (Mixed)** | every bank | **2923** |
 
 ![Home](screenshots/8-modeselect.png)
 
@@ -215,7 +247,7 @@ prog-game2/
 │  ├─ vendor/supabase.js        # bundled @supabase/supabase-js (UMD)
 │  ├─ supabase-config.js        # Supabase creds (local, git-ignored)
 │  ├─ discord-config.js         # Discord client id (local, git-ignored)
-│  └─ data/                     # 2623 questions, English only
+│  └─ data/                     # 2923 questions, English only
 │     ├─ questions.json          # languages bank (522, 15 languages)
 │     ├─ questions-cyber.json    # cybersecurity bank (240)
 │     ├─ questions-devops.json   # devops bank (200)

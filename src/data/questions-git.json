@@ -1,0 +1,1142 @@
+[
+ {
+  "id": 1,
+  "category": "basics",
+  "difficulty": "easy",
+  "codeSnippet": "git init",
+  "question": {
+   "en": "What does this command create in the current directory?"
+  },
+  "options": [
+   "A remote named `origin`",
+   "A default `.gitignore` with common rules",
+   "A first empty commit on `main`",
+   "A hidden `.git` repository directory"
+  ],
+  "answer": "A hidden `.git` repository directory",
+  "explanation": {
+   "en": "`git init` creates the `.git` directory holding the object store, refs and config. No commit, remote or ignore file is created."
+  }
+ },
+ {
+  "id": 2,
+  "category": "basics",
+  "difficulty": "easy",
+  "codeSnippet": "$ git status --short\nMM app.js",
+  "question": {
+   "en": "What does `MM` mean for `app.js`?"
+  },
+  "options": [
+   "The file has a merge conflict to resolve",
+   "Modified on two branches at the same time",
+   "Staged changes plus more unstaged edits",
+   "Changed in each of the last two commits"
+  ],
+  "answer": "Staged changes plus more unstaged edits",
+  "explanation": {
+   "en": "The left column is the index versus HEAD and the right column is the working tree versus the index. `MM` means part of the change is staged and more edits are not."
+  }
+ },
+ {
+  "id": 3,
+  "category": "basics",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which command lets you review a modified file hunk by hunk and stage only some of the hunks?"
+  },
+  "options": [
+   "`git add -p`",
+   "`git add -u`",
+   "`git add -A`",
+   "`git add .`"
+  ],
+  "answer": "`git add -p`",
+  "explanation": {
+   "en": "`-p` (`--patch`) asks about each hunk interactively. `-A`, `-u` and `.` stage whole files."
+  }
+ },
+ {
+  "id": 4,
+  "category": "basics",
+  "difficulty": "easy",
+  "codeSnippet": "git diff --staged",
+  "question": {
+   "en": "What does this command compare?"
+  },
+  "options": [
+   "The working tree against the index",
+   "The working tree against the last commit",
+   "The local branch against its upstream",
+   "The index against the last commit"
+  ],
+  "answer": "The index against the last commit",
+  "explanation": {
+   "en": "`--staged` (same as `--cached`) shows what the next commit would contain compared with HEAD. Plain `git diff` compares the working tree with the index."
+  }
+ },
+ {
+  "id": 5,
+  "category": "basics",
+  "difficulty": "medium",
+  "codeSnippet": "$ echo \"debug.log\" >> .gitignore\n$ git status --short\n M debug.log\n?? .gitignore",
+  "question": {
+   "en": "`debug.log` is still reported as modified because it was already tracked. Which command stops tracking it but keeps the file on disk?"
+  },
+  "options": [
+   "`git rm --cached debug.log`",
+   "`git rm debug.log`",
+   "`git update-index debug.log`",
+   "`git restore debug.log`"
+  ],
+  "answer": "`git rm --cached debug.log`",
+  "explanation": {
+   "en": "Ignore rules only affect untracked files. `git rm --cached` removes the file from the index only, so it becomes untracked and the ignore rule applies."
+  }
+ },
+ {
+  "id": 6,
+  "category": "basics",
+  "difficulty": "medium",
+  "codeSnippet": "$ mkdir logs\n$ git add logs\n$ git status --short\n(no output)",
+  "question": {
+   "en": "Why is nothing staged for `logs/`?"
+  },
+  "options": [
+   "New folders are ignored until committed",
+   "Directories need `git add -r` to stage",
+   "Git tracks files, not empty directories",
+   "The name `logs` is reserved by Git"
+  ],
+  "answer": "Git tracks files, not empty directories",
+  "explanation": {
+   "en": "Trees only record entries for content, so an empty directory has nothing to store. A placeholder file such as `.gitkeep` is the usual workaround."
+  }
+ },
+ {
+  "id": 7,
+  "category": "branching",
+  "difficulty": "easy",
+  "codeSnippet": "git switch -c feature",
+  "question": {
+   "en": "What does this command do?"
+  },
+  "options": [
+   "Creates `feature` without switching",
+   "Copies the current branch to `main`",
+   "Creates `feature` and switches to it",
+   "Switches to an existing `feature` only"
+  ],
+  "answer": "Creates `feature` and switches to it",
+  "explanation": {
+   "en": "`-c` creates the branch at the current commit and checks it out in one step."
+  }
+ },
+ {
+  "id": 8,
+  "category": "branching",
+  "difficulty": "medium",
+  "codeSnippet": "$ git branch -d tmp\nerror: the branch 'tmp' is not fully merged",
+  "question": {
+   "en": "Which command deletes the branch anyway, discarding its unmerged commits?"
+  },
+  "options": [
+   "`git branch -D tmp`",
+   "`git branch -m tmp`",
+   "`git branch -u tmp`",
+   "`git branch -c tmp`"
+  ],
+  "answer": "`git branch -D tmp`",
+  "explanation": {
+   "en": "`-D` is `--delete --force`, which skips the merged check. `-m` renames, `-u` sets an upstream and `-c` copies a branch."
+  }
+ },
+ {
+  "id": 9,
+  "category": "branching",
+  "difficulty": "medium",
+  "codeSnippet": "$ git checkout v1.2\nYou are in 'detached HEAD' state.\n$ git commit -am \"fix\"\n$ git commit -am \"tests\"",
+  "question": {
+   "en": "Which command keeps these two new commits safely on a branch?"
+  },
+  "options": [
+   "`git switch -c fix-v1.2`",
+   "`git reset --hard v1.2`",
+   "`git restore --source v1.2`",
+   "`git switch main`"
+  ],
+  "answer": "`git switch -c fix-v1.2`",
+  "explanation": {
+   "en": "Creating a branch at the current detached commit gives the new commits a name. Switching away first would leave them reachable only through the reflog."
+  }
+ },
+ {
+  "id": 10,
+  "category": "branching",
+  "difficulty": "medium",
+  "codeSnippet": "$ git switch other\nerror: Your local changes to the following files would be overwritten by checkout:\n\tconfig.ini\nPlease commit your changes or stash them before you switch branches.",
+  "question": {
+   "en": "Which sequence lets you switch while keeping your edits for later?"
+  },
+  "options": [
+   "`git restore config.ini`, then switch",
+   "`git branch -f other HEAD`",
+   "`git switch --detach other`",
+   "`git stash`, then `git switch other`"
+  ],
+  "answer": "`git stash`, then `git switch other`",
+  "explanation": {
+   "en": "Stashing saves the edits and cleans the working tree so the switch can proceed; `git stash pop` brings them back. Restoring the file would throw the edits away."
+  }
+ },
+ {
+  "id": 11,
+  "category": "branching",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which branch does `git switch -` take you to?"
+  },
+  "options": [
+   "The most recently created branch",
+   "The previously checked-out branch",
+   "The repository's default branch",
+   "The upstream of the current branch"
+  ],
+  "answer": "The previously checked-out branch",
+  "explanation": {
+   "en": "Like `cd -`, the `-` shorthand means the branch you were on before the last switch (`@{-1}`)."
+  }
+ },
+ {
+  "id": 12,
+  "category": "branching",
+  "difficulty": "hard",
+  "codeSnippet": "$ git switch --orphan gh-pages\n$ git add index.html\n$ git commit -m \"Site\"",
+  "question": {
+   "en": "What is special about the commit just created?"
+  },
+  "options": [
+   "It is a merge with `main`",
+   "It has two parent commits",
+   "It has no parent commit",
+   "It is shared with `main`"
+  ],
+  "answer": "It has no parent commit",
+  "explanation": {
+   "en": "`--orphan` starts a branch with no history, so its first commit is a root commit, unrelated to any other branch."
+  }
+ },
+ {
+  "id": 13,
+  "category": "merging",
+  "difficulty": "easy",
+  "codeSnippet": "$ git log --oneline --graph --all\n* 259a50d (feat) B\n* d24999e (HEAD -> main) A\n$ git merge feat",
+  "question": {
+   "en": "What does the merge do here?"
+  },
+  "options": [
+   "Copies `B` as a new commit on `main`",
+   "Moves `main` forward to `259a50d`",
+   "Rebases `feat` onto `main`",
+   "Creates a merge commit with two parents"
+  ],
+  "answer": "Moves `main` forward to `259a50d`",
+  "explanation": {
+   "en": "`main` has no commits that `feat` lacks, so Git performs a fast-forward: it just moves the branch pointer. No merge commit is made."
+  }
+ },
+ {
+  "id": 14,
+  "category": "merging",
+  "difficulty": "easy",
+  "codeSnippet": "<<<<<<< HEAD\ntimeout = 30\n=======\ntimeout = 60\n>>>>>>> feat",
+  "question": {
+   "en": "You ran `git merge feat` while on `main`. Which line is `main`'s version?"
+  },
+  "options": [
+   "Neither line",
+   "`timeout = 60`",
+   "Both lines",
+   "`timeout = 30`"
+  ],
+  "answer": "`timeout = 30`",
+  "explanation": {
+   "en": "The block between `<<<<<<< HEAD` and `=======` is the current branch (HEAD, here `main`). The part after `=======` comes from `feat`."
+  }
+ },
+ {
+  "id": 15,
+  "category": "merging",
+  "difficulty": "easy",
+  "codeSnippet": "$ git merge feat\nCONFLICT (content): Merge conflict in config.ini\n# ...edit config.ini and remove the markers...",
+  "question": {
+   "en": "Which command marks `config.ini` as resolved?"
+  },
+  "options": [
+   "`git resolve config.ini`",
+   "`git merge --skip`",
+   "`git commit config.ini`",
+   "`git add config.ini`"
+  ],
+  "answer": "`git add config.ini`",
+  "explanation": {
+   "en": "Staging the file records the resolution in the index; then `git commit` (or `git merge --continue`) concludes the merge. There is no `git resolve` command."
+  }
+ },
+ {
+  "id": 16,
+  "category": "merging",
+  "difficulty": "hard",
+  "codeSnippet": "$ git switch main\n$ git merge --squash feat\nSquash commit -- not updating HEAD",
+  "question": {
+   "en": "What state is the repository in right after this?"
+  },
+  "options": [
+   "Changes staged; no commit created yet",
+   "One squashed commit is now on `main`",
+   "A merge commit with two parents exists",
+   "`feat` is rewritten into one commit"
+  ],
+  "answer": "Changes staged; no commit created yet",
+  "explanation": {
+   "en": "`--squash` applies the combined changes to the index without moving HEAD. You must run `git commit`, and the result has a single parent."
+  }
+ },
+ {
+  "id": 17,
+  "category": "merging",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "During `git merge feat` with a conflict in `f`, what does `git checkout --theirs f` put in the working tree?"
+  },
+  "options": [
+   "`HEAD`'s version of `f`",
+   "Both sides with markers",
+   "`feat`'s version of `f`",
+   "The merge base version"
+  ],
+  "answer": "`feat`'s version of `f`",
+  "explanation": {
+   "en": "In a merge, \"ours\" is the current branch and \"theirs\" is the branch being merged in, here `feat`."
+  }
+ },
+ {
+  "id": 18,
+  "category": "merging",
+  "difficulty": "hard",
+  "codeSnippet": "git merge -s ours old-feature",
+  "question": {
+   "en": "What does this command do?"
+  },
+  "options": [
+   "Prefers our side only where hunks conflict",
+   "Records a merge, keeping our tree as is",
+   "Fast-forwards only if nothing conflicts",
+   "Merges, then deletes `old-feature`"
+  ],
+  "answer": "Records a merge, keeping our tree as is",
+  "explanation": {
+   "en": "The `ours` strategy creates a merge commit whose tree is identical to HEAD, ignoring all changes from the other branch. `-X ours` is the option that only favours our side in conflicts."
+  }
+ },
+ {
+  "id": 19,
+  "category": "rebase",
+  "difficulty": "hard",
+  "codeSnippet": "$ git switch feat\n$ git rebase main\nCONFLICT (content): Merge conflict in f\n$ git checkout --ours f",
+  "question": {
+   "en": "Whose version of `f` is now in the working tree?"
+  },
+  "options": [
+   "The common ancestor's",
+   "The last stashed version",
+   "The version from `feat`",
+   "The version from `main`"
+  ],
+  "answer": "The version from `main`",
+  "explanation": {
+   "en": "A rebase replays `feat` commits onto `main`, so \"ours\" is the branch being built on (`main`) and \"theirs\" is the commit being replayed. The roles are swapped compared with a merge."
+  }
+ },
+ {
+  "id": 20,
+  "category": "rebase",
+  "difficulty": "medium",
+  "codeSnippet": "pick a1b2c3d Add login form\nfixup e4f5a6b Fix typo in form\npick 9c8d7e6 Add logout",
+  "question": {
+   "en": "In this interactive rebase todo list, what happens to commit `e4f5a6b`?"
+  },
+  "options": [
+   "Folded into `a1b2c3d`, message dropped",
+   "Dropped entirely along with its changes",
+   "Folded into `a1b2c3d`, messages combined",
+   "Moved so it runs after `9c8d7e6`"
+  ],
+  "answer": "Folded into `a1b2c3d`, message dropped",
+  "explanation": {
+   "en": "`fixup` melds the changes into the previous commit and discards the fixup commit's message. `squash` would combine both messages."
+  }
+ },
+ {
+  "id": 21,
+  "category": "rebase",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "In the todo list opened by `git rebase -i HEAD~3`, which commit is on the first line?"
+  },
+  "options": [
+   "The oldest of the three commits",
+   "The most recently amended commit",
+   "The commit `HEAD~3` itself",
+   "The newest commit, `HEAD`"
+  ],
+  "answer": "The oldest of the three commits",
+  "explanation": {
+   "en": "The todo list runs top to bottom in replay order, so the oldest commit comes first. `HEAD~3` is the base and is not listed."
+  }
+ },
+ {
+  "id": 22,
+  "category": "rebase",
+  "difficulty": "easy",
+  "codeSnippet": "$ git rebase main\nCONFLICT (content): Merge conflict in api.js\n# ...fix api.js...\n$ git add api.js",
+  "question": {
+   "en": "What is the next command to run?"
+  },
+  "options": [
+   "`git rebase --continue`",
+   "`git merge --continue`",
+   "`git rebase --skip`",
+   "`git commit -m \"resolve\"`"
+  ],
+  "answer": "`git rebase --continue`",
+  "explanation": {
+   "en": "`--continue` commits the resolved step and replays the remaining commits. `--skip` would drop the conflicting commit instead."
+  }
+ },
+ {
+  "id": 23,
+  "category": "rebase",
+  "difficulty": "hard",
+  "codeSnippet": "$ git log --oneline --graph --all\n* 3b3e5e3 (main) M\n| * da35f8b (fb) B2\n| * 49f668f B1\n| * 751c04f (fa) A1\n|/\n* 52327c5 A\n$ git rebase --onto main fa fb",
+  "question": {
+   "en": "Which commits are replayed onto `main`?"
+  },
+  "options": [
+   "Only `B1` and `B2`",
+   "`A1`, `B1` and `B2`",
+   "Only `B2`",
+   "Only `A1`"
+  ],
+  "answer": "Only `B1` and `B2`",
+  "explanation": {
+   "en": "`--onto main fa fb` takes the commits in `fb` that are not in `fa` and replays them on `main`. `A1` stays behind on `fa`."
+  }
+ },
+ {
+  "id": 24,
+  "category": "rebase",
+  "difficulty": "hard",
+  "codeSnippet": "$ git commit --fixup=6d5fdd8\n$ git rebase -i --autosquash HEAD~3",
+  "question": {
+   "en": "How does the fixup commit appear in the todo list?"
+  },
+  "options": [
+   "At the top, marked as `squash`",
+   "It is left out of the list",
+   "At the very end, still marked as `pick`",
+   "Right after `6d5fdd8`, marked `fixup`"
+  ],
+  "answer": "Right after `6d5fdd8`, marked `fixup`",
+  "explanation": {
+   "en": "`--fixup` writes a `fixup! <subject>` message, and `--autosquash` moves such commits after their target with the `fixup` action."
+  }
+ },
+ {
+  "id": 25,
+  "category": "history",
+  "difficulty": "easy",
+  "codeSnippet": "git log --oneline",
+  "question": {
+   "en": "What does `--oneline` change in the output?"
+  },
+  "options": [
+   "Each commit is a short hash plus subject",
+   "Only the most recent commit is shown",
+   "Only commits from one branch are shown",
+   "Only commits touching one file are shown"
+  ],
+  "answer": "Each commit is a short hash plus subject",
+  "explanation": {
+   "en": "`--oneline` is shorthand for `--pretty=oneline --abbrev-commit`: one line per commit with an abbreviated hash and the subject."
+  }
+ },
+ {
+  "id": 26,
+  "category": "history",
+  "difficulty": "hard",
+  "codeSnippet": "*   77335ab (HEAD -> main) Merge branch 'feat'\n|\\\n| * 7f131f4 (feat) F1\n* | 5d11851 M1\n|/\n* 2398b4f A",
+  "question": {
+   "en": "Which commit is `HEAD^2`?"
+  },
+  "options": [
+   "`2398b4f`",
+   "`5d11851`",
+   "`77335ab`",
+   "`7f131f4`"
+  ],
+  "answer": "`7f131f4`",
+  "explanation": {
+   "en": "`^2` selects the second parent of a merge, which is the tip of the merged-in branch. `HEAD^` (or `HEAD~1`) would be the first parent, `5d11851`."
+  }
+ },
+ {
+  "id": 27,
+  "category": "history",
+  "difficulty": "medium",
+  "codeSnippet": "$ git log --oneline --graph --all\n* 031cb08 (HEAD -> main) M1\n| * d31e909 (feature) F2\n| * 5abfcd9 F1\n|/\n* 0aa1b2c A\n$ git log --oneline main..feature",
+  "question": {
+   "en": "Which commits does the last command list?"
+  },
+  "options": [
+   "`M1` only",
+   "`F1` and `F2`",
+   "`M1`, `F1` and `F2`",
+   "`A`, `F1` and `F2`"
+  ],
+  "answer": "`F1` and `F2`",
+  "explanation": {
+   "en": "`main..feature` means commits reachable from `feature` but not from `main`. The three-dot form would add `M1` as well."
+  }
+ },
+ {
+  "id": 28,
+  "category": "history",
+  "difficulty": "easy",
+  "codeSnippet": "git blame app.js",
+  "question": {
+   "en": "What does this command show?"
+  },
+  "options": [
+   "The last commit and author for each line",
+   "Which lines contain merge conflicts",
+   "Who created the file and when",
+   "Lint warnings for each line, with authors"
+  ],
+  "answer": "The last commit and author for each line",
+  "explanation": {
+   "en": "`git blame` annotates every line with the commit, author and date that last changed it."
+  }
+ },
+ {
+  "id": 29,
+  "category": "history",
+  "difficulty": "hard",
+  "codeSnippet": "git log --oneline -S \"foo()\"",
+  "question": {
+   "en": "Which commits does this list?"
+  },
+  "options": [
+   "Commits signed by the key `foo()`",
+   "Every commit touching a file with `foo()`",
+   "Commits whose message has `foo()`",
+   "Commits that add or remove `foo()`"
+  ],
+  "answer": "Commits that add or remove `foo()`",
+  "explanation": {
+   "en": "The pickaxe `-S` lists commits that change the number of occurrences of the string. `--grep` is the option that searches commit messages."
+  }
+ },
+ {
+  "id": 30,
+  "category": "history",
+  "difficulty": "medium",
+  "codeSnippet": "git show HEAD~2:src/app.js",
+  "question": {
+   "en": "What does this command print?"
+  },
+  "options": [
+   "`src/app.js` as it was two commits ago",
+   "The diff of `src/app.js` in `HEAD~2`",
+   "The log of `src/app.js` since `HEAD~2`",
+   "`src/app.js` from the second parent"
+  ],
+  "answer": "`src/app.js` as it was two commits ago",
+  "explanation": {
+   "en": "The `<rev>:<path>` syntax names a blob, so `git show` prints the file's full content at that commit."
+  }
+ },
+ {
+  "id": 31,
+  "category": "undo",
+  "difficulty": "hard",
+  "codeSnippet": "$ git reset --hard HEAD~1\nHEAD is now at 2662f61 A\n$ git reflog\n2662f61 HEAD@{0}: reset: moving to HEAD~1\n0311bf8 HEAD@{1}: commit: B",
+  "question": {
+   "en": "Which command makes commit `B` the branch tip again?"
+  },
+  "options": [
+   "`git reset --hard HEAD~1`",
+   "`git revert HEAD@{0}`",
+   "`git reset --soft HEAD@{0}`",
+   "`git reset --hard HEAD@{1}`"
+  ],
+  "answer": "`git reset --hard HEAD@{1}`",
+  "explanation": {
+   "en": "The reflog shows `HEAD@{1}` was `B` before the reset, so resetting to it restores the branch and files. Unreachable commits stay until garbage collection."
+  }
+ },
+ {
+  "id": 32,
+  "category": "undo",
+  "difficulty": "medium",
+  "codeSnippet": "git reset --soft HEAD~1",
+  "question": {
+   "en": "What happens to the changes from the undone commit?"
+  },
+  "options": [
+   "They stay staged in the index",
+   "They are discarded completely",
+   "They move to a new stash entry",
+   "They remain only in the working tree"
+  ],
+  "answer": "They stay staged in the index",
+  "explanation": {
+   "en": "`--soft` only moves the branch pointer. The index and working tree are untouched, so the changes are ready to be committed again."
+  }
+ },
+ {
+  "id": 33,
+  "category": "undo",
+  "difficulty": "medium",
+  "codeSnippet": "$ git status --short\n M f\n?? n.txt\n$ git stash\n$ git status --short",
+  "question": {
+   "en": "What does the last command print?"
+  },
+  "options": [
+   "(no output)",
+   "`?? n.txt`",
+   "` M f`",
+   "` M f` and `?? n.txt`"
+  ],
+  "answer": "`?? n.txt`",
+  "explanation": {
+   "en": "By default `git stash` saves only tracked changes, so the untracked file stays. Use `git stash -u` to include untracked files."
+  }
+ },
+ {
+  "id": 34,
+  "category": "undo",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "How does `git stash pop` differ from `git stash apply`?"
+  },
+  "options": [
+   "It turns the stash entry into a commit",
+   "It applies the oldest stash, not the newest",
+   "It applies only the staged part of the stash",
+   "It also drops the entry from the stash list"
+  ],
+  "answer": "It also drops the entry from the stash list",
+  "explanation": {
+   "en": "Both apply the stash; `pop` then drops the entry (unless a conflict occurs), while `apply` keeps it in the list."
+  }
+ },
+ {
+  "id": 35,
+  "category": "undo",
+  "difficulty": "hard",
+  "codeSnippet": "$ git revert 77335ab\nerror: commit 77335ab... is a merge but no -m option was given.\nfatal: revert failed",
+  "question": {
+   "en": "You are on `main`, which was the first parent of the merge. Which command undoes the merged-in changes?"
+  },
+  "options": [
+   "`git revert --no-ff 77335ab`",
+   "`git revert -m 1 77335ab`",
+   "`git reset --merge 77335ab`",
+   "`git revert -m 2 77335ab`"
+  ],
+  "answer": "`git revert -m 1 77335ab`",
+  "explanation": {
+   "en": "`-m 1` tells Git to revert relative to the first parent (the mainline), undoing what the second parent brought in."
+  }
+ },
+ {
+  "id": 36,
+  "category": "undo",
+  "difficulty": "easy",
+  "codeSnippet": "$ git commit -m \"Add lgoin page\"\n$ git commit --amend -m \"Add login page\"",
+  "question": {
+   "en": "What does the second command do?"
+  },
+  "options": [
+   "Reverts the commit and recommits it",
+   "Adds a second commit with the new message",
+   "Edits the message, keeping the same hash",
+   "Replaces the last commit with a new one"
+  ],
+  "answer": "Replaces the last commit with a new one",
+  "explanation": {
+   "en": "`--amend` builds a new commit (new hash) with the same parent and replaces the branch tip. The old commit is only reachable via the reflog."
+  }
+ },
+ {
+  "id": 37,
+  "category": "internals",
+  "difficulty": "medium",
+  "codeSnippet": "$ git checkout 3f9c2a1\nYou are in 'detached HEAD' state.\n$ cat .git/HEAD",
+  "question": {
+   "en": "What does `.git/HEAD` contain now?"
+  },
+  "options": [
+   "`ref: refs/heads/main`",
+   "A raw 40-character commit hash",
+   "An empty file until you commit",
+   "`ref: refs/heads/3f9c2a1`"
+  ],
+  "answer": "A raw 40-character commit hash",
+  "explanation": {
+   "en": "Normally HEAD is a symbolic ref like `ref: refs/heads/main`. When detached it holds the commit ID directly."
+  }
+ },
+ {
+  "id": 38,
+  "category": "internals",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which Git object type stores the contents of a file?"
+  },
+  "options": [
+   "blob",
+   "tag",
+   "tree",
+   "commit"
+  ],
+  "answer": "blob",
+  "explanation": {
+   "en": "A blob holds raw file content. Trees map names to blobs and subtrees, and commits point to a root tree."
+  }
+ },
+ {
+  "id": 39,
+  "category": "internals",
+  "difficulty": "medium",
+  "codeSnippet": "$ git cat-file -p HEAD\ntree 211af7d72d84cb51d5e8e520961990f17fe26003\nparent 4da65571a540c0ba767842862ac0a6d2ab85c811\nauthor t <t@x> 1791735347 +0300\n\nAdd login",
+  "question": {
+   "en": "What does the `tree` line refer to?"
+  },
+  "options": [
+   "The root directory snapshot",
+   "The previous commit in history",
+   "The diff introduced by this commit",
+   "The branch this commit belongs to"
+  ],
+  "answer": "The root directory snapshot",
+  "explanation": {
+   "en": "A commit stores a full snapshot via its root tree object, not a diff. The `parent` line links to the previous commit."
+  }
+ },
+ {
+  "id": 40,
+  "category": "internals",
+  "difficulty": "hard",
+  "codeSnippet": "$ echo same > s1\n$ echo same > s2\n$ git add s1 s2",
+  "question": {
+   "en": "How many new blob objects does `git add` store?"
+  },
+  "options": [
+   "Three, including a tree",
+   "None until you commit",
+   "Two, one for each path name",
+   "One, shared by both paths"
+  ],
+  "answer": "One, shared by both paths",
+  "explanation": {
+   "en": "Objects are addressed by a hash of their content, so identical content yields one blob that both index entries reference."
+  }
+ },
+ {
+  "id": 41,
+  "category": "internals",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does a loose branch ref file such as `.git/refs/heads/main` contain?"
+  },
+  "options": [
+   "The hash of the branch's tip commit",
+   "A diff against the parent branch",
+   "A list of every commit on the branch",
+   "The branch's upstream URL"
+  ],
+  "answer": "The hash of the branch's tip commit",
+  "explanation": {
+   "en": "A branch is just a pointer: a file holding one commit ID. History is found by following parent links from that commit."
+  }
+ },
+ {
+  "id": 42,
+  "category": "internals",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What is the `.git/index` file?"
+  },
+  "options": [
+   "A log of where HEAD has pointed",
+   "A list of all branches and tags",
+   "The packfile holding all repository objects",
+   "The staging area for the next commit"
+  ],
+  "answer": "The staging area for the next commit",
+  "explanation": {
+   "en": "The index records the paths and blob IDs that the next commit will contain. Refs, the reflog and packfiles live elsewhere in `.git`."
+  }
+ },
+ {
+  "id": 43,
+  "category": "workflow",
+  "difficulty": "medium",
+  "codeSnippet": "$ git worktree add ../wt main\nfatal: 'main' is already used by worktree at 'D:/repo/app'",
+  "question": {
+   "en": "Why does this command fail?"
+  },
+  "options": [
+   "The folder `../wt` already exists",
+   "Worktree paths must be inside the repository",
+   "`main` is a protected default branch",
+   "A branch can be in one worktree at a time"
+  ],
+  "answer": "A branch can be in one worktree at a time",
+  "explanation": {
+   "en": "Git refuses to check out the same branch in two worktrees. Use another branch, `-b <new>`, or `--detach`."
+  }
+ },
+ {
+  "id": 44,
+  "category": "workflow",
+  "difficulty": "medium",
+  "codeSnippet": "$ git tag v1.0\n$ git push\nEverything up-to-date\n$ git ls-remote --tags origin\n(no output)",
+  "question": {
+   "en": "Which command publishes the tag?"
+  },
+  "options": [
+   "`git push --all origin`",
+   "`git push origin v1.0`",
+   "`git tag --push v1.0`",
+   "`git push -u v1.0`"
+  ],
+  "answer": "`git push origin v1.0`",
+  "explanation": {
+   "en": "A plain `git push` does not send tags. Push the tag by name or use `--tags`; `--all` covers branches only."
+  }
+ },
+ {
+  "id": 45,
+  "category": "workflow",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does `git tag -a v2.0 -m \"Release\"` create that `git tag v2.0` does not?"
+  },
+  "options": [
+   "A branch that cannot be deleted",
+   "A tag that follows the branch's new commits",
+   "A GPG signature by default",
+   "A tag object with tagger, date and message"
+  ],
+  "answer": "A tag object with tagger, date and message",
+  "explanation": {
+   "en": "`-a` makes an annotated tag, a full object with metadata. A lightweight tag is only a ref to a commit. Neither kind moves."
+  }
+ },
+ {
+  "id": 46,
+  "category": "workflow",
+  "difficulty": "medium",
+  "codeSnippet": "git cherry-pick -x de475b9",
+  "question": {
+   "en": "What does the `-x` flag add?"
+  },
+  "options": [
+   "Names the source commit in the message",
+   "A reflog entry on the source branch",
+   "A tag on the source commit",
+   "A merge parent pointing at the source commit"
+  ],
+  "answer": "Names the source commit in the message",
+  "explanation": {
+   "en": "`-x` appends \"(cherry picked from commit ...)\" to the new commit message so the origin can be traced."
+  }
+ },
+ {
+  "id": 47,
+  "category": "workflow",
+  "difficulty": "hard",
+  "codeSnippet": "$ git clone https://example.com/app.git\n$ cd app\n$ ls libs/ui\n(empty)",
+  "question": {
+   "en": "`libs/ui` is a submodule. Which command checks out its content?"
+  },
+  "options": [
+   "`git submodule sync --recursive`",
+   "`git submodule add libs/ui`",
+   "`git submodule update --init`",
+   "`git checkout -- libs/ui`"
+  ],
+  "answer": "`git submodule update --init`",
+  "explanation": {
+   "en": "A plain clone leaves submodule directories empty. `update --init` registers and checks out the recorded commit; `clone --recurse-submodules` does it up front."
+  }
+ },
+ {
+  "id": 48,
+  "category": "workflow",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does setting `rerere.enabled` to `true` do?"
+  },
+  "options": [
+   "Rebases automatically on every `git pull`",
+   "Reuses recorded conflict resolutions",
+   "Retries pushes that were rejected",
+   "Re-runs failed hooks automatically"
+  ],
+  "answer": "Reuses recorded conflict resolutions",
+  "explanation": {
+   "en": "rerere (\"reuse recorded resolution\") remembers how you resolved a conflict and reapplies it when the same conflict appears again."
+  }
+ },
+ {
+  "id": 49,
+  "category": "config",
+  "difficulty": "easy",
+  "codeSnippet": "$ git commit -m \"First\"\nAuthor identity unknown\n\n*** Please tell me who you are.",
+  "question": {
+   "en": "Which settings must be configured to fix this?"
+  },
+  "options": [
+   "`init.defaultBranch` only",
+   "`user.name` and `user.email`",
+   "`remote.origin.url` only",
+   "`core.editor` and `core.pager`"
+  ],
+  "answer": "`user.name` and `user.email`",
+  "explanation": {
+   "en": "Every commit records an author name and email, so Git needs `user.name` and `user.email` before it can commit."
+  }
+ },
+ {
+  "id": 50,
+  "category": "config",
+  "difficulty": "medium",
+  "codeSnippet": "$ git config --global user.email me@home.dev\n$ git config user.email me@work.dev\n$ git commit -m \"x\"",
+  "question": {
+   "en": "Which email is recorded on the commit?"
+  },
+  "options": [
+   "Both, as co-authors",
+   "`me@work.dev`",
+   "`me@home.dev`",
+   "Neither; Git asks first"
+  ],
+  "answer": "`me@work.dev`",
+  "explanation": {
+   "en": "Without a scope flag `git config` writes to the repository's `.git/config`, and local settings override global ones."
+  }
+ },
+ {
+  "id": 51,
+  "category": "config",
+  "difficulty": "easy",
+  "codeSnippet": "git config --global alias.st \"status -sb\"",
+  "question": {
+   "en": "What can you do after running this?"
+  },
+  "options": [
+   "Run `git st` to get `git status -sb`",
+   "Use `git st` in this repo only",
+   "Get `-sb` on every `git status` call",
+   "Run `st` without the `git` prefix"
+  ],
+  "answer": "Run `git st` to get `git status -sb`",
+  "explanation": {
+   "en": "An alias adds a new git subcommand that expands to the given text. `--global` makes it available in every repository for your user."
+  }
+ },
+ {
+  "id": 52,
+  "category": "config",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "On Windows, what does `core.autocrlf=true` do?"
+  },
+  "options": [
+   "Strips trailing whitespace on commit",
+   "CRLF on checkout, LF in the repository",
+   "LF on checkout, CRLF in the repository",
+   "Rejects any commit containing CRLF"
+  ],
+  "answer": "CRLF on checkout, LF in the repository",
+  "explanation": {
+   "en": "Git normalizes line endings to LF when staging and converts them to CRLF when writing files to the working tree."
+  }
+ },
+ {
+  "id": 53,
+  "category": "config",
+  "difficulty": "hard",
+  "codeSnippet": "$ git switch -c feature\n$ git push\nfatal: The current branch feature has no upstream branch.",
+  "question": {
+   "en": "Which setting makes a plain `git push` create and track the remote branch automatically?"
+  },
+  "options": [
+   "`branch.autoSetupMerge=true`",
+   "`push.default=matching`",
+   "`push.autoSetupRemote=true`",
+   "`remote.pushDefault=origin`"
+  ],
+  "answer": "`push.autoSetupRemote=true`",
+  "explanation": {
+   "en": "With `push.autoSetupRemote` (Git 2.37+), pushing a branch with no upstream behaves like `git push -u origin <branch>`."
+  }
+ },
+ {
+  "id": 54,
+  "category": "config",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which setting changes the name of the first branch that `git init` creates?"
+  },
+  "options": [
+   "`branch.default`",
+   "`init.defaultBranch`",
+   "`core.defaultBranch`",
+   "`remote.origin.head`"
+  ],
+  "answer": "`init.defaultBranch`",
+  "explanation": {
+   "en": "`git config --global init.defaultBranch main` makes new repositories start on `main`."
+  }
+ },
+ {
+  "id": 55,
+  "category": "remotes",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "What does `git pull --rebase` do differently from a merging `git pull`?"
+  },
+  "options": [
+   "Fetches only and leaves your branch alone",
+   "Discards local commits that are not pushed",
+   "Creates a merge commit even when not needed",
+   "Replays local commits on the fetched tip"
+  ],
+  "answer": "Replays local commits on the fetched tip",
+  "explanation": {
+   "en": "After fetching, it rebases your unpushed commits on top of the upstream instead of merging, keeping history linear."
+  }
+ },
+ {
+  "id": 56,
+  "category": "remotes",
+  "difficulty": "easy",
+  "codeSnippet": "$ git status\nOn branch main\nYour branch is ahead of 'origin/main' by 2 commits.",
+  "question": {
+   "en": "What does this message mean?"
+  },
+  "options": [
+   "Your branch is 2 commits behind origin",
+   "2 local commits haven't been pushed",
+   "The remote has 2 commits you lack",
+   "2 files are staged but uncommitted"
+  ],
+  "answer": "2 local commits haven't been pushed",
+  "explanation": {
+   "en": "Compared with the last fetched `origin/main`, your branch has 2 commits the remote-tracking branch does not."
+  }
+ },
+ {
+  "id": 57,
+  "category": "remotes",
+  "difficulty": "medium",
+  "codeSnippet": "$ git fetch\n$ git status\nYour branch and 'origin/main' have diverged,\nand have 2 and 1 different commits each, respectively.",
+  "question": {
+   "en": "Which description matches this state?"
+  },
+  "options": [
+   "Remote has 2 new commits, local has 1",
+   "Local is 2 behind and 1 ahead",
+   "Both sides share 3 identical commits",
+   "Local has 2 new commits, remote has 1"
+  ],
+  "answer": "Local has 2 new commits, remote has 1",
+  "explanation": {
+   "en": "The first number counts your local commits and the second counts commits only on `origin/main`. You need a merge or rebase to reconcile them."
+  }
+ },
+ {
+  "id": 58,
+  "category": "remotes",
+  "difficulty": "easy",
+  "codeSnippet": "$ git push\n ! [rejected]        main -> main (fetch first)\nhint: Updates were rejected because the remote contains work that you do not\nhint: have locally.",
+  "question": {
+   "en": "What should you do before pushing again?"
+  },
+  "options": [
+   "Integrate remote work with `git pull`",
+   "Retry the same push with `--force`",
+   "Delete the local repo and clone it again",
+   "Run `git push -u origin main`"
+  ],
+  "answer": "Integrate remote work with `git pull`",
+  "explanation": {
+   "en": "Someone else pushed first. Pull (merge or rebase) to include their commits, then push; forcing would overwrite their work."
+  }
+ },
+ {
+  "id": 59,
+  "category": "remotes",
+  "difficulty": "hard",
+  "codeSnippet": "$ git push --force-with-lease\n ! [rejected]        main -> main (stale info)",
+  "question": {
+   "en": "Why was this forced push refused?"
+  },
+  "options": [
+   "The branch is protected on the remote server",
+   "Lease pushes need admin rights",
+   "Your branch has no upstream set",
+   "The remote moved since your last fetch"
+  ],
+  "answer": "The remote moved since your last fetch",
+  "explanation": {
+   "en": "`--force-with-lease` only overwrites if the remote ref still matches your remote-tracking ref, protecting commits you have not seen."
+  }
+ },
+ {
+  "id": 60,
+  "category": "remotes",
+  "difficulty": "medium",
+  "codeSnippet": "$ git branch -r\n  origin/main\n  origin/old\n# 'old' was deleted on the server",
+  "question": {
+   "en": "Which command removes the stale `origin/old`?"
+  },
+  "options": [
+   "`git branch -d old`",
+   "`git fetch --prune`",
+   "`git remote update old`",
+   "`git pull --no-tags`"
+  ],
+  "answer": "`git fetch --prune`",
+  "explanation": {
+   "en": "`--prune` deletes remote-tracking refs whose branches no longer exist on the remote. `git branch -d old` targets a local branch."
+  }
+ }
+]

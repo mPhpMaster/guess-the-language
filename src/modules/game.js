@@ -11,6 +11,10 @@ import { buildLanguageOptions, buildRound, bumpAdaptive, maybeSetupAdaptive, pic
 import { ensureValidPlayerName, requireNameToInteract } from './settings.js';
 import { sfx } from './sound.js';
 import { state } from './state.js';
+import { LANGUAGE_ALIASES, SPEEDRUN_SECONDS, SURVIVAL_LIVES, buildStyledRound, hardcoreTime, isStyle, pickedStyle, renderLivesPill, speedrunRemaining } from './styles.js';
+import { focusedPool } from './packs.js';
+import { noteReviewAnswer } from './review.js';
+import { duelBotStep, renderDuelStrip } from './duel.js';
 
 // Shared round bootstrap used by both a normal game and the daily challenge.
 export function beginRound() {
@@ -23,13 +27,20 @@ export function beginRound() {
     state.viewOnly = false;
     state.selectedAnswer = null;
     state.gameStartMs = Date.now();
-    state.lifelines = 2; // two 50:50s per round
+    // Two 50:50s per round — none in speed run (no time to spare) or hardcore.
+    state.lifelines = (isStyle('speedrun') || isStyle('hardcore')) ? 0 : 2;
+    state.lives = SURVIVAL_LIVES;
+    stopSpeedClock();
+    state.speedEndsAt = isStyle('speedrun') ? Date.now() + SPEEDRUN_SECONDS * 1000 : 0;
+    renderLivesPill();
+    renderDuelStrip();
     updateScore();
     updateCorrect();
     updateStreakPill();
     updateFiftyButton();
-    $('#q-total').textContent = padIndex(state.round.length);
-    $('#correct-total').textContent = String(state.round.length);
+    // A speed run has no fixed length — the clock ends it.
+    $('#q-total').textContent = isStyle('speedrun') ? '∞' : padIndex(state.round.length);
+    $('#correct-total').textContent = isStyle('speedrun') ? '∞' : String(state.round.length);
     updateInGameProfile();
     // The "you've been challenged" banner belongs on Home only — clear it once play
     // starts (the win/lose verdict shows on the results screen instead).
@@ -55,10 +66,18 @@ export async function startGame() {
         return;
     }
 
-    buildRound();
+    const style = pickedStyle();
+    const pool = focusedPool();
+    state.style = style;
+    state.round = buildStyledRound(style, pool, getSettings());
     state.daily = false;
     state.learn = false;
-    maybeSetupAdaptive();
+    state.review = false;
+    state.duel = null;
+    // Adaptive picking is a classic-round feature: survival has its own climb and
+    // a speed run its own pace.
+    if (style === 'classic') maybeSetupAdaptive(pool);
+    else state.adaptive = false;
     beginRound();
 }
 
@@ -67,10 +86,14 @@ export async function startPractice() {
     if (!requireNameToInteract()) return;
     const nameCheck = await ensureValidPlayerName();
     if (!nameCheck.valid) { announce(nameCheck.message || t('nameRequired')); return; }
-    buildRound();
+    const pool = focusedPool();
+    state.style = 'classic';
+    state.round = buildStyledRound('classic', pool, getSettings());
     state.daily = false;
     state.learn = true;
-    maybeSetupAdaptive();
+    state.review = false;
+    state.duel = null;
+    maybeSetupAdaptive(pool);
     beginRound();
 }
 
@@ -95,6 +118,22 @@ export function isFillCorrect(cur, typed, canonicalOnly) {
 //   fill -> type the missing code (a ____ blank + a typed answer).
 export function normalizeQuestion(q, opts) {
     const optionSeed = opts && opts.optionSeed != null ? opts.optionSeed : null;
+    // Hardcore: no options to pick from — the language has to be typed.
+    if (q.correctLanguage && opts && opts.typedLanguage) {
+        return {
+            id: q.id,
+            bank: q.bank || 'languages',
+            style: 'fill',
+            typedLanguage: true,
+            panelText: q.codeSnippet,
+            panelIsCode: true,
+            questionText: t('hardcoreLangPrompt'),
+            answer: q.correctLanguage,
+            accept: LANGUAGE_ALIASES[q.correctLanguage] || [],
+            difficulty: q.difficulty,
+            explanation: q.explanation
+        };
+    }
     if (q.correctLanguage) {
         return {
             id: q.id,
@@ -149,7 +188,10 @@ export function nextQuestion() {
     }
     state.answered = false;
     state.selectedAnswer = null;
-    if (state.index >= state.round.length) {
+    // Survival ends on the last life; a speed run when its clock runs out.
+    const outOfLives = isStyle('survival') && !state.multiplayer && (state.lives || 0) <= 0;
+    const outOfTime = isStyle('speedrun') && !state.multiplayer && state.speedEndsAt && speedrunRemaining() <= 0;
+    if (state.index >= state.round.length || outOfLives || outOfTime) {
         endGame();
         return;
     }
@@ -160,7 +202,7 @@ export function nextQuestion() {
         state.round[state.index] = picked;
     }
 
-    const cur = normalizeQuestion(state.round[state.index]);
+    const cur = normalizeQuestion(state.round[state.index], { typedLanguage: isStyle('hardcore') && !state.multiplayer });
     state.current = cur;
     $('#q-current').textContent = padIndex(state.index + 1);
     setTitlebar(`${modeLabel(state.mode).toLowerCase()} — ${t('tbRound')} ${state.index + 1}/${state.round.length}`);
@@ -195,8 +237,14 @@ export function nextQuestion() {
     hideToast();
     renderQuestionUI(cur, false);
     state.questionTime = resolvedQuestionTime(cur.difficulty);
+    if (isStyle('hardcore')) state.questionTime = hardcoreTime(state.questionTime, !!cur.typedLanguage);
     state.questionStartedAt = Date.now();
-    if (state.learn) {
+    if (isStyle('speedrun') && !state.multiplayer) {
+        // No per-question countdown: the round's single clock is already running.
+        clearTimer();
+        state.timeLeft = 0;
+        startSpeedClock();
+    } else if (state.learn) {
         // Practice mode: no countdown — take your time. Keep timeLeft finite (full
         // time) so scoring never becomes Infinity; the display just shows ∞.
         clearTimer();
@@ -260,8 +308,11 @@ export function setupFillForm(disabled) {
         input.value = '';
         input.disabled = !!disabled;
         input.classList.remove('fill-correct', 'fill-wrong');
-        input.placeholder = t('fillPlaceholder');
+        input.placeholder = t(state.current && state.current.typedLanguage ? 'hardcorePlaceholder' : 'fillPlaceholder');
     }
+    // The "press 1–N" affordance belongs to option questions only.
+    const hint = $('#game-footer-hint');
+    if (hint) hint.textContent = t('fillFooterHint');
     if (submit) submit.disabled = !!disabled;
     if (!disabled && input) setTimeout(() => { try { input.focus(); } catch (e) {} }, 40);
 }
@@ -440,7 +491,9 @@ export function resolveCurrentQuestion(chosen, timedOut = false) {
         state.streak += 1;
         state.bestStreak = Math.max(state.bestStreak, state.streak);
         state.correct += 1;
-        gained = scoreAnswer(state.timeLeft, state.streak);
+        // A speed run's clock is shared, so there is no per-question time bonus:
+        // the reward for speed is simply answering more.
+        gained = scoreAnswer(isStyle('speedrun') ? 0 : state.timeLeft, state.streak);
         state.score += gained;
         sfx.correct();
         updateScore(true);
@@ -449,10 +502,17 @@ export function resolveCurrentQuestion(chosen, timedOut = false) {
     } else {
         state.streak = 0;
         sfx.wrong();
+        if (isStyle('survival') && !state.multiplayer) {
+            state.lives = Math.max(0, (state.lives || 0) - 1);
+            renderLivesPill();
+        }
         showFeedback('bad', `${t('wrong')} ${cur.answer}.`, cur.explanation.en);
     }
 
     recordRoundAnswer(cur, chosen, correct, gained, timedOut);
+    if (!state.multiplayer) noteReviewAnswer(cur, correct);
+    // The bot answers its copy of this question as the player's resolves.
+    if (state.duel && !state.multiplayer) duelBotStep(state.questionTime);
     // Split the award the way the design's footer reads it: the flat 100 for a
     // correct answer, then whatever the remaining time was worth.
     const gainEl = $('#game-footer-gain');
@@ -500,6 +560,12 @@ export function scheduleFeedbackAdvance() {
     requestAnimationFrame(() => next?.focus());
     // Practice mode always waits for a manual "Next" so you can study the explanation.
     if (state.learn) return;
+    // A speed run can't wait out a review window: a glance at the answer, then on.
+    if (isStyle('speedrun') && !state.multiplayer) {
+        const last = state.roundHistory[state.roundHistory.length - 1];
+        state.advanceTimer = setTimeout(advanceAfterFeedback, last && last.correct ? 450 : 1200);
+        return;
+    }
     const setting = getSettings().feedbackDelay;
     if (setting === 'manual') return;
     const seconds = [2, 4, 6].includes(Number(setting)) ? Number(setting) : 4;
@@ -649,6 +715,7 @@ export function onTimeoutMultiplayer() {
 // End the round early and show the results so far.
 export function endQuiz() {
     clearTimer();
+    stopSpeedClock();
     if (state.advanceTimer) {
         clearTimeout(state.advanceTimer);
         state.advanceTimer = null;
@@ -664,6 +731,36 @@ export function clearTimer() {
     if (state.timerId) {
         clearInterval(state.timerId);
         state.timerId = null;
+    }
+}
+
+// ---------- Speed run clock ----------
+// One countdown for the whole round. It lives beside the per-question timer
+// rather than in it, because clearTimer() runs on every answer and every new
+// question.
+export function startSpeedClock() {
+    if (state.speedTimerId) return;
+    const tick = () => {
+        const left = speedrunRemaining();
+        state.timeLeft = Math.ceil(left);
+        updateTimerDisplay();
+        setRing(left / SPEEDRUN_SECONDS);
+        maybeCountdownBeep(Math.ceil(left));
+        if (left <= 0) {
+            stopSpeedClock();
+            // Time is up mid-question: the open question simply doesn't count.
+            if (state.advanceTimer) { clearTimeout(state.advanceTimer); state.advanceTimer = null; }
+            if ($('#screen-game')?.classList.contains('active')) endGame();
+        }
+    };
+    tick();
+    state.speedTimerId = setInterval(tick, 200);
+}
+
+export function stopSpeedClock() {
+    if (state.speedTimerId) {
+        clearInterval(state.speedTimerId);
+        state.speedTimerId = null;
     }
 }
 
