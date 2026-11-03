@@ -20,7 +20,7 @@
     "devDependencies": {
         "electron": "^41.10.7",
         "electron-builder": "^26.15.3",
-        "vite": "^6.4.4"
+        "vite": "^6.4.5"
     },
     "build": {
         "appId": "com.mphpmaster.guessthelanguage",
