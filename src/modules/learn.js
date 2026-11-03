@@ -20,6 +20,8 @@ export const COURSES = [
     { id: 'fastapi', icon: '⚡' }
 ];
 export const PASS_PCT = 70;
+// A level's own `icon` wins; otherwise one of these, by position.
+const LEVEL_ICONS = ['🌐', '🚀', '🧭', '📦', '🛠️', '🔐', '🗄️', '⚙️'];
 const PROGRESS_KEY = 'gtl_learn';
 
 const ui = {
@@ -196,7 +198,9 @@ function renderCourse() {
         const best = prog.best[lv.id];
         const passed = (best || 0) >= PASS_PCT;
         const li = el('li', 'learn-level' + (passed ? ' is-passed' : '') + (unlocked ? '' : ' is-locked'));
-        const num = el('span', 'learn-level-num', passed ? '✓' : unlocked ? String(i + 1).padStart(2, '0') : '🔒');
+        li.style.setProperty('--d', `${i * 0.08}s`);
+        const num = el('span', 'learn-level-num learn-level-icon');
+        num.textContent = passed ? '✅' : unlocked ? (lv.icon || LEVEL_ICONS[i % LEVEL_ICONS.length]) : '🔒';
         const main = el('div', 'learn-level-main');
         main.appendChild(el('strong', 'learn-level-title', L(lv.title)));
         main.appendChild(el('span', 'learn-level-summary', L(lv.summary)));
@@ -223,7 +227,8 @@ function renderCourse() {
 }
 
 // A raw HTTP message (request or response line first) is shown as plain text.
-function codeBlock(src, lang) {
+// `hot` is a list of 1-based line numbers to light up.
+function codeBlock(src, lang, hot) {
     const pre = document.createElement('pre');
     pre.className = 'learn-code';
     pre.setAttribute('dir', 'ltr');
@@ -232,10 +237,213 @@ function codeBlock(src, lang) {
     const text = String(src || '');
     const plain = lang === 'http' || lang === 'text' ||
         /^(GET|POST|PUT|PATCH|DELETE|HEAD|OPTIONS) \S+ HTTP\/|^HTTP\/\d/m.test(text);
-    if (plain) code.textContent = text;
+    if (Array.isArray(hot) && hot.length) {
+        // Line by line, so the lines that matter can glow.
+        text.split('\n').forEach((line, i) => {
+            const span = document.createElement('span');
+            span.className = 'learn-cl' + (hot.includes(i + 1) ? ' is-hot' : '');
+            if (plain) span.textContent = line || ' ';
+            else span.innerHTML = highlight(line) || ' ';
+            code.appendChild(span);
+        });
+        pre.classList.add('has-hot');
+    } else if (plain) code.textContent = text;
     else code.innerHTML = highlight(text);
     pre.appendChild(code);
     return pre;
+}
+
+// ---------- visual blocks ----------
+const COLORS = new Set(['green', 'blue', 'yellow', 'red', 'purple', 'cyan']);
+const tone = (c) => (COLORS.has(c) ? c : 'blue');
+
+function heroBlock(b) {
+    const box = el('div', 'lv-hero');
+    const emoji = el('span', 'lv-hero-emoji');
+    emoji.textContent = b.emoji || '✨';
+    emoji.setAttribute('aria-hidden', 'true');
+    box.append(emoji, el('p', 'lv-hero-text', L(b)));
+    return box;
+}
+
+// Request/response as chat bubbles, appearing one after another.
+function chatBlock(b) {
+    const box = el('div', 'lv-chat');
+    (b.messages || []).forEach((m, i) => {
+        const side = m.from === 'server' ? 'server' : 'client';
+        const row = el('div', `lv-msg is-${side}`);
+        row.style.setProperty('--d', `${0.2 + i * 0.6}s`);
+        const who = el('span', 'lv-msg-who');
+        who.textContent = side === 'server' ? '🖥️' : '💻';
+        who.setAttribute('aria-hidden', 'true');
+        const bubble = el('div', 'lv-bubble');
+        const code = document.createElement('code');
+        code.setAttribute('dir', 'ltr');
+        code.textContent = String(m.text || '');
+        bubble.appendChild(code);
+        if (m.note) bubble.appendChild(el('span', 'lv-note', L(m.note)));
+        row.append(who, bubble);
+        box.appendChild(row);
+    });
+    return box;
+}
+
+// Icons joined by arrows; a dot runs along each arrow, forever.
+function flowBlock(b) {
+    const box = el('div', 'lv-flow');
+    const nodes = b.nodes || [];
+    const track = (label, back, i) => {
+        const link = el('div', 'lv-link' + (back ? ' is-back' : ''));
+        link.style.setProperty('--d', `${i * 0.6}s`);
+        if (label) link.appendChild(el('span', 'lv-link-label', L(label)));
+        const line = el('span', 'lv-line');
+        line.appendChild(el('span', 'lv-dot'));
+        link.appendChild(line);
+        return link;
+    };
+    const row = el('div', 'lv-flow-row');
+    nodes.forEach((n, i) => {
+        const node = el('div', 'lv-node');
+        const ic = el('span', 'lv-node-icon');
+        ic.textContent = n.icon || '•';
+        ic.setAttribute('aria-hidden', 'true');
+        node.append(ic, el('span', 'lv-node-label', L(n.label)));
+        row.appendChild(node);
+        if (i < nodes.length - 1) {
+            const lk = (b.links || [])[i] || {};
+            if (b.returns && nodes.length === 2) {
+                const pair = el('div', 'lv-pair');
+                pair.append(track(lk.label, false, 0), track(b.returns, true, 1));
+                row.appendChild(pair);
+            } else {
+                row.appendChild(track(lk.label, !!lk.back, i));
+            }
+        }
+    });
+    box.appendChild(row);
+    return box;
+}
+
+function cardsBlock(b) {
+    const grid = el('div', 'lv-cards');
+    (b.items || []).forEach((it, i) => {
+        const card = el('div', `lv-card c-${tone(it.color)}`);
+        card.style.setProperty('--d', `${i * 0.12}s`);
+        const ic = el('span', 'lv-card-icon');
+        ic.textContent = it.icon || '';
+        ic.setAttribute('aria-hidden', 'true');
+        card.append(ic, el('strong', 'lv-card-title', L(it.title)));
+        if (it.text) card.appendChild(el('span', 'lv-card-text', L(it.text)));
+        grid.appendChild(card);
+    });
+    return grid;
+}
+
+function pillsBlock(b) {
+    const row = el('div', 'lv-pills');
+    (b.items || []).forEach((it, i) => {
+        const pill = el('div', `lv-pill c-${tone(it.color)}`);
+        pill.style.setProperty('--d', `${i * 0.08}s`);
+        const code = document.createElement('code');
+        code.setAttribute('dir', 'ltr');
+        code.textContent = String(it.text || '');
+        pill.appendChild(code);
+        if (it.label) pill.appendChild(el('span', 'lv-pill-label', L(it.label)));
+        row.appendChild(pill);
+    });
+    return row;
+}
+
+// One message split into coloured parts; hovering a part or its legend entry
+// lights up both.
+function anatomyBlock(b) {
+    const box = el('div', 'lv-anatomy');
+    const pre = document.createElement('pre');
+    pre.className = 'lv-anat-code';
+    pre.setAttribute('dir', 'ltr');
+    const legend = el('div', 'lv-legend');
+    const parts = b.parts || [];
+    const setHot = (k, on) => box.querySelectorAll(`[data-k="${k}"]`).forEach((n) => n.classList.toggle('is-hot', on));
+    parts.forEach((p, i) => {
+        const span = document.createElement('span');
+        span.textContent = String(p.text || '');
+        if (p.color) {
+            span.className = `lv-part c-${tone(p.color)}`;
+            span.dataset.k = String(i);
+            span.style.setProperty('--d', `${i * 0.25}s`);
+        }
+        pre.appendChild(span);
+        if (p.label && p.color) {
+            const item = el('span', `lv-legend-item c-${tone(p.color)}`, L(p.label));
+            item.dataset.k = String(i);
+            item.tabIndex = 0;
+            legend.appendChild(item);
+            [span, item].forEach((n) => {
+                n.addEventListener('mouseenter', () => setHot(i, true));
+                n.addEventListener('mouseleave', () => setHot(i, false));
+                n.addEventListener('focus', () => setHot(i, true));
+                n.addEventListener('blur', () => setHot(i, false));
+            });
+        }
+    });
+    box.append(pre, legend);
+    return box;
+}
+
+function stepsBlock(b) {
+    const ol = el('ol', 'lv-steps');
+    (b.items || []).forEach((it, i) => {
+        const li = el('li', 'lv-step');
+        li.style.setProperty('--d', `${i * 0.18}s`);
+        const n = el('span', 'lv-step-n');
+        n.textContent = String(i + 1);
+        li.append(n, el('span', 'lv-step-text', L(it)));
+        ol.appendChild(li);
+    });
+    return ol;
+}
+
+function compareBlock(b) {
+    const box = el('div', 'lv-compare');
+    ['left', 'right'].forEach((side, s) => {
+        const col = b[side] || {};
+        const t2 = ['good', 'bad', 'neutral'].includes(col.tone) ? col.tone : 'neutral';
+        const card = el('div', `lv-col is-${t2}`);
+        card.style.setProperty('--d', `${s * 0.2}s`);
+        card.appendChild(el('strong', 'lv-col-title', `${t2 === 'good' ? '✓ ' : t2 === 'bad' ? '✗ ' : ''}${L(col.title)}`));
+        const ul = el('ul', 'lv-col-list');
+        (col.items || []).forEach((it) => ul.appendChild(el('li', null, L(it))));
+        card.appendChild(ul);
+        box.appendChild(card);
+    });
+    return box;
+}
+
+// Little bursts of celebration. Pure CSS particles, removed when done.
+export function confetti(count = 60) {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const layer = el('div', 'lv-confetti');
+    const colors = ['#6ee7a0', '#5fb4ff', '#e9c46a', '#e88a9a', '#b18cff', '#5fd8e8'];
+    for (let i = 0; i < count; i++) {
+        const p = document.createElement('span');
+        p.style.left = `${Math.random() * 100}%`;
+        p.style.background = colors[i % colors.length];
+        p.style.setProperty('--x', `${(Math.random() - 0.5) * 220}px`);
+        p.style.setProperty('--r', `${Math.random() * 720 - 360}deg`);
+        p.style.animationDelay = `${Math.random() * 0.35}s`;
+        p.style.animationDuration = `${1.6 + Math.random() * 1.2}s`;
+        layer.appendChild(p);
+    }
+    document.body.appendChild(layer);
+    setTimeout(() => layer.remove(), 3400);
+}
+
+function floatPlus(anchor, text) {
+    if (!anchor) return;
+    const f = el('span', 'lv-plus');
+    f.textContent = text;
+    anchor.appendChild(f);
+    setTimeout(() => f.remove(), 1100);
 }
 
 // ---------- lessons ----------
@@ -253,7 +461,15 @@ function renderBlock(block) {
             listOf(block).forEach((item) => ul.appendChild(el('li', null, item)));
             return ul;
         }
-        case 'code': return codeBlock(block.code, block.lang);
+        case 'code': return codeBlock(block.code, block.lang, block.highlight);
+        case 'hero': return heroBlock(block);
+        case 'chat': return chatBlock(block);
+        case 'flow': return flowBlock(block);
+        case 'cards': return cardsBlock(block);
+        case 'pills': return pillsBlock(block);
+        case 'anatomy': return anatomyBlock(block);
+        case 'steps': return stepsBlock(block);
+        case 'compare': return compareBlock(block);
         case 'tip': return el('p', 'learn-callout learn-tip', L(block));
         case 'warn': return el('p', 'learn-callout learn-warn', L(block));
         default: return el('p', 'learn-p', L(block));
@@ -286,7 +502,13 @@ function renderLesson() {
     b.appendChild(el('p', 'learn-kicker', t('learnLessonOf').replace('{i}', String(ui.lessonIdx + 1)).replace('{n}', String(lv.lessons.length))));
     b.appendChild(el('h2', 'learn-h1 screen-heading', L(ls.title)));
     const article = el('article', 'learn-lesson');
-    (ls.blocks || []).forEach((blk) => article.appendChild(renderBlock(blk)));
+    // Blocks arrive one after another rather than all at once.
+    (ls.blocks || []).forEach((blk, i) => {
+        const node = renderBlock(blk);
+        node.classList.add('lv-in');
+        node.style.setProperty('--b', `${i * 0.14}s`);
+        article.appendChild(node);
+    });
     b.appendChild(article);
 
     const nav = el('div', 'learn-nav');
@@ -385,8 +607,10 @@ function answerQuestion(chosen) {
     document.querySelectorAll('.learn-opt').forEach((o) => {
         const idx = Number(o.dataset.index);
         o.disabled = true;
-        if (idx === q.answer) o.classList.add('correct');
-        else if (idx === chosen) o.classList.add('wrong');
+        if (idx === q.answer) {
+            o.classList.add('correct');
+            if (ok) { o.classList.add('lv-pop'); floatPlus(o, '+1'); }
+        } else if (idx === chosen) o.classList.add('wrong', 'shake');
     });
     const fb = $('.learn-feedback');
     fb.classList.remove('hidden');
@@ -420,6 +644,7 @@ function finishQuiz() {
         recordPlay(false, false, z.correct * 100, z.correct === z.qs.length);
     }
     try { sfx.finish(); } catch (_) {}
+    if (passed) setTimeout(() => confetti(pct === 100 ? 120 : 70), 150);
 
     const unlockedNext = passed && !wasPassed && ui.levelIdx < c.levels.length - 1;
     backAction = renderCourse;

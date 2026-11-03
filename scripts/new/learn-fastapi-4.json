@@ -17,47 +17,176 @@
    },
    "blocks": [
     {
-     "type": "p",
-     "en": "Path and query parameters are fine for small values like an id or a page number. But when a client creates or updates something, it sends a whole object of data. That data travels in the request body, usually as JSON.",
-     "ar": "معاملات المسار والاستعلام مناسبة للقيم الصغيرة مثل المعرّف أو رقم الصفحة. لكن عندما ينشئ العميل شيئًا أو يحدّثه فإنه يرسل كائنًا كاملًا من البيانات. هذه البيانات تنتقل في جسم الطلب (request body)، وغالبًا بصيغة JSON."
+     "type": "hero",
+     "emoji": "📦",
+     "en": "Big data rides in the request body",
+     "ar": "البيانات الكبيرة تُرسل في جسم الطلب (request body)"
     },
     {
-     "type": "p",
-     "en": "`POST` (create) and `PUT` (update) requests normally carry a body. `GET` requests normally do not.",
-     "ar": "طلبات `POST` (إنشاء) و`PUT` (تحديث) تحمل عادةً جسمًا. أما طلبات `GET` فلا تحمل جسمًا في العادة."
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "💻",
+       "label": {
+        "en": "Client sends JSON",
+        "ar": "العميل يرسل JSON"
+       }
+      },
+      {
+       "icon": "🧩",
+       "label": {
+        "en": "Pydantic model checks",
+        "ar": "نموذج Pydantic يتحقق"
+       }
+      },
+      {
+       "icon": "🐍",
+       "label": {
+        "en": "Your function runs",
+        "ar": "دالتك تعمل"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "JSON body",
+        "ar": "جسم JSON"
+       }
+      },
+      {
+       "label": {
+        "en": "ready Item object",
+        "ar": "كائن Item جاهز"
+       }
+      }
+     ]
     },
     {
-     "type": "code",
-     "lang": "http",
-     "code": "POST /items HTTP/1.1\nContent-Type: application/json\n\n{\"name\": \"Pen\", \"price\": 2.5}"
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "POST",
+       "color": "blue",
+       "label": {
+        "en": "method",
+        "ar": "الطريقة (method)"
+       }
+      },
+      {
+       "text": " /items",
+       "color": "green",
+       "label": {
+        "en": "path",
+        "ar": "المسار (path)"
+       }
+      },
+      {
+       "text": "\nContent-Type: application/json",
+       "color": "purple",
+       "label": {
+        "en": "says: body is JSON",
+        "ar": "يقول: الجسم بصيغة JSON"
+       }
+      },
+      {
+       "text": "\n\n"
+      },
+      {
+       "text": "{\"name\": \"Pen\", \"price\": 2.5}",
+       "color": "yellow",
+       "label": {
+        "en": "request body",
+        "ar": "جسم الطلب"
+       }
+      }
+     ]
     },
     {
-     "type": "p",
-     "en": "In FastAPI you describe the shape of the body with a class that inherits from Pydantic's `BaseModel`. Each class attribute is one JSON field, with a type.",
-     "ar": "في FastAPI تصف شكل الجسم بصنف (class) يرث من `BaseModel` الخاص بمكتبة Pydantic. كل خاصية في الصنف هي حقل واحد في JSON، ولها نوع."
+     "type": "pills",
+     "items": [
+      {
+       "text": "POST",
+       "color": "green",
+       "label": {
+        "en": "create, has body",
+        "ar": "إنشاء، له جسم"
+       }
+      },
+      {
+       "text": "PUT",
+       "color": "blue",
+       "label": {
+        "en": "update, has body",
+        "ar": "تحديث، له جسم"
+       }
+      },
+      {
+       "text": "GET",
+       "color": "yellow",
+       "label": {
+        "en": "usually no body",
+        "ar": "عادةً بلا جسم"
+       }
+      }
+     ]
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "from fastapi import FastAPI\nfrom pydantic import BaseModel\n\napp = FastAPI()\n\n\nclass Item(BaseModel):\n    name: str                        # required\n    price: float                     # required\n    description: str | None = None   # optional\n    in_stock: bool = True            # has a default"
+     "code": "from pydantic import BaseModel\n\n\nclass Item(BaseModel):\n    name: str                        # required\n    price: float                     # required\n    description: str | None = None   # optional\n    in_stock: bool = True            # has a default",
+     "highlight": [
+      4,
+      5,
+      7,
+      8
+     ]
     },
     {
-     "type": "list",
-     "en": [
-      "A field with no default (`name: str`) is required.",
-      "A field with a default (`in_stock: bool = True`) can be left out; the default is used.",
-      "`str | None = None` makes a field optional: it may be missing or `null`."
-     ],
-     "ar": [
-      "الحقل بلا قيمة افتراضية (`name: str`) حقل إلزامي.",
-      "الحقل الذي له قيمة افتراضية (`in_stock: bool = True`) يمكن حذفه، وتُستخدم القيمة الافتراضية.",
-      "`str | None = None` يجعل الحقل اختياريًا: قد يغيب أو تكون قيمته `null`."
+     "type": "cards",
+     "items": [
+      {
+       "icon": "❗",
+       "color": "red",
+       "title": {
+        "en": "No default",
+        "ar": "بلا قيمة افتراضية"
+       },
+       "text": {
+        "en": "`name: str` is required",
+        "ar": "`name: str` حقل إلزامي"
+       }
+      },
+      {
+       "icon": "✅",
+       "color": "green",
+       "title": {
+        "en": "Has a default",
+        "ar": "له قيمة افتراضية"
+       },
+       "text": {
+        "en": "`in_stock: bool = True` can be left out",
+        "ar": "`in_stock: bool = True` يمكن حذفه"
+       }
+      },
+      {
+       "icon": "❔",
+       "color": "blue",
+       "title": {
+        "en": "Optional",
+        "ar": "اختياري"
+       },
+       "text": {
+        "en": "`str | None = None`: missing or `null` is fine",
+        "ar": "`str | None = None`: غيابه أو `null` مقبول"
+       }
+      }
      ]
     },
     {
      "type": "tip",
-     "en": "Run the app with `fastapi dev main.py` and open `/docs`: every endpoint that uses a model shows a \"Request body\" section with an example JSON.",
-     "ar": "شغّل التطبيق بالأمر `fastapi dev main.py` وافتح `/docs`: كل endpoint يستخدم نموذجًا يعرض قسم \"Request body\" مع مثال JSON."
+     "en": "Run `fastapi dev main.py`, open `/docs`: each model shows a \"Request body\" example.",
+     "ar": "شغّل `fastapi dev main.py` وافتح `/docs`: كل نموذج يعرض مثال \"Request body\"."
     }
    ]
   },
@@ -69,59 +198,183 @@
    },
    "blocks": [
     {
-     "type": "p",
-     "en": "To receive the body, add a parameter whose type is your model. FastAPI reads the JSON, checks it against the model and gives you a ready `Item` object.",
-     "ar": "لاستقبال الجسم أضف معاملًا نوعه هو النموذج الخاص بك. يقرأ FastAPI ملف JSON، ويتحقق منه مقابل النموذج، ثم يعطيك كائن `Item` جاهزًا."
+     "type": "hero",
+     "emoji": "🛂",
+     "en": "FastAPI checks the body before your code",
+     "ar": "FastAPI يتحقق من الجسم قبل تشغيل كودك"
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "@app.post(\"/items\")\ndef create_item(item: Item):\n    total = item.price * 2           # attributes, not item[\"price\"]\n    data = item.model_dump()         # convert to a plain dict\n    return {\"name\": item.name, \"double_price\": total, \"data\": data}"
+     "code": "@app.post(\"/items\")\ndef create_item(item: Item):\n    total = item.price * 2           # attributes, not item[\"price\"]\n    data = item.model_dump()         # convert to a plain dict\n    return {\"name\": item.name, \"double_price\": total, \"data\": data}",
+     "highlight": [
+      2,
+      3,
+      4
+     ]
     },
     {
-     "type": "code",
-     "lang": "json",
-     "code": "{\"name\": \"Pen\", \"double_price\": 5.0, \"data\": {\"name\": \"Pen\", \"price\": 2.5, \"description\": null, \"in_stock\": true}}"
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "POST /items  {\"name\": \"Pen\", \"price\": 2.5}",
+       "note": {
+        "en": "a valid body",
+        "ar": "جسم صالح"
+       }
+      },
+      {
+       "from": "server",
+       "text": "200 OK  {\"name\": \"Pen\", \"double_price\": 5.0, ...}",
+       "note": {
+        "en": "your function ran",
+        "ar": "دالتك اشتغلت"
+       }
+      },
+      {
+       "from": "client",
+       "text": "POST /items  {\"name\": \"Pen\"}",
+       "note": {
+        "en": "price is missing",
+        "ar": "السعر غير موجود"
+       }
+      },
+      {
+       "from": "server",
+       "text": "422  \"type\": \"missing\", \"loc\": [\"body\", \"price\"]",
+       "note": {
+        "en": "function never ran",
+        "ar": "الدالة لم تعمل أبدًا"
+       }
+      },
+      {
+       "from": "client",
+       "text": "POST /items  {\"name\": \"Pen\", \"price\": \"cheap\"}",
+       "note": {
+        "en": "price is not a number",
+        "ar": "السعر ليس رقمًا"
+       }
+      },
+      {
+       "from": "server",
+       "text": "422  \"type\": \"float_parsing\"",
+       "note": {
+        "en": "rejected again",
+        "ar": "مرفوض مرة أخرى"
+       }
+      }
+     ]
     },
     {
-     "type": "p",
-     "en": "Read values with dot notation: `item.name`, `item.price`. `item.model_dump()` turns the model into a normal dict, handy for saving or merging. Missing optional fields get their defaults.",
-     "ar": "اقرأ القيم بالنقطة: `item.name` و`item.price`. والدالة `item.model_dump()` تحوّل النموذج إلى dict عادي، وهذا مفيد للحفظ أو الدمج. الحقول الاختيارية الغائبة تأخذ قيمها الافتراضية."
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "{\"detail\": [{"
+      },
+      {
+       "text": "\"type\": \"missing\"",
+       "color": "red",
+       "label": {
+        "en": "what went wrong",
+        "ar": "نوع الخطأ"
+       }
+      },
+      {
+       "text": ", "
+      },
+      {
+       "text": "\"loc\": [\"body\", \"price\"]",
+       "color": "blue",
+       "label": {
+        "en": "where: body → price",
+        "ar": "المكان: الجسم ← price"
+       }
+      },
+      {
+       "text": ", "
+      },
+      {
+       "text": "\"msg\": \"Field required\"",
+       "color": "yellow",
+       "label": {
+        "en": "human message",
+        "ar": "رسالة مقروءة"
+       }
+      },
+      {
+       "text": ", "
+      },
+      {
+       "text": "\"input\": {\"name\": \"Pen\"}",
+       "color": "purple",
+       "label": {
+        "en": "what you sent",
+        "ar": "ما أرسلته"
+       }
+      },
+      {
+       "text": "}]}"
+      }
+     ]
     },
     {
-     "type": "h",
-     "en": "When the body is wrong",
-     "ar": "عندما يكون الجسم خاطئًا"
-    },
-    {
-     "type": "p",
-     "en": "If the body does not match the model, your function never runs. FastAPI answers `422` and lists every problem in `detail`. `loc` starts with `\"body\"` and then names the field.",
-     "ar": "إذا لم يطابق الجسم النموذج فلن تعمل دالتك أبدًا. يرد FastAPI بالرمز `422` ويذكر كل مشكلة داخل `detail`. يبدأ `loc` بالكلمة `\"body\"` ثم يذكر اسم الحقل."
-    },
-    {
-     "type": "code",
-     "lang": "json",
-     "code": "// sent {\"name\": \"Pen\"}  (price missing)\n{\"detail\": [{\"type\": \"missing\", \"loc\": [\"body\", \"price\"], \"msg\": \"Field required\", \"input\": {\"name\": \"Pen\"}}]}\n\n// sent {\"name\": \"Pen\", \"price\": \"cheap\"}\n{\"detail\": [{\"type\": \"float_parsing\", \"loc\": [\"body\", \"price\"], \"msg\": \"Input should be a valid number, unable to parse string as a number\", \"input\": \"cheap\"}]}"
-    },
-    {
-     "type": "list",
-     "en": [
-      "Broken JSON (e.g. a trailing comma) also gives `422`, with `\"type\": \"json_invalid\"`.",
-      "No body at all gives `422` with `\"loc\": [\"body\"]` and `\"Field required\"`.",
-      "A string that looks like a number, such as `\"3\"`, is converted to `3.0`.",
-      "Extra fields that the model does not declare are ignored by default."
-     ],
-     "ar": [
-      "ملف JSON المعطوب (مثل فاصلة زائدة في النهاية) يعطي أيضًا `422` مع `\"type\": \"json_invalid\"`.",
-      "غياب الجسم تمامًا يعطي `422` مع `\"loc\": [\"body\"]` و`\"Field required\"`.",
-      "النص الذي يشبه رقمًا مثل `\"3\"` يُحوَّل إلى `3.0`.",
-      "الحقول الإضافية التي لم يعرّفها النموذج تُتجاهَل افتراضيًا."
+     "type": "cards",
+     "items": [
+      {
+       "icon": "💥",
+       "color": "red",
+       "title": {
+        "en": "Broken JSON",
+        "ar": "JSON معطوب"
+       },
+       "text": {
+        "en": "Trailing comma → `422` with `json_invalid`",
+        "ar": "فاصلة زائدة ← `422` مع `json_invalid`"
+       }
+      },
+      {
+       "icon": "🫙",
+       "color": "yellow",
+       "title": {
+        "en": "No body at all",
+        "ar": "لا يوجد جسم"
+       },
+       "text": {
+        "en": "`422`, `loc` is `[\"body\"]`, \"Field required\"",
+        "ar": "`422`، و`loc` هو `[\"body\"]`، \"Field required\""
+       }
+      },
+      {
+       "icon": "🔢",
+       "color": "green",
+       "title": {
+        "en": "Number as text",
+        "ar": "رقم كنص"
+       },
+       "text": {
+        "en": "`\"3\"` is converted to `3.0`",
+        "ar": "`\"3\"` يُحوَّل إلى `3.0`"
+       }
+      },
+      {
+       "icon": "🗑️",
+       "color": "blue",
+       "title": {
+        "en": "Extra fields",
+        "ar": "حقول إضافية"
+       },
+       "text": {
+        "en": "Undeclared fields are ignored by default",
+        "ar": "الحقول غير المعرّفة تُتجاهَل افتراضيًا"
+       }
+      }
      ]
     },
     {
      "type": "warn",
-     "en": "Pydantic v2 uses `model_dump()`. The old `.dict()` is deprecated; do not use it in new code.",
-     "ar": "يستخدم Pydantic v2 الدالة `model_dump()`. أما `.dict()` القديمة فهي مُهمَلة (deprecated)، فلا تستخدمها في الكود الجديد."
+     "en": "Pydantic v2: use `model_dump()`. The old `.dict()` is deprecated.",
+     "ar": "في Pydantic v2 استخدم `model_dump()`. أما `.dict()` القديمة فهي مُهمَلة (deprecated)."
     }
    ]
   },
@@ -133,44 +386,159 @@
    },
    "blocks": [
     {
-     "type": "p",
-     "en": "Types alone do not stop a price of `-5` or an empty name. Pydantic's `Field(...)` adds rules to a field, just like `Query` and `Path` did for parameters.",
-     "ar": "الأنواع وحدها لا تمنع سعرًا قيمته `-5` أو اسمًا فارغًا. الدالة `Field(...)` من Pydantic تضيف قواعد للحقل، تمامًا كما فعلت `Query` و`Path` مع المعاملات."
+     "type": "hero",
+     "emoji": "📏",
+     "en": "Field() adds rules to each field",
+     "ar": "Field() تضيف قواعد لكل حقل"
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "from pydantic import BaseModel, Field\n\n\nclass Product(BaseModel):\n    name: str = Field(min_length=2, max_length=20)\n    price: float = Field(gt=0)               # greater than 0\n    quantity: int = Field(default=1, ge=1)   # optional, at least 1"
+     "code": "from pydantic import BaseModel, Field\n\n\nclass Product(BaseModel):\n    name: str = Field(min_length=2, max_length=20)\n    price: float = Field(gt=0)               # greater than 0\n    quantity: int = Field(default=1, ge=1)   # optional, at least 1",
+     "highlight": [
+      5,
+      6,
+      7
+     ]
     },
     {
-     "type": "p",
-     "en": "Sending `{\"name\": \"Pen\", \"price\": 0}` breaks the `gt=0` rule:",
-     "ar": "إرسال `{\"name\": \"Pen\", \"price\": 0}` يخالف القاعدة `gt=0`:"
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🔤",
+       "color": "blue",
+       "title": {
+        "en": "min_length / max_length",
+        "ar": "min_length / max_length"
+       },
+       "text": {
+        "en": "Name has 2 to 20 characters",
+        "ar": "الاسم من 2 إلى 20 حرفًا"
+       }
+      },
+      {
+       "icon": "🚫",
+       "color": "red",
+       "title": {
+        "en": "gt=0",
+        "ar": "gt=0"
+       },
+       "text": {
+        "en": "Strictly greater than 0; `0` fails",
+        "ar": "أكبر من 0 تمامًا، و`0` يفشل"
+       }
+      },
+      {
+       "icon": "⬆️",
+       "color": "green",
+       "title": {
+        "en": "ge=1",
+        "ar": "ge=1"
+       },
+       "text": {
+        "en": "Greater than or equal to 1",
+        "ar": "أكبر من أو يساوي 1"
+       }
+      },
+      {
+       "icon": "🎁",
+       "color": "yellow",
+       "title": {
+        "en": "default=1",
+        "ar": "default=1"
+       },
+       "text": {
+        "en": "Field is optional, defaults to 1",
+        "ar": "الحقل اختياري، وقيمته الافتراضية 1"
+       }
+      }
+     ]
     },
     {
-     "type": "code",
-     "lang": "json",
-     "code": "{\"detail\": [{\"type\": \"greater_than\", \"loc\": [\"body\", \"price\"], \"msg\": \"Input should be greater than 0\", \"input\": 0, \"ctx\": {\"gt\": 0.0}}]}"
-    },
-    {
-     "type": "h",
-     "en": "Nested models and lists",
-     "ar": "النماذج المتداخلة والقوائم"
-    },
-    {
-     "type": "p",
-     "en": "A field can be another model, or a list of models. FastAPI validates every inner object too.",
-     "ar": "يمكن أن يكون الحقل نموذجًا آخر، أو قائمة من النماذج. ويتحقق FastAPI من كل كائن داخلي أيضًا."
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "POST /products  {\"name\": \"Pen\", \"price\": 0}",
+       "note": {
+        "en": "breaks `gt=0`",
+        "ar": "يخالف `gt=0`"
+       }
+      },
+      {
+       "from": "server",
+       "text": "422  \"type\": \"greater_than\", \"msg\": \"Input should be greater than 0\"",
+       "note": {
+        "en": "rule caught it",
+        "ar": "القاعدة اكتشفته"
+       }
+      }
+     ]
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "class Order(BaseModel):\n    customer: str\n    products: list[Product]     # a JSON array of Product objects\n    tags: list[str] = []"
+     "code": "class Order(BaseModel):\n    customer: str\n    products: list[Product]     # a JSON array of Product objects\n    tags: list[str] = []",
+     "highlight": [
+      3
+     ]
     },
     {
-     "type": "p",
-     "en": "If the second product has `\"price\": 0`, the error points exactly to it: `\"loc\": [\"body\", \"products\", 1, \"price\"]`. The `1` is the list index, counted from 0.",
-     "ar": "إذا كان المنتج الثاني بقيمة `\"price\": 0` فإن الخطأ يشير إليه بدقة: `\"loc\": [\"body\", \"products\", 1, \"price\"]`. الرقم `1` هو موقع العنصر في القائمة، ويبدأ العدّ من 0."
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "\"loc\": ["
+      },
+      {
+       "text": "\"body\"",
+       "color": "blue",
+       "label": {
+        "en": "in the body",
+        "ar": "في الجسم"
+       }
+      },
+      {
+       "text": ", "
+      },
+      {
+       "text": "\"products\"",
+       "color": "green",
+       "label": {
+        "en": "the list field",
+        "ar": "حقل القائمة"
+       }
+      },
+      {
+       "text": ", "
+      },
+      {
+       "text": "1",
+       "color": "yellow",
+       "label": {
+        "en": "2nd item, counts from 0",
+        "ar": "العنصر الثاني، العدّ من 0"
+       }
+      },
+      {
+       "text": ", "
+      },
+      {
+       "text": "\"price\"",
+       "color": "red",
+       "label": {
+        "en": "the bad field",
+        "ar": "الحقل الخاطئ"
+       }
+      },
+      {
+       "text": "]"
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "Inner models are validated too; errors point exactly to the bad item.",
+     "ar": "النماذج الداخلية يُتحقق منها أيضًا، والخطأ يشير بدقة إلى العنصر الخاطئ."
     }
    ]
   },
@@ -182,47 +550,151 @@
    },
    "blocks": [
     {
-     "type": "p",
-     "en": "One endpoint can use all three sources at once. You do not mark them; FastAPI decides from the parameter itself.",
-     "ar": "يمكن لـ endpoint واحد أن يستخدم المصادر الثلاثة معًا. لا تحتاج إلى تحديدها بنفسك، فـ FastAPI يقرر بناءً على المعامل نفسه."
+     "type": "hero",
+     "emoji": "🧭",
+     "en": "Three sources, one endpoint",
+     "ar": "ثلاثة مصادر في endpoint واحد"
     },
     {
-     "type": "list",
-     "en": [
-      "Name appears in the path (`{item_id}`) → path parameter.",
-      "Simple type (`int`, `str`, `bool`, `float`) not in the path → query parameter.",
-      "Type is a Pydantic model → request body."
-     ],
-     "ar": [
-      "الاسم موجود في المسار (`{item_id}`) ← معامل مسار.",
-      "نوع بسيط (`int` أو `str` أو `bool` أو `float`) وليس في المسار ← معامل استعلام.",
-      "النوع نموذج Pydantic ← جسم الطلب."
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "PUT"
+      },
+      {
+       "text": " /items/5",
+       "color": "green",
+       "label": {
+        "en": "path → item_id",
+        "ar": "المسار ← item_id"
+       }
+      },
+      {
+       "text": "?notify=true",
+       "color": "yellow",
+       "label": {
+        "en": "query → notify",
+        "ar": "الاستعلام ← notify"
+       }
+      },
+      {
+       "text": "\n\n"
+      },
+      {
+       "text": "{\"name\": \"Pen\", \"price\": 3}",
+       "color": "blue",
+       "label": {
+        "en": "body → item",
+        "ar": "الجسم ← item"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🛣️",
+       "color": "green",
+       "title": {
+        "en": "Path parameter",
+        "ar": "معامل مسار"
+       },
+       "text": {
+        "en": "Name appears in the path: `{item_id}`",
+        "ar": "الاسم موجود في المسار: `{item_id}`"
+       }
+      },
+      {
+       "icon": "❓",
+       "color": "yellow",
+       "title": {
+        "en": "Query parameter",
+        "ar": "معامل استعلام"
+       },
+       "text": {
+        "en": "Simple type like `int`, `bool`, not in path",
+        "ar": "نوع بسيط مثل `int` أو `bool`، وليس في المسار"
+       }
+      },
+      {
+       "icon": "📦",
+       "color": "blue",
+       "title": {
+        "en": "Request body",
+        "ar": "جسم الطلب"
+       },
+       "text": {
+        "en": "Type is a Pydantic model",
+        "ar": "النوع نموذج Pydantic"
+       }
+      }
      ]
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "class Item(BaseModel):\n    name: str\n    price: float\n\n\n@app.put(\"/items/{item_id}\")\ndef update_item(item_id: int, item: Item, notify: bool = False):\n    return {\"item_id\": item_id, \"notify\": notify, \"item\": item.model_dump()}"
+     "code": "class Item(BaseModel):\n    name: str\n    price: float\n\n\n@app.put(\"/items/{item_id}\")\ndef update_item(item_id: int, item: Item, notify: bool = False):\n    return {\"item_id\": item_id, \"notify\": notify, \"item\": item.model_dump()}",
+     "highlight": [
+      6,
+      7
+     ]
     },
     {
-     "type": "code",
-     "lang": "http",
-     "code": "PUT /items/5?notify=true HTTP/1.1\nContent-Type: application/json\n\n{\"name\": \"Pen\", \"price\": 3}"
-    },
-    {
-     "type": "code",
-     "lang": "json",
-     "code": "{\"item_id\": 5, \"notify\": true, \"item\": {\"name\": \"Pen\", \"price\": 3.0}}"
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "PUT /items/5?notify=true  {\"name\": \"Pen\", \"price\": 3}"
+      },
+      {
+       "from": "server",
+       "text": "200 OK  {\"item_id\": 5, \"notify\": true, \"item\": {\"name\": \"Pen\", \"price\": 3.0}}",
+       "note": {
+        "en": "all three arrived",
+        "ar": "الثلاثة وصلت"
+       }
+      }
+     ]
     },
     {
      "type": "p",
-     "en": "The order of the parameters in the function does not matter. Each error's `loc` tells you which part failed: `[\"path\", \"item_id\"]`, `[\"query\", ...]` or `[\"body\", ...]`.",
-     "ar": "ترتيب المعاملات في الدالة لا يهم. و`loc` في كل خطأ يخبرك بالجزء الذي فشل: `[\"path\", \"item_id\"]` أو `[\"query\", ...]` أو `[\"body\", ...]`."
+     "en": "Parameter order in the function does not matter. FastAPI decides from each parameter.",
+     "ar": "ترتيب المعاملات في الدالة لا يهم. FastAPI يقرر حسب كل معامل."
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": "[\"path\", \"item_id\"]",
+       "color": "green",
+       "label": {
+        "en": "path failed",
+        "ar": "فشل في المسار"
+       }
+      },
+      {
+       "text": "[\"query\", ...]",
+       "color": "yellow",
+       "label": {
+        "en": "query failed",
+        "ar": "فشل في الاستعلام"
+       }
+      },
+      {
+       "text": "[\"body\", ...]",
+       "color": "blue",
+       "label": {
+        "en": "body failed",
+        "ar": "فشل في الجسم"
+       }
+      }
+     ]
     },
     {
      "type": "tip",
-     "en": "A plain `text: str` with no default and not in the path is a REQUIRED query parameter, not a body field. To get it from the body, put it inside a model.",
-     "ar": "المعامل `text: str` بلا قيمة افتراضية وغير الموجود في المسار هو معامل استعلام إلزامي، وليس حقلًا في الجسم. لكي تأخذه من الجسم ضعه داخل نموذج."
+     "en": "Plain `text: str`, no default, not in path = REQUIRED query, not body. Use a model.",
+     "ar": "المعامل `text: str` بلا قيمة افتراضية وليس في المسار = استعلام إلزامي، وليس جسمًا. استخدم نموذجًا."
     }
    ]
   },
@@ -234,44 +706,159 @@
    },
    "blocks": [
     {
-     "type": "p",
-     "en": "`response_model` tells FastAPI what the response must look like. Fields not in that model are removed, which is how you keep secrets like a password out of the response.",
-     "ar": "يخبر `response_model` إطار FastAPI بالشكل الذي يجب أن تكون عليه الاستجابة (response). الحقول غير الموجودة في ذلك النموذج تُحذف، وبهذا تُبقي الأسرار مثل كلمة المرور خارج الاستجابة."
+     "type": "hero",
+     "emoji": "🛡️",
+     "en": "Control exactly what goes back out",
+     "ar": "تحكّم بالضبط فيما يخرج في الاستجابة"
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "from fastapi import FastAPI, HTTPException\nfrom pydantic import BaseModel\n\napp = FastAPI()\nfake_db = {}\n\n\nclass UserIn(BaseModel):\n    username: str\n    email: str\n    password: str\n\n\nclass UserOut(BaseModel):\n    username: str\n    email: str\n\n\n@app.post(\"/users\", response_model=UserOut, status_code=201)\ndef create_user(user: UserIn):\n    fake_db[user.username] = user\n    return user                      # password is filtered out"
+     "code": "class UserIn(BaseModel):\n    username: str\n    email: str\n    password: str\n\nclass UserOut(BaseModel):\n    username: str\n    email: str\n\n@app.post(\"/users\", response_model=UserOut, status_code=201)\ndef create_user(user: UserIn):\n    return user                      # password is filtered out",
+     "highlight": [
+      10,
+      12
+     ]
     },
     {
-     "type": "code",
-     "lang": "json",
-     "code": "// 201 Created\n{\"username\": \"ali\", \"email\": \"ali@example.com\"}"
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "With response_model=UserOut",
+       "ar": "مع response_model=UserOut"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "Only `username` and `email` sent",
+        "ar": "يُرسل `username` و`email` فقط"
+       },
+       {
+        "en": "`password` is filtered out",
+        "ar": "يُحذف `password`"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "Without response_model",
+       "ar": "بدون response_model"
+      },
+      "tone": "bad",
+      "items": [
+       {
+        "en": "Returns every field of `UserIn`",
+        "ar": "يرجع كل حقول `UserIn`"
+       },
+       {
+        "en": "`\"password\": \"s3cret\"` leaks out",
+        "ar": "`\"password\": \"s3cret\"` يتسرّب"
+       }
+      ]
+     }
     },
     {
-     "type": "p",
-     "en": "`status_code=201` sets the success code; `201 Created` is the right answer to a create request. Without it, FastAPI returns `200`. Invalid input still returns `422`.",
-     "ar": "يحدد `status_code=201` رمز النجاح، و`201 Created` هو الرد المناسب لطلب الإنشاء. بدونه يرجع FastAPI الرمز `200`. والمدخلات غير الصالحة تبقى ترجع `422`."
-    },
-    {
-     "type": "h",
-     "en": "Errors with HTTPException",
-     "ar": "الأخطاء باستخدام HTTPException"
+     "type": "pills",
+     "items": [
+      {
+       "text": "200",
+       "color": "yellow",
+       "label": {
+        "en": "default success",
+        "ar": "النجاح الافتراضي"
+       }
+      },
+      {
+       "text": "201",
+       "color": "green",
+       "label": {
+        "en": "Created, with status_code=201",
+        "ar": "Created، مع status_code=201"
+       }
+      },
+      {
+       "text": "422",
+       "color": "red",
+       "label": {
+        "en": "invalid input",
+        "ar": "مدخلات غير صالحة"
+       }
+      },
+      {
+       "text": "404",
+       "color": "purple",
+       "label": {
+        "en": "raised HTTPException",
+        "ar": "HTTPException مرفوع"
+       }
+      }
+     ]
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "@app.get(\"/users/{username}\", response_model=UserOut)\ndef get_user(username: str):\n    if username not in fake_db:\n        raise HTTPException(status_code=404, detail=\"User not found\")\n    return fake_db[username]"
+     "code": "@app.get(\"/users/{username}\", response_model=UserOut)\ndef get_user(username: str):\n    if username not in fake_db:\n        raise HTTPException(status_code=404, detail=\"User not found\")\n    return fake_db[username]",
+     "highlight": [
+      4
+     ]
     },
     {
-     "type": "code",
-     "lang": "json",
-     "code": "// 404 Not Found\n{\"detail\": \"User not found\"}"
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "POST /users  {\"username\": \"ali\", \"email\": \"ali@example.com\", \"password\": \"s3cret\"}",
+       "note": {
+        "en": "valid new user",
+        "ar": "مستخدم جديد صالح"
+       }
+      },
+      {
+       "from": "server",
+       "text": "201 Created  {\"username\": \"ali\", \"email\": \"ali@example.com\"}",
+       "note": {
+        "en": "password hidden",
+        "ar": "كلمة المرور مخفية"
+       }
+      },
+      {
+       "from": "client",
+       "text": "POST /users  {\"username\": \"ali\"}",
+       "note": {
+        "en": "fields missing",
+        "ar": "حقول ناقصة"
+       }
+      },
+      {
+       "from": "server",
+       "text": "422  \"type\": \"missing\", \"loc\": [\"body\", \"email\"] ...",
+       "note": {
+        "en": "still 422",
+        "ar": "يبقى 422"
+       }
+      },
+      {
+       "from": "client",
+       "text": "GET /users/omar",
+       "note": {
+        "en": "unknown user",
+        "ar": "مستخدم غير موجود"
+       }
+      },
+      {
+       "from": "server",
+       "text": "404  {\"detail\": \"User not found\"}",
+       "note": {
+        "en": "HTTPException raised",
+        "ar": "تم رفع HTTPException"
+       }
+      }
+     ]
     },
     {
-     "type": "p",
-     "en": "You `raise` it, not `return` it. The function stops there, and FastAPI sends the status code with `{\"detail\": ...}` as the body.",
-     "ar": "أنت تستخدم `raise` معه وليس `return`. تتوقف الدالة عند هذا السطر، ويرسل FastAPI رمز الحالة ومعه `{\"detail\": ...}` كجسم للاستجابة."
+     "type": "tip",
+     "en": "`raise` HTTPException, never `return` it. The function stops right there.",
+     "ar": "استخدم `raise` مع HTTPException وليس `return`. تتوقف الدالة عند هذا السطر."
     }
    ]
   }
@@ -401,8 +988,8 @@
    ],
    "answer": 0,
    "explanation": {
-    "en": "`price` has no default, so it is required. FastAPI rejects the body with `422` before the function runs; the error has `\"type\": \"missing\"` and `\"loc\": [\"body\", \"price\"]`.",
-    "ar": "الحقل `price` ليس له قيمة افتراضية، لذا فهو إلزامي. يرفض FastAPI الجسم بالرمز `422` قبل تشغيل الدالة، ويحتوي الخطأ على `\"type\": \"missing\"` و`\"loc\": [\"body\", \"price\"]`."
+    "en": "`price` has no default, so it is required. FastAPI returns `422` with `\"loc\": [\"body\", \"price\"]` before the function runs.",
+    "ar": "الحقل `price` ليس له قيمة افتراضية، لذا فهو إلزامي. يرجع FastAPI الرمز `422` مع `\"loc\": [\"body\", \"price\"]` قبل تشغيل الدالة."
    }
   },
   {
@@ -593,8 +1180,8 @@
    ],
    "answer": 1,
    "explanation": {
-    "en": "Extra fields are ignored by default, so `color` is dropped. Missing optional fields get defaults and `1` becomes `1.0`: `{\"name\": \"Pen\", \"price\": 1.0, \"description\": null, \"in_stock\": true}`.",
-    "ar": "الحقول الإضافية تُتجاهل افتراضيًا، لذا يُحذف `color`. الحقول الاختيارية الغائبة تأخذ قيمها الافتراضية و`1` تصبح `1.0`: `{\"name\": \"Pen\", \"price\": 1.0, \"description\": null, \"in_stock\": true}`."
+    "en": "Extra fields are ignored by default, so `color` is dropped. Result: `{\"name\": \"Pen\", \"price\": 1.0, \"description\": null, \"in_stock\": true}`.",
+    "ar": "الحقول الإضافية تُتجاهل افتراضيًا، لذا يُحذف `color`. النتيجة: `{\"name\": \"Pen\", \"price\": 1.0, \"description\": null, \"in_stock\": true}`."
    }
   }
  ]

@@ -11,7 +11,64 @@ const path = require('path');
 
 const DIR = path.join(__dirname, '..', 'src', 'data', 'courses');
 const LANGS = ['en', 'ar'];
-const BLOCKS = new Set(['p', 'h', 'list', 'code', 'tip', 'warn']);
+const BLOCKS = new Set(['p', 'h', 'list', 'code', 'tip', 'warn',
+  'hero', 'chat', 'flow', 'cards', 'pills', 'anatomy', 'steps', 'compare']);
+const COLORS = new Set(['green', 'blue', 'yellow', 'red', 'purple', 'cyan']);
+
+// The visual blocks: each carries its own structure (see scripts/new/learn-GUIDE-v2.md).
+function checkVisual(b, bw) {
+  const color = (c, w) => { if (c != null && !COLORS.has(c)) err(w, `unknown color "${c}"`); };
+  switch (b.type) {
+    case 'hero':
+      if (!b.emoji) err(bw, 'hero needs an emoji');
+      bi(b, bw);
+      return true;
+    case 'chat':
+      if (!Array.isArray(b.messages) || !b.messages.length) return err(bw, 'chat needs messages'), true;
+      b.messages.forEach((m, i) => {
+        if (!['client', 'server'].includes(m.from)) err(`${bw} msg ${i + 1}`, `bad from "${m.from}"`);
+        if (typeof m.text !== 'string' || !m.text.trim()) err(`${bw} msg ${i + 1}`, 'empty text');
+        if (m.note) bi(m.note, `${bw} msg ${i + 1} note`);
+      });
+      return true;
+    case 'flow': {
+      const n = Array.isArray(b.nodes) ? b.nodes.length : 0;
+      if (n < 2) err(bw, 'flow needs 2+ nodes');
+      (b.nodes || []).forEach((nd, i) => { if (!nd.icon) err(`${bw} node ${i + 1}`, 'no icon'); bi(nd.label, `${bw} node ${i + 1}`); });
+      if (!Array.isArray(b.links) || b.links.length !== n - 1) err(bw, `links must be nodes-1 (${n - 1})`);
+      (b.links || []).forEach((l, i) => { if (l.label) bi(l.label, `${bw} link ${i + 1}`); });
+      if (b.returns) bi(b.returns, `${bw} returns`);
+      return true;
+    }
+    case 'cards':
+      if (!Array.isArray(b.items) || !b.items.length) return err(bw, 'cards needs items'), true;
+      b.items.forEach((it, i) => { color(it.color, `${bw} card ${i + 1}`); bi(it.title, `${bw} card ${i + 1} title`); if (it.text) bi(it.text, `${bw} card ${i + 1} text`); });
+      return true;
+    case 'pills':
+      if (!Array.isArray(b.items) || !b.items.length) return err(bw, 'pills needs items'), true;
+      b.items.forEach((it, i) => { color(it.color, `${bw} pill ${i + 1}`); if (!it.text) err(`${bw} pill ${i + 1}`, 'no text'); if (it.label) bi(it.label, `${bw} pill ${i + 1}`); });
+      return true;
+    case 'anatomy':
+      if (!Array.isArray(b.parts) || !b.parts.length) return err(bw, 'anatomy needs parts'), true;
+      b.parts.forEach((p, i) => { color(p.color, `${bw} part ${i + 1}`); if (typeof p.text !== 'string') err(`${bw} part ${i + 1}`, 'no text'); if (p.label) bi(p.label, `${bw} part ${i + 1}`); if (ARABIC.test(p.text || '')) err(`${bw} part ${i + 1}`, 'Arabic in code'); });
+      return true;
+    case 'steps':
+      if (!Array.isArray(b.items) || !b.items.length) return err(bw, 'steps needs items'), true;
+      b.items.forEach((it, i) => bi(it, `${bw} step ${i + 1}`));
+      return true;
+    case 'compare':
+      ['left', 'right'].forEach((s) => {
+        const col = b[s];
+        if (!col) return err(bw, `no ${s}`);
+        bi(col.title, `${bw} ${s} title`);
+        if (!Array.isArray(col.items) || !col.items.length) err(bw, `${s} needs items`);
+        (col.items || []).forEach((it, i) => bi(it, `${bw} ${s} ${i + 1}`));
+      });
+      return true;
+    default:
+      return false;
+  }
+}
 const CODE_LANGS = new Set(['python', 'http', 'json', 'bash', 'text']);
 const DIFFS = new Set(['easy', 'medium', 'hard']);
 const ARABIC = /[؀-ۿ]/;
@@ -57,7 +114,12 @@ for (const f of files) {
         const bw = `${sw} block ${bi2 + 1}`;
         checks++;
         if (!BLOCKS.has(b.type)) return err(bw, `unknown type "${b.type}"`);
+        if (checkVisual(b, bw)) return;
         if (b.type === 'code') {
+          if (b.highlight != null) {
+            const lines = String(b.code || '').split('\n').length;
+            if (!Array.isArray(b.highlight) || b.highlight.some((n) => !Number.isInteger(n) || n < 1 || n > lines)) err(bw, 'highlight lines out of range');
+          }
           if (typeof b.code !== 'string' || !b.code.trim()) err(bw, 'empty code');
           if (b.lang && !CODE_LANGS.has(b.lang)) err(bw, `unknown lang "${b.lang}"`);
           if (ARABIC.test(b.code || '')) err(bw, 'Arabic inside code');

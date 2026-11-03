@@ -17,57 +17,188 @@
    },
    "blocks": [
     {
-     "type": "p",
-     "en": "A CRUD API lets clients Create, Read, Update and Delete one kind of thing, called a resource. We will build a small todos API that keeps its data in memory: a dict plus an id counter.",
-     "ar": "واجهة CRUD تتيح للعميل إنشاء (Create) وقراءة (Read) وتعديل (Update) وحذف (Delete) نوع واحد من البيانات يُسمّى المورد (resource). سنبني API صغيرة للمهام (todos) تحفظ بياناتها في الذاكرة: قاموس (dict) وعدّاد للمعرّفات (id)."
+     "type": "hero",
+     "emoji": "🗂️",
+     "en": "One resource, six routes: CRUD",
+     "ar": "مورد واحد وستة مسارات: CRUD"
     },
     {
-     "type": "h",
-     "en": "The routes",
-     "ar": "المسارات (routes)"
+     "type": "cards",
+     "items": [
+      {
+       "icon": "📋",
+       "color": "green",
+       "title": {
+        "en": "GET /todos",
+        "ar": "GET /todos"
+       },
+       "text": {
+        "en": "List todos, with `?done=`, `?skip=`, `?limit=`",
+        "ar": "عرض المهام مع `?done=` و`?skip=` و`?limit=`"
+       }
+      },
+      {
+       "icon": "🔍",
+       "color": "green",
+       "title": {
+        "en": "GET /todos/{todo_id}",
+        "ar": "GET /todos/{todo_id}"
+       },
+       "text": {
+        "en": "Read one todo",
+        "ar": "قراءة مهمة واحدة"
+       }
+      },
+      {
+       "icon": "➕",
+       "color": "blue",
+       "title": {
+        "en": "POST /todos",
+        "ar": "POST /todos"
+       },
+       "text": {
+        "en": "Create a todo → 201",
+        "ar": "إنشاء مهمة ← 201"
+       }
+      },
+      {
+       "icon": "🔁",
+       "color": "yellow",
+       "title": {
+        "en": "PUT /todos/{todo_id}",
+        "ar": "PUT /todos/{todo_id}"
+       },
+       "text": {
+        "en": "Replace a whole todo",
+        "ar": "استبدال المهمة كاملة"
+       }
+      },
+      {
+       "icon": "✏️",
+       "color": "yellow",
+       "title": {
+        "en": "PATCH /todos/{todo_id}",
+        "ar": "PATCH /todos/{todo_id}"
+       },
+       "text": {
+        "en": "Change some fields",
+        "ar": "تغيير بعض الحقول"
+       }
+      },
+      {
+       "icon": "🗑️",
+       "color": "red",
+       "title": {
+        "en": "DELETE /todos/{todo_id}",
+        "ar": "DELETE /todos/{todo_id}"
+       },
+       "text": {
+        "en": "Delete a todo → 204",
+        "ar": "حذف مهمة ← 204"
+       }
+      }
+     ]
     },
     {
-     "type": "code",
-     "lang": "text",
-     "code": "GET    /todos          list todos (?done=, ?skip=, ?limit=)\nGET    /todos/{todo_id}  read one todo\nPOST   /todos          create a todo        -> 201\nPUT    /todos/{todo_id}  replace a todo\nPATCH  /todos/{todo_id}  change some fields\nDELETE /todos/{todo_id}  delete a todo        -> 204"
-    },
-    {
-     "type": "p",
-     "en": "All routes share one base path, `/todos`. The HTTP method says what to do, and `/todos/{todo_id}` points at one item.",
-     "ar": "كل المسارات تبدأ بالمسار نفسه `/todos`. طريقة HTTP (method) تحدّد العملية، و`/todos/{todo_id}` يشير إلى عنصر واحد."
-    },
-    {
-     "type": "h",
-     "en": "Three models, three jobs",
-     "ar": "ثلاثة نماذج، ثلاث مهام"
+     "type": "cards",
+     "items": [
+      {
+       "icon": "📥",
+       "color": "blue",
+       "title": {
+        "en": "TodoCreate",
+        "ar": "TodoCreate"
+       },
+       "text": {
+        "en": "Body for POST and PUT. No `id`.",
+        "ar": "جسم الطلب في POST وPUT. بدون `id`."
+       }
+      },
+      {
+       "icon": "🩹",
+       "color": "yellow",
+       "title": {
+        "en": "TodoUpdate",
+        "ar": "TodoUpdate"
+       },
+       "text": {
+        "en": "Body for PATCH. Every field optional.",
+        "ar": "جسم الطلب في PATCH. كل الحقول اختيارية."
+       }
+      },
+      {
+       "icon": "📤",
+       "color": "green",
+       "title": {
+        "en": "Todo",
+        "ar": "Todo"
+       },
+       "text": {
+        "en": "Stored and returned. Always has `id`.",
+        "ar": "ما نخزّنه ونُرجعه. فيه `id` دائمًا."
+       }
+      }
+     ]
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "from fastapi import FastAPI, HTTPException, Query\nfrom pydantic import BaseModel, Field\n\napp = FastAPI()\n\n\nclass TodoCreate(BaseModel):  # what the client sends\n    title: str = Field(min_length=1, max_length=100)\n    done: bool = False\n\n\nclass TodoUpdate(BaseModel):  # every field optional\n    title: str | None = Field(default=None, min_length=1, max_length=100)\n    done: bool | None = None\n\n\nclass Todo(BaseModel):  # what the API returns\n    id: int\n    title: str\n    done: bool\n\n\ntodos: dict[int, Todo] = {}  # id -> Todo\nnext_id = 1"
+     "code": "class TodoCreate(BaseModel):  # what the client sends\n    title: str = Field(min_length=1, max_length=100)\n    done: bool = False\n\nclass TodoUpdate(BaseModel):  # every field optional\n    title: str | None = Field(default=None, min_length=1, max_length=100)\n    done: bool | None = None\n\nclass Todo(BaseModel):  # what the API returns\n    id: int\n    title: str\n    done: bool",
+     "highlight": [
+      1,
+      5,
+      9
+     ]
     },
     {
-     "type": "list",
-     "en": [
-      "`TodoCreate`: the body for POST and PUT. It has no `id`, because the server chooses the id.",
-      "`TodoUpdate`: the body for PATCH. Every field is optional, so the client sends only what changes.",
-      "`Todo`: what we store and return. It always has `id`, `title` and `done`."
-     ],
-     "ar": [
-      "`TodoCreate`: جسم الطلب في POST وPUT. لا يحتوي `id` لأن الخادم هو من يختار المعرّف.",
-      "`TodoUpdate`: جسم الطلب في PATCH. كل حقوله اختيارية، فيرسل العميل ما يتغيّر فقط.",
-      "`Todo`: ما نخزّنه ونُرجعه. فيه دائمًا `id` و`title` و`done`."
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "todos",
+       "color": "blue",
+       "label": {
+        "en": "the store",
+        "ar": "المخزن"
+       }
+      },
+      {
+       "text": ": dict[int, Todo]",
+       "color": "purple",
+       "label": {
+        "en": "id → Todo",
+        "ar": "id ← Todo"
+       }
+      },
+      {
+       "text": " = {}",
+       "color": "green",
+       "label": {
+        "en": "starts empty",
+        "ar": "يبدأ فارغًا"
+       }
+      },
+      {
+       "text": "\n"
+      },
+      {
+       "text": "next_id = 1",
+       "color": "yellow",
+       "label": {
+        "en": "id counter",
+        "ar": "عدّاد المعرّفات"
+       }
+      }
      ]
     },
     {
      "type": "tip",
-     "en": "Separate models keep the API safe and clear: a client cannot set the `id` itself, and the docs at `/docs` show exactly what each route accepts and returns.",
-     "ar": "فصل النماذج يجعل الـ API آمنة وواضحة: لا يستطيع العميل تحديد `id` بنفسه، وتعرض صفحة `/docs` بدقة ما يقبله كل مسار وما يُرجعه."
+     "en": "The server picks the `id`; a client can never set it.",
+     "ar": "الخادم هو من يختار `id`، ولا يستطيع العميل تحديده أبدًا."
     },
     {
      "type": "warn",
-     "en": "In-memory data disappears when the server restarts. That is fine for learning; real apps use a database.",
-     "ar": "البيانات في الذاكرة تضيع عند إعادة تشغيل الخادم. هذا مناسب للتعلّم، أما التطبيقات الحقيقية فتستخدم قاعدة بيانات."
+     "en": "In-memory data disappears on restart. Real apps use a database.",
+     "ar": "البيانات في الذاكرة تضيع عند إعادة التشغيل. التطبيقات الحقيقية تستخدم قاعدة بيانات."
     }
    ]
   },
@@ -79,49 +210,137 @@
    },
    "blocks": [
     {
-     "type": "p",
-     "en": "Many routes need the same check: find a todo or answer 404. Put it in one small helper function so the error is identical everywhere.",
-     "ar": "مسارات كثيرة تحتاج الفحص نفسه: ابحث عن المهمة أو أرجِع 404. ضعه في دالة مساعدة صغيرة واحدة ليكون الخطأ متطابقًا في كل مكان."
+     "type": "hero",
+     "emoji": "✨",
+     "en": "POST creates it, GET reads it back",
+     "ar": "POST ينشئها وGET يقرؤها"
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "POST /todos  {\"title\": \"Buy milk\"}",
+       "note": {
+        "en": "create a todo",
+        "ar": "أنشئ مهمة"
+       }
+      },
+      {
+       "from": "server",
+       "text": "201 Created  {\"id\": 1, \"title\": \"Buy milk\", \"done\": false}",
+       "note": {
+        "en": "new id 1",
+        "ar": "معرّف جديد 1"
+       }
+      },
+      {
+       "from": "client",
+       "text": "GET /todos/1",
+       "note": {
+        "en": "read it back",
+        "ar": "اقرأها مجددًا"
+       }
+      },
+      {
+       "from": "server",
+       "text": "200 OK  {\"id\": 1, \"title\": \"Buy milk\", \"done\": false}",
+       "note": {
+        "en": "here it is",
+        "ar": "تفضّل"
+       }
+      },
+      {
+       "from": "client",
+       "text": "GET /todos/99",
+       "note": {
+        "en": "an id that doesn't exist",
+        "ar": "معرّف غير موجود"
+       }
+      },
+      {
+       "from": "server",
+       "text": "404 Not Found  {\"detail\": \"Todo not found\"}",
+       "note": {
+        "en": "no such todo",
+        "ar": "لا توجد مهمة كهذه"
+       }
+      }
+     ]
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "def find_todo_or_404(todo_id: int) -> Todo:\n    todo = todos.get(todo_id)\n    if todo is None:\n        raise HTTPException(status_code=404, detail=\"Todo not found\")\n    return todo"
+     "code": "@app.post(\"/todos\", response_model=Todo, status_code=201)\ndef create_todo(data: TodoCreate):\n    global next_id\n    todo = Todo(id=next_id, **data.model_dump())\n    todos[todo.id] = todo\n    next_id += 1\n    return todo",
+     "highlight": [
+      1,
+      4,
+      5,
+      6
+     ]
     },
     {
-     "type": "h",
-     "en": "POST: create",
-     "ar": "POST: الإنشاء"
-    },
-    {
-     "type": "code",
-     "lang": "python",
-     "code": "@app.post(\"/todos\", response_model=Todo, status_code=201)\ndef create_todo(data: TodoCreate):\n    global next_id\n    todo = Todo(id=next_id, **data.model_dump())\n    todos[todo.id] = todo\n    next_id += 1\n    return todo"
-    },
-    {
-     "type": "p",
-     "en": "The server builds the `Todo` from the validated body plus the next id, stores it, and returns it with status 201. If the client sends an extra `id` field, Pydantic ignores it.",
-     "ar": "يبني الخادم كائن `Todo` من جسم الطلب بعد التحقق منه مع المعرّف التالي، ثم يخزّنه ويُرجعه برمز الحالة 201. وإذا أرسل العميل حقل `id` إضافيًا فإن Pydantic يتجاهله."
-    },
-    {
-     "type": "h",
-     "en": "GET: list and read one",
-     "ar": "GET: عرض القائمة وقراءة عنصر واحد"
+     "type": "tip",
+     "en": "An extra `id` in the POST body is simply ignored by Pydantic.",
+     "ar": "أي `id` إضافي في جسم POST يتجاهله Pydantic ببساطة."
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "@app.get(\"/todos\", response_model=list[Todo])\ndef list_todos(\n    done: bool | None = None,\n    skip: int = Query(default=0, ge=0),\n    limit: int = Query(default=10, ge=1, le=100),\n):\n    items = list(todos.values())\n    if done is not None:\n        items = [t for t in items if t.done == done]\n    return items[skip : skip + limit]\n\n\n@app.get(\"/todos/{todo_id}\", response_model=Todo)\ndef read_todo(todo_id: int):\n    return find_todo_or_404(todo_id)"
+     "code": "def find_todo_or_404(todo_id: int) -> Todo:\n    todo = todos.get(todo_id)\n    if todo is None:\n        raise HTTPException(status_code=404, detail=\"Todo not found\")\n    return todo\n\n@app.get(\"/todos/{todo_id}\", response_model=Todo)\ndef read_todo(todo_id: int):\n    return find_todo_or_404(todo_id)",
+     "highlight": [
+      3,
+      4,
+      9
+     ]
     },
     {
-     "type": "p",
-     "en": "`done` is an optional filter. `skip` and `limit` give simple pagination: skip the first `skip` items, then return at most `limit`.",
-     "ar": "`done` فلتر اختياري. و`skip` و`limit` يقدّمان تقسيمًا بسيطًا للصفحات (pagination): تخطَّ أول `skip` عناصر ثم أرجِع `limit` عنصرًا على الأكثر."
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "GET /todos",
+       "color": "blue",
+       "label": {
+        "en": "list route",
+        "ar": "مسار القائمة"
+       }
+      },
+      {
+       "text": "?done=true",
+       "color": "green",
+       "label": {
+        "en": "optional filter",
+        "ar": "فلتر اختياري"
+       }
+      },
+      {
+       "text": "&skip=0",
+       "color": "yellow",
+       "label": {
+        "en": "skip first N",
+        "ar": "تخطَّ أول N"
+       }
+      },
+      {
+       "text": "&limit=2",
+       "color": "red",
+       "label": {
+        "en": "return at most N",
+        "ar": "أرجِع N على الأكثر"
+       }
+      }
+     ]
     },
     {
      "type": "code",
-     "lang": "http",
-     "code": "GET /todos?done=true&skip=0&limit=2\n\nHTTP/1.1 200 OK\n[{\"id\": 2, \"title\": \"Read book\", \"done\": true},\n {\"id\": 3, \"title\": \"Walk dog\", \"done\": true}]\n\nGET /todos/99\n\nHTTP/1.1 404 Not Found\n{\"detail\": \"Todo not found\"}"
+     "lang": "python",
+     "code": "@app.get(\"/todos\", response_model=list[Todo])\ndef list_todos(\n    done: bool | None = None,\n    skip: int = Query(default=0, ge=0),\n    limit: int = Query(default=10, ge=1, le=100),\n):\n    items = list(todos.values())\n    if done is not None:\n        items = [t for t in items if t.done == done]\n    return items[skip : skip + limit]",
+     "highlight": [
+      3,
+      4,
+      5,
+      10
+     ]
     }
    ]
   },
@@ -133,49 +352,136 @@
    },
    "blocks": [
     {
-     "type": "p",
-     "en": "PUT replaces the whole todo. It reuses `TodoCreate`, so a field the client leaves out gets its default value.",
-     "ar": "PUT يستبدل المهمة كاملة. وهو يعيد استخدام `TodoCreate`، لذلك أي حقل لا يرسله العميل يأخذ قيمته الافتراضية."
+     "type": "hero",
+     "emoji": "✏️",
+     "en": "PUT replaces, PATCH tweaks, DELETE removes",
+     "ar": "PUT يستبدل، PATCH يعدّل، DELETE يحذف"
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "PUT: replace all",
+       "ar": "PUT: استبدال كامل"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "Replaces the whole todo",
+        "ar": "يستبدل المهمة كاملة"
+       },
+       {
+        "en": "Body is `TodoCreate`",
+        "ar": "جسم الطلب `TodoCreate`"
+       },
+       {
+        "en": "Unsent field gets its default",
+        "ar": "الحقل غير المرسل يأخذ قيمته الافتراضية"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "PATCH: change some",
+       "ar": "PATCH: تعديل جزئي"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "Changes only the sent fields",
+        "ar": "يغيّر الحقول المرسلة فقط"
+       },
+       {
+        "en": "Body is `TodoUpdate`, all optional",
+        "ar": "جسم الطلب `TodoUpdate`، وكله اختياري"
+       },
+       {
+        "en": "Uses `exclude_unset=True`",
+        "ar": "يستخدم `exclude_unset=True`"
+       }
+      ]
+     }
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "@app.put(\"/todos/{todo_id}\", response_model=Todo)\ndef replace_todo(todo_id: int, data: TodoCreate):\n    find_todo_or_404(todo_id)\n    new_todo = Todo(id=todo_id, **data.model_dump())\n    todos[todo_id] = new_todo\n    return new_todo"
-    },
-    {
-     "type": "p",
-     "en": "PATCH changes only some fields. It uses `TodoUpdate` and `model_dump(exclude_unset=True)`, which keeps only the fields the client actually sent. `model_copy(update=...)` then makes a new todo with those changes.",
-     "ar": "PATCH يغيّر بعض الحقول فقط. يستخدم `TodoUpdate` مع `model_dump(exclude_unset=True)` الذي يحتفظ فقط بالحقول التي أرسلها العميل فعلًا. ثم ينشئ `model_copy(update=...)` مهمة جديدة بهذه التغييرات."
+     "code": "@app.put(\"/todos/{todo_id}\", response_model=Todo)\ndef replace_todo(todo_id: int, data: TodoCreate):\n    find_todo_or_404(todo_id)\n    new_todo = Todo(id=todo_id, **data.model_dump())\n    todos[todo_id] = new_todo\n    return new_todo",
+     "highlight": [
+      2,
+      4
+     ]
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "@app.patch(\"/todos/{todo_id}\", response_model=Todo)\ndef update_todo(todo_id: int, changes: TodoUpdate):\n    todo = find_todo_or_404(todo_id)\n    data = changes.model_dump(exclude_unset=True)\n    updated = todo.model_copy(update=data)\n    todos[todo_id] = updated\n    return updated"
+     "code": "@app.patch(\"/todos/{todo_id}\", response_model=Todo)\ndef update_todo(todo_id: int, changes: TodoUpdate):\n    todo = find_todo_or_404(todo_id)\n    data = changes.model_dump(exclude_unset=True)\n    updated = todo.model_copy(update=data)\n    todos[todo_id] = updated\n    return updated",
+     "highlight": [
+      2,
+      4,
+      5
+     ]
     },
     {
      "type": "warn",
-     "en": "Without `exclude_unset=True`, unsent fields come out as `None` and would overwrite real data:",
-     "ar": "بدون `exclude_unset=True` تخرج الحقول غير المرسلة بقيمة `None` فتكتب فوق البيانات الحقيقية:"
+     "en": "Without `exclude_unset=True`, unsent fields become `None` and erase real data:",
+     "ar": "بدون `exclude_unset=True` تصبح الحقول غير المرسلة `None` فتمسح البيانات الحقيقية:"
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "changes = TodoUpdate.model_validate({\"done\": True})\n\nchanges.model_dump()\n# {'title': None, 'done': True}   <- would erase the title!\n\nchanges.model_dump(exclude_unset=True)\n# {'done': True}                  <- only what the client sent"
-    },
-    {
-     "type": "p",
-     "en": "DELETE removes the todo and returns 204 No Content. With `status_code=204` and no `return`, the response has an empty body.",
-     "ar": "DELETE يحذف المهمة ويُرجع 204 No Content. مع `status_code=204` ومن دون `return` يكون جسم الاستجابة فارغًا."
+     "code": "changes = TodoUpdate.model_validate({\"done\": True})\n\nchanges.model_dump()\n# {'title': None, 'done': True}   <- would erase the title!\n\nchanges.model_dump(exclude_unset=True)\n# {'done': True}                  <- only what the client sent",
+     "highlight": [
+      3,
+      4,
+      6,
+      7
+     ]
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "@app.delete(\"/todos/{todo_id}\", status_code=204)\ndef delete_todo(todo_id: int):\n    find_todo_or_404(todo_id)\n    del todos[todo_id]"
+     "code": "@app.delete(\"/todos/{todo_id}\", status_code=204)\ndef delete_todo(todo_id: int):\n    find_todo_or_404(todo_id)\n    del todos[todo_id]",
+     "highlight": [
+      1,
+      4
+     ]
     },
     {
-     "type": "code",
-     "lang": "http",
-     "code": "PATCH /todos/1\n{\"done\": true}\n\nHTTP/1.1 200 OK\n{\"id\": 1, \"title\": \"Buy milk\", \"done\": true}\n\nDELETE /todos/1\n\nHTTP/1.1 204 No Content"
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "PATCH /todos/1  {\"done\": true}",
+       "note": {
+        "en": "only done changes",
+        "ar": "يتغيّر done فقط"
+       }
+      },
+      {
+       "from": "server",
+       "text": "200 OK  {\"id\": 1, \"title\": \"Buy milk\", \"done\": true}",
+       "note": {
+        "en": "title kept",
+        "ar": "العنوان باقٍ"
+       }
+      },
+      {
+       "from": "client",
+       "text": "DELETE /todos/1",
+       "note": {
+        "en": "remove it",
+        "ar": "احذفها"
+       }
+      },
+      {
+       "from": "server",
+       "text": "204 No Content",
+       "note": {
+        "en": "empty body",
+        "ar": "جسم فارغ"
+       }
+      }
+     ]
     }
    ]
   },
@@ -187,44 +493,118 @@
    },
    "blocks": [
     {
-     "type": "p",
-     "en": "A dependency is a function that FastAPI runs for you before your route. You declare it with `Depends(...)`, and FastAPI passes its return value into your parameter.",
-     "ar": "الاعتمادية (dependency) دالة يشغّلها FastAPI نيابةً عنك قبل دالة المسار. تعلنها باستخدام `Depends(...)`، فيمرّر FastAPI القيمة التي تُرجعها إلى المعامل."
+     "type": "hero",
+     "emoji": "🔌",
+     "en": "Depends: FastAPI runs your helper first",
+     "ar": "Depends: FastAPI يشغّل الدالة المساعدة أولًا"
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "📨",
+       "label": {
+        "en": "GET /todos/7",
+        "ar": "GET /todos/7"
+       }
+      },
+      {
+       "icon": "🔎",
+       "label": {
+        "en": "get_todo_or_404",
+        "ar": "get_todo_or_404"
+       }
+      },
+      {
+       "icon": "⚙️",
+       "label": {
+        "en": "read_todo endpoint",
+        "ar": "دالة المسار read_todo"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "todo_id from path",
+        "ar": "todo_id من المسار"
+       }
+      },
+      {
+       "label": {
+        "en": "passes the Todo",
+        "ar": "يمرّر كائن Todo"
+       }
+      }
+     ]
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "from fastapi import Depends\n\n\ndef get_todo_or_404(todo_id: int) -> Todo:\n    todo = todos.get(todo_id)\n    if todo is None:\n        raise HTTPException(status_code=404, detail=\"Todo not found\")\n    return todo\n\n\n@app.get(\"/todos/{todo_id}\", response_model=Todo)\ndef read_todo(todo: Todo = Depends(get_todo_or_404)):\n    return todo\n\n\n@app.delete(\"/todos/{todo_id}\", status_code=204)\ndef delete_todo(todo: Todo = Depends(get_todo_or_404)):\n    del todos[todo.id]"
+     "code": "from fastapi import Depends\n\ndef get_todo_or_404(todo_id: int) -> Todo:\n    todo = todos.get(todo_id)\n    if todo is None:\n        raise HTTPException(status_code=404, detail=\"Todo not found\")\n    return todo\n\n@app.get(\"/todos/{todo_id}\", response_model=Todo)\ndef read_todo(todo: Todo = Depends(get_todo_or_404)):\n    return todo",
+     "highlight": [
+      3,
+      6,
+      10
+     ]
     },
     {
-     "type": "p",
-     "en": "The dependency asks for `todo_id`, so FastAPI reads it from the path `/todos/{todo_id}`. If it raises `HTTPException`, the client gets 404 and the route body never runs.",
-     "ar": "الاعتمادية تطلب `todo_id`، فيقرؤه FastAPI من المسار `/todos/{todo_id}`. وإذا رفعت `HTTPException` يحصل العميل على 404 ولا يُنفَّذ جسم دالة المسار أبدًا."
+     "type": "warn",
+     "en": "If the dependency raises 404, the route body never runs.",
+     "ar": "إذا رفعت الاعتمادية 404 فلن يُنفَّذ جسم دالة المسار أبدًا."
     },
     {
-     "type": "h",
-     "en": "A shared pagination dependency",
-     "ar": "اعتمادية مشتركة لتقسيم الصفحات"
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🎯",
+       "color": "purple",
+       "title": {
+        "en": "get_todo_or_404",
+        "ar": "get_todo_or_404"
+       },
+       "text": {
+        "en": "Finds the todo, or raises 404",
+        "ar": "يجد المهمة أو يرفع 404"
+       }
+      },
+      {
+       "icon": "📄",
+       "color": "cyan",
+       "title": {
+        "en": "pagination",
+        "ar": "pagination"
+       },
+       "text": {
+        "en": "Shared, validated `skip` and `limit` for any list",
+        "ar": "`skip` و`limit` مشتركان ومُتحقَّق منهما لأي قائمة"
+       }
+      }
+     ]
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "def pagination(\n    skip: int = Query(default=0, ge=0),\n    limit: int = Query(default=10, ge=1, le=100),\n) -> dict:\n    return {\"skip\": skip, \"limit\": limit}\n\n\n@app.get(\"/todos\", response_model=list[Todo])\ndef list_todos(done: bool | None = None, page: dict = Depends(pagination)):\n    items = list(todos.values())\n    if done is not None:\n        items = [t for t in items if t.done == done]\n    return items[page[\"skip\"] : page[\"skip\"] + page[\"limit\"]]"
-    },
-    {
-     "type": "p",
-     "en": "Any list route can now reuse `Depends(pagination)` and get the same validated `skip` and `limit` query parameters.",
-     "ar": "الآن يستطيع أي مسار يُرجع قائمة أن يعيد استخدام `Depends(pagination)` ويحصل على معاملات الاستعلام `skip` و`limit` نفسها بعد التحقق منها."
+     "code": "def pagination(\n    skip: int = Query(default=0, ge=0),\n    limit: int = Query(default=10, ge=1, le=100),\n) -> dict:\n    return {\"skip\": skip, \"limit\": limit}\n\n@app.get(\"/todos\", response_model=list[Todo])\ndef list_todos(done: bool | None = None, page: dict = Depends(pagination)):\n    items = list(todos.values())\n    if done is not None:\n        items = [t for t in items if t.done == done]\n    return items[page[\"skip\"] : page[\"skip\"] + page[\"limit\"]]",
+     "highlight": [
+      1,
+      8,
+      12
+     ]
     },
     {
      "type": "tip",
-     "en": "The FastAPI docs also show the `Annotated` style. It does the same thing and lets you name a dependency once:",
-     "ar": "توثيق FastAPI يعرض أيضًا أسلوب `Annotated`. يؤدي الشيء نفسه ويتيح لك تسمية الاعتمادية مرة واحدة:"
+     "en": "The `Annotated` style does the same and names a dependency once:",
+     "ar": "أسلوب `Annotated` يؤدي الشيء نفسه ويسمّي الاعتمادية مرة واحدة:"
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "from typing import Annotated\n\nTodoDep = Annotated[Todo, Depends(get_todo_or_404)]\n\n\n@app.get(\"/todos/{todo_id}\", response_model=Todo)\ndef read_todo(todo: TodoDep):\n    return todo"
+     "code": "from typing import Annotated\n\nTodoDep = Annotated[Todo, Depends(get_todo_or_404)]\n\n@app.get(\"/todos/{todo_id}\", response_model=Todo)\ndef read_todo(todo: TodoDep):\n    return todo",
+     "highlight": [
+      3,
+      6
+     ]
     }
    ]
   },
@@ -236,51 +616,177 @@
    },
    "blocks": [
     {
-     "type": "p",
-     "en": "Here is the complete `main.py`, with the dependencies from the last lesson. Run it with `fastapi dev main.py` and try every route at `/docs`.",
-     "ar": "هذا ملف `main.py` كاملًا مع الاعتماديات من الدرس السابق. شغّله بالأمر `fastapi dev main.py` وجرّب كل المسارات في `/docs`."
+     "type": "hero",
+     "emoji": "🧪",
+     "en": "The whole app, tested with pytest",
+     "ar": "التطبيق كاملًا، مختبَرًا بـ pytest"
+    },
+    {
+     "type": "tip",
+     "en": "Run `fastapi dev main.py`, then try every route at `/docs`.",
+     "ar": "شغّل `fastapi dev main.py` ثم جرّب كل المسارات في `/docs`."
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "from fastapi import Depends, FastAPI, HTTPException, Query\nfrom pydantic import BaseModel, Field\n\napp = FastAPI()\n\n\n# --- Models ---\nclass TodoCreate(BaseModel):\n    title: str = Field(min_length=1, max_length=100)\n    done: bool = False\n\n\nclass TodoUpdate(BaseModel):\n    title: str | None = Field(default=None, min_length=1, max_length=100)\n    done: bool | None = None\n\n\nclass Todo(BaseModel):\n    id: int\n    title: str\n    done: bool\n\n\n# --- In-memory storage ---\ntodos: dict[int, Todo] = {}\nnext_id = 1\n\n\n# --- Dependencies ---\ndef get_todo_or_404(todo_id: int) -> Todo:\n    todo = todos.get(todo_id)\n    if todo is None:\n        raise HTTPException(status_code=404, detail=\"Todo not found\")\n    return todo\n\n\ndef pagination(\n    skip: int = Query(default=0, ge=0),\n    limit: int = Query(default=10, ge=1, le=100),\n) -> dict:\n    return {\"skip\": skip, \"limit\": limit}\n\n\n# --- Routes ---\n@app.get(\"/todos\", response_model=list[Todo])\ndef list_todos(done: bool | None = None, page: dict = Depends(pagination)):\n    items = list(todos.values())\n    if done is not None:\n        items = [t for t in items if t.done == done]\n    return items[page[\"skip\"] : page[\"skip\"] + page[\"limit\"]]\n\n\n@app.get(\"/todos/{todo_id}\", response_model=Todo)\ndef read_todo(todo: Todo = Depends(get_todo_or_404)):\n    return todo\n\n\n@app.post(\"/todos\", response_model=Todo, status_code=201)\ndef create_todo(data: TodoCreate):\n    global next_id\n    todo = Todo(id=next_id, **data.model_dump())\n    todos[todo.id] = todo\n    next_id += 1\n    return todo\n\n\n@app.put(\"/todos/{todo_id}\", response_model=Todo)\ndef replace_todo(data: TodoCreate, todo: Todo = Depends(get_todo_or_404)):\n    new_todo = Todo(id=todo.id, **data.model_dump())\n    todos[todo.id] = new_todo\n    return new_todo\n\n\n@app.patch(\"/todos/{todo_id}\", response_model=Todo)\ndef update_todo(changes: TodoUpdate, todo: Todo = Depends(get_todo_or_404)):\n    data = changes.model_dump(exclude_unset=True)\n    updated = todo.model_copy(update=data)\n    todos[todo.id] = updated\n    return updated\n\n\n@app.delete(\"/todos/{todo_id}\", status_code=204)\ndef delete_todo(todo: Todo = Depends(get_todo_or_404)):\n    del todos[todo.id]"
+     "code": "from fastapi import Depends, FastAPI, HTTPException, Query\nfrom pydantic import BaseModel, Field\napp = FastAPI()\n\nclass TodoCreate(BaseModel):\n    title: str = Field(min_length=1, max_length=100)\n    done: bool = False\n\nclass TodoUpdate(BaseModel):\n    title: str | None = Field(default=None, min_length=1, max_length=100)\n    done: bool | None = None\n\nclass Todo(BaseModel):\n    id: int\n    title: str\n    done: bool\n\ntodos: dict[int, Todo] = {}  # id -> Todo\nnext_id = 1\n\ndef get_todo_or_404(todo_id: int) -> Todo:\n    if todo_id not in todos:\n        raise HTTPException(status_code=404, detail=\"Todo not found\")\n    return todos[todo_id]\n\ndef pagination(skip: int = Query(default=0, ge=0),\n               limit: int = Query(default=10, ge=1, le=100)) -> dict:\n    return {\"skip\": skip, \"limit\": limit}\n\n@app.get(\"/todos\", response_model=list[Todo])\ndef list_todos(done: bool | None = None, page: dict = Depends(pagination)):\n    items = [t for t in todos.values() if done is None or t.done == done]\n    return items[page[\"skip\"] : page[\"skip\"] + page[\"limit\"]]\n\n@app.get(\"/todos/{todo_id}\", response_model=Todo)\ndef read_todo(todo: Todo = Depends(get_todo_or_404)):\n    return todo\n\n@app.post(\"/todos\", response_model=Todo, status_code=201)\ndef create_todo(data: TodoCreate):\n    global next_id\n    todo = Todo(id=next_id, **data.model_dump())\n    todos[todo.id] = todo\n    next_id += 1\n    return todo\n\n@app.put(\"/todos/{todo_id}\", response_model=Todo)\ndef replace_todo(data: TodoCreate, todo: Todo = Depends(get_todo_or_404)):\n    todos[todo.id] = Todo(id=todo.id, **data.model_dump())\n    return todos[todo.id]\n\n@app.patch(\"/todos/{todo_id}\", response_model=Todo)\ndef update_todo(changes: TodoUpdate, todo: Todo = Depends(get_todo_or_404)):\n    data = changes.model_dump(exclude_unset=True)\n    todos[todo.id] = todo.model_copy(update=data)\n    return todos[todo.id]\n\n@app.delete(\"/todos/{todo_id}\", status_code=204)\ndef delete_todo(todo: Todo = Depends(get_todo_or_404)):\n    del todos[todo.id]",
+     "highlight": [
+      30,
+      31,
+      35,
+      36,
+      39,
+      47,
+      48,
+      52,
+      53,
+      58,
+      59
+     ]
     },
     {
-     "type": "h",
-     "en": "Testing with TestClient",
-     "ar": "الاختبار باستخدام TestClient"
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "POST /todos  {\"title\": \"Buy milk\"}",
+       "note": {
+        "en": "create",
+        "ar": "إنشاء"
+       }
+      },
+      {
+       "from": "server",
+       "text": "201 Created  {\"id\": 1, \"title\": \"Buy milk\", \"done\": false}"
+      },
+      {
+       "from": "client",
+       "text": "GET /todos/1",
+       "note": {
+        "en": "read",
+        "ar": "قراءة"
+       }
+      },
+      {
+       "from": "server",
+       "text": "200 OK  {\"id\": 1, \"title\": \"Buy milk\", \"done\": false}"
+      },
+      {
+       "from": "client",
+       "text": "PATCH /todos/1  {\"done\": true}",
+       "note": {
+        "en": "update",
+        "ar": "تعديل"
+       }
+      },
+      {
+       "from": "server",
+       "text": "200 OK  {\"id\": 1, \"title\": \"Buy milk\", \"done\": true}"
+      },
+      {
+       "from": "client",
+       "text": "DELETE /todos/1",
+       "note": {
+        "en": "delete",
+        "ar": "حذف"
+       }
+      },
+      {
+       "from": "server",
+       "text": "204 No Content"
+      },
+      {
+       "from": "client",
+       "text": "GET /todos/1",
+       "note": {
+        "en": "gone?",
+        "ar": "اختفت؟"
+       }
+      },
+      {
+       "from": "server",
+       "text": "404 Not Found  {\"detail\": \"Todo not found\"}",
+       "note": {
+        "en": "yes, it's gone",
+        "ar": "نعم، اختفت"
+       }
+      }
+     ]
     },
     {
-     "type": "p",
-     "en": "`TestClient` calls your app directly, without starting a server. Each response has `.status_code` and `.json()`, so pytest can check them with `assert`.",
-     "ar": "`TestClient` يستدعي تطبيقك مباشرة من دون تشغيل خادم. كل استجابة فيها `.status_code` و`.json()`، فيستطيع pytest فحصها باستخدام `assert`."
+     "type": "steps",
+     "items": [
+      {
+       "en": "Install it: `pip install pytest`",
+       "ar": "ثبّته: `pip install pytest`"
+      },
+      {
+       "en": "Import `TestClient` and your `app`",
+       "ar": "استورد `TestClient` و`app`"
+      },
+      {
+       "en": "Call routes, no server needed",
+       "ar": "استدعِ المسارات بدون تشغيل خادم"
+      },
+      {
+       "en": "`assert` on `.status_code` and `.json()`",
+       "ar": "افحص `.status_code` و`.json()` بـ `assert`"
+      },
+      {
+       "en": "Run `pytest` → 2 passed",
+       "ar": "شغّل `pytest` ← 2 passed"
+      }
+     ]
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "from fastapi.testclient import TestClient\n\nfrom main import app\n\nclient = TestClient(app)\n\n\ndef test_create_and_read():\n    r = client.post(\"/todos\", json={\"title\": \"Buy milk\"})\n    assert r.status_code == 201\n    todo = r.json()\n    assert todo[\"title\"] == \"Buy milk\"\n    assert todo[\"done\"] is False\n\n    r = client.get(f\"/todos/{todo['id']}\")\n    assert r.status_code == 200\n    assert r.json() == todo\n\n\ndef test_missing_todo_returns_404():\n    r = client.get(\"/todos/9999\")\n    assert r.status_code == 404\n    assert r.json() == {\"detail\": \"Todo not found\"}"
+     "code": "from fastapi.testclient import TestClient\nfrom main import app\nclient = TestClient(app)\n\ndef test_create_and_read():\n    r = client.post(\"/todos\", json={\"title\": \"Buy milk\"})\n    assert r.status_code == 201\n    todo = r.json()\n    assert client.get(f\"/todos/{todo['id']}\").json() == todo\n\ndef test_missing_todo_returns_404():\n    assert client.get(\"/todos/9999\").json() == {\"detail\": \"Todo not found\"}",
+     "highlight": [
+      7,
+      9,
+      12
+     ]
     },
     {
-     "type": "code",
-     "lang": "bash",
-     "code": "pip install pytest\npytest\n# ..                    [100%]\n# 2 passed"
-    },
-    {
-     "type": "h",
-     "en": "Next steps",
-     "ar": "الخطوات التالية"
-    },
-    {
-     "type": "list",
-     "en": [
-      "Databases: store todos in SQLite or PostgreSQL (for example with SQLModel) so data survives restarts.",
-      "Auth: protect routes so only logged-in users can change their own todos.",
-      "Routers: split a large app into files with `APIRouter`."
-     ],
-     "ar": [
-      "قواعد البيانات: خزّن المهام في SQLite أو PostgreSQL (مثلًا باستخدام SQLModel) لتبقى البيانات بعد إعادة التشغيل.",
-      "المصادقة (Auth): احمِ المسارات لكي يعدّل المستخدمون المسجّلون مهامهم فقط.",
-      "الموجّهات (Routers): قسّم التطبيق الكبير إلى ملفات باستخدام `APIRouter`."
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🗄️",
+       "color": "cyan",
+       "title": {
+        "en": "Databases",
+        "ar": "قواعد البيانات"
+       },
+       "text": {
+        "en": "SQLite or PostgreSQL via SQLModel; data survives restarts",
+        "ar": "SQLite أو PostgreSQL عبر SQLModel؛ تبقى البيانات بعد إعادة التشغيل"
+       }
+      },
+      {
+       "icon": "🔐",
+       "color": "purple",
+       "title": {
+        "en": "Auth",
+        "ar": "المصادقة (Auth)"
+       },
+       "text": {
+        "en": "Only logged-in users change their own todos",
+        "ar": "المستخدم المسجّل فقط يعدّل مهامه"
+       }
+      },
+      {
+       "icon": "🧩",
+       "color": "blue",
+       "title": {
+        "en": "Routers",
+        "ar": "الموجّهات (Routers)"
+       },
+       "text": {
+        "en": "Split a large app into files with `APIRouter`",
+        "ar": "قسّم التطبيق الكبير إلى ملفات بـ `APIRouter`"
+       }
+      }
      ]
     }
    ]
@@ -347,8 +853,8 @@
    ],
    "answer": 0,
    "explanation": {
-    "en": "`TodoCreate` describes what the client sends. The server picks the id from its counter, so the input model leaves it out and the output model `Todo` includes it.",
-    "ar": "`TodoCreate` يصف ما يرسله العميل. الخادم يختار المعرّف من العدّاد، لذلك لا يحتويه نموذج الإدخال، ويحتويه نموذج الإخراج `Todo`."
+    "en": "`TodoCreate` is what the client sends. The server picks the id, so only `Todo` includes it.",
+    "ar": "`TodoCreate` هو ما يرسله العميل. الخادم يختار المعرّف، لذلك يحتويه `Todo` فقط."
    }
   },
   {

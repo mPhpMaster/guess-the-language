@@ -17,59 +17,212 @@
    },
    "blocks": [
     {
-     "type": "p",
-     "en": "An API (Application Programming Interface) is a set of rules that lets one program ask another program for data or actions. A web API does this over the internet using HTTP.",
-     "ar": "الـ API (واجهة برمجة التطبيقات) مجموعة قواعد تسمح لبرنامج أن يطلب بيانات أو أفعالًا من برنامج آخر. والـ web API تفعل ذلك عبر الإنترنت باستخدام HTTP."
+     "type": "hero",
+     "emoji": "🌐",
+     "en": "An API lets one program ask another",
+     "ar": "الـ API تسمح لبرنامج أن يطلب من برنامج آخر"
     },
     {
-     "type": "p",
-     "en": "The program that asks is the client (a browser, a mobile app, another server). The program that answers is the server. The client sends a request, and the server sends back a response.",
-     "ar": "البرنامج الذي يسأل هو العميل (client): متصفح أو تطبيق جوال أو خادم آخر. والبرنامج الذي يجيب هو الخادم (server). يرسل العميل طلبًا (request)، ويعيد الخادم استجابة (response)."
-    },
-    {
-     "type": "h",
-     "en": "The four parts of a request",
-     "ar": "الأجزاء الأربعة للطلب"
-    },
-    {
-     "type": "list",
-     "en": [
-      "Method: the action, e.g. `GET` or `POST`.",
-      "URL: which resource, e.g. `https://api.example.com/users`.",
-      "Headers: extra info as `Name: value` lines.",
-      "Body: optional data sent to the server (often JSON)."
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "💻",
+       "label": {
+        "en": "Client (browser, app)",
+        "ar": "العميل (متصفح، تطبيق)"
+       }
+      },
+      {
+       "icon": "🖥️",
+       "label": {
+        "en": "Server",
+        "ar": "الخادم"
+       }
+      }
      ],
-     "ar": [
-      "الـ method: الفعل المطلوب، مثل `GET` أو `POST`.",
-      "الـ URL: أي مورد نقصد، مثل `https://api.example.com/users`.",
-      "الـ headers: معلومات إضافية على شكل أسطر `Name: value`.",
-      "الـ body: بيانات اختيارية تُرسل إلى الخادم (غالبًا JSON)."
+     "links": [
+      {
+       "label": {
+        "en": "request",
+        "ar": "طلب (request)"
+       }
+      }
+     ],
+     "returns": {
+      "en": "response",
+      "ar": "استجابة (response)"
+     }
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🎯",
+       "color": "blue",
+       "title": {
+        "en": "Method",
+        "ar": "الـ method"
+       },
+       "text": {
+        "en": "The action, e.g. `GET` or `POST`",
+        "ar": "الفعل المطلوب، مثل `GET` أو `POST`"
+       }
+      },
+      {
+       "icon": "📍",
+       "color": "green",
+       "title": {
+        "en": "URL",
+        "ar": "الـ URL"
+       },
+       "text": {
+        "en": "Which resource you want",
+        "ar": "أي مورد تقصده"
+       }
+      },
+      {
+       "icon": "🏷️",
+       "color": "cyan",
+       "title": {
+        "en": "Headers",
+        "ar": "الـ headers"
+       },
+       "text": {
+        "en": "Extra info as `Name: value` lines",
+        "ar": "معلومات إضافية كأسطر `Name: value`"
+       }
+      },
+      {
+       "icon": "📦",
+       "color": "yellow",
+       "title": {
+        "en": "Body",
+        "ar": "الـ body"
+       },
+       "text": {
+        "en": "Optional data sent, often JSON",
+        "ar": "بيانات اختيارية تُرسل، غالبًا JSON"
+       }
+      }
      ]
     },
     {
-     "type": "code",
-     "lang": "http",
-     "code": "POST /users?notify=true HTTP/1.1\nHost: api.example.com\nContent-Type: application/json\nAccept: application/json\n\n{\"name\": \"Sara\", \"age\": 25}"
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "POST",
+       "color": "blue",
+       "label": {
+        "en": "method",
+        "ar": "الـ method"
+       }
+      },
+      {
+       "text": " "
+      },
+      {
+       "text": "/users",
+       "color": "green",
+       "label": {
+        "en": "path",
+        "ar": "المسار (path)"
+       }
+      },
+      {
+       "text": "?notify=true",
+       "color": "yellow",
+       "label": {
+        "en": "query string",
+        "ar": "الـ query string"
+       }
+      },
+      {
+       "text": " "
+      },
+      {
+       "text": "HTTP/1.1",
+       "color": "purple",
+       "label": {
+        "en": "HTTP version",
+        "ar": "إصدار HTTP"
+       }
+      },
+      {
+       "text": "\n"
+      },
+      {
+       "text": "Host: api.example.com\nContent-Type: application/json\nAccept: application/json",
+       "color": "cyan",
+       "label": {
+        "en": "headers",
+        "ar": "الـ headers"
+       }
+      },
+      {
+       "text": "\n\n"
+      },
+      {
+       "text": "{\"name\": \"Sara\", \"age\": 25}",
+       "color": "red",
+       "label": {
+        "en": "body (after empty line)",
+        "ar": "الـ body (بعد سطر فارغ)"
+       }
+      }
+     ]
     },
     {
-     "type": "p",
-     "en": "The first line holds the method, the path with its query string, and the HTTP version. Headers follow, then an empty line, then the body. `Content-Type` says what format the body is in; `Accept` says what format the client wants back.",
-     "ar": "السطر الأول يحتوي الـ method والمسار مع الـ query string وإصدار HTTP. بعده الـ headers، ثم سطر فارغ، ثم الـ body. الـ header `Content-Type` يحدد صيغة الـ body، و`Accept` يحدد الصيغة التي يريدها العميل في الرد."
-    },
-    {
-     "type": "h",
-     "en": "Reading a URL",
-     "ar": "قراءة الـ URL"
-    },
-    {
-     "type": "code",
-     "lang": "text",
-     "code": "https://api.example.com/users?page=2&limit=10\n\nscheme:       https\nhost:         api.example.com\npath:         /users\nquery string: page=2&limit=10"
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "https",
+       "color": "purple",
+       "label": {
+        "en": "scheme",
+        "ar": "الـ scheme"
+       }
+      },
+      {
+       "text": "://"
+      },
+      {
+       "text": "api.example.com",
+       "color": "blue",
+       "label": {
+        "en": "host",
+        "ar": "الـ host"
+       }
+      },
+      {
+       "text": "/users",
+       "color": "green",
+       "label": {
+        "en": "path",
+        "ar": "المسار (path)"
+       }
+      },
+      {
+       "text": "?"
+      },
+      {
+       "text": "page=2&limit=10",
+       "color": "yellow",
+       "label": {
+        "en": "query string",
+        "ar": "الـ query string"
+       }
+      }
+     ]
     },
     {
      "type": "tip",
-     "en": "The query string starts after `?` and holds `key=value` pairs joined by `&`. It is usually used for filters, search and paging.",
-     "ar": "الـ query string يبدأ بعد `?` ويحتوي أزواج `key=value` مفصولة بـ `&`. يُستخدم عادةً للتصفية والبحث وتقسيم الصفحات."
+     "en": "`Content-Type` = body format sent. `Accept` = format wanted back.",
+     "ar": "الـ `Content-Type` = صيغة الـ body المُرسل. والـ `Accept` = الصيغة المطلوبة في الرد."
+    },
+    {
+     "type": "tip",
+     "en": "Query string: `key=value` pairs after `?`, joined by `&`. Used for filters, search, paging.",
+     "ar": "الـ query string: أزواج `key=value` بعد `?` مفصولة بـ `&`. للتصفية والبحث وتقسيم الصفحات."
     }
    ]
   },
@@ -81,64 +234,268 @@
    },
    "blocks": [
     {
-     "type": "p",
-     "en": "Every request gets a response. It has a status line, headers, an empty line and an optional body.",
-     "ar": "كل طلب يحصل على استجابة (response). وهي تتكون من سطر الحالة (status line) والـ headers وسطر فارغ ثم body اختياري."
+     "type": "hero",
+     "emoji": "🚦",
+     "en": "Every request gets a response with a status code",
+     "ar": "كل طلب يحصل على استجابة فيها رمز حالة"
     },
     {
-     "type": "code",
-     "lang": "http",
-     "code": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\"id\": 42, \"name\": \"Sara\"}"
-    },
-    {
-     "type": "p",
-     "en": "The status line shows the HTTP version, a three-digit status code and a short reason phrase. The first digit tells you the group.",
-     "ar": "سطر الحالة يعرض إصدار HTTP ورمز الحالة (status code) من ثلاثة أرقام وعبارة قصيرة. الرقم الأول يخبرك بالمجموعة."
-    },
-    {
-     "type": "list",
-     "en": [
-      "2xx success: `200 OK`, `201 Created`, `204 No Content` (success, empty body).",
-      "3xx redirect: the resource is elsewhere, e.g. `301 Moved Permanently`.",
-      "4xx client error: `400 Bad Request`, `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `422 Unprocessable Content`.",
-      "5xx server error: `500 Internal Server Error` (a bug or crash on the server)."
-     ],
-     "ar": [
-      "2xx نجاح: `200 OK` و`201 Created` و`204 No Content` (نجاح بدون body).",
-      "3xx إعادة توجيه: المورد في مكان آخر، مثل `301 Moved Permanently`.",
-      "4xx خطأ من العميل: `400 Bad Request` و`401 Unauthorized` و`403 Forbidden` و`404 Not Found` و`422 Unprocessable Content`.",
-      "5xx خطأ في الخادم: `500 Internal Server Error` (خلل أو انهيار في الخادم)."
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "GET /users/42",
+       "note": {
+        "en": "asks for user 42",
+        "ar": "يطلب المستخدم 42"
+       }
+      },
+      {
+       "from": "server",
+       "text": "200 OK  {\"id\": 42, \"name\": \"Sara\"}",
+       "note": {
+        "en": "here it is",
+        "ar": "تفضّل"
+       }
+      },
+      {
+       "from": "client",
+       "text": "GET /users/999",
+       "note": {
+        "en": "asks for a missing user",
+        "ar": "يطلب مستخدمًا غير موجود"
+       }
+      },
+      {
+       "from": "server",
+       "text": "404 Not Found  {\"detail\": \"Not Found\"}",
+       "note": {
+        "en": "nothing there",
+        "ar": "لا يوجد شيء"
+       }
+      }
      ]
     },
     {
-     "type": "h",
-     "en": "Codes that are easy to mix up",
-     "ar": "رموز يسهل الخلط بينها"
-    },
-    {
-     "type": "list",
-     "en": [
-      "`401`: the server does not know who you are (missing or bad login/token).",
-      "`403`: the server knows who you are, but you are not allowed to do this.",
-      "`400`: the request itself is malformed or makes no sense.",
-      "`422`: the request is readable, but the data is invalid (e.g. text where a number is required). FastAPI uses `422` for validation errors."
-     ],
-     "ar": [
-      "`401`: الخادم لا يعرف من أنت (تسجيل دخول أو token مفقود أو غير صحيح).",
-      "`403`: الخادم يعرف من أنت، لكنك غير مسموح لك بهذا الفعل.",
-      "`400`: الطلب نفسه معطوب أو غير منطقي.",
-      "`422`: الطلب مقروء لكن البيانات غير صالحة (مثل نص مكان رقم مطلوب). FastAPI يستخدم `422` لأخطاء التحقق (validation)."
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "HTTP/1.1",
+       "color": "purple",
+       "label": {
+        "en": "HTTP version",
+        "ar": "إصدار HTTP"
+       }
+      },
+      {
+       "text": " "
+      },
+      {
+       "text": "200",
+       "color": "green",
+       "label": {
+        "en": "status code",
+        "ar": "رمز الحالة (status code)"
+       }
+      },
+      {
+       "text": " "
+      },
+      {
+       "text": "OK",
+       "color": "cyan",
+       "label": {
+        "en": "reason phrase",
+        "ar": "العبارة القصيرة"
+       }
+      },
+      {
+       "text": "\n"
+      },
+      {
+       "text": "Content-Type: application/json",
+       "color": "blue",
+       "label": {
+        "en": "headers",
+        "ar": "الـ headers"
+       }
+      },
+      {
+       "text": "\n\n"
+      },
+      {
+       "text": "{\"id\": 42, \"name\": \"Sara\"}",
+       "color": "yellow",
+       "label": {
+        "en": "body (optional)",
+        "ar": "الـ body (اختياري)"
+       }
+      }
      ]
     },
     {
-     "type": "code",
-     "lang": "http",
-     "code": "HTTP/1.1 404 Not Found\nContent-Type: application/json\n\n{\"detail\": \"Not Found\"}"
+     "type": "pills",
+     "items": [
+      {
+       "text": "2xx",
+       "color": "green",
+       "label": {
+        "en": "success",
+        "ar": "نجاح"
+       }
+      },
+      {
+       "text": "3xx",
+       "color": "cyan",
+       "label": {
+        "en": "redirect",
+        "ar": "إعادة توجيه"
+       }
+      },
+      {
+       "text": "4xx",
+       "color": "yellow",
+       "label": {
+        "en": "client error",
+        "ar": "خطأ من العميل"
+       }
+      },
+      {
+       "text": "5xx",
+       "color": "red",
+       "label": {
+        "en": "server error",
+        "ar": "خطأ في الخادم"
+       }
+      }
+     ]
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": "200",
+       "color": "green",
+       "label": {
+        "en": "OK",
+        "ar": "OK"
+       }
+      },
+      {
+       "text": "201",
+       "color": "green",
+       "label": {
+        "en": "Created",
+        "ar": "Created (تم الإنشاء)"
+       }
+      },
+      {
+       "text": "204",
+       "color": "green",
+       "label": {
+        "en": "No Content (empty body)",
+        "ar": "No Content (بدون body)"
+       }
+      },
+      {
+       "text": "301",
+       "color": "cyan",
+       "label": {
+        "en": "Moved Permanently",
+        "ar": "Moved Permanently (نُقل نهائيًا)"
+       }
+      },
+      {
+       "text": "400",
+       "color": "yellow",
+       "label": {
+        "en": "Bad Request",
+        "ar": "Bad Request"
+       }
+      },
+      {
+       "text": "404",
+       "color": "yellow",
+       "label": {
+        "en": "Not Found",
+        "ar": "Not Found (غير موجود)"
+       }
+      },
+      {
+       "text": "422",
+       "color": "red",
+       "label": {
+        "en": "Unprocessable Content",
+        "ar": "Unprocessable Content"
+       }
+      },
+      {
+       "text": "500",
+       "color": "red",
+       "label": {
+        "en": "Internal Server Error",
+        "ar": "Internal Server Error"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🔑",
+       "color": "yellow",
+       "title": {
+        "en": "`401` Unauthorized",
+        "ar": "`401` Unauthorized"
+       },
+       "text": {
+        "en": "Server does not know who you are",
+        "ar": "الخادم لا يعرف من أنت"
+       }
+      },
+      {
+       "icon": "⛔",
+       "color": "red",
+       "title": {
+        "en": "`403` Forbidden",
+        "ar": "`403` Forbidden"
+       },
+       "text": {
+        "en": "Server knows you, but you are not allowed",
+        "ar": "الخادم يعرفك، لكنك غير مسموح لك"
+       }
+      },
+      {
+       "icon": "🧩",
+       "color": "yellow",
+       "title": {
+        "en": "`400` Bad Request",
+        "ar": "`400` Bad Request"
+       },
+       "text": {
+        "en": "The request itself is malformed",
+        "ar": "الطلب نفسه معطوب"
+       }
+      },
+      {
+       "icon": "🧪",
+       "color": "red",
+       "title": {
+        "en": "`422` Unprocessable Content",
+        "ar": "`422` Unprocessable Content"
+       },
+       "text": {
+        "en": "Readable, but data invalid. FastAPI validation errors.",
+        "ar": "مقروء لكن البيانات غير صالحة. أخطاء التحقق في FastAPI."
+       }
+      }
+     ]
     },
     {
      "type": "tip",
-     "en": "4xx means the client should change the request. 5xx means the server has a problem, so the client usually cannot fix it.",
-     "ar": "الرمز 4xx يعني أن على العميل تعديل طلبه. أما 5xx فيعني أن المشكلة في الخادم، وغالبًا لا يستطيع العميل إصلاحها."
+     "en": "4xx: the client should change the request. 5xx: the server has a problem.",
+     "ar": "الـ 4xx: على العميل تعديل طلبه. الـ 5xx: المشكلة في الخادم."
     }
    ]
   },
@@ -150,61 +507,180 @@
    },
    "blocks": [
     {
-     "type": "p",
-     "en": "The method tells the server what to do with the resource in the URL. Five methods cover almost every API.",
-     "ar": "الـ method تخبر الخادم ماذا يفعل بالمورد الموجود في الـ URL. خمس methods تكفي تقريبًا لأي API."
+     "type": "hero",
+     "emoji": "🛠️",
+     "en": "The URL is the noun, the method the verb",
+     "ar": "الـ URL هو الاسم، والـ method هي الفعل"
     },
     {
-     "type": "list",
-     "en": [
-      "`GET`: read data. It has no body.",
-      "`POST`: create a new item (the server picks its id).",
-      "`PUT`: replace a whole item with new data.",
-      "`PATCH`: change only some fields of an item.",
-      "`DELETE`: remove an item."
-     ],
-     "ar": [
-      "`GET`: قراءة البيانات، بدون body.",
-      "`POST`: إنشاء عنصر جديد (والخادم يختار رقمه id).",
-      "`PUT`: استبدال العنصر كاملًا ببيانات جديدة.",
-      "`PATCH`: تعديل بعض حقول العنصر فقط.",
-      "`DELETE`: حذف عنصر."
+     "type": "cards",
+     "items": [
+      {
+       "icon": "👀",
+       "color": "blue",
+       "title": {
+        "en": "`GET`",
+        "ar": "`GET`"
+       },
+       "text": {
+        "en": "Read data. No body.",
+        "ar": "قراءة البيانات، بدون body."
+       }
+      },
+      {
+       "icon": "✨",
+       "color": "green",
+       "title": {
+        "en": "`POST`",
+        "ar": "`POST`"
+       },
+       "text": {
+        "en": "Create a new item; server picks the id",
+        "ar": "إنشاء عنصر جديد، والخادم يختار الـ id"
+       }
+      },
+      {
+       "icon": "🔄",
+       "color": "yellow",
+       "title": {
+        "en": "`PUT`",
+        "ar": "`PUT`"
+       },
+       "text": {
+        "en": "Replace the whole item",
+        "ar": "استبدال العنصر كاملًا"
+       }
+      },
+      {
+       "icon": "🩹",
+       "color": "purple",
+       "title": {
+        "en": "`PATCH`",
+        "ar": "`PATCH`"
+       },
+       "text": {
+        "en": "Change only some fields",
+        "ar": "تعديل بعض الحقول فقط"
+       }
+      },
+      {
+       "icon": "🗑️",
+       "color": "red",
+       "title": {
+        "en": "`DELETE`",
+        "ar": "`DELETE`"
+       },
+       "text": {
+        "en": "Remove an item",
+        "ar": "حذف عنصر"
+       }
+      }
      ]
-    },
-    {
-     "type": "h",
-     "en": "REST-style resource URLs",
-     "ar": "روابط الموارد بنمط REST"
-    },
-    {
-     "type": "p",
-     "en": "In REST style, a URL names a thing (a noun), and the method says the action. A collection is plural; one item adds its id.",
-     "ar": "في نمط REST يسمّي الـ URL شيئًا (اسمًا)، والـ method تحدد الفعل. المجموعة تُكتب بالجمع، والعنصر الواحد يُضاف إليه رقمه id."
     },
     {
      "type": "code",
      "lang": "text",
-     "code": "GET    /users        list all users\nPOST   /users        create a user\nGET    /users/42     read user 42\nPUT    /users/42     replace user 42\nPATCH  /users/42     update some fields of user 42\nDELETE /users/42     delete user 42"
+     "code": "GET    /users        list all users\nPOST   /users        create a user\nGET    /users/42     read user 42\nPUT    /users/42     replace user 42\nPATCH  /users/42     update some fields of user 42\nDELETE /users/42     delete user 42",
+     "highlight": [
+      1,
+      3
+     ]
     },
     {
-     "type": "h",
-     "en": "Safe and idempotent",
-     "ar": "آمن (safe) ومتساوي الأثر (idempotent)"
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "REST style",
+       "ar": "نمط REST"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "`GET /users/42`",
+        "ar": "`GET /users/42`"
+       },
+       {
+        "en": "`DELETE /users/42`",
+        "ar": "`DELETE /users/42`"
+       },
+       {
+        "en": "Plural collection: `/users`",
+        "ar": "المجموعة بالجمع: `/users`"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "Verbs in URLs",
+       "ar": "أفعال في الروابط"
+      },
+      "tone": "bad",
+      "items": [
+       {
+        "en": "`/getUser`",
+        "ar": "`/getUser`"
+       },
+       {
+        "en": "`/deleteUser`",
+        "ar": "`/deleteUser`"
+       }
+      ]
+     }
     },
     {
      "type": "p",
-     "en": "A safe method only reads and never changes data: `GET` is safe. An idempotent method gives the same final result whether you send it once or many times: `GET`, `PUT` and `DELETE` are idempotent.",
-     "ar": "الـ method الآمنة (safe) تقرأ فقط ولا تغيّر البيانات أبدًا: `GET` آمنة. والـ method متساوية الأثر (idempotent) تعطي النتيجة النهائية نفسها سواء أرسلتها مرة أو عدة مرات: `GET` و`PUT` و`DELETE` كلها idempotent."
+     "en": "Safe: only reads, never changes data. Idempotent: same final result, sent once or many times.",
+     "ar": "الآمنة (safe): تقرأ فقط ولا تغيّر البيانات. متساوية الأثر (idempotent): النتيجة النهائية نفسها مهما تكرر الإرسال."
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": "GET",
+       "color": "green",
+       "label": {
+        "en": "safe + idempotent",
+        "ar": "safe + idempotent"
+       }
+      },
+      {
+       "text": "PUT",
+       "color": "cyan",
+       "label": {
+        "en": "idempotent",
+        "ar": "idempotent"
+       }
+      },
+      {
+       "text": "DELETE",
+       "color": "cyan",
+       "label": {
+        "en": "idempotent",
+        "ar": "idempotent"
+       }
+      },
+      {
+       "text": "PATCH",
+       "color": "yellow",
+       "label": {
+        "en": "not guaranteed idempotent",
+        "ar": "ليست مضمونة idempotent"
+       }
+      },
+      {
+       "text": "POST",
+       "color": "red",
+       "label": {
+        "en": "not idempotent",
+        "ar": "ليست idempotent"
+       }
+      }
+     ]
     },
     {
      "type": "warn",
-     "en": "`POST` is not idempotent: sending the same `POST /users` twice usually creates two users. `PATCH` is not guaranteed to be idempotent either.",
-     "ar": "الـ `POST` ليست idempotent: إرسال `POST /users` نفسه مرتين ينشئ غالبًا مستخدمَين. وكذلك `PATCH` ليست مضمونة أن تكون idempotent."
-    },
-    {
-     "type": "tip",
-     "en": "Avoid verbs in URLs like `/getUser` or `/deleteUser`. Use `GET /users/42` and `DELETE /users/42` instead.",
-     "ar": "تجنب الأفعال في الروابط مثل `/getUser` أو `/deleteUser`. استخدم بدلًا منها `GET /users/42` و`DELETE /users/42`."
+     "en": "Sending the same `POST /users` twice usually creates two users.",
+     "ar": "إرسال `POST /users` نفسه مرتين ينشئ غالبًا مستخدمَين."
     }
    ]
   },
@@ -216,49 +692,161 @@
    },
    "blocks": [
     {
-     "type": "p",
-     "en": "JSON (JavaScript Object Notation) is a text format for data. Most web APIs send and receive their bodies as JSON.",
-     "ar": "الـ JSON صيغة نصية لتمثيل البيانات. ومعظم الـ web APIs ترسل وتستقبل الـ body بصيغة JSON."
+     "type": "hero",
+     "emoji": "📦",
+     "en": "JSON: the text format APIs speak",
+     "ar": "الـ JSON: الصيغة النصية التي تتكلمها الـ APIs"
     },
     {
      "type": "code",
      "lang": "json",
-     "code": "{\n  \"id\": 42,\n  \"name\": \"Sara\",\n  \"age\": 25,\n  \"is_admin\": false,\n  \"height\": 1.68,\n  \"tags\": [\"python\", \"api\"],\n  \"address\": {\"city\": \"Riyadh\"},\n  \"nickname\": null\n}"
-    },
-    {
-     "type": "h",
-     "en": "JSON types and their Python twins",
-     "ar": "أنواع JSON ونظيراتها في Python"
-    },
-    {
-     "type": "list",
-     "en": [
-      "object `{...}` becomes a `dict`; array `[...]` becomes a `list`.",
-      "string `\"text\"` becomes `str`; numbers become `int` or `float`.",
-      "`true` / `false` become `True` / `False`.",
-      "`null` becomes `None`."
-     ],
-     "ar": [
-      "الـ object `{...}` يصبح `dict`، والـ array `[...]` يصبح `list`.",
-      "الـ string `\"text\"` يصبح `str`، والأرقام تصبح `int` أو `float`.",
-      "`true` / `false` تصبح `True` / `False`.",
-      "`null` يصبح `None`."
+     "code": "{\n  \"id\": 42,\n  \"name\": \"Sara\",\n  \"age\": 25,\n  \"is_admin\": false,\n  \"height\": 1.68,\n  \"tags\": [\"python\", \"api\"],\n  \"address\": {\"city\": \"Riyadh\"},\n  \"nickname\": null\n}",
+     "highlight": [
+      5,
+      7,
+      8,
+      9
      ]
     },
     {
-     "type": "warn",
-     "en": "JSON is stricter than a Python dict: keys and strings must use double quotes, trailing commas are not allowed, and there are no comments.",
-     "ar": "الـ JSON أكثر صرامة من الـ dict في Python: المفاتيح والنصوص يجب أن تكون بين علامتي تنصيص مزدوجتين، ولا يُسمح بفاصلة زائدة في النهاية، ولا توجد تعليقات."
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🗂️",
+       "color": "blue",
+       "title": {
+        "en": "`{...}` → `dict`",
+        "ar": "`{...}` ← `dict`"
+       },
+       "text": {
+        "en": "object",
+        "ar": "الـ object"
+       }
+      },
+      {
+       "icon": "📚",
+       "color": "green",
+       "title": {
+        "en": "`[...]` → `list`",
+        "ar": "`[...]` ← `list`"
+       },
+       "text": {
+        "en": "array",
+        "ar": "الـ array"
+       }
+      },
+      {
+       "icon": "🔤",
+       "color": "yellow",
+       "title": {
+        "en": "`\"text\"` → `str`",
+        "ar": "`\"text\"` ← `str`"
+       },
+       "text": {
+        "en": "string",
+        "ar": "الـ string"
+       }
+      },
+      {
+       "icon": "🔢",
+       "color": "purple",
+       "title": {
+        "en": "number → `int` / `float`",
+        "ar": "رقم ← `int` / `float`"
+       },
+       "text": {
+        "en": "number",
+        "ar": "الأرقام"
+       }
+      },
+      {
+       "icon": "✅",
+       "color": "cyan",
+       "title": {
+        "en": "`true` → `True`",
+        "ar": "`true` ← `True`"
+       },
+       "text": {
+        "en": "`false` → `False`",
+        "ar": "`false` ← `False`"
+       }
+      },
+      {
+       "icon": "🕳️",
+       "color": "red",
+       "title": {
+        "en": "`null` → `None`",
+        "ar": "`null` ← `None`"
+       },
+       "text": {
+        "en": "no value",
+        "ar": "بلا قيمة"
+       }
+      }
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "Valid JSON",
+       "ar": "JSON صالح"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "`{\"name\": \"Sara\", \"age\": 25}`",
+        "ar": "`{\"name\": \"Sara\", \"age\": 25}`"
+       },
+       {
+        "en": "Double quotes for keys, strings",
+        "ar": "تنصيص مزدوج للمفاتيح والنصوص"
+       },
+       {
+        "en": "No comma after last item",
+        "ar": "لا فاصلة بعد آخر عنصر"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "Invalid JSON",
+       "ar": "JSON غير صالح"
+      },
+      "tone": "bad",
+      "items": [
+       {
+        "en": "`{'name': 'Sara', 'age': 25,}`",
+        "ar": "`{'name': 'Sara', 'age': 25,}`"
+       },
+       {
+        "en": "Single quotes",
+        "ar": "تنصيص مفرد"
+       },
+       {
+        "en": "Trailing comma",
+        "ar": "فاصلة زائدة في النهاية"
+       },
+       {
+        "en": "Comments like `// note`",
+        "ar": "تعليقات مثل `// note`"
+       }
+      ]
+     }
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "import json\n\ndata = json.loads('{\"name\": \"Sara\", \"active\": true}')\nprint(data)  # {'name': 'Sara', 'active': True}\n\ntext = json.dumps({\"nickname\": None})\nprint(text)  # {\"nickname\": null}"
+     "code": "import json\n\ndata = json.loads('{\"name\": \"Sara\", \"active\": true}')\nprint(data)  # {'name': 'Sara', 'active': True}\n\ntext = json.dumps({\"nickname\": None})\nprint(text)  # {\"nickname\": null}",
+     "highlight": [
+      3,
+      6
+     ]
     },
     {
-     "type": "p",
-     "en": "When a client sends JSON in the body, it adds the header `Content-Type: application/json`. The server does the same in its response so the client knows how to read the body.",
-     "ar": "عندما يرسل العميل JSON في الـ body يضيف الـ header `Content-Type: application/json`. والخادم يفعل الشيء نفسه في استجابته حتى يعرف العميل كيف يقرأ الـ body."
+     "type": "tip",
+     "en": "JSON bodies are sent with the header `Content-Type: application/json`, both ways.",
+     "ar": "الـ body بصيغة JSON يُرسل مع الـ header `Content-Type: application/json` في الاتجاهين."
     }
    ]
   },
@@ -270,47 +858,176 @@
    },
    "blocks": [
     {
-     "type": "p",
-     "en": "FastAPI is a Python framework for building web APIs. You write normal Python functions, and FastAPI turns them into endpoints that receive requests and return JSON responses.",
-     "ar": "الـ FastAPI إطار عمل (framework) بلغة Python لبناء الـ web APIs. تكتب دوال Python عادية، فيحوّلها FastAPI إلى endpoints تستقبل الطلبات وتعيد استجابات JSON."
+     "type": "hero",
+     "emoji": "⚡",
+     "en": "FastAPI turns Python functions into endpoints",
+     "ar": "الـ FastAPI يحوّل دوال Python إلى endpoints"
     },
     {
      "type": "code",
      "lang": "python",
-     "code": "from fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/users/{user_id}\")\ndef get_user(user_id: int):\n    return {\"id\": user_id, \"name\": \"Sara\"}"
+     "code": "from fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/users/{user_id}\")\ndef get_user(user_id: int):\n    return {\"id\": user_id, \"name\": \"Sara\"}",
+     "highlight": [
+      5,
+      6,
+      7
+     ]
     },
     {
-     "type": "p",
-     "en": "Here `@app.get(\"/users/{user_id}\")` connects the method `GET` and the path `/users/42` to the function. The returned dict is sent back as JSON with status `200`.",
-     "ar": "هنا `@app.get(\"/users/{user_id}\")` يربط الـ method `GET` والمسار `/users/42` بالدالة. والـ dict الذي تعيده الدالة يُرسل كـ JSON مع الـ status `200`."
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "@app"
+      },
+      {
+       "text": ".get",
+       "color": "blue",
+       "label": {
+        "en": "method `GET`",
+        "ar": "الـ method `GET`"
+       }
+      },
+      {
+       "text": "(\""
+      },
+      {
+       "text": "/users/{user_id}",
+       "color": "green",
+       "label": {
+        "en": "path",
+        "ar": "المسار (path)"
+       }
+      },
+      {
+       "text": "\")\ndef get_user("
+      },
+      {
+       "text": "user_id: int",
+       "color": "yellow",
+       "label": {
+        "en": "type hint checks data",
+        "ar": "الـ type hint يتحقق من البيانات"
+       }
+      },
+      {
+       "text": "):"
+      }
+     ]
     },
     {
-     "type": "code",
-     "lang": "http",
-     "code": "GET /users/42      ->  200 OK   {\"id\": 42, \"name\": \"Sara\"}\nGET /users/abc     ->  422 Unprocessable Content"
-    },
-    {
-     "type": "h",
-     "en": "Why FastAPI?",
-     "ar": "لماذا FastAPI؟"
-    },
-    {
-     "type": "list",
-     "en": [
-      "Fast: high performance, and fast to write.",
-      "Type hints: `user_id: int` makes FastAPI check the data for you, so bad input gets a `422`.",
-      "Automatic docs: an interactive documentation page at `/docs` is generated from your code."
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "💻",
+       "label": {
+        "en": "Client",
+        "ar": "العميل"
+       }
+      },
+      {
+       "icon": "⚡",
+       "label": {
+        "en": "FastAPI",
+        "ar": "FastAPI"
+       }
+      },
+      {
+       "icon": "🐍",
+       "label": {
+        "en": "`get_user(42)`",
+        "ar": "`get_user(42)`"
+       }
+      }
      ],
-     "ar": [
-      "سريع: أداء عالٍ، وسريع في الكتابة أيضًا.",
-      "الـ type hints: كتابة `user_id: int` تجعل FastAPI يتحقق من البيانات عنك، فالمدخلات الخاطئة تحصل على `422`.",
-      "توثيق تلقائي: صفحة توثيق تفاعلية على `/docs` تُنشأ من الكود نفسه."
+     "links": [
+      {
+       "label": {
+        "en": "`GET /users/42`",
+        "ar": "`GET /users/42`"
+       }
+      },
+      {
+       "label": {
+        "en": "calls your function",
+        "ar": "يستدعي دالتك"
+       }
+      }
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "GET /users/42"
+      },
+      {
+       "from": "server",
+       "text": "200 OK  {\"id\": 42, \"name\": \"Sara\"}",
+       "note": {
+        "en": "returned dict sent as JSON",
+        "ar": "الـ dict المُعاد يُرسل كـ JSON"
+       }
+      },
+      {
+       "from": "client",
+       "text": "GET /users/abc"
+      },
+      {
+       "from": "server",
+       "text": "422 Unprocessable Content",
+       "note": {
+        "en": "`abc` is not an `int`",
+        "ar": "`abc` ليس `int`"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🚀",
+       "color": "green",
+       "title": {
+        "en": "Fast",
+        "ar": "سريع"
+       },
+       "text": {
+        "en": "High performance, and fast to write",
+        "ar": "أداء عالٍ، وسريع في الكتابة"
+       }
+      },
+      {
+       "icon": "🏷️",
+       "color": "blue",
+       "title": {
+        "en": "Type hints",
+        "ar": "الـ type hints"
+       },
+       "text": {
+        "en": "`user_id: int` checks data; bad input gets `422`",
+        "ar": "`user_id: int` يتحقق من البيانات؛ والمدخل الخاطئ يأخذ `422`"
+       }
+      },
+      {
+       "icon": "📖",
+       "color": "purple",
+       "title": {
+        "en": "Automatic docs",
+        "ar": "توثيق تلقائي"
+       },
+       "text": {
+        "en": "Interactive docs at `/docs`, generated from code",
+        "ar": "توثيق تفاعلي على `/docs` يُنشأ من الكود"
+       }
+      }
      ]
     },
     {
      "type": "tip",
-     "en": "Do not install anything yet. In the next level you will set up FastAPI and run this code yourself.",
-     "ar": "لا تثبّت شيئًا الآن. في المستوى التالي ستجهّز FastAPI وتشغّل هذا الكود بنفسك."
+     "en": "Do not install anything yet. Next level, you run this code yourself.",
+     "ar": "لا تثبّت شيئًا الآن. في المستوى التالي ستشغّل هذا الكود بنفسك."
     }
    ]
   }
@@ -376,8 +1093,8 @@
    ],
    "answer": 0,
    "explanation": {
-    "en": "`404 Not Found` is a client error: nothing exists at that URL. A server crash is `500`, success is `2xx`, and a missing login is `401`.",
-    "ar": "`404 Not Found` خطأ من جهة العميل: لا يوجد شيء على هذا الـ URL. انهيار الخادم هو `500`، والنجاح `2xx`، وغياب تسجيل الدخول `401`."
+    "en": "`404 Not Found` is a client error: nothing exists at that URL. A crash is `500`, success `2xx`, missing login `401`.",
+    "ar": "`404 Not Found` خطأ من العميل: لا شيء على هذا الـ URL. الانهيار `500`، والنجاح `2xx`، وغياب تسجيل الدخول `401`."
    }
   },
   {
@@ -504,8 +1221,8 @@
    ],
    "answer": 0,
    "explanation": {
-    "en": "JSON requires double quotes for keys and strings and does not allow a comma after the last item. Numbers have no quotes, and objects use `{}`.",
-    "ar": "الـ JSON يشترط علامتي تنصيص مزدوجتين للمفاتيح والنصوص ولا يسمح بفاصلة بعد آخر عنصر. والأرقام بلا تنصيص، والـ objects تستخدم `{}`."
+    "en": "JSON needs double quotes for keys and strings and allows no comma after the last item. Numbers have no quotes.",
+    "ar": "الـ JSON يشترط تنصيصًا مزدوجًا للمفاتيح والنصوص ولا يسمح بفاصلة بعد آخر عنصر. والأرقام بلا تنصيص."
    }
   },
   {
@@ -568,8 +1285,8 @@
    ],
    "answer": 1,
    "explanation": {
-    "en": "`DELETE` changes data, so it is not safe, but deleting the same item again leaves the same final state. `GET` is safe, while `POST` and `PATCH` are not guaranteed to be idempotent.",
-    "ar": "الـ `DELETE` تغيّر البيانات فليست safe، لكن حذف العنصر نفسه مرة أخرى يترك الحالة النهائية نفسها. أما `GET` فهي safe، و`POST` و`PATCH` ليستا مضمونتين أن تكونا idempotent."
+    "en": "`DELETE` changes data, so it is not safe, but repeating it leaves the same state. `GET` is safe; `POST` and `PATCH` are not guaranteed idempotent.",
+    "ar": "الـ `DELETE` تغيّر البيانات فليست safe، لكن تكرارها يترك الحالة النهائية نفسها. `GET` آمنة، و`POST` و`PATCH` ليستا مضمونتين idempotent."
    }
   },
   {
@@ -600,8 +1317,8 @@
    ],
    "answer": 2,
    "explanation": {
-    "en": "The server knows who Sara is (the token is valid), but she is not allowed to do this, so it is `403`. `401` is for a missing or bad login.",
-    "ar": "الخادم يعرف من هي سارة (الـ token صالح)، لكنها غير مسموح لها بهذا الفعل، لذا الرمز `403`. أما `401` فهو لتسجيل دخول مفقود أو غير صحيح."
+    "en": "The token is valid, so the server knows Sara, but she is not allowed: `403`. `401` means missing or bad login.",
+    "ar": "الـ token صالح فالخادم يعرف سارة، لكنها غير مسموح لها: `403`. أما `401` فيعني تسجيل دخول مفقود أو غير صحيح."
    }
   },
   {
