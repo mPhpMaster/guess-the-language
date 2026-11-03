@@ -117,6 +117,14 @@ ipcMain.handle('questions:get', async (_event, mode) => {
   return loadBanks(MODE_BANKS[mode] || MODE_BANKS.languages);
 });
 
+// ---- Learn section: one JSON file per course under data/courses ----
+ipcMain.handle('course:get', async (_event, id) => {
+  // The id names a file, so it is held to a plain slug: no path can escape.
+  if (typeof id !== 'string' || !/^[a-z0-9-]{1,40}$/.test(id)) throw new Error('Bad course id');
+  const raw = await fs.promises.readFile(path.join(__dirname, 'data', 'courses', `${id}.json`), 'utf-8');
+  return JSON.parse(raw);
+});
+
 app.whenReady().then(() => {
   createWindow();
 

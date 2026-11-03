@@ -1,0 +1,613 @@
+{
+ "id": "parameters",
+ "title": {
+  "en": "Path and query parameters",
+  "ar": "معاملات المسار والاستعلام"
+ },
+ "summary": {
+  "en": "Read values from the URL path and query string, convert their types, and validate them with Query and Path.",
+  "ar": "اقرأ القيم من مسار الرابط ومن الاستعلام، وحوّل أنواعها، وتحقق منها باستخدام Query وPath."
+ },
+ "lessons": [
+  {
+   "id": "path-parameters",
+   "title": {
+    "en": "Path parameters",
+    "ar": "معاملات المسار (path parameters)"
+   },
+   "blocks": [
+    {
+     "type": "p",
+     "en": "A path parameter is a piece of the URL that changes from request to request. You mark it with curly braces in the path, and FastAPI passes its value to your function as an argument with the same name.",
+     "ar": "معامل المسار (path parameter) هو جزء من الرابط يتغيّر من طلب إلى آخر. تحدّده بين قوسين معقوفين `{}` داخل المسار، ثم يمرّر FastAPI قيمته إلى دالتك كوسيط (argument) بنفس الاسم."
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/items/{item_id}\")\ndef read_item(item_id: int):\n    return {\"item_id\": item_id}"
+    },
+    {
+     "type": "p",
+     "en": "The type hint `item_id: int` matters. Everything in a URL is text, but FastAPI converts it for you: a request to `/items/5` gives your function the number `5`, not the string `\"5\"`.",
+     "ar": "تلميح النوع `item_id: int` مهم. كل ما في الرابط نصّ، لكن FastAPI يحوّله لك: الطلب إلى `/items/5` يعطي دالتك الرقم `5` وليس النص `\"5\"`."
+    },
+    {
+     "type": "code",
+     "lang": "http",
+     "code": "GET /items/5\n\nHTTP/1.1 200 OK\n{\"item_id\": 5}"
+    },
+    {
+     "type": "h",
+     "en": "Wrong type: 422",
+     "ar": "نوع خاطئ: 422"
+    },
+    {
+     "type": "p",
+     "en": "If the value cannot be converted, your function never runs. FastAPI answers with status code `422 Unprocessable Entity` and a JSON body that explains exactly what went wrong. Here is the real response to `GET /items/abc`:",
+     "ar": "إذا تعذّر تحويل القيمة فلن تُنفَّذ دالتك أصلًا. يردّ FastAPI برمز الحالة (status code) `422 Unprocessable Entity` ومعه JSON يشرح الخطأ بالضبط. هذا هو الرد الحقيقي على `GET /items/abc`:"
+    },
+    {
+     "type": "code",
+     "lang": "json",
+     "code": "{\n  \"detail\": [\n    {\n      \"type\": \"int_parsing\",\n      \"loc\": [\"path\", \"item_id\"],\n      \"msg\": \"Input should be a valid integer, unable to parse string as an integer\",\n      \"input\": \"abc\"\n    }\n  ]\n}"
+    },
+    {
+     "type": "list",
+     "en": [
+      "`detail` is a list: one entry per problem.",
+      "`type` is a short error code, like `int_parsing`.",
+      "`loc` says where: the `path`, then the parameter name.",
+      "`msg` is a human-readable message; `input` is what was sent."
+     ],
+     "ar": [
+      "`detail` قائمة: عنصر واحد لكل مشكلة.",
+      "`type` رمز قصير للخطأ مثل `int_parsing`.",
+      "`loc` يحدّد المكان: `path` ثم اسم المعامل.",
+      "`msg` رسالة مقروءة للبشر، و`input` هي القيمة المُرسَلة."
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "Without a type hint (`def read_item(item_id):`) there is no conversion: `/items/5` returns `{\"item_id\": \"5\"}` as a string.",
+     "ar": "بدون تلميح نوع (`def read_item(item_id):`) لا يحدث تحويل: `/items/5` يعيد `{\"item_id\": \"5\"}` كنص."
+    }
+   ]
+  },
+  {
+   "id": "route-order-and-enums",
+   "title": {
+    "en": "Route order and Enum parameters",
+    "ar": "ترتيب المسارات ومعاملات Enum"
+   },
+   "blocks": [
+    {
+     "type": "p",
+     "en": "FastAPI checks your routes from top to bottom and uses the first one whose path matches. A fixed path like `/users/me` also matches the pattern `/users/{user_id}`, so order matters.",
+     "ar": "يفحص FastAPI المسارات من الأعلى إلى الأسفل ويستخدم أول مسار يطابق الرابط. المسار الثابت مثل `/users/me` يطابق أيضًا النمط `/users/{user_id}`، لذلك الترتيب مهم."
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "@app.get(\"/users/me\")          # fixed path first\ndef read_me():\n    return {\"user\": \"current user\"}\n\n@app.get(\"/users/{user_id}\")   # pattern second\ndef read_user(user_id: str):\n    return {\"user_id\": user_id}"
+    },
+    {
+     "type": "p",
+     "en": "With this order, `/users/me` returns `{\"user\": \"current user\"}` and `/users/42` returns `{\"user_id\": \"42\"}`.",
+     "ar": "بهذا الترتيب، `/users/me` يعيد `{\"user\": \"current user\"}` و`/users/42` يعيد `{\"user_id\": \"42\"}`."
+    },
+    {
+     "type": "warn",
+     "en": "Swap the two and `/users/me` is caught by `/users/{user_id}`: you get `{\"user_id\": \"me\"}`. If `user_id` were an `int`, you would even get a `422`, because `me` is not a number.",
+     "ar": "إذا عكست الترتيب فسيلتقط `/users/{user_id}` الطلب `/users/me` وستحصل على `{\"user_id\": \"me\"}`. ولو كان `user_id` من النوع `int` لحصلت على `422` لأن `me` ليس رقمًا."
+    },
+    {
+     "type": "h",
+     "en": "Enum: a fixed list of allowed values",
+     "ar": "Enum: قائمة ثابتة من القيم المسموحة"
+    },
+    {
+     "type": "p",
+     "en": "When a path parameter may only take a few values, make a class that inherits from `str` and `Enum`. FastAPI accepts only those values and lists them in `/docs`.",
+     "ar": "عندما يُسمح لمعامل المسار بقيم قليلة فقط، أنشئ صنفًا (class) يرث من `str` و`Enum`. يقبل FastAPI هذه القيم فقط ويعرضها في `/docs`."
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from enum import Enum\n\nclass ModelName(str, Enum):\n    alexnet = \"alexnet\"\n    resnet = \"resnet\"\n    lenet = \"lenet\"\n\n@app.get(\"/models/{model_name}\")\ndef get_model(model_name: ModelName):\n    return {\"model_name\": model_name, \"value\": model_name.value}"
+    },
+    {
+     "type": "p",
+     "en": "`/models/lenet` returns `{\"model_name\": \"lenet\", \"value\": \"lenet\"}`. Any other value, even `AlexNet` with capitals, gets a `422` with the message `Input should be 'alexnet', 'resnet' or 'lenet'`.",
+     "ar": "`/models/lenet` يعيد `{\"model_name\": \"lenet\", \"value\": \"lenet\"}`. وأي قيمة أخرى، حتى `AlexNet` بأحرف كبيرة، تحصل على `422` مع الرسالة `Input should be 'alexnet', 'resnet' or 'lenet'`."
+    }
+   ]
+  },
+  {
+   "id": "query-parameters",
+   "title": {
+    "en": "Query parameters",
+    "ar": "معاملات الاستعلام (query parameters)"
+   },
+   "blocks": [
+    {
+     "type": "p",
+     "en": "Any function argument that is NOT in the path becomes a query parameter. Query parameters come after `?` in the URL, as `key=value` pairs joined with `&`.",
+     "ar": "أي وسيط في الدالة غير موجود في المسار يصبح معامل استعلام (query parameter). تأتي معاملات الاستعلام بعد `?` في الرابط على شكل أزواج `key=value` يفصل بينها `&`."
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "fake_items = [{\"name\": \"a\"}, {\"name\": \"b\"}, {\"name\": \"c\"}]\n\n@app.get(\"/items/\")\ndef list_items(skip: int = 0, limit: int = 10):\n    return fake_items[skip : skip + limit]"
+    },
+    {
+     "type": "code",
+     "lang": "http",
+     "code": "GET /items/?skip=1&limit=1   ->  200  [{\"name\": \"b\"}]\nGET /items/                  ->  200  all three items (defaults used)\nGET /items/?limit=x          ->  422  loc: [\"query\", \"limit\"]"
+    },
+    {
+     "type": "list",
+     "en": [
+      "With a default (`skip: int = 0`): optional, the default is used when missing.",
+      "With `None` as default (`q: str | None = None`): optional, `q` is `None` when missing.",
+      "With no default (`name: str`): required. Missing it gives a `422`."
+     ],
+     "ar": [
+      "مع قيمة افتراضية (`skip: int = 0`): اختياري، وتُستخدم القيمة الافتراضية عند غيابه.",
+      "مع `None` كقيمة افتراضية (`q: str | None = None`): اختياري، و`q` تساوي `None` عند غيابه.",
+      "بدون قيمة افتراضية (`name: str`): إلزامي، وغيابه يعطي `422`."
+     ]
+    },
+    {
+     "type": "p",
+     "en": "For a missing required query parameter, the error `type` is `missing`:",
+     "ar": "عند غياب معامل استعلام إلزامي يكون `type` الخطأ هو `missing`:"
+    },
+    {
+     "type": "code",
+     "lang": "json",
+     "code": "{\"detail\": [{\"type\": \"missing\", \"loc\": [\"query\", \"name\"],\n             \"msg\": \"Field required\", \"input\": null}]}"
+    },
+    {
+     "type": "h",
+     "en": "Booleans",
+     "ar": "القيم المنطقية (bool)"
+    },
+    {
+     "type": "p",
+     "en": "A `bool` query parameter is forgiving. With `short: bool = False`, these all give `True`: `1`, `true`, `True`, `yes`, `on`. And these give `False`: `0`, `false`, `no`, `off`. Anything else, like `?short=maybe`, gives a `422` with type `bool_parsing`.",
+     "ar": "معامل الاستعلام من النوع `bool` متسامح. مع `short: bool = False` كل هذه تعطي `True`: `1` و`true` و`True` و`yes` و`on`. وهذه تعطي `False`: `0` و`false` و`no` و`off`. وأي شيء آخر مثل `?short=maybe` يعطي `422` بالنوع `bool_parsing`."
+    },
+    {
+     "type": "tip",
+     "en": "Query parameters the function does not declare are simply ignored. A typo like `?lenght=5` will not raise an error; the default is used.",
+     "ar": "معاملات الاستعلام غير المعرّفة في الدالة تُتجاهَل ببساطة. خطأ إملائي مثل `?lenght=5` لن يسبّب خطأ، وستُستخدم القيمة الافتراضية."
+    }
+   ]
+  },
+  {
+   "id": "validation-with-annotated",
+   "title": {
+    "en": "Validation with Annotated, Query and Path",
+    "ar": "التحقق باستخدام Annotated وQuery وPath"
+   },
+   "blocks": [
+    {
+     "type": "p",
+     "en": "Types check the kind of value. To add rules like \"at least 3 characters\" or \"between 1 and 1000\", wrap the type in `Annotated` and add `Query(...)` or `Path(...)` with the rules.",
+     "ar": "الأنواع تتحقق من نوع القيمة. ولإضافة قواعد مثل «3 أحرف على الأقل» أو «بين 1 و1000»، غلّف النوع بـ`Annotated` وأضف `Query(...)` أو `Path(...)` مع القواعد."
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from typing import Annotated\nfrom fastapi import FastAPI, Path, Query\n\napp = FastAPI()\n\n@app.get(\"/search\")\ndef search(q: Annotated[str | None, Query(min_length=3, max_length=10)] = None):\n    return {\"q\": q}\n\n@app.get(\"/items/{item_id}\")\ndef read_item(item_id: Annotated[int, Path(ge=1, le=1000)]):\n    return {\"item_id\": item_id}"
+    },
+    {
+     "type": "list",
+     "en": [
+      "`min_length` / `max_length`: length limits for strings.",
+      "`ge` / `le`: greater-or-equal / less-or-equal for numbers.",
+      "`gt` / `lt`: strictly greater / strictly less.",
+      "`pattern`: the string must match a regular expression."
+     ],
+     "ar": [
+      "`min_length` / `max_length`: حدود الطول للنصوص.",
+      "`ge` / `le`: أكبر من أو يساوي / أصغر من أو يساوي للأرقام.",
+      "`gt` / `lt`: أكبر تمامًا / أصغر تمامًا.",
+      "`pattern`: يجب أن يطابق النص تعبيرًا نمطيًا (regular expression)."
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "http",
+     "code": "GET /search?q=ab      ->  422  \"String should have at least 3 characters\"\nGET /search?q=abc     ->  200  {\"q\": \"abc\"}\nGET /search           ->  200  {\"q\": null}\nGET /items/0          ->  422  \"Input should be greater than or equal to 1\"\nGET /items/1000       ->  200  {\"item_id\": 1000}"
+    },
+    {
+     "type": "p",
+     "en": "Note that the rules apply only when a value is sent. `/search` with no `q` is fine, because `q` is optional.",
+     "ar": "لاحظ أن القواعد تُطبَّق فقط عند إرسال قيمة. الطلب `/search` بدون `q` مقبول لأن `q` اختياري."
+    },
+    {
+     "type": "h",
+     "en": "A short pattern example",
+     "ar": "مثال قصير على pattern"
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "@app.get(\"/rates\")\ndef rates(code: Annotated[str, Query(pattern=\"^[A-Z]{3}$\")]):\n    return {\"code\": code}"
+    },
+    {
+     "type": "p",
+     "en": "`?code=USD` returns `200`. `?code=usd` and `?code=USDT` return `422` with type `string_pattern_mismatch`. Since `code` has no default, it is also required.",
+     "ar": "`?code=USD` يعيد `200`. أما `?code=usd` و`?code=USDT` فيعيدان `422` بالنوع `string_pattern_mismatch`. وبما أن `code` بلا قيمة افتراضية فهو إلزامي أيضًا."
+    }
+   ]
+  },
+  {
+   "id": "path-and-query-together",
+   "title": {
+    "en": "Path and query together",
+    "ar": "المسار والاستعلام معًا"
+   },
+   "blocks": [
+    {
+     "type": "p",
+     "en": "One endpoint can have several path parameters and several query parameters. FastAPI decides by name: if the name appears in the path, it is a path parameter; otherwise it is a query parameter.",
+     "ar": "يمكن لنقطة نهاية (endpoint) واحدة أن تحوي عدة معاملات مسار وعدة معاملات استعلام. يحدّد FastAPI ذلك بالاسم: إذا ظهر الاسم في المسار فهو معامل مسار، وإلا فهو معامل استعلام."
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "@app.get(\"/users/{user_id}/items/{item_id}\")\ndef read_user_item(user_id: int, item_id: str,\n                   q: str | None = None, short: bool = False):\n    item = {\"item_id\": item_id, \"owner_id\": user_id}\n    if q:\n        item[\"q\"] = q\n    if not short:\n        item[\"description\"] = \"A long description\"\n    return item"
+    },
+    {
+     "type": "h",
+     "en": "Reading the URL",
+     "ar": "قراءة الرابط"
+    },
+    {
+     "type": "code",
+     "lang": "text",
+     "code": "/users/7/items/pen?q=blue&short=true\n       |       |     |       |\n       |       |     |       +-- short = True  (query)\n       |       |     +---------- q = \"blue\"    (query)\n       |       +---------------- item_id = \"pen\" (path)\n       +------------------------ user_id = 7     (path)"
+    },
+    {
+     "type": "code",
+     "lang": "http",
+     "code": "GET /users/7/items/pen?q=blue&short=true\n\nHTTP/1.1 200 OK\n{\"item_id\": \"pen\", \"owner_id\": 7, \"q\": \"blue\"}"
+    },
+    {
+     "type": "p",
+     "en": "Without the query part, `/users/7/items/pen` returns `{\"item_id\": \"pen\", \"owner_id\": 7, \"description\": \"A long description\"}`.",
+     "ar": "بدون جزء الاستعلام، يعيد `/users/7/items/pen` القيمة `{\"item_id\": \"pen\", \"owner_id\": 7, \"description\": \"A long description\"}`."
+    },
+    {
+     "type": "tip",
+     "en": "If several values are wrong, `detail` lists all of them. `/users/seven/items/pen?short=maybe` returns two errors: one with `loc` `[\"path\", \"user_id\"]` and one with `[\"query\", \"short\"]`.",
+     "ar": "إذا كانت عدة قيم خاطئة فإن `detail` يسردها كلها. الطلب `/users/seven/items/pen?short=maybe` يعيد خطأين: أحدهما `loc` فيه `[\"path\", \"user_id\"]` والآخر `[\"query\", \"short\"]`."
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "difficulty": "easy",
+   "question": {
+    "en": "`ModelName` is a `str` Enum with the values `alexnet`, `resnet` and `lenet`. What does `GET /models/vgg` return?",
+    "ar": "`ModelName` صنف Enum من النوع `str` قيمه `alexnet` و`resnet` و`lenet`. ماذا يعيد `GET /models/vgg`؟"
+   },
+   "codeSnippet": "@app.get(\"/models/{model_name}\")\ndef get_model(model_name: ModelName):\n    return {\"model_name\": model_name}",
+   "options": [
+    {
+     "en": "`200` with `{\"model_name\": \"vgg\"}`",
+     "ar": "`200` مع `{\"model_name\": \"vgg\"}`"
+    },
+    {
+     "en": "`422`, `vgg` is not an allowed value",
+     "ar": "`422`، لأن `vgg` ليست قيمة مسموحة"
+    },
+    {
+     "en": "`404`, because no route matches `vgg`",
+     "ar": "`404`، لأنه لا يوجد مسار يطابق `vgg`"
+    },
+    {
+     "en": "`200` with `{\"model_name\": null}`",
+     "ar": "`200` مع `{\"model_name\": null}`"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "An Enum path parameter accepts only its listed values. The route matches, but validation fails, so FastAPI returns `422` with `Input should be 'alexnet', 'resnet' or 'lenet'`.",
+    "ar": "معامل المسار من نوع Enum يقبل قيمه المحددة فقط. المسار يطابق لكن التحقق يفشل، فيعيد FastAPI `422` مع `Input should be 'alexnet', 'resnet' or 'lenet'`."
+   }
+  },
+  {
+   "id": 2,
+   "difficulty": "easy",
+   "question": {
+    "en": "What does `GET /items/5` return for this endpoint?",
+    "ar": "ماذا يعيد `GET /items/5` لهذه النقطة؟"
+   },
+   "codeSnippet": "@app.get(\"/items/{item_id}\")\ndef read_item(item_id: int):\n    return {\"item_id\": item_id}",
+   "options": [
+    {
+     "en": "{\"item_id\": \"5\"}",
+     "ar": "{\"item_id\": \"5\"}"
+    },
+    {
+     "en": "{\"item_id\": \"{item_id}\"}",
+     "ar": "{\"item_id\": \"{item_id}\"}"
+    },
+    {
+     "en": "{\"item_id\": 5}",
+     "ar": "{\"item_id\": 5}"
+    },
+    {
+     "en": "{\"item_id\": 5.0}",
+     "ar": "{\"item_id\": 5.0}"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "Because of the hint `item_id: int`, FastAPI converts the text `5` from the URL into the integer `5`.",
+    "ar": "بسبب التلميح `item_id: int` يحوّل FastAPI النص `5` القادم من الرابط إلى العدد الصحيح `5`."
+   }
+  },
+  {
+   "id": 3,
+   "difficulty": "easy",
+   "question": {
+    "en": "In `@app.get(\"/search\")` with `def search(q: str | None = None)`, what is `q`?",
+    "ar": "في `@app.get(\"/search\")` مع `def search(q: str | None = None)`، ما هو `q`؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "An optional query parameter, `None` when missing",
+     "ar": "معامل استعلام اختياري، قيمته `None` عند غيابه"
+    },
+    {
+     "en": "A required query parameter that must be sent",
+     "ar": "معامل استعلام إلزامي يجب إرساله"
+    },
+    {
+     "en": "A path parameter, because it has a type hint",
+     "ar": "معامل مسار، لأن له تلميح نوع"
+    },
+    {
+     "en": "A value FastAPI reads from the response",
+     "ar": "قيمة يقرؤها FastAPI من الرد (response)"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "`q` is not in the path, so it is a query parameter. Its default `None` makes it optional.",
+    "ar": "`q` غير موجود في المسار فهو معامل استعلام، وقيمته الافتراضية `None` تجعله اختياريًا."
+   }
+  },
+  {
+   "id": 4,
+   "difficulty": "medium",
+   "question": {
+    "en": "With `item_id: int`, a client sends `GET /items/abc`. What comes back?",
+    "ar": "مع `item_id: int` يرسل العميل `GET /items/abc`. ماذا يعود؟"
+   },
+   "codeSnippet": "@app.get(\"/items/{item_id}\")\ndef read_item(item_id: int):\n    return {\"item_id\": item_id}",
+   "options": [
+    {
+     "en": "`404` with `{\"detail\": \"Not Found\"}`",
+     "ar": "`404` مع `{\"detail\": \"Not Found\"}`"
+    },
+    {
+     "en": "`200` with `{\"item_id\": \"abc\"}`",
+     "ar": "`200` مع `{\"item_id\": \"abc\"}`"
+    },
+    {
+     "en": "`500`, because `int(\"abc\")` crashes",
+     "ar": "`500`، لأن `int(\"abc\")` ينهار"
+    },
+    {
+     "en": "`422` with `loc` `[\"path\", \"item_id\"]`",
+     "ar": "`422` مع `loc` بقيمة `[\"path\", \"item_id\"]`"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "The route matches, but `abc` is not an integer. FastAPI returns `422` with an `int_parsing` error whose `loc` is `[\"path\", \"item_id\"]`; your function never runs.",
+    "ar": "المسار يطابق لكن `abc` ليس عددًا صحيحًا. يعيد FastAPI `422` بخطأ `int_parsing` قيمة `loc` فيه `[\"path\", \"item_id\"]`، ولا تُنفَّذ دالتك."
+   }
+  },
+  {
+   "id": 5,
+   "difficulty": "medium",
+   "question": {
+    "en": "The routes are declared in this order. What does `GET /users/me` return?",
+    "ar": "عُرّفت المسارات بهذا الترتيب. ماذا يعيد `GET /users/me`؟"
+   },
+   "codeSnippet": "@app.get(\"/users/{user_id}\")\ndef read_user(user_id: str):\n    return {\"user_id\": user_id}\n\n@app.get(\"/users/me\")\ndef read_me():\n    return {\"user\": \"current user\"}",
+   "options": [
+    {
+     "en": "{\"user\": \"current user\"}",
+     "ar": "{\"user\": \"current user\"}"
+    },
+    {
+     "en": "{\"detail\": \"Not Found\"}",
+     "ar": "{\"detail\": \"Not Found\"}"
+    },
+    {
+     "en": "{\"user_id\": \"me\"}",
+     "ar": "{\"user_id\": \"me\"}"
+    },
+    {
+     "en": "{\"user_id\": null}",
+     "ar": "{\"user_id\": null}"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "Routes are checked top to bottom. `/users/{user_id}` comes first and matches `/users/me`, so `user_id` is `\"me\"`. Put `/users/me` first to fix it.",
+    "ar": "تُفحص المسارات من الأعلى للأسفل. `/users/{user_id}` يأتي أولًا ويطابق `/users/me`، فتكون `user_id` هي `\"me\"`. ضع `/users/me` أولًا لإصلاح ذلك."
+   }
+  },
+  {
+   "id": 6,
+   "difficulty": "medium",
+   "question": {
+    "en": "The endpoint has `short: bool = False`. Which request returns a `422`?",
+    "ar": "النقطة فيها `short: bool = False`. أي طلب يعيد `422`؟"
+   },
+   "codeSnippet": "@app.get(\"/flag\")\ndef flag(short: bool = False):\n    return {\"short\": short}",
+   "options": [
+    {
+     "en": "GET /flag?short=maybe",
+     "ar": "GET /flag?short=maybe"
+    },
+    {
+     "en": "GET /flag?short=yes",
+     "ar": "GET /flag?short=yes"
+    },
+    {
+     "en": "GET /flag?short=on",
+     "ar": "GET /flag?short=on"
+    },
+    {
+     "en": "GET /flag?short=0",
+     "ar": "GET /flag?short=0"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "`yes` and `on` become `True`, and `0` becomes `False`. `maybe` cannot be read as a boolean, so it returns `422` with type `bool_parsing`.",
+    "ar": "`yes` و`on` تصبحان `True`، و`0` تصبح `False`. أما `maybe` فلا يمكن قراءتها كقيمة منطقية، فتعيد `422` بالنوع `bool_parsing`."
+   }
+  },
+  {
+   "id": 7,
+   "difficulty": "medium",
+   "question": {
+    "en": "A client calls `GET /greet` with no query string. What is the response?",
+    "ar": "يستدعي العميل `GET /greet` بدون أي استعلام. ما الرد؟"
+   },
+   "codeSnippet": "@app.get(\"/greet\")\ndef greet(name: str):\n    return {\"hello\": name}",
+   "options": [
+    {
+     "en": "`200` with `{\"hello\": null}`",
+     "ar": "`200` مع `{\"hello\": null}`"
+    },
+    {
+     "en": "`200` with `{\"hello\": \"\"}`",
+     "ar": "`200` مع `{\"hello\": \"\"}`"
+    },
+    {
+     "en": "`404`, the URL needs `/{name}`",
+     "ar": "`404`، فالرابط يحتاج `/{name}`"
+    },
+    {
+     "en": "`422` with type `missing` for `name`",
+     "ar": "`422` بالنوع `missing` للمعامل `name`"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`name` has no default, so it is a required query parameter. Missing it gives `422` with `\"type\": \"missing\"`, `\"loc\": [\"query\", \"name\"]` and `\"msg\": \"Field required\"`.",
+    "ar": "`name` بلا قيمة افتراضية فهو معامل استعلام إلزامي. غيابه يعطي `422` مع `\"type\": \"missing\"` و`\"loc\": [\"query\", \"name\"]` و`\"msg\": \"Field required\"`."
+   }
+  },
+  {
+   "id": 8,
+   "difficulty": "hard",
+   "question": {
+    "en": "What does `GET /items/0` return?",
+    "ar": "ماذا يعيد `GET /items/0`؟"
+   },
+   "codeSnippet": "@app.get(\"/items/{item_id}\")\ndef read_item(item_id: Annotated[int, Path(ge=1, le=1000)]):\n    return {\"item_id\": item_id}",
+   "options": [
+    {
+     "en": "`200` with `{\"item_id\": 0}`",
+     "ar": "`200` مع `{\"item_id\": 0}`"
+    },
+    {
+     "en": "`422`: must be greater than or equal to 1",
+     "ar": "`422`: يجب أن يكون أكبر من أو يساوي 1"
+    },
+    {
+     "en": "`422`: must be less than or equal to 1000",
+     "ar": "`422`: يجب أن يكون أصغر من أو يساوي 1000"
+    },
+    {
+     "en": "`404`, since item 0 does not exist",
+     "ar": "`404`، لأن العنصر 0 غير موجود"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`0` is a valid integer but breaks the rule `ge=1`. FastAPI returns `422` with type `greater_than_equal` and `Input should be greater than or equal to 1`.",
+    "ar": "`0` عدد صحيح سليم لكنه يخالف القاعدة `ge=1`. يعيد FastAPI `422` بالنوع `greater_than_equal` والرسالة `Input should be greater than or equal to 1`."
+   }
+  },
+  {
+   "id": 9,
+   "difficulty": "hard",
+   "question": {
+    "en": "What is the response to `GET /users/7/items/pen?q=blue&short=true`?",
+    "ar": "ما الرد على `GET /users/7/items/pen?q=blue&short=true`؟"
+   },
+   "codeSnippet": "@app.get(\"/users/{user_id}/items/{item_id}\")\ndef read_user_item(user_id: int, item_id: str,\n                   q: str | None = None, short: bool = False):\n    item = {\"item_id\": item_id, \"owner_id\": user_id}\n    if q:\n        item[\"q\"] = q\n    if not short:\n        item[\"description\"] = \"A long description\"\n    return item",
+   "options": [
+    {
+     "en": "{\"item_id\": \"pen\", \"owner_id\": 7, \"q\": \"blue\"}",
+     "ar": "{\"item_id\": \"pen\", \"owner_id\": 7, \"q\": \"blue\"}"
+    },
+    {
+     "en": "{\"item_id\": \"pen\", \"owner_id\": \"7\", \"q\": \"blue\"}",
+     "ar": "{\"item_id\": \"pen\", \"owner_id\": \"7\", \"q\": \"blue\"}"
+    },
+    {
+     "en": "{\"item_id\": \"blue\", \"owner_id\": 7, \"q\": \"pen\"}",
+     "ar": "{\"item_id\": \"blue\", \"owner_id\": 7, \"q\": \"pen\"}"
+    },
+    {
+     "en": "{\"item_id\": \"pen\", \"owner_id\": 7, \"short\": true}",
+     "ar": "{\"item_id\": \"pen\", \"owner_id\": 7, \"short\": true}"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "`7` and `pen` come from the path (`user_id` converted to an int), `q` and `short` from the query. `short=true` is `True`, so no description is added.",
+    "ar": "`7` و`pen` يأتيان من المسار (وتُحوَّل `user_id` إلى عدد صحيح)، و`q` و`short` من الاستعلام. `short=true` تعني `True` فلا يُضاف الوصف."
+   }
+  },
+  {
+   "id": 10,
+   "difficulty": "hard",
+   "question": {
+    "en": "A client sends `GET /books/3?language=ar`. What is returned?",
+    "ar": "يرسل العميل `GET /books/3?language=ar`. ماذا يعود؟"
+   },
+   "codeSnippet": "@app.get(\"/books/{book_id}\")\ndef read_book(book_id: int, lang: str = \"en\"):\n    return {\"book_id\": book_id, \"lang\": lang}",
+   "options": [
+    {
+     "en": "{\"book_id\": 3, \"lang\": \"ar\"}",
+     "ar": "{\"book_id\": 3, \"lang\": \"ar\"}"
+    },
+    {
+     "en": "`422`: unknown query parameter `language`",
+     "ar": "`422`: معامل استعلام مجهول `language`"
+    },
+    {
+     "en": "{\"book_id\": 3, \"lang\": \"en\"}",
+     "ar": "{\"book_id\": 3, \"lang\": \"en\"}"
+    },
+    {
+     "en": "{\"book_id\": \"3\", \"lang\": \"ar\"}",
+     "ar": "{\"book_id\": \"3\", \"lang\": \"ar\"}"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "Only declared names are read. `language` is not `lang`, so it is ignored and `lang` keeps its default `\"en\"`. No error is raised.",
+    "ar": "تُقرأ الأسماء المعرّفة فقط. `language` ليس `lang` فيُتجاهَل، ويحتفظ `lang` بقيمته الافتراضية `\"en\"`. ولا يحدث أي خطأ."
+   }
+  }
+ ]
+}

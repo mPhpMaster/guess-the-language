@@ -20,6 +20,7 @@ import { openQuestionReport, submitQuestionReport } from './qreport.js';
 import { renderReviewButton, startReview } from './review.js';
 import { renderStyleSwitch, setPickedStyle } from './styles.js';
 import { applyUpdateNow, dismissUpdateToast } from './update.js';
+import { learnBack, onLearnKeydown, openCourse, openLearn } from './learn.js';
 
 // ============================================================
 //  Wire up the UI
@@ -57,6 +58,9 @@ export function bindEvents() {
         renderPackSelect();
     });
     $('#btn-review')?.addEventListener('click', startReview);
+    $('#btn-learn')?.addEventListener('click', openLearn);
+    $('#btn-learn-back')?.addEventListener('click', learnBack);
+    document.addEventListener('keydown', onLearnKeydown);
     $('#btn-duel')?.addEventListener('click', startDuel);
     $('#btn-duel-cancel')?.addEventListener('click', cancelDuelSearch);
     $('#duel-search')?.addEventListener('cancel', (e) => { e.preventDefault(); cancelDuelSearch(); });

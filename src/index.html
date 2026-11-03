@@ -187,6 +187,7 @@
               <button class="btn btn-daily" id="btn-daily" data-i18n="dailyChallenge">Daily challenge</button>
               <button class="btn btn-duel" id="btn-duel" data-i18n="duelButton">⚔ Ranked duel</button>
               <button class="btn btn-review hidden" id="btn-review" data-i18n="reviewMistakes">Review mistakes</button>
+              <button class="btn btn-learn" id="btn-learn" data-i18n="learnButton">📚 Learn</button>
               <div class="home-actions-row home-mp-actions">
                 <button class="btn btn-ghost" id="btn-host" data-i18n="hostRoom">Host room</button>
                 <button class="btn btn-ghost" id="btn-join" data-i18n="joinRoom">Join room</button>
@@ -733,6 +734,17 @@
       <div class="game-footer">
         <span id="game-footer-hint">press 1–6 to answer</span>
         <span class="game-footer-gain" id="game-footer-gain"></span>
+      </div>
+    </section>
+
+    <!-- ============ LEARN SCREEN (src/modules/learn.js) ============ -->
+    <section id="screen-learn" class="screen">
+      <div class="learn-wrap">
+        <header class="learn-head">
+          <button type="button" class="btn btn-ghost btn-sm learn-back" id="btn-learn-back" data-i18n="learnBack">◂ back</button>
+          <nav class="learn-crumbs" id="learn-crumbs" aria-label="Breadcrumb"></nav>
+        </header>
+        <div class="learn-body" id="learn-body" aria-live="polite"></div>
       </div>
     </section>
 

@@ -1,0 +1,3125 @@
+{
+ "id": "fastapi",
+ "title": {
+  "en": "Build an API with FastAPI",
+  "ar": "ابنِ API باستخدام FastAPI"
+ },
+ "summary": {
+  "en": "From what a request and a response are, to a complete CRUD API in Python.",
+  "ar": "من معنى الطلب والاستجابة، إلى بناء API كامل (CRUD) بلغة Python."
+ },
+ "levels": [
+  {
+   "id": "web-basics",
+   "title": {
+    "en": "Web basics: HTTP, APIs and JSON",
+    "ar": "أساسيات الويب: HTTP والـ APIs والـ JSON"
+   },
+   "summary": {
+    "en": "Learn how clients and servers talk with HTTP requests, responses, status codes and JSON before writing any FastAPI code.",
+    "ar": "تعلّم كيف يتواصل العميل والخادم عبر طلبات HTTP واستجاباتها ورموز الحالة والـ JSON قبل كتابة أي كود FastAPI."
+   },
+   "lessons": [
+    {
+     "id": "clients-servers-requests",
+     "title": {
+      "en": "Clients, servers and the HTTP request",
+      "ar": "العميل والخادم وطلب HTTP"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "An API (Application Programming Interface) is a set of rules that lets one program ask another program for data or actions. A web API does this over the internet using HTTP.",
+       "ar": "الـ API (واجهة برمجة التطبيقات) مجموعة قواعد تسمح لبرنامج أن يطلب بيانات أو أفعالًا من برنامج آخر. والـ web API تفعل ذلك عبر الإنترنت باستخدام HTTP."
+      },
+      {
+       "type": "p",
+       "en": "The program that asks is the client (a browser, a mobile app, another server). The program that answers is the server. The client sends a request, and the server sends back a response.",
+       "ar": "البرنامج الذي يسأل هو العميل (client): متصفح أو تطبيق جوال أو خادم آخر. والبرنامج الذي يجيب هو الخادم (server). يرسل العميل طلبًا (request)، ويعيد الخادم استجابة (response)."
+      },
+      {
+       "type": "h",
+       "en": "The four parts of a request",
+       "ar": "الأجزاء الأربعة للطلب"
+      },
+      {
+       "type": "list",
+       "en": [
+        "Method: the action, e.g. `GET` or `POST`.",
+        "URL: which resource, e.g. `https://api.example.com/users`.",
+        "Headers: extra info as `Name: value` lines.",
+        "Body: optional data sent to the server (often JSON)."
+       ],
+       "ar": [
+        "الـ method: الفعل المطلوب، مثل `GET` أو `POST`.",
+        "الـ URL: أي مورد نقصد، مثل `https://api.example.com/users`.",
+        "الـ headers: معلومات إضافية على شكل أسطر `Name: value`.",
+        "الـ body: بيانات اختيارية تُرسل إلى الخادم (غالبًا JSON)."
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "http",
+       "code": "POST /users?notify=true HTTP/1.1\nHost: api.example.com\nContent-Type: application/json\nAccept: application/json\n\n{\"name\": \"Sara\", \"age\": 25}"
+      },
+      {
+       "type": "p",
+       "en": "The first line holds the method, the path with its query string, and the HTTP version. Headers follow, then an empty line, then the body. `Content-Type` says what format the body is in; `Accept` says what format the client wants back.",
+       "ar": "السطر الأول يحتوي الـ method والمسار مع الـ query string وإصدار HTTP. بعده الـ headers، ثم سطر فارغ، ثم الـ body. الـ header `Content-Type` يحدد صيغة الـ body، و`Accept` يحدد الصيغة التي يريدها العميل في الرد."
+      },
+      {
+       "type": "h",
+       "en": "Reading a URL",
+       "ar": "قراءة الـ URL"
+      },
+      {
+       "type": "code",
+       "lang": "text",
+       "code": "https://api.example.com/users?page=2&limit=10\n\nscheme:       https\nhost:         api.example.com\npath:         /users\nquery string: page=2&limit=10"
+      },
+      {
+       "type": "tip",
+       "en": "The query string starts after `?` and holds `key=value` pairs joined by `&`. It is usually used for filters, search and paging.",
+       "ar": "الـ query string يبدأ بعد `?` ويحتوي أزواج `key=value` مفصولة بـ `&`. يُستخدم عادةً للتصفية والبحث وتقسيم الصفحات."
+      }
+     ]
+    },
+    {
+     "id": "http-response-status-codes",
+     "title": {
+      "en": "The response and status codes",
+      "ar": "الاستجابة ورموز الحالة"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "Every request gets a response. It has a status line, headers, an empty line and an optional body.",
+       "ar": "كل طلب يحصل على استجابة (response). وهي تتكون من سطر الحالة (status line) والـ headers وسطر فارغ ثم body اختياري."
+      },
+      {
+       "type": "code",
+       "lang": "http",
+       "code": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\"id\": 42, \"name\": \"Sara\"}"
+      },
+      {
+       "type": "p",
+       "en": "The status line shows the HTTP version, a three-digit status code and a short reason phrase. The first digit tells you the group.",
+       "ar": "سطر الحالة يعرض إصدار HTTP ورمز الحالة (status code) من ثلاثة أرقام وعبارة قصيرة. الرقم الأول يخبرك بالمجموعة."
+      },
+      {
+       "type": "list",
+       "en": [
+        "2xx success: `200 OK`, `201 Created`, `204 No Content` (success, empty body).",
+        "3xx redirect: the resource is elsewhere, e.g. `301 Moved Permanently`.",
+        "4xx client error: `400 Bad Request`, `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `422 Unprocessable Content`.",
+        "5xx server error: `500 Internal Server Error` (a bug or crash on the server)."
+       ],
+       "ar": [
+        "2xx نجاح: `200 OK` و`201 Created` و`204 No Content` (نجاح بدون body).",
+        "3xx إعادة توجيه: المورد في مكان آخر، مثل `301 Moved Permanently`.",
+        "4xx خطأ من العميل: `400 Bad Request` و`401 Unauthorized` و`403 Forbidden` و`404 Not Found` و`422 Unprocessable Content`.",
+        "5xx خطأ في الخادم: `500 Internal Server Error` (خلل أو انهيار في الخادم)."
+       ]
+      },
+      {
+       "type": "h",
+       "en": "Codes that are easy to mix up",
+       "ar": "رموز يسهل الخلط بينها"
+      },
+      {
+       "type": "list",
+       "en": [
+        "`401`: the server does not know who you are (missing or bad login/token).",
+        "`403`: the server knows who you are, but you are not allowed to do this.",
+        "`400`: the request itself is malformed or makes no sense.",
+        "`422`: the request is readable, but the data is invalid (e.g. text where a number is required). FastAPI uses `422` for validation errors."
+       ],
+       "ar": [
+        "`401`: الخادم لا يعرف من أنت (تسجيل دخول أو token مفقود أو غير صحيح).",
+        "`403`: الخادم يعرف من أنت، لكنك غير مسموح لك بهذا الفعل.",
+        "`400`: الطلب نفسه معطوب أو غير منطقي.",
+        "`422`: الطلب مقروء لكن البيانات غير صالحة (مثل نص مكان رقم مطلوب). FastAPI يستخدم `422` لأخطاء التحقق (validation)."
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "http",
+       "code": "HTTP/1.1 404 Not Found\nContent-Type: application/json\n\n{\"detail\": \"Not Found\"}"
+      },
+      {
+       "type": "tip",
+       "en": "4xx means the client should change the request. 5xx means the server has a problem, so the client usually cannot fix it.",
+       "ar": "الرمز 4xx يعني أن على العميل تعديل طلبه. أما 5xx فيعني أن المشكلة في الخادم، وغالبًا لا يستطيع العميل إصلاحها."
+      }
+     ]
+    },
+    {
+     "id": "methods-and-rest-urls",
+     "title": {
+      "en": "HTTP methods and REST-style URLs",
+      "ar": "الـ HTTP methods وروابط نمط REST"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "The method tells the server what to do with the resource in the URL. Five methods cover almost every API.",
+       "ar": "الـ method تخبر الخادم ماذا يفعل بالمورد الموجود في الـ URL. خمس methods تكفي تقريبًا لأي API."
+      },
+      {
+       "type": "list",
+       "en": [
+        "`GET`: read data. It has no body.",
+        "`POST`: create a new item (the server picks its id).",
+        "`PUT`: replace a whole item with new data.",
+        "`PATCH`: change only some fields of an item.",
+        "`DELETE`: remove an item."
+       ],
+       "ar": [
+        "`GET`: قراءة البيانات، بدون body.",
+        "`POST`: إنشاء عنصر جديد (والخادم يختار رقمه id).",
+        "`PUT`: استبدال العنصر كاملًا ببيانات جديدة.",
+        "`PATCH`: تعديل بعض حقول العنصر فقط.",
+        "`DELETE`: حذف عنصر."
+       ]
+      },
+      {
+       "type": "h",
+       "en": "REST-style resource URLs",
+       "ar": "روابط الموارد بنمط REST"
+      },
+      {
+       "type": "p",
+       "en": "In REST style, a URL names a thing (a noun), and the method says the action. A collection is plural; one item adds its id.",
+       "ar": "في نمط REST يسمّي الـ URL شيئًا (اسمًا)، والـ method تحدد الفعل. المجموعة تُكتب بالجمع، والعنصر الواحد يُضاف إليه رقمه id."
+      },
+      {
+       "type": "code",
+       "lang": "text",
+       "code": "GET    /users        list all users\nPOST   /users        create a user\nGET    /users/42     read user 42\nPUT    /users/42     replace user 42\nPATCH  /users/42     update some fields of user 42\nDELETE /users/42     delete user 42"
+      },
+      {
+       "type": "h",
+       "en": "Safe and idempotent",
+       "ar": "آمن (safe) ومتساوي الأثر (idempotent)"
+      },
+      {
+       "type": "p",
+       "en": "A safe method only reads and never changes data: `GET` is safe. An idempotent method gives the same final result whether you send it once or many times: `GET`, `PUT` and `DELETE` are idempotent.",
+       "ar": "الـ method الآمنة (safe) تقرأ فقط ولا تغيّر البيانات أبدًا: `GET` آمنة. والـ method متساوية الأثر (idempotent) تعطي النتيجة النهائية نفسها سواء أرسلتها مرة أو عدة مرات: `GET` و`PUT` و`DELETE` كلها idempotent."
+      },
+      {
+       "type": "warn",
+       "en": "`POST` is not idempotent: sending the same `POST /users` twice usually creates two users. `PATCH` is not guaranteed to be idempotent either.",
+       "ar": "الـ `POST` ليست idempotent: إرسال `POST /users` نفسه مرتين ينشئ غالبًا مستخدمَين. وكذلك `PATCH` ليست مضمونة أن تكون idempotent."
+      },
+      {
+       "type": "tip",
+       "en": "Avoid verbs in URLs like `/getUser` or `/deleteUser`. Use `GET /users/42` and `DELETE /users/42` instead.",
+       "ar": "تجنب الأفعال في الروابط مثل `/getUser` أو `/deleteUser`. استخدم بدلًا منها `GET /users/42` و`DELETE /users/42`."
+      }
+     ]
+    },
+    {
+     "id": "json-basics",
+     "title": {
+      "en": "JSON: the language of APIs",
+      "ar": "الـ JSON: لغة الـ APIs"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "JSON (JavaScript Object Notation) is a text format for data. Most web APIs send and receive their bodies as JSON.",
+       "ar": "الـ JSON صيغة نصية لتمثيل البيانات. ومعظم الـ web APIs ترسل وتستقبل الـ body بصيغة JSON."
+      },
+      {
+       "type": "code",
+       "lang": "json",
+       "code": "{\n  \"id\": 42,\n  \"name\": \"Sara\",\n  \"age\": 25,\n  \"is_admin\": false,\n  \"height\": 1.68,\n  \"tags\": [\"python\", \"api\"],\n  \"address\": {\"city\": \"Riyadh\"},\n  \"nickname\": null\n}"
+      },
+      {
+       "type": "h",
+       "en": "JSON types and their Python twins",
+       "ar": "أنواع JSON ونظيراتها في Python"
+      },
+      {
+       "type": "list",
+       "en": [
+        "object `{...}` becomes a `dict`; array `[...]` becomes a `list`.",
+        "string `\"text\"` becomes `str`; numbers become `int` or `float`.",
+        "`true` / `false` become `True` / `False`.",
+        "`null` becomes `None`."
+       ],
+       "ar": [
+        "الـ object `{...}` يصبح `dict`، والـ array `[...]` يصبح `list`.",
+        "الـ string `\"text\"` يصبح `str`، والأرقام تصبح `int` أو `float`.",
+        "`true` / `false` تصبح `True` / `False`.",
+        "`null` يصبح `None`."
+       ]
+      },
+      {
+       "type": "warn",
+       "en": "JSON is stricter than a Python dict: keys and strings must use double quotes, trailing commas are not allowed, and there are no comments.",
+       "ar": "الـ JSON أكثر صرامة من الـ dict في Python: المفاتيح والنصوص يجب أن تكون بين علامتي تنصيص مزدوجتين، ولا يُسمح بفاصلة زائدة في النهاية، ولا توجد تعليقات."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "import json\n\ndata = json.loads('{\"name\": \"Sara\", \"active\": true}')\nprint(data)  # {'name': 'Sara', 'active': True}\n\ntext = json.dumps({\"nickname\": None})\nprint(text)  # {\"nickname\": null}"
+      },
+      {
+       "type": "p",
+       "en": "When a client sends JSON in the body, it adds the header `Content-Type: application/json`. The server does the same in its response so the client knows how to read the body.",
+       "ar": "عندما يرسل العميل JSON في الـ body يضيف الـ header `Content-Type: application/json`. والخادم يفعل الشيء نفسه في استجابته حتى يعرف العميل كيف يقرأ الـ body."
+      }
+     ]
+    },
+    {
+     "id": "fastapi-teaser",
+     "title": {
+      "en": "A first look at FastAPI",
+      "ar": "نظرة أولى على FastAPI"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "FastAPI is a Python framework for building web APIs. You write normal Python functions, and FastAPI turns them into endpoints that receive requests and return JSON responses.",
+       "ar": "الـ FastAPI إطار عمل (framework) بلغة Python لبناء الـ web APIs. تكتب دوال Python عادية، فيحوّلها FastAPI إلى endpoints تستقبل الطلبات وتعيد استجابات JSON."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/users/{user_id}\")\ndef get_user(user_id: int):\n    return {\"id\": user_id, \"name\": \"Sara\"}"
+      },
+      {
+       "type": "p",
+       "en": "Here `@app.get(\"/users/{user_id}\")` connects the method `GET` and the path `/users/42` to the function. The returned dict is sent back as JSON with status `200`.",
+       "ar": "هنا `@app.get(\"/users/{user_id}\")` يربط الـ method `GET` والمسار `/users/42` بالدالة. والـ dict الذي تعيده الدالة يُرسل كـ JSON مع الـ status `200`."
+      },
+      {
+       "type": "code",
+       "lang": "http",
+       "code": "GET /users/42      ->  200 OK   {\"id\": 42, \"name\": \"Sara\"}\nGET /users/abc     ->  422 Unprocessable Content"
+      },
+      {
+       "type": "h",
+       "en": "Why FastAPI?",
+       "ar": "لماذا FastAPI؟"
+      },
+      {
+       "type": "list",
+       "en": [
+        "Fast: high performance, and fast to write.",
+        "Type hints: `user_id: int` makes FastAPI check the data for you, so bad input gets a `422`.",
+        "Automatic docs: an interactive documentation page at `/docs` is generated from your code."
+       ],
+       "ar": [
+        "سريع: أداء عالٍ، وسريع في الكتابة أيضًا.",
+        "الـ type hints: كتابة `user_id: int` تجعل FastAPI يتحقق من البيانات عنك، فالمدخلات الخاطئة تحصل على `422`.",
+        "توثيق تلقائي: صفحة توثيق تفاعلية على `/docs` تُنشأ من الكود نفسه."
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "Do not install anything yet. In the next level you will set up FastAPI and run this code yourself.",
+       "ar": "لا تثبّت شيئًا الآن. في المستوى التالي ستجهّز FastAPI وتشغّل هذا الكود بنفسك."
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "id": 1,
+     "difficulty": "easy",
+     "question": {
+      "en": "Which part of an HTTP request tells the server what action to perform?",
+      "ar": "أي جزء من طلب HTTP يخبر الخادم بالفعل المطلوب تنفيذه؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "The `Host` header line",
+       "ar": "سطر الـ header `Host`"
+      },
+      {
+       "en": "The response status code",
+       "ar": "رمز الحالة (status code)"
+      },
+      {
+       "en": "The method, e.g. `GET`",
+       "ar": "الـ method، مثل `GET`"
+      },
+      {
+       "en": "The empty line before the body",
+       "ar": "السطر الفارغ قبل الـ body"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "The method (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`) is the action. Status codes belong to responses, not requests.",
+      "ar": "الـ method (`GET` و`POST` و`PUT` و`PATCH` و`DELETE`) هي الفعل المطلوب. أما رموز الحالة فهي جزء من الاستجابة لا الطلب."
+     }
+    },
+    {
+     "id": 2,
+     "difficulty": "easy",
+     "question": {
+      "en": "What does the status code `404` mean?",
+      "ar": "ماذا يعني رمز الحالة `404`؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "The resource was not found",
+       "ar": "المورد غير موجود"
+      },
+      {
+       "en": "The server crashed",
+       "ar": "الخادم انهار"
+      },
+      {
+       "en": "The request succeeded",
+       "ar": "الطلب نجح"
+      },
+      {
+       "en": "You must log in first",
+       "ar": "يجب تسجيل الدخول أولًا"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "`404 Not Found` is a client error: nothing exists at that URL. A server crash is `500`, success is `2xx`, and a missing login is `401`.",
+      "ar": "`404 Not Found` خطأ من جهة العميل: لا يوجد شيء على هذا الـ URL. انهيار الخادم هو `500`، والنجاح `2xx`، وغياب تسجيل الدخول `401`."
+     }
+    },
+    {
+     "id": 3,
+     "difficulty": "easy",
+     "question": {
+      "en": "In `https://api.shop.com/products?page=2`, what is the path?",
+      "ar": "في `https://api.shop.com/products?page=2`، ما هو المسار (path)؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "`api.shop.com`",
+       "ar": "`api.shop.com`"
+      },
+      {
+       "en": "`/products`",
+       "ar": "`/products`"
+      },
+      {
+       "en": "`page=2`",
+       "ar": "`page=2`"
+      },
+      {
+       "en": "`https`",
+       "ar": "`https`"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "`https` is the scheme, `api.shop.com` is the host, `/products` is the path, and `page=2` is the query string.",
+      "ar": "`https` هو الـ scheme، و`api.shop.com` هو الـ host، و`/products` هو المسار، و`page=2` هو الـ query string."
+     }
+    },
+    {
+     "id": 4,
+     "difficulty": "medium",
+     "question": {
+      "en": "Which line tells the server what format the body is in?",
+      "ar": "أي سطر يخبر الخادم بصيغة الـ body؟"
+     },
+     "codeSnippet": "POST /users HTTP/1.1\nHost: api.example.com\nAccept: application/json\nContent-Type: application/json\n\n{\"name\": \"Sara\"}",
+     "options": [
+      {
+       "en": "`Host: api.example.com`",
+       "ar": "`Host: api.example.com`"
+      },
+      {
+       "en": "`POST /users HTTP/1.1`",
+       "ar": "`POST /users HTTP/1.1`"
+      },
+      {
+       "en": "`Accept: application/json`",
+       "ar": "`Accept: application/json`"
+      },
+      {
+       "en": "`Content-Type: application/json`",
+       "ar": "`Content-Type: application/json`"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "`Content-Type` describes the body that is being sent. `Accept` only says which format the client wants in the response.",
+      "ar": "الـ `Content-Type` يصف الـ body المُرسل. أما `Accept` فيحدد فقط الصيغة التي يريدها العميل في الاستجابة."
+     }
+    },
+    {
+     "id": 5,
+     "difficulty": "medium",
+     "question": {
+      "en": "A FastAPI endpoint expects `age` to be an integer. What status code does this request most likely get?",
+      "ar": "endpoint في FastAPI يتوقع أن يكون `age` عددًا صحيحًا. ما رمز الحالة الأرجح لهذا الطلب؟"
+     },
+     "codeSnippet": "POST /users HTTP/1.1\nHost: api.example.com\nContent-Type: application/json\n\n{\"name\": \"Sara\", \"age\": \"abc\"}",
+     "options": [
+      {
+       "en": "`200 OK`",
+       "ar": "`200 OK`"
+      },
+      {
+       "en": "`404 Not Found`",
+       "ar": "`404 Not Found`"
+      },
+      {
+       "en": "`422 Unprocessable Content`",
+       "ar": "`422 Unprocessable Content`"
+      },
+      {
+       "en": "`500 Internal Server Error`",
+       "ar": "`500 Internal Server Error`"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "The JSON is readable, but `\"abc\"` is not a valid integer. FastAPI answers validation errors like this with `422`.",
+      "ar": "الـ JSON مقروء، لكن `\"abc\"` ليس عددًا صحيحًا صالحًا. ويرد FastAPI على أخطاء التحقق هذه بـ `422`."
+     }
+    },
+    {
+     "id": 6,
+     "difficulty": "medium",
+     "question": {
+      "en": "A client sends this as a JSON body. Why is it not valid JSON?",
+      "ar": "أرسل عميل هذا النص كـ body بصيغة JSON. لماذا ليس JSON صالحًا؟"
+     },
+     "codeSnippet": "{'name': 'Sara', 'age': 25,}",
+     "options": [
+      {
+       "en": "It uses single quotes and a trailing comma",
+       "ar": "يستخدم تنصيصًا مفردًا وفاصلة زائدة في النهاية"
+      },
+      {
+       "en": "The number `25` must be written in quotes",
+       "ar": "الرقم `25` يجب أن يُكتب بين علامتي تنصيص"
+      },
+      {
+       "en": "A JSON object must start with `[` not `{`",
+       "ar": "الـ JSON object يجب أن يبدأ بـ `[` لا بـ `{`"
+      },
+      {
+       "en": "Key names must be written in capital letters",
+       "ar": "أسماء المفاتيح يجب أن تُكتب بحروف كبيرة"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "JSON requires double quotes for keys and strings and does not allow a comma after the last item. Numbers have no quotes, and objects use `{}`.",
+      "ar": "الـ JSON يشترط علامتي تنصيص مزدوجتين للمفاتيح والنصوص ولا يسمح بفاصلة بعد آخر عنصر. والأرقام بلا تنصيص، والـ objects تستخدم `{}`."
+     }
+    },
+    {
+     "id": 7,
+     "difficulty": "medium",
+     "question": {
+      "en": "You want to change only the email of user 42 and keep all other fields. Which request fits REST style best?",
+      "ar": "تريد تغيير البريد الإلكتروني فقط للمستخدم 42 مع إبقاء بقية الحقول. أي طلب يناسب نمط REST أكثر؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "`GET /users/42`",
+       "ar": "`GET /users/42`"
+      },
+      {
+       "en": "`POST /users`",
+       "ar": "`POST /users`"
+      },
+      {
+       "en": "`DELETE /users/42`",
+       "ar": "`DELETE /users/42`"
+      },
+      {
+       "en": "`PATCH /users/42`",
+       "ar": "`PATCH /users/42`"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "`PATCH` updates only some fields of one item, and `/users/42` names that item. `POST /users` would create a new user.",
+      "ar": "الـ `PATCH` تعدّل بعض حقول عنصر واحد فقط، و`/users/42` يحدد هذا العنصر. أما `POST /users` فتنشئ مستخدمًا جديدًا."
+     }
+    },
+    {
+     "id": 8,
+     "difficulty": "hard",
+     "question": {
+      "en": "Which method is idempotent but NOT safe?",
+      "ar": "أي method متساوية الأثر (idempotent) لكنها ليست آمنة (safe)؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "`GET`",
+       "ar": "`GET`"
+      },
+      {
+       "en": "`DELETE`",
+       "ar": "`DELETE`"
+      },
+      {
+       "en": "`POST`",
+       "ar": "`POST`"
+      },
+      {
+       "en": "`PATCH`",
+       "ar": "`PATCH`"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "`DELETE` changes data, so it is not safe, but deleting the same item again leaves the same final state. `GET` is safe, while `POST` and `PATCH` are not guaranteed to be idempotent.",
+      "ar": "الـ `DELETE` تغيّر البيانات فليست safe، لكن حذف العنصر نفسه مرة أخرى يترك الحالة النهائية نفسها. أما `GET` فهي safe، و`POST` و`PATCH` ليستا مضمونتين أن تكونا idempotent."
+     }
+    },
+    {
+     "id": 9,
+     "difficulty": "hard",
+     "question": {
+      "en": "Sara is logged in with a valid token as a normal user. Only admins may delete users. What status code fits this response best?",
+      "ar": "سارة مسجلة الدخول بـ token صالح كمستخدمة عادية. والحذف مسموح للمشرفين (admins) فقط. أي رمز حالة يناسب هذه الاستجابة أكثر؟"
+     },
+     "codeSnippet": "DELETE /users/7 HTTP/1.1\nHost: api.example.com\nAuthorization: Bearer <valid token for Sara>",
+     "options": [
+      {
+       "en": "`401 Unauthorized`",
+       "ar": "`401 Unauthorized`"
+      },
+      {
+       "en": "`404 Not Found`",
+       "ar": "`404 Not Found`"
+      },
+      {
+       "en": "`403 Forbidden`",
+       "ar": "`403 Forbidden`"
+      },
+      {
+       "en": "`400 Bad Request`",
+       "ar": "`400 Bad Request`"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "The server knows who Sara is (the token is valid), but she is not allowed to do this, so it is `403`. `401` is for a missing or bad login.",
+      "ar": "الخادم يعرف من هي سارة (الـ token صالح)، لكنها غير مسموح لها بهذا الفعل، لذا الرمز `403`. أما `401` فهو لتسجيل دخول مفقود أو غير صحيح."
+     }
+    },
+    {
+     "id": 10,
+     "difficulty": "hard",
+     "question": {
+      "en": "What does this Python code print?",
+      "ar": "ماذا يطبع كود Python هذا؟"
+     },
+     "codeSnippet": "import json\n\ndata = json.loads('{\"id\": 42, \"active\": true, \"nickname\": null}')\nprint(data)",
+     "options": [
+      {
+       "en": "`{'id': 42, 'active': True, 'nickname': None}`",
+       "ar": "`{'id': 42, 'active': True, 'nickname': None}`"
+      },
+      {
+       "en": "`{'id': '42', 'active': 'true', 'nickname': 'null'}`",
+       "ar": "`{'id': '42', 'active': 'true', 'nickname': 'null'}`"
+      },
+      {
+       "en": "`{'id': 42, 'active': true, 'nickname': null}`",
+       "ar": "`{'id': 42, 'active': true, 'nickname': null}`"
+      },
+      {
+       "en": "`{'id': 42, 'active': 1, 'nickname': ''}`",
+       "ar": "`{'id': 42, 'active': 1, 'nickname': ''}`"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "`json.loads` turns JSON into Python: the object becomes a `dict`, `true` becomes `True` and `null` becomes `None`. The number stays an `int`.",
+      "ar": "الدالة `json.loads` تحوّل JSON إلى Python: الـ object يصبح `dict`، و`true` تصبح `True`، و`null` تصبح `None`. والرقم يبقى `int`."
+     }
+    }
+   ]
+  },
+  {
+   "id": "first-app",
+   "title": {
+    "en": "Your first FastAPI app",
+    "ar": "تطبيقك الأول بـ FastAPI"
+   },
+   "summary": {
+    "en": "Set up a project, write and run a minimal FastAPI app, add endpoints for each method, and explore the automatic docs.",
+    "ar": "جهّز مشروعًا، واكتب تطبيق FastAPI بسيطًا وشغّله، وأضف endpoints لكل طريقة، واستكشف التوثيق التلقائي."
+   },
+   "lessons": [
+    {
+     "id": "setup-project",
+     "title": {
+      "en": "Setting up your project",
+      "ar": "تجهيز المشروع"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "Before writing any code, create a folder for the project and a virtual environment (venv) inside it. A venv is a private copy of Python where this project's packages live, so they never clash with other projects.",
+       "ar": "قبل كتابة أي كود، أنشئ مجلدًا للمشروع وبيئة افتراضية (virtual environment أو venv) بداخله. الـ venv نسخة خاصة من Python تُثبَّت فيها حزم هذا المشروع، فلا تتعارض أبدًا مع مشاريع أخرى."
+      },
+      {
+       "type": "code",
+       "lang": "bash",
+       "code": "mkdir my-api\ncd my-api\npython -m venv .venv\n\n# activate it (pick your system)\nsource .venv/bin/activate      # macOS / Linux\n.venv\\Scripts\\activate         # Windows"
+      },
+      {
+       "type": "p",
+       "en": "When the venv is active, your terminal prompt usually starts with `(.venv)`. Now install FastAPI together with its standard extras:",
+       "ar": "عندما تكون الـ venv مفعّلة، يبدأ سطر الأوامر غالبًا بـ `(.venv)`. الآن ثبّت FastAPI مع إضافاته القياسية:"
+      },
+      {
+       "type": "code",
+       "lang": "bash",
+       "code": "pip install \"fastapi[standard]\""
+      },
+      {
+       "type": "list",
+       "en": [
+        "`fastapi` - the framework itself.",
+        "`[standard]` - adds the `fastapi` command, the Uvicorn server and other useful tools.",
+        "The quotes stop some shells from misreading the square brackets."
+       ],
+       "ar": [
+        "`fastapi` - إطار العمل نفسه.",
+        "`[standard]` - يضيف الأمر `fastapi` وخادم Uvicorn وأدوات مفيدة أخرى.",
+        "علامات التنصيص تمنع بعض الطرفيات (shells) من إساءة فهم الأقواس المربعة."
+       ]
+      },
+      {
+       "type": "p",
+       "en": "Finally, create an empty file named `main.py` in the project folder. Your whole first app will live in this one file.",
+       "ar": "أخيرًا، أنشئ ملفًا فارغًا باسم `main.py` في مجلد المشروع. سيكون تطبيقك الأول كله في هذا الملف الواحد."
+      },
+      {
+       "type": "code",
+       "lang": "text",
+       "code": "my-api/\n  .venv/\n  main.py"
+      },
+      {
+       "type": "tip",
+       "en": "Plain `pip install fastapi` installs only the core library, without the `fastapi` command you will use to run the app. Use `\"fastapi[standard]\"`.",
+       "ar": "الأمر `pip install fastapi` وحده يثبّت المكتبة الأساسية فقط، بدون الأمر `fastapi` الذي ستستخدمه لتشغيل التطبيق. استخدم `\"fastapi[standard]\"`."
+      }
+     ]
+    },
+    {
+     "id": "hello-app",
+     "title": {
+      "en": "Your first app and running it",
+      "ar": "تطبيقك الأول وتشغيله"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "Put these lines in `main.py`. That is a complete, working API.",
+       "ar": "ضع هذه الأسطر في `main.py`. هذا API كامل يعمل."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi import FastAPI\n\napp = FastAPI()\n\n\n@app.get(\"/\")\ndef read_root():\n    return {\"message\": \"Hello World\"}"
+      },
+      {
+       "type": "list",
+       "en": [
+        "`from fastapi import FastAPI` - imports the main class.",
+        "`app = FastAPI()` - creates your application object.",
+        "`@app.get(\"/\")` - says: run the function below for GET requests to the path `/`.",
+        "The function returns a dict, and FastAPI sends it back as JSON."
+       ],
+       "ar": [
+        "`from fastapi import FastAPI` - يستورد الصنف (class) الرئيسي.",
+        "`app = FastAPI()` - ينشئ كائن التطبيق الخاص بك.",
+        "`@app.get(\"/\")` - يعني: نفّذ الدالة التي تحته لطلبات GET على المسار `/`.",
+        "الدالة ترجع قاموسًا (dict)، وFastAPI يرسله كـ JSON."
+       ]
+      },
+      {
+       "type": "p",
+       "en": "Start the development server from the project folder:",
+       "ar": "شغّل خادم التطوير من مجلد المشروع:"
+      },
+      {
+       "type": "code",
+       "lang": "bash",
+       "code": "fastapi dev main.py"
+      },
+      {
+       "type": "code",
+       "lang": "text",
+       "code": " Starting FastAPI in development mode\n Using import string: main:app\n Server started at http://127.0.0.1:8000\n    Documentation at http://127.0.0.1:8000/docs\n\nINFO:     Will watch for changes in these directories: [...]\nINFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)"
+      },
+      {
+       "type": "p",
+       "en": "Open http://127.0.0.1:8000 in a browser and you will see the JSON. Each request is also logged in the terminal, for example `\"GET / HTTP/1.1\" 200 OK`. Press Ctrl+C to stop the server.",
+       "ar": "افتح http://127.0.0.1:8000 في المتصفح وسترى الـ JSON. كل طلب يُسجَّل أيضًا في الطرفية، مثل `\"GET / HTTP/1.1\" 200 OK`. اضغط Ctrl+C لإيقاف الخادم."
+      },
+      {
+       "type": "code",
+       "lang": "http",
+       "code": "GET / HTTP/1.1\n\nHTTP/1.1 200 OK\ncontent-type: application/json\n\n{\"message\":\"Hello World\"}"
+      },
+      {
+       "type": "h",
+       "en": "dev vs run",
+       "ar": "الفرق بين dev و run"
+      },
+      {
+       "type": "list",
+       "en": [
+        "`fastapi dev main.py` - for development: auto-reloads when you save the file (the next request uses the new code), listens only on your own machine (`127.0.0.1`).",
+        "`fastapi run main.py` - for production: no auto-reload, listens on all network interfaces (`0.0.0.0`)."
+       ],
+       "ar": [
+        "`fastapi dev main.py` - للتطوير: يعيد التحميل تلقائيًا عند حفظ الملف (والطلب التالي يستخدم الكود الجديد)، ويستمع على جهازك فقط (`127.0.0.1`).",
+        "`fastapi run main.py` - للإنتاج (production): بدون إعادة تحميل تلقائي، ويستمع على كل واجهات الشبكة (`0.0.0.0`)."
+       ]
+      }
+     ]
+    },
+    {
+     "id": "path-operations",
+     "title": {
+      "en": "Path operations",
+      "ar": "عمليات المسار (Path operations)"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "In FastAPI, a path plus an HTTP method is called a path operation. You declare one with a decorator named after the method: `@app.get`, `@app.post`, `@app.put`, `@app.delete`. The function right under it is the code that runs.",
+       "ar": "في FastAPI، المسار مع طريقة HTTP يُسمّى عملية مسار (path operation). تعرّفها بمزخرف (decorator) يحمل اسم الطريقة: `@app.get` و`@app.post` و`@app.put` و`@app.delete`. والدالة التي تحته مباشرة هي الكود الذي يُنفَّذ."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi import FastAPI\n\napp = FastAPI()\n\n\n@app.get(\"/books\")\ndef list_books():\n    return [{\"id\": 1, \"title\": \"Dune\"}, {\"id\": 2, \"title\": \"Emma\"}]\n\n\n@app.post(\"/books\")\ndef add_book():\n    return {\"status\": \"added\"}\n\n\n@app.put(\"/books\")\ndef replace_books():\n    return {\"status\": \"replaced\"}\n\n\n@app.delete(\"/books\")\ndef delete_books():\n    return {\"status\": \"deleted\"}"
+      },
+      {
+       "type": "p",
+       "en": "The same path `/books` now has four endpoints, one per method. `POST /books` runs `add_book` and returns `{\"status\":\"added\"}`.",
+       "ar": "المسار نفسه `/books` أصبح له الآن أربع نقاط نهاية (endpoints)، واحدة لكل طريقة. الطلب `POST /books` ينفّذ `add_book` ويرجع `{\"status\":\"added\"}`."
+      },
+      {
+       "type": "h",
+       "en": "What you return becomes JSON",
+       "ar": "ما ترجعه يصبح JSON"
+      },
+      {
+       "type": "list",
+       "en": [
+        "dict `{\"a\": 1}` -> `{\"a\":1}`",
+        "list `[\"x\", \"y\"]` -> `[\"x\",\"y\"]`",
+        "string `\"hello\"` -> `\"hello\"` (with quotes)",
+        "number `42` -> `42`; `True` -> `true`; `None` -> `null`"
+       ],
+       "ar": [
+        "القاموس `{\"a\": 1}` -> `{\"a\":1}`",
+        "القائمة `[\"x\", \"y\"]` -> `[\"x\",\"y\"]`",
+        "النص `\"hello\"` -> `\"hello\"` (مع علامات التنصيص)",
+        "الرقم `42` -> `42`؛ و`True` -> `true`؛ و`None` -> `null`"
+       ]
+      },
+      {
+       "type": "p",
+       "en": "All of these come back with status `200` and `content-type: application/json`. A returned string is a JSON string, so `\"42\"` (text) and `42` (number) are different responses.",
+       "ar": "كل هذه ترجع بحالة `200` و`content-type: application/json`. النص المُرجَع هو نص JSON، لذلك `\"42\"` (نص) و`42` (رقم) استجابتان مختلفتان."
+      },
+      {
+       "type": "warn",
+       "en": "Only the decorator registers an endpoint. A function without `@app.get(...)` (or another method decorator) is just a normal Python function. Also, if two functions use the same method and path, the first one declared wins and the second never runs.",
+       "ar": "المزخرف وحده هو الذي يسجّل الـ endpoint. الدالة التي ليس فوقها `@app.get(...)` (أو مزخرف طريقة آخر) مجرد دالة Python عادية. وأيضًا، إذا استخدمت دالتان نفس الطريقة ونفس المسار، فالأولى المعرّفة هي التي تفوز والثانية لا تُنفَّذ أبدًا."
+      },
+      {
+       "type": "h",
+       "en": "def or async def?",
+       "ar": "هل نستخدم def أم async def؟"
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "@app.get(\"/ping\")\nasync def ping():\n    return {\"pong\": True}"
+      },
+      {
+       "type": "tip",
+       "en": "Both `def` and `async def` work and give the same response. As a beginner, use plain `def`. Use `async def` only when your code inside uses `await` (for example, an async database or HTTP library).",
+       "ar": "كل من `def` و`async def` يعمل ويعطي الاستجابة نفسها. كمبتدئ، استخدم `def` العادية. واستخدم `async def` فقط عندما يستخدم الكود بداخلها `await` (مثلًا مكتبة قاعدة بيانات أو HTTP غير متزامنة)."
+      }
+     ]
+    },
+    {
+     "id": "not-found-and-not-allowed",
+     "title": {
+      "en": "Unknown paths and wrong methods",
+      "ar": "المسارات المجهولة والطرق الخاطئة"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "You did not write any error handling, yet FastAPI already answers bad requests for you. Take an app that only has `POST /items`:",
+       "ar": "لم تكتب أي معالجة للأخطاء، ومع ذلك يجيب FastAPI على الطلبات الخاطئة نيابة عنك. خذ تطبيقًا ليس فيه إلا `POST /items`:"
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "@app.post(\"/items\")\ndef create_item():\n    return {\"created\": True}"
+      },
+      {
+       "type": "h",
+       "en": "Path does not exist: 404",
+       "ar": "المسار غير موجود: 404"
+      },
+      {
+       "type": "code",
+       "lang": "http",
+       "code": "GET /nope HTTP/1.1\n\nHTTP/1.1 404 Not Found\n\n{\"detail\":\"Not Found\"}"
+      },
+      {
+       "type": "h",
+       "en": "Path exists, method does not: 405",
+       "ar": "المسار موجود والطريقة غير موجودة: 405"
+      },
+      {
+       "type": "code",
+       "lang": "http",
+       "code": "GET /items HTTP/1.1\n\nHTTP/1.1 405 Method Not Allowed\n\n{\"detail\":\"Method Not Allowed\"}"
+      },
+      {
+       "type": "p",
+       "en": "So 404 means \"no endpoint has this path\", while 405 means \"this path exists, but not for this method\". Both bodies are JSON with a single `detail` key.",
+       "ar": "إذن 404 تعني «لا يوجد endpoint بهذا المسار»، بينما 405 تعني «هذا المسار موجود، لكن ليس لهذه الطريقة». وكلا الجسمين JSON فيه مفتاح واحد هو `detail`."
+      },
+      {
+       "type": "warn",
+       "en": "Paths are case-sensitive: if you declared `/hello`, a request to `/Hello` gets 404 `{\"detail\":\"Not Found\"}`.",
+       "ar": "المسارات حساسة لحالة الأحرف: إذا عرّفت `/hello`، فالطلب إلى `/Hello` يحصل على 404 `{\"detail\":\"Not Found\"}`."
+      }
+     ]
+    },
+    {
+     "id": "automatic-docs",
+     "title": {
+      "en": "Automatic interactive docs",
+      "ar": "التوثيق التفاعلي التلقائي"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "While the server is running, FastAPI also serves documentation for your API. You wrote nothing extra for it; it is built from your path operations.",
+       "ar": "أثناء تشغيل الخادم، يقدّم FastAPI أيضًا توثيقًا لـ API الخاص بك. لم تكتب شيئًا إضافيًا لذلك؛ فهو مبني من عمليات المسار التي كتبتها."
+      },
+      {
+       "type": "list",
+       "en": [
+        "`/docs` - Swagger UI: an interactive page where you can call each endpoint.",
+        "`/redoc` - ReDoc: a clean, read-only reference page.",
+        "`/openapi.json` - the OpenAPI schema: a JSON description of every path and method that both pages are built from."
+       ],
+       "ar": [
+        "`/docs` - واجهة Swagger UI: صفحة تفاعلية تستطيع منها استدعاء كل endpoint.",
+        "`/redoc` - واجهة ReDoc: صفحة مرجعية مرتبة للقراءة فقط.",
+        "`/openapi.json` - مخطط OpenAPI (schema): وصف JSON لكل مسار وطريقة، والصفحتان مبنيتان منه."
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "json",
+       "code": "{\n  \"openapi\": \"3.1.0\",\n  \"info\": {\"title\": \"FastAPI\", \"version\": \"0.1.0\"},\n  \"paths\": {\n    \"/\": {\"get\": {\"summary\": \"Read Root\", \"...\": \"...\"}}\n  }\n}"
+      },
+      {
+       "type": "p",
+       "en": "Notice the summary \"Read Root\": FastAPI made it from the function name `read_root`. Good function names give you readable docs for free.",
+       "ar": "لاحظ الملخص \"Read Root\": صنعه FastAPI من اسم الدالة `read_root`. أسماء الدوال الجيدة تعطيك توثيقًا مقروءًا مجانًا."
+      },
+      {
+       "type": "h",
+       "en": "Trying an endpoint from /docs",
+       "ar": "تجربة endpoint من /docs"
+      },
+      {
+       "type": "list",
+       "en": [
+        "Open http://127.0.0.1:8000/docs.",
+        "Click an endpoint, for example `GET /`.",
+        "Click \"Try it out\", then \"Execute\".",
+        "Read the response code and body shown below, e.g. `200` and `{\"message\": \"Hello World\"}`."
+       ],
+       "ar": [
+        "افتح http://127.0.0.1:8000/docs.",
+        "اضغط على endpoint، مثلًا `GET /`.",
+        "اضغط \"Try it out\" ثم \"Execute\".",
+        "اقرأ رمز الاستجابة والجسم الظاهرين بالأسفل، مثل `200` و`{\"message\": \"Hello World\"}`."
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "`/docs` is the easiest way to test `POST`, `PUT` and `DELETE` endpoints, because a browser address bar can only send `GET`.",
+       "ar": "صفحة `/docs` أسهل طريقة لتجربة نقاط `POST` و`PUT` و`DELETE`، لأن شريط عنوان المتصفح لا يرسل إلا `GET`."
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "id": 1,
+     "difficulty": "easy",
+     "question": {
+      "en": "Which command installs FastAPI together with the `fastapi` command and the server it needs?",
+      "ar": "أي أمر يثبّت FastAPI مع الأمر `fastapi` والخادم الذي يحتاجه؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "pip install fastapi-server",
+       "ar": "pip install fastapi-server"
+      },
+      {
+       "en": "pip install \"fastapi[standard]\"",
+       "ar": "pip install \"fastapi[standard]\""
+      },
+      {
+       "en": "python -m fastapi install",
+       "ar": "python -m fastapi install"
+      },
+      {
+       "en": "pip install uvicorn-fastapi",
+       "ar": "pip install uvicorn-fastapi"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "`pip install \"fastapi[standard]\"` installs FastAPI plus the standard extras, including the `fastapi` CLI and the Uvicorn server.",
+      "ar": "الأمر `pip install \"fastapi[standard]\"` يثبّت FastAPI مع الإضافات القياسية، ومنها أداة `fastapi` وخادم Uvicorn."
+     }
+    },
+    {
+     "id": 2,
+     "difficulty": "easy",
+     "question": {
+      "en": "You run `fastapi dev main.py`. At which address is your API served by default?",
+      "ar": "شغّلت `fastapi dev main.py`. على أي عنوان يُقدَّم الـ API افتراضيًا؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "http://127.0.0.1:8000",
+       "ar": "http://127.0.0.1:8000"
+      },
+      {
+       "en": "http://127.0.0.1:5000",
+       "ar": "http://127.0.0.1:5000"
+      },
+      {
+       "en": "http://127.0.0.1:3000",
+       "ar": "http://127.0.0.1:3000"
+      },
+      {
+       "en": "http://127.0.0.1:8080",
+       "ar": "http://127.0.0.1:8080"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "The terminal shows `Server started at http://127.0.0.1:8000`: your own machine, port 8000.",
+      "ar": "تعرض الطرفية `Server started at http://127.0.0.1:8000`: أي جهازك أنت، على المنفذ 8000."
+     }
+    },
+    {
+     "id": 3,
+     "difficulty": "easy",
+     "question": {
+      "en": "Which URL returns the JSON description of your API (the OpenAPI schema) that the docs pages are built from?",
+      "ar": "أي رابط يرجع وصف JSON لـ API الخاص بك (مخطط OpenAPI) الذي تُبنى منه صفحات التوثيق؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "/docs/schema",
+       "ar": "/docs/schema"
+      },
+      {
+       "en": "/redoc.json",
+       "ar": "/redoc.json"
+      },
+      {
+       "en": "/openapi.json",
+       "ar": "/openapi.json"
+      },
+      {
+       "en": "/api/spec.json",
+       "ar": "/api/spec.json"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "`/openapi.json` is the schema itself. `/docs` (Swagger UI) and `/redoc` are HTML pages built from it.",
+      "ar": "`/openapi.json` هو المخطط نفسه. أما `/docs` (Swagger UI) و`/redoc` فهما صفحتا HTML مبنيتان منه."
+     }
+    },
+    {
+     "id": 4,
+     "difficulty": "medium",
+     "question": {
+      "en": "You send `GET /fruits` to this app. What is the response body?",
+      "ar": "أرسلت `GET /fruits` إلى هذا التطبيق. ما جسم الاستجابة؟"
+     },
+     "codeSnippet": "@app.get(\"/fruits\")\ndef list_fruits():\n    return [\"apple\", \"banana\"]",
+     "options": [
+      {
+       "en": "{\"fruits\":[\"apple\",\"banana\"]}",
+       "ar": "{\"fruits\":[\"apple\",\"banana\"]}"
+      },
+      {
+       "en": "\"apple,banana\"",
+       "ar": "\"apple,banana\""
+      },
+      {
+       "en": "{\"detail\":\"Not Found\"}",
+       "ar": "{\"detail\":\"Not Found\"}"
+      },
+      {
+       "en": "[\"apple\",\"banana\"]",
+       "ar": "[\"apple\",\"banana\"]"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "A returned list becomes a JSON array as-is. FastAPI does not wrap it in a dict or turn it into text.",
+      "ar": "القائمة المُرجَعة تصبح مصفوفة JSON كما هي. لا يغلّفها FastAPI في قاموس ولا يحوّلها إلى نص."
+     }
+    },
+    {
+     "id": 5,
+     "difficulty": "medium",
+     "question": {
+      "en": "This is the only endpoint in the app. What does `GET /items` return?",
+      "ar": "هذا هو الـ endpoint الوحيد في التطبيق. ماذا يرجع `GET /items`؟"
+     },
+     "codeSnippet": "@app.post(\"/items\")\ndef create_item():\n    return {\"created\": True}",
+     "options": [
+      {
+       "en": "404 with `{\"detail\":\"Not Found\"}`",
+       "ar": "404 مع `{\"detail\":\"Not Found\"}`"
+      },
+      {
+       "en": "405 with `{\"detail\":\"Method Not Allowed\"}`",
+       "ar": "405 مع `{\"detail\":\"Method Not Allowed\"}`"
+      },
+      {
+       "en": "200 with `{\"created\":true}`",
+       "ar": "200 مع `{\"created\":true}`"
+      },
+      {
+       "en": "500 with `{\"detail\":\"Server Error\"}`",
+       "ar": "500 مع `{\"detail\":\"Server Error\"}`"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "The path `/items` exists, but only for POST. A path that exists with the wrong method gets 405 Method Not Allowed.",
+      "ar": "المسار `/items` موجود، لكن لطريقة POST فقط. والمسار الموجود مع طريقة خاطئة يحصل على 405 Method Not Allowed."
+     }
+    },
+    {
+     "id": 6,
+     "difficulty": "medium",
+     "question": {
+      "en": "What is the main difference between `fastapi dev` and `fastapi run`?",
+      "ar": "ما الفرق الأساسي بين `fastapi dev` و`fastapi run`؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "`dev` creates the venv; `run` installs the packages",
+       "ar": "`dev` ينشئ الـ venv؛ و`run` يثبّت الحزم"
+      },
+      {
+       "en": "`dev` serves only `/docs`; `run` serves the endpoints",
+       "ar": "`dev` يقدّم `/docs` فقط؛ و`run` يقدّم الـ endpoints"
+      },
+      {
+       "en": "`dev` needs `async def`; `run` works with plain `def`",
+       "ar": "`dev` يحتاج `async def`؛ و`run` يعمل مع `def` العادية"
+      },
+      {
+       "en": "`dev` auto-reloads on save; `run` is for production",
+       "ar": "`dev` يعيد التحميل عند الحفظ؛ و`run` للإنتاج"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "`fastapi dev` watches your files and restarts on save, listening on 127.0.0.1. `fastapi run` is the production mode: no auto-reload, listening on 0.0.0.0.",
+      "ar": "`fastapi dev` يراقب ملفاتك ويعيد التشغيل عند الحفظ، ويستمع على 127.0.0.1. أما `fastapi run` فهو وضع الإنتاج: بدون إعادة تحميل تلقائي، ويستمع على 0.0.0.0."
+     }
+    },
+    {
+     "id": 7,
+     "difficulty": "medium",
+     "question": {
+      "en": "A client sends `GET /Hello` to this app. What comes back?",
+      "ar": "أرسل عميل `GET /Hello` إلى هذا التطبيق. ماذا يرجع؟"
+     },
+     "codeSnippet": "@app.get(\"/hello\")\ndef hello():\n    return {\"msg\": \"hi\"}",
+     "options": [
+      {
+       "en": "404 with `{\"detail\":\"Not Found\"}`",
+       "ar": "404 مع `{\"detail\":\"Not Found\"}`"
+      },
+      {
+       "en": "200 with `{\"msg\":\"hi\"}`",
+       "ar": "200 مع `{\"msg\":\"hi\"}`"
+      },
+      {
+       "en": "405 with `{\"detail\":\"Method Not Allowed\"}`",
+       "ar": "405 مع `{\"detail\":\"Method Not Allowed\"}`"
+      },
+      {
+       "en": "200 with `{\"msg\":\"Hi\"}`",
+       "ar": "200 مع `{\"msg\":\"Hi\"}`"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "Paths are case-sensitive. `/Hello` is not `/hello`, so no endpoint matches and FastAPI returns 404.",
+      "ar": "المسارات حساسة لحالة الأحرف. `/Hello` ليس `/hello`، فلا يطابقه أي endpoint ويرجع FastAPI الرمز 404."
+     }
+    },
+    {
+     "id": 8,
+     "difficulty": "hard",
+     "question": {
+      "en": "What exact body does `GET /answer` return?",
+      "ar": "ما الجسم الدقيق الذي يرجعه `GET /answer`؟"
+     },
+     "codeSnippet": "@app.get(\"/answer\")\ndef answer():\n    return \"42\"",
+     "options": [
+      {
+       "en": "42",
+       "ar": "42"
+      },
+      {
+       "en": "{\"answer\":\"42\"}",
+       "ar": "{\"answer\":\"42\"}"
+      },
+      {
+       "en": "\"42\"",
+       "ar": "\"42\""
+      },
+      {
+       "en": "answer=42",
+       "ar": "answer=42"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "The function returns a Python string, which becomes a JSON string, quotes included: `\"42\"`. Returning the number `42` would give `42`.",
+      "ar": "الدالة ترجع نصًا في Python، فيصبح نص JSON مع علامات التنصيص: `\"42\"`. ولو أرجعت الرقم `42` لكانت النتيجة `42`."
+     }
+    },
+    {
+     "id": 9,
+     "difficulty": "hard",
+     "question": {
+      "en": "Both functions are in the same app. What does `GET /status` return?",
+      "ar": "الدالتان في التطبيق نفسه. ماذا يرجع `GET /status`؟"
+     },
+     "codeSnippet": "@app.get(\"/status\")\ndef status_one():\n    return {\"v\": 1}\n\n\n@app.get(\"/status\")\ndef status_two():\n    return {\"v\": 2}",
+     "options": [
+      {
+       "en": "{\"v\":2}",
+       "ar": "{\"v\":2}"
+      },
+      {
+       "en": "{\"v\":1}",
+       "ar": "{\"v\":1}"
+      },
+      {
+       "en": "[{\"v\":1},{\"v\":2}]",
+       "ar": "[{\"v\":1},{\"v\":2}]"
+      },
+      {
+       "en": "{\"detail\":\"Conflict\"}",
+       "ar": "{\"detail\":\"Conflict\"}"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "When two path operations share the same method and path, the first one declared wins. `status_two` never runs.",
+      "ar": "عندما تشترك عمليتا مسار في نفس الطريقة ونفس المسار، فالأولى المعرّفة هي التي تفوز. الدالة `status_two` لا تُنفَّذ أبدًا."
+     }
+    },
+    {
+     "id": 10,
+     "difficulty": "hard",
+     "question": {
+      "en": "The server starts without errors, but `GET /about` fails. What does it return, and why?",
+      "ar": "يعمل الخادم بدون أخطاء، لكن `GET /about` يفشل. ماذا يرجع، ولماذا؟"
+     },
+     "codeSnippet": "from fastapi import FastAPI\n\napp = FastAPI()\n\n\ndef about():\n    return {\"page\": \"about\"}",
+     "options": [
+      {
+       "en": "405, because `about` has no method set",
+       "ar": "405، لأن `about` بلا طريقة محددة"
+      },
+      {
+       "en": "500, because `about` is not `async def`",
+       "ar": "500، لأن `about` ليست `async def`"
+      },
+      {
+       "en": "200, because the path is taken from the name",
+       "ar": "200، لأن المسار يُؤخذ من اسم الدالة"
+      },
+      {
+       "en": "404, because no decorator registered `/about`",
+       "ar": "404، لأنه لا يوجد مزخرف سجّل `/about`"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "Only a decorator such as `@app.get(\"/about\")` registers an endpoint. Without it, `about` is a plain function and the path does not exist: 404 `{\"detail\":\"Not Found\"}`.",
+      "ar": "المزخرف مثل `@app.get(\"/about\")` هو وحده الذي يسجّل الـ endpoint. بدونه تكون `about` دالة عادية والمسار غير موجود: 404 `{\"detail\":\"Not Found\"}`."
+     }
+    }
+   ]
+  },
+  {
+   "id": "parameters",
+   "title": {
+    "en": "Path and query parameters",
+    "ar": "معاملات المسار والاستعلام"
+   },
+   "summary": {
+    "en": "Read values from the URL path and query string, convert their types, and validate them with Query and Path.",
+    "ar": "اقرأ القيم من مسار الرابط ومن الاستعلام، وحوّل أنواعها، وتحقق منها باستخدام Query وPath."
+   },
+   "lessons": [
+    {
+     "id": "path-parameters",
+     "title": {
+      "en": "Path parameters",
+      "ar": "معاملات المسار (path parameters)"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "A path parameter is a piece of the URL that changes from request to request. You mark it with curly braces in the path, and FastAPI passes its value to your function as an argument with the same name.",
+       "ar": "معامل المسار (path parameter) هو جزء من الرابط يتغيّر من طلب إلى آخر. تحدّده بين قوسين معقوفين `{}` داخل المسار، ثم يمرّر FastAPI قيمته إلى دالتك كوسيط (argument) بنفس الاسم."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/items/{item_id}\")\ndef read_item(item_id: int):\n    return {\"item_id\": item_id}"
+      },
+      {
+       "type": "p",
+       "en": "The type hint `item_id: int` matters. Everything in a URL is text, but FastAPI converts it for you: a request to `/items/5` gives your function the number `5`, not the string `\"5\"`.",
+       "ar": "تلميح النوع `item_id: int` مهم. كل ما في الرابط نصّ، لكن FastAPI يحوّله لك: الطلب إلى `/items/5` يعطي دالتك الرقم `5` وليس النص `\"5\"`."
+      },
+      {
+       "type": "code",
+       "lang": "http",
+       "code": "GET /items/5\n\nHTTP/1.1 200 OK\n{\"item_id\": 5}"
+      },
+      {
+       "type": "h",
+       "en": "Wrong type: 422",
+       "ar": "نوع خاطئ: 422"
+      },
+      {
+       "type": "p",
+       "en": "If the value cannot be converted, your function never runs. FastAPI answers with status code `422 Unprocessable Entity` and a JSON body that explains exactly what went wrong. Here is the real response to `GET /items/abc`:",
+       "ar": "إذا تعذّر تحويل القيمة فلن تُنفَّذ دالتك أصلًا. يردّ FastAPI برمز الحالة (status code) `422 Unprocessable Entity` ومعه JSON يشرح الخطأ بالضبط. هذا هو الرد الحقيقي على `GET /items/abc`:"
+      },
+      {
+       "type": "code",
+       "lang": "json",
+       "code": "{\n  \"detail\": [\n    {\n      \"type\": \"int_parsing\",\n      \"loc\": [\"path\", \"item_id\"],\n      \"msg\": \"Input should be a valid integer, unable to parse string as an integer\",\n      \"input\": \"abc\"\n    }\n  ]\n}"
+      },
+      {
+       "type": "list",
+       "en": [
+        "`detail` is a list: one entry per problem.",
+        "`type` is a short error code, like `int_parsing`.",
+        "`loc` says where: the `path`, then the parameter name.",
+        "`msg` is a human-readable message; `input` is what was sent."
+       ],
+       "ar": [
+        "`detail` قائمة: عنصر واحد لكل مشكلة.",
+        "`type` رمز قصير للخطأ مثل `int_parsing`.",
+        "`loc` يحدّد المكان: `path` ثم اسم المعامل.",
+        "`msg` رسالة مقروءة للبشر، و`input` هي القيمة المُرسَلة."
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "Without a type hint (`def read_item(item_id):`) there is no conversion: `/items/5` returns `{\"item_id\": \"5\"}` as a string.",
+       "ar": "بدون تلميح نوع (`def read_item(item_id):`) لا يحدث تحويل: `/items/5` يعيد `{\"item_id\": \"5\"}` كنص."
+      }
+     ]
+    },
+    {
+     "id": "route-order-and-enums",
+     "title": {
+      "en": "Route order and Enum parameters",
+      "ar": "ترتيب المسارات ومعاملات Enum"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "FastAPI checks your routes from top to bottom and uses the first one whose path matches. A fixed path like `/users/me` also matches the pattern `/users/{user_id}`, so order matters.",
+       "ar": "يفحص FastAPI المسارات من الأعلى إلى الأسفل ويستخدم أول مسار يطابق الرابط. المسار الثابت مثل `/users/me` يطابق أيضًا النمط `/users/{user_id}`، لذلك الترتيب مهم."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "@app.get(\"/users/me\")          # fixed path first\ndef read_me():\n    return {\"user\": \"current user\"}\n\n@app.get(\"/users/{user_id}\")   # pattern second\ndef read_user(user_id: str):\n    return {\"user_id\": user_id}"
+      },
+      {
+       "type": "p",
+       "en": "With this order, `/users/me` returns `{\"user\": \"current user\"}` and `/users/42` returns `{\"user_id\": \"42\"}`.",
+       "ar": "بهذا الترتيب، `/users/me` يعيد `{\"user\": \"current user\"}` و`/users/42` يعيد `{\"user_id\": \"42\"}`."
+      },
+      {
+       "type": "warn",
+       "en": "Swap the two and `/users/me` is caught by `/users/{user_id}`: you get `{\"user_id\": \"me\"}`. If `user_id` were an `int`, you would even get a `422`, because `me` is not a number.",
+       "ar": "إذا عكست الترتيب فسيلتقط `/users/{user_id}` الطلب `/users/me` وستحصل على `{\"user_id\": \"me\"}`. ولو كان `user_id` من النوع `int` لحصلت على `422` لأن `me` ليس رقمًا."
+      },
+      {
+       "type": "h",
+       "en": "Enum: a fixed list of allowed values",
+       "ar": "Enum: قائمة ثابتة من القيم المسموحة"
+      },
+      {
+       "type": "p",
+       "en": "When a path parameter may only take a few values, make a class that inherits from `str` and `Enum`. FastAPI accepts only those values and lists them in `/docs`.",
+       "ar": "عندما يُسمح لمعامل المسار بقيم قليلة فقط، أنشئ صنفًا (class) يرث من `str` و`Enum`. يقبل FastAPI هذه القيم فقط ويعرضها في `/docs`."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from enum import Enum\n\nclass ModelName(str, Enum):\n    alexnet = \"alexnet\"\n    resnet = \"resnet\"\n    lenet = \"lenet\"\n\n@app.get(\"/models/{model_name}\")\ndef get_model(model_name: ModelName):\n    return {\"model_name\": model_name, \"value\": model_name.value}"
+      },
+      {
+       "type": "p",
+       "en": "`/models/lenet` returns `{\"model_name\": \"lenet\", \"value\": \"lenet\"}`. Any other value, even `AlexNet` with capitals, gets a `422` with the message `Input should be 'alexnet', 'resnet' or 'lenet'`.",
+       "ar": "`/models/lenet` يعيد `{\"model_name\": \"lenet\", \"value\": \"lenet\"}`. وأي قيمة أخرى، حتى `AlexNet` بأحرف كبيرة، تحصل على `422` مع الرسالة `Input should be 'alexnet', 'resnet' or 'lenet'`."
+      }
+     ]
+    },
+    {
+     "id": "query-parameters",
+     "title": {
+      "en": "Query parameters",
+      "ar": "معاملات الاستعلام (query parameters)"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "Any function argument that is NOT in the path becomes a query parameter. Query parameters come after `?` in the URL, as `key=value` pairs joined with `&`.",
+       "ar": "أي وسيط في الدالة غير موجود في المسار يصبح معامل استعلام (query parameter). تأتي معاملات الاستعلام بعد `?` في الرابط على شكل أزواج `key=value` يفصل بينها `&`."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "fake_items = [{\"name\": \"a\"}, {\"name\": \"b\"}, {\"name\": \"c\"}]\n\n@app.get(\"/items/\")\ndef list_items(skip: int = 0, limit: int = 10):\n    return fake_items[skip : skip + limit]"
+      },
+      {
+       "type": "code",
+       "lang": "http",
+       "code": "GET /items/?skip=1&limit=1   ->  200  [{\"name\": \"b\"}]\nGET /items/                  ->  200  all three items (defaults used)\nGET /items/?limit=x          ->  422  loc: [\"query\", \"limit\"]"
+      },
+      {
+       "type": "list",
+       "en": [
+        "With a default (`skip: int = 0`): optional, the default is used when missing.",
+        "With `None` as default (`q: str | None = None`): optional, `q` is `None` when missing.",
+        "With no default (`name: str`): required. Missing it gives a `422`."
+       ],
+       "ar": [
+        "مع قيمة افتراضية (`skip: int = 0`): اختياري، وتُستخدم القيمة الافتراضية عند غيابه.",
+        "مع `None` كقيمة افتراضية (`q: str | None = None`): اختياري، و`q` تساوي `None` عند غيابه.",
+        "بدون قيمة افتراضية (`name: str`): إلزامي، وغيابه يعطي `422`."
+       ]
+      },
+      {
+       "type": "p",
+       "en": "For a missing required query parameter, the error `type` is `missing`:",
+       "ar": "عند غياب معامل استعلام إلزامي يكون `type` الخطأ هو `missing`:"
+      },
+      {
+       "type": "code",
+       "lang": "json",
+       "code": "{\"detail\": [{\"type\": \"missing\", \"loc\": [\"query\", \"name\"],\n             \"msg\": \"Field required\", \"input\": null}]}"
+      },
+      {
+       "type": "h",
+       "en": "Booleans",
+       "ar": "القيم المنطقية (bool)"
+      },
+      {
+       "type": "p",
+       "en": "A `bool` query parameter is forgiving. With `short: bool = False`, these all give `True`: `1`, `true`, `True`, `yes`, `on`. And these give `False`: `0`, `false`, `no`, `off`. Anything else, like `?short=maybe`, gives a `422` with type `bool_parsing`.",
+       "ar": "معامل الاستعلام من النوع `bool` متسامح. مع `short: bool = False` كل هذه تعطي `True`: `1` و`true` و`True` و`yes` و`on`. وهذه تعطي `False`: `0` و`false` و`no` و`off`. وأي شيء آخر مثل `?short=maybe` يعطي `422` بالنوع `bool_parsing`."
+      },
+      {
+       "type": "tip",
+       "en": "Query parameters the function does not declare are simply ignored. A typo like `?lenght=5` will not raise an error; the default is used.",
+       "ar": "معاملات الاستعلام غير المعرّفة في الدالة تُتجاهَل ببساطة. خطأ إملائي مثل `?lenght=5` لن يسبّب خطأ، وستُستخدم القيمة الافتراضية."
+      }
+     ]
+    },
+    {
+     "id": "validation-with-annotated",
+     "title": {
+      "en": "Validation with Annotated, Query and Path",
+      "ar": "التحقق باستخدام Annotated وQuery وPath"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "Types check the kind of value. To add rules like \"at least 3 characters\" or \"between 1 and 1000\", wrap the type in `Annotated` and add `Query(...)` or `Path(...)` with the rules.",
+       "ar": "الأنواع تتحقق من نوع القيمة. ولإضافة قواعد مثل «3 أحرف على الأقل» أو «بين 1 و1000»، غلّف النوع بـ`Annotated` وأضف `Query(...)` أو `Path(...)` مع القواعد."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from typing import Annotated\nfrom fastapi import FastAPI, Path, Query\n\napp = FastAPI()\n\n@app.get(\"/search\")\ndef search(q: Annotated[str | None, Query(min_length=3, max_length=10)] = None):\n    return {\"q\": q}\n\n@app.get(\"/items/{item_id}\")\ndef read_item(item_id: Annotated[int, Path(ge=1, le=1000)]):\n    return {\"item_id\": item_id}"
+      },
+      {
+       "type": "list",
+       "en": [
+        "`min_length` / `max_length`: length limits for strings.",
+        "`ge` / `le`: greater-or-equal / less-or-equal for numbers.",
+        "`gt` / `lt`: strictly greater / strictly less.",
+        "`pattern`: the string must match a regular expression."
+       ],
+       "ar": [
+        "`min_length` / `max_length`: حدود الطول للنصوص.",
+        "`ge` / `le`: أكبر من أو يساوي / أصغر من أو يساوي للأرقام.",
+        "`gt` / `lt`: أكبر تمامًا / أصغر تمامًا.",
+        "`pattern`: يجب أن يطابق النص تعبيرًا نمطيًا (regular expression)."
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "http",
+       "code": "GET /search?q=ab      ->  422  \"String should have at least 3 characters\"\nGET /search?q=abc     ->  200  {\"q\": \"abc\"}\nGET /search           ->  200  {\"q\": null}\nGET /items/0          ->  422  \"Input should be greater than or equal to 1\"\nGET /items/1000       ->  200  {\"item_id\": 1000}"
+      },
+      {
+       "type": "p",
+       "en": "Note that the rules apply only when a value is sent. `/search` with no `q` is fine, because `q` is optional.",
+       "ar": "لاحظ أن القواعد تُطبَّق فقط عند إرسال قيمة. الطلب `/search` بدون `q` مقبول لأن `q` اختياري."
+      },
+      {
+       "type": "h",
+       "en": "A short pattern example",
+       "ar": "مثال قصير على pattern"
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "@app.get(\"/rates\")\ndef rates(code: Annotated[str, Query(pattern=\"^[A-Z]{3}$\")]):\n    return {\"code\": code}"
+      },
+      {
+       "type": "p",
+       "en": "`?code=USD` returns `200`. `?code=usd` and `?code=USDT` return `422` with type `string_pattern_mismatch`. Since `code` has no default, it is also required.",
+       "ar": "`?code=USD` يعيد `200`. أما `?code=usd` و`?code=USDT` فيعيدان `422` بالنوع `string_pattern_mismatch`. وبما أن `code` بلا قيمة افتراضية فهو إلزامي أيضًا."
+      }
+     ]
+    },
+    {
+     "id": "path-and-query-together",
+     "title": {
+      "en": "Path and query together",
+      "ar": "المسار والاستعلام معًا"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "One endpoint can have several path parameters and several query parameters. FastAPI decides by name: if the name appears in the path, it is a path parameter; otherwise it is a query parameter.",
+       "ar": "يمكن لنقطة نهاية (endpoint) واحدة أن تحوي عدة معاملات مسار وعدة معاملات استعلام. يحدّد FastAPI ذلك بالاسم: إذا ظهر الاسم في المسار فهو معامل مسار، وإلا فهو معامل استعلام."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "@app.get(\"/users/{user_id}/items/{item_id}\")\ndef read_user_item(user_id: int, item_id: str,\n                   q: str | None = None, short: bool = False):\n    item = {\"item_id\": item_id, \"owner_id\": user_id}\n    if q:\n        item[\"q\"] = q\n    if not short:\n        item[\"description\"] = \"A long description\"\n    return item"
+      },
+      {
+       "type": "h",
+       "en": "Reading the URL",
+       "ar": "قراءة الرابط"
+      },
+      {
+       "type": "code",
+       "lang": "text",
+       "code": "/users/7/items/pen?q=blue&short=true\n       |       |     |       |\n       |       |     |       +-- short = True  (query)\n       |       |     +---------- q = \"blue\"    (query)\n       |       +---------------- item_id = \"pen\" (path)\n       +------------------------ user_id = 7     (path)"
+      },
+      {
+       "type": "code",
+       "lang": "http",
+       "code": "GET /users/7/items/pen?q=blue&short=true\n\nHTTP/1.1 200 OK\n{\"item_id\": \"pen\", \"owner_id\": 7, \"q\": \"blue\"}"
+      },
+      {
+       "type": "p",
+       "en": "Without the query part, `/users/7/items/pen` returns `{\"item_id\": \"pen\", \"owner_id\": 7, \"description\": \"A long description\"}`.",
+       "ar": "بدون جزء الاستعلام، يعيد `/users/7/items/pen` القيمة `{\"item_id\": \"pen\", \"owner_id\": 7, \"description\": \"A long description\"}`."
+      },
+      {
+       "type": "tip",
+       "en": "If several values are wrong, `detail` lists all of them. `/users/seven/items/pen?short=maybe` returns two errors: one with `loc` `[\"path\", \"user_id\"]` and one with `[\"query\", \"short\"]`.",
+       "ar": "إذا كانت عدة قيم خاطئة فإن `detail` يسردها كلها. الطلب `/users/seven/items/pen?short=maybe` يعيد خطأين: أحدهما `loc` فيه `[\"path\", \"user_id\"]` والآخر `[\"query\", \"short\"]`."
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "id": 1,
+     "difficulty": "easy",
+     "question": {
+      "en": "`ModelName` is a `str` Enum with the values `alexnet`, `resnet` and `lenet`. What does `GET /models/vgg` return?",
+      "ar": "`ModelName` صنف Enum من النوع `str` قيمه `alexnet` و`resnet` و`lenet`. ماذا يعيد `GET /models/vgg`؟"
+     },
+     "codeSnippet": "@app.get(\"/models/{model_name}\")\ndef get_model(model_name: ModelName):\n    return {\"model_name\": model_name}",
+     "options": [
+      {
+       "en": "`200` with `{\"model_name\": \"vgg\"}`",
+       "ar": "`200` مع `{\"model_name\": \"vgg\"}`"
+      },
+      {
+       "en": "`422`, `vgg` is not an allowed value",
+       "ar": "`422`، لأن `vgg` ليست قيمة مسموحة"
+      },
+      {
+       "en": "`404`, because no route matches `vgg`",
+       "ar": "`404`، لأنه لا يوجد مسار يطابق `vgg`"
+      },
+      {
+       "en": "`200` with `{\"model_name\": null}`",
+       "ar": "`200` مع `{\"model_name\": null}`"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "An Enum path parameter accepts only its listed values. The route matches, but validation fails, so FastAPI returns `422` with `Input should be 'alexnet', 'resnet' or 'lenet'`.",
+      "ar": "معامل المسار من نوع Enum يقبل قيمه المحددة فقط. المسار يطابق لكن التحقق يفشل، فيعيد FastAPI `422` مع `Input should be 'alexnet', 'resnet' or 'lenet'`."
+     }
+    },
+    {
+     "id": 2,
+     "difficulty": "easy",
+     "question": {
+      "en": "What does `GET /items/5` return for this endpoint?",
+      "ar": "ماذا يعيد `GET /items/5` لهذه النقطة؟"
+     },
+     "codeSnippet": "@app.get(\"/items/{item_id}\")\ndef read_item(item_id: int):\n    return {\"item_id\": item_id}",
+     "options": [
+      {
+       "en": "{\"item_id\": \"5\"}",
+       "ar": "{\"item_id\": \"5\"}"
+      },
+      {
+       "en": "{\"item_id\": \"{item_id}\"}",
+       "ar": "{\"item_id\": \"{item_id}\"}"
+      },
+      {
+       "en": "{\"item_id\": 5}",
+       "ar": "{\"item_id\": 5}"
+      },
+      {
+       "en": "{\"item_id\": 5.0}",
+       "ar": "{\"item_id\": 5.0}"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "Because of the hint `item_id: int`, FastAPI converts the text `5` from the URL into the integer `5`.",
+      "ar": "بسبب التلميح `item_id: int` يحوّل FastAPI النص `5` القادم من الرابط إلى العدد الصحيح `5`."
+     }
+    },
+    {
+     "id": 3,
+     "difficulty": "easy",
+     "question": {
+      "en": "In `@app.get(\"/search\")` with `def search(q: str | None = None)`, what is `q`?",
+      "ar": "في `@app.get(\"/search\")` مع `def search(q: str | None = None)`، ما هو `q`؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "An optional query parameter, `None` when missing",
+       "ar": "معامل استعلام اختياري، قيمته `None` عند غيابه"
+      },
+      {
+       "en": "A required query parameter that must be sent",
+       "ar": "معامل استعلام إلزامي يجب إرساله"
+      },
+      {
+       "en": "A path parameter, because it has a type hint",
+       "ar": "معامل مسار، لأن له تلميح نوع"
+      },
+      {
+       "en": "A value FastAPI reads from the response",
+       "ar": "قيمة يقرؤها FastAPI من الرد (response)"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "`q` is not in the path, so it is a query parameter. Its default `None` makes it optional.",
+      "ar": "`q` غير موجود في المسار فهو معامل استعلام، وقيمته الافتراضية `None` تجعله اختياريًا."
+     }
+    },
+    {
+     "id": 4,
+     "difficulty": "medium",
+     "question": {
+      "en": "With `item_id: int`, a client sends `GET /items/abc`. What comes back?",
+      "ar": "مع `item_id: int` يرسل العميل `GET /items/abc`. ماذا يعود؟"
+     },
+     "codeSnippet": "@app.get(\"/items/{item_id}\")\ndef read_item(item_id: int):\n    return {\"item_id\": item_id}",
+     "options": [
+      {
+       "en": "`404` with `{\"detail\": \"Not Found\"}`",
+       "ar": "`404` مع `{\"detail\": \"Not Found\"}`"
+      },
+      {
+       "en": "`200` with `{\"item_id\": \"abc\"}`",
+       "ar": "`200` مع `{\"item_id\": \"abc\"}`"
+      },
+      {
+       "en": "`500`, because `int(\"abc\")` crashes",
+       "ar": "`500`، لأن `int(\"abc\")` ينهار"
+      },
+      {
+       "en": "`422` with `loc` `[\"path\", \"item_id\"]`",
+       "ar": "`422` مع `loc` بقيمة `[\"path\", \"item_id\"]`"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "The route matches, but `abc` is not an integer. FastAPI returns `422` with an `int_parsing` error whose `loc` is `[\"path\", \"item_id\"]`; your function never runs.",
+      "ar": "المسار يطابق لكن `abc` ليس عددًا صحيحًا. يعيد FastAPI `422` بخطأ `int_parsing` قيمة `loc` فيه `[\"path\", \"item_id\"]`، ولا تُنفَّذ دالتك."
+     }
+    },
+    {
+     "id": 5,
+     "difficulty": "medium",
+     "question": {
+      "en": "The routes are declared in this order. What does `GET /users/me` return?",
+      "ar": "عُرّفت المسارات بهذا الترتيب. ماذا يعيد `GET /users/me`؟"
+     },
+     "codeSnippet": "@app.get(\"/users/{user_id}\")\ndef read_user(user_id: str):\n    return {\"user_id\": user_id}\n\n@app.get(\"/users/me\")\ndef read_me():\n    return {\"user\": \"current user\"}",
+     "options": [
+      {
+       "en": "{\"user\": \"current user\"}",
+       "ar": "{\"user\": \"current user\"}"
+      },
+      {
+       "en": "{\"detail\": \"Not Found\"}",
+       "ar": "{\"detail\": \"Not Found\"}"
+      },
+      {
+       "en": "{\"user_id\": \"me\"}",
+       "ar": "{\"user_id\": \"me\"}"
+      },
+      {
+       "en": "{\"user_id\": null}",
+       "ar": "{\"user_id\": null}"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "Routes are checked top to bottom. `/users/{user_id}` comes first and matches `/users/me`, so `user_id` is `\"me\"`. Put `/users/me` first to fix it.",
+      "ar": "تُفحص المسارات من الأعلى للأسفل. `/users/{user_id}` يأتي أولًا ويطابق `/users/me`، فتكون `user_id` هي `\"me\"`. ضع `/users/me` أولًا لإصلاح ذلك."
+     }
+    },
+    {
+     "id": 6,
+     "difficulty": "medium",
+     "question": {
+      "en": "The endpoint has `short: bool = False`. Which request returns a `422`?",
+      "ar": "النقطة فيها `short: bool = False`. أي طلب يعيد `422`؟"
+     },
+     "codeSnippet": "@app.get(\"/flag\")\ndef flag(short: bool = False):\n    return {\"short\": short}",
+     "options": [
+      {
+       "en": "GET /flag?short=maybe",
+       "ar": "GET /flag?short=maybe"
+      },
+      {
+       "en": "GET /flag?short=yes",
+       "ar": "GET /flag?short=yes"
+      },
+      {
+       "en": "GET /flag?short=on",
+       "ar": "GET /flag?short=on"
+      },
+      {
+       "en": "GET /flag?short=0",
+       "ar": "GET /flag?short=0"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "`yes` and `on` become `True`, and `0` becomes `False`. `maybe` cannot be read as a boolean, so it returns `422` with type `bool_parsing`.",
+      "ar": "`yes` و`on` تصبحان `True`، و`0` تصبح `False`. أما `maybe` فلا يمكن قراءتها كقيمة منطقية، فتعيد `422` بالنوع `bool_parsing`."
+     }
+    },
+    {
+     "id": 7,
+     "difficulty": "medium",
+     "question": {
+      "en": "A client calls `GET /greet` with no query string. What is the response?",
+      "ar": "يستدعي العميل `GET /greet` بدون أي استعلام. ما الرد؟"
+     },
+     "codeSnippet": "@app.get(\"/greet\")\ndef greet(name: str):\n    return {\"hello\": name}",
+     "options": [
+      {
+       "en": "`200` with `{\"hello\": null}`",
+       "ar": "`200` مع `{\"hello\": null}`"
+      },
+      {
+       "en": "`200` with `{\"hello\": \"\"}`",
+       "ar": "`200` مع `{\"hello\": \"\"}`"
+      },
+      {
+       "en": "`404`, the URL needs `/{name}`",
+       "ar": "`404`، فالرابط يحتاج `/{name}`"
+      },
+      {
+       "en": "`422` with type `missing` for `name`",
+       "ar": "`422` بالنوع `missing` للمعامل `name`"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "`name` has no default, so it is a required query parameter. Missing it gives `422` with `\"type\": \"missing\"`, `\"loc\": [\"query\", \"name\"]` and `\"msg\": \"Field required\"`.",
+      "ar": "`name` بلا قيمة افتراضية فهو معامل استعلام إلزامي. غيابه يعطي `422` مع `\"type\": \"missing\"` و`\"loc\": [\"query\", \"name\"]` و`\"msg\": \"Field required\"`."
+     }
+    },
+    {
+     "id": 8,
+     "difficulty": "hard",
+     "question": {
+      "en": "What does `GET /items/0` return?",
+      "ar": "ماذا يعيد `GET /items/0`؟"
+     },
+     "codeSnippet": "@app.get(\"/items/{item_id}\")\ndef read_item(item_id: Annotated[int, Path(ge=1, le=1000)]):\n    return {\"item_id\": item_id}",
+     "options": [
+      {
+       "en": "`200` with `{\"item_id\": 0}`",
+       "ar": "`200` مع `{\"item_id\": 0}`"
+      },
+      {
+       "en": "`422`: must be greater than or equal to 1",
+       "ar": "`422`: يجب أن يكون أكبر من أو يساوي 1"
+      },
+      {
+       "en": "`422`: must be less than or equal to 1000",
+       "ar": "`422`: يجب أن يكون أصغر من أو يساوي 1000"
+      },
+      {
+       "en": "`404`, since item 0 does not exist",
+       "ar": "`404`، لأن العنصر 0 غير موجود"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "`0` is a valid integer but breaks the rule `ge=1`. FastAPI returns `422` with type `greater_than_equal` and `Input should be greater than or equal to 1`.",
+      "ar": "`0` عدد صحيح سليم لكنه يخالف القاعدة `ge=1`. يعيد FastAPI `422` بالنوع `greater_than_equal` والرسالة `Input should be greater than or equal to 1`."
+     }
+    },
+    {
+     "id": 9,
+     "difficulty": "hard",
+     "question": {
+      "en": "What is the response to `GET /users/7/items/pen?q=blue&short=true`?",
+      "ar": "ما الرد على `GET /users/7/items/pen?q=blue&short=true`؟"
+     },
+     "codeSnippet": "@app.get(\"/users/{user_id}/items/{item_id}\")\ndef read_user_item(user_id: int, item_id: str,\n                   q: str | None = None, short: bool = False):\n    item = {\"item_id\": item_id, \"owner_id\": user_id}\n    if q:\n        item[\"q\"] = q\n    if not short:\n        item[\"description\"] = \"A long description\"\n    return item",
+     "options": [
+      {
+       "en": "{\"item_id\": \"pen\", \"owner_id\": 7, \"q\": \"blue\"}",
+       "ar": "{\"item_id\": \"pen\", \"owner_id\": 7, \"q\": \"blue\"}"
+      },
+      {
+       "en": "{\"item_id\": \"pen\", \"owner_id\": \"7\", \"q\": \"blue\"}",
+       "ar": "{\"item_id\": \"pen\", \"owner_id\": \"7\", \"q\": \"blue\"}"
+      },
+      {
+       "en": "{\"item_id\": \"blue\", \"owner_id\": 7, \"q\": \"pen\"}",
+       "ar": "{\"item_id\": \"blue\", \"owner_id\": 7, \"q\": \"pen\"}"
+      },
+      {
+       "en": "{\"item_id\": \"pen\", \"owner_id\": 7, \"short\": true}",
+       "ar": "{\"item_id\": \"pen\", \"owner_id\": 7, \"short\": true}"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "`7` and `pen` come from the path (`user_id` converted to an int), `q` and `short` from the query. `short=true` is `True`, so no description is added.",
+      "ar": "`7` و`pen` يأتيان من المسار (وتُحوَّل `user_id` إلى عدد صحيح)، و`q` و`short` من الاستعلام. `short=true` تعني `True` فلا يُضاف الوصف."
+     }
+    },
+    {
+     "id": 10,
+     "difficulty": "hard",
+     "question": {
+      "en": "A client sends `GET /books/3?language=ar`. What is returned?",
+      "ar": "يرسل العميل `GET /books/3?language=ar`. ماذا يعود؟"
+     },
+     "codeSnippet": "@app.get(\"/books/{book_id}\")\ndef read_book(book_id: int, lang: str = \"en\"):\n    return {\"book_id\": book_id, \"lang\": lang}",
+     "options": [
+      {
+       "en": "{\"book_id\": 3, \"lang\": \"ar\"}",
+       "ar": "{\"book_id\": 3, \"lang\": \"ar\"}"
+      },
+      {
+       "en": "`422`: unknown query parameter `language`",
+       "ar": "`422`: معامل استعلام مجهول `language`"
+      },
+      {
+       "en": "{\"book_id\": 3, \"lang\": \"en\"}",
+       "ar": "{\"book_id\": 3, \"lang\": \"en\"}"
+      },
+      {
+       "en": "{\"book_id\": \"3\", \"lang\": \"ar\"}",
+       "ar": "{\"book_id\": \"3\", \"lang\": \"ar\"}"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "Only declared names are read. `language` is not `lang`, so it is ignored and `lang` keeps its default `\"en\"`. No error is raised.",
+      "ar": "تُقرأ الأسماء المعرّفة فقط. `language` ليس `lang` فيُتجاهَل، ويحتفظ `lang` بقيمته الافتراضية `\"en\"`. ولا يحدث أي خطأ."
+     }
+    }
+   ]
+  },
+  {
+   "id": "request-body",
+   "title": {
+    "en": "Request Bodies & Responses",
+    "ar": "جسم الطلب والاستجابات"
+   },
+   "summary": {
+    "en": "Receive JSON with Pydantic models, validate it, and control what your API sends back.",
+    "ar": "استقبل JSON باستخدام نماذج Pydantic، وتحقّق منه، وتحكّم فيما ترسله واجهتك (API)."
+   },
+   "lessons": [
+    {
+     "id": "why-request-body",
+     "title": {
+      "en": "Request bodies and Pydantic models",
+      "ar": "جسم الطلب ونماذج Pydantic"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "Path and query parameters are fine for small values like an id or a page number. But when a client creates or updates something, it sends a whole object of data. That data travels in the request body, usually as JSON.",
+       "ar": "معاملات المسار والاستعلام مناسبة للقيم الصغيرة مثل المعرّف أو رقم الصفحة. لكن عندما ينشئ العميل شيئًا أو يحدّثه فإنه يرسل كائنًا كاملًا من البيانات. هذه البيانات تنتقل في جسم الطلب (request body)، وغالبًا بصيغة JSON."
+      },
+      {
+       "type": "p",
+       "en": "`POST` (create) and `PUT` (update) requests normally carry a body. `GET` requests normally do not.",
+       "ar": "طلبات `POST` (إنشاء) و`PUT` (تحديث) تحمل عادةً جسمًا. أما طلبات `GET` فلا تحمل جسمًا في العادة."
+      },
+      {
+       "type": "code",
+       "lang": "http",
+       "code": "POST /items HTTP/1.1\nContent-Type: application/json\n\n{\"name\": \"Pen\", \"price\": 2.5}"
+      },
+      {
+       "type": "p",
+       "en": "In FastAPI you describe the shape of the body with a class that inherits from Pydantic's `BaseModel`. Each class attribute is one JSON field, with a type.",
+       "ar": "في FastAPI تصف شكل الجسم بصنف (class) يرث من `BaseModel` الخاص بمكتبة Pydantic. كل خاصية في الصنف هي حقل واحد في JSON، ولها نوع."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi import FastAPI\nfrom pydantic import BaseModel\n\napp = FastAPI()\n\n\nclass Item(BaseModel):\n    name: str                        # required\n    price: float                     # required\n    description: str | None = None   # optional\n    in_stock: bool = True            # has a default"
+      },
+      {
+       "type": "list",
+       "en": [
+        "A field with no default (`name: str`) is required.",
+        "A field with a default (`in_stock: bool = True`) can be left out; the default is used.",
+        "`str | None = None` makes a field optional: it may be missing or `null`."
+       ],
+       "ar": [
+        "الحقل بلا قيمة افتراضية (`name: str`) حقل إلزامي.",
+        "الحقل الذي له قيمة افتراضية (`in_stock: bool = True`) يمكن حذفه، وتُستخدم القيمة الافتراضية.",
+        "`str | None = None` يجعل الحقل اختياريًا: قد يغيب أو تكون قيمته `null`."
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "Run the app with `fastapi dev main.py` and open `/docs`: every endpoint that uses a model shows a \"Request body\" section with an example JSON.",
+       "ar": "شغّل التطبيق بالأمر `fastapi dev main.py` وافتح `/docs`: كل endpoint يستخدم نموذجًا يعرض قسم \"Request body\" مع مثال JSON."
+      }
+     ]
+    },
+    {
+     "id": "receiving-the-body",
+     "title": {
+      "en": "Receiving the body and its errors",
+      "ar": "استقبال الجسم وأخطاؤه"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "To receive the body, add a parameter whose type is your model. FastAPI reads the JSON, checks it against the model and gives you a ready `Item` object.",
+       "ar": "لاستقبال الجسم أضف معاملًا نوعه هو النموذج الخاص بك. يقرأ FastAPI ملف JSON، ويتحقق منه مقابل النموذج، ثم يعطيك كائن `Item` جاهزًا."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "@app.post(\"/items\")\ndef create_item(item: Item):\n    total = item.price * 2           # attributes, not item[\"price\"]\n    data = item.model_dump()         # convert to a plain dict\n    return {\"name\": item.name, \"double_price\": total, \"data\": data}"
+      },
+      {
+       "type": "code",
+       "lang": "json",
+       "code": "{\"name\": \"Pen\", \"double_price\": 5.0, \"data\": {\"name\": \"Pen\", \"price\": 2.5, \"description\": null, \"in_stock\": true}}"
+      },
+      {
+       "type": "p",
+       "en": "Read values with dot notation: `item.name`, `item.price`. `item.model_dump()` turns the model into a normal dict, handy for saving or merging. Missing optional fields get their defaults.",
+       "ar": "اقرأ القيم بالنقطة: `item.name` و`item.price`. والدالة `item.model_dump()` تحوّل النموذج إلى dict عادي، وهذا مفيد للحفظ أو الدمج. الحقول الاختيارية الغائبة تأخذ قيمها الافتراضية."
+      },
+      {
+       "type": "h",
+       "en": "When the body is wrong",
+       "ar": "عندما يكون الجسم خاطئًا"
+      },
+      {
+       "type": "p",
+       "en": "If the body does not match the model, your function never runs. FastAPI answers `422` and lists every problem in `detail`. `loc` starts with `\"body\"` and then names the field.",
+       "ar": "إذا لم يطابق الجسم النموذج فلن تعمل دالتك أبدًا. يرد FastAPI بالرمز `422` ويذكر كل مشكلة داخل `detail`. يبدأ `loc` بالكلمة `\"body\"` ثم يذكر اسم الحقل."
+      },
+      {
+       "type": "code",
+       "lang": "json",
+       "code": "// sent {\"name\": \"Pen\"}  (price missing)\n{\"detail\": [{\"type\": \"missing\", \"loc\": [\"body\", \"price\"], \"msg\": \"Field required\", \"input\": {\"name\": \"Pen\"}}]}\n\n// sent {\"name\": \"Pen\", \"price\": \"cheap\"}\n{\"detail\": [{\"type\": \"float_parsing\", \"loc\": [\"body\", \"price\"], \"msg\": \"Input should be a valid number, unable to parse string as a number\", \"input\": \"cheap\"}]}"
+      },
+      {
+       "type": "list",
+       "en": [
+        "Broken JSON (e.g. a trailing comma) also gives `422`, with `\"type\": \"json_invalid\"`.",
+        "No body at all gives `422` with `\"loc\": [\"body\"]` and `\"Field required\"`.",
+        "A string that looks like a number, such as `\"3\"`, is converted to `3.0`.",
+        "Extra fields that the model does not declare are ignored by default."
+       ],
+       "ar": [
+        "ملف JSON المعطوب (مثل فاصلة زائدة في النهاية) يعطي أيضًا `422` مع `\"type\": \"json_invalid\"`.",
+        "غياب الجسم تمامًا يعطي `422` مع `\"loc\": [\"body\"]` و`\"Field required\"`.",
+        "النص الذي يشبه رقمًا مثل `\"3\"` يُحوَّل إلى `3.0`.",
+        "الحقول الإضافية التي لم يعرّفها النموذج تُتجاهَل افتراضيًا."
+       ]
+      },
+      {
+       "type": "warn",
+       "en": "Pydantic v2 uses `model_dump()`. The old `.dict()` is deprecated; do not use it in new code.",
+       "ar": "يستخدم Pydantic v2 الدالة `model_dump()`. أما `.dict()` القديمة فهي مُهمَلة (deprecated)، فلا تستخدمها في الكود الجديد."
+      }
+     ]
+    },
+    {
+     "id": "field-validation-nested",
+     "title": {
+      "en": "Field rules and nested models",
+      "ar": "قواعد الحقول والنماذج المتداخلة"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "Types alone do not stop a price of `-5` or an empty name. Pydantic's `Field(...)` adds rules to a field, just like `Query` and `Path` did for parameters.",
+       "ar": "الأنواع وحدها لا تمنع سعرًا قيمته `-5` أو اسمًا فارغًا. الدالة `Field(...)` من Pydantic تضيف قواعد للحقل، تمامًا كما فعلت `Query` و`Path` مع المعاملات."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from pydantic import BaseModel, Field\n\n\nclass Product(BaseModel):\n    name: str = Field(min_length=2, max_length=20)\n    price: float = Field(gt=0)               # greater than 0\n    quantity: int = Field(default=1, ge=1)   # optional, at least 1"
+      },
+      {
+       "type": "p",
+       "en": "Sending `{\"name\": \"Pen\", \"price\": 0}` breaks the `gt=0` rule:",
+       "ar": "إرسال `{\"name\": \"Pen\", \"price\": 0}` يخالف القاعدة `gt=0`:"
+      },
+      {
+       "type": "code",
+       "lang": "json",
+       "code": "{\"detail\": [{\"type\": \"greater_than\", \"loc\": [\"body\", \"price\"], \"msg\": \"Input should be greater than 0\", \"input\": 0, \"ctx\": {\"gt\": 0.0}}]}"
+      },
+      {
+       "type": "h",
+       "en": "Nested models and lists",
+       "ar": "النماذج المتداخلة والقوائم"
+      },
+      {
+       "type": "p",
+       "en": "A field can be another model, or a list of models. FastAPI validates every inner object too.",
+       "ar": "يمكن أن يكون الحقل نموذجًا آخر، أو قائمة من النماذج. ويتحقق FastAPI من كل كائن داخلي أيضًا."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "class Order(BaseModel):\n    customer: str\n    products: list[Product]     # a JSON array of Product objects\n    tags: list[str] = []"
+      },
+      {
+       "type": "p",
+       "en": "If the second product has `\"price\": 0`, the error points exactly to it: `\"loc\": [\"body\", \"products\", 1, \"price\"]`. The `1` is the list index, counted from 0.",
+       "ar": "إذا كان المنتج الثاني بقيمة `\"price\": 0` فإن الخطأ يشير إليه بدقة: `\"loc\": [\"body\", \"products\", 1, \"price\"]`. الرقم `1` هو موقع العنصر في القائمة، ويبدأ العدّ من 0."
+      }
+     ]
+    },
+    {
+     "id": "body-path-query",
+     "title": {
+      "en": "Body, path and query together",
+      "ar": "الجسم والمسار والاستعلام معًا"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "One endpoint can use all three sources at once. You do not mark them; FastAPI decides from the parameter itself.",
+       "ar": "يمكن لـ endpoint واحد أن يستخدم المصادر الثلاثة معًا. لا تحتاج إلى تحديدها بنفسك، فـ FastAPI يقرر بناءً على المعامل نفسه."
+      },
+      {
+       "type": "list",
+       "en": [
+        "Name appears in the path (`{item_id}`) → path parameter.",
+        "Simple type (`int`, `str`, `bool`, `float`) not in the path → query parameter.",
+        "Type is a Pydantic model → request body."
+       ],
+       "ar": [
+        "الاسم موجود في المسار (`{item_id}`) ← معامل مسار.",
+        "نوع بسيط (`int` أو `str` أو `bool` أو `float`) وليس في المسار ← معامل استعلام.",
+        "النوع نموذج Pydantic ← جسم الطلب."
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "class Item(BaseModel):\n    name: str\n    price: float\n\n\n@app.put(\"/items/{item_id}\")\ndef update_item(item_id: int, item: Item, notify: bool = False):\n    return {\"item_id\": item_id, \"notify\": notify, \"item\": item.model_dump()}"
+      },
+      {
+       "type": "code",
+       "lang": "http",
+       "code": "PUT /items/5?notify=true HTTP/1.1\nContent-Type: application/json\n\n{\"name\": \"Pen\", \"price\": 3}"
+      },
+      {
+       "type": "code",
+       "lang": "json",
+       "code": "{\"item_id\": 5, \"notify\": true, \"item\": {\"name\": \"Pen\", \"price\": 3.0}}"
+      },
+      {
+       "type": "p",
+       "en": "The order of the parameters in the function does not matter. Each error's `loc` tells you which part failed: `[\"path\", \"item_id\"]`, `[\"query\", ...]` or `[\"body\", ...]`.",
+       "ar": "ترتيب المعاملات في الدالة لا يهم. و`loc` في كل خطأ يخبرك بالجزء الذي فشل: `[\"path\", \"item_id\"]` أو `[\"query\", ...]` أو `[\"body\", ...]`."
+      },
+      {
+       "type": "tip",
+       "en": "A plain `text: str` with no default and not in the path is a REQUIRED query parameter, not a body field. To get it from the body, put it inside a model.",
+       "ar": "المعامل `text: str` بلا قيمة افتراضية وغير الموجود في المسار هو معامل استعلام إلزامي، وليس حقلًا في الجسم. لكي تأخذه من الجسم ضعه داخل نموذج."
+      }
+     ]
+    },
+    {
+     "id": "responses",
+     "title": {
+      "en": "Shaping responses and errors",
+      "ar": "تشكيل الاستجابات والأخطاء"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "`response_model` tells FastAPI what the response must look like. Fields not in that model are removed, which is how you keep secrets like a password out of the response.",
+       "ar": "يخبر `response_model` إطار FastAPI بالشكل الذي يجب أن تكون عليه الاستجابة (response). الحقول غير الموجودة في ذلك النموذج تُحذف، وبهذا تُبقي الأسرار مثل كلمة المرور خارج الاستجابة."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi import FastAPI, HTTPException\nfrom pydantic import BaseModel\n\napp = FastAPI()\nfake_db = {}\n\n\nclass UserIn(BaseModel):\n    username: str\n    email: str\n    password: str\n\n\nclass UserOut(BaseModel):\n    username: str\n    email: str\n\n\n@app.post(\"/users\", response_model=UserOut, status_code=201)\ndef create_user(user: UserIn):\n    fake_db[user.username] = user\n    return user                      # password is filtered out"
+      },
+      {
+       "type": "code",
+       "lang": "json",
+       "code": "// 201 Created\n{\"username\": \"ali\", \"email\": \"ali@example.com\"}"
+      },
+      {
+       "type": "p",
+       "en": "`status_code=201` sets the success code; `201 Created` is the right answer to a create request. Without it, FastAPI returns `200`. Invalid input still returns `422`.",
+       "ar": "يحدد `status_code=201` رمز النجاح، و`201 Created` هو الرد المناسب لطلب الإنشاء. بدونه يرجع FastAPI الرمز `200`. والمدخلات غير الصالحة تبقى ترجع `422`."
+      },
+      {
+       "type": "h",
+       "en": "Errors with HTTPException",
+       "ar": "الأخطاء باستخدام HTTPException"
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "@app.get(\"/users/{username}\", response_model=UserOut)\ndef get_user(username: str):\n    if username not in fake_db:\n        raise HTTPException(status_code=404, detail=\"User not found\")\n    return fake_db[username]"
+      },
+      {
+       "type": "code",
+       "lang": "json",
+       "code": "// 404 Not Found\n{\"detail\": \"User not found\"}"
+      },
+      {
+       "type": "p",
+       "en": "You `raise` it, not `return` it. The function stops there, and FastAPI sends the status code with `{\"detail\": ...}` as the body.",
+       "ar": "أنت تستخدم `raise` معه وليس `return`. تتوقف الدالة عند هذا السطر، ويرسل FastAPI رمز الحالة ومعه `{\"detail\": ...}` كجسم للاستجابة."
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "id": 1,
+     "difficulty": "easy",
+     "question": {
+      "en": "Which class does a FastAPI request-body model inherit from?",
+      "ar": "من أي صنف يرث نموذج جسم الطلب في FastAPI؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "`TypedDict`",
+       "ar": "`TypedDict`"
+      },
+      {
+       "en": "`BaseModel`",
+       "ar": "`BaseModel`"
+      },
+      {
+       "en": "`FastAPI`",
+       "ar": "`FastAPI`"
+      },
+      {
+       "en": "`Request`",
+       "ar": "`Request`"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "Body models inherit from Pydantic's `BaseModel` (`from pydantic import BaseModel`).",
+      "ar": "نماذج الجسم ترث من `BaseModel` الخاص بـ Pydantic (`from pydantic import BaseModel`)."
+     }
+    },
+    {
+     "id": 2,
+     "difficulty": "easy",
+     "question": {
+      "en": "In a model, what does `description: str | None = None` mean?",
+      "ar": "في النموذج، ماذا يعني `description: str | None = None`؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "The field is required and must be a string",
+       "ar": "الحقل إلزامي ويجب أن يكون نصًا"
+      },
+      {
+       "en": "The field is always ignored by FastAPI",
+       "ar": "الحقل يتجاهله FastAPI دائمًا"
+      },
+      {
+       "en": "Optional: it may be left out or be null",
+       "ar": "اختياري: يمكن حذفه أو جعله null"
+      },
+      {
+       "en": "The field is read from the query string",
+       "ar": "الحقل يُقرأ من سلسلة الاستعلام"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "The `= None` default makes the field optional; `str | None` allows a string or `null`.",
+      "ar": "القيمة الافتراضية `= None` تجعل الحقل اختياريًا، و`str | None` تسمح بنص أو `null`."
+     }
+    },
+    {
+     "id": 3,
+     "difficulty": "easy",
+     "question": {
+      "en": "An endpoint is declared with `@app.post(\"/users\", status_code=201)`. A valid request arrives. Which status code does the client get?",
+      "ar": "تم تعريف endpoint بالشكل `@app.post(\"/users\", status_code=201)`. وصل طلب صالح. ما رمز الحالة الذي يستلمه العميل؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "`200`",
+       "ar": "`200`"
+      },
+      {
+       "en": "`204`",
+       "ar": "`204`"
+      },
+      {
+       "en": "`422`",
+       "ar": "`422`"
+      },
+      {
+       "en": "`201`",
+       "ar": "`201`"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "`status_code=201` replaces the default `200` for successful responses. `422` would only come from invalid input.",
+      "ar": "`status_code=201` يستبدل الرمز الافتراضي `200` في الاستجابات الناجحة. أما `422` فيأتي فقط من مدخلات غير صالحة."
+     }
+    },
+    {
+     "id": 4,
+     "difficulty": "medium",
+     "question": {
+      "en": "The client sends `{\"name\": \"Pen\"}` to `POST /items`. What does FastAPI return?",
+      "ar": "يرسل العميل `{\"name\": \"Pen\"}` إلى `POST /items`. ماذا يرجع FastAPI؟"
+     },
+     "codeSnippet": "class Item(BaseModel):\n    name: str\n    price: float\n    description: str | None = None\n    in_stock: bool = True\n\n\n@app.post(\"/items\")\ndef create_item(item: Item):\n    return item",
+     "options": [
+      {
+       "en": "`422` with `\"loc\": [\"body\", \"price\"]`",
+       "ar": "`422` with `\"loc\": [\"body\", \"price\"]`"
+      },
+      {
+       "en": "`200` with `\"price\": null` in the JSON",
+       "ar": "`200` مع `\"price\": null` في JSON"
+      },
+      {
+       "en": "`200` with `\"price\": 0.0` in the JSON",
+       "ar": "`200` مع `\"price\": 0.0` في JSON"
+      },
+      {
+       "en": "`400` with `\"detail\": \"price missing\"`",
+       "ar": "`400` مع `\"detail\": \"price missing\"`"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "`price` has no default, so it is required. FastAPI rejects the body with `422` before the function runs; the error has `\"type\": \"missing\"` and `\"loc\": [\"body\", \"price\"]`.",
+      "ar": "الحقل `price` ليس له قيمة افتراضية، لذا فهو إلزامي. يرفض FastAPI الجسم بالرمز `422` قبل تشغيل الدالة، ويحتوي الخطأ على `\"type\": \"missing\"` و`\"loc\": [\"body\", \"price\"]`."
+     }
+    },
+    {
+     "id": 5,
+     "difficulty": "medium",
+     "question": {
+      "en": "For the request `PUT /items/5?notify=true` with a JSON body, where does FastAPI take each parameter from?",
+      "ar": "في الطلب `PUT /items/5?notify=true` مع جسم JSON، من أين يأخذ FastAPI كل معامل؟"
+     },
+     "codeSnippet": "@app.put(\"/items/{item_id}\")\ndef update_item(item_id: int, item: Item, notify: bool = False):\n    ...",
+     "options": [
+      {
+       "en": "`item_id`: query, `item`: body, `notify`: path",
+       "ar": "`item_id`: استعلام، `item`: جسم، `notify`: مسار"
+      },
+      {
+       "en": "`item_id`: body, `item`: body, `notify`: query",
+       "ar": "`item_id`: جسم، `item`: جسم، `notify`: استعلام"
+      },
+      {
+       "en": "`item_id`: path, `item`: body, `notify`: query",
+       "ar": "`item_id`: مسار، `item`: جسم، `notify`: استعلام"
+      },
+      {
+       "en": "`item_id`: path, `item`: query, `notify`: body",
+       "ar": "`item_id`: مسار، `item`: استعلام، `notify`: جسم"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "`item_id` is in the path template, `item` is a Pydantic model (body), and `notify` is a simple type not in the path (query).",
+      "ar": "`item_id` موجود في قالب المسار، و`item` نموذج Pydantic (جسم)، و`notify` نوع بسيط غير موجود في المسار (استعلام)."
+     }
+    },
+    {
+     "id": 6,
+     "difficulty": "medium",
+     "question": {
+      "en": "The client posts `{\"username\": \"ali\", \"email\": \"ali@example.com\", \"password\": \"s3cret\"}`. What is the response body?",
+      "ar": "يرسل العميل `{\"username\": \"ali\", \"email\": \"ali@example.com\", \"password\": \"s3cret\"}`. ما جسم الاستجابة؟"
+     },
+     "codeSnippet": "class UserIn(BaseModel):\n    username: str\n    email: str\n    password: str\n\n\nclass UserOut(BaseModel):\n    username: str\n    email: str\n\n\n@app.post(\"/users\", response_model=UserOut, status_code=201)\ndef create_user(user: UserIn):\n    return user",
+     "options": [
+      {
+       "en": "`{\"username\": \"ali\", \"email\": \"ali@example.com\", \"password\": \"s3cret\"}`",
+       "ar": "`{\"username\": \"ali\", \"email\": \"ali@example.com\", \"password\": \"s3cret\"}`"
+      },
+      {
+       "en": "`{\"username\": \"ali\", \"email\": \"ali@example.com\"}`",
+       "ar": "`{\"username\": \"ali\", \"email\": \"ali@example.com\"}`"
+      },
+      {
+       "en": "`{\"username\": \"ali\", \"password\": \"s3cret\"}`",
+       "ar": "`{\"username\": \"ali\", \"password\": \"s3cret\"}`"
+      },
+      {
+       "en": "`{\"detail\": \"password is not allowed\"}`",
+       "ar": "`{\"detail\": \"password is not allowed\"}`"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "`response_model=UserOut` keeps only `username` and `email`; the `password` field is filtered out. The status is `201`.",
+      "ar": "`response_model=UserOut` يُبقي `username` و`email` فقط، ويُحذف الحقل `password`. ورمز الحالة هو `201`."
+     }
+    },
+    {
+     "id": 7,
+     "difficulty": "medium",
+     "question": {
+      "en": "The client sends `{\"name\": \"Pen\", \"price\": 0}`. What happens?",
+      "ar": "يرسل العميل `{\"name\": \"Pen\", \"price\": 0}`. ماذا يحدث؟"
+     },
+     "codeSnippet": "class Product(BaseModel):\n    name: str = Field(min_length=2, max_length=20)\n    price: float = Field(gt=0)\n\n\n@app.post(\"/products\")\ndef create_product(product: Product):\n    return product",
+     "options": [
+      {
+       "en": "`200`, and `price` becomes `null`",
+       "ar": "`200`، ويصبح `price` قيمته `null`"
+      },
+      {
+       "en": "`200`, because `0` is a valid float",
+       "ar": "`200`، لأن `0` قيمة float صالحة"
+      },
+      {
+       "en": "`422`, because `\"Pen\"` is too short",
+       "ar": "`422`، لأن `\"Pen\"` قصير جدًا"
+      },
+      {
+       "en": "`422`, it must be greater than 0",
+       "ar": "`422`، لأنه يجب أن يكون أكبر من 0"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "`gt=0` means strictly greater than 0, so `0` fails with type `greater_than`. `\"Pen\"` has 3 characters, which satisfies `min_length=2`.",
+      "ar": "`gt=0` تعني أكبر من 0 تمامًا، لذا تفشل القيمة `0` بالنوع `greater_than`. أما `\"Pen\"` فطوله 3 أحرف، وهذا يحقق `min_length=2`."
+     }
+    },
+    {
+     "id": 8,
+     "difficulty": "hard",
+     "question": {
+      "en": "`fake_db` is empty and the client calls `GET /users/omar`. What does it receive?",
+      "ar": "`fake_db` فارغ، والعميل يستدعي `GET /users/omar`. ماذا يستلم؟"
+     },
+     "codeSnippet": "@app.get(\"/users/{username}\", response_model=UserOut)\ndef get_user(username: str):\n    if username not in fake_db:\n        raise HTTPException(status_code=404, detail=\"User not found\")\n    return fake_db[username]",
+     "options": [
+      {
+       "en": "`404` and `{\"detail\": \"User not found\"}`",
+       "ar": "`404` and `{\"detail\": \"User not found\"}`"
+      },
+      {
+       "en": "`200` and `{\"detail\": \"User not found\"}`",
+       "ar": "`200` and `{\"detail\": \"User not found\"}`"
+      },
+      {
+       "en": "`404` and `{\"error\": \"User not found\"}`",
+       "ar": "`404` and `{\"error\": \"User not found\"}`"
+      },
+      {
+       "en": "`422` and `{\"detail\": \"User not found\"}`",
+       "ar": "`422` and `{\"detail\": \"User not found\"}`"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "Raising `HTTPException` stops the function; FastAPI sends its `status_code` (404) with the body `{\"detail\": ...}`.",
+      "ar": "رفع `HTTPException` يوقف الدالة، ويرسل FastAPI رمز الحالة `status_code` (404) مع الجسم `{\"detail\": ...}`."
+     }
+    },
+    {
+     "id": 9,
+     "difficulty": "hard",
+     "question": {
+      "en": "With `products: list[Product]` and `price: float = Field(gt=0)`, the body below is sent. What is the `loc` of the error?",
+      "ar": "مع `products: list[Product]` و`price: float = Field(gt=0)` أُرسل الجسم التالي. ما قيمة `loc` في الخطأ؟"
+     },
+     "codeSnippet": "{\n  \"customer\": \"Sara\",\n  \"products\": [\n    {\"name\": \"Pen\", \"price\": 2.5},\n    {\"name\": \"Book\", \"price\": 0}\n  ]\n}",
+     "options": [
+      {
+       "en": "`[\"body\", \"price\"]`",
+       "ar": "`[\"body\", \"price\"]`"
+      },
+      {
+       "en": "`[\"body\", \"products\", 2, \"price\"]`",
+       "ar": "`[\"body\", \"products\", 2, \"price\"]`"
+      },
+      {
+       "en": "`[\"body\", \"products\", 1, \"price\"]`",
+       "ar": "`[\"body\", \"products\", 1, \"price\"]`"
+      },
+      {
+       "en": "`[\"body\", \"products\", \"Book\"]`",
+       "ar": "`[\"body\", \"products\", \"Book\"]`"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "Nested errors show the full path. The bad product is the second one, at index `1` (lists count from 0).",
+      "ar": "أخطاء النماذج المتداخلة تعرض المسار كاملًا. المنتج الخاطئ هو الثاني، وموقعه `1` (القوائم تبدأ العدّ من 0)."
+     }
+    },
+    {
+     "id": 10,
+     "difficulty": "hard",
+     "question": {
+      "en": "The client sends `{\"name\": \"Pen\", \"price\": 1, \"color\": \"red\"}`. What does it get back?",
+      "ar": "يرسل العميل `{\"name\": \"Pen\", \"price\": 1, \"color\": \"red\"}`. ماذا يستلم؟"
+     },
+     "codeSnippet": "class Item(BaseModel):\n    name: str\n    price: float\n    description: str | None = None\n    in_stock: bool = True\n\n\n@app.post(\"/items\")\ndef create_item(item: Item):\n    return item",
+     "options": [
+      {
+       "en": "`422`, because `color` is not in `Item`",
+       "ar": "`422`، لأن `color` غير موجود في `Item`"
+      },
+      {
+       "en": "`200`, and `color` is silently dropped",
+       "ar": "`200`، ويُحذف `color` بصمت"
+      },
+      {
+       "en": "`200`, and the JSON keeps `\"color\": \"red\"`",
+       "ar": "`200`، ويبقى `\"color\": \"red\"` في JSON"
+      },
+      {
+       "en": "`400`, because the body has an unknown key",
+       "ar": "`400`، لأن الجسم فيه مفتاح غير معروف"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "Extra fields are ignored by default, so `color` is dropped. Missing optional fields get defaults and `1` becomes `1.0`: `{\"name\": \"Pen\", \"price\": 1.0, \"description\": null, \"in_stock\": true}`.",
+      "ar": "الحقول الإضافية تُتجاهل افتراضيًا، لذا يُحذف `color`. الحقول الاختيارية الغائبة تأخذ قيمها الافتراضية و`1` تصبح `1.0`: `{\"name\": \"Pen\", \"price\": 1.0, \"description\": null, \"in_stock\": true}`."
+     }
+    }
+   ]
+  },
+  {
+   "id": "crud-api",
+   "title": {
+    "en": "Build a CRUD API",
+    "ar": "بناء واجهة CRUD API"
+   },
+   "summary": {
+    "en": "Build a complete in-memory todos API with create, read, update and delete routes, dependencies and tests.",
+    "ar": "ابنِ API كاملة للمهام في الذاكرة بمسارات الإنشاء والقراءة والتعديل والحذف، مع الاعتماديات والاختبارات."
+   },
+   "lessons": [
+    {
+     "id": "design-the-resource",
+     "title": {
+      "en": "Designing the todos resource",
+      "ar": "تصميم المورد todos"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "A CRUD API lets clients Create, Read, Update and Delete one kind of thing, called a resource. We will build a small todos API that keeps its data in memory: a dict plus an id counter.",
+       "ar": "واجهة CRUD تتيح للعميل إنشاء (Create) وقراءة (Read) وتعديل (Update) وحذف (Delete) نوع واحد من البيانات يُسمّى المورد (resource). سنبني API صغيرة للمهام (todos) تحفظ بياناتها في الذاكرة: قاموس (dict) وعدّاد للمعرّفات (id)."
+      },
+      {
+       "type": "h",
+       "en": "The routes",
+       "ar": "المسارات (routes)"
+      },
+      {
+       "type": "code",
+       "lang": "text",
+       "code": "GET    /todos          list todos (?done=, ?skip=, ?limit=)\nGET    /todos/{todo_id}  read one todo\nPOST   /todos          create a todo        -> 201\nPUT    /todos/{todo_id}  replace a todo\nPATCH  /todos/{todo_id}  change some fields\nDELETE /todos/{todo_id}  delete a todo        -> 204"
+      },
+      {
+       "type": "p",
+       "en": "All routes share one base path, `/todos`. The HTTP method says what to do, and `/todos/{todo_id}` points at one item.",
+       "ar": "كل المسارات تبدأ بالمسار نفسه `/todos`. طريقة HTTP (method) تحدّد العملية، و`/todos/{todo_id}` يشير إلى عنصر واحد."
+      },
+      {
+       "type": "h",
+       "en": "Three models, three jobs",
+       "ar": "ثلاثة نماذج، ثلاث مهام"
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi import FastAPI, HTTPException, Query\nfrom pydantic import BaseModel, Field\n\napp = FastAPI()\n\n\nclass TodoCreate(BaseModel):  # what the client sends\n    title: str = Field(min_length=1, max_length=100)\n    done: bool = False\n\n\nclass TodoUpdate(BaseModel):  # every field optional\n    title: str | None = Field(default=None, min_length=1, max_length=100)\n    done: bool | None = None\n\n\nclass Todo(BaseModel):  # what the API returns\n    id: int\n    title: str\n    done: bool\n\n\ntodos: dict[int, Todo] = {}  # id -> Todo\nnext_id = 1"
+      },
+      {
+       "type": "list",
+       "en": [
+        "`TodoCreate`: the body for POST and PUT. It has no `id`, because the server chooses the id.",
+        "`TodoUpdate`: the body for PATCH. Every field is optional, so the client sends only what changes.",
+        "`Todo`: what we store and return. It always has `id`, `title` and `done`."
+       ],
+       "ar": [
+        "`TodoCreate`: جسم الطلب في POST وPUT. لا يحتوي `id` لأن الخادم هو من يختار المعرّف.",
+        "`TodoUpdate`: جسم الطلب في PATCH. كل حقوله اختيارية، فيرسل العميل ما يتغيّر فقط.",
+        "`Todo`: ما نخزّنه ونُرجعه. فيه دائمًا `id` و`title` و`done`."
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "Separate models keep the API safe and clear: a client cannot set the `id` itself, and the docs at `/docs` show exactly what each route accepts and returns.",
+       "ar": "فصل النماذج يجعل الـ API آمنة وواضحة: لا يستطيع العميل تحديد `id` بنفسه، وتعرض صفحة `/docs` بدقة ما يقبله كل مسار وما يُرجعه."
+      },
+      {
+       "type": "warn",
+       "en": "In-memory data disappears when the server restarts. That is fine for learning; real apps use a database.",
+       "ar": "البيانات في الذاكرة تضيع عند إعادة تشغيل الخادم. هذا مناسب للتعلّم، أما التطبيقات الحقيقية فتستخدم قاعدة بيانات."
+      }
+     ]
+    },
+    {
+     "id": "create-and-read",
+     "title": {
+      "en": "Create and read todos",
+      "ar": "إنشاء المهام وقراءتها"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "Many routes need the same check: find a todo or answer 404. Put it in one small helper function so the error is identical everywhere.",
+       "ar": "مسارات كثيرة تحتاج الفحص نفسه: ابحث عن المهمة أو أرجِع 404. ضعه في دالة مساعدة صغيرة واحدة ليكون الخطأ متطابقًا في كل مكان."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "def find_todo_or_404(todo_id: int) -> Todo:\n    todo = todos.get(todo_id)\n    if todo is None:\n        raise HTTPException(status_code=404, detail=\"Todo not found\")\n    return todo"
+      },
+      {
+       "type": "h",
+       "en": "POST: create",
+       "ar": "POST: الإنشاء"
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "@app.post(\"/todos\", response_model=Todo, status_code=201)\ndef create_todo(data: TodoCreate):\n    global next_id\n    todo = Todo(id=next_id, **data.model_dump())\n    todos[todo.id] = todo\n    next_id += 1\n    return todo"
+      },
+      {
+       "type": "p",
+       "en": "The server builds the `Todo` from the validated body plus the next id, stores it, and returns it with status 201. If the client sends an extra `id` field, Pydantic ignores it.",
+       "ar": "يبني الخادم كائن `Todo` من جسم الطلب بعد التحقق منه مع المعرّف التالي، ثم يخزّنه ويُرجعه برمز الحالة 201. وإذا أرسل العميل حقل `id` إضافيًا فإن Pydantic يتجاهله."
+      },
+      {
+       "type": "h",
+       "en": "GET: list and read one",
+       "ar": "GET: عرض القائمة وقراءة عنصر واحد"
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "@app.get(\"/todos\", response_model=list[Todo])\ndef list_todos(\n    done: bool | None = None,\n    skip: int = Query(default=0, ge=0),\n    limit: int = Query(default=10, ge=1, le=100),\n):\n    items = list(todos.values())\n    if done is not None:\n        items = [t for t in items if t.done == done]\n    return items[skip : skip + limit]\n\n\n@app.get(\"/todos/{todo_id}\", response_model=Todo)\ndef read_todo(todo_id: int):\n    return find_todo_or_404(todo_id)"
+      },
+      {
+       "type": "p",
+       "en": "`done` is an optional filter. `skip` and `limit` give simple pagination: skip the first `skip` items, then return at most `limit`.",
+       "ar": "`done` فلتر اختياري. و`skip` و`limit` يقدّمان تقسيمًا بسيطًا للصفحات (pagination): تخطَّ أول `skip` عناصر ثم أرجِع `limit` عنصرًا على الأكثر."
+      },
+      {
+       "type": "code",
+       "lang": "http",
+       "code": "GET /todos?done=true&skip=0&limit=2\n\nHTTP/1.1 200 OK\n[{\"id\": 2, \"title\": \"Read book\", \"done\": true},\n {\"id\": 3, \"title\": \"Walk dog\", \"done\": true}]\n\nGET /todos/99\n\nHTTP/1.1 404 Not Found\n{\"detail\": \"Todo not found\"}"
+      }
+     ]
+    },
+    {
+     "id": "update-and-delete",
+     "title": {
+      "en": "PUT, PATCH and DELETE",
+      "ar": "PUT وPATCH وDELETE"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "PUT replaces the whole todo. It reuses `TodoCreate`, so a field the client leaves out gets its default value.",
+       "ar": "PUT يستبدل المهمة كاملة. وهو يعيد استخدام `TodoCreate`، لذلك أي حقل لا يرسله العميل يأخذ قيمته الافتراضية."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "@app.put(\"/todos/{todo_id}\", response_model=Todo)\ndef replace_todo(todo_id: int, data: TodoCreate):\n    find_todo_or_404(todo_id)\n    new_todo = Todo(id=todo_id, **data.model_dump())\n    todos[todo_id] = new_todo\n    return new_todo"
+      },
+      {
+       "type": "p",
+       "en": "PATCH changes only some fields. It uses `TodoUpdate` and `model_dump(exclude_unset=True)`, which keeps only the fields the client actually sent. `model_copy(update=...)` then makes a new todo with those changes.",
+       "ar": "PATCH يغيّر بعض الحقول فقط. يستخدم `TodoUpdate` مع `model_dump(exclude_unset=True)` الذي يحتفظ فقط بالحقول التي أرسلها العميل فعلًا. ثم ينشئ `model_copy(update=...)` مهمة جديدة بهذه التغييرات."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "@app.patch(\"/todos/{todo_id}\", response_model=Todo)\ndef update_todo(todo_id: int, changes: TodoUpdate):\n    todo = find_todo_or_404(todo_id)\n    data = changes.model_dump(exclude_unset=True)\n    updated = todo.model_copy(update=data)\n    todos[todo_id] = updated\n    return updated"
+      },
+      {
+       "type": "warn",
+       "en": "Without `exclude_unset=True`, unsent fields come out as `None` and would overwrite real data:",
+       "ar": "بدون `exclude_unset=True` تخرج الحقول غير المرسلة بقيمة `None` فتكتب فوق البيانات الحقيقية:"
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "changes = TodoUpdate.model_validate({\"done\": True})\n\nchanges.model_dump()\n# {'title': None, 'done': True}   <- would erase the title!\n\nchanges.model_dump(exclude_unset=True)\n# {'done': True}                  <- only what the client sent"
+      },
+      {
+       "type": "p",
+       "en": "DELETE removes the todo and returns 204 No Content. With `status_code=204` and no `return`, the response has an empty body.",
+       "ar": "DELETE يحذف المهمة ويُرجع 204 No Content. مع `status_code=204` ومن دون `return` يكون جسم الاستجابة فارغًا."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "@app.delete(\"/todos/{todo_id}\", status_code=204)\ndef delete_todo(todo_id: int):\n    find_todo_or_404(todo_id)\n    del todos[todo_id]"
+      },
+      {
+       "type": "code",
+       "lang": "http",
+       "code": "PATCH /todos/1\n{\"done\": true}\n\nHTTP/1.1 200 OK\n{\"id\": 1, \"title\": \"Buy milk\", \"done\": true}\n\nDELETE /todos/1\n\nHTTP/1.1 204 No Content"
+      }
+     ]
+    },
+    {
+     "id": "dependencies",
+     "title": {
+      "en": "Sharing code with Depends",
+      "ar": "مشاركة الكود باستخدام Depends"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "A dependency is a function that FastAPI runs for you before your route. You declare it with `Depends(...)`, and FastAPI passes its return value into your parameter.",
+       "ar": "الاعتمادية (dependency) دالة يشغّلها FastAPI نيابةً عنك قبل دالة المسار. تعلنها باستخدام `Depends(...)`، فيمرّر FastAPI القيمة التي تُرجعها إلى المعامل."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi import Depends\n\n\ndef get_todo_or_404(todo_id: int) -> Todo:\n    todo = todos.get(todo_id)\n    if todo is None:\n        raise HTTPException(status_code=404, detail=\"Todo not found\")\n    return todo\n\n\n@app.get(\"/todos/{todo_id}\", response_model=Todo)\ndef read_todo(todo: Todo = Depends(get_todo_or_404)):\n    return todo\n\n\n@app.delete(\"/todos/{todo_id}\", status_code=204)\ndef delete_todo(todo: Todo = Depends(get_todo_or_404)):\n    del todos[todo.id]"
+      },
+      {
+       "type": "p",
+       "en": "The dependency asks for `todo_id`, so FastAPI reads it from the path `/todos/{todo_id}`. If it raises `HTTPException`, the client gets 404 and the route body never runs.",
+       "ar": "الاعتمادية تطلب `todo_id`، فيقرؤه FastAPI من المسار `/todos/{todo_id}`. وإذا رفعت `HTTPException` يحصل العميل على 404 ولا يُنفَّذ جسم دالة المسار أبدًا."
+      },
+      {
+       "type": "h",
+       "en": "A shared pagination dependency",
+       "ar": "اعتمادية مشتركة لتقسيم الصفحات"
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "def pagination(\n    skip: int = Query(default=0, ge=0),\n    limit: int = Query(default=10, ge=1, le=100),\n) -> dict:\n    return {\"skip\": skip, \"limit\": limit}\n\n\n@app.get(\"/todos\", response_model=list[Todo])\ndef list_todos(done: bool | None = None, page: dict = Depends(pagination)):\n    items = list(todos.values())\n    if done is not None:\n        items = [t for t in items if t.done == done]\n    return items[page[\"skip\"] : page[\"skip\"] + page[\"limit\"]]"
+      },
+      {
+       "type": "p",
+       "en": "Any list route can now reuse `Depends(pagination)` and get the same validated `skip` and `limit` query parameters.",
+       "ar": "الآن يستطيع أي مسار يُرجع قائمة أن يعيد استخدام `Depends(pagination)` ويحصل على معاملات الاستعلام `skip` و`limit` نفسها بعد التحقق منها."
+      },
+      {
+       "type": "tip",
+       "en": "The FastAPI docs also show the `Annotated` style. It does the same thing and lets you name a dependency once:",
+       "ar": "توثيق FastAPI يعرض أيضًا أسلوب `Annotated`. يؤدي الشيء نفسه ويتيح لك تسمية الاعتمادية مرة واحدة:"
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from typing import Annotated\n\nTodoDep = Annotated[Todo, Depends(get_todo_or_404)]\n\n\n@app.get(\"/todos/{todo_id}\", response_model=Todo)\ndef read_todo(todo: TodoDep):\n    return todo"
+      }
+     ]
+    },
+    {
+     "id": "full-app-and-testing",
+     "title": {
+      "en": "The full app and testing it",
+      "ar": "التطبيق الكامل واختباره"
+     },
+     "blocks": [
+      {
+       "type": "p",
+       "en": "Here is the complete `main.py`, with the dependencies from the last lesson. Run it with `fastapi dev main.py` and try every route at `/docs`.",
+       "ar": "هذا ملف `main.py` كاملًا مع الاعتماديات من الدرس السابق. شغّله بالأمر `fastapi dev main.py` وجرّب كل المسارات في `/docs`."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi import Depends, FastAPI, HTTPException, Query\nfrom pydantic import BaseModel, Field\n\napp = FastAPI()\n\n\n# --- Models ---\nclass TodoCreate(BaseModel):\n    title: str = Field(min_length=1, max_length=100)\n    done: bool = False\n\n\nclass TodoUpdate(BaseModel):\n    title: str | None = Field(default=None, min_length=1, max_length=100)\n    done: bool | None = None\n\n\nclass Todo(BaseModel):\n    id: int\n    title: str\n    done: bool\n\n\n# --- In-memory storage ---\ntodos: dict[int, Todo] = {}\nnext_id = 1\n\n\n# --- Dependencies ---\ndef get_todo_or_404(todo_id: int) -> Todo:\n    todo = todos.get(todo_id)\n    if todo is None:\n        raise HTTPException(status_code=404, detail=\"Todo not found\")\n    return todo\n\n\ndef pagination(\n    skip: int = Query(default=0, ge=0),\n    limit: int = Query(default=10, ge=1, le=100),\n) -> dict:\n    return {\"skip\": skip, \"limit\": limit}\n\n\n# --- Routes ---\n@app.get(\"/todos\", response_model=list[Todo])\ndef list_todos(done: bool | None = None, page: dict = Depends(pagination)):\n    items = list(todos.values())\n    if done is not None:\n        items = [t for t in items if t.done == done]\n    return items[page[\"skip\"] : page[\"skip\"] + page[\"limit\"]]\n\n\n@app.get(\"/todos/{todo_id}\", response_model=Todo)\ndef read_todo(todo: Todo = Depends(get_todo_or_404)):\n    return todo\n\n\n@app.post(\"/todos\", response_model=Todo, status_code=201)\ndef create_todo(data: TodoCreate):\n    global next_id\n    todo = Todo(id=next_id, **data.model_dump())\n    todos[todo.id] = todo\n    next_id += 1\n    return todo\n\n\n@app.put(\"/todos/{todo_id}\", response_model=Todo)\ndef replace_todo(data: TodoCreate, todo: Todo = Depends(get_todo_or_404)):\n    new_todo = Todo(id=todo.id, **data.model_dump())\n    todos[todo.id] = new_todo\n    return new_todo\n\n\n@app.patch(\"/todos/{todo_id}\", response_model=Todo)\ndef update_todo(changes: TodoUpdate, todo: Todo = Depends(get_todo_or_404)):\n    data = changes.model_dump(exclude_unset=True)\n    updated = todo.model_copy(update=data)\n    todos[todo.id] = updated\n    return updated\n\n\n@app.delete(\"/todos/{todo_id}\", status_code=204)\ndef delete_todo(todo: Todo = Depends(get_todo_or_404)):\n    del todos[todo.id]"
+      },
+      {
+       "type": "h",
+       "en": "Testing with TestClient",
+       "ar": "الاختبار باستخدام TestClient"
+      },
+      {
+       "type": "p",
+       "en": "`TestClient` calls your app directly, without starting a server. Each response has `.status_code` and `.json()`, so pytest can check them with `assert`.",
+       "ar": "`TestClient` يستدعي تطبيقك مباشرة من دون تشغيل خادم. كل استجابة فيها `.status_code` و`.json()`، فيستطيع pytest فحصها باستخدام `assert`."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi.testclient import TestClient\n\nfrom main import app\n\nclient = TestClient(app)\n\n\ndef test_create_and_read():\n    r = client.post(\"/todos\", json={\"title\": \"Buy milk\"})\n    assert r.status_code == 201\n    todo = r.json()\n    assert todo[\"title\"] == \"Buy milk\"\n    assert todo[\"done\"] is False\n\n    r = client.get(f\"/todos/{todo['id']}\")\n    assert r.status_code == 200\n    assert r.json() == todo\n\n\ndef test_missing_todo_returns_404():\n    r = client.get(\"/todos/9999\")\n    assert r.status_code == 404\n    assert r.json() == {\"detail\": \"Todo not found\"}"
+      },
+      {
+       "type": "code",
+       "lang": "bash",
+       "code": "pip install pytest\npytest\n# ..                    [100%]\n# 2 passed"
+      },
+      {
+       "type": "h",
+       "en": "Next steps",
+       "ar": "الخطوات التالية"
+      },
+      {
+       "type": "list",
+       "en": [
+        "Databases: store todos in SQLite or PostgreSQL (for example with SQLModel) so data survives restarts.",
+        "Auth: protect routes so only logged-in users can change their own todos.",
+        "Routers: split a large app into files with `APIRouter`."
+       ],
+       "ar": [
+        "قواعد البيانات: خزّن المهام في SQLite أو PostgreSQL (مثلًا باستخدام SQLModel) لتبقى البيانات بعد إعادة التشغيل.",
+        "المصادقة (Auth): احمِ المسارات لكي يعدّل المستخدمون المسجّلون مهامهم فقط.",
+        "الموجّهات (Routers): قسّم التطبيق الكبير إلى ملفات باستخدام `APIRouter`."
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "id": 1,
+     "difficulty": "easy",
+     "question": {
+      "en": "In this API, what status code does a successful `DELETE /todos/{todo_id}` return?",
+      "ar": "في هذه الـ API، ما رمز الحالة الذي يُرجعه `DELETE /todos/{todo_id}` عند النجاح؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "200 OK",
+       "ar": "200 OK"
+      },
+      {
+       "en": "201 Created",
+       "ar": "201 Created"
+      },
+      {
+       "en": "204 No Content",
+       "ar": "204 No Content"
+      },
+      {
+       "en": "404 Not Found",
+       "ar": "404 Not Found"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "The route uses `status_code=204` and returns nothing, so the response is 204 No Content with an empty body.",
+      "ar": "المسار يستخدم `status_code=204` ولا يُرجع شيئًا، لذلك تكون الاستجابة 204 No Content بجسم فارغ."
+     }
+    },
+    {
+     "id": 2,
+     "difficulty": "easy",
+     "question": {
+      "en": "Why does `TodoCreate` have no `id` field while `Todo` does?",
+      "ar": "لماذا لا يحتوي `TodoCreate` على الحقل `id` بينما يحتويه `Todo`؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "The server assigns the id, not the client",
+       "ar": "الخادم هو من يحدّد المعرّف وليس العميل"
+      },
+      {
+       "en": "Pydantic cannot validate integer fields",
+       "ar": "Pydantic لا يستطيع التحقق من حقول الأعداد"
+      },
+      {
+       "en": "The id is sent as a query parameter",
+       "ar": "المعرّف يُرسَل كمعامل استعلام (query)"
+      },
+      {
+       "en": "Each model may hold only two fields",
+       "ar": "كل نموذج يمكن أن يحمل حقلين فقط"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "`TodoCreate` describes what the client sends. The server picks the id from its counter, so the input model leaves it out and the output model `Todo` includes it.",
+      "ar": "`TodoCreate` يصف ما يرسله العميل. الخادم يختار المعرّف من العدّاد، لذلك لا يحتويه نموذج الإدخال، ويحتويه نموذج الإخراج `Todo`."
+     }
+    },
+    {
+     "id": 3,
+     "difficulty": "easy",
+     "question": {
+      "en": "Which HTTP method is used to change only some fields of a todo?",
+      "ar": "أي طريقة HTTP تُستخدم لتغيير بعض حقول المهمة فقط؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "PUT",
+       "ar": "PUT"
+      },
+      {
+       "en": "POST",
+       "ar": "POST"
+      },
+      {
+       "en": "GET",
+       "ar": "GET"
+      },
+      {
+       "en": "PATCH",
+       "ar": "PATCH"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "PATCH is a partial update. PUT replaces the whole todo.",
+      "ar": "PATCH تعديل جزئي، أما PUT فيستبدل المهمة كاملة."
+     }
+    },
+    {
+     "id": 4,
+     "difficulty": "medium",
+     "question": {
+      "en": "Todo 1 is stored as shown. What does this PATCH request return?",
+      "ar": "المهمة 1 مخزّنة كما هو موضّح. ماذا يُرجع طلب PATCH هذا؟"
+     },
+     "codeSnippet": "# Stored: {\"id\": 1, \"title\": \"Buy milk\", \"done\": false}\n\nPATCH /todos/1\n{\"done\": true}",
+     "options": [
+      {
+       "en": "{\"id\": 1, \"title\": null, \"done\": true}",
+       "ar": "{\"id\": 1, \"title\": null, \"done\": true}"
+      },
+      {
+       "en": "{\"id\": 1, \"title\": \"Buy milk\", \"done\": true}",
+       "ar": "{\"id\": 1, \"title\": \"Buy milk\", \"done\": true}"
+      },
+      {
+       "en": "{\"id\": 1, \"title\": \"Buy milk\", \"done\": false}",
+       "ar": "{\"id\": 1, \"title\": \"Buy milk\", \"done\": false}"
+      },
+      {
+       "en": "{\"detail\": \"Field required\"} (422)",
+       "ar": "{\"detail\": \"Field required\"} (422)"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "`model_dump(exclude_unset=True)` gives only `{'done': True}`, so only `done` changes and the title stays \"Buy milk\".",
+      "ar": "`model_dump(exclude_unset=True)` يعطي `{'done': True}` فقط، فيتغيّر `done` وحده ويبقى العنوان \"Buy milk\"."
+     }
+    },
+    {
+     "id": 5,
+     "difficulty": "medium",
+     "question": {
+      "en": "Todo 2 is stored as shown. The PUT route uses `TodoCreate` (where `done` defaults to `False`). What is returned?",
+      "ar": "المهمة 2 مخزّنة كما هو موضّح. مسار PUT يستخدم `TodoCreate` (وفيه القيمة الافتراضية لـ `done` هي `False`). ماذا يُرجع؟"
+     },
+     "codeSnippet": "# Stored: {\"id\": 2, \"title\": \"Read book\", \"done\": true}\n\nPUT /todos/2\n{\"title\": \"Read novel\"}",
+     "options": [
+      {
+       "en": "{\"id\": 2, \"title\": \"Read novel\", \"done\": true}",
+       "ar": "{\"id\": 2, \"title\": \"Read novel\", \"done\": true}"
+      },
+      {
+       "en": "{\"id\": 3, \"title\": \"Read novel\", \"done\": false}",
+       "ar": "{\"id\": 3, \"title\": \"Read novel\", \"done\": false}"
+      },
+      {
+       "en": "{\"id\": 2, \"title\": \"Read novel\", \"done\": false}",
+       "ar": "{\"id\": 2, \"title\": \"Read novel\", \"done\": false}"
+      },
+      {
+       "en": "422 error: field \"done\" is required",
+       "ar": "422 error: field \"done\" is required"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "PUT replaces the whole todo. `done` was not sent, so it takes its default `False`. The id stays 2.",
+      "ar": "PUT يستبدل المهمة كاملة. لم يُرسَل `done` فيأخذ قيمته الافتراضية `False`، ويبقى المعرّف 2."
+     }
+    },
+    {
+     "id": 6,
+     "difficulty": "medium",
+     "question": {
+      "en": "What does this code print?",
+      "ar": "ماذا يطبع هذا الكود؟"
+     },
+     "codeSnippet": "class TodoUpdate(BaseModel):\n    title: str | None = None\n    done: bool | None = None\n\nchanges = TodoUpdate.model_validate({\"done\": True})\nprint(changes.model_dump(exclude_unset=True))",
+     "options": [
+      {
+       "en": "{'done': True}",
+       "ar": "{'done': True}"
+      },
+      {
+       "en": "{'title': None, 'done': True}",
+       "ar": "{'title': None, 'done': True}"
+      },
+      {
+       "en": "{'title': None}",
+       "ar": "{'title': None}"
+      },
+      {
+       "en": "{}",
+       "ar": "{}"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "`exclude_unset=True` keeps only fields that were actually provided. Only `done` was sent, so `title` is left out.",
+      "ar": "`exclude_unset=True` يحتفظ فقط بالحقول التي أُرسلت فعلًا. أُرسل `done` وحده، فلا يظهر `title`."
+     }
+    },
+    {
+     "id": 7,
+     "difficulty": "medium",
+     "question": {
+      "en": "No todo with id 99 exists. What does the client receive?",
+      "ar": "لا توجد مهمة بالمعرّف 99. ماذا يستلم العميل؟"
+     },
+     "codeSnippet": "def get_todo_or_404(todo_id: int) -> Todo:\n    todo = todos.get(todo_id)\n    if todo is None:\n        raise HTTPException(status_code=404, detail=\"Todo not found\")\n    return todo\n\n@app.get(\"/todos/{todo_id}\", response_model=Todo)\ndef read_todo(todo: Todo = Depends(get_todo_or_404)):\n    return todo\n\n# GET /todos/99",
+     "options": [
+      {
+       "en": "200 with the body null",
+       "ar": "200 with the body null"
+      },
+      {
+       "en": "500 Internal Server Error",
+       "ar": "500 Internal Server Error"
+      },
+      {
+       "en": "422 with a validation error list",
+       "ar": "422 with a validation error list"
+      },
+      {
+       "en": "404 {\"detail\": \"Todo not found\"}",
+       "ar": "404 {\"detail\": \"Todo not found\"}"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "The dependency finds nothing and raises `HTTPException(404)`, so FastAPI answers 404 with `{\"detail\": \"Todo not found\"}`.",
+      "ar": "لا تجد الاعتمادية شيئًا فترفع `HTTPException(404)`، فيرد FastAPI بالرمز 404 مع `{\"detail\": \"Todo not found\"}`."
+     }
+    },
+    {
+     "id": 8,
+     "difficulty": "hard",
+     "question": {
+      "en": "With the todos below, which items does this request return?",
+      "ar": "مع المهام أدناه، ما العناصر التي يُرجعها هذا الطلب؟"
+     },
+     "codeSnippet": "# Stored todos:\n# {\"id\": 1, \"title\": \"Buy milk\",  \"done\": false}\n# {\"id\": 2, \"title\": \"Read book\", \"done\": true}\n# {\"id\": 3, \"title\": \"Walk dog\",  \"done\": true}\n# {\"id\": 4, \"title\": \"Cook\",      \"done\": false}\n\nGET /todos?done=true&skip=1&limit=1",
+     "options": [
+      {
+       "en": "Only todo 2 (Read book)",
+       "ar": "المهمة 2 فقط (Read book)"
+      },
+      {
+       "en": "Only todo 3 (Walk dog)",
+       "ar": "المهمة 3 فقط (Walk dog)"
+      },
+      {
+       "en": "Only todo 1 (Buy milk)",
+       "ar": "المهمة 1 فقط (Buy milk)"
+      },
+      {
+       "en": "Todos 2 and 3 together",
+       "ar": "المهمتان 2 و3 معًا"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "The filter runs first: `done=true` leaves todos 2 and 3. Then `skip=1` drops todo 2 and `limit=1` keeps one item: todo 3.",
+      "ar": "يُطبَّق الفلتر أولًا: `done=true` يُبقي المهمتين 2 و3. ثم `skip=1` يتخطى المهمة 2، و`limit=1` يُبقي عنصرًا واحدًا: المهمة 3."
+     }
+    },
+    {
+     "id": 9,
+     "difficulty": "hard",
+     "question": {
+      "en": "Todo 1 exists. `TodoUpdate` has `title: str | None = Field(default=None, min_length=1)`. What happens?",
+      "ar": "المهمة 1 موجودة. في `TodoUpdate` الحقل `title: str | None = Field(default=None, min_length=1)`. ماذا يحدث؟"
+     },
+     "codeSnippet": "PATCH /todos/1\n{\"title\": \"\"}",
+     "options": [
+      {
+       "en": "422: the title is shorter than 1 character",
+       "ar": "422: العنوان أقصر من حرف واحد"
+      },
+      {
+       "en": "200: the title becomes an empty string",
+       "ar": "200: يصبح العنوان نصًا فارغًا"
+      },
+      {
+       "en": "200: nothing changes because the field is optional",
+       "ar": "200: لا يتغيّر شيء لأن الحقل اختياري"
+      },
+      {
+       "en": "404: the todo cannot be found",
+       "ar": "404: لا يمكن العثور على المهمة"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "Optional only means the field may be left out. When it is sent, `min_length=1` still applies, so the empty string fails with 422.",
+      "ar": "الحقل الاختياري يعني فقط أنه يمكن عدم إرساله. أما إذا أُرسل فإن `min_length=1` يبقى مطبَّقًا، فيفشل النص الفارغ بالرمز 422."
+     }
+    },
+    {
+     "id": 10,
+     "difficulty": "hard",
+     "question": {
+      "en": "No todo with id 42 exists. What happens with this request?",
+      "ar": "لا توجد مهمة بالمعرّف 42. ماذا يحدث مع هذا الطلب؟"
+     },
+     "codeSnippet": "@app.delete(\"/todos/{todo_id}\", status_code=204)\ndef delete_todo(todo: Todo = Depends(get_todo_or_404)):\n    print(\"deleting\")\n    del todos[todo.id]\n\n# DELETE /todos/42",
+     "options": [
+      {
+       "en": "204, and \"deleting\" is printed",
+       "ar": "204، ويُطبع \"deleting\""
+      },
+      {
+       "en": "500, because del fails on a missing key",
+       "ar": "500، لأن del يفشل مع مفتاح غير موجود"
+      },
+      {
+       "en": "404, and \"deleting\" is never printed",
+       "ar": "404، ولا يُطبع \"deleting\" أبدًا"
+      },
+      {
+       "en": "404, but \"deleting\" is printed first",
+       "ar": "404، لكن يُطبع \"deleting\" أولًا"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "Dependencies run before the route function. `get_todo_or_404` raises the 404, so the route body never runs.",
+      "ar": "تُنفَّذ الاعتماديات قبل دالة المسار. `get_todo_or_404` يرفع الخطأ 404، فلا يُنفَّذ جسم دالة المسار أبدًا."
+     }
+    }
+   ]
+  }
+ ]
+}

@@ -70,7 +70,15 @@
     return '__GTL_VERSION__';
   }
 
-  window.gameAPI = { getQuestions };
+  // Learn section: one JSON file per course.
+  async function getCourse(id) {
+    if (typeof id !== 'string' || !/^[a-z0-9-]{1,40}$/.test(id)) throw new Error('Bad course id');
+    const res = await fetch(`./data/courses/${id}.json`);
+    if (!res.ok) throw new Error(`Failed to load course ${id}`);
+    return res.json();
+  }
+
+  window.gameAPI = { getQuestions, getCourse };
 
   window.appWindow = {
     minimize: () => {},

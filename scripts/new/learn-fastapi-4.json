@@ -1,0 +1,601 @@
+{
+ "id": "request-body",
+ "title": {
+  "en": "Request Bodies & Responses",
+  "ar": "جسم الطلب والاستجابات"
+ },
+ "summary": {
+  "en": "Receive JSON with Pydantic models, validate it, and control what your API sends back.",
+  "ar": "استقبل JSON باستخدام نماذج Pydantic، وتحقّق منه، وتحكّم فيما ترسله واجهتك (API)."
+ },
+ "lessons": [
+  {
+   "id": "why-request-body",
+   "title": {
+    "en": "Request bodies and Pydantic models",
+    "ar": "جسم الطلب ونماذج Pydantic"
+   },
+   "blocks": [
+    {
+     "type": "p",
+     "en": "Path and query parameters are fine for small values like an id or a page number. But when a client creates or updates something, it sends a whole object of data. That data travels in the request body, usually as JSON.",
+     "ar": "معاملات المسار والاستعلام مناسبة للقيم الصغيرة مثل المعرّف أو رقم الصفحة. لكن عندما ينشئ العميل شيئًا أو يحدّثه فإنه يرسل كائنًا كاملًا من البيانات. هذه البيانات تنتقل في جسم الطلب (request body)، وغالبًا بصيغة JSON."
+    },
+    {
+     "type": "p",
+     "en": "`POST` (create) and `PUT` (update) requests normally carry a body. `GET` requests normally do not.",
+     "ar": "طلبات `POST` (إنشاء) و`PUT` (تحديث) تحمل عادةً جسمًا. أما طلبات `GET` فلا تحمل جسمًا في العادة."
+    },
+    {
+     "type": "code",
+     "lang": "http",
+     "code": "POST /items HTTP/1.1\nContent-Type: application/json\n\n{\"name\": \"Pen\", \"price\": 2.5}"
+    },
+    {
+     "type": "p",
+     "en": "In FastAPI you describe the shape of the body with a class that inherits from Pydantic's `BaseModel`. Each class attribute is one JSON field, with a type.",
+     "ar": "في FastAPI تصف شكل الجسم بصنف (class) يرث من `BaseModel` الخاص بمكتبة Pydantic. كل خاصية في الصنف هي حقل واحد في JSON، ولها نوع."
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from fastapi import FastAPI\nfrom pydantic import BaseModel\n\napp = FastAPI()\n\n\nclass Item(BaseModel):\n    name: str                        # required\n    price: float                     # required\n    description: str | None = None   # optional\n    in_stock: bool = True            # has a default"
+    },
+    {
+     "type": "list",
+     "en": [
+      "A field with no default (`name: str`) is required.",
+      "A field with a default (`in_stock: bool = True`) can be left out; the default is used.",
+      "`str | None = None` makes a field optional: it may be missing or `null`."
+     ],
+     "ar": [
+      "الحقل بلا قيمة افتراضية (`name: str`) حقل إلزامي.",
+      "الحقل الذي له قيمة افتراضية (`in_stock: bool = True`) يمكن حذفه، وتُستخدم القيمة الافتراضية.",
+      "`str | None = None` يجعل الحقل اختياريًا: قد يغيب أو تكون قيمته `null`."
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "Run the app with `fastapi dev main.py` and open `/docs`: every endpoint that uses a model shows a \"Request body\" section with an example JSON.",
+     "ar": "شغّل التطبيق بالأمر `fastapi dev main.py` وافتح `/docs`: كل endpoint يستخدم نموذجًا يعرض قسم \"Request body\" مع مثال JSON."
+    }
+   ]
+  },
+  {
+   "id": "receiving-the-body",
+   "title": {
+    "en": "Receiving the body and its errors",
+    "ar": "استقبال الجسم وأخطاؤه"
+   },
+   "blocks": [
+    {
+     "type": "p",
+     "en": "To receive the body, add a parameter whose type is your model. FastAPI reads the JSON, checks it against the model and gives you a ready `Item` object.",
+     "ar": "لاستقبال الجسم أضف معاملًا نوعه هو النموذج الخاص بك. يقرأ FastAPI ملف JSON، ويتحقق منه مقابل النموذج، ثم يعطيك كائن `Item` جاهزًا."
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "@app.post(\"/items\")\ndef create_item(item: Item):\n    total = item.price * 2           # attributes, not item[\"price\"]\n    data = item.model_dump()         # convert to a plain dict\n    return {\"name\": item.name, \"double_price\": total, \"data\": data}"
+    },
+    {
+     "type": "code",
+     "lang": "json",
+     "code": "{\"name\": \"Pen\", \"double_price\": 5.0, \"data\": {\"name\": \"Pen\", \"price\": 2.5, \"description\": null, \"in_stock\": true}}"
+    },
+    {
+     "type": "p",
+     "en": "Read values with dot notation: `item.name`, `item.price`. `item.model_dump()` turns the model into a normal dict, handy for saving or merging. Missing optional fields get their defaults.",
+     "ar": "اقرأ القيم بالنقطة: `item.name` و`item.price`. والدالة `item.model_dump()` تحوّل النموذج إلى dict عادي، وهذا مفيد للحفظ أو الدمج. الحقول الاختيارية الغائبة تأخذ قيمها الافتراضية."
+    },
+    {
+     "type": "h",
+     "en": "When the body is wrong",
+     "ar": "عندما يكون الجسم خاطئًا"
+    },
+    {
+     "type": "p",
+     "en": "If the body does not match the model, your function never runs. FastAPI answers `422` and lists every problem in `detail`. `loc` starts with `\"body\"` and then names the field.",
+     "ar": "إذا لم يطابق الجسم النموذج فلن تعمل دالتك أبدًا. يرد FastAPI بالرمز `422` ويذكر كل مشكلة داخل `detail`. يبدأ `loc` بالكلمة `\"body\"` ثم يذكر اسم الحقل."
+    },
+    {
+     "type": "code",
+     "lang": "json",
+     "code": "// sent {\"name\": \"Pen\"}  (price missing)\n{\"detail\": [{\"type\": \"missing\", \"loc\": [\"body\", \"price\"], \"msg\": \"Field required\", \"input\": {\"name\": \"Pen\"}}]}\n\n// sent {\"name\": \"Pen\", \"price\": \"cheap\"}\n{\"detail\": [{\"type\": \"float_parsing\", \"loc\": [\"body\", \"price\"], \"msg\": \"Input should be a valid number, unable to parse string as a number\", \"input\": \"cheap\"}]}"
+    },
+    {
+     "type": "list",
+     "en": [
+      "Broken JSON (e.g. a trailing comma) also gives `422`, with `\"type\": \"json_invalid\"`.",
+      "No body at all gives `422` with `\"loc\": [\"body\"]` and `\"Field required\"`.",
+      "A string that looks like a number, such as `\"3\"`, is converted to `3.0`.",
+      "Extra fields that the model does not declare are ignored by default."
+     ],
+     "ar": [
+      "ملف JSON المعطوب (مثل فاصلة زائدة في النهاية) يعطي أيضًا `422` مع `\"type\": \"json_invalid\"`.",
+      "غياب الجسم تمامًا يعطي `422` مع `\"loc\": [\"body\"]` و`\"Field required\"`.",
+      "النص الذي يشبه رقمًا مثل `\"3\"` يُحوَّل إلى `3.0`.",
+      "الحقول الإضافية التي لم يعرّفها النموذج تُتجاهَل افتراضيًا."
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "Pydantic v2 uses `model_dump()`. The old `.dict()` is deprecated; do not use it in new code.",
+     "ar": "يستخدم Pydantic v2 الدالة `model_dump()`. أما `.dict()` القديمة فهي مُهمَلة (deprecated)، فلا تستخدمها في الكود الجديد."
+    }
+   ]
+  },
+  {
+   "id": "field-validation-nested",
+   "title": {
+    "en": "Field rules and nested models",
+    "ar": "قواعد الحقول والنماذج المتداخلة"
+   },
+   "blocks": [
+    {
+     "type": "p",
+     "en": "Types alone do not stop a price of `-5` or an empty name. Pydantic's `Field(...)` adds rules to a field, just like `Query` and `Path` did for parameters.",
+     "ar": "الأنواع وحدها لا تمنع سعرًا قيمته `-5` أو اسمًا فارغًا. الدالة `Field(...)` من Pydantic تضيف قواعد للحقل، تمامًا كما فعلت `Query` و`Path` مع المعاملات."
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from pydantic import BaseModel, Field\n\n\nclass Product(BaseModel):\n    name: str = Field(min_length=2, max_length=20)\n    price: float = Field(gt=0)               # greater than 0\n    quantity: int = Field(default=1, ge=1)   # optional, at least 1"
+    },
+    {
+     "type": "p",
+     "en": "Sending `{\"name\": \"Pen\", \"price\": 0}` breaks the `gt=0` rule:",
+     "ar": "إرسال `{\"name\": \"Pen\", \"price\": 0}` يخالف القاعدة `gt=0`:"
+    },
+    {
+     "type": "code",
+     "lang": "json",
+     "code": "{\"detail\": [{\"type\": \"greater_than\", \"loc\": [\"body\", \"price\"], \"msg\": \"Input should be greater than 0\", \"input\": 0, \"ctx\": {\"gt\": 0.0}}]}"
+    },
+    {
+     "type": "h",
+     "en": "Nested models and lists",
+     "ar": "النماذج المتداخلة والقوائم"
+    },
+    {
+     "type": "p",
+     "en": "A field can be another model, or a list of models. FastAPI validates every inner object too.",
+     "ar": "يمكن أن يكون الحقل نموذجًا آخر، أو قائمة من النماذج. ويتحقق FastAPI من كل كائن داخلي أيضًا."
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "class Order(BaseModel):\n    customer: str\n    products: list[Product]     # a JSON array of Product objects\n    tags: list[str] = []"
+    },
+    {
+     "type": "p",
+     "en": "If the second product has `\"price\": 0`, the error points exactly to it: `\"loc\": [\"body\", \"products\", 1, \"price\"]`. The `1` is the list index, counted from 0.",
+     "ar": "إذا كان المنتج الثاني بقيمة `\"price\": 0` فإن الخطأ يشير إليه بدقة: `\"loc\": [\"body\", \"products\", 1, \"price\"]`. الرقم `1` هو موقع العنصر في القائمة، ويبدأ العدّ من 0."
+    }
+   ]
+  },
+  {
+   "id": "body-path-query",
+   "title": {
+    "en": "Body, path and query together",
+    "ar": "الجسم والمسار والاستعلام معًا"
+   },
+   "blocks": [
+    {
+     "type": "p",
+     "en": "One endpoint can use all three sources at once. You do not mark them; FastAPI decides from the parameter itself.",
+     "ar": "يمكن لـ endpoint واحد أن يستخدم المصادر الثلاثة معًا. لا تحتاج إلى تحديدها بنفسك، فـ FastAPI يقرر بناءً على المعامل نفسه."
+    },
+    {
+     "type": "list",
+     "en": [
+      "Name appears in the path (`{item_id}`) → path parameter.",
+      "Simple type (`int`, `str`, `bool`, `float`) not in the path → query parameter.",
+      "Type is a Pydantic model → request body."
+     ],
+     "ar": [
+      "الاسم موجود في المسار (`{item_id}`) ← معامل مسار.",
+      "نوع بسيط (`int` أو `str` أو `bool` أو `float`) وليس في المسار ← معامل استعلام.",
+      "النوع نموذج Pydantic ← جسم الطلب."
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "class Item(BaseModel):\n    name: str\n    price: float\n\n\n@app.put(\"/items/{item_id}\")\ndef update_item(item_id: int, item: Item, notify: bool = False):\n    return {\"item_id\": item_id, \"notify\": notify, \"item\": item.model_dump()}"
+    },
+    {
+     "type": "code",
+     "lang": "http",
+     "code": "PUT /items/5?notify=true HTTP/1.1\nContent-Type: application/json\n\n{\"name\": \"Pen\", \"price\": 3}"
+    },
+    {
+     "type": "code",
+     "lang": "json",
+     "code": "{\"item_id\": 5, \"notify\": true, \"item\": {\"name\": \"Pen\", \"price\": 3.0}}"
+    },
+    {
+     "type": "p",
+     "en": "The order of the parameters in the function does not matter. Each error's `loc` tells you which part failed: `[\"path\", \"item_id\"]`, `[\"query\", ...]` or `[\"body\", ...]`.",
+     "ar": "ترتيب المعاملات في الدالة لا يهم. و`loc` في كل خطأ يخبرك بالجزء الذي فشل: `[\"path\", \"item_id\"]` أو `[\"query\", ...]` أو `[\"body\", ...]`."
+    },
+    {
+     "type": "tip",
+     "en": "A plain `text: str` with no default and not in the path is a REQUIRED query parameter, not a body field. To get it from the body, put it inside a model.",
+     "ar": "المعامل `text: str` بلا قيمة افتراضية وغير الموجود في المسار هو معامل استعلام إلزامي، وليس حقلًا في الجسم. لكي تأخذه من الجسم ضعه داخل نموذج."
+    }
+   ]
+  },
+  {
+   "id": "responses",
+   "title": {
+    "en": "Shaping responses and errors",
+    "ar": "تشكيل الاستجابات والأخطاء"
+   },
+   "blocks": [
+    {
+     "type": "p",
+     "en": "`response_model` tells FastAPI what the response must look like. Fields not in that model are removed, which is how you keep secrets like a password out of the response.",
+     "ar": "يخبر `response_model` إطار FastAPI بالشكل الذي يجب أن تكون عليه الاستجابة (response). الحقول غير الموجودة في ذلك النموذج تُحذف، وبهذا تُبقي الأسرار مثل كلمة المرور خارج الاستجابة."
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from fastapi import FastAPI, HTTPException\nfrom pydantic import BaseModel\n\napp = FastAPI()\nfake_db = {}\n\n\nclass UserIn(BaseModel):\n    username: str\n    email: str\n    password: str\n\n\nclass UserOut(BaseModel):\n    username: str\n    email: str\n\n\n@app.post(\"/users\", response_model=UserOut, status_code=201)\ndef create_user(user: UserIn):\n    fake_db[user.username] = user\n    return user                      # password is filtered out"
+    },
+    {
+     "type": "code",
+     "lang": "json",
+     "code": "// 201 Created\n{\"username\": \"ali\", \"email\": \"ali@example.com\"}"
+    },
+    {
+     "type": "p",
+     "en": "`status_code=201` sets the success code; `201 Created` is the right answer to a create request. Without it, FastAPI returns `200`. Invalid input still returns `422`.",
+     "ar": "يحدد `status_code=201` رمز النجاح، و`201 Created` هو الرد المناسب لطلب الإنشاء. بدونه يرجع FastAPI الرمز `200`. والمدخلات غير الصالحة تبقى ترجع `422`."
+    },
+    {
+     "type": "h",
+     "en": "Errors with HTTPException",
+     "ar": "الأخطاء باستخدام HTTPException"
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "@app.get(\"/users/{username}\", response_model=UserOut)\ndef get_user(username: str):\n    if username not in fake_db:\n        raise HTTPException(status_code=404, detail=\"User not found\")\n    return fake_db[username]"
+    },
+    {
+     "type": "code",
+     "lang": "json",
+     "code": "// 404 Not Found\n{\"detail\": \"User not found\"}"
+    },
+    {
+     "type": "p",
+     "en": "You `raise` it, not `return` it. The function stops there, and FastAPI sends the status code with `{\"detail\": ...}` as the body.",
+     "ar": "أنت تستخدم `raise` معه وليس `return`. تتوقف الدالة عند هذا السطر، ويرسل FastAPI رمز الحالة ومعه `{\"detail\": ...}` كجسم للاستجابة."
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "difficulty": "easy",
+   "question": {
+    "en": "Which class does a FastAPI request-body model inherit from?",
+    "ar": "من أي صنف يرث نموذج جسم الطلب في FastAPI؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "`TypedDict`",
+     "ar": "`TypedDict`"
+    },
+    {
+     "en": "`BaseModel`",
+     "ar": "`BaseModel`"
+    },
+    {
+     "en": "`FastAPI`",
+     "ar": "`FastAPI`"
+    },
+    {
+     "en": "`Request`",
+     "ar": "`Request`"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "Body models inherit from Pydantic's `BaseModel` (`from pydantic import BaseModel`).",
+    "ar": "نماذج الجسم ترث من `BaseModel` الخاص بـ Pydantic (`from pydantic import BaseModel`)."
+   }
+  },
+  {
+   "id": 2,
+   "difficulty": "easy",
+   "question": {
+    "en": "In a model, what does `description: str | None = None` mean?",
+    "ar": "في النموذج، ماذا يعني `description: str | None = None`؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "The field is required and must be a string",
+     "ar": "الحقل إلزامي ويجب أن يكون نصًا"
+    },
+    {
+     "en": "The field is always ignored by FastAPI",
+     "ar": "الحقل يتجاهله FastAPI دائمًا"
+    },
+    {
+     "en": "Optional: it may be left out or be null",
+     "ar": "اختياري: يمكن حذفه أو جعله null"
+    },
+    {
+     "en": "The field is read from the query string",
+     "ar": "الحقل يُقرأ من سلسلة الاستعلام"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "The `= None` default makes the field optional; `str | None` allows a string or `null`.",
+    "ar": "القيمة الافتراضية `= None` تجعل الحقل اختياريًا، و`str | None` تسمح بنص أو `null`."
+   }
+  },
+  {
+   "id": 3,
+   "difficulty": "easy",
+   "question": {
+    "en": "An endpoint is declared with `@app.post(\"/users\", status_code=201)`. A valid request arrives. Which status code does the client get?",
+    "ar": "تم تعريف endpoint بالشكل `@app.post(\"/users\", status_code=201)`. وصل طلب صالح. ما رمز الحالة الذي يستلمه العميل؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "`200`",
+     "ar": "`200`"
+    },
+    {
+     "en": "`204`",
+     "ar": "`204`"
+    },
+    {
+     "en": "`422`",
+     "ar": "`422`"
+    },
+    {
+     "en": "`201`",
+     "ar": "`201`"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`status_code=201` replaces the default `200` for successful responses. `422` would only come from invalid input.",
+    "ar": "`status_code=201` يستبدل الرمز الافتراضي `200` في الاستجابات الناجحة. أما `422` فيأتي فقط من مدخلات غير صالحة."
+   }
+  },
+  {
+   "id": 4,
+   "difficulty": "medium",
+   "question": {
+    "en": "The client sends `{\"name\": \"Pen\"}` to `POST /items`. What does FastAPI return?",
+    "ar": "يرسل العميل `{\"name\": \"Pen\"}` إلى `POST /items`. ماذا يرجع FastAPI؟"
+   },
+   "codeSnippet": "class Item(BaseModel):\n    name: str\n    price: float\n    description: str | None = None\n    in_stock: bool = True\n\n\n@app.post(\"/items\")\ndef create_item(item: Item):\n    return item",
+   "options": [
+    {
+     "en": "`422` with `\"loc\": [\"body\", \"price\"]`",
+     "ar": "`422` with `\"loc\": [\"body\", \"price\"]`"
+    },
+    {
+     "en": "`200` with `\"price\": null` in the JSON",
+     "ar": "`200` مع `\"price\": null` في JSON"
+    },
+    {
+     "en": "`200` with `\"price\": 0.0` in the JSON",
+     "ar": "`200` مع `\"price\": 0.0` في JSON"
+    },
+    {
+     "en": "`400` with `\"detail\": \"price missing\"`",
+     "ar": "`400` مع `\"detail\": \"price missing\"`"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "`price` has no default, so it is required. FastAPI rejects the body with `422` before the function runs; the error has `\"type\": \"missing\"` and `\"loc\": [\"body\", \"price\"]`.",
+    "ar": "الحقل `price` ليس له قيمة افتراضية، لذا فهو إلزامي. يرفض FastAPI الجسم بالرمز `422` قبل تشغيل الدالة، ويحتوي الخطأ على `\"type\": \"missing\"` و`\"loc\": [\"body\", \"price\"]`."
+   }
+  },
+  {
+   "id": 5,
+   "difficulty": "medium",
+   "question": {
+    "en": "For the request `PUT /items/5?notify=true` with a JSON body, where does FastAPI take each parameter from?",
+    "ar": "في الطلب `PUT /items/5?notify=true` مع جسم JSON، من أين يأخذ FastAPI كل معامل؟"
+   },
+   "codeSnippet": "@app.put(\"/items/{item_id}\")\ndef update_item(item_id: int, item: Item, notify: bool = False):\n    ...",
+   "options": [
+    {
+     "en": "`item_id`: query, `item`: body, `notify`: path",
+     "ar": "`item_id`: استعلام، `item`: جسم، `notify`: مسار"
+    },
+    {
+     "en": "`item_id`: body, `item`: body, `notify`: query",
+     "ar": "`item_id`: جسم، `item`: جسم، `notify`: استعلام"
+    },
+    {
+     "en": "`item_id`: path, `item`: body, `notify`: query",
+     "ar": "`item_id`: مسار، `item`: جسم، `notify`: استعلام"
+    },
+    {
+     "en": "`item_id`: path, `item`: query, `notify`: body",
+     "ar": "`item_id`: مسار، `item`: استعلام، `notify`: جسم"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "`item_id` is in the path template, `item` is a Pydantic model (body), and `notify` is a simple type not in the path (query).",
+    "ar": "`item_id` موجود في قالب المسار، و`item` نموذج Pydantic (جسم)، و`notify` نوع بسيط غير موجود في المسار (استعلام)."
+   }
+  },
+  {
+   "id": 6,
+   "difficulty": "medium",
+   "question": {
+    "en": "The client posts `{\"username\": \"ali\", \"email\": \"ali@example.com\", \"password\": \"s3cret\"}`. What is the response body?",
+    "ar": "يرسل العميل `{\"username\": \"ali\", \"email\": \"ali@example.com\", \"password\": \"s3cret\"}`. ما جسم الاستجابة؟"
+   },
+   "codeSnippet": "class UserIn(BaseModel):\n    username: str\n    email: str\n    password: str\n\n\nclass UserOut(BaseModel):\n    username: str\n    email: str\n\n\n@app.post(\"/users\", response_model=UserOut, status_code=201)\ndef create_user(user: UserIn):\n    return user",
+   "options": [
+    {
+     "en": "`{\"username\": \"ali\", \"email\": \"ali@example.com\", \"password\": \"s3cret\"}`",
+     "ar": "`{\"username\": \"ali\", \"email\": \"ali@example.com\", \"password\": \"s3cret\"}`"
+    },
+    {
+     "en": "`{\"username\": \"ali\", \"email\": \"ali@example.com\"}`",
+     "ar": "`{\"username\": \"ali\", \"email\": \"ali@example.com\"}`"
+    },
+    {
+     "en": "`{\"username\": \"ali\", \"password\": \"s3cret\"}`",
+     "ar": "`{\"username\": \"ali\", \"password\": \"s3cret\"}`"
+    },
+    {
+     "en": "`{\"detail\": \"password is not allowed\"}`",
+     "ar": "`{\"detail\": \"password is not allowed\"}`"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`response_model=UserOut` keeps only `username` and `email`; the `password` field is filtered out. The status is `201`.",
+    "ar": "`response_model=UserOut` يُبقي `username` و`email` فقط، ويُحذف الحقل `password`. ورمز الحالة هو `201`."
+   }
+  },
+  {
+   "id": 7,
+   "difficulty": "medium",
+   "question": {
+    "en": "The client sends `{\"name\": \"Pen\", \"price\": 0}`. What happens?",
+    "ar": "يرسل العميل `{\"name\": \"Pen\", \"price\": 0}`. ماذا يحدث؟"
+   },
+   "codeSnippet": "class Product(BaseModel):\n    name: str = Field(min_length=2, max_length=20)\n    price: float = Field(gt=0)\n\n\n@app.post(\"/products\")\ndef create_product(product: Product):\n    return product",
+   "options": [
+    {
+     "en": "`200`, and `price` becomes `null`",
+     "ar": "`200`، ويصبح `price` قيمته `null`"
+    },
+    {
+     "en": "`200`, because `0` is a valid float",
+     "ar": "`200`، لأن `0` قيمة float صالحة"
+    },
+    {
+     "en": "`422`, because `\"Pen\"` is too short",
+     "ar": "`422`، لأن `\"Pen\"` قصير جدًا"
+    },
+    {
+     "en": "`422`, it must be greater than 0",
+     "ar": "`422`، لأنه يجب أن يكون أكبر من 0"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`gt=0` means strictly greater than 0, so `0` fails with type `greater_than`. `\"Pen\"` has 3 characters, which satisfies `min_length=2`.",
+    "ar": "`gt=0` تعني أكبر من 0 تمامًا، لذا تفشل القيمة `0` بالنوع `greater_than`. أما `\"Pen\"` فطوله 3 أحرف، وهذا يحقق `min_length=2`."
+   }
+  },
+  {
+   "id": 8,
+   "difficulty": "hard",
+   "question": {
+    "en": "`fake_db` is empty and the client calls `GET /users/omar`. What does it receive?",
+    "ar": "`fake_db` فارغ، والعميل يستدعي `GET /users/omar`. ماذا يستلم؟"
+   },
+   "codeSnippet": "@app.get(\"/users/{username}\", response_model=UserOut)\ndef get_user(username: str):\n    if username not in fake_db:\n        raise HTTPException(status_code=404, detail=\"User not found\")\n    return fake_db[username]",
+   "options": [
+    {
+     "en": "`404` and `{\"detail\": \"User not found\"}`",
+     "ar": "`404` and `{\"detail\": \"User not found\"}`"
+    },
+    {
+     "en": "`200` and `{\"detail\": \"User not found\"}`",
+     "ar": "`200` and `{\"detail\": \"User not found\"}`"
+    },
+    {
+     "en": "`404` and `{\"error\": \"User not found\"}`",
+     "ar": "`404` and `{\"error\": \"User not found\"}`"
+    },
+    {
+     "en": "`422` and `{\"detail\": \"User not found\"}`",
+     "ar": "`422` and `{\"detail\": \"User not found\"}`"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "Raising `HTTPException` stops the function; FastAPI sends its `status_code` (404) with the body `{\"detail\": ...}`.",
+    "ar": "رفع `HTTPException` يوقف الدالة، ويرسل FastAPI رمز الحالة `status_code` (404) مع الجسم `{\"detail\": ...}`."
+   }
+  },
+  {
+   "id": 9,
+   "difficulty": "hard",
+   "question": {
+    "en": "With `products: list[Product]` and `price: float = Field(gt=0)`, the body below is sent. What is the `loc` of the error?",
+    "ar": "مع `products: list[Product]` و`price: float = Field(gt=0)` أُرسل الجسم التالي. ما قيمة `loc` في الخطأ؟"
+   },
+   "codeSnippet": "{\n  \"customer\": \"Sara\",\n  \"products\": [\n    {\"name\": \"Pen\", \"price\": 2.5},\n    {\"name\": \"Book\", \"price\": 0}\n  ]\n}",
+   "options": [
+    {
+     "en": "`[\"body\", \"price\"]`",
+     "ar": "`[\"body\", \"price\"]`"
+    },
+    {
+     "en": "`[\"body\", \"products\", 2, \"price\"]`",
+     "ar": "`[\"body\", \"products\", 2, \"price\"]`"
+    },
+    {
+     "en": "`[\"body\", \"products\", 1, \"price\"]`",
+     "ar": "`[\"body\", \"products\", 1, \"price\"]`"
+    },
+    {
+     "en": "`[\"body\", \"products\", \"Book\"]`",
+     "ar": "`[\"body\", \"products\", \"Book\"]`"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "Nested errors show the full path. The bad product is the second one, at index `1` (lists count from 0).",
+    "ar": "أخطاء النماذج المتداخلة تعرض المسار كاملًا. المنتج الخاطئ هو الثاني، وموقعه `1` (القوائم تبدأ العدّ من 0)."
+   }
+  },
+  {
+   "id": 10,
+   "difficulty": "hard",
+   "question": {
+    "en": "The client sends `{\"name\": \"Pen\", \"price\": 1, \"color\": \"red\"}`. What does it get back?",
+    "ar": "يرسل العميل `{\"name\": \"Pen\", \"price\": 1, \"color\": \"red\"}`. ماذا يستلم؟"
+   },
+   "codeSnippet": "class Item(BaseModel):\n    name: str\n    price: float\n    description: str | None = None\n    in_stock: bool = True\n\n\n@app.post(\"/items\")\ndef create_item(item: Item):\n    return item",
+   "options": [
+    {
+     "en": "`422`, because `color` is not in `Item`",
+     "ar": "`422`، لأن `color` غير موجود في `Item`"
+    },
+    {
+     "en": "`200`, and `color` is silently dropped",
+     "ar": "`200`، ويُحذف `color` بصمت"
+    },
+    {
+     "en": "`200`, and the JSON keeps `\"color\": \"red\"`",
+     "ar": "`200`، ويبقى `\"color\": \"red\"` في JSON"
+    },
+    {
+     "en": "`400`, because the body has an unknown key",
+     "ar": "`400`، لأن الجسم فيه مفتاح غير معروف"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "Extra fields are ignored by default, so `color` is dropped. Missing optional fields get defaults and `1` becomes `1.0`: `{\"name\": \"Pen\", \"price\": 1.0, \"description\": null, \"in_stock\": true}`.",
+    "ar": "الحقول الإضافية تُتجاهل افتراضيًا، لذا يُحذف `color`. الحقول الاختيارية الغائبة تأخذ قيمها الافتراضية و`1` تصبح `1.0`: `{\"name\": \"Pen\", \"price\": 1.0, \"description\": null, \"in_stock\": true}`."
+   }
+  }
+ ]
+}

@@ -129,6 +129,11 @@ export async function boot() {
     startHeartbeat();
     setupUpdateWatcher();
     renderModeCounts(); // fire-and-forget: fills the eyebrow + per-mode counts
+    // ?learn=<course> opens a course straight away (shareable link).
+    try {
+        const learnId = new URLSearchParams(location.search).get('learn');
+        if (learnId && !challengeInfo) { import('./learn.js').then((m) => (learnId === '1' ? m.openLearn() : m.openCourse(learnId))); return; }
+    } catch (_) { /* no usable URL (file://) */ }
     if (challengeInfo) showChallengeBanner(challengeInfo);
     else setTimeout(maybeShowOnboarding, 500); // first-run welcome (once)
 }

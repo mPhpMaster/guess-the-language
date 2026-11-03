@@ -38,6 +38,22 @@ question content is English.
 - **🎲 All (Mixed)** — every bank shuffled together; each question renders
   with its own answer style.
 
+### 📚 Learn
+A course section: each course is a series of **levels**, each level a few short
+lessons followed by a 10-question test. The lessons can be skipped and the test
+taken straight away; passing a level's test (70%) unlocks the next level.
+Lessons and tests are bilingual (English / Arabic, following the interface
+language). Progress is kept per device.
+
+- **Build an API with FastAPI** — 5 levels, 25 lessons, 50 questions: web basics
+  (HTTP, request/response, status codes, JSON) → first app → path & query
+  parameters → request bodies with Pydantic → a complete CRUD API with tests.
+  Every code example was run against FastAPI 0.162 / Pydantic 2.14.
+- Content: `src/data/courses/<id>.json`, assembled from per-level files in
+  `scripts/new/learn-<id>-<n>.json` by `node scripts/build-course.js <id>`
+  (authoring guide: `scripts/new/learn-GUIDE.md`); checked by
+  `test/smoke-courses.js`. Deep link: `/?learn=fastapi`.
+
 ### Ways to play
 - **Play styles** (picked above *run*): **classic**; **survival** — three lives,
   harder the longer you last; **speed run** — one 60-second clock, answer as many

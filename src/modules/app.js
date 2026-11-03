@@ -43,12 +43,13 @@ import * as qreport from './qreport.js';
 import * as update from './update.js';
 import * as adminInsights from './admin-insights.js';
 import * as promo from './promo.js';
+import * as learn from './learn.js';
 
 // Same order the sections appeared in the original single-file renderer.
 const NAMESPACES = [
     constants, i18n, home, appState, dom, highlight, sound, identity, settings,
     round, game, results, api, leaderboard, presence, admin, profile, mpUi,
-    events, bootMod, uiScale, util, styles, packs, review, duel, qreport, update, adminInsights, promo
+    events, bootMod, uiScale, util, styles, packs, review, duel, qreport, update, adminInsights, promo, learn
 ];
 
 /* Re-publish every export as a global. renderer.js used to be a CLASSIC script,

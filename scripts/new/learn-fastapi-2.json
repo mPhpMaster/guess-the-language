@@ -1,0 +1,647 @@
+{
+ "id": "first-app",
+ "title": {
+  "en": "Your first FastAPI app",
+  "ar": "تطبيقك الأول بـ FastAPI"
+ },
+ "summary": {
+  "en": "Set up a project, write and run a minimal FastAPI app, add endpoints for each method, and explore the automatic docs.",
+  "ar": "جهّز مشروعًا، واكتب تطبيق FastAPI بسيطًا وشغّله، وأضف endpoints لكل طريقة، واستكشف التوثيق التلقائي."
+ },
+ "lessons": [
+  {
+   "id": "setup-project",
+   "title": {
+    "en": "Setting up your project",
+    "ar": "تجهيز المشروع"
+   },
+   "blocks": [
+    {
+     "type": "p",
+     "en": "Before writing any code, create a folder for the project and a virtual environment (venv) inside it. A venv is a private copy of Python where this project's packages live, so they never clash with other projects.",
+     "ar": "قبل كتابة أي كود، أنشئ مجلدًا للمشروع وبيئة افتراضية (virtual environment أو venv) بداخله. الـ venv نسخة خاصة من Python تُثبَّت فيها حزم هذا المشروع، فلا تتعارض أبدًا مع مشاريع أخرى."
+    },
+    {
+     "type": "code",
+     "lang": "bash",
+     "code": "mkdir my-api\ncd my-api\npython -m venv .venv\n\n# activate it (pick your system)\nsource .venv/bin/activate      # macOS / Linux\n.venv\\Scripts\\activate         # Windows"
+    },
+    {
+     "type": "p",
+     "en": "When the venv is active, your terminal prompt usually starts with `(.venv)`. Now install FastAPI together with its standard extras:",
+     "ar": "عندما تكون الـ venv مفعّلة، يبدأ سطر الأوامر غالبًا بـ `(.venv)`. الآن ثبّت FastAPI مع إضافاته القياسية:"
+    },
+    {
+     "type": "code",
+     "lang": "bash",
+     "code": "pip install \"fastapi[standard]\""
+    },
+    {
+     "type": "list",
+     "en": [
+      "`fastapi` - the framework itself.",
+      "`[standard]` - adds the `fastapi` command, the Uvicorn server and other useful tools.",
+      "The quotes stop some shells from misreading the square brackets."
+     ],
+     "ar": [
+      "`fastapi` - إطار العمل نفسه.",
+      "`[standard]` - يضيف الأمر `fastapi` وخادم Uvicorn وأدوات مفيدة أخرى.",
+      "علامات التنصيص تمنع بعض الطرفيات (shells) من إساءة فهم الأقواس المربعة."
+     ]
+    },
+    {
+     "type": "p",
+     "en": "Finally, create an empty file named `main.py` in the project folder. Your whole first app will live in this one file.",
+     "ar": "أخيرًا، أنشئ ملفًا فارغًا باسم `main.py` في مجلد المشروع. سيكون تطبيقك الأول كله في هذا الملف الواحد."
+    },
+    {
+     "type": "code",
+     "lang": "text",
+     "code": "my-api/\n  .venv/\n  main.py"
+    },
+    {
+     "type": "tip",
+     "en": "Plain `pip install fastapi` installs only the core library, without the `fastapi` command you will use to run the app. Use `\"fastapi[standard]\"`.",
+     "ar": "الأمر `pip install fastapi` وحده يثبّت المكتبة الأساسية فقط، بدون الأمر `fastapi` الذي ستستخدمه لتشغيل التطبيق. استخدم `\"fastapi[standard]\"`."
+    }
+   ]
+  },
+  {
+   "id": "hello-app",
+   "title": {
+    "en": "Your first app and running it",
+    "ar": "تطبيقك الأول وتشغيله"
+   },
+   "blocks": [
+    {
+     "type": "p",
+     "en": "Put these lines in `main.py`. That is a complete, working API.",
+     "ar": "ضع هذه الأسطر في `main.py`. هذا API كامل يعمل."
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from fastapi import FastAPI\n\napp = FastAPI()\n\n\n@app.get(\"/\")\ndef read_root():\n    return {\"message\": \"Hello World\"}"
+    },
+    {
+     "type": "list",
+     "en": [
+      "`from fastapi import FastAPI` - imports the main class.",
+      "`app = FastAPI()` - creates your application object.",
+      "`@app.get(\"/\")` - says: run the function below for GET requests to the path `/`.",
+      "The function returns a dict, and FastAPI sends it back as JSON."
+     ],
+     "ar": [
+      "`from fastapi import FastAPI` - يستورد الصنف (class) الرئيسي.",
+      "`app = FastAPI()` - ينشئ كائن التطبيق الخاص بك.",
+      "`@app.get(\"/\")` - يعني: نفّذ الدالة التي تحته لطلبات GET على المسار `/`.",
+      "الدالة ترجع قاموسًا (dict)، وFastAPI يرسله كـ JSON."
+     ]
+    },
+    {
+     "type": "p",
+     "en": "Start the development server from the project folder:",
+     "ar": "شغّل خادم التطوير من مجلد المشروع:"
+    },
+    {
+     "type": "code",
+     "lang": "bash",
+     "code": "fastapi dev main.py"
+    },
+    {
+     "type": "code",
+     "lang": "text",
+     "code": " Starting FastAPI in development mode\n Using import string: main:app\n Server started at http://127.0.0.1:8000\n    Documentation at http://127.0.0.1:8000/docs\n\nINFO:     Will watch for changes in these directories: [...]\nINFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)"
+    },
+    {
+     "type": "p",
+     "en": "Open http://127.0.0.1:8000 in a browser and you will see the JSON. Each request is also logged in the terminal, for example `\"GET / HTTP/1.1\" 200 OK`. Press Ctrl+C to stop the server.",
+     "ar": "افتح http://127.0.0.1:8000 في المتصفح وسترى الـ JSON. كل طلب يُسجَّل أيضًا في الطرفية، مثل `\"GET / HTTP/1.1\" 200 OK`. اضغط Ctrl+C لإيقاف الخادم."
+    },
+    {
+     "type": "code",
+     "lang": "http",
+     "code": "GET / HTTP/1.1\n\nHTTP/1.1 200 OK\ncontent-type: application/json\n\n{\"message\":\"Hello World\"}"
+    },
+    {
+     "type": "h",
+     "en": "dev vs run",
+     "ar": "الفرق بين dev و run"
+    },
+    {
+     "type": "list",
+     "en": [
+      "`fastapi dev main.py` - for development: auto-reloads when you save the file (the next request uses the new code), listens only on your own machine (`127.0.0.1`).",
+      "`fastapi run main.py` - for production: no auto-reload, listens on all network interfaces (`0.0.0.0`)."
+     ],
+     "ar": [
+      "`fastapi dev main.py` - للتطوير: يعيد التحميل تلقائيًا عند حفظ الملف (والطلب التالي يستخدم الكود الجديد)، ويستمع على جهازك فقط (`127.0.0.1`).",
+      "`fastapi run main.py` - للإنتاج (production): بدون إعادة تحميل تلقائي، ويستمع على كل واجهات الشبكة (`0.0.0.0`)."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "path-operations",
+   "title": {
+    "en": "Path operations",
+    "ar": "عمليات المسار (Path operations)"
+   },
+   "blocks": [
+    {
+     "type": "p",
+     "en": "In FastAPI, a path plus an HTTP method is called a path operation. You declare one with a decorator named after the method: `@app.get`, `@app.post`, `@app.put`, `@app.delete`. The function right under it is the code that runs.",
+     "ar": "في FastAPI، المسار مع طريقة HTTP يُسمّى عملية مسار (path operation). تعرّفها بمزخرف (decorator) يحمل اسم الطريقة: `@app.get` و`@app.post` و`@app.put` و`@app.delete`. والدالة التي تحته مباشرة هي الكود الذي يُنفَّذ."
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from fastapi import FastAPI\n\napp = FastAPI()\n\n\n@app.get(\"/books\")\ndef list_books():\n    return [{\"id\": 1, \"title\": \"Dune\"}, {\"id\": 2, \"title\": \"Emma\"}]\n\n\n@app.post(\"/books\")\ndef add_book():\n    return {\"status\": \"added\"}\n\n\n@app.put(\"/books\")\ndef replace_books():\n    return {\"status\": \"replaced\"}\n\n\n@app.delete(\"/books\")\ndef delete_books():\n    return {\"status\": \"deleted\"}"
+    },
+    {
+     "type": "p",
+     "en": "The same path `/books` now has four endpoints, one per method. `POST /books` runs `add_book` and returns `{\"status\":\"added\"}`.",
+     "ar": "المسار نفسه `/books` أصبح له الآن أربع نقاط نهاية (endpoints)، واحدة لكل طريقة. الطلب `POST /books` ينفّذ `add_book` ويرجع `{\"status\":\"added\"}`."
+    },
+    {
+     "type": "h",
+     "en": "What you return becomes JSON",
+     "ar": "ما ترجعه يصبح JSON"
+    },
+    {
+     "type": "list",
+     "en": [
+      "dict `{\"a\": 1}` -> `{\"a\":1}`",
+      "list `[\"x\", \"y\"]` -> `[\"x\",\"y\"]`",
+      "string `\"hello\"` -> `\"hello\"` (with quotes)",
+      "number `42` -> `42`; `True` -> `true`; `None` -> `null`"
+     ],
+     "ar": [
+      "القاموس `{\"a\": 1}` -> `{\"a\":1}`",
+      "القائمة `[\"x\", \"y\"]` -> `[\"x\",\"y\"]`",
+      "النص `\"hello\"` -> `\"hello\"` (مع علامات التنصيص)",
+      "الرقم `42` -> `42`؛ و`True` -> `true`؛ و`None` -> `null`"
+     ]
+    },
+    {
+     "type": "p",
+     "en": "All of these come back with status `200` and `content-type: application/json`. A returned string is a JSON string, so `\"42\"` (text) and `42` (number) are different responses.",
+     "ar": "كل هذه ترجع بحالة `200` و`content-type: application/json`. النص المُرجَع هو نص JSON، لذلك `\"42\"` (نص) و`42` (رقم) استجابتان مختلفتان."
+    },
+    {
+     "type": "warn",
+     "en": "Only the decorator registers an endpoint. A function without `@app.get(...)` (or another method decorator) is just a normal Python function. Also, if two functions use the same method and path, the first one declared wins and the second never runs.",
+     "ar": "المزخرف وحده هو الذي يسجّل الـ endpoint. الدالة التي ليس فوقها `@app.get(...)` (أو مزخرف طريقة آخر) مجرد دالة Python عادية. وأيضًا، إذا استخدمت دالتان نفس الطريقة ونفس المسار، فالأولى المعرّفة هي التي تفوز والثانية لا تُنفَّذ أبدًا."
+    },
+    {
+     "type": "h",
+     "en": "def or async def?",
+     "ar": "هل نستخدم def أم async def؟"
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "@app.get(\"/ping\")\nasync def ping():\n    return {\"pong\": True}"
+    },
+    {
+     "type": "tip",
+     "en": "Both `def` and `async def` work and give the same response. As a beginner, use plain `def`. Use `async def` only when your code inside uses `await` (for example, an async database or HTTP library).",
+     "ar": "كل من `def` و`async def` يعمل ويعطي الاستجابة نفسها. كمبتدئ، استخدم `def` العادية. واستخدم `async def` فقط عندما يستخدم الكود بداخلها `await` (مثلًا مكتبة قاعدة بيانات أو HTTP غير متزامنة)."
+    }
+   ]
+  },
+  {
+   "id": "not-found-and-not-allowed",
+   "title": {
+    "en": "Unknown paths and wrong methods",
+    "ar": "المسارات المجهولة والطرق الخاطئة"
+   },
+   "blocks": [
+    {
+     "type": "p",
+     "en": "You did not write any error handling, yet FastAPI already answers bad requests for you. Take an app that only has `POST /items`:",
+     "ar": "لم تكتب أي معالجة للأخطاء، ومع ذلك يجيب FastAPI على الطلبات الخاطئة نيابة عنك. خذ تطبيقًا ليس فيه إلا `POST /items`:"
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "@app.post(\"/items\")\ndef create_item():\n    return {\"created\": True}"
+    },
+    {
+     "type": "h",
+     "en": "Path does not exist: 404",
+     "ar": "المسار غير موجود: 404"
+    },
+    {
+     "type": "code",
+     "lang": "http",
+     "code": "GET /nope HTTP/1.1\n\nHTTP/1.1 404 Not Found\n\n{\"detail\":\"Not Found\"}"
+    },
+    {
+     "type": "h",
+     "en": "Path exists, method does not: 405",
+     "ar": "المسار موجود والطريقة غير موجودة: 405"
+    },
+    {
+     "type": "code",
+     "lang": "http",
+     "code": "GET /items HTTP/1.1\n\nHTTP/1.1 405 Method Not Allowed\n\n{\"detail\":\"Method Not Allowed\"}"
+    },
+    {
+     "type": "p",
+     "en": "So 404 means \"no endpoint has this path\", while 405 means \"this path exists, but not for this method\". Both bodies are JSON with a single `detail` key.",
+     "ar": "إذن 404 تعني «لا يوجد endpoint بهذا المسار»، بينما 405 تعني «هذا المسار موجود، لكن ليس لهذه الطريقة». وكلا الجسمين JSON فيه مفتاح واحد هو `detail`."
+    },
+    {
+     "type": "warn",
+     "en": "Paths are case-sensitive: if you declared `/hello`, a request to `/Hello` gets 404 `{\"detail\":\"Not Found\"}`.",
+     "ar": "المسارات حساسة لحالة الأحرف: إذا عرّفت `/hello`، فالطلب إلى `/Hello` يحصل على 404 `{\"detail\":\"Not Found\"}`."
+    }
+   ]
+  },
+  {
+   "id": "automatic-docs",
+   "title": {
+    "en": "Automatic interactive docs",
+    "ar": "التوثيق التفاعلي التلقائي"
+   },
+   "blocks": [
+    {
+     "type": "p",
+     "en": "While the server is running, FastAPI also serves documentation for your API. You wrote nothing extra for it; it is built from your path operations.",
+     "ar": "أثناء تشغيل الخادم، يقدّم FastAPI أيضًا توثيقًا لـ API الخاص بك. لم تكتب شيئًا إضافيًا لذلك؛ فهو مبني من عمليات المسار التي كتبتها."
+    },
+    {
+     "type": "list",
+     "en": [
+      "`/docs` - Swagger UI: an interactive page where you can call each endpoint.",
+      "`/redoc` - ReDoc: a clean, read-only reference page.",
+      "`/openapi.json` - the OpenAPI schema: a JSON description of every path and method that both pages are built from."
+     ],
+     "ar": [
+      "`/docs` - واجهة Swagger UI: صفحة تفاعلية تستطيع منها استدعاء كل endpoint.",
+      "`/redoc` - واجهة ReDoc: صفحة مرجعية مرتبة للقراءة فقط.",
+      "`/openapi.json` - مخطط OpenAPI (schema): وصف JSON لكل مسار وطريقة، والصفحتان مبنيتان منه."
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "json",
+     "code": "{\n  \"openapi\": \"3.1.0\",\n  \"info\": {\"title\": \"FastAPI\", \"version\": \"0.1.0\"},\n  \"paths\": {\n    \"/\": {\"get\": {\"summary\": \"Read Root\", \"...\": \"...\"}}\n  }\n}"
+    },
+    {
+     "type": "p",
+     "en": "Notice the summary \"Read Root\": FastAPI made it from the function name `read_root`. Good function names give you readable docs for free.",
+     "ar": "لاحظ الملخص \"Read Root\": صنعه FastAPI من اسم الدالة `read_root`. أسماء الدوال الجيدة تعطيك توثيقًا مقروءًا مجانًا."
+    },
+    {
+     "type": "h",
+     "en": "Trying an endpoint from /docs",
+     "ar": "تجربة endpoint من /docs"
+    },
+    {
+     "type": "list",
+     "en": [
+      "Open http://127.0.0.1:8000/docs.",
+      "Click an endpoint, for example `GET /`.",
+      "Click \"Try it out\", then \"Execute\".",
+      "Read the response code and body shown below, e.g. `200` and `{\"message\": \"Hello World\"}`."
+     ],
+     "ar": [
+      "افتح http://127.0.0.1:8000/docs.",
+      "اضغط على endpoint، مثلًا `GET /`.",
+      "اضغط \"Try it out\" ثم \"Execute\".",
+      "اقرأ رمز الاستجابة والجسم الظاهرين بالأسفل، مثل `200` و`{\"message\": \"Hello World\"}`."
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "`/docs` is the easiest way to test `POST`, `PUT` and `DELETE` endpoints, because a browser address bar can only send `GET`.",
+     "ar": "صفحة `/docs` أسهل طريقة لتجربة نقاط `POST` و`PUT` و`DELETE`، لأن شريط عنوان المتصفح لا يرسل إلا `GET`."
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "difficulty": "easy",
+   "question": {
+    "en": "Which command installs FastAPI together with the `fastapi` command and the server it needs?",
+    "ar": "أي أمر يثبّت FastAPI مع الأمر `fastapi` والخادم الذي يحتاجه؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "pip install fastapi-server",
+     "ar": "pip install fastapi-server"
+    },
+    {
+     "en": "pip install \"fastapi[standard]\"",
+     "ar": "pip install \"fastapi[standard]\""
+    },
+    {
+     "en": "python -m fastapi install",
+     "ar": "python -m fastapi install"
+    },
+    {
+     "en": "pip install uvicorn-fastapi",
+     "ar": "pip install uvicorn-fastapi"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`pip install \"fastapi[standard]\"` installs FastAPI plus the standard extras, including the `fastapi` CLI and the Uvicorn server.",
+    "ar": "الأمر `pip install \"fastapi[standard]\"` يثبّت FastAPI مع الإضافات القياسية، ومنها أداة `fastapi` وخادم Uvicorn."
+   }
+  },
+  {
+   "id": 2,
+   "difficulty": "easy",
+   "question": {
+    "en": "You run `fastapi dev main.py`. At which address is your API served by default?",
+    "ar": "شغّلت `fastapi dev main.py`. على أي عنوان يُقدَّم الـ API افتراضيًا؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "http://127.0.0.1:8000",
+     "ar": "http://127.0.0.1:8000"
+    },
+    {
+     "en": "http://127.0.0.1:5000",
+     "ar": "http://127.0.0.1:5000"
+    },
+    {
+     "en": "http://127.0.0.1:3000",
+     "ar": "http://127.0.0.1:3000"
+    },
+    {
+     "en": "http://127.0.0.1:8080",
+     "ar": "http://127.0.0.1:8080"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "The terminal shows `Server started at http://127.0.0.1:8000`: your own machine, port 8000.",
+    "ar": "تعرض الطرفية `Server started at http://127.0.0.1:8000`: أي جهازك أنت، على المنفذ 8000."
+   }
+  },
+  {
+   "id": 3,
+   "difficulty": "easy",
+   "question": {
+    "en": "Which URL returns the JSON description of your API (the OpenAPI schema) that the docs pages are built from?",
+    "ar": "أي رابط يرجع وصف JSON لـ API الخاص بك (مخطط OpenAPI) الذي تُبنى منه صفحات التوثيق؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "/docs/schema",
+     "ar": "/docs/schema"
+    },
+    {
+     "en": "/redoc.json",
+     "ar": "/redoc.json"
+    },
+    {
+     "en": "/openapi.json",
+     "ar": "/openapi.json"
+    },
+    {
+     "en": "/api/spec.json",
+     "ar": "/api/spec.json"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "`/openapi.json` is the schema itself. `/docs` (Swagger UI) and `/redoc` are HTML pages built from it.",
+    "ar": "`/openapi.json` هو المخطط نفسه. أما `/docs` (Swagger UI) و`/redoc` فهما صفحتا HTML مبنيتان منه."
+   }
+  },
+  {
+   "id": 4,
+   "difficulty": "medium",
+   "question": {
+    "en": "You send `GET /fruits` to this app. What is the response body?",
+    "ar": "أرسلت `GET /fruits` إلى هذا التطبيق. ما جسم الاستجابة؟"
+   },
+   "codeSnippet": "@app.get(\"/fruits\")\ndef list_fruits():\n    return [\"apple\", \"banana\"]",
+   "options": [
+    {
+     "en": "{\"fruits\":[\"apple\",\"banana\"]}",
+     "ar": "{\"fruits\":[\"apple\",\"banana\"]}"
+    },
+    {
+     "en": "\"apple,banana\"",
+     "ar": "\"apple,banana\""
+    },
+    {
+     "en": "{\"detail\":\"Not Found\"}",
+     "ar": "{\"detail\":\"Not Found\"}"
+    },
+    {
+     "en": "[\"apple\",\"banana\"]",
+     "ar": "[\"apple\",\"banana\"]"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "A returned list becomes a JSON array as-is. FastAPI does not wrap it in a dict or turn it into text.",
+    "ar": "القائمة المُرجَعة تصبح مصفوفة JSON كما هي. لا يغلّفها FastAPI في قاموس ولا يحوّلها إلى نص."
+   }
+  },
+  {
+   "id": 5,
+   "difficulty": "medium",
+   "question": {
+    "en": "This is the only endpoint in the app. What does `GET /items` return?",
+    "ar": "هذا هو الـ endpoint الوحيد في التطبيق. ماذا يرجع `GET /items`؟"
+   },
+   "codeSnippet": "@app.post(\"/items\")\ndef create_item():\n    return {\"created\": True}",
+   "options": [
+    {
+     "en": "404 with `{\"detail\":\"Not Found\"}`",
+     "ar": "404 مع `{\"detail\":\"Not Found\"}`"
+    },
+    {
+     "en": "405 with `{\"detail\":\"Method Not Allowed\"}`",
+     "ar": "405 مع `{\"detail\":\"Method Not Allowed\"}`"
+    },
+    {
+     "en": "200 with `{\"created\":true}`",
+     "ar": "200 مع `{\"created\":true}`"
+    },
+    {
+     "en": "500 with `{\"detail\":\"Server Error\"}`",
+     "ar": "500 مع `{\"detail\":\"Server Error\"}`"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "The path `/items` exists, but only for POST. A path that exists with the wrong method gets 405 Method Not Allowed.",
+    "ar": "المسار `/items` موجود، لكن لطريقة POST فقط. والمسار الموجود مع طريقة خاطئة يحصل على 405 Method Not Allowed."
+   }
+  },
+  {
+   "id": 6,
+   "difficulty": "medium",
+   "question": {
+    "en": "What is the main difference between `fastapi dev` and `fastapi run`?",
+    "ar": "ما الفرق الأساسي بين `fastapi dev` و`fastapi run`؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "`dev` creates the venv; `run` installs the packages",
+     "ar": "`dev` ينشئ الـ venv؛ و`run` يثبّت الحزم"
+    },
+    {
+     "en": "`dev` serves only `/docs`; `run` serves the endpoints",
+     "ar": "`dev` يقدّم `/docs` فقط؛ و`run` يقدّم الـ endpoints"
+    },
+    {
+     "en": "`dev` needs `async def`; `run` works with plain `def`",
+     "ar": "`dev` يحتاج `async def`؛ و`run` يعمل مع `def` العادية"
+    },
+    {
+     "en": "`dev` auto-reloads on save; `run` is for production",
+     "ar": "`dev` يعيد التحميل عند الحفظ؛ و`run` للإنتاج"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`fastapi dev` watches your files and restarts on save, listening on 127.0.0.1. `fastapi run` is the production mode: no auto-reload, listening on 0.0.0.0.",
+    "ar": "`fastapi dev` يراقب ملفاتك ويعيد التشغيل عند الحفظ، ويستمع على 127.0.0.1. أما `fastapi run` فهو وضع الإنتاج: بدون إعادة تحميل تلقائي، ويستمع على 0.0.0.0."
+   }
+  },
+  {
+   "id": 7,
+   "difficulty": "medium",
+   "question": {
+    "en": "A client sends `GET /Hello` to this app. What comes back?",
+    "ar": "أرسل عميل `GET /Hello` إلى هذا التطبيق. ماذا يرجع؟"
+   },
+   "codeSnippet": "@app.get(\"/hello\")\ndef hello():\n    return {\"msg\": \"hi\"}",
+   "options": [
+    {
+     "en": "404 with `{\"detail\":\"Not Found\"}`",
+     "ar": "404 مع `{\"detail\":\"Not Found\"}`"
+    },
+    {
+     "en": "200 with `{\"msg\":\"hi\"}`",
+     "ar": "200 مع `{\"msg\":\"hi\"}`"
+    },
+    {
+     "en": "405 with `{\"detail\":\"Method Not Allowed\"}`",
+     "ar": "405 مع `{\"detail\":\"Method Not Allowed\"}`"
+    },
+    {
+     "en": "200 with `{\"msg\":\"Hi\"}`",
+     "ar": "200 مع `{\"msg\":\"Hi\"}`"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "Paths are case-sensitive. `/Hello` is not `/hello`, so no endpoint matches and FastAPI returns 404.",
+    "ar": "المسارات حساسة لحالة الأحرف. `/Hello` ليس `/hello`، فلا يطابقه أي endpoint ويرجع FastAPI الرمز 404."
+   }
+  },
+  {
+   "id": 8,
+   "difficulty": "hard",
+   "question": {
+    "en": "What exact body does `GET /answer` return?",
+    "ar": "ما الجسم الدقيق الذي يرجعه `GET /answer`؟"
+   },
+   "codeSnippet": "@app.get(\"/answer\")\ndef answer():\n    return \"42\"",
+   "options": [
+    {
+     "en": "42",
+     "ar": "42"
+    },
+    {
+     "en": "{\"answer\":\"42\"}",
+     "ar": "{\"answer\":\"42\"}"
+    },
+    {
+     "en": "\"42\"",
+     "ar": "\"42\""
+    },
+    {
+     "en": "answer=42",
+     "ar": "answer=42"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "The function returns a Python string, which becomes a JSON string, quotes included: `\"42\"`. Returning the number `42` would give `42`.",
+    "ar": "الدالة ترجع نصًا في Python، فيصبح نص JSON مع علامات التنصيص: `\"42\"`. ولو أرجعت الرقم `42` لكانت النتيجة `42`."
+   }
+  },
+  {
+   "id": 9,
+   "difficulty": "hard",
+   "question": {
+    "en": "Both functions are in the same app. What does `GET /status` return?",
+    "ar": "الدالتان في التطبيق نفسه. ماذا يرجع `GET /status`؟"
+   },
+   "codeSnippet": "@app.get(\"/status\")\ndef status_one():\n    return {\"v\": 1}\n\n\n@app.get(\"/status\")\ndef status_two():\n    return {\"v\": 2}",
+   "options": [
+    {
+     "en": "{\"v\":2}",
+     "ar": "{\"v\":2}"
+    },
+    {
+     "en": "{\"v\":1}",
+     "ar": "{\"v\":1}"
+    },
+    {
+     "en": "[{\"v\":1},{\"v\":2}]",
+     "ar": "[{\"v\":1},{\"v\":2}]"
+    },
+    {
+     "en": "{\"detail\":\"Conflict\"}",
+     "ar": "{\"detail\":\"Conflict\"}"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "When two path operations share the same method and path, the first one declared wins. `status_two` never runs.",
+    "ar": "عندما تشترك عمليتا مسار في نفس الطريقة ونفس المسار، فالأولى المعرّفة هي التي تفوز. الدالة `status_two` لا تُنفَّذ أبدًا."
+   }
+  },
+  {
+   "id": 10,
+   "difficulty": "hard",
+   "question": {
+    "en": "The server starts without errors, but `GET /about` fails. What does it return, and why?",
+    "ar": "يعمل الخادم بدون أخطاء، لكن `GET /about` يفشل. ماذا يرجع، ولماذا؟"
+   },
+   "codeSnippet": "from fastapi import FastAPI\n\napp = FastAPI()\n\n\ndef about():\n    return {\"page\": \"about\"}",
+   "options": [
+    {
+     "en": "405, because `about` has no method set",
+     "ar": "405، لأن `about` بلا طريقة محددة"
+    },
+    {
+     "en": "500, because `about` is not `async def`",
+     "ar": "500، لأن `about` ليست `async def`"
+    },
+    {
+     "en": "200, because the path is taken from the name",
+     "ar": "200، لأن المسار يُؤخذ من اسم الدالة"
+    },
+    {
+     "en": "404, because no decorator registered `/about`",
+     "ar": "404، لأنه لا يوجد مزخرف سجّل `/about`"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "Only a decorator such as `@app.get(\"/about\")` registers an endpoint. Without it, `about` is a plain function and the path does not exist: 404 `{\"detail\":\"Not Found\"}`.",
+    "ar": "المزخرف مثل `@app.get(\"/about\")` هو وحده الذي يسجّل الـ endpoint. بدونه تكون `about` دالة عادية والمسار غير موجود: 404 `{\"detail\":\"Not Found\"}`."
+   }
+  }
+ ]
+}

@@ -14,5 +14,6 @@ contextBridge.exposeInMainWorld('appWindow', {
 // Game data is read from disk by the main process and handed to the
 // renderer, so questions.json stays the single source of truth.
 contextBridge.exposeInMainWorld('gameAPI', {
-  getQuestions: (mode) => ipcRenderer.invoke('questions:get', mode)
+  getQuestions: (mode) => ipcRenderer.invoke('questions:get', mode),
+  getCourse: (id) => ipcRenderer.invoke('course:get', id)
 });

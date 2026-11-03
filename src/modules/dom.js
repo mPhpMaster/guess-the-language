@@ -7,7 +7,8 @@ export const screens = {
     home: $('#screen-home'),
     lobby: $('#screen-lobby'),
     game: $('#screen-game'),
-    results: $('#screen-results')
+    results: $('#screen-results'),
+    learn: $('#screen-learn')
 };
 
 export function showScreen(name) {

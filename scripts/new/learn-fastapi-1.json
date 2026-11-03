@@ -1,0 +1,640 @@
+{
+ "id": "web-basics",
+ "title": {
+  "en": "Web basics: HTTP, APIs and JSON",
+  "ar": "أساسيات الويب: HTTP والـ APIs والـ JSON"
+ },
+ "summary": {
+  "en": "Learn how clients and servers talk with HTTP requests, responses, status codes and JSON before writing any FastAPI code.",
+  "ar": "تعلّم كيف يتواصل العميل والخادم عبر طلبات HTTP واستجاباتها ورموز الحالة والـ JSON قبل كتابة أي كود FastAPI."
+ },
+ "lessons": [
+  {
+   "id": "clients-servers-requests",
+   "title": {
+    "en": "Clients, servers and the HTTP request",
+    "ar": "العميل والخادم وطلب HTTP"
+   },
+   "blocks": [
+    {
+     "type": "p",
+     "en": "An API (Application Programming Interface) is a set of rules that lets one program ask another program for data or actions. A web API does this over the internet using HTTP.",
+     "ar": "الـ API (واجهة برمجة التطبيقات) مجموعة قواعد تسمح لبرنامج أن يطلب بيانات أو أفعالًا من برنامج آخر. والـ web API تفعل ذلك عبر الإنترنت باستخدام HTTP."
+    },
+    {
+     "type": "p",
+     "en": "The program that asks is the client (a browser, a mobile app, another server). The program that answers is the server. The client sends a request, and the server sends back a response.",
+     "ar": "البرنامج الذي يسأل هو العميل (client): متصفح أو تطبيق جوال أو خادم آخر. والبرنامج الذي يجيب هو الخادم (server). يرسل العميل طلبًا (request)، ويعيد الخادم استجابة (response)."
+    },
+    {
+     "type": "h",
+     "en": "The four parts of a request",
+     "ar": "الأجزاء الأربعة للطلب"
+    },
+    {
+     "type": "list",
+     "en": [
+      "Method: the action, e.g. `GET` or `POST`.",
+      "URL: which resource, e.g. `https://api.example.com/users`.",
+      "Headers: extra info as `Name: value` lines.",
+      "Body: optional data sent to the server (often JSON)."
+     ],
+     "ar": [
+      "الـ method: الفعل المطلوب، مثل `GET` أو `POST`.",
+      "الـ URL: أي مورد نقصد، مثل `https://api.example.com/users`.",
+      "الـ headers: معلومات إضافية على شكل أسطر `Name: value`.",
+      "الـ body: بيانات اختيارية تُرسل إلى الخادم (غالبًا JSON)."
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "http",
+     "code": "POST /users?notify=true HTTP/1.1\nHost: api.example.com\nContent-Type: application/json\nAccept: application/json\n\n{\"name\": \"Sara\", \"age\": 25}"
+    },
+    {
+     "type": "p",
+     "en": "The first line holds the method, the path with its query string, and the HTTP version. Headers follow, then an empty line, then the body. `Content-Type` says what format the body is in; `Accept` says what format the client wants back.",
+     "ar": "السطر الأول يحتوي الـ method والمسار مع الـ query string وإصدار HTTP. بعده الـ headers، ثم سطر فارغ، ثم الـ body. الـ header `Content-Type` يحدد صيغة الـ body، و`Accept` يحدد الصيغة التي يريدها العميل في الرد."
+    },
+    {
+     "type": "h",
+     "en": "Reading a URL",
+     "ar": "قراءة الـ URL"
+    },
+    {
+     "type": "code",
+     "lang": "text",
+     "code": "https://api.example.com/users?page=2&limit=10\n\nscheme:       https\nhost:         api.example.com\npath:         /users\nquery string: page=2&limit=10"
+    },
+    {
+     "type": "tip",
+     "en": "The query string starts after `?` and holds `key=value` pairs joined by `&`. It is usually used for filters, search and paging.",
+     "ar": "الـ query string يبدأ بعد `?` ويحتوي أزواج `key=value` مفصولة بـ `&`. يُستخدم عادةً للتصفية والبحث وتقسيم الصفحات."
+    }
+   ]
+  },
+  {
+   "id": "http-response-status-codes",
+   "title": {
+    "en": "The response and status codes",
+    "ar": "الاستجابة ورموز الحالة"
+   },
+   "blocks": [
+    {
+     "type": "p",
+     "en": "Every request gets a response. It has a status line, headers, an empty line and an optional body.",
+     "ar": "كل طلب يحصل على استجابة (response). وهي تتكون من سطر الحالة (status line) والـ headers وسطر فارغ ثم body اختياري."
+    },
+    {
+     "type": "code",
+     "lang": "http",
+     "code": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\"id\": 42, \"name\": \"Sara\"}"
+    },
+    {
+     "type": "p",
+     "en": "The status line shows the HTTP version, a three-digit status code and a short reason phrase. The first digit tells you the group.",
+     "ar": "سطر الحالة يعرض إصدار HTTP ورمز الحالة (status code) من ثلاثة أرقام وعبارة قصيرة. الرقم الأول يخبرك بالمجموعة."
+    },
+    {
+     "type": "list",
+     "en": [
+      "2xx success: `200 OK`, `201 Created`, `204 No Content` (success, empty body).",
+      "3xx redirect: the resource is elsewhere, e.g. `301 Moved Permanently`.",
+      "4xx client error: `400 Bad Request`, `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `422 Unprocessable Content`.",
+      "5xx server error: `500 Internal Server Error` (a bug or crash on the server)."
+     ],
+     "ar": [
+      "2xx نجاح: `200 OK` و`201 Created` و`204 No Content` (نجاح بدون body).",
+      "3xx إعادة توجيه: المورد في مكان آخر، مثل `301 Moved Permanently`.",
+      "4xx خطأ من العميل: `400 Bad Request` و`401 Unauthorized` و`403 Forbidden` و`404 Not Found` و`422 Unprocessable Content`.",
+      "5xx خطأ في الخادم: `500 Internal Server Error` (خلل أو انهيار في الخادم)."
+     ]
+    },
+    {
+     "type": "h",
+     "en": "Codes that are easy to mix up",
+     "ar": "رموز يسهل الخلط بينها"
+    },
+    {
+     "type": "list",
+     "en": [
+      "`401`: the server does not know who you are (missing or bad login/token).",
+      "`403`: the server knows who you are, but you are not allowed to do this.",
+      "`400`: the request itself is malformed or makes no sense.",
+      "`422`: the request is readable, but the data is invalid (e.g. text where a number is required). FastAPI uses `422` for validation errors."
+     ],
+     "ar": [
+      "`401`: الخادم لا يعرف من أنت (تسجيل دخول أو token مفقود أو غير صحيح).",
+      "`403`: الخادم يعرف من أنت، لكنك غير مسموح لك بهذا الفعل.",
+      "`400`: الطلب نفسه معطوب أو غير منطقي.",
+      "`422`: الطلب مقروء لكن البيانات غير صالحة (مثل نص مكان رقم مطلوب). FastAPI يستخدم `422` لأخطاء التحقق (validation)."
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "http",
+     "code": "HTTP/1.1 404 Not Found\nContent-Type: application/json\n\n{\"detail\": \"Not Found\"}"
+    },
+    {
+     "type": "tip",
+     "en": "4xx means the client should change the request. 5xx means the server has a problem, so the client usually cannot fix it.",
+     "ar": "الرمز 4xx يعني أن على العميل تعديل طلبه. أما 5xx فيعني أن المشكلة في الخادم، وغالبًا لا يستطيع العميل إصلاحها."
+    }
+   ]
+  },
+  {
+   "id": "methods-and-rest-urls",
+   "title": {
+    "en": "HTTP methods and REST-style URLs",
+    "ar": "الـ HTTP methods وروابط نمط REST"
+   },
+   "blocks": [
+    {
+     "type": "p",
+     "en": "The method tells the server what to do with the resource in the URL. Five methods cover almost every API.",
+     "ar": "الـ method تخبر الخادم ماذا يفعل بالمورد الموجود في الـ URL. خمس methods تكفي تقريبًا لأي API."
+    },
+    {
+     "type": "list",
+     "en": [
+      "`GET`: read data. It has no body.",
+      "`POST`: create a new item (the server picks its id).",
+      "`PUT`: replace a whole item with new data.",
+      "`PATCH`: change only some fields of an item.",
+      "`DELETE`: remove an item."
+     ],
+     "ar": [
+      "`GET`: قراءة البيانات، بدون body.",
+      "`POST`: إنشاء عنصر جديد (والخادم يختار رقمه id).",
+      "`PUT`: استبدال العنصر كاملًا ببيانات جديدة.",
+      "`PATCH`: تعديل بعض حقول العنصر فقط.",
+      "`DELETE`: حذف عنصر."
+     ]
+    },
+    {
+     "type": "h",
+     "en": "REST-style resource URLs",
+     "ar": "روابط الموارد بنمط REST"
+    },
+    {
+     "type": "p",
+     "en": "In REST style, a URL names a thing (a noun), and the method says the action. A collection is plural; one item adds its id.",
+     "ar": "في نمط REST يسمّي الـ URL شيئًا (اسمًا)، والـ method تحدد الفعل. المجموعة تُكتب بالجمع، والعنصر الواحد يُضاف إليه رقمه id."
+    },
+    {
+     "type": "code",
+     "lang": "text",
+     "code": "GET    /users        list all users\nPOST   /users        create a user\nGET    /users/42     read user 42\nPUT    /users/42     replace user 42\nPATCH  /users/42     update some fields of user 42\nDELETE /users/42     delete user 42"
+    },
+    {
+     "type": "h",
+     "en": "Safe and idempotent",
+     "ar": "آمن (safe) ومتساوي الأثر (idempotent)"
+    },
+    {
+     "type": "p",
+     "en": "A safe method only reads and never changes data: `GET` is safe. An idempotent method gives the same final result whether you send it once or many times: `GET`, `PUT` and `DELETE` are idempotent.",
+     "ar": "الـ method الآمنة (safe) تقرأ فقط ولا تغيّر البيانات أبدًا: `GET` آمنة. والـ method متساوية الأثر (idempotent) تعطي النتيجة النهائية نفسها سواء أرسلتها مرة أو عدة مرات: `GET` و`PUT` و`DELETE` كلها idempotent."
+    },
+    {
+     "type": "warn",
+     "en": "`POST` is not idempotent: sending the same `POST /users` twice usually creates two users. `PATCH` is not guaranteed to be idempotent either.",
+     "ar": "الـ `POST` ليست idempotent: إرسال `POST /users` نفسه مرتين ينشئ غالبًا مستخدمَين. وكذلك `PATCH` ليست مضمونة أن تكون idempotent."
+    },
+    {
+     "type": "tip",
+     "en": "Avoid verbs in URLs like `/getUser` or `/deleteUser`. Use `GET /users/42` and `DELETE /users/42` instead.",
+     "ar": "تجنب الأفعال في الروابط مثل `/getUser` أو `/deleteUser`. استخدم بدلًا منها `GET /users/42` و`DELETE /users/42`."
+    }
+   ]
+  },
+  {
+   "id": "json-basics",
+   "title": {
+    "en": "JSON: the language of APIs",
+    "ar": "الـ JSON: لغة الـ APIs"
+   },
+   "blocks": [
+    {
+     "type": "p",
+     "en": "JSON (JavaScript Object Notation) is a text format for data. Most web APIs send and receive their bodies as JSON.",
+     "ar": "الـ JSON صيغة نصية لتمثيل البيانات. ومعظم الـ web APIs ترسل وتستقبل الـ body بصيغة JSON."
+    },
+    {
+     "type": "code",
+     "lang": "json",
+     "code": "{\n  \"id\": 42,\n  \"name\": \"Sara\",\n  \"age\": 25,\n  \"is_admin\": false,\n  \"height\": 1.68,\n  \"tags\": [\"python\", \"api\"],\n  \"address\": {\"city\": \"Riyadh\"},\n  \"nickname\": null\n}"
+    },
+    {
+     "type": "h",
+     "en": "JSON types and their Python twins",
+     "ar": "أنواع JSON ونظيراتها في Python"
+    },
+    {
+     "type": "list",
+     "en": [
+      "object `{...}` becomes a `dict`; array `[...]` becomes a `list`.",
+      "string `\"text\"` becomes `str`; numbers become `int` or `float`.",
+      "`true` / `false` become `True` / `False`.",
+      "`null` becomes `None`."
+     ],
+     "ar": [
+      "الـ object `{...}` يصبح `dict`، والـ array `[...]` يصبح `list`.",
+      "الـ string `\"text\"` يصبح `str`، والأرقام تصبح `int` أو `float`.",
+      "`true` / `false` تصبح `True` / `False`.",
+      "`null` يصبح `None`."
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "JSON is stricter than a Python dict: keys and strings must use double quotes, trailing commas are not allowed, and there are no comments.",
+     "ar": "الـ JSON أكثر صرامة من الـ dict في Python: المفاتيح والنصوص يجب أن تكون بين علامتي تنصيص مزدوجتين، ولا يُسمح بفاصلة زائدة في النهاية، ولا توجد تعليقات."
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "import json\n\ndata = json.loads('{\"name\": \"Sara\", \"active\": true}')\nprint(data)  # {'name': 'Sara', 'active': True}\n\ntext = json.dumps({\"nickname\": None})\nprint(text)  # {\"nickname\": null}"
+    },
+    {
+     "type": "p",
+     "en": "When a client sends JSON in the body, it adds the header `Content-Type: application/json`. The server does the same in its response so the client knows how to read the body.",
+     "ar": "عندما يرسل العميل JSON في الـ body يضيف الـ header `Content-Type: application/json`. والخادم يفعل الشيء نفسه في استجابته حتى يعرف العميل كيف يقرأ الـ body."
+    }
+   ]
+  },
+  {
+   "id": "fastapi-teaser",
+   "title": {
+    "en": "A first look at FastAPI",
+    "ar": "نظرة أولى على FastAPI"
+   },
+   "blocks": [
+    {
+     "type": "p",
+     "en": "FastAPI is a Python framework for building web APIs. You write normal Python functions, and FastAPI turns them into endpoints that receive requests and return JSON responses.",
+     "ar": "الـ FastAPI إطار عمل (framework) بلغة Python لبناء الـ web APIs. تكتب دوال Python عادية، فيحوّلها FastAPI إلى endpoints تستقبل الطلبات وتعيد استجابات JSON."
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/users/{user_id}\")\ndef get_user(user_id: int):\n    return {\"id\": user_id, \"name\": \"Sara\"}"
+    },
+    {
+     "type": "p",
+     "en": "Here `@app.get(\"/users/{user_id}\")` connects the method `GET` and the path `/users/42` to the function. The returned dict is sent back as JSON with status `200`.",
+     "ar": "هنا `@app.get(\"/users/{user_id}\")` يربط الـ method `GET` والمسار `/users/42` بالدالة. والـ dict الذي تعيده الدالة يُرسل كـ JSON مع الـ status `200`."
+    },
+    {
+     "type": "code",
+     "lang": "http",
+     "code": "GET /users/42      ->  200 OK   {\"id\": 42, \"name\": \"Sara\"}\nGET /users/abc     ->  422 Unprocessable Content"
+    },
+    {
+     "type": "h",
+     "en": "Why FastAPI?",
+     "ar": "لماذا FastAPI؟"
+    },
+    {
+     "type": "list",
+     "en": [
+      "Fast: high performance, and fast to write.",
+      "Type hints: `user_id: int` makes FastAPI check the data for you, so bad input gets a `422`.",
+      "Automatic docs: an interactive documentation page at `/docs` is generated from your code."
+     ],
+     "ar": [
+      "سريع: أداء عالٍ، وسريع في الكتابة أيضًا.",
+      "الـ type hints: كتابة `user_id: int` تجعل FastAPI يتحقق من البيانات عنك، فالمدخلات الخاطئة تحصل على `422`.",
+      "توثيق تلقائي: صفحة توثيق تفاعلية على `/docs` تُنشأ من الكود نفسه."
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "Do not install anything yet. In the next level you will set up FastAPI and run this code yourself.",
+     "ar": "لا تثبّت شيئًا الآن. في المستوى التالي ستجهّز FastAPI وتشغّل هذا الكود بنفسك."
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "difficulty": "easy",
+   "question": {
+    "en": "Which part of an HTTP request tells the server what action to perform?",
+    "ar": "أي جزء من طلب HTTP يخبر الخادم بالفعل المطلوب تنفيذه؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "The `Host` header line",
+     "ar": "سطر الـ header `Host`"
+    },
+    {
+     "en": "The response status code",
+     "ar": "رمز الحالة (status code)"
+    },
+    {
+     "en": "The method, e.g. `GET`",
+     "ar": "الـ method، مثل `GET`"
+    },
+    {
+     "en": "The empty line before the body",
+     "ar": "السطر الفارغ قبل الـ body"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "The method (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`) is the action. Status codes belong to responses, not requests.",
+    "ar": "الـ method (`GET` و`POST` و`PUT` و`PATCH` و`DELETE`) هي الفعل المطلوب. أما رموز الحالة فهي جزء من الاستجابة لا الطلب."
+   }
+  },
+  {
+   "id": 2,
+   "difficulty": "easy",
+   "question": {
+    "en": "What does the status code `404` mean?",
+    "ar": "ماذا يعني رمز الحالة `404`؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "The resource was not found",
+     "ar": "المورد غير موجود"
+    },
+    {
+     "en": "The server crashed",
+     "ar": "الخادم انهار"
+    },
+    {
+     "en": "The request succeeded",
+     "ar": "الطلب نجح"
+    },
+    {
+     "en": "You must log in first",
+     "ar": "يجب تسجيل الدخول أولًا"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "`404 Not Found` is a client error: nothing exists at that URL. A server crash is `500`, success is `2xx`, and a missing login is `401`.",
+    "ar": "`404 Not Found` خطأ من جهة العميل: لا يوجد شيء على هذا الـ URL. انهيار الخادم هو `500`، والنجاح `2xx`، وغياب تسجيل الدخول `401`."
+   }
+  },
+  {
+   "id": 3,
+   "difficulty": "easy",
+   "question": {
+    "en": "In `https://api.shop.com/products?page=2`, what is the path?",
+    "ar": "في `https://api.shop.com/products?page=2`، ما هو المسار (path)؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "`api.shop.com`",
+     "ar": "`api.shop.com`"
+    },
+    {
+     "en": "`/products`",
+     "ar": "`/products`"
+    },
+    {
+     "en": "`page=2`",
+     "ar": "`page=2`"
+    },
+    {
+     "en": "`https`",
+     "ar": "`https`"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`https` is the scheme, `api.shop.com` is the host, `/products` is the path, and `page=2` is the query string.",
+    "ar": "`https` هو الـ scheme، و`api.shop.com` هو الـ host، و`/products` هو المسار، و`page=2` هو الـ query string."
+   }
+  },
+  {
+   "id": 4,
+   "difficulty": "medium",
+   "question": {
+    "en": "Which line tells the server what format the body is in?",
+    "ar": "أي سطر يخبر الخادم بصيغة الـ body؟"
+   },
+   "codeSnippet": "POST /users HTTP/1.1\nHost: api.example.com\nAccept: application/json\nContent-Type: application/json\n\n{\"name\": \"Sara\"}",
+   "options": [
+    {
+     "en": "`Host: api.example.com`",
+     "ar": "`Host: api.example.com`"
+    },
+    {
+     "en": "`POST /users HTTP/1.1`",
+     "ar": "`POST /users HTTP/1.1`"
+    },
+    {
+     "en": "`Accept: application/json`",
+     "ar": "`Accept: application/json`"
+    },
+    {
+     "en": "`Content-Type: application/json`",
+     "ar": "`Content-Type: application/json`"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`Content-Type` describes the body that is being sent. `Accept` only says which format the client wants in the response.",
+    "ar": "الـ `Content-Type` يصف الـ body المُرسل. أما `Accept` فيحدد فقط الصيغة التي يريدها العميل في الاستجابة."
+   }
+  },
+  {
+   "id": 5,
+   "difficulty": "medium",
+   "question": {
+    "en": "A FastAPI endpoint expects `age` to be an integer. What status code does this request most likely get?",
+    "ar": "endpoint في FastAPI يتوقع أن يكون `age` عددًا صحيحًا. ما رمز الحالة الأرجح لهذا الطلب؟"
+   },
+   "codeSnippet": "POST /users HTTP/1.1\nHost: api.example.com\nContent-Type: application/json\n\n{\"name\": \"Sara\", \"age\": \"abc\"}",
+   "options": [
+    {
+     "en": "`200 OK`",
+     "ar": "`200 OK`"
+    },
+    {
+     "en": "`404 Not Found`",
+     "ar": "`404 Not Found`"
+    },
+    {
+     "en": "`422 Unprocessable Content`",
+     "ar": "`422 Unprocessable Content`"
+    },
+    {
+     "en": "`500 Internal Server Error`",
+     "ar": "`500 Internal Server Error`"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "The JSON is readable, but `\"abc\"` is not a valid integer. FastAPI answers validation errors like this with `422`.",
+    "ar": "الـ JSON مقروء، لكن `\"abc\"` ليس عددًا صحيحًا صالحًا. ويرد FastAPI على أخطاء التحقق هذه بـ `422`."
+   }
+  },
+  {
+   "id": 6,
+   "difficulty": "medium",
+   "question": {
+    "en": "A client sends this as a JSON body. Why is it not valid JSON?",
+    "ar": "أرسل عميل هذا النص كـ body بصيغة JSON. لماذا ليس JSON صالحًا؟"
+   },
+   "codeSnippet": "{'name': 'Sara', 'age': 25,}",
+   "options": [
+    {
+     "en": "It uses single quotes and a trailing comma",
+     "ar": "يستخدم تنصيصًا مفردًا وفاصلة زائدة في النهاية"
+    },
+    {
+     "en": "The number `25` must be written in quotes",
+     "ar": "الرقم `25` يجب أن يُكتب بين علامتي تنصيص"
+    },
+    {
+     "en": "A JSON object must start with `[` not `{`",
+     "ar": "الـ JSON object يجب أن يبدأ بـ `[` لا بـ `{`"
+    },
+    {
+     "en": "Key names must be written in capital letters",
+     "ar": "أسماء المفاتيح يجب أن تُكتب بحروف كبيرة"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "JSON requires double quotes for keys and strings and does not allow a comma after the last item. Numbers have no quotes, and objects use `{}`.",
+    "ar": "الـ JSON يشترط علامتي تنصيص مزدوجتين للمفاتيح والنصوص ولا يسمح بفاصلة بعد آخر عنصر. والأرقام بلا تنصيص، والـ objects تستخدم `{}`."
+   }
+  },
+  {
+   "id": 7,
+   "difficulty": "medium",
+   "question": {
+    "en": "You want to change only the email of user 42 and keep all other fields. Which request fits REST style best?",
+    "ar": "تريد تغيير البريد الإلكتروني فقط للمستخدم 42 مع إبقاء بقية الحقول. أي طلب يناسب نمط REST أكثر؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "`GET /users/42`",
+     "ar": "`GET /users/42`"
+    },
+    {
+     "en": "`POST /users`",
+     "ar": "`POST /users`"
+    },
+    {
+     "en": "`DELETE /users/42`",
+     "ar": "`DELETE /users/42`"
+    },
+    {
+     "en": "`PATCH /users/42`",
+     "ar": "`PATCH /users/42`"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`PATCH` updates only some fields of one item, and `/users/42` names that item. `POST /users` would create a new user.",
+    "ar": "الـ `PATCH` تعدّل بعض حقول عنصر واحد فقط، و`/users/42` يحدد هذا العنصر. أما `POST /users` فتنشئ مستخدمًا جديدًا."
+   }
+  },
+  {
+   "id": 8,
+   "difficulty": "hard",
+   "question": {
+    "en": "Which method is idempotent but NOT safe?",
+    "ar": "أي method متساوية الأثر (idempotent) لكنها ليست آمنة (safe)؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "`GET`",
+     "ar": "`GET`"
+    },
+    {
+     "en": "`DELETE`",
+     "ar": "`DELETE`"
+    },
+    {
+     "en": "`POST`",
+     "ar": "`POST`"
+    },
+    {
+     "en": "`PATCH`",
+     "ar": "`PATCH`"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`DELETE` changes data, so it is not safe, but deleting the same item again leaves the same final state. `GET` is safe, while `POST` and `PATCH` are not guaranteed to be idempotent.",
+    "ar": "الـ `DELETE` تغيّر البيانات فليست safe، لكن حذف العنصر نفسه مرة أخرى يترك الحالة النهائية نفسها. أما `GET` فهي safe، و`POST` و`PATCH` ليستا مضمونتين أن تكونا idempotent."
+   }
+  },
+  {
+   "id": 9,
+   "difficulty": "hard",
+   "question": {
+    "en": "Sara is logged in with a valid token as a normal user. Only admins may delete users. What status code fits this response best?",
+    "ar": "سارة مسجلة الدخول بـ token صالح كمستخدمة عادية. والحذف مسموح للمشرفين (admins) فقط. أي رمز حالة يناسب هذه الاستجابة أكثر؟"
+   },
+   "codeSnippet": "DELETE /users/7 HTTP/1.1\nHost: api.example.com\nAuthorization: Bearer <valid token for Sara>",
+   "options": [
+    {
+     "en": "`401 Unauthorized`",
+     "ar": "`401 Unauthorized`"
+    },
+    {
+     "en": "`404 Not Found`",
+     "ar": "`404 Not Found`"
+    },
+    {
+     "en": "`403 Forbidden`",
+     "ar": "`403 Forbidden`"
+    },
+    {
+     "en": "`400 Bad Request`",
+     "ar": "`400 Bad Request`"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "The server knows who Sara is (the token is valid), but she is not allowed to do this, so it is `403`. `401` is for a missing or bad login.",
+    "ar": "الخادم يعرف من هي سارة (الـ token صالح)، لكنها غير مسموح لها بهذا الفعل، لذا الرمز `403`. أما `401` فهو لتسجيل دخول مفقود أو غير صحيح."
+   }
+  },
+  {
+   "id": 10,
+   "difficulty": "hard",
+   "question": {
+    "en": "What does this Python code print?",
+    "ar": "ماذا يطبع كود Python هذا؟"
+   },
+   "codeSnippet": "import json\n\ndata = json.loads('{\"id\": 42, \"active\": true, \"nickname\": null}')\nprint(data)",
+   "options": [
+    {
+     "en": "`{'id': 42, 'active': True, 'nickname': None}`",
+     "ar": "`{'id': 42, 'active': True, 'nickname': None}`"
+    },
+    {
+     "en": "`{'id': '42', 'active': 'true', 'nickname': 'null'}`",
+     "ar": "`{'id': '42', 'active': 'true', 'nickname': 'null'}`"
+    },
+    {
+     "en": "`{'id': 42, 'active': true, 'nickname': null}`",
+     "ar": "`{'id': 42, 'active': true, 'nickname': null}`"
+    },
+    {
+     "en": "`{'id': 42, 'active': 1, 'nickname': ''}`",
+     "ar": "`{'id': 42, 'active': 1, 'nickname': ''}`"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "`json.loads` turns JSON into Python: the object becomes a `dict`, `true` becomes `True` and `null` becomes `None`. The number stays an `int`.",
+    "ar": "الدالة `json.loads` تحوّل JSON إلى Python: الـ object يصبح `dict`، و`true` تصبح `True`، و`null` تصبح `None`. والرقم يبقى `int`."
+   }
+  }
+ ]
+}
