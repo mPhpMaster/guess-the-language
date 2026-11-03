@@ -1,5 +1,6 @@
 {
  "id": "parameters",
+ "icon": "🧭",
  "title": {
   "en": "Path and query parameters",
   "ar": "معاملات المسار والاستعلام"

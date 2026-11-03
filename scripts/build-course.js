@@ -17,8 +17,8 @@ const COURSES = {
     id: 'fastapi',
     title: { en: 'Build an API with FastAPI', ar: 'ابنِ API باستخدام FastAPI' },
     summary: {
-      en: 'From what a request and a response are, to a complete CRUD API in Python.',
-      ar: 'من معنى الطلب والاستجابة، إلى بناء API كامل (CRUD) بلغة Python.'
+      en: 'From what a request is, to a secure API with a database — deployed to production.',
+      ar: 'من معنى الطلب، إلى API آمن بقاعدة بيانات — منشور على الإنتاج.'
     }
   }
 };

@@ -1,0 +1,1066 @@
+{
+ "id": "bigger-apps",
+ "icon": "🏗️",
+ "title": {
+  "en": "Bigger Applications",
+  "ar": "التطبيقات الأكبر"
+ },
+ "summary": {
+  "en": "Split a growing API into routers, load settings from .env, and swap dependencies in tests.",
+  "ar": "قسّم الـ API المتنامية إلى موجّهات (routers)، واقرأ الإعدادات من .env، واستبدل الاعتماديات في الاختبارات."
+ },
+ "lessons": [
+  {
+   "id": "project-layout",
+   "title": {
+    "en": "From one file to a package",
+    "ar": "من ملف واحد إلى حزمة (package)"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🏗️",
+     "en": "Big app? Split it into small files",
+     "ar": "تطبيق كبير؟ قسّمه إلى ملفات صغيرة"
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "One huge main.py",
+       "ar": "ملف main.py ضخم واحد"
+      },
+      "tone": "bad",
+      "items": [
+       {
+        "en": "Hundreds of routes in one file",
+        "ar": "مئات المسارات في ملف واحد"
+       },
+       {
+        "en": "Hard to find anything",
+        "ar": "يصعب العثور على أي شيء"
+       },
+       {
+        "en": "Teammates edit the same file",
+        "ar": "الزملاء يعدّلون الملف نفسه"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "Routers in a package",
+       "ar": "موجّهات (routers) داخل حزمة"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "One file per topic",
+        "ar": "ملف لكل موضوع"
+       },
+       {
+        "en": "`main.py` only wires things together",
+        "ar": "`main.py` يربط الأجزاء فقط"
+       },
+       {
+        "en": "Easy to test and grow",
+        "ar": "سهل الاختبار والتوسيع"
+       }
+      ]
+     }
+    },
+    {
+     "type": "code",
+     "lang": "text",
+     "code": "shop/\n├── .env\n└── app/\n    ├── __init__.py\n    ├── main.py\n    ├── config.py\n    ├── deps.py\n    ├── models.py\n    └── routers/\n        ├── __init__.py\n        ├── users.py\n        └── items.py",
+     "highlight": [
+      5,
+      11,
+      12
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🚀",
+       "color": "green",
+       "title": {
+        "en": "main.py",
+        "ar": "main.py"
+       },
+       "text": {
+        "en": "Creates `app` and includes the routers",
+        "ar": "ينشئ `app` ويضمّ الموجّهات"
+       }
+      },
+      {
+       "icon": "🧩",
+       "color": "blue",
+       "title": {
+        "en": "routers/",
+        "ar": "routers/"
+       },
+       "text": {
+        "en": "One `APIRouter` per resource: users, items",
+        "ar": "`APIRouter` لكل مورد: users وitems"
+       }
+      },
+      {
+       "icon": "📦",
+       "color": "purple",
+       "title": {
+        "en": "models.py",
+        "ar": "models.py"
+       },
+       "text": {
+        "en": "Pydantic / SQLModel classes",
+        "ar": "أصناف Pydantic / SQLModel"
+       }
+      },
+      {
+       "icon": "🔌",
+       "color": "cyan",
+       "title": {
+        "en": "deps.py",
+        "ar": "deps.py"
+       },
+       "text": {
+        "en": "Shared dependencies like the current user",
+        "ar": "اعتماديات مشتركة مثل المستخدم الحالي"
+       }
+      },
+      {
+       "icon": "⚙️",
+       "color": "yellow",
+       "title": {
+        "en": "config.py",
+        "ar": "config.py"
+       },
+       "text": {
+        "en": "Settings read from `.env`",
+        "ar": "إعدادات تُقرأ من `.env`"
+       }
+      },
+      {
+       "icon": "📄",
+       "color": "red",
+       "title": {
+        "en": "__init__.py",
+        "ar": "__init__.py"
+       },
+       "text": {
+        "en": "Empty file: makes the folder a package",
+        "ar": "ملف فارغ: يجعل المجلد حزمة"
+       }
+      }
+     ]
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "from "
+      },
+      {
+       "text": "..",
+       "color": "yellow",
+       "label": {
+        "en": "up one package",
+        "ar": "حزمة واحدة للأعلى"
+       }
+      },
+      {
+       "text": "deps",
+       "color": "blue",
+       "label": {
+        "en": "the module app/deps.py",
+        "ar": "الوحدة app/deps.py"
+       }
+      },
+      {
+       "text": " import "
+      },
+      {
+       "text": "get_current_user",
+       "color": "green",
+       "label": {
+        "en": "the name you need",
+        "ar": "الاسم الذي تحتاجه"
+       }
+      }
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "Relative imports need a package: run `fastapi dev app/main.py`, not `python app/main.py`.",
+     "ar": "الاستيراد النسبي يحتاج حزمة: شغّل `fastapi dev app/main.py` وليس `python app/main.py`."
+    }
+   ]
+  },
+  {
+   "id": "apirouter",
+   "title": {
+    "en": "APIRouter: a mini app",
+    "ar": "APIRouter: تطبيق مصغّر"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🧩",
+     "en": "An APIRouter is a mini FastAPI app",
+     "ar": "الـ APIRouter تطبيق FastAPI مصغّر"
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "router = "
+      },
+      {
+       "text": "APIRouter",
+       "color": "blue",
+       "label": {
+        "en": "a group of routes",
+        "ar": "مجموعة مسارات"
+       }
+      },
+      {
+       "text": "("
+      },
+      {
+       "text": "prefix=\"/users\"",
+       "color": "green",
+       "label": {
+        "en": "added before every path",
+        "ar": "يُضاف قبل كل مسار"
+       }
+      },
+      {
+       "text": ", "
+      },
+      {
+       "text": "tags=[\"users\"]",
+       "color": "purple",
+       "label": {
+        "en": "section name in /docs",
+        "ar": "اسم القسم في /docs"
+       }
+      },
+      {
+       "text": ")"
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from fastapi import APIRouter\n\nrouter = APIRouter(prefix=\"/users\", tags=[\"users\"])\n\n@router.get(\"/\")\ndef list_users():\n    return [{\"username\": \"sara\"}]\n\n@router.get(\"/{username}\")\ndef read_user(username: str):\n    return {\"username\": username}",
+     "highlight": [
+      3,
+      5,
+      9
+     ]
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "📨",
+       "label": {
+        "en": "GET /users/sara",
+        "ar": "GET /users/sara"
+       }
+      },
+      {
+       "icon": "🚀",
+       "label": {
+        "en": "app in main.py",
+        "ar": "app في main.py"
+       }
+      },
+      {
+       "icon": "🧩",
+       "label": {
+        "en": "users router",
+        "ar": "موجّه users"
+       }
+      },
+      {
+       "icon": "⚙️",
+       "label": {
+        "en": "read_user",
+        "ar": "read_user"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "include_router",
+        "ar": "include_router"
+       }
+      },
+      {
+       "label": {
+        "en": "prefix /users matches",
+        "ar": "البادئة /users تطابق"
+       }
+      },
+      {
+       "label": {
+        "en": "/{username} = sara",
+        "ar": "/{username} = sara"
+       }
+      }
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "GET /users/sara",
+       "note": {
+        "en": "prefix + /{username}",
+        "ar": "البادئة + /{username}"
+       }
+      },
+      {
+       "from": "server",
+       "text": "200 OK  {\"username\": \"sara\"}"
+      },
+      {
+       "from": "client",
+       "text": "GET /sara",
+       "note": {
+        "en": "forgot the prefix",
+        "ar": "نسي البادئة"
+       }
+      },
+      {
+       "from": "server",
+       "text": "404 Not Found",
+       "note": {
+        "en": "no such path",
+        "ar": "لا يوجد مسار كهذا"
+       }
+      }
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "A prefix must not end with `/`: `prefix=\"/users/\"` raises an `AssertionError`.",
+     "ar": "البادئة يجب ألّا تنتهي بـ `/`: الكتابة `prefix=\"/users/\"` ترفع `AssertionError`."
+    }
+   ]
+  },
+  {
+   "id": "settings",
+   "title": {
+    "en": "Settings from .env",
+    "ar": "الإعدادات من ملف .env"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "⚙️",
+     "en": "Config lives in .env, not in code",
+     "ar": "الإعدادات مكانها .env وليس الكود"
+    },
+    {
+     "type": "code",
+     "lang": "text",
+     "code": "APP_NAME=Env Shop\nITEMS_PER_PAGE=2"
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from functools import lru_cache\nfrom pydantic_settings import BaseSettings, SettingsConfigDict\n\nclass Settings(BaseSettings):\n    app_name: str = \"Shop API\"\n    items_per_page: int = 10\n    model_config = SettingsConfigDict(env_file=\".env\")\n\n@lru_cache\ndef get_settings() -> Settings:\n    return Settings()",
+     "highlight": [
+      4,
+      7,
+      9
+     ]
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "📄",
+       "label": {
+        "en": ".env file",
+        "ar": "ملف .env"
+       }
+      },
+      {
+       "icon": "🧾",
+       "label": {
+        "en": "Settings()",
+        "ar": "Settings()"
+       }
+      },
+      {
+       "icon": "🧠",
+       "label": {
+        "en": "get_settings (cached)",
+        "ar": "get_settings (مخزَّنة)"
+       }
+      },
+      {
+       "icon": "⚙️",
+       "label": {
+        "en": "your endpoint",
+        "ar": "دالة المسار"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "APP_NAME → app_name",
+        "ar": "APP_NAME ← app_name"
+       }
+      },
+      {
+       "label": {
+        "en": "built once",
+        "ar": "يُبنى مرة واحدة"
+       }
+      },
+      {
+       "label": {
+        "en": "Depends(get_settings)",
+        "ar": "Depends(get_settings)"
+       }
+      }
+     ]
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": "os.environ",
+       "color": "green",
+       "label": {
+        "en": "1st: always wins",
+        "ar": "الأول: يفوز دائمًا"
+       }
+      },
+      {
+       "text": ".env",
+       "color": "blue",
+       "label": {
+        "en": "2nd",
+        "ar": "الثاني"
+       }
+      },
+      {
+       "text": "= default",
+       "color": "yellow",
+       "label": {
+        "en": "3rd: fallback",
+        "ar": "الثالث: احتياطي"
+       }
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "`@lru_cache` reads `.env` once and returns the same `Settings` object every time.",
+     "ar": "`@lru_cache` يقرأ `.env` مرة واحدة ويُرجع كائن `Settings` نفسه في كل مرة."
+    },
+    {
+     "type": "warn",
+     "en": "`.env` is looked up in the folder you start the app from. Never commit it.",
+     "ar": "يُبحث عن `.env` في المجلد الذي تشغّل منه التطبيق. لا ترفعه إلى git أبدًا."
+    }
+   ]
+  },
+  {
+   "id": "wire-it-up",
+   "title": {
+    "en": "Wiring routers into main.py",
+    "ar": "ربط الموجّهات في main.py"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🔗",
+     "en": "main.py plugs every router in",
+     "ar": "main.py يوصل كل الموجّهات"
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from typing import Annotated\nfrom fastapi import Depends, Header, HTTPException\nfrom .config import Settings, get_settings\n\nSettingsDep = Annotated[Settings, Depends(get_settings)]\n\ndef get_current_user(x_token: Annotated[str | None, Header()] = None) -> str:\n    if x_token != \"secret\":  # stand-in for the level 7 JWT check\n        raise HTTPException(status_code=401, detail=\"Not authenticated\")\n    return \"sara\"",
+     "highlight": [
+      5,
+      7,
+      9
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from fastapi import APIRouter, Depends\nfrom ..deps import get_current_user\nfrom ..models import Item\n\nrouter = APIRouter(prefix=\"/items\", tags=[\"items\"],\n                   dependencies=[Depends(get_current_user)])\n\n@router.get(\"/{item_id}\", response_model=Item)\ndef read_item(item_id: int):\n    return Item(id=item_id, name=f\"item {item_id}\")",
+     "highlight": [
+      5,
+      6
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from fastapi import FastAPI\nfrom .deps import SettingsDep\nfrom .routers import items, users\n\napp = FastAPI(title=\"Shop API\", version=\"1.0.0\",\n              description=\"Users and items, split into routers.\")\napp.include_router(users.router)\napp.include_router(items.router)\n\n@app.get(\"/\")\ndef root(settings: SettingsDep):\n    return {\"app\": settings.app_name}",
+     "highlight": [
+      5,
+      7,
+      8
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "GET /items/1",
+       "note": {
+        "en": "no token",
+        "ar": "بدون token"
+       }
+      },
+      {
+       "from": "server",
+       "text": "401 Unauthorized  {\"detail\": \"Not authenticated\"}",
+       "note": {
+        "en": "router dependency blocked it",
+        "ar": "اعتمادية الموجّه منعته"
+       }
+      },
+      {
+       "from": "client",
+       "text": "GET /items/1  X-Token: secret"
+      },
+      {
+       "from": "server",
+       "text": "200 OK  {\"id\": 1, \"name\": \"item 1\"}"
+      },
+      {
+       "from": "client",
+       "text": "GET /users/sara",
+       "note": {
+        "en": "users router: no lock",
+        "ar": "موجّه users: بلا قفل"
+       }
+      },
+      {
+       "from": "server",
+       "text": "200 OK  {\"username\": \"sara\"}"
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🏷️",
+       "color": "green",
+       "title": {
+        "en": "title + version",
+        "ar": "title + version"
+       },
+       "text": {
+        "en": "Shown at the top of `/docs`",
+        "ar": "يظهران أعلى صفحة `/docs`"
+       }
+      },
+      {
+       "icon": "📝",
+       "color": "blue",
+       "title": {
+        "en": "description",
+        "ar": "description"
+       },
+       "text": {
+        "en": "A short intro under the title",
+        "ar": "مقدمة قصيرة تحت العنوان"
+       }
+      },
+      {
+       "icon": "🗂️",
+       "color": "purple",
+       "title": {
+        "en": "tags",
+        "ar": "tags"
+       },
+       "text": {
+        "en": "Group routes into sections: users, items",
+        "ar": "تجمع المسارات في أقسام: users وitems"
+       }
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "Prefixes stack: `include_router(router, prefix=\"/api/v1\")` turns `/items/1` into `/api/v1/items/1`.",
+     "ar": "البادئات تتراكم: `include_router(router, prefix=\"/api/v1\")` يحوّل `/items/1` إلى `/api/v1/items/1`."
+    }
+   ]
+  },
+  {
+   "id": "testing-with-overrides",
+   "title": {
+    "en": "Swapping dependencies in tests",
+    "ar": "استبدال الاعتماديات في الاختبارات"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🧪",
+     "en": "Tests swap real parts for fakes",
+     "ar": "الاختبارات تستبدل الأجزاء الحقيقية بأخرى وهمية"
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "🧪",
+       "label": {
+        "en": "test request",
+        "ar": "طلب الاختبار"
+       }
+      },
+      {
+       "icon": "🔀",
+       "label": {
+        "en": "dependency_overrides",
+        "ar": "dependency_overrides"
+       }
+      },
+      {
+       "icon": "🎭",
+       "label": {
+        "en": "fake function runs",
+        "ar": "تعمل الدالة الوهمية"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "needs get_settings",
+        "ar": "يحتاج get_settings"
+       }
+      },
+      {
+       "label": {
+        "en": "swapped by key",
+        "ar": "يُستبدل حسب المفتاح"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "⚙️",
+       "color": "yellow",
+       "title": {
+        "en": "get_settings",
+        "ar": "get_settings"
+       },
+       "text": {
+        "en": "Fake settings, no `.env` needed",
+        "ar": "إعدادات وهمية بدون حاجة إلى `.env`"
+       }
+      },
+      {
+       "icon": "🗄️",
+       "color": "cyan",
+       "title": {
+        "en": "get_session",
+        "ar": "get_session"
+       },
+       "text": {
+        "en": "A test database instead of the real one",
+        "ar": "قاعدة بيانات للاختبار بدل الحقيقية"
+       }
+      },
+      {
+       "icon": "👤",
+       "color": "purple",
+       "title": {
+        "en": "get_current_user",
+        "ar": "get_current_user"
+       },
+       "text": {
+        "en": "A fake user, no token or login",
+        "ar": "مستخدم وهمي بلا token أو تسجيل دخول"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from fastapi.testclient import TestClient\nfrom app.config import Settings, get_settings\nfrom app.deps import get_current_user\nfrom app.main import app\nclient = TestClient(app)\n\ndef test_with_fakes():\n    app.dependency_overrides[get_settings] = lambda: Settings(app_name=\"Test Shop\")\n    app.dependency_overrides[get_current_user] = lambda: \"test-user\"\n    assert client.get(\"/\").json() == {\"app\": \"Test Shop\"}\n    assert client.get(\"/items/1\").status_code == 200  # no token needed\n    app.dependency_overrides.clear()",
+     "highlight": [
+      8,
+      9,
+      11,
+      12
+     ]
+    },
+    {
+     "type": "steps",
+     "items": [
+      {
+       "en": "Key: the original dependency function",
+       "ar": "المفتاح: دالة الاعتمادية الأصلية"
+      },
+      {
+       "en": "Value: the fake function to run",
+       "ar": "القيمة: الدالة الوهمية التي ستعمل"
+      },
+      {
+       "en": "Call routes with `TestClient`",
+       "ar": "استدعِ المسارات بـ `TestClient`"
+      },
+      {
+       "en": "Finish with `dependency_overrides.clear()`",
+       "ar": "اختم بـ `dependency_overrides.clear()`"
+      }
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "Forget `.clear()` and the fakes leak into your other tests.",
+     "ar": "إذا نسيت `.clear()` تتسرّب الدوال الوهمية إلى اختباراتك الأخرى."
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "difficulty": "easy",
+   "question": {
+    "en": "What does `prefix=\"/users\"` do in `APIRouter(prefix=\"/users\")`?",
+    "ar": "ماذا يفعل `prefix=\"/users\"` في `APIRouter(prefix=\"/users\")`؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "Adds `/users` before every path in the router",
+     "ar": "يضيف `/users` قبل كل مسار في الموجّه"
+    },
+    {
+     "en": "Groups the routes under a `users` section in `/docs`",
+     "ar": "يجمع المسارات في قسم `users` داخل `/docs`"
+    },
+    {
+     "en": "Makes every route in the router require a login",
+     "ar": "يجعل كل مسارات الموجّه تتطلّب تسجيل الدخول"
+    },
+    {
+     "en": "Saves the router in a file named `users.py`",
+     "ar": "يحفظ الموجّه في ملف اسمه `users.py`"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "The prefix is put in front of each route path. Grouping in `/docs` is the job of `tags`.",
+    "ar": "البادئة توضع قبل مسار كل route. أما التجميع في `/docs` فهو عمل `tags`."
+   }
+  },
+  {
+   "id": 2,
+   "difficulty": "easy",
+   "question": {
+    "en": "Which line in `main.py` adds the users router to the app?",
+    "ar": "أي سطر في `main.py` يضيف موجّه users إلى التطبيق؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "app.add_router(users.router)",
+     "ar": "app.add_router(users.router)"
+    },
+    {
+     "en": "users.router.include(app)",
+     "ar": "users.router.include(app)"
+    },
+    {
+     "en": "app.include_router(users.router)",
+     "ar": "app.include_router(users.router)"
+    },
+    {
+     "en": "app.mount_router(users.router)",
+     "ar": "app.mount_router(users.router)"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "`app.include_router(...)` registers all of the router's routes on the app.",
+    "ar": "`app.include_router(...)` يسجّل كل مسارات الموجّه في التطبيق."
+   }
+  },
+  {
+   "id": 3,
+   "difficulty": "easy",
+   "question": {
+    "en": "Where does a pydantic-settings `BaseSettings` class read its values from?",
+    "ar": "من أين يقرأ صنف `BaseSettings` من pydantic-settings قيمه؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "Only from the request's query string",
+     "ar": "من نص الاستعلام (query) في الطلب فقط"
+    },
+    {
+     "en": "From environment variables and the `.env` file",
+     "ar": "من متغيرات البيئة وملف `.env`"
+    },
+    {
+     "en": "From the JSON body of each request",
+     "ar": "من جسم JSON في كل طلب"
+    },
+    {
+     "en": "From the tags shown on the `/docs` page",
+     "ar": "من الوسوم (tags) الظاهرة في صفحة `/docs`"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`BaseSettings` fills its fields from environment variables and, with `env_file=\".env\"`, from that file.",
+    "ar": "`BaseSettings` يملأ حقوله من متغيرات البيئة، ومن ملف `.env` عند ضبط `env_file=\".env\"`."
+   }
+  },
+  {
+   "id": 4,
+   "difficulty": "medium",
+   "question": {
+    "en": "`main.py` calls `app.include_router(router)`. Which URL runs `read_item` for item 5?",
+    "ar": "الملف `main.py` يستدعي `app.include_router(router)`. أي رابط يشغّل `read_item` للعنصر 5؟"
+   },
+   "codeSnippet": "router = APIRouter(prefix=\"/items\", tags=[\"items\"])\n\n@router.get(\"/{item_id}\")\ndef read_item(item_id: int):\n    return {\"item_id\": item_id}",
+   "options": [
+    {
+     "en": "GET /5",
+     "ar": "GET /5"
+    },
+    {
+     "en": "GET /item/5",
+     "ar": "GET /item/5"
+    },
+    {
+     "en": "GET /router/items/5",
+     "ar": "GET /router/items/5"
+    },
+    {
+     "en": "GET /items/5",
+     "ar": "GET /items/5"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "The router's prefix `/items` is joined with `/{item_id}`, giving `/items/5`.",
+    "ar": "تُدمج بادئة الموجّه `/items` مع `/{item_id}` فيصبح المسار `/items/5`."
+   }
+  },
+  {
+   "id": 5,
+   "difficulty": "medium",
+   "question": {
+    "en": "A client sends `GET /items/5` with no `X-Token` header. What is the response?",
+    "ar": "عميل يرسل `GET /items/5` بدون الترويسة `X-Token`. ما الاستجابة؟"
+   },
+   "codeSnippet": "def get_current_user(x_token: Annotated[str | None, Header()] = None):\n    if x_token != \"secret\":\n        raise HTTPException(status_code=401, detail=\"Not authenticated\")\n    return \"sara\"\n\nrouter = APIRouter(prefix=\"/items\",\n                   dependencies=[Depends(get_current_user)])\n\n@router.get(\"/{item_id}\")\ndef read_item(item_id: int):\n    return {\"item_id\": item_id}",
+   "options": [
+    {
+     "en": "401 {\"detail\": \"Not authenticated\"}",
+     "ar": "401 {\"detail\": \"Not authenticated\"}"
+    },
+    {
+     "en": "200 {\"item_id\": 5} (check skipped)",
+     "ar": "200 {\"item_id\": 5} (يُتخطّى الفحص)"
+    },
+    {
+     "en": "422 \"Field required\" for x_token",
+     "ar": "422 \"Field required\" للحقل x_token"
+    },
+    {
+     "en": "404 {\"detail\": \"Item not found\"}",
+     "ar": "404 {\"detail\": \"Item not found\"}"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "Router-level `dependencies` run before every route in the router. The check fails, so 401 is returned.",
+    "ar": "اعتماديات الموجّه `dependencies` تعمل قبل كل مسار فيه. يفشل الفحص فتُرجَع 401."
+   }
+  },
+  {
+   "id": 6,
+   "difficulty": "medium",
+   "question": {
+    "en": "The app starts in the folder that holds this `.env`. What does `GET /` return?",
+    "ar": "يبدأ التطبيق من المجلد الذي فيه ملف `.env` هذا. ماذا يُرجع `GET /`؟"
+   },
+   "codeSnippet": "# .env\nAPP_NAME=Env Shop\n\nclass Settings(BaseSettings):\n    app_name: str = \"Shop API\"\n    model_config = SettingsConfigDict(env_file=\".env\")\n\n@app.get(\"/\")\ndef root(settings: Annotated[Settings, Depends(get_settings)]):\n    return {\"app\": settings.app_name}",
+   "options": [
+    {
+     "en": "{\"app\": \"Shop API\"}",
+     "ar": "{\"app\": \"Shop API\"}"
+    },
+    {
+     "en": "{\"app\": \"APP_NAME\"}",
+     "ar": "{\"app\": \"APP_NAME\"}"
+    },
+    {
+     "en": "{\"app\": \"Env Shop\"}",
+     "ar": "{\"app\": \"Env Shop\"}"
+    },
+    {
+     "en": "{\"app\": null}",
+     "ar": "{\"app\": null}"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "`APP_NAME` in `.env` fills the field `app_name` and replaces the default \"Shop API\".",
+    "ar": "`APP_NAME` في `.env` يملأ الحقل `app_name` ويحلّ محل القيمة الافتراضية \"Shop API\"."
+   }
+  },
+  {
+   "id": 7,
+   "difficulty": "medium",
+   "question": {
+    "en": "Why is `get_settings` decorated with `@lru_cache`?",
+    "ar": "لماذا نضع `@lru_cache` على الدالة `get_settings`؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "So every request reads `.env` again from disk",
+     "ar": "لكي يقرأ كل طلب ملف `.env` من القرص من جديد"
+    },
+    {
+     "en": "So `Settings` is built once and then reused",
+     "ar": "لكي يُبنى `Settings` مرة واحدة ثم يُعاد استخدامه"
+    },
+    {
+     "en": "So the settings appear as a tag in `/docs`",
+     "ar": "لكي تظهر الإعدادات كوسم (tag) في `/docs`"
+    },
+    {
+     "en": "So tests can never replace the settings",
+     "ar": "لكي لا تستطيع الاختبارات استبدال الإعدادات أبدًا"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`@lru_cache` stores the first result, so `.env` is read once and the same object is returned.",
+    "ar": "`@lru_cache` يحفظ النتيجة الأولى، فيُقرأ `.env` مرة واحدة ويُرجَع الكائن نفسه."
+   }
+  },
+  {
+   "id": 8,
+   "difficulty": "hard",
+   "question": {
+    "en": "`.env` contains `APP_NAME=Env Shop`. What does this test get from `GET /`?",
+    "ar": "ملف `.env` يحتوي `APP_NAME=Env Shop`. ماذا يستلم هذا الاختبار من `GET /`؟"
+   },
+   "codeSnippet": "# root() returns {\"app\": settings.app_name}\n# using Depends(get_settings)\n\napp.dependency_overrides[get_settings] = (\n    lambda: Settings(app_name=\"Test Shop\")\n)\nprint(client.get(\"/\").json())",
+   "options": [
+    {
+     "en": "{\"app\": \"Env Shop\"}",
+     "ar": "{\"app\": \"Env Shop\"}"
+    },
+    {
+     "en": "{\"app\": \"Shop API\"}",
+     "ar": "{\"app\": \"Shop API\"}"
+    },
+    {
+     "en": "500 Internal Server Error",
+     "ar": "500 Internal Server Error"
+    },
+    {
+     "en": "{\"app\": \"Test Shop\"}",
+     "ar": "{\"app\": \"Test Shop\"}"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`dependency_overrides` makes FastAPI call the fake instead of `get_settings`, so `.env` is not used.",
+    "ar": "`dependency_overrides` يجعل FastAPI يستدعي الدالة الوهمية بدل `get_settings`، فلا يُستخدم `.env`."
+   }
+  },
+  {
+   "id": 9,
+   "difficulty": "hard",
+   "question": {
+    "en": "What happens when Python runs this line?",
+    "ar": "ماذا يحدث عندما ينفّذ Python هذا السطر؟"
+   },
+   "codeSnippet": "router = APIRouter(prefix=\"/users/\", tags=[\"users\"])",
+   "options": [
+    {
+     "en": "`AssertionError`: a prefix must not end with `/`",
+     "ar": "`AssertionError`: البادئة يجب ألّا تنتهي بـ `/`"
+    },
+    {
+     "en": "It works and paths look like `/users//me`",
+     "ar": "يعمل وتصبح المسارات مثل `/users//me`"
+    },
+    {
+     "en": "It works and FastAPI removes the extra `/`",
+     "ar": "يعمل ويحذف FastAPI الشرطة `/` الزائدة"
+    },
+    {
+     "en": "Every request to the router returns 404",
+     "ar": "كل طلب إلى الموجّه يُرجع 404"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "FastAPI checks the prefix when the router is created and rejects a trailing `/` with an `AssertionError`.",
+    "ar": "يفحص FastAPI البادئة عند إنشاء الموجّه ويرفض `/` في آخرها برفع `AssertionError`."
+   }
+  },
+  {
+   "id": 10,
+   "difficulty": "hard",
+   "question": {
+    "en": "Which URL now reaches `read_item` for item 3?",
+    "ar": "أي رابط يصل الآن إلى `read_item` للعنصر 3؟"
+   },
+   "codeSnippet": "router = APIRouter(prefix=\"/items\")\n\n@router.get(\"/{item_id}\")\ndef read_item(item_id: int):\n    return {\"item_id\": item_id}\n\napp.include_router(router, prefix=\"/api/v1\")",
+   "options": [
+    {
+     "en": "GET /items/3",
+     "ar": "GET /items/3"
+    },
+    {
+     "en": "GET /api/v1/3",
+     "ar": "GET /api/v1/3"
+    },
+    {
+     "en": "GET /api/v1/items/3",
+     "ar": "GET /api/v1/items/3"
+    },
+    {
+     "en": "GET /items/api/v1/3",
+     "ar": "GET /items/api/v1/3"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "The `include_router` prefix goes first, then the router's own prefix: `/api/v1` + `/items` + `/3`.",
+    "ar": "بادئة `include_router` تأتي أولًا ثم بادئة الموجّه نفسه: `/api/v1` + `/items` + `/3`."
+   }
+  }
+ ]
+}

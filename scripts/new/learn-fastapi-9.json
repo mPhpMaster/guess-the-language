@@ -1,0 +1,1038 @@
+{
+ "id": "middleware-files",
+ "icon": "🧰",
+ "title": {
+  "en": "Middleware, CORS and files",
+  "ar": "الـ Middleware وCORS والملفات"
+ },
+ "summary": {
+  "en": "Open your API to browsers with CORS, wrap requests with middleware, accept uploads, run background tasks and handle custom errors.",
+  "ar": "افتح الـ API للمتصفحات عبر CORS، وغلّف الطلبات بالـ Middleware، واستقبل الملفات، وشغّل مهام في الخلفية، وعالج أخطاءك المخصّصة."
+ },
+ "lessons": [
+  {
+   "id": "cors",
+   "title": {
+    "en": "CORS: letting browsers in",
+    "ar": "CORS: السماح للمتصفحات بالدخول"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🌍",
+     "en": "Browsers block other sites, unless your API says yes",
+     "ar": "المتصفح يحجب المواقع الأخرى، إلا إذا وافقت الـ API"
+    },
+    {
+     "type": "p",
+     "en": "An origin is scheme + host + port. A different origin makes the browser ask your API first.",
+     "ar": "الأصل (origin) هو البروتوكول + المضيف + المنفذ. أي أصل مختلف يجعل المتصفح يسأل الـ API أولًا."
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "🌐",
+       "label": {
+        "en": "app.example.com",
+        "ar": "app.example.com"
+       }
+      },
+      {
+       "icon": "🖥️",
+       "label": {
+        "en": "api.example.com",
+        "ar": "api.example.com"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "fetch /items",
+        "ar": "fetch /items"
+       }
+      }
+     ],
+     "returns": {
+      "en": "+ Allow-Origin header",
+      "ar": "+ ترويسة Allow-Origin"
+     }
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "OPTIONS /items\nOrigin: https://app.example.com\nAccess-Control-Request-Method: PUT",
+       "note": {
+        "en": "preflight: may I?",
+        "ar": "طلب تمهيدي (preflight): هل يُسمح لي؟"
+       }
+      },
+      {
+       "from": "server",
+       "text": "200 OK\nAccess-Control-Allow-Origin: https://app.example.com\nAccess-Control-Allow-Methods: GET, POST, PUT",
+       "note": {
+        "en": "yes, you may",
+        "ar": "نعم، مسموح"
+       }
+      },
+      {
+       "from": "client",
+       "text": "OPTIONS /items\nOrigin: https://evil.com\nAccess-Control-Request-Method: GET",
+       "note": {
+        "en": "an unknown site",
+        "ar": "موقع غير معروف"
+       }
+      },
+      {
+       "from": "server",
+       "text": "400 Bad Request  Disallowed CORS origin",
+       "note": {
+        "en": "not on the list",
+        "ar": "ليس في القائمة"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from fastapi import FastAPI\nfrom fastapi.middleware.cors import CORSMiddleware\n\napp = FastAPI()\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"https://app.example.com\"],\n    allow_credentials=True,  # cookies, Authorization\n    allow_methods=[\"GET\", \"POST\", \"PUT\"],\n    allow_headers=[\"Authorization\", \"Content-Type\"],\n)",
+     "highlight": [
+      5,
+      7,
+      8,
+      9,
+      10
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🏠",
+       "color": "green",
+       "title": {
+        "en": "allow_origins",
+        "ar": "allow_origins"
+       },
+       "text": {
+        "en": "Which sites may call your API",
+        "ar": "المواقع المسموح لها باستدعاء الـ API"
+       }
+      },
+      {
+       "icon": "🍪",
+       "color": "yellow",
+       "title": {
+        "en": "allow_credentials",
+        "ar": "allow_credentials"
+       },
+       "text": {
+        "en": "Allow cookies and `Authorization` headers",
+        "ar": "السماح بالكوكيز وترويسة `Authorization`"
+       }
+      },
+      {
+       "icon": "🔀",
+       "color": "blue",
+       "title": {
+        "en": "allow_methods",
+        "ar": "allow_methods"
+       },
+       "text": {
+        "en": "Allowed HTTP methods, like `GET` or `PUT`",
+        "ar": "طرق HTTP المسموحة مثل `GET` أو `PUT`"
+       }
+      },
+      {
+       "icon": "🏷️",
+       "color": "purple",
+       "title": {
+        "en": "allow_headers",
+        "ar": "allow_headers"
+       },
+       "text": {
+        "en": "Extra request headers the browser may send",
+        "ar": "الترويسات الإضافية التي يُسمح للمتصفح بإرسالها"
+       }
+      }
+     ]
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "Access-Control-Allow-Origin",
+       "color": "blue",
+       "label": {
+        "en": "CORS response header",
+        "ar": "ترويسة CORS في الاستجابة"
+       }
+      },
+      {
+       "text": ": "
+      },
+      {
+       "text": "https://app.example.com",
+       "color": "green",
+       "label": {
+        "en": "the allowed origin",
+        "ar": "الأصل المسموح"
+       }
+      }
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "CORS is enforced by the browser: the server still answers, the page just can't read it.",
+     "ar": "المتصفح هو من يطبّق CORS: الخادم يرد فعلًا، لكن الصفحة لا تستطيع قراءة الرد."
+    }
+   ]
+  },
+  {
+   "id": "custom-middleware",
+   "title": {
+    "en": "Your own middleware",
+    "ar": "كتابة Middleware خاص بك"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🧅",
+     "en": "Middleware wraps every request and response",
+     "ar": "الـ Middleware يغلّف كل طلب وكل استجابة"
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "📨",
+       "label": {
+        "en": "request",
+        "ar": "الطلب"
+       }
+      },
+      {
+       "icon": "🧰",
+       "label": {
+        "en": "middleware (before)",
+        "ar": "middleware (قبل)"
+       }
+      },
+      {
+       "icon": "⚙️",
+       "label": {
+        "en": "endpoint",
+        "ar": "دالة المسار"
+       }
+      },
+      {
+       "icon": "🧰",
+       "label": {
+        "en": "middleware (after)",
+        "ar": "middleware (بعد)"
+       }
+      },
+      {
+       "icon": "📤",
+       "label": {
+        "en": "response",
+        "ar": "الاستجابة"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "every route",
+        "ar": "كل المسارات"
+       }
+      },
+      {
+       "label": {
+        "en": "await call_next",
+        "ar": "await call_next"
+       }
+      },
+      {
+       "label": {
+        "en": "returns response",
+        "ar": "يُرجع الاستجابة"
+       }
+      },
+      {
+       "label": {
+        "en": "header added",
+        "ar": "أُضيفت ترويسة"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "import time\nfrom fastapi import Request\n\n@app.middleware(\"http\")\nasync def add_process_time(request: Request, call_next):\n    start = time.perf_counter()\n    response = await call_next(request)  # runs the endpoint\n    response.headers[\"X-Process-Time\"] = f\"{time.perf_counter() - start:.4f}\"\n    return response",
+     "highlight": [
+      4,
+      7,
+      8,
+      9
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "GET /",
+       "note": {
+        "en": "any route",
+        "ar": "أي مسار"
+       }
+      },
+      {
+       "from": "server",
+       "text": "200 OK\nX-Process-Time: 0.0040\n{\"ok\": true}",
+       "note": {
+        "en": "same body, extra header",
+        "ar": "الجسم نفسه مع ترويسة إضافية"
+       }
+      }
+     ]
+    },
+    {
+     "type": "steps",
+     "items": [
+      {
+       "en": "`A` added first, `B` added second",
+       "ar": "أُضيف `A` أولًا ثم `B`"
+      },
+      {
+       "en": "Request enters `B` first (outermost)",
+       "ar": "يدخل الطلب `B` أولًا (الغلاف الخارجي)"
+      },
+      {
+       "en": "Then `A`, then the endpoint",
+       "ar": "ثم `A`، ثم دالة المسار"
+      },
+      {
+       "en": "Response leaves `A`, then `B`",
+       "ar": "تخرج الاستجابة من `A` ثم من `B`"
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "The middleware added last is the outermost layer: it runs first and finishes last.",
+     "ar": "الـ Middleware المضاف أخيرًا هو الغلاف الخارجي: يعمل أولًا وينتهي أخيرًا."
+    },
+    {
+     "type": "warn",
+     "en": "Return a response without calling `call_next`, and the endpoint never runs.",
+     "ar": "إذا أرجعت استجابة دون استدعاء `call_next` فلن تُنفَّذ دالة المسار أبدًا."
+    }
+   ]
+  },
+  {
+   "id": "file-uploads",
+   "title": {
+    "en": "Uploading files and forms",
+    "ar": "رفع الملفات والنماذج (Forms)"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "📎",
+     "en": "Receive files with `UploadFile`",
+     "ar": "استقبل الملفات باستخدام `UploadFile`"
+    },
+    {
+     "type": "tip",
+     "en": "Files and forms need `python-multipart`; `fastapi[standard]` already includes it.",
+     "ar": "الملفات والنماذج تحتاج `python-multipart`، وهو مضمَّن في `fastapi[standard]`."
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from fastapi import HTTPException, UploadFile\n\n@app.post(\"/upload\")\nasync def upload(file: UploadFile):\n    data = await file.read()  # bytes\n    if len(data) > 1_000_000:\n        raise HTTPException(status_code=413, detail=\"File too large\")\n    return {\"filename\": file.filename,\n            \"content_type\": file.content_type,\n            \"size\": len(data)}",
+     "highlight": [
+      4,
+      5,
+      6,
+      7
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "📛",
+       "color": "blue",
+       "title": {
+        "en": ".filename",
+        "ar": ".filename"
+       },
+       "text": {
+        "en": "Name sent by the client, like `notes.txt`",
+        "ar": "الاسم الذي أرسله العميل مثل `notes.txt`"
+       }
+      },
+      {
+       "icon": "🏷️",
+       "color": "purple",
+       "title": {
+        "en": ".content_type",
+        "ar": ".content_type"
+       },
+       "text": {
+        "en": "Type, like `text/plain` or `image/png`",
+        "ar": "النوع مثل `text/plain` أو `image/png`"
+       }
+      },
+      {
+       "icon": "📦",
+       "color": "green",
+       "title": {
+        "en": "await .read()",
+        "ar": "await .read()"
+       },
+       "text": {
+        "en": "All bytes; a second read returns `b\"\"`",
+        "ar": "كل البايتات؛ القراءة الثانية تُرجع `b\"\"`"
+       }
+      },
+      {
+       "icon": "🚫",
+       "color": "red",
+       "title": {
+        "en": "413",
+        "ar": "413"
+       },
+       "text": {
+        "en": "Reject files that are too large",
+        "ar": "ارفض الملفات الكبيرة جدًا"
+       }
+      }
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "POST /upload  (multipart)\nfile = notes.txt  \"hello\"",
+       "note": {
+        "en": "a 5-byte file",
+        "ar": "ملف من 5 بايت"
+       }
+      },
+      {
+       "from": "server",
+       "text": "200 OK  {\"filename\": \"notes.txt\", \"content_type\": \"text/plain\", \"size\": 5}"
+      },
+      {
+       "from": "client",
+       "text": "POST /upload  (multipart)\nfile = big.bin  (2 MB)",
+       "note": {
+        "en": "too big",
+        "ar": "كبير جدًا"
+       }
+      },
+      {
+       "from": "server",
+       "text": "413  {\"detail\": \"File too large\"}"
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from fastapi import File, Form\n\n@app.post(\"/many\")\nasync def many(files: list[UploadFile]):\n    return {\"names\": [f.filename for f in files]}\n\n@app.post(\"/profile\")\nasync def profile(name: str = Form(), avatar: UploadFile = File()):\n    return {\"name\": name, \"avatar\": avatar.filename}",
+     "highlight": [
+      4,
+      8
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "`Form()` fields arrive as form data. Sending them as JSON gives 422.",
+     "ar": "حقول `Form()` تصل كبيانات نموذج (form data). إرسالها بصيغة JSON يعطي 422."
+    }
+   ]
+  },
+  {
+   "id": "background-tasks",
+   "title": {
+    "en": "Background tasks",
+    "ar": "المهام في الخلفية (Background Tasks)"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "📬",
+     "en": "Answer now, do the slow work after",
+     "ar": "أجِب الآن، وأنجز العمل البطيء بعدها"
+    },
+    {
+     "type": "steps",
+     "items": [
+      {
+       "en": "Client sends `POST /signup`",
+       "ar": "يرسل العميل `POST /signup`"
+      },
+      {
+       "en": "Endpoint calls `add_task(...)`",
+       "ar": "دالة المسار تستدعي `add_task(...)`"
+      },
+      {
+       "en": "Response `201` goes back immediately",
+       "ar": "تعود الاستجابة `201` فورًا"
+      },
+      {
+       "en": "Then `send_welcome` runs",
+       "ar": "بعدها تعمل `send_welcome`"
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from fastapi import BackgroundTasks\n\ndef send_welcome(email: str):\n    print(f\"Welcome email to {email}\")  # slow work\n\n@app.post(\"/signup\", status_code=201)\ndef signup(email: str, background_tasks: BackgroundTasks):\n    background_tasks.add_task(send_welcome, email)\n    return {\"message\": \"Account created\"}",
+     "highlight": [
+      7,
+      8,
+      9
+     ]
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "⚙️",
+       "label": {
+        "en": "signup endpoint",
+        "ar": "دالة المسار signup"
+       }
+      },
+      {
+       "icon": "📤",
+       "label": {
+        "en": "201 response",
+        "ar": "الاستجابة 201"
+       }
+      },
+      {
+       "icon": "✉️",
+       "label": {
+        "en": "send_welcome",
+        "ar": "send_welcome"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "returns first",
+        "ar": "يُرجع أولًا"
+       }
+      },
+      {
+       "label": {
+        "en": "then the task",
+        "ar": "ثم المهمة"
+       }
+      }
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "POST /signup?email=sara@example.com"
+      },
+      {
+       "from": "server",
+       "text": "201 Created  {\"message\": \"Account created\"}",
+       "note": {
+        "en": "no waiting for the email",
+        "ar": "دون انتظار البريد"
+       }
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "Tasks run in the order you add them, after the response is sent.",
+     "ar": "تعمل المهام بترتيب إضافتها، بعد إرسال الاستجابة."
+    },
+    {
+     "type": "warn",
+     "en": "For heavy jobs that must survive restarts, use a real job queue.",
+     "ar": "للمهام الثقيلة التي يجب أن تصمد بعد إعادة التشغيل، استخدم طابور مهام حقيقيًا."
+    }
+   ]
+  },
+  {
+   "id": "exception-handlers",
+   "title": {
+    "en": "Custom exception handlers",
+    "ar": "معالجات الاستثناءات المخصّصة"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🚨",
+     "en": "Turn your own errors into clean responses",
+     "ar": "حوّل أخطاءك الخاصة إلى استجابات واضحة"
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "class OutOfStock(Exception):\n    def __init__(self, item: str):\n        self.item = item\n@app.exception_handler(OutOfStock)\nasync def out_of_stock_handler(request: Request, exc: OutOfStock):\n    return JSONResponse(status_code=409, content={\"error\": f\"{exc.item} is out of stock\"})\n\n@app.post(\"/buy/{item}\")\ndef buy(item: str):\n    if item == \"milk\":\n        raise OutOfStock(item)\n    return {\"bought\": item}",
+     "highlight": [
+      4,
+      6,
+      11
+     ]
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "💥",
+       "label": {
+        "en": "raise OutOfStock",
+        "ar": "raise OutOfStock"
+       }
+      },
+      {
+       "icon": "🎯",
+       "label": {
+        "en": "out_of_stock_handler",
+        "ar": "out_of_stock_handler"
+       }
+      },
+      {
+       "icon": "📤",
+       "label": {
+        "en": "409 JSON",
+        "ar": "409 بصيغة JSON"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "FastAPI catches it",
+        "ar": "FastAPI يلتقطه"
+       }
+      },
+      {
+       "label": {
+        "en": "builds the response",
+        "ar": "يبني الاستجابة"
+       }
+      }
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "POST /buy/milk",
+       "note": {
+        "en": "out of stock",
+        "ar": "نفد من المخزون"
+       }
+      },
+      {
+       "from": "server",
+       "text": "409 Conflict  {\"error\": \"milk is out of stock\"}"
+      },
+      {
+       "from": "client",
+       "text": "POST /buy/bread",
+       "note": {
+        "en": "in stock",
+        "ar": "متوفر"
+       }
+      },
+      {
+       "from": "server",
+       "text": "200 OK  {\"bought\": \"bread\"}"
+      }
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "No handler",
+       "ar": "بدون معالج"
+      },
+      "tone": "bad",
+      "items": [
+       {
+        "en": "`500 Internal Server Error`",
+        "ar": "`500 Internal Server Error`"
+       },
+       {
+        "en": "Client learns nothing useful",
+        "ar": "العميل لا يعرف شيئًا مفيدًا"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "With a handler",
+       "ar": "مع معالج"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "You choose the status code",
+        "ar": "أنت تختار رمز الحالة"
+       },
+       {
+        "en": "Clear JSON error message",
+        "ar": "رسالة خطأ واضحة بصيغة JSON"
+       }
+      ]
+     }
+    },
+    {
+     "type": "tip",
+     "en": "One handler serves every route that raises `OutOfStock`.",
+     "ar": "معالج واحد يخدم كل المسارات التي ترفع `OutOfStock`."
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "difficulty": "easy",
+   "question": {
+    "en": "Before a cross-origin `PUT` with an `Authorization` header, what does the browser send first?",
+    "ar": "قبل طلب `PUT` من أصل مختلف مع ترويسة `Authorization`، ماذا يرسل المتصفح أولًا؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "A HEAD request to test the path",
+     "ar": "طلب HEAD لاختبار المسار"
+    },
+    {
+     "en": "A GET request for the CORS rules",
+     "ar": "طلب GET لجلب قواعد CORS"
+    },
+    {
+     "en": "An OPTIONS preflight request",
+     "ar": "طلب تمهيدي OPTIONS (preflight)"
+    },
+    {
+     "en": "A POST with an empty body",
+     "ar": "طلب POST بجسم فارغ"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "The browser first sends an OPTIONS preflight asking if the origin, method and headers are allowed.",
+    "ar": "يرسل المتصفح أولًا طلب OPTIONS تمهيديًا يسأل هل الأصل والطريقة والترويسات مسموحة."
+   }
+  },
+  {
+   "id": 2,
+   "difficulty": "easy",
+   "question": {
+    "en": "When does a function added with `background_tasks.add_task(...)` run?",
+    "ar": "متى تعمل الدالة المضافة باستخدام `background_tasks.add_task(...)`؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "After the response is sent",
+     "ar": "بعد إرسال الاستجابة"
+    },
+    {
+     "en": "Before the endpoint function runs",
+     "ar": "قبل تنفيذ دالة المسار"
+    },
+    {
+     "en": "Only when the server restarts",
+     "ar": "عند إعادة تشغيل الخادم فقط"
+    },
+    {
+     "en": "Right when `add_task` is called",
+     "ar": "لحظة استدعاء `add_task`"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "Background tasks run after the response goes back, so the client never waits for them.",
+    "ar": "المهام في الخلفية تعمل بعد عودة الاستجابة، فلا ينتظرها العميل أبدًا."
+   }
+  },
+  {
+   "id": 3,
+   "difficulty": "easy",
+   "question": {
+    "en": "Which package must be installed for `UploadFile` and `Form()` to work?",
+    "ar": "ما الحزمة التي يجب تثبيتها كي يعمل `UploadFile` و`Form()`؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "pydantic-files",
+     "ar": "pydantic-files"
+    },
+    {
+     "en": "python-multipart",
+     "ar": "python-multipart"
+    },
+    {
+     "en": "starlette-upload",
+     "ar": "starlette-upload"
+    },
+    {
+     "en": "httpx-forms",
+     "ar": "httpx-forms"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "Files and form data are parsed by `python-multipart`, which `fastapi[standard]` already includes.",
+    "ar": "الملفات وبيانات النماذج تُقرأ بواسطة `python-multipart`، وهو مضمَّن في `fastapi[standard]`."
+   }
+  },
+  {
+   "id": 4,
+   "difficulty": "medium",
+   "question": {
+    "en": "What does the client receive for `GET /`?",
+    "ar": "ماذا يستلم العميل عند `GET /`؟"
+   },
+   "codeSnippet": "@app.middleware(\"http\")\nasync def add_process_time(request: Request, call_next):\n    start = time.perf_counter()\n    response = await call_next(request)\n    response.headers[\"X-Process-Time\"] = f\"{time.perf_counter() - start:.4f}\"\n    return response\n\n@app.get(\"/\")\ndef root():\n    return {\"ok\": True}",
+   "options": [
+    {
+     "en": "Only the new header; the body is dropped",
+     "ar": "الترويسة الجديدة فقط؛ ويُحذف الجسم"
+    },
+    {
+     "en": "500, because headers are read-only",
+     "ar": "500، لأن الترويسات للقراءة فقط"
+    },
+    {
+     "en": "`{\"ok\": true}` with no extra header",
+     "ar": "`{\"ok\": true}` دون أي ترويسة إضافية"
+    },
+    {
+     "en": "`{\"ok\": true}` + `X-Process-Time` header",
+     "ar": "`{\"ok\": true}` + ترويسة `X-Process-Time`"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`call_next` runs the endpoint; the middleware then adds the header and returns the same response.",
+    "ar": "`call_next` يشغّل دالة المسار، ثم يضيف الـ Middleware الترويسة ويُرجع الاستجابة نفسها."
+   }
+  },
+  {
+   "id": 5,
+   "difficulty": "medium",
+   "question": {
+    "en": "CORS allows only `https://app.example.com`. What does this preflight get?",
+    "ar": "إعداد CORS يسمح فقط بـ `https://app.example.com`. ماذا يتلقى هذا الطلب التمهيدي؟"
+   },
+   "codeSnippet": "OPTIONS /items\nOrigin: https://evil.com\nAccess-Control-Request-Method: GET",
+   "options": [
+    {
+     "en": "200 with `Access-Control-Allow-Origin: *`",
+     "ar": "200 مع `Access-Control-Allow-Origin: *`"
+    },
+    {
+     "en": "400 with `Disallowed CORS origin`",
+     "ar": "400 مع `Disallowed CORS origin`"
+    },
+    {
+     "en": "405 Method Not Allowed",
+     "ar": "405 Method Not Allowed"
+    },
+    {
+     "en": "200 with the list of items",
+     "ar": "200 مع قائمة العناصر"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "The origin is not in `allow_origins`, so `CORSMiddleware` rejects the preflight with 400 \"Disallowed CORS origin\".",
+    "ar": "الأصل غير موجود في `allow_origins`، فيرفض `CORSMiddleware` الطلب التمهيدي بالرمز 400 \"Disallowed CORS origin\"."
+   }
+  },
+  {
+   "id": 6,
+   "difficulty": "medium",
+   "question": {
+    "en": "What JSON does this test receive?",
+    "ar": "ما الـ JSON الذي يستلمه هذا الاختبار؟"
+   },
+   "codeSnippet": "@app.post(\"/upload\")\nasync def upload(file: UploadFile):\n    data = await file.read()\n    return {\"filename\": file.filename,\n            \"content_type\": file.content_type,\n            \"size\": len(data)}\n\nclient.post(\"/upload\",\n            files={\"file\": (\"notes.txt\", b\"hello\", \"text/plain\")})",
+   "options": [
+    {
+     "en": "{\"filename\": \"file\", \"content_type\": \"text/plain\", \"size\": 5}",
+     "ar": "{\"filename\": \"file\", \"content_type\": \"text/plain\", \"size\": 5}"
+    },
+    {
+     "en": "{\"filename\": \"notes.txt\", \"content_type\": \"bytes\", \"size\": 5}",
+     "ar": "{\"filename\": \"notes.txt\", \"content_type\": \"bytes\", \"size\": 5}"
+    },
+    {
+     "en": "{\"filename\": \"notes.txt\", \"content_type\": \"text/plain\", \"size\": 5}",
+     "ar": "{\"filename\": \"notes.txt\", \"content_type\": \"text/plain\", \"size\": 5}"
+    },
+    {
+     "en": "{\"filename\": \"notes.txt\", \"content_type\": \"text/plain\", \"size\": 0}",
+     "ar": "{\"filename\": \"notes.txt\", \"content_type\": \"text/plain\", \"size\": 0}"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "`filename` and `content_type` come from the client; `await file.read()` returns the 5 bytes of \"hello\".",
+    "ar": "`filename` و`content_type` يأتيان من العميل، و`await file.read()` يُرجع بايتات \"hello\" الخمسة."
+   }
+  },
+  {
+   "id": 7,
+   "difficulty": "medium",
+   "question": {
+    "en": "`POST /buy/milk` is sent. What does the client receive?",
+    "ar": "أُرسل `POST /buy/milk`. ماذا يستلم العميل؟"
+   },
+   "codeSnippet": "class OutOfStock(Exception):\n    def __init__(self, item: str):\n        self.item = item\n\n@app.exception_handler(OutOfStock)\nasync def handler(request: Request, exc: OutOfStock):\n    return JSONResponse(status_code=409, content={\"error\": f\"{exc.item} is out of stock\"})\n\n@app.post(\"/buy/{item}\")\ndef buy(item: str):\n    raise OutOfStock(item)",
+   "options": [
+    {
+     "en": "409 {\"error\": \"milk is out of stock\"}",
+     "ar": "409 {\"error\": \"milk is out of stock\"}"
+    },
+    {
+     "en": "500 Internal Server Error",
+     "ar": "500 Internal Server Error"
+    },
+    {
+     "en": "200 {\"error\": \"milk is out of stock\"}",
+     "ar": "200 {\"error\": \"milk is out of stock\"}"
+    },
+    {
+     "en": "400 {\"detail\": \"OutOfStock\"}",
+     "ar": "400 {\"detail\": \"OutOfStock\"}"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "The raised `OutOfStock` is caught by its handler, which returns 409 with the custom JSON.",
+    "ar": "الاستثناء `OutOfStock` يلتقطه معالجه، فيُرجع 409 مع الـ JSON المخصّص."
+   }
+  },
+  {
+   "id": 8,
+   "difficulty": "hard",
+   "question": {
+    "en": "A `GET` reaches an endpoint that prints \"endpoint\". In what order are lines printed?",
+    "ar": "طلب `GET` يصل إلى دالة مسار تطبع \"endpoint\". بأي ترتيب تُطبع الأسطر؟"
+   },
+   "codeSnippet": "@app.middleware(\"http\")\nasync def a(request: Request, call_next):\n    print(\"A in\")\n    response = await call_next(request)\n    print(\"A out\")\n    return response\n\n@app.middleware(\"http\")\nasync def b(request: Request, call_next):\n    print(\"B in\")\n    response = await call_next(request)\n    print(\"B out\")\n    return response",
+   "options": [
+    {
+     "en": "A in, B in, endpoint, B out, A out",
+     "ar": "A in, B in, endpoint, B out, A out"
+    },
+    {
+     "en": "A in, B in, endpoint, A out, B out",
+     "ar": "A in, B in, endpoint, A out, B out"
+    },
+    {
+     "en": "B in, A in, endpoint, B out, A out",
+     "ar": "B in, A in, endpoint, B out, A out"
+    },
+    {
+     "en": "B in, A in, endpoint, A out, B out",
+     "ar": "B in, A in, endpoint, A out, B out"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`b` was added last, so it is the outer layer: it runs first on the way in and last on the way out.",
+    "ar": "أُضيف `b` أخيرًا فهو الغلاف الخارجي: يعمل أولًا عند الدخول وأخيرًا عند الخروج."
+   }
+  },
+  {
+   "id": 9,
+   "difficulty": "hard",
+   "question": {
+    "en": "A client sends this request. What is the response?",
+    "ar": "يرسل عميل هذا الطلب. ما الاستجابة؟"
+   },
+   "codeSnippet": "@app.post(\"/login\")\ndef login(username: str = Form(), password: str = Form()):\n    return {\"username\": username}\n\nclient.post(\"/login\", json={\"username\": \"sara\", \"password\": \"x\"})",
+   "options": [
+    {
+     "en": "200 with `{\"username\": \"sara\"}`",
+     "ar": "200 مع `{\"username\": \"sara\"}`"
+    },
+    {
+     "en": "422: both form fields are missing",
+     "ar": "422: حقلا النموذج مفقودان"
+    },
+    {
+     "en": "415: JSON is not a supported type",
+     "ar": "415: صيغة JSON غير مدعومة"
+    },
+    {
+     "en": "200 with `{\"username\": null}`",
+     "ar": "200 مع `{\"username\": null}`"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`Form()` reads form data, not a JSON body. Both fields are missing, so FastAPI returns 422.",
+    "ar": "`Form()` يقرأ بيانات النموذج وليس جسم JSON. الحقلان مفقودان، فيُرجع FastAPI الرمز 422."
+   }
+  },
+  {
+   "id": 10,
+   "difficulty": "hard",
+   "question": {
+    "en": "A 5-byte file is uploaded. What does this endpoint return?",
+    "ar": "رُفع ملف من 5 بايت. ماذا تُرجع دالة المسار هذه؟"
+   },
+   "codeSnippet": "@app.post(\"/twice\")\nasync def twice(file: UploadFile):\n    a = await file.read()\n    b = await file.read()\n    return {\"first\": len(a), \"second\": len(b)}",
+   "options": [
+    {
+     "en": "{\"first\": 5, \"second\": 5}",
+     "ar": "{\"first\": 5, \"second\": 5}"
+    },
+    {
+     "en": "{\"first\": 0, \"second\": 5}",
+     "ar": "{\"first\": 0, \"second\": 5}"
+    },
+    {
+     "en": "{\"first\": 5, \"second\": 0}",
+     "ar": "{\"first\": 5, \"second\": 0}"
+    },
+    {
+     "en": "500 Internal Server Error",
+     "ar": "500 Internal Server Error"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "The first read consumes the whole file. The second read starts at the end and returns `b\"\"`.",
+    "ar": "القراءة الأولى تستهلك الملف كاملًا، والثانية تبدأ من النهاية فتُرجع `b\"\"`."
+   }
+  }
+ ]
+}

@@ -5,12 +5,13 @@
   "ar": "ابنِ API باستخدام FastAPI"
  },
  "summary": {
-  "en": "From what a request and a response are, to a complete CRUD API in Python.",
-  "ar": "من معنى الطلب والاستجابة، إلى بناء API كامل (CRUD) بلغة Python."
+  "en": "From what a request is, to a secure API with a database — deployed to production.",
+  "ar": "من معنى الطلب، إلى API آمن بقاعدة بيانات — منشور على الإنتاج."
  },
  "levels": [
   {
    "id": "web-basics",
+   "icon": "🌐",
    "title": {
     "en": "Web basics: HTTP, APIs and JSON",
     "ar": "أساسيات الويب: HTTP والـ APIs والـ JSON"
@@ -1368,6 +1369,7 @@
   },
   {
    "id": "first-app",
+   "icon": "👋",
    "title": {
     "en": "Your first FastAPI app",
     "ar": "تطبيقك الأول بـ FastAPI"
@@ -2423,6 +2425,7 @@
   },
   {
    "id": "parameters",
+   "icon": "🧭",
    "title": {
     "en": "Path and query parameters",
     "ar": "معاملات المسار والاستعلام"
@@ -3615,6 +3618,7 @@
   },
   {
    "id": "request-body",
+   "icon": "📦",
    "title": {
     "en": "Request Bodies & Responses",
     "ar": "جسم الطلب والاستجابات"
@@ -4803,6 +4807,7 @@
   },
   {
    "id": "crud-api",
+   "icon": "🗂️",
    "title": {
     "en": "Build a CRUD API",
     "ar": "بناء واجهة CRUD API"
@@ -5914,6 +5919,6395 @@
      "explanation": {
       "en": "Dependencies run before the route function. `get_todo_or_404` raises the 404, so the route body never runs.",
       "ar": "تُنفَّذ الاعتماديات قبل دالة المسار. `get_todo_or_404` يرفع الخطأ 404، فلا يُنفَّذ جسم دالة المسار أبدًا."
+     }
+    }
+   ]
+  },
+  {
+   "id": "databases",
+   "icon": "🗄️",
+   "title": {
+    "en": "Databases with SQLModel",
+    "ar": "قواعد البيانات مع SQLModel"
+   },
+   "summary": {
+    "en": "Replace the in-memory dict with a SQLite database using SQLModel tables, sessions and queries.",
+    "ar": "استبدل القاموس في الذاكرة بقاعدة بيانات SQLite باستخدام جداول SQLModel والجلسات والاستعلامات."
+   },
+   "lessons": [
+    {
+     "id": "why-a-database",
+     "title": {
+      "en": "From a dict to a database",
+      "ar": "من القاموس (dict) إلى قاعدة بيانات"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🗄️",
+       "en": "Swap the dict for a real database",
+       "ar": "استبدل القاموس بقاعدة بيانات حقيقية"
+      },
+      {
+       "type": "compare",
+       "left": {
+        "title": {
+         "en": "dict in memory",
+         "ar": "dict في الذاكرة"
+        },
+        "tone": "bad",
+        "items": [
+         {
+          "en": "Lost on every restart",
+          "ar": "يضيع مع كل إعادة تشغيل"
+         },
+         {
+          "en": "Only lives inside the running process",
+          "ar": "يعيش داخل العملية الشغّالة فقط"
+         },
+         {
+          "en": "Counter `next_id` kept by hand",
+          "ar": "العدّاد `next_id` نديره يدويًا"
+         }
+        ]
+       },
+       "right": {
+        "title": {
+         "en": "SQLite database",
+         "ar": "قاعدة بيانات SQLite"
+        },
+        "tone": "good",
+        "items": [
+         {
+          "en": "Saved in the `database.db` file",
+          "ar": "محفوظة في الملف `database.db`"
+         },
+         {
+          "en": "Survives restarts",
+          "ar": "تبقى بعد إعادة التشغيل"
+         },
+         {
+          "en": "The database picks each `id`",
+          "ar": "قاعدة البيانات تختار كل `id`"
+         }
+        ]
+       }
+      },
+      {
+       "type": "flow",
+       "nodes": [
+        {
+         "icon": "🐍",
+         "label": {
+          "en": "Python objects",
+          "ar": "كائنات Python"
+         }
+        },
+        {
+         "icon": "🧰",
+         "label": {
+          "en": "SQLModel",
+          "ar": "SQLModel"
+         }
+        },
+        {
+         "icon": "💾",
+         "label": {
+          "en": "database.db",
+          "ar": "database.db"
+         }
+        }
+       ],
+       "links": [
+        {
+         "label": {
+          "en": "`Todo(...)`",
+          "ar": "`Todo(...)`"
+         }
+        },
+        {
+         "label": {
+          "en": "SQL for you",
+          "ar": "يكتب SQL عنك"
+         }
+        }
+       ]
+      },
+      {
+       "type": "cards",
+       "items": [
+        {
+         "icon": "💾",
+         "color": "cyan",
+         "title": {
+          "en": "SQLite",
+          "ar": "SQLite"
+         },
+         "text": {
+          "en": "A whole database in one file",
+          "ar": "قاعدة بيانات كاملة في ملف واحد"
+         }
+        },
+        {
+         "icon": "🧰",
+         "color": "purple",
+         "title": {
+          "en": "SQLModel",
+          "ar": "SQLModel"
+         },
+         "text": {
+          "en": "Pydantic models that are also tables",
+          "ar": "نماذج Pydantic هي جداول أيضًا"
+         }
+        },
+        {
+         "icon": "🧾",
+         "color": "blue",
+         "title": {
+          "en": "Session",
+          "ar": "Session"
+         },
+         "text": {
+          "en": "One conversation with the database",
+          "ar": "محادثة واحدة مع قاعدة البيانات"
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "bash",
+       "code": "pip install sqlmodel",
+       "highlight": [
+        1
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "SQLite comes with Python, so there is no database server to install.",
+       "ar": "SQLite يأتي مع Python، فلا حاجة لتثبيت خادم قاعدة بيانات."
+      }
+     ]
+    },
+    {
+     "id": "table-models",
+     "title": {
+      "en": "Table models",
+      "ar": "نماذج الجداول (table models)"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🧱",
+       "en": "One class with `table=True` = one table",
+       "ar": "صنف واحد مع `table=True` = جدول واحد"
+      },
+      {
+       "type": "anatomy",
+       "parts": [
+        {
+         "text": "class Todo",
+         "color": "blue",
+         "label": {
+          "en": "table name: todo",
+          "ar": "اسم الجدول: todo"
+         }
+        },
+        {
+         "text": "(TodoBase",
+         "color": "purple",
+         "label": {
+          "en": "shared columns",
+          "ar": "أعمدة مشتركة"
+         }
+        },
+        {
+         "text": ", table=True",
+         "color": "green",
+         "label": {
+          "en": "make it a table",
+          "ar": "اجعله جدولًا"
+         }
+        },
+        {
+         "text": "):\n    "
+        },
+        {
+         "text": "id: int | None",
+         "color": "yellow",
+         "label": {
+          "en": "None until saved",
+          "ar": "None حتى الحفظ"
+         }
+        },
+        {
+         "text": " = Field(default=None, primary_key=True)",
+         "color": "red",
+         "label": {
+          "en": "unique key per row",
+          "ar": "مفتاح فريد لكل صف"
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "class TodoBase(SQLModel):  # shared fields\n    title: str = Field(min_length=1, max_length=100)\n    done: bool = False\n\nclass Todo(TodoBase, table=True):  # a real table\n    id: int | None = Field(default=None, primary_key=True)",
+       "highlight": [
+        1,
+        5,
+        6
+       ]
+      },
+      {
+       "type": "cards",
+       "items": [
+        {
+         "icon": "🧱",
+         "color": "green",
+         "title": {
+          "en": "Todo",
+          "ar": "Todo"
+         },
+         "text": {
+          "en": "The table. Rows live in `database.db`.",
+          "ar": "الجدول. صفوفه في `database.db`."
+         }
+        },
+        {
+         "icon": "📥",
+         "color": "blue",
+         "title": {
+          "en": "TodoCreate",
+          "ar": "TodoCreate"
+         },
+         "text": {
+          "en": "POST body. No `id`.",
+          "ar": "جسم طلب POST. بدون `id`."
+         }
+        },
+        {
+         "icon": "🩹",
+         "color": "yellow",
+         "title": {
+          "en": "TodoUpdate",
+          "ar": "TodoUpdate"
+         },
+         "text": {
+          "en": "PATCH body. Every field optional.",
+          "ar": "جسم طلب PATCH. كل الحقول اختيارية."
+         }
+        },
+        {
+         "icon": "📤",
+         "color": "cyan",
+         "title": {
+          "en": "TodoPublic",
+          "ar": "TodoPublic"
+         },
+         "text": {
+          "en": "Response. `id` is always an `int`.",
+          "ar": "الاستجابة. `id` دائمًا `int`."
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "class TodoCreate(TodoBase):  # what the client sends\n    pass\n\nclass TodoPublic(TodoBase):  # what the API returns\n    id: int\n\nclass TodoUpdate(SQLModel):  # every field optional\n    title: str | None = Field(default=None, min_length=1, max_length=100)\n    done: bool | None = None",
+       "highlight": [
+        1,
+        4,
+        5,
+        7
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "Only `Todo` has `table=True`; the others just validate data, like Pydantic.",
+       "ar": "فقط `Todo` فيه `table=True`؛ البقية تتحقق من البيانات فقط مثل Pydantic."
+      }
+     ]
+    },
+    {
+     "id": "engine-and-session",
+     "title": {
+      "en": "Engine, startup and sessions",
+      "ar": "المحرّك (engine) والبدء والجلسات (sessions)"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🔌",
+       "en": "Engine connects, Session talks, per request",
+       "ar": "الـ engine يتصل والـ Session يتحدث، لكل طلب"
+      },
+      {
+       "type": "flow",
+       "nodes": [
+        {
+         "icon": "📨",
+         "label": {
+          "en": "POST /todos",
+          "ar": "POST /todos"
+         }
+        },
+        {
+         "icon": "⚙️",
+         "label": {
+          "en": "endpoint",
+          "ar": "دالة المسار"
+         }
+        },
+        {
+         "icon": "🧾",
+         "label": {
+          "en": "Session",
+          "ar": "Session"
+         }
+        },
+        {
+         "icon": "💾",
+         "label": {
+          "en": "database.db",
+          "ar": "database.db"
+         }
+        }
+       ],
+       "links": [
+        {
+         "label": {
+          "en": "gets `SessionDep`",
+          "ar": "يستلم `SessionDep`"
+         }
+        },
+        {
+         "label": {
+          "en": "`add` / `get` / `exec`",
+          "ar": "`add` / `get` / `exec`"
+         }
+        },
+        {
+         "label": {
+          "en": "runs SQL",
+          "ar": "ينفّذ SQL"
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "sqlite_url = \"sqlite:///database.db\"\nengine = create_engine(sqlite_url, connect_args={\"check_same_thread\": False})\n\ndef create_db_and_tables():\n    SQLModel.metadata.create_all(engine)\n\n@asynccontextmanager\nasync def lifespan(app: FastAPI):\n    create_db_and_tables()  # runs once, on startup\n    yield\n\napp = FastAPI(lifespan=lifespan)",
+       "highlight": [
+        2,
+        5,
+        7,
+        9,
+        12
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "def get_session():\n    with Session(engine) as session:  # one per request\n        yield session  # closed after the response\n\nSessionDep = Annotated[Session, Depends(get_session)]",
+       "highlight": [
+        2,
+        3,
+        5
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "en": "App starts: tables are created",
+         "ar": "يبدأ التطبيق: تُنشأ الجداول"
+        },
+        {
+         "en": "Request arrives",
+         "ar": "يصل الطلب"
+        },
+        {
+         "en": "`get_session` opens a `Session`",
+         "ar": "`get_session` يفتح `Session`"
+        },
+        {
+         "en": "Endpoint uses `session`",
+         "ar": "دالة المسار تستخدم `session`"
+        },
+        {
+         "en": "Response sent, `Session` closed",
+         "ar": "تُرسل الاستجابة ويُغلق `Session`"
+        }
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "`check_same_thread=False` lets FastAPI use SQLite from different threads.",
+       "ar": "`check_same_thread=False` يسمح لـ FastAPI باستخدام SQLite من خيوط (threads) مختلفة."
+      }
+     ]
+    },
+    {
+     "id": "create-and-read",
+     "title": {
+      "en": "Create and read rows",
+      "ar": "إنشاء الصفوف وقراءتها"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "✨",
+       "en": "`add`, `commit`, `refresh` — then read it back",
+       "ar": "`add` ثم `commit` ثم `refresh` — ثم اقرأها"
+      },
+      {
+       "type": "cards",
+       "items": [
+        {
+         "icon": "➕",
+         "color": "blue",
+         "title": {
+          "en": "session.add(obj)",
+          "ar": "session.add(obj)"
+         },
+         "text": {
+          "en": "Stage a new or changed row",
+          "ar": "جهّز صفًا جديدًا أو معدّلًا"
+         }
+        },
+        {
+         "icon": "💾",
+         "color": "green",
+         "title": {
+          "en": "session.commit()",
+          "ar": "session.commit()"
+         },
+         "text": {
+          "en": "Write staged changes to the file",
+          "ar": "اكتب التغييرات المجهّزة في الملف"
+         }
+        },
+        {
+         "icon": "🔄",
+         "color": "cyan",
+         "title": {
+          "en": "session.refresh(obj)",
+          "ar": "session.refresh(obj)"
+         },
+         "text": {
+          "en": "Reload the row, with its new `id`",
+          "ar": "أعد تحميل الصف مع `id` الجديد"
+         }
+        },
+        {
+         "icon": "🔍",
+         "color": "yellow",
+         "title": {
+          "en": "session.get(Todo, 1)",
+          "ar": "session.get(Todo, 1)"
+         },
+         "text": {
+          "en": "One row by key, or `None`",
+          "ar": "صف واحد بالمفتاح، أو `None`"
+         }
+        },
+        {
+         "icon": "📋",
+         "color": "purple",
+         "title": {
+          "en": "session.exec(select(...))",
+          "ar": "session.exec(select(...))"
+         },
+         "text": {
+          "en": "Run a query, `.all()` gives a list",
+          "ar": "نفّذ استعلامًا، و`.all()` تعطي قائمة"
+         }
+        },
+        {
+         "icon": "🗑️",
+         "color": "red",
+         "title": {
+          "en": "session.delete(obj)",
+          "ar": "session.delete(obj)"
+         },
+         "text": {
+          "en": "Mark a row for deletion",
+          "ar": "علّم صفًا للحذف"
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "@app.post(\"/todos\", response_model=TodoPublic, status_code=201)\ndef create_todo(data: TodoCreate, session: SessionDep):\n    todo = Todo.model_validate(data)\n    session.add(todo)\n    session.commit()\n    session.refresh(todo)  # now todo.id is set\n    return todo",
+       "highlight": [
+        3,
+        4,
+        5,
+        6
+       ]
+      },
+      {
+       "type": "anatomy",
+       "parts": [
+        {
+         "text": "session.exec(",
+         "color": "purple",
+         "label": {
+          "en": "run it",
+          "ar": "نفّذه"
+         }
+        },
+        {
+         "text": "select(Todo)",
+         "color": "blue",
+         "label": {
+          "en": "from the todo table",
+          "ar": "من جدول todo"
+         }
+        },
+        {
+         "text": ".where(Todo.done == True)",
+         "color": "green",
+         "label": {
+          "en": "only done ones",
+          "ar": "المنجزة فقط"
+         }
+        },
+        {
+         "text": ".offset(10)",
+         "color": "yellow",
+         "label": {
+          "en": "skip first 10",
+          "ar": "تخطَّ أول 10"
+         }
+        },
+        {
+         "text": ".limit(10)",
+         "color": "red",
+         "label": {
+          "en": "at most 10",
+          "ar": "10 على الأكثر"
+         }
+        },
+        {
+         "text": ").all()",
+         "color": "cyan",
+         "label": {
+          "en": "list of Todo",
+          "ar": "قائمة Todo"
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "@app.get(\"/todos\", response_model=list[TodoPublic])\ndef list_todos(session: SessionDep, offset: int = Query(default=0, ge=0),\n               limit: int = Query(default=10, ge=1, le=100)):\n    return session.exec(select(Todo).offset(offset).limit(limit)).all()\n\n@app.get(\"/todos/{todo_id}\", response_model=TodoPublic)\ndef read_todo(todo_id: int, session: SessionDep):\n    todo = session.get(Todo, todo_id)\n    if todo is None:\n        raise HTTPException(status_code=404, detail=\"Todo not found\")\n    return todo",
+       "highlight": [
+        4,
+        8,
+        9,
+        10
+       ]
+      },
+      {
+       "type": "chat",
+       "messages": [
+        {
+         "from": "client",
+         "text": "POST /todos  {\"title\": \"Buy milk\"}",
+         "note": {
+          "en": "create",
+          "ar": "إنشاء"
+         }
+        },
+        {
+         "from": "server",
+         "text": "201 Created  {\"title\": \"Buy milk\", \"done\": false, \"id\": 1}",
+         "note": {
+          "en": "id from the database",
+          "ar": "المعرّف من قاعدة البيانات"
+         }
+        },
+        {
+         "from": "client",
+         "text": "GET /todos/99",
+         "note": {
+          "en": "no such row",
+          "ar": "لا يوجد صف كهذا"
+         }
+        },
+        {
+         "from": "server",
+         "text": "404 Not Found  {\"detail\": \"Todo not found\"}",
+         "note": {
+          "en": "`get` returned `None`",
+          "ar": "`get` أرجع `None`"
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "update-and-delete",
+     "title": {
+      "en": "Update, delete, restart",
+      "ar": "التعديل والحذف وإعادة التشغيل"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🔁",
+       "en": "Change rows — and they survive restarts",
+       "ar": "عدّل الصفوف — وستبقى بعد إعادة التشغيل"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "en": "`session.get` the row, or 404",
+         "ar": "`session.get` للصف، أو 404"
+        },
+        {
+         "en": "`model_dump(exclude_unset=True)`: only sent fields",
+         "ar": "`model_dump(exclude_unset=True)`: المرسل فقط"
+        },
+        {
+         "en": "`todo.sqlmodel_update(data)` copies them in",
+         "ar": "`todo.sqlmodel_update(data)` ينسخها إليه"
+        },
+        {
+         "en": "`add` → `commit` → `refresh`",
+         "ar": "`add` ← `commit` ← `refresh`"
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "@app.patch(\"/todos/{todo_id}\", response_model=TodoPublic)\ndef update_todo(todo_id: int, changes: TodoUpdate, session: SessionDep):\n    todo = session.get(Todo, todo_id)\n    if todo is None:\n        raise HTTPException(status_code=404, detail=\"Todo not found\")\n    todo.sqlmodel_update(changes.model_dump(exclude_unset=True))\n    session.add(todo)\n    session.commit()\n    session.refresh(todo)\n    return todo",
+       "highlight": [
+        3,
+        6,
+        8
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "@app.delete(\"/todos/{todo_id}\", status_code=204)\ndef delete_todo(todo_id: int, session: SessionDep):\n    todo = session.get(Todo, todo_id)\n    if todo is None:\n        raise HTTPException(status_code=404, detail=\"Todo not found\")\n    session.delete(todo)\n    session.commit()",
+       "highlight": [
+        6,
+        7
+       ]
+      },
+      {
+       "type": "warn",
+       "en": "Forget `session.commit()` and nothing is saved to the database.",
+       "ar": "إذا نسيت `session.commit()` فلن يُحفظ أي شيء في قاعدة البيانات."
+      },
+      {
+       "type": "chat",
+       "messages": [
+        {
+         "from": "client",
+         "text": "PATCH /todos/1  {\"done\": true}",
+         "note": {
+          "en": "only done changes",
+          "ar": "يتغيّر done فقط"
+         }
+        },
+        {
+         "from": "server",
+         "text": "200 OK  {\"title\": \"Buy milk\", \"done\": true, \"id\": 1}",
+         "note": {
+          "en": "saved to the file",
+          "ar": "حُفظ في الملف"
+         }
+        },
+        {
+         "from": "client",
+         "text": "GET /todos/1",
+         "note": {
+          "en": "after a server restart",
+          "ar": "بعد إعادة تشغيل الخادم"
+         }
+        },
+        {
+         "from": "server",
+         "text": "200 OK  {\"title\": \"Buy milk\", \"done\": true, \"id\": 1}",
+         "note": {
+          "en": "still there!",
+          "ar": "ما زالت موجودة!"
+         }
+        },
+        {
+         "from": "client",
+         "text": "DELETE /todos/1",
+         "note": {
+          "en": "remove it",
+          "ar": "احذفها"
+         }
+        },
+        {
+         "from": "server",
+         "text": "204 No Content",
+         "note": {
+          "en": "row deleted",
+          "ar": "حُذف الصف"
+         }
+        }
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "For tests, override `get_session` with in-memory `sqlite://` and `StaticPool`.",
+       "ar": "في الاختبارات، استبدل `get_session` بقاعدة `sqlite://` في الذاكرة مع `StaticPool`."
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "id": 1,
+     "difficulty": "easy",
+     "question": {
+      "en": "Which argument turns a SQLModel class into a database table?",
+      "ar": "أي وسيط (argument) يحوّل صنف SQLModel إلى جدول في قاعدة البيانات؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "primary_key=True",
+       "ar": "primary_key=True"
+      },
+      {
+       "en": "orm_mode=True",
+       "ar": "orm_mode=True"
+      },
+      {
+       "en": "table=True",
+       "ar": "table=True"
+      },
+      {
+       "en": "database=True",
+       "ar": "database=True"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "`class Todo(TodoBase, table=True)` makes a table. Classes without it only validate data.",
+      "ar": "`class Todo(TodoBase, table=True)` ينشئ جدولًا. الأصناف بدونه تتحقق من البيانات فقط."
+     }
+    },
+    {
+     "id": 2,
+     "difficulty": "easy",
+     "question": {
+      "en": "What is the main gain of SQLite over the level 5 in-memory dict?",
+      "ar": "ما الفائدة الأساسية من SQLite مقارنةً بقاموس الذاكرة في المستوى 5؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "Data survives a server restart",
+       "ar": "تبقى البيانات بعد إعادة تشغيل الخادم"
+      },
+      {
+       "en": "Requests no longer need validation",
+       "ar": "لم تعد الطلبات بحاجة إلى تحقق"
+      },
+      {
+       "en": "Routes no longer need any models",
+       "ar": "لم تعد المسارات بحاجة إلى نماذج"
+      },
+      {
+       "en": "Every response becomes 200 OK",
+       "ar": "تصبح كل استجابة 200 OK"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "Rows are saved in the `database.db` file, so they are still there after a restart.",
+      "ar": "الصفوف محفوظة في الملف `database.db`، فتبقى موجودة بعد إعادة التشغيل."
+     }
+    },
+    {
+     "id": 3,
+     "difficulty": "easy",
+     "question": {
+      "en": "No row has id 99. What does `session.get(Todo, 99)` do?",
+      "ar": "لا يوجد صف بالمعرّف 99. ماذا يفعل `session.get(Todo, 99)`؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "It raises a `KeyError`",
+       "ar": "يرفع `KeyError`"
+      },
+      {
+       "en": "It returns an empty `Todo`",
+       "ar": "يُرجع `Todo` فارغًا"
+      },
+      {
+       "en": "It raises a 404 error",
+       "ar": "يرفع خطأ 404"
+      },
+      {
+       "en": "It returns `None`",
+       "ar": "يُرجع `None`"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "`session.get` returns `None` for a missing key; your route then raises the 404 itself.",
+      "ar": "`session.get` يُرجع `None` لمفتاح غير موجود، ثم يرفع المسار الخطأ 404 بنفسه."
+     }
+    },
+    {
+     "id": 4,
+     "difficulty": "medium",
+     "question": {
+      "en": "What does this code print?",
+      "ar": "ماذا يطبع هذا الكود؟"
+     },
+     "codeSnippet": "# The todo table is empty\ntodo = Todo(title=\"Demo\")\nsession.add(todo)\nprint(todo.id)\nsession.commit()\nsession.refresh(todo)\nprint(todo.id)",
+     "options": [
+      {
+       "en": "1, then 1",
+       "ar": "1 ثم 1"
+      },
+      {
+       "en": "None, then 1",
+       "ar": "None ثم 1"
+      },
+      {
+       "en": "None, then None",
+       "ar": "None ثم None"
+      },
+      {
+       "en": "0, then 1",
+       "ar": "0 ثم 1"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "`id` stays `None` until the database saves the row on `commit`; `refresh` loads the new id 1.",
+      "ar": "يبقى `id` بقيمة `None` حتى تحفظ قاعدة البيانات الصف عند `commit`، ثم يحمّل `refresh` المعرّف 1."
+     }
+    },
+    {
+     "id": 5,
+     "difficulty": "medium",
+     "question": {
+      "en": "What does `get_session` (with `yield`) do for each request?",
+      "ar": "ماذا تفعل `get_session` (مع `yield`) في كل طلب؟"
+     },
+     "codeSnippet": "def get_session():\n    with Session(engine) as session:  # one per request\n        yield session  # closed after the response\n\nSessionDep = Annotated[Session, Depends(get_session)]",
+     "options": [
+      {
+       "en": "Creates all tables in the database",
+       "ar": "تنشئ كل الجداول في قاعدة البيانات"
+      },
+      {
+       "en": "Opens the database file only once",
+       "ar": "تفتح ملف قاعدة البيانات مرة واحدة فقط"
+      },
+      {
+       "en": "Opens a Session, then closes it",
+       "ar": "تفتح Session ثم تغلقها"
+      },
+      {
+       "en": "Commits every change automatically",
+       "ar": "تحفظ (commit) كل تغيير تلقائيًا"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "Each request gets its own `Session`; the `with` block closes it after the response is sent.",
+      "ar": "كل طلب يحصل على `Session` خاص به، وكتلة `with` تغلقه بعد إرسال الاستجابة."
+     }
+    },
+    {
+     "id": 6,
+     "difficulty": "medium",
+     "question": {
+      "en": "The table holds todos with ids 1, 2, 3 and 4. Which todos come back?",
+      "ar": "الجدول يحوي مهام بالمعرّفات 1 و2 و3 و4. ما المهام التي تعود؟"
+     },
+     "codeSnippet": "return session.exec(select(Todo).offset(offset).limit(limit)).all()\n\n# GET /todos?offset=1&limit=2",
+     "options": [
+      {
+       "en": "Todos 1 and 2",
+       "ar": "المهمتان 1 و2"
+      },
+      {
+       "en": "Todos 2 and 3",
+       "ar": "المهمتان 2 و3"
+      },
+      {
+       "en": "Todos 3 and 4",
+       "ar": "المهمتان 3 و4"
+      },
+      {
+       "en": "Only todo 2",
+       "ar": "المهمة 2 فقط"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "`offset(1)` skips todo 1, then `limit(2)` keeps two rows: todos 2 and 3.",
+      "ar": "`offset(1)` يتخطى المهمة 1، ثم `limit(2)` يُبقي صفين: المهمتين 2 و3."
+     }
+    },
+    {
+     "id": 7,
+     "difficulty": "medium",
+     "question": {
+      "en": "The PATCH route uses `sqlmodel_update(changes.model_dump(exclude_unset=True))`. What is returned?",
+      "ar": "مسار PATCH يستخدم `sqlmodel_update(changes.model_dump(exclude_unset=True))`. ماذا يُرجع؟"
+     },
+     "codeSnippet": "# Stored: {\"title\": \"Buy milk\", \"done\": false, \"id\": 1}\n\nPATCH /todos/1\n{\"done\": true}",
+     "options": [
+      {
+       "en": "{\"title\": null, \"done\": true, \"id\": 1}",
+       "ar": "{\"title\": null, \"done\": true, \"id\": 1}"
+      },
+      {
+       "en": "{\"title\": \"Buy milk\", \"done\": false, \"id\": 1}",
+       "ar": "{\"title\": \"Buy milk\", \"done\": false, \"id\": 1}"
+      },
+      {
+       "en": "{\"title\": \"Buy milk\", \"done\": true, \"id\": 2}",
+       "ar": "{\"title\": \"Buy milk\", \"done\": true, \"id\": 2}"
+      },
+      {
+       "en": "{\"title\": \"Buy milk\", \"done\": true, \"id\": 1}",
+       "ar": "{\"title\": \"Buy milk\", \"done\": true, \"id\": 1}"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "Only `done` was sent, so only `done` changes. The title and id stay the same.",
+      "ar": "أُرسل `done` فقط، فيتغيّر `done` وحده ويبقى العنوان والمعرّف كما هما."
+     }
+    },
+    {
+     "id": 8,
+     "difficulty": "hard",
+     "question": {
+      "en": "The database starts empty. What does the final `GET /todos` return?",
+      "ar": "قاعدة البيانات فارغة في البداية. ماذا يُرجع `GET /todos` الأخير؟"
+     },
+     "codeSnippet": "@app.post(\"/todos\", status_code=201)\ndef create_todo(data: TodoCreate, session: SessionDep):\n    todo = Todo.model_validate(data)\n    session.add(todo)\n    return {\"ok\": True}\n\n# POST /todos  {\"title\": \"Buy milk\"}  -> 201\n# GET  /todos  -> ?",
+     "options": [
+      {
+       "en": "`[]`: nothing was committed",
+       "ar": "`[]`: لم يُنفَّذ أي commit"
+      },
+      {
+       "en": "One todo with the id 1",
+       "ar": "مهمة واحدة بالمعرّف 1"
+      },
+      {
+       "en": "A 500 error from the POST",
+       "ar": "خطأ 500 من طلب POST"
+      },
+      {
+       "en": "One todo with the id `null`",
+       "ar": "مهمة واحدة بالمعرّف `null`"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "`session.add` only stages the row. Without `session.commit()` the Session closes and nothing is saved.",
+      "ar": "`session.add` يجهّز الصف فقط. بدون `session.commit()` تُغلق الجلسة ولا يُحفظ شيء."
+     }
+    },
+    {
+     "id": 9,
+     "difficulty": "hard",
+     "question": {
+      "en": "With the SQLite version, this happens. What does the last request return?",
+      "ar": "مع نسخة SQLite يحدث التالي. ماذا يُرجع الطلب الأخير؟"
+     },
+     "codeSnippet": "POST /todos  {\"title\": \"Buy milk\"}   # 201, id 1\n\n# stop the server, start it again\n\nGET /todos/1",
+     "options": [
+      {
+       "en": "404 {\"detail\": \"Todo not found\"}",
+       "ar": "404 {\"detail\": \"Todo not found\"}"
+      },
+      {
+       "en": "500: table todo already exists",
+       "ar": "500: table todo already exists"
+      },
+      {
+       "en": "200 with the saved Buy milk todo",
+       "ar": "200 مع المهمة Buy milk المحفوظة"
+      },
+      {
+       "en": "422: id must be sent again",
+       "ar": "422: يجب إرسال المعرّف مجددًا"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "The row lives in `database.db`. On startup `create_all` keeps existing tables, so todo 1 is still there.",
+      "ar": "الصف محفوظ في `database.db`. عند البدء يُبقي `create_all` الجداول الموجودة، فتبقى المهمة 1."
+     }
+    },
+    {
+     "id": 10,
+     "difficulty": "hard",
+     "question": {
+      "en": "The table is empty. What does the server respond?",
+      "ar": "الجدول فارغ. بماذا يرد الخادم؟"
+     },
+     "codeSnippet": "POST /todos\n{\"title\": \"Buy milk\", \"id\": 99}",
+     "options": [
+      {
+       "en": "201 {\"title\": \"Buy milk\", \"done\": false, \"id\": 99}",
+       "ar": "201 {\"title\": \"Buy milk\", \"done\": false, \"id\": 99}"
+      },
+      {
+       "en": "201 {\"title\": \"Buy milk\", \"done\": false, \"id\": 1}",
+       "ar": "201 {\"title\": \"Buy milk\", \"done\": false, \"id\": 1}"
+      },
+      {
+       "en": "422 {\"detail\": \"id is not allowed\"}",
+       "ar": "422 {\"detail\": \"id is not allowed\"}"
+      },
+      {
+       "en": "201 {\"title\": \"Buy milk\", \"done\": false, \"id\": null}",
+       "ar": "201 {\"title\": \"Buy milk\", \"done\": false, \"id\": null}"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "`TodoCreate` has no `id` field, so 99 is ignored. The database assigns the first id: 1.",
+      "ar": "`TodoCreate` ليس فيه حقل `id`، فتُتجاهل القيمة 99. وقاعدة البيانات تعطي أول معرّف: 1."
+     }
+    }
+   ]
+  },
+  {
+   "id": "auth",
+   "icon": "🔐",
+   "title": {
+    "en": "Authentication & JWT",
+    "ar": "المصادقة وJWT"
+   },
+   "summary": {
+    "en": "Hash passwords, log users in with OAuth2 and JWT tokens, and protect routes with 401 and 403.",
+    "ar": "جزّئ كلمات المرور، وسجّل دخول المستخدمين بـ OAuth2 وتوكنات JWT، واحمِ المسارات بـ 401 و403."
+   },
+   "lessons": [
+    {
+     "id": "authn-vs-authz",
+     "title": {
+      "en": "Who are you? What may you do?",
+      "ar": "من أنت؟ وماذا يُسمح لك؟"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🔐",
+       "en": "Log in once, show your token every time",
+       "ar": "سجّل الدخول مرة، وأظهر التوكن (token) في كل طلب"
+      },
+      {
+       "type": "cards",
+       "items": [
+        {
+         "icon": "🪪",
+         "color": "blue",
+         "title": {
+          "en": "Authentication",
+          "ar": "المصادقة (Authentication)"
+         },
+         "text": {
+          "en": "Who are you? Proved by password, then token.",
+          "ar": "من أنت؟ تُثبتها كلمة المرور ثم التوكن."
+         }
+        },
+        {
+         "icon": "🎟️",
+         "color": "purple",
+         "title": {
+          "en": "Authorization",
+          "ar": "التفويض (Authorization)"
+         },
+         "text": {
+          "en": "What may you do? Checked on every route.",
+          "ar": "ماذا يُسمح لك؟ يُفحص في كل مسار."
+         }
+        }
+       ]
+      },
+      {
+       "type": "pills",
+       "items": [
+        {
+         "text": "200",
+         "color": "green",
+         "label": {
+          "en": "allowed",
+          "ar": "مسموح"
+         }
+        },
+        {
+         "text": "401",
+         "color": "yellow",
+         "label": {
+          "en": "who are you?",
+          "ar": "من أنت؟"
+         }
+        },
+        {
+         "text": "403",
+         "color": "red",
+         "label": {
+          "en": "known, but not allowed",
+          "ar": "معروف لكن غير مسموح"
+         }
+        }
+       ]
+      },
+      {
+       "type": "flow",
+       "nodes": [
+        {
+         "icon": "🙋",
+         "label": {
+          "en": "client",
+          "ar": "العميل (client)"
+         }
+        },
+        {
+         "icon": "🔑",
+         "label": {
+          "en": "POST /token",
+          "ar": "POST /token"
+         }
+        },
+        {
+         "icon": "🎫",
+         "label": {
+          "en": "access token",
+          "ar": "توكن الوصول"
+         }
+        },
+        {
+         "icon": "🛡️",
+         "label": {
+          "en": "GET /users/me",
+          "ar": "GET /users/me"
+         }
+        }
+       ],
+       "links": [
+        {
+         "label": {
+          "en": "username + password",
+          "ar": "اسم المستخدم + كلمة المرور"
+         }
+        },
+        {
+         "label": {
+          "en": "signed JWT",
+          "ar": "JWT موقّع"
+         }
+        },
+        {
+         "label": {
+          "en": "Authorization: Bearer ...",
+          "ar": "Authorization: Bearer ..."
+         }
+        }
+       ]
+      },
+      {
+       "type": "cards",
+       "items": [
+        {
+         "icon": "🧂",
+         "color": "green",
+         "title": {
+          "en": "pwdlib",
+          "ar": "pwdlib"
+         },
+         "text": {
+          "en": "Hashes and checks passwords with argon2",
+          "ar": "يجزّئ كلمات المرور ويتحقق منها بـ argon2"
+         }
+        },
+        {
+         "icon": "🎫",
+         "color": "yellow",
+         "title": {
+          "en": "PyJWT",
+          "ar": "PyJWT"
+         },
+         "text": {
+          "en": "Signs and reads tokens: `jwt.encode` / `jwt.decode`",
+          "ar": "يوقّع التوكنات ويقرؤها: `jwt.encode` / `jwt.decode`"
+         }
+        },
+        {
+         "icon": "🛡️",
+         "color": "cyan",
+         "title": {
+          "en": "OAuth2PasswordBearer",
+          "ar": "OAuth2PasswordBearer"
+         },
+         "text": {
+          "en": "Reads the Bearer token from the request",
+          "ar": "يقرأ توكن Bearer من الطلب"
+         }
+        }
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "Install both: `pip install pyjwt \"pwdlib[argon2]\"`",
+       "ar": "ثبّت الاثنين: `pip install pyjwt \"pwdlib[argon2]\"`"
+      }
+     ]
+    },
+    {
+     "id": "hash-passwords",
+     "title": {
+      "en": "Never store plain passwords",
+      "ar": "لا تخزّن كلمات المرور كما هي أبدًا"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🧂",
+       "en": "Store a hash, never the password",
+       "ar": "خزّن الـ hash، لا كلمة المرور نفسها"
+      },
+      {
+       "type": "compare",
+       "left": {
+        "title": {
+         "en": "Plain password",
+         "ar": "كلمة مرور صريحة"
+        },
+        "tone": "bad",
+        "items": [
+         {
+          "en": "`secret123` saved as-is",
+          "ar": "`secret123` محفوظة كما هي"
+         },
+         {
+          "en": "A database leak exposes everyone",
+          "ar": "تسريب القاعدة يكشف الجميع"
+         }
+        ]
+       },
+       "right": {
+        "title": {
+         "en": "Hashed with argon2",
+         "ar": "مجزّأة بـ argon2"
+        },
+        "tone": "good",
+        "items": [
+         {
+          "en": "`$argon2id$...` saved instead",
+          "ar": "يُحفظ `$argon2id$...` بدلًا منها"
+         },
+         {
+          "en": "Cannot be turned back",
+          "ar": "لا يمكن عكسها"
+         },
+         {
+          "en": "Same password, different hash each time",
+          "ar": "نفس الكلمة، hash مختلف كل مرة"
+         }
+        ]
+       }
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from pwdlib import PasswordHash\n\npassword_hash = PasswordHash.recommended()  # argon2\n\nhashed = password_hash.hash(\"secret123\")\n# '$argon2id$v=19$m=65536,t=3,p=4$X8kL...$CH8Y...'\n\npassword_hash.verify(\"secret123\", hashed)  # True\npassword_hash.verify(\"Secret123\", hashed)  # False",
+       "highlight": [
+        3,
+        5,
+        8,
+        9
+       ]
+      },
+      {
+       "type": "anatomy",
+       "parts": [
+        {
+         "text": "$argon2id",
+         "color": "blue",
+         "label": {
+          "en": "algorithm",
+          "ar": "الخوارزمية"
+         }
+        },
+        {
+         "text": "$v=19$m=65536,t=3,p=4",
+         "color": "yellow",
+         "label": {
+          "en": "cost settings",
+          "ar": "إعدادات الكلفة"
+         }
+        },
+        {
+         "text": "$X8kL2xwROdMdP4Vode2GyQ",
+         "color": "purple",
+         "label": {
+          "en": "random salt",
+          "ar": "ملح (salt) عشوائي"
+         }
+        },
+        {
+         "text": "$CH8YFa0bAzPlOTNq83KeT...",
+         "color": "green",
+         "label": {
+          "en": "the hash",
+          "ar": "الـ hash"
+         }
+        }
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "The salt lives inside the hash, so `verify` needs only the password and hash.",
+       "ar": "الملح محفوظ داخل الـ hash، لذا يحتاج `verify` كلمة المرور والـ hash فقط."
+      }
+     ]
+    },
+    {
+     "id": "login-endpoint",
+     "title": {
+      "en": "The login endpoint",
+      "ar": "مسار تسجيل الدخول"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🔑",
+       "en": "POST /token trades a password for a token",
+       "ar": "POST /token يبادل كلمة المرور بتوكن"
+      },
+      {
+       "type": "anatomy",
+       "parts": [
+        {
+         "text": "POST /token",
+         "color": "blue",
+         "label": {
+          "en": "login route",
+          "ar": "مسار الدخول"
+         }
+        },
+        {
+         "text": "\n"
+        },
+        {
+         "text": "username=sara",
+         "color": "green",
+         "label": {
+          "en": "form field",
+          "ar": "حقل نموذج (form)"
+         }
+        },
+        {
+         "text": "&password=secret123",
+         "color": "yellow",
+         "label": {
+          "en": "form field",
+          "ar": "حقل نموذج (form)"
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "def authenticate_user(username: str, password: str) -> UserInDB | None:\n    user = users_db.get(username)\n    if user is None or not password_hash.verify(password, user.hashed_password):\n        return None\n    return user",
+       "highlight": [
+        3,
+        4
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi.security import OAuth2PasswordRequestForm\n\n@app.post(\"/token\")\ndef login(form: Annotated[OAuth2PasswordRequestForm, Depends()]) -> Token:\n    user = authenticate_user(form.username, form.password)\n    if user is None:\n        raise HTTPException(status_code=401, detail=\"Incorrect username or password\",\n                            headers={\"WWW-Authenticate\": \"Bearer\"})\n    token = create_access_token(user.username, timedelta(minutes=30))\n    return Token(access_token=token, token_type=\"bearer\")",
+       "highlight": [
+        4,
+        7,
+        10
+       ]
+      },
+      {
+       "type": "chat",
+       "messages": [
+        {
+         "from": "client",
+         "text": "POST /token  username=sara&password=secret123",
+         "note": {
+          "en": "form data",
+          "ar": "بيانات form"
+         }
+        },
+        {
+         "from": "server",
+         "text": "200 OK  {\"access_token\": \"eyJhbGciOi...\", \"token_type\": \"bearer\"}",
+         "note": {
+          "en": "here is your token",
+          "ar": "هذا توكنك"
+         }
+        },
+        {
+         "from": "client",
+         "text": "POST /token  username=sara&password=oops",
+         "note": {
+          "en": "wrong password",
+          "ar": "كلمة مرور خاطئة"
+         }
+        },
+        {
+         "from": "server",
+         "text": "401 Unauthorized  {\"detail\": \"Incorrect username or password\"}",
+         "note": {
+          "en": "no token for you",
+          "ar": "لا توكن لك"
+         }
+        }
+       ]
+      },
+      {
+       "type": "warn",
+       "en": "Login is form data, not JSON. A JSON body gets 422.",
+       "ar": "الدخول ببيانات form وليس JSON. جسم JSON يحصل على 422."
+      }
+     ]
+    },
+    {
+     "id": "jwt-tokens",
+     "title": {
+      "en": "JWT: a signed token",
+      "ar": "JWT: توكن موقّع"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🎫",
+       "en": "A JWT is three parts joined by dots",
+       "ar": "الـ JWT ثلاثة أجزاء تفصلها نقاط"
+      },
+      {
+       "type": "anatomy",
+       "parts": [
+        {
+         "text": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+         "color": "blue",
+         "label": {
+          "en": "header",
+          "ar": "الترويسة (header)"
+         }
+        },
+        {
+         "text": "."
+        },
+        {
+         "text": "eyJzdWIiOiJzYXJhIiwiZXhwIjoxNzkzNjg0Mjc5fQ",
+         "color": "purple",
+         "label": {
+          "en": "payload",
+          "ar": "الحمولة (payload)"
+         }
+        },
+        {
+         "text": "."
+        },
+        {
+         "text": "q5-oOCPoANgNRg2OJ2CugEi2E2Oz17EwZtLmiPFBDIQ",
+         "color": "green",
+         "label": {
+          "en": "signature",
+          "ar": "التوقيع (signature)"
+         }
+        }
+       ]
+      },
+      {
+       "type": "cards",
+       "items": [
+        {
+         "icon": "📋",
+         "color": "blue",
+         "title": {
+          "en": "header",
+          "ar": "header"
+         },
+         "text": {
+          "en": "`{\"alg\": \"HS256\", \"typ\": \"JWT\"}`",
+          "ar": "`{\"alg\": \"HS256\", \"typ\": \"JWT\"}`"
+         }
+        },
+        {
+         "icon": "📦",
+         "color": "purple",
+         "title": {
+          "en": "payload",
+          "ar": "payload"
+         },
+         "text": {
+          "en": "`sub`: who it is. `exp`: when it expires.",
+          "ar": "`sub`: من هو. `exp`: متى ينتهي."
+         }
+        },
+        {
+         "icon": "✍️",
+         "color": "green",
+         "title": {
+          "en": "signature",
+          "ar": "signature"
+         },
+         "text": {
+          "en": "Made with `SECRET_KEY`. Edit anything and it breaks.",
+          "ar": "يُصنع بـ `SECRET_KEY`. عدّل أي شيء فينكسر."
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "import os\nfrom datetime import datetime, timedelta, timezone\nimport jwt\n\nSECRET_KEY = os.environ[\"SECRET_KEY\"]  # never in code\nALGORITHM = \"HS256\"\n\ndef create_access_token(username: str, expires: timedelta) -> str:\n    payload = {\"sub\": username, \"exp\": datetime.now(timezone.utc) + expires}\n    return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)",
+       "highlight": [
+        5,
+        9,
+        10
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])\n# {'sub': 'sara', 'exp': 1793684279}\n# expired -> jwt.ExpiredSignatureError\n# wrong signature -> jwt.InvalidSignatureError",
+       "highlight": [
+        1,
+        3
+       ]
+      },
+      {
+       "type": "warn",
+       "en": "The payload is only encoded, not encrypted. Anyone can read it: no secrets inside.",
+       "ar": "الحمولة مُرمَّزة فقط وليست مشفّرة. يستطيع أي أحد قراءتها: لا أسرار فيها."
+      },
+      {
+       "type": "tip",
+       "en": "Make a key with `openssl rand -hex 32` and keep it in an env variable.",
+       "ar": "أنشئ مفتاحًا بـ `openssl rand -hex 32` واحفظه في متغيّر بيئة."
+      }
+     ]
+    },
+    {
+     "id": "protect-routes",
+     "title": {
+      "en": "Protecting routes",
+      "ar": "حماية المسارات"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🛡️",
+       "en": "No valid token, no entry",
+       "ar": "لا توكن صالح، لا دخول"
+      },
+      {
+       "type": "anatomy",
+       "parts": [
+        {
+         "text": "Authorization",
+         "color": "blue",
+         "label": {
+          "en": "header name",
+          "ar": "اسم الترويسة"
+         }
+        },
+        {
+         "text": ": "
+        },
+        {
+         "text": "Bearer",
+         "color": "yellow",
+         "label": {
+          "en": "token type",
+          "ar": "نوع التوكن"
+         }
+        },
+        {
+         "text": " eyJhbGciOi...",
+         "color": "green",
+         "label": {
+          "en": "the JWT",
+          "ar": "الـ JWT"
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "oauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")\ndef get_current_user(token: Annotated[str, Depends(oauth2_scheme)]) -> User:\n    error = HTTPException(401, \"Could not validate credentials\",\n                          headers={\"WWW-Authenticate\": \"Bearer\"})\n    try:\n        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])\n    except InvalidTokenError:  # bad signature or expired\n        raise error\n    user = users_db.get(payload.get(\"sub\"))\n    if user is None:\n        raise error\n    return user",
+       "highlight": [
+        1,
+        2,
+        3,
+        6,
+        7
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "CurrentUser = Annotated[User, Depends(get_current_user)]\n\n@app.get(\"/users/me\")\ndef read_me(user: CurrentUser) -> User:\n    return user\n\n@app.get(\"/admin/stats\")\ndef admin_stats(user: CurrentUser):\n    if not user.is_admin:\n        raise HTTPException(status_code=403, detail=\"Admins only\")\n    return {\"users\": len(users_db)}",
+       "highlight": [
+        1,
+        4,
+        9,
+        10
+       ]
+      },
+      {
+       "type": "chat",
+       "messages": [
+        {
+         "from": "client",
+         "text": "GET /users/me  Authorization: Bearer eyJhbGciOi...",
+         "note": {
+          "en": "valid token",
+          "ar": "توكن صالح"
+         }
+        },
+        {
+         "from": "server",
+         "text": "200 OK  {\"username\": \"sara\", \"is_admin\": false}"
+        },
+        {
+         "from": "client",
+         "text": "GET /users/me",
+         "note": {
+          "en": "no token",
+          "ar": "بدون توكن"
+         }
+        },
+        {
+         "from": "server",
+         "text": "401  {\"detail\": \"Not authenticated\"}  WWW-Authenticate: Bearer"
+        },
+        {
+         "from": "client",
+         "text": "GET /users/me  Authorization: Bearer <expired>",
+         "note": {
+          "en": "expired token",
+          "ar": "توكن منتهي"
+         }
+        },
+        {
+         "from": "server",
+         "text": "401  {\"detail\": \"Could not validate credentials\"}"
+        },
+        {
+         "from": "client",
+         "text": "GET /admin/stats  Authorization: Bearer eyJhbGciOi...",
+         "note": {
+          "en": "sara is not admin",
+          "ar": "sara ليست مشرفة"
+         }
+        },
+        {
+         "from": "server",
+         "text": "403  {\"detail\": \"Admins only\"}",
+         "note": {
+          "en": "known, not allowed",
+          "ar": "معروفة لكن غير مسموح"
+         }
+        }
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "en": "Open `/docs` in the browser",
+         "ar": "افتح `/docs` في المتصفح"
+        },
+        {
+         "en": "Click the 🔒 Authorize button",
+         "ar": "اضغط زر 🔒 Authorize"
+        },
+        {
+         "en": "Type username and password",
+         "ar": "اكتب اسم المستخدم وكلمة المرور"
+        },
+        {
+         "en": "It calls `/token` for you",
+         "ar": "يستدعي `/token` نيابةً عنك"
+        },
+        {
+         "en": "Try `/users/me` → 200",
+         "ar": "جرّب `/users/me` ← 200"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "id": 1,
+     "difficulty": "easy",
+     "question": {
+      "en": "Sara is logged in with a valid token but is not an admin. What does an admin-only route return?",
+      "ar": "سارة مسجّلة بتوكن صالح لكنها ليست مشرفة. ماذا يُرجع مسار خاص بالمشرفين؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "401 Unauthorized",
+       "ar": "401 Unauthorized"
+      },
+      {
+       "en": "404 Not Found",
+       "ar": "404 Not Found"
+      },
+      {
+       "en": "403 Forbidden",
+       "ar": "403 Forbidden"
+      },
+      {
+       "en": "422 Unprocessable",
+       "ar": "422 Unprocessable"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "She is authenticated (we know who she is) but not authorized for this route, so it is 403.",
+      "ar": "هي مُصادَقة (نعرف من هي) لكنها غير مفوَّضة لهذا المسار، لذا الرد 403."
+     }
+    },
+    {
+     "id": 2,
+     "difficulty": "easy",
+     "question": {
+      "en": "Why do we store `password_hash.hash(password)` instead of the password itself?",
+      "ar": "لماذا نخزّن `password_hash.hash(password)` بدلًا من كلمة المرور نفسها؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "A leaked database does not reveal passwords",
+       "ar": "تسريب القاعدة لا يكشف كلمات المرور"
+      },
+      {
+       "en": "Hashes make the login endpoint run faster",
+       "ar": "الـ hash يجعل مسار الدخول أسرع"
+      },
+      {
+       "en": "Hashes let us decrypt passwords when needed",
+       "ar": "الـ hash يسمح بفك كلمات المرور عند الحاجة"
+      },
+      {
+       "en": "JWT tokens can only carry hashed values",
+       "ar": "توكنات JWT تحمل القيم المجزّأة فقط"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "A hash cannot be turned back into the password, so a stolen database does not expose them.",
+      "ar": "لا يمكن إرجاع الـ hash إلى كلمة المرور، فلا تنكشف إذا سُرقت القاعدة."
+     }
+    },
+    {
+     "id": 3,
+     "difficulty": "easy",
+     "question": {
+      "en": "How does the client send username and password to `POST /token`?",
+      "ar": "كيف يرسل العميل اسم المستخدم وكلمة المرور إلى `POST /token`؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "As a JSON body",
+       "ar": "كجسم JSON"
+      },
+      {
+       "en": "As form data",
+       "ar": "كبيانات form"
+      },
+      {
+       "en": "As query parameters",
+       "ar": "كمعاملات استعلام (query)"
+      },
+      {
+       "en": "In the Bearer header",
+       "ar": "في ترويسة Bearer"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "`OAuth2PasswordRequestForm` reads the `username` and `password` form fields.",
+      "ar": "`OAuth2PasswordRequestForm` يقرأ حقلي `username` و`password` من بيانات form."
+     }
+    },
+    {
+     "id": 4,
+     "difficulty": "medium",
+     "question": {
+      "en": "Login returned this. How should the client call `GET /users/me` next?",
+      "ar": "أرجع الدخول هذا. كيف يستدعي العميل `GET /users/me` بعده؟"
+     },
+     "codeSnippet": "POST /token  username=sara&password=secret123\n\n200 OK\n{\"access_token\": \"eyJhbGciOi...\", \"token_type\": \"bearer\"}",
+     "options": [
+      {
+       "en": "GET /users/me?token=eyJhbGciOi...",
+       "ar": "GET /users/me?token=eyJhbGciOi..."
+      },
+      {
+       "en": "Cookie: access_token=eyJhbGciOi...",
+       "ar": "Cookie: access_token=eyJhbGciOi..."
+      },
+      {
+       "en": "Authorization: Token eyJhbGciOi...",
+       "ar": "Authorization: Token eyJhbGciOi..."
+      },
+      {
+       "en": "Authorization: Bearer eyJhbGciOi...",
+       "ar": "Authorization: Bearer eyJhbGciOi..."
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "`OAuth2PasswordBearer` reads the `Authorization` header with the `Bearer` scheme. Anything else gives 401.",
+      "ar": "`OAuth2PasswordBearer` يقرأ ترويسة `Authorization` بالنوع `Bearer`. أي شيء آخر يعطي 401."
+     }
+    },
+    {
+     "id": 5,
+     "difficulty": "medium",
+     "question": {
+      "en": "What does this code print?",
+      "ar": "ماذا يطبع هذا الكود؟"
+     },
+     "codeSnippet": "password_hash = PasswordHash.recommended()\na = password_hash.hash(\"cat\")\nb = password_hash.hash(\"cat\")\nprint(a == b, password_hash.verify(\"cat\", b))",
+     "options": [
+      {
+       "en": "True True",
+       "ar": "True True"
+      },
+      {
+       "en": "False True",
+       "ar": "False True"
+      },
+      {
+       "en": "True False",
+       "ar": "True False"
+      },
+      {
+       "en": "False False",
+       "ar": "False False"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "Each hash gets a new random salt, so `a != b`. `verify` still matches the password: `True`.",
+      "ar": "كل hash يأخذ ملحًا عشوائيًا جديدًا، فـ `a != b`. ويبقى `verify` مطابقًا لكلمة المرور: `True`."
+     }
+    },
+    {
+     "id": 6,
+     "difficulty": "medium",
+     "question": {
+      "en": "The route depends on `get_current_user`. What does this request return?",
+      "ar": "المسار يعتمد على `get_current_user`. ماذا يُرجع هذا الطلب؟"
+     },
+     "codeSnippet": "@app.get(\"/users/me\")\ndef read_me(user: CurrentUser) -> User:\n    return user\n\n# GET /users/me   (no Authorization header)",
+     "options": [
+      {
+       "en": "200 with `null`",
+       "ar": "200 مع `null`"
+      },
+      {
+       "en": "403 Forbidden",
+       "ar": "403 Forbidden"
+      },
+      {
+       "en": "401 Not authenticated",
+       "ar": "401 Not authenticated"
+      },
+      {
+       "en": "422 Field required",
+       "ar": "422 Field required"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "`OAuth2PasswordBearer` finds no token and answers 401 `Not authenticated` with `WWW-Authenticate: Bearer`.",
+      "ar": "لا يجد `OAuth2PasswordBearer` توكنًا فيرد 401 `Not authenticated` مع `WWW-Authenticate: Bearer`."
+     }
+    },
+    {
+     "id": 7,
+     "difficulty": "medium",
+     "question": {
+      "en": "Which statement about the JWT payload is true?",
+      "ar": "أي عبارة عن حمولة (payload) الـ JWT صحيحة؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "Anyone can read it, so keep secrets out",
+       "ar": "أي أحد يقرؤها، فلا تضع فيها أسرارًا"
+      },
+      {
+       "en": "Only the server can read it, it is encrypted",
+       "ar": "الخادم وحده يقرؤها لأنها مشفّرة"
+      },
+      {
+       "en": "It must contain the hashed password",
+       "ar": "يجب أن تحتوي كلمة المرور المجزّأة"
+      },
+      {
+       "en": "It is ignored when checking the signature",
+       "ar": "تُتجاهل عند فحص التوقيع"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "The payload is only base64-encoded and signed, not encrypted. Put `sub` and `exp` there, never secrets.",
+      "ar": "الحمولة مُرمَّزة base64 وموقّعة فقط، وليست مشفّرة. ضع فيها `sub` و`exp`، لا الأسرار."
+     }
+    },
+    {
+     "id": 8,
+     "difficulty": "hard",
+     "question": {
+      "en": "Sara's token has an `exp` 5 minutes in the past. What does `GET /users/me` return?",
+      "ar": "توكن سارة فيه `exp` قبل 5 دقائق. ماذا يُرجع `GET /users/me`؟"
+     },
+     "codeSnippet": "try:\n    payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])\nexcept InvalidTokenError:\n    raise error  # 401 \"Could not validate credentials\"\n\n# GET /users/me  Authorization: Bearer <expired token>",
+     "options": [
+      {
+       "en": "200, the signature is still valid",
+       "ar": "200، التوقيع ما زال صالحًا"
+      },
+      {
+       "en": "403, the user is no longer allowed",
+       "ar": "403، المستخدم لم يعد مسموحًا له"
+      },
+      {
+       "en": "500, ExpiredSignatureError is not caught",
+       "ar": "500، لا يُلتقط ExpiredSignatureError"
+      },
+      {
+       "en": "401, Could not validate credentials",
+       "ar": "401، Could not validate credentials"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "`jwt.decode` raises `ExpiredSignatureError`, a subclass of `InvalidTokenError`, so the 401 is raised.",
+      "ar": "يرفع `jwt.decode` الخطأ `ExpiredSignatureError` وهو فرع من `InvalidTokenError`، فيُرفع خطأ 401."
+     }
+    },
+    {
+     "id": 9,
+     "difficulty": "hard",
+     "question": {
+      "en": "What happens with this login request?",
+      "ar": "ماذا يحدث مع طلب الدخول هذا؟"
+     },
+     "codeSnippet": "@app.post(\"/token\")\ndef login(form: Annotated[OAuth2PasswordRequestForm, Depends()]) -> Token:\n    ...\n\nPOST /token\nContent-Type: application/json\n{\"username\": \"sara\", \"password\": \"secret123\"}",
+     "options": [
+      {
+       "en": "200, FastAPI reads JSON as a form",
+       "ar": "200، يقرأ FastAPI الـ JSON كـ form"
+      },
+      {
+       "en": "401, Incorrect username or password",
+       "ar": "401، Incorrect username or password"
+      },
+      {
+       "en": "422, username and password missing",
+       "ar": "422، غياب username وpassword"
+      },
+      {
+       "en": "415, unsupported media type",
+       "ar": "415، نوع وسائط غير مدعوم"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "The form fields are not in the body, so validation fails: 422 with `username` and `password` missing.",
+      "ar": "حقول form غير موجودة في الجسم، فيفشل التحقق: 422 مع غياب `username` و`password`."
+     }
+    },
+    {
+     "id": 10,
+     "difficulty": "hard",
+     "question": {
+      "en": "An attacker edits the payload of Sara's valid token to `\"sub\": \"omar\"`, keeping the old signature. Result?",
+      "ar": "مهاجم عدّل حمولة توكن سارة الصالح إلى `\"sub\": \"omar\"` وأبقى التوقيع القديم. النتيجة؟"
+     },
+     "codeSnippet": "GET /users/me\nAuthorization: Bearer <sara header>.<edited payload: sub=omar>.<sara signature>",
+     "options": [
+      {
+       "en": "401, the signature no longer matches",
+       "ar": "401، التوقيع لم يعد مطابقًا"
+      },
+      {
+       "en": "200, now logged in as omar instead",
+       "ar": "200، أصبح الدخول باسم omar"
+      },
+      {
+       "en": "200, the old sub sara is still used",
+       "ar": "200، يبقى الـ sub القديم sara"
+      },
+      {
+       "en": "403, edited tokens are forbidden",
+       "ar": "403، التوكنات المعدَّلة ممنوعة"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "The signature covers header and payload. Changed payload, invalid signature: `jwt.decode` fails and returns 401.",
+      "ar": "التوقيع يغطي الترويسة والحمولة. تغيّرت الحمولة فبطل التوقيع: يفشل `jwt.decode` ويُرجع 401."
+     }
+    }
+   ]
+  },
+  {
+   "id": "bigger-apps",
+   "icon": "🏗️",
+   "title": {
+    "en": "Bigger Applications",
+    "ar": "التطبيقات الأكبر"
+   },
+   "summary": {
+    "en": "Split a growing API into routers, load settings from .env, and swap dependencies in tests.",
+    "ar": "قسّم الـ API المتنامية إلى موجّهات (routers)، واقرأ الإعدادات من .env، واستبدل الاعتماديات في الاختبارات."
+   },
+   "lessons": [
+    {
+     "id": "project-layout",
+     "title": {
+      "en": "From one file to a package",
+      "ar": "من ملف واحد إلى حزمة (package)"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🏗️",
+       "en": "Big app? Split it into small files",
+       "ar": "تطبيق كبير؟ قسّمه إلى ملفات صغيرة"
+      },
+      {
+       "type": "compare",
+       "left": {
+        "title": {
+         "en": "One huge main.py",
+         "ar": "ملف main.py ضخم واحد"
+        },
+        "tone": "bad",
+        "items": [
+         {
+          "en": "Hundreds of routes in one file",
+          "ar": "مئات المسارات في ملف واحد"
+         },
+         {
+          "en": "Hard to find anything",
+          "ar": "يصعب العثور على أي شيء"
+         },
+         {
+          "en": "Teammates edit the same file",
+          "ar": "الزملاء يعدّلون الملف نفسه"
+         }
+        ]
+       },
+       "right": {
+        "title": {
+         "en": "Routers in a package",
+         "ar": "موجّهات (routers) داخل حزمة"
+        },
+        "tone": "good",
+        "items": [
+         {
+          "en": "One file per topic",
+          "ar": "ملف لكل موضوع"
+         },
+         {
+          "en": "`main.py` only wires things together",
+          "ar": "`main.py` يربط الأجزاء فقط"
+         },
+         {
+          "en": "Easy to test and grow",
+          "ar": "سهل الاختبار والتوسيع"
+         }
+        ]
+       }
+      },
+      {
+       "type": "code",
+       "lang": "text",
+       "code": "shop/\n├── .env\n└── app/\n    ├── __init__.py\n    ├── main.py\n    ├── config.py\n    ├── deps.py\n    ├── models.py\n    └── routers/\n        ├── __init__.py\n        ├── users.py\n        └── items.py",
+       "highlight": [
+        5,
+        11,
+        12
+       ]
+      },
+      {
+       "type": "cards",
+       "items": [
+        {
+         "icon": "🚀",
+         "color": "green",
+         "title": {
+          "en": "main.py",
+          "ar": "main.py"
+         },
+         "text": {
+          "en": "Creates `app` and includes the routers",
+          "ar": "ينشئ `app` ويضمّ الموجّهات"
+         }
+        },
+        {
+         "icon": "🧩",
+         "color": "blue",
+         "title": {
+          "en": "routers/",
+          "ar": "routers/"
+         },
+         "text": {
+          "en": "One `APIRouter` per resource: users, items",
+          "ar": "`APIRouter` لكل مورد: users وitems"
+         }
+        },
+        {
+         "icon": "📦",
+         "color": "purple",
+         "title": {
+          "en": "models.py",
+          "ar": "models.py"
+         },
+         "text": {
+          "en": "Pydantic / SQLModel classes",
+          "ar": "أصناف Pydantic / SQLModel"
+         }
+        },
+        {
+         "icon": "🔌",
+         "color": "cyan",
+         "title": {
+          "en": "deps.py",
+          "ar": "deps.py"
+         },
+         "text": {
+          "en": "Shared dependencies like the current user",
+          "ar": "اعتماديات مشتركة مثل المستخدم الحالي"
+         }
+        },
+        {
+         "icon": "⚙️",
+         "color": "yellow",
+         "title": {
+          "en": "config.py",
+          "ar": "config.py"
+         },
+         "text": {
+          "en": "Settings read from `.env`",
+          "ar": "إعدادات تُقرأ من `.env`"
+         }
+        },
+        {
+         "icon": "📄",
+         "color": "red",
+         "title": {
+          "en": "__init__.py",
+          "ar": "__init__.py"
+         },
+         "text": {
+          "en": "Empty file: makes the folder a package",
+          "ar": "ملف فارغ: يجعل المجلد حزمة"
+         }
+        }
+       ]
+      },
+      {
+       "type": "anatomy",
+       "parts": [
+        {
+         "text": "from "
+        },
+        {
+         "text": "..",
+         "color": "yellow",
+         "label": {
+          "en": "up one package",
+          "ar": "حزمة واحدة للأعلى"
+         }
+        },
+        {
+         "text": "deps",
+         "color": "blue",
+         "label": {
+          "en": "the module app/deps.py",
+          "ar": "الوحدة app/deps.py"
+         }
+        },
+        {
+         "text": " import "
+        },
+        {
+         "text": "get_current_user",
+         "color": "green",
+         "label": {
+          "en": "the name you need",
+          "ar": "الاسم الذي تحتاجه"
+         }
+        }
+       ]
+      },
+      {
+       "type": "warn",
+       "en": "Relative imports need a package: run `fastapi dev app/main.py`, not `python app/main.py`.",
+       "ar": "الاستيراد النسبي يحتاج حزمة: شغّل `fastapi dev app/main.py` وليس `python app/main.py`."
+      }
+     ]
+    },
+    {
+     "id": "apirouter",
+     "title": {
+      "en": "APIRouter: a mini app",
+      "ar": "APIRouter: تطبيق مصغّر"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🧩",
+       "en": "An APIRouter is a mini FastAPI app",
+       "ar": "الـ APIRouter تطبيق FastAPI مصغّر"
+      },
+      {
+       "type": "anatomy",
+       "parts": [
+        {
+         "text": "router = "
+        },
+        {
+         "text": "APIRouter",
+         "color": "blue",
+         "label": {
+          "en": "a group of routes",
+          "ar": "مجموعة مسارات"
+         }
+        },
+        {
+         "text": "("
+        },
+        {
+         "text": "prefix=\"/users\"",
+         "color": "green",
+         "label": {
+          "en": "added before every path",
+          "ar": "يُضاف قبل كل مسار"
+         }
+        },
+        {
+         "text": ", "
+        },
+        {
+         "text": "tags=[\"users\"]",
+         "color": "purple",
+         "label": {
+          "en": "section name in /docs",
+          "ar": "اسم القسم في /docs"
+         }
+        },
+        {
+         "text": ")"
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi import APIRouter\n\nrouter = APIRouter(prefix=\"/users\", tags=[\"users\"])\n\n@router.get(\"/\")\ndef list_users():\n    return [{\"username\": \"sara\"}]\n\n@router.get(\"/{username}\")\ndef read_user(username: str):\n    return {\"username\": username}",
+       "highlight": [
+        3,
+        5,
+        9
+       ]
+      },
+      {
+       "type": "flow",
+       "nodes": [
+        {
+         "icon": "📨",
+         "label": {
+          "en": "GET /users/sara",
+          "ar": "GET /users/sara"
+         }
+        },
+        {
+         "icon": "🚀",
+         "label": {
+          "en": "app in main.py",
+          "ar": "app في main.py"
+         }
+        },
+        {
+         "icon": "🧩",
+         "label": {
+          "en": "users router",
+          "ar": "موجّه users"
+         }
+        },
+        {
+         "icon": "⚙️",
+         "label": {
+          "en": "read_user",
+          "ar": "read_user"
+         }
+        }
+       ],
+       "links": [
+        {
+         "label": {
+          "en": "include_router",
+          "ar": "include_router"
+         }
+        },
+        {
+         "label": {
+          "en": "prefix /users matches",
+          "ar": "البادئة /users تطابق"
+         }
+        },
+        {
+         "label": {
+          "en": "/{username} = sara",
+          "ar": "/{username} = sara"
+         }
+        }
+       ]
+      },
+      {
+       "type": "chat",
+       "messages": [
+        {
+         "from": "client",
+         "text": "GET /users/sara",
+         "note": {
+          "en": "prefix + /{username}",
+          "ar": "البادئة + /{username}"
+         }
+        },
+        {
+         "from": "server",
+         "text": "200 OK  {\"username\": \"sara\"}"
+        },
+        {
+         "from": "client",
+         "text": "GET /sara",
+         "note": {
+          "en": "forgot the prefix",
+          "ar": "نسي البادئة"
+         }
+        },
+        {
+         "from": "server",
+         "text": "404 Not Found",
+         "note": {
+          "en": "no such path",
+          "ar": "لا يوجد مسار كهذا"
+         }
+        }
+       ]
+      },
+      {
+       "type": "warn",
+       "en": "A prefix must not end with `/`: `prefix=\"/users/\"` raises an `AssertionError`.",
+       "ar": "البادئة يجب ألّا تنتهي بـ `/`: الكتابة `prefix=\"/users/\"` ترفع `AssertionError`."
+      }
+     ]
+    },
+    {
+     "id": "settings",
+     "title": {
+      "en": "Settings from .env",
+      "ar": "الإعدادات من ملف .env"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "⚙️",
+       "en": "Config lives in .env, not in code",
+       "ar": "الإعدادات مكانها .env وليس الكود"
+      },
+      {
+       "type": "code",
+       "lang": "text",
+       "code": "APP_NAME=Env Shop\nITEMS_PER_PAGE=2"
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from functools import lru_cache\nfrom pydantic_settings import BaseSettings, SettingsConfigDict\n\nclass Settings(BaseSettings):\n    app_name: str = \"Shop API\"\n    items_per_page: int = 10\n    model_config = SettingsConfigDict(env_file=\".env\")\n\n@lru_cache\ndef get_settings() -> Settings:\n    return Settings()",
+       "highlight": [
+        4,
+        7,
+        9
+       ]
+      },
+      {
+       "type": "flow",
+       "nodes": [
+        {
+         "icon": "📄",
+         "label": {
+          "en": ".env file",
+          "ar": "ملف .env"
+         }
+        },
+        {
+         "icon": "🧾",
+         "label": {
+          "en": "Settings()",
+          "ar": "Settings()"
+         }
+        },
+        {
+         "icon": "🧠",
+         "label": {
+          "en": "get_settings (cached)",
+          "ar": "get_settings (مخزَّنة)"
+         }
+        },
+        {
+         "icon": "⚙️",
+         "label": {
+          "en": "your endpoint",
+          "ar": "دالة المسار"
+         }
+        }
+       ],
+       "links": [
+        {
+         "label": {
+          "en": "APP_NAME → app_name",
+          "ar": "APP_NAME ← app_name"
+         }
+        },
+        {
+         "label": {
+          "en": "built once",
+          "ar": "يُبنى مرة واحدة"
+         }
+        },
+        {
+         "label": {
+          "en": "Depends(get_settings)",
+          "ar": "Depends(get_settings)"
+         }
+        }
+       ]
+      },
+      {
+       "type": "pills",
+       "items": [
+        {
+         "text": "os.environ",
+         "color": "green",
+         "label": {
+          "en": "1st: always wins",
+          "ar": "الأول: يفوز دائمًا"
+         }
+        },
+        {
+         "text": ".env",
+         "color": "blue",
+         "label": {
+          "en": "2nd",
+          "ar": "الثاني"
+         }
+        },
+        {
+         "text": "= default",
+         "color": "yellow",
+         "label": {
+          "en": "3rd: fallback",
+          "ar": "الثالث: احتياطي"
+         }
+        }
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "`@lru_cache` reads `.env` once and returns the same `Settings` object every time.",
+       "ar": "`@lru_cache` يقرأ `.env` مرة واحدة ويُرجع كائن `Settings` نفسه في كل مرة."
+      },
+      {
+       "type": "warn",
+       "en": "`.env` is looked up in the folder you start the app from. Never commit it.",
+       "ar": "يُبحث عن `.env` في المجلد الذي تشغّل منه التطبيق. لا ترفعه إلى git أبدًا."
+      }
+     ]
+    },
+    {
+     "id": "wire-it-up",
+     "title": {
+      "en": "Wiring routers into main.py",
+      "ar": "ربط الموجّهات في main.py"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🔗",
+       "en": "main.py plugs every router in",
+       "ar": "main.py يوصل كل الموجّهات"
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from typing import Annotated\nfrom fastapi import Depends, Header, HTTPException\nfrom .config import Settings, get_settings\n\nSettingsDep = Annotated[Settings, Depends(get_settings)]\n\ndef get_current_user(x_token: Annotated[str | None, Header()] = None) -> str:\n    if x_token != \"secret\":  # stand-in for the level 7 JWT check\n        raise HTTPException(status_code=401, detail=\"Not authenticated\")\n    return \"sara\"",
+       "highlight": [
+        5,
+        7,
+        9
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi import APIRouter, Depends\nfrom ..deps import get_current_user\nfrom ..models import Item\n\nrouter = APIRouter(prefix=\"/items\", tags=[\"items\"],\n                   dependencies=[Depends(get_current_user)])\n\n@router.get(\"/{item_id}\", response_model=Item)\ndef read_item(item_id: int):\n    return Item(id=item_id, name=f\"item {item_id}\")",
+       "highlight": [
+        5,
+        6
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi import FastAPI\nfrom .deps import SettingsDep\nfrom .routers import items, users\n\napp = FastAPI(title=\"Shop API\", version=\"1.0.0\",\n              description=\"Users and items, split into routers.\")\napp.include_router(users.router)\napp.include_router(items.router)\n\n@app.get(\"/\")\ndef root(settings: SettingsDep):\n    return {\"app\": settings.app_name}",
+       "highlight": [
+        5,
+        7,
+        8
+       ]
+      },
+      {
+       "type": "chat",
+       "messages": [
+        {
+         "from": "client",
+         "text": "GET /items/1",
+         "note": {
+          "en": "no token",
+          "ar": "بدون token"
+         }
+        },
+        {
+         "from": "server",
+         "text": "401 Unauthorized  {\"detail\": \"Not authenticated\"}",
+         "note": {
+          "en": "router dependency blocked it",
+          "ar": "اعتمادية الموجّه منعته"
+         }
+        },
+        {
+         "from": "client",
+         "text": "GET /items/1  X-Token: secret"
+        },
+        {
+         "from": "server",
+         "text": "200 OK  {\"id\": 1, \"name\": \"item 1\"}"
+        },
+        {
+         "from": "client",
+         "text": "GET /users/sara",
+         "note": {
+          "en": "users router: no lock",
+          "ar": "موجّه users: بلا قفل"
+         }
+        },
+        {
+         "from": "server",
+         "text": "200 OK  {\"username\": \"sara\"}"
+        }
+       ]
+      },
+      {
+       "type": "cards",
+       "items": [
+        {
+         "icon": "🏷️",
+         "color": "green",
+         "title": {
+          "en": "title + version",
+          "ar": "title + version"
+         },
+         "text": {
+          "en": "Shown at the top of `/docs`",
+          "ar": "يظهران أعلى صفحة `/docs`"
+         }
+        },
+        {
+         "icon": "📝",
+         "color": "blue",
+         "title": {
+          "en": "description",
+          "ar": "description"
+         },
+         "text": {
+          "en": "A short intro under the title",
+          "ar": "مقدمة قصيرة تحت العنوان"
+         }
+        },
+        {
+         "icon": "🗂️",
+         "color": "purple",
+         "title": {
+          "en": "tags",
+          "ar": "tags"
+         },
+         "text": {
+          "en": "Group routes into sections: users, items",
+          "ar": "تجمع المسارات في أقسام: users وitems"
+         }
+        }
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "Prefixes stack: `include_router(router, prefix=\"/api/v1\")` turns `/items/1` into `/api/v1/items/1`.",
+       "ar": "البادئات تتراكم: `include_router(router, prefix=\"/api/v1\")` يحوّل `/items/1` إلى `/api/v1/items/1`."
+      }
+     ]
+    },
+    {
+     "id": "testing-with-overrides",
+     "title": {
+      "en": "Swapping dependencies in tests",
+      "ar": "استبدال الاعتماديات في الاختبارات"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🧪",
+       "en": "Tests swap real parts for fakes",
+       "ar": "الاختبارات تستبدل الأجزاء الحقيقية بأخرى وهمية"
+      },
+      {
+       "type": "flow",
+       "nodes": [
+        {
+         "icon": "🧪",
+         "label": {
+          "en": "test request",
+          "ar": "طلب الاختبار"
+         }
+        },
+        {
+         "icon": "🔀",
+         "label": {
+          "en": "dependency_overrides",
+          "ar": "dependency_overrides"
+         }
+        },
+        {
+         "icon": "🎭",
+         "label": {
+          "en": "fake function runs",
+          "ar": "تعمل الدالة الوهمية"
+         }
+        }
+       ],
+       "links": [
+        {
+         "label": {
+          "en": "needs get_settings",
+          "ar": "يحتاج get_settings"
+         }
+        },
+        {
+         "label": {
+          "en": "swapped by key",
+          "ar": "يُستبدل حسب المفتاح"
+         }
+        }
+       ]
+      },
+      {
+       "type": "cards",
+       "items": [
+        {
+         "icon": "⚙️",
+         "color": "yellow",
+         "title": {
+          "en": "get_settings",
+          "ar": "get_settings"
+         },
+         "text": {
+          "en": "Fake settings, no `.env` needed",
+          "ar": "إعدادات وهمية بدون حاجة إلى `.env`"
+         }
+        },
+        {
+         "icon": "🗄️",
+         "color": "cyan",
+         "title": {
+          "en": "get_session",
+          "ar": "get_session"
+         },
+         "text": {
+          "en": "A test database instead of the real one",
+          "ar": "قاعدة بيانات للاختبار بدل الحقيقية"
+         }
+        },
+        {
+         "icon": "👤",
+         "color": "purple",
+         "title": {
+          "en": "get_current_user",
+          "ar": "get_current_user"
+         },
+         "text": {
+          "en": "A fake user, no token or login",
+          "ar": "مستخدم وهمي بلا token أو تسجيل دخول"
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi.testclient import TestClient\nfrom app.config import Settings, get_settings\nfrom app.deps import get_current_user\nfrom app.main import app\nclient = TestClient(app)\n\ndef test_with_fakes():\n    app.dependency_overrides[get_settings] = lambda: Settings(app_name=\"Test Shop\")\n    app.dependency_overrides[get_current_user] = lambda: \"test-user\"\n    assert client.get(\"/\").json() == {\"app\": \"Test Shop\"}\n    assert client.get(\"/items/1\").status_code == 200  # no token needed\n    app.dependency_overrides.clear()",
+       "highlight": [
+        8,
+        9,
+        11,
+        12
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "en": "Key: the original dependency function",
+         "ar": "المفتاح: دالة الاعتمادية الأصلية"
+        },
+        {
+         "en": "Value: the fake function to run",
+         "ar": "القيمة: الدالة الوهمية التي ستعمل"
+        },
+        {
+         "en": "Call routes with `TestClient`",
+         "ar": "استدعِ المسارات بـ `TestClient`"
+        },
+        {
+         "en": "Finish with `dependency_overrides.clear()`",
+         "ar": "اختم بـ `dependency_overrides.clear()`"
+        }
+       ]
+      },
+      {
+       "type": "warn",
+       "en": "Forget `.clear()` and the fakes leak into your other tests.",
+       "ar": "إذا نسيت `.clear()` تتسرّب الدوال الوهمية إلى اختباراتك الأخرى."
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "id": 1,
+     "difficulty": "easy",
+     "question": {
+      "en": "What does `prefix=\"/users\"` do in `APIRouter(prefix=\"/users\")`?",
+      "ar": "ماذا يفعل `prefix=\"/users\"` في `APIRouter(prefix=\"/users\")`؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "Adds `/users` before every path in the router",
+       "ar": "يضيف `/users` قبل كل مسار في الموجّه"
+      },
+      {
+       "en": "Groups the routes under a `users` section in `/docs`",
+       "ar": "يجمع المسارات في قسم `users` داخل `/docs`"
+      },
+      {
+       "en": "Makes every route in the router require a login",
+       "ar": "يجعل كل مسارات الموجّه تتطلّب تسجيل الدخول"
+      },
+      {
+       "en": "Saves the router in a file named `users.py`",
+       "ar": "يحفظ الموجّه في ملف اسمه `users.py`"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "The prefix is put in front of each route path. Grouping in `/docs` is the job of `tags`.",
+      "ar": "البادئة توضع قبل مسار كل route. أما التجميع في `/docs` فهو عمل `tags`."
+     }
+    },
+    {
+     "id": 2,
+     "difficulty": "easy",
+     "question": {
+      "en": "Which line in `main.py` adds the users router to the app?",
+      "ar": "أي سطر في `main.py` يضيف موجّه users إلى التطبيق؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "app.add_router(users.router)",
+       "ar": "app.add_router(users.router)"
+      },
+      {
+       "en": "users.router.include(app)",
+       "ar": "users.router.include(app)"
+      },
+      {
+       "en": "app.include_router(users.router)",
+       "ar": "app.include_router(users.router)"
+      },
+      {
+       "en": "app.mount_router(users.router)",
+       "ar": "app.mount_router(users.router)"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "`app.include_router(...)` registers all of the router's routes on the app.",
+      "ar": "`app.include_router(...)` يسجّل كل مسارات الموجّه في التطبيق."
+     }
+    },
+    {
+     "id": 3,
+     "difficulty": "easy",
+     "question": {
+      "en": "Where does a pydantic-settings `BaseSettings` class read its values from?",
+      "ar": "من أين يقرأ صنف `BaseSettings` من pydantic-settings قيمه؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "Only from the request's query string",
+       "ar": "من نص الاستعلام (query) في الطلب فقط"
+      },
+      {
+       "en": "From environment variables and the `.env` file",
+       "ar": "من متغيرات البيئة وملف `.env`"
+      },
+      {
+       "en": "From the JSON body of each request",
+       "ar": "من جسم JSON في كل طلب"
+      },
+      {
+       "en": "From the tags shown on the `/docs` page",
+       "ar": "من الوسوم (tags) الظاهرة في صفحة `/docs`"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "`BaseSettings` fills its fields from environment variables and, with `env_file=\".env\"`, from that file.",
+      "ar": "`BaseSettings` يملأ حقوله من متغيرات البيئة، ومن ملف `.env` عند ضبط `env_file=\".env\"`."
+     }
+    },
+    {
+     "id": 4,
+     "difficulty": "medium",
+     "question": {
+      "en": "`main.py` calls `app.include_router(router)`. Which URL runs `read_item` for item 5?",
+      "ar": "الملف `main.py` يستدعي `app.include_router(router)`. أي رابط يشغّل `read_item` للعنصر 5؟"
+     },
+     "codeSnippet": "router = APIRouter(prefix=\"/items\", tags=[\"items\"])\n\n@router.get(\"/{item_id}\")\ndef read_item(item_id: int):\n    return {\"item_id\": item_id}",
+     "options": [
+      {
+       "en": "GET /5",
+       "ar": "GET /5"
+      },
+      {
+       "en": "GET /item/5",
+       "ar": "GET /item/5"
+      },
+      {
+       "en": "GET /router/items/5",
+       "ar": "GET /router/items/5"
+      },
+      {
+       "en": "GET /items/5",
+       "ar": "GET /items/5"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "The router's prefix `/items` is joined with `/{item_id}`, giving `/items/5`.",
+      "ar": "تُدمج بادئة الموجّه `/items` مع `/{item_id}` فيصبح المسار `/items/5`."
+     }
+    },
+    {
+     "id": 5,
+     "difficulty": "medium",
+     "question": {
+      "en": "A client sends `GET /items/5` with no `X-Token` header. What is the response?",
+      "ar": "عميل يرسل `GET /items/5` بدون الترويسة `X-Token`. ما الاستجابة؟"
+     },
+     "codeSnippet": "def get_current_user(x_token: Annotated[str | None, Header()] = None):\n    if x_token != \"secret\":\n        raise HTTPException(status_code=401, detail=\"Not authenticated\")\n    return \"sara\"\n\nrouter = APIRouter(prefix=\"/items\",\n                   dependencies=[Depends(get_current_user)])\n\n@router.get(\"/{item_id}\")\ndef read_item(item_id: int):\n    return {\"item_id\": item_id}",
+     "options": [
+      {
+       "en": "401 {\"detail\": \"Not authenticated\"}",
+       "ar": "401 {\"detail\": \"Not authenticated\"}"
+      },
+      {
+       "en": "200 {\"item_id\": 5} (check skipped)",
+       "ar": "200 {\"item_id\": 5} (يُتخطّى الفحص)"
+      },
+      {
+       "en": "422 \"Field required\" for x_token",
+       "ar": "422 \"Field required\" للحقل x_token"
+      },
+      {
+       "en": "404 {\"detail\": \"Item not found\"}",
+       "ar": "404 {\"detail\": \"Item not found\"}"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "Router-level `dependencies` run before every route in the router. The check fails, so 401 is returned.",
+      "ar": "اعتماديات الموجّه `dependencies` تعمل قبل كل مسار فيه. يفشل الفحص فتُرجَع 401."
+     }
+    },
+    {
+     "id": 6,
+     "difficulty": "medium",
+     "question": {
+      "en": "The app starts in the folder that holds this `.env`. What does `GET /` return?",
+      "ar": "يبدأ التطبيق من المجلد الذي فيه ملف `.env` هذا. ماذا يُرجع `GET /`؟"
+     },
+     "codeSnippet": "# .env\nAPP_NAME=Env Shop\n\nclass Settings(BaseSettings):\n    app_name: str = \"Shop API\"\n    model_config = SettingsConfigDict(env_file=\".env\")\n\n@app.get(\"/\")\ndef root(settings: Annotated[Settings, Depends(get_settings)]):\n    return {\"app\": settings.app_name}",
+     "options": [
+      {
+       "en": "{\"app\": \"Shop API\"}",
+       "ar": "{\"app\": \"Shop API\"}"
+      },
+      {
+       "en": "{\"app\": \"APP_NAME\"}",
+       "ar": "{\"app\": \"APP_NAME\"}"
+      },
+      {
+       "en": "{\"app\": \"Env Shop\"}",
+       "ar": "{\"app\": \"Env Shop\"}"
+      },
+      {
+       "en": "{\"app\": null}",
+       "ar": "{\"app\": null}"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "`APP_NAME` in `.env` fills the field `app_name` and replaces the default \"Shop API\".",
+      "ar": "`APP_NAME` في `.env` يملأ الحقل `app_name` ويحلّ محل القيمة الافتراضية \"Shop API\"."
+     }
+    },
+    {
+     "id": 7,
+     "difficulty": "medium",
+     "question": {
+      "en": "Why is `get_settings` decorated with `@lru_cache`?",
+      "ar": "لماذا نضع `@lru_cache` على الدالة `get_settings`؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "So every request reads `.env` again from disk",
+       "ar": "لكي يقرأ كل طلب ملف `.env` من القرص من جديد"
+      },
+      {
+       "en": "So `Settings` is built once and then reused",
+       "ar": "لكي يُبنى `Settings` مرة واحدة ثم يُعاد استخدامه"
+      },
+      {
+       "en": "So the settings appear as a tag in `/docs`",
+       "ar": "لكي تظهر الإعدادات كوسم (tag) في `/docs`"
+      },
+      {
+       "en": "So tests can never replace the settings",
+       "ar": "لكي لا تستطيع الاختبارات استبدال الإعدادات أبدًا"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "`@lru_cache` stores the first result, so `.env` is read once and the same object is returned.",
+      "ar": "`@lru_cache` يحفظ النتيجة الأولى، فيُقرأ `.env` مرة واحدة ويُرجَع الكائن نفسه."
+     }
+    },
+    {
+     "id": 8,
+     "difficulty": "hard",
+     "question": {
+      "en": "`.env` contains `APP_NAME=Env Shop`. What does this test get from `GET /`?",
+      "ar": "ملف `.env` يحتوي `APP_NAME=Env Shop`. ماذا يستلم هذا الاختبار من `GET /`؟"
+     },
+     "codeSnippet": "# root() returns {\"app\": settings.app_name}\n# using Depends(get_settings)\n\napp.dependency_overrides[get_settings] = (\n    lambda: Settings(app_name=\"Test Shop\")\n)\nprint(client.get(\"/\").json())",
+     "options": [
+      {
+       "en": "{\"app\": \"Env Shop\"}",
+       "ar": "{\"app\": \"Env Shop\"}"
+      },
+      {
+       "en": "{\"app\": \"Shop API\"}",
+       "ar": "{\"app\": \"Shop API\"}"
+      },
+      {
+       "en": "500 Internal Server Error",
+       "ar": "500 Internal Server Error"
+      },
+      {
+       "en": "{\"app\": \"Test Shop\"}",
+       "ar": "{\"app\": \"Test Shop\"}"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "`dependency_overrides` makes FastAPI call the fake instead of `get_settings`, so `.env` is not used.",
+      "ar": "`dependency_overrides` يجعل FastAPI يستدعي الدالة الوهمية بدل `get_settings`، فلا يُستخدم `.env`."
+     }
+    },
+    {
+     "id": 9,
+     "difficulty": "hard",
+     "question": {
+      "en": "What happens when Python runs this line?",
+      "ar": "ماذا يحدث عندما ينفّذ Python هذا السطر؟"
+     },
+     "codeSnippet": "router = APIRouter(prefix=\"/users/\", tags=[\"users\"])",
+     "options": [
+      {
+       "en": "`AssertionError`: a prefix must not end with `/`",
+       "ar": "`AssertionError`: البادئة يجب ألّا تنتهي بـ `/`"
+      },
+      {
+       "en": "It works and paths look like `/users//me`",
+       "ar": "يعمل وتصبح المسارات مثل `/users//me`"
+      },
+      {
+       "en": "It works and FastAPI removes the extra `/`",
+       "ar": "يعمل ويحذف FastAPI الشرطة `/` الزائدة"
+      },
+      {
+       "en": "Every request to the router returns 404",
+       "ar": "كل طلب إلى الموجّه يُرجع 404"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "FastAPI checks the prefix when the router is created and rejects a trailing `/` with an `AssertionError`.",
+      "ar": "يفحص FastAPI البادئة عند إنشاء الموجّه ويرفض `/` في آخرها برفع `AssertionError`."
+     }
+    },
+    {
+     "id": 10,
+     "difficulty": "hard",
+     "question": {
+      "en": "Which URL now reaches `read_item` for item 3?",
+      "ar": "أي رابط يصل الآن إلى `read_item` للعنصر 3؟"
+     },
+     "codeSnippet": "router = APIRouter(prefix=\"/items\")\n\n@router.get(\"/{item_id}\")\ndef read_item(item_id: int):\n    return {\"item_id\": item_id}\n\napp.include_router(router, prefix=\"/api/v1\")",
+     "options": [
+      {
+       "en": "GET /items/3",
+       "ar": "GET /items/3"
+      },
+      {
+       "en": "GET /api/v1/3",
+       "ar": "GET /api/v1/3"
+      },
+      {
+       "en": "GET /api/v1/items/3",
+       "ar": "GET /api/v1/items/3"
+      },
+      {
+       "en": "GET /items/api/v1/3",
+       "ar": "GET /items/api/v1/3"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "The `include_router` prefix goes first, then the router's own prefix: `/api/v1` + `/items` + `/3`.",
+      "ar": "بادئة `include_router` تأتي أولًا ثم بادئة الموجّه نفسه: `/api/v1` + `/items` + `/3`."
+     }
+    }
+   ]
+  },
+  {
+   "id": "middleware-files",
+   "icon": "🧰",
+   "title": {
+    "en": "Middleware, CORS and files",
+    "ar": "الـ Middleware وCORS والملفات"
+   },
+   "summary": {
+    "en": "Open your API to browsers with CORS, wrap requests with middleware, accept uploads, run background tasks and handle custom errors.",
+    "ar": "افتح الـ API للمتصفحات عبر CORS، وغلّف الطلبات بالـ Middleware، واستقبل الملفات، وشغّل مهام في الخلفية، وعالج أخطاءك المخصّصة."
+   },
+   "lessons": [
+    {
+     "id": "cors",
+     "title": {
+      "en": "CORS: letting browsers in",
+      "ar": "CORS: السماح للمتصفحات بالدخول"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🌍",
+       "en": "Browsers block other sites, unless your API says yes",
+       "ar": "المتصفح يحجب المواقع الأخرى، إلا إذا وافقت الـ API"
+      },
+      {
+       "type": "p",
+       "en": "An origin is scheme + host + port. A different origin makes the browser ask your API first.",
+       "ar": "الأصل (origin) هو البروتوكول + المضيف + المنفذ. أي أصل مختلف يجعل المتصفح يسأل الـ API أولًا."
+      },
+      {
+       "type": "flow",
+       "nodes": [
+        {
+         "icon": "🌐",
+         "label": {
+          "en": "app.example.com",
+          "ar": "app.example.com"
+         }
+        },
+        {
+         "icon": "🖥️",
+         "label": {
+          "en": "api.example.com",
+          "ar": "api.example.com"
+         }
+        }
+       ],
+       "links": [
+        {
+         "label": {
+          "en": "fetch /items",
+          "ar": "fetch /items"
+         }
+        }
+       ],
+       "returns": {
+        "en": "+ Allow-Origin header",
+        "ar": "+ ترويسة Allow-Origin"
+       }
+      },
+      {
+       "type": "chat",
+       "messages": [
+        {
+         "from": "client",
+         "text": "OPTIONS /items\nOrigin: https://app.example.com\nAccess-Control-Request-Method: PUT",
+         "note": {
+          "en": "preflight: may I?",
+          "ar": "طلب تمهيدي (preflight): هل يُسمح لي؟"
+         }
+        },
+        {
+         "from": "server",
+         "text": "200 OK\nAccess-Control-Allow-Origin: https://app.example.com\nAccess-Control-Allow-Methods: GET, POST, PUT",
+         "note": {
+          "en": "yes, you may",
+          "ar": "نعم، مسموح"
+         }
+        },
+        {
+         "from": "client",
+         "text": "OPTIONS /items\nOrigin: https://evil.com\nAccess-Control-Request-Method: GET",
+         "note": {
+          "en": "an unknown site",
+          "ar": "موقع غير معروف"
+         }
+        },
+        {
+         "from": "server",
+         "text": "400 Bad Request  Disallowed CORS origin",
+         "note": {
+          "en": "not on the list",
+          "ar": "ليس في القائمة"
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi import FastAPI\nfrom fastapi.middleware.cors import CORSMiddleware\n\napp = FastAPI()\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"https://app.example.com\"],\n    allow_credentials=True,  # cookies, Authorization\n    allow_methods=[\"GET\", \"POST\", \"PUT\"],\n    allow_headers=[\"Authorization\", \"Content-Type\"],\n)",
+       "highlight": [
+        5,
+        7,
+        8,
+        9,
+        10
+       ]
+      },
+      {
+       "type": "cards",
+       "items": [
+        {
+         "icon": "🏠",
+         "color": "green",
+         "title": {
+          "en": "allow_origins",
+          "ar": "allow_origins"
+         },
+         "text": {
+          "en": "Which sites may call your API",
+          "ar": "المواقع المسموح لها باستدعاء الـ API"
+         }
+        },
+        {
+         "icon": "🍪",
+         "color": "yellow",
+         "title": {
+          "en": "allow_credentials",
+          "ar": "allow_credentials"
+         },
+         "text": {
+          "en": "Allow cookies and `Authorization` headers",
+          "ar": "السماح بالكوكيز وترويسة `Authorization`"
+         }
+        },
+        {
+         "icon": "🔀",
+         "color": "blue",
+         "title": {
+          "en": "allow_methods",
+          "ar": "allow_methods"
+         },
+         "text": {
+          "en": "Allowed HTTP methods, like `GET` or `PUT`",
+          "ar": "طرق HTTP المسموحة مثل `GET` أو `PUT`"
+         }
+        },
+        {
+         "icon": "🏷️",
+         "color": "purple",
+         "title": {
+          "en": "allow_headers",
+          "ar": "allow_headers"
+         },
+         "text": {
+          "en": "Extra request headers the browser may send",
+          "ar": "الترويسات الإضافية التي يُسمح للمتصفح بإرسالها"
+         }
+        }
+       ]
+      },
+      {
+       "type": "anatomy",
+       "parts": [
+        {
+         "text": "Access-Control-Allow-Origin",
+         "color": "blue",
+         "label": {
+          "en": "CORS response header",
+          "ar": "ترويسة CORS في الاستجابة"
+         }
+        },
+        {
+         "text": ": "
+        },
+        {
+         "text": "https://app.example.com",
+         "color": "green",
+         "label": {
+          "en": "the allowed origin",
+          "ar": "الأصل المسموح"
+         }
+        }
+       ]
+      },
+      {
+       "type": "warn",
+       "en": "CORS is enforced by the browser: the server still answers, the page just can't read it.",
+       "ar": "المتصفح هو من يطبّق CORS: الخادم يرد فعلًا، لكن الصفحة لا تستطيع قراءة الرد."
+      }
+     ]
+    },
+    {
+     "id": "custom-middleware",
+     "title": {
+      "en": "Your own middleware",
+      "ar": "كتابة Middleware خاص بك"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🧅",
+       "en": "Middleware wraps every request and response",
+       "ar": "الـ Middleware يغلّف كل طلب وكل استجابة"
+      },
+      {
+       "type": "flow",
+       "nodes": [
+        {
+         "icon": "📨",
+         "label": {
+          "en": "request",
+          "ar": "الطلب"
+         }
+        },
+        {
+         "icon": "🧰",
+         "label": {
+          "en": "middleware (before)",
+          "ar": "middleware (قبل)"
+         }
+        },
+        {
+         "icon": "⚙️",
+         "label": {
+          "en": "endpoint",
+          "ar": "دالة المسار"
+         }
+        },
+        {
+         "icon": "🧰",
+         "label": {
+          "en": "middleware (after)",
+          "ar": "middleware (بعد)"
+         }
+        },
+        {
+         "icon": "📤",
+         "label": {
+          "en": "response",
+          "ar": "الاستجابة"
+         }
+        }
+       ],
+       "links": [
+        {
+         "label": {
+          "en": "every route",
+          "ar": "كل المسارات"
+         }
+        },
+        {
+         "label": {
+          "en": "await call_next",
+          "ar": "await call_next"
+         }
+        },
+        {
+         "label": {
+          "en": "returns response",
+          "ar": "يُرجع الاستجابة"
+         }
+        },
+        {
+         "label": {
+          "en": "header added",
+          "ar": "أُضيفت ترويسة"
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "import time\nfrom fastapi import Request\n\n@app.middleware(\"http\")\nasync def add_process_time(request: Request, call_next):\n    start = time.perf_counter()\n    response = await call_next(request)  # runs the endpoint\n    response.headers[\"X-Process-Time\"] = f\"{time.perf_counter() - start:.4f}\"\n    return response",
+       "highlight": [
+        4,
+        7,
+        8,
+        9
+       ]
+      },
+      {
+       "type": "chat",
+       "messages": [
+        {
+         "from": "client",
+         "text": "GET /",
+         "note": {
+          "en": "any route",
+          "ar": "أي مسار"
+         }
+        },
+        {
+         "from": "server",
+         "text": "200 OK\nX-Process-Time: 0.0040\n{\"ok\": true}",
+         "note": {
+          "en": "same body, extra header",
+          "ar": "الجسم نفسه مع ترويسة إضافية"
+         }
+        }
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "en": "`A` added first, `B` added second",
+         "ar": "أُضيف `A` أولًا ثم `B`"
+        },
+        {
+         "en": "Request enters `B` first (outermost)",
+         "ar": "يدخل الطلب `B` أولًا (الغلاف الخارجي)"
+        },
+        {
+         "en": "Then `A`, then the endpoint",
+         "ar": "ثم `A`، ثم دالة المسار"
+        },
+        {
+         "en": "Response leaves `A`, then `B`",
+         "ar": "تخرج الاستجابة من `A` ثم من `B`"
+        }
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "The middleware added last is the outermost layer: it runs first and finishes last.",
+       "ar": "الـ Middleware المضاف أخيرًا هو الغلاف الخارجي: يعمل أولًا وينتهي أخيرًا."
+      },
+      {
+       "type": "warn",
+       "en": "Return a response without calling `call_next`, and the endpoint never runs.",
+       "ar": "إذا أرجعت استجابة دون استدعاء `call_next` فلن تُنفَّذ دالة المسار أبدًا."
+      }
+     ]
+    },
+    {
+     "id": "file-uploads",
+     "title": {
+      "en": "Uploading files and forms",
+      "ar": "رفع الملفات والنماذج (Forms)"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "📎",
+       "en": "Receive files with `UploadFile`",
+       "ar": "استقبل الملفات باستخدام `UploadFile`"
+      },
+      {
+       "type": "tip",
+       "en": "Files and forms need `python-multipart`; `fastapi[standard]` already includes it.",
+       "ar": "الملفات والنماذج تحتاج `python-multipart`، وهو مضمَّن في `fastapi[standard]`."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi import HTTPException, UploadFile\n\n@app.post(\"/upload\")\nasync def upload(file: UploadFile):\n    data = await file.read()  # bytes\n    if len(data) > 1_000_000:\n        raise HTTPException(status_code=413, detail=\"File too large\")\n    return {\"filename\": file.filename,\n            \"content_type\": file.content_type,\n            \"size\": len(data)}",
+       "highlight": [
+        4,
+        5,
+        6,
+        7
+       ]
+      },
+      {
+       "type": "cards",
+       "items": [
+        {
+         "icon": "📛",
+         "color": "blue",
+         "title": {
+          "en": ".filename",
+          "ar": ".filename"
+         },
+         "text": {
+          "en": "Name sent by the client, like `notes.txt`",
+          "ar": "الاسم الذي أرسله العميل مثل `notes.txt`"
+         }
+        },
+        {
+         "icon": "🏷️",
+         "color": "purple",
+         "title": {
+          "en": ".content_type",
+          "ar": ".content_type"
+         },
+         "text": {
+          "en": "Type, like `text/plain` or `image/png`",
+          "ar": "النوع مثل `text/plain` أو `image/png`"
+         }
+        },
+        {
+         "icon": "📦",
+         "color": "green",
+         "title": {
+          "en": "await .read()",
+          "ar": "await .read()"
+         },
+         "text": {
+          "en": "All bytes; a second read returns `b\"\"`",
+          "ar": "كل البايتات؛ القراءة الثانية تُرجع `b\"\"`"
+         }
+        },
+        {
+         "icon": "🚫",
+         "color": "red",
+         "title": {
+          "en": "413",
+          "ar": "413"
+         },
+         "text": {
+          "en": "Reject files that are too large",
+          "ar": "ارفض الملفات الكبيرة جدًا"
+         }
+        }
+       ]
+      },
+      {
+       "type": "chat",
+       "messages": [
+        {
+         "from": "client",
+         "text": "POST /upload  (multipart)\nfile = notes.txt  \"hello\"",
+         "note": {
+          "en": "a 5-byte file",
+          "ar": "ملف من 5 بايت"
+         }
+        },
+        {
+         "from": "server",
+         "text": "200 OK  {\"filename\": \"notes.txt\", \"content_type\": \"text/plain\", \"size\": 5}"
+        },
+        {
+         "from": "client",
+         "text": "POST /upload  (multipart)\nfile = big.bin  (2 MB)",
+         "note": {
+          "en": "too big",
+          "ar": "كبير جدًا"
+         }
+        },
+        {
+         "from": "server",
+         "text": "413  {\"detail\": \"File too large\"}"
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi import File, Form\n\n@app.post(\"/many\")\nasync def many(files: list[UploadFile]):\n    return {\"names\": [f.filename for f in files]}\n\n@app.post(\"/profile\")\nasync def profile(name: str = Form(), avatar: UploadFile = File()):\n    return {\"name\": name, \"avatar\": avatar.filename}",
+       "highlight": [
+        4,
+        8
+       ]
+      },
+      {
+       "type": "warn",
+       "en": "`Form()` fields arrive as form data. Sending them as JSON gives 422.",
+       "ar": "حقول `Form()` تصل كبيانات نموذج (form data). إرسالها بصيغة JSON يعطي 422."
+      }
+     ]
+    },
+    {
+     "id": "background-tasks",
+     "title": {
+      "en": "Background tasks",
+      "ar": "المهام في الخلفية (Background Tasks)"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "📬",
+       "en": "Answer now, do the slow work after",
+       "ar": "أجِب الآن، وأنجز العمل البطيء بعدها"
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "en": "Client sends `POST /signup`",
+         "ar": "يرسل العميل `POST /signup`"
+        },
+        {
+         "en": "Endpoint calls `add_task(...)`",
+         "ar": "دالة المسار تستدعي `add_task(...)`"
+        },
+        {
+         "en": "Response `201` goes back immediately",
+         "ar": "تعود الاستجابة `201` فورًا"
+        },
+        {
+         "en": "Then `send_welcome` runs",
+         "ar": "بعدها تعمل `send_welcome`"
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi import BackgroundTasks\n\ndef send_welcome(email: str):\n    print(f\"Welcome email to {email}\")  # slow work\n\n@app.post(\"/signup\", status_code=201)\ndef signup(email: str, background_tasks: BackgroundTasks):\n    background_tasks.add_task(send_welcome, email)\n    return {\"message\": \"Account created\"}",
+       "highlight": [
+        7,
+        8,
+        9
+       ]
+      },
+      {
+       "type": "flow",
+       "nodes": [
+        {
+         "icon": "⚙️",
+         "label": {
+          "en": "signup endpoint",
+          "ar": "دالة المسار signup"
+         }
+        },
+        {
+         "icon": "📤",
+         "label": {
+          "en": "201 response",
+          "ar": "الاستجابة 201"
+         }
+        },
+        {
+         "icon": "✉️",
+         "label": {
+          "en": "send_welcome",
+          "ar": "send_welcome"
+         }
+        }
+       ],
+       "links": [
+        {
+         "label": {
+          "en": "returns first",
+          "ar": "يُرجع أولًا"
+         }
+        },
+        {
+         "label": {
+          "en": "then the task",
+          "ar": "ثم المهمة"
+         }
+        }
+       ]
+      },
+      {
+       "type": "chat",
+       "messages": [
+        {
+         "from": "client",
+         "text": "POST /signup?email=sara@example.com"
+        },
+        {
+         "from": "server",
+         "text": "201 Created  {\"message\": \"Account created\"}",
+         "note": {
+          "en": "no waiting for the email",
+          "ar": "دون انتظار البريد"
+         }
+        }
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "Tasks run in the order you add them, after the response is sent.",
+       "ar": "تعمل المهام بترتيب إضافتها، بعد إرسال الاستجابة."
+      },
+      {
+       "type": "warn",
+       "en": "For heavy jobs that must survive restarts, use a real job queue.",
+       "ar": "للمهام الثقيلة التي يجب أن تصمد بعد إعادة التشغيل، استخدم طابور مهام حقيقيًا."
+      }
+     ]
+    },
+    {
+     "id": "exception-handlers",
+     "title": {
+      "en": "Custom exception handlers",
+      "ar": "معالجات الاستثناءات المخصّصة"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🚨",
+       "en": "Turn your own errors into clean responses",
+       "ar": "حوّل أخطاءك الخاصة إلى استجابات واضحة"
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "class OutOfStock(Exception):\n    def __init__(self, item: str):\n        self.item = item\n@app.exception_handler(OutOfStock)\nasync def out_of_stock_handler(request: Request, exc: OutOfStock):\n    return JSONResponse(status_code=409, content={\"error\": f\"{exc.item} is out of stock\"})\n\n@app.post(\"/buy/{item}\")\ndef buy(item: str):\n    if item == \"milk\":\n        raise OutOfStock(item)\n    return {\"bought\": item}",
+       "highlight": [
+        4,
+        6,
+        11
+       ]
+      },
+      {
+       "type": "flow",
+       "nodes": [
+        {
+         "icon": "💥",
+         "label": {
+          "en": "raise OutOfStock",
+          "ar": "raise OutOfStock"
+         }
+        },
+        {
+         "icon": "🎯",
+         "label": {
+          "en": "out_of_stock_handler",
+          "ar": "out_of_stock_handler"
+         }
+        },
+        {
+         "icon": "📤",
+         "label": {
+          "en": "409 JSON",
+          "ar": "409 بصيغة JSON"
+         }
+        }
+       ],
+       "links": [
+        {
+         "label": {
+          "en": "FastAPI catches it",
+          "ar": "FastAPI يلتقطه"
+         }
+        },
+        {
+         "label": {
+          "en": "builds the response",
+          "ar": "يبني الاستجابة"
+         }
+        }
+       ]
+      },
+      {
+       "type": "chat",
+       "messages": [
+        {
+         "from": "client",
+         "text": "POST /buy/milk",
+         "note": {
+          "en": "out of stock",
+          "ar": "نفد من المخزون"
+         }
+        },
+        {
+         "from": "server",
+         "text": "409 Conflict  {\"error\": \"milk is out of stock\"}"
+        },
+        {
+         "from": "client",
+         "text": "POST /buy/bread",
+         "note": {
+          "en": "in stock",
+          "ar": "متوفر"
+         }
+        },
+        {
+         "from": "server",
+         "text": "200 OK  {\"bought\": \"bread\"}"
+        }
+       ]
+      },
+      {
+       "type": "compare",
+       "left": {
+        "title": {
+         "en": "No handler",
+         "ar": "بدون معالج"
+        },
+        "tone": "bad",
+        "items": [
+         {
+          "en": "`500 Internal Server Error`",
+          "ar": "`500 Internal Server Error`"
+         },
+         {
+          "en": "Client learns nothing useful",
+          "ar": "العميل لا يعرف شيئًا مفيدًا"
+         }
+        ]
+       },
+       "right": {
+        "title": {
+         "en": "With a handler",
+         "ar": "مع معالج"
+        },
+        "tone": "good",
+        "items": [
+         {
+          "en": "You choose the status code",
+          "ar": "أنت تختار رمز الحالة"
+         },
+         {
+          "en": "Clear JSON error message",
+          "ar": "رسالة خطأ واضحة بصيغة JSON"
+         }
+        ]
+       }
+      },
+      {
+       "type": "tip",
+       "en": "One handler serves every route that raises `OutOfStock`.",
+       "ar": "معالج واحد يخدم كل المسارات التي ترفع `OutOfStock`."
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "id": 1,
+     "difficulty": "easy",
+     "question": {
+      "en": "Before a cross-origin `PUT` with an `Authorization` header, what does the browser send first?",
+      "ar": "قبل طلب `PUT` من أصل مختلف مع ترويسة `Authorization`، ماذا يرسل المتصفح أولًا؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "A HEAD request to test the path",
+       "ar": "طلب HEAD لاختبار المسار"
+      },
+      {
+       "en": "A GET request for the CORS rules",
+       "ar": "طلب GET لجلب قواعد CORS"
+      },
+      {
+       "en": "An OPTIONS preflight request",
+       "ar": "طلب تمهيدي OPTIONS (preflight)"
+      },
+      {
+       "en": "A POST with an empty body",
+       "ar": "طلب POST بجسم فارغ"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "The browser first sends an OPTIONS preflight asking if the origin, method and headers are allowed.",
+      "ar": "يرسل المتصفح أولًا طلب OPTIONS تمهيديًا يسأل هل الأصل والطريقة والترويسات مسموحة."
+     }
+    },
+    {
+     "id": 2,
+     "difficulty": "easy",
+     "question": {
+      "en": "When does a function added with `background_tasks.add_task(...)` run?",
+      "ar": "متى تعمل الدالة المضافة باستخدام `background_tasks.add_task(...)`؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "After the response is sent",
+       "ar": "بعد إرسال الاستجابة"
+      },
+      {
+       "en": "Before the endpoint function runs",
+       "ar": "قبل تنفيذ دالة المسار"
+      },
+      {
+       "en": "Only when the server restarts",
+       "ar": "عند إعادة تشغيل الخادم فقط"
+      },
+      {
+       "en": "Right when `add_task` is called",
+       "ar": "لحظة استدعاء `add_task`"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "Background tasks run after the response goes back, so the client never waits for them.",
+      "ar": "المهام في الخلفية تعمل بعد عودة الاستجابة، فلا ينتظرها العميل أبدًا."
+     }
+    },
+    {
+     "id": 3,
+     "difficulty": "easy",
+     "question": {
+      "en": "Which package must be installed for `UploadFile` and `Form()` to work?",
+      "ar": "ما الحزمة التي يجب تثبيتها كي يعمل `UploadFile` و`Form()`؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "pydantic-files",
+       "ar": "pydantic-files"
+      },
+      {
+       "en": "python-multipart",
+       "ar": "python-multipart"
+      },
+      {
+       "en": "starlette-upload",
+       "ar": "starlette-upload"
+      },
+      {
+       "en": "httpx-forms",
+       "ar": "httpx-forms"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "Files and form data are parsed by `python-multipart`, which `fastapi[standard]` already includes.",
+      "ar": "الملفات وبيانات النماذج تُقرأ بواسطة `python-multipart`، وهو مضمَّن في `fastapi[standard]`."
+     }
+    },
+    {
+     "id": 4,
+     "difficulty": "medium",
+     "question": {
+      "en": "What does the client receive for `GET /`?",
+      "ar": "ماذا يستلم العميل عند `GET /`؟"
+     },
+     "codeSnippet": "@app.middleware(\"http\")\nasync def add_process_time(request: Request, call_next):\n    start = time.perf_counter()\n    response = await call_next(request)\n    response.headers[\"X-Process-Time\"] = f\"{time.perf_counter() - start:.4f}\"\n    return response\n\n@app.get(\"/\")\ndef root():\n    return {\"ok\": True}",
+     "options": [
+      {
+       "en": "Only the new header; the body is dropped",
+       "ar": "الترويسة الجديدة فقط؛ ويُحذف الجسم"
+      },
+      {
+       "en": "500, because headers are read-only",
+       "ar": "500، لأن الترويسات للقراءة فقط"
+      },
+      {
+       "en": "`{\"ok\": true}` with no extra header",
+       "ar": "`{\"ok\": true}` دون أي ترويسة إضافية"
+      },
+      {
+       "en": "`{\"ok\": true}` + `X-Process-Time` header",
+       "ar": "`{\"ok\": true}` + ترويسة `X-Process-Time`"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "`call_next` runs the endpoint; the middleware then adds the header and returns the same response.",
+      "ar": "`call_next` يشغّل دالة المسار، ثم يضيف الـ Middleware الترويسة ويُرجع الاستجابة نفسها."
+     }
+    },
+    {
+     "id": 5,
+     "difficulty": "medium",
+     "question": {
+      "en": "CORS allows only `https://app.example.com`. What does this preflight get?",
+      "ar": "إعداد CORS يسمح فقط بـ `https://app.example.com`. ماذا يتلقى هذا الطلب التمهيدي؟"
+     },
+     "codeSnippet": "OPTIONS /items\nOrigin: https://evil.com\nAccess-Control-Request-Method: GET",
+     "options": [
+      {
+       "en": "200 with `Access-Control-Allow-Origin: *`",
+       "ar": "200 مع `Access-Control-Allow-Origin: *`"
+      },
+      {
+       "en": "400 with `Disallowed CORS origin`",
+       "ar": "400 مع `Disallowed CORS origin`"
+      },
+      {
+       "en": "405 Method Not Allowed",
+       "ar": "405 Method Not Allowed"
+      },
+      {
+       "en": "200 with the list of items",
+       "ar": "200 مع قائمة العناصر"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "The origin is not in `allow_origins`, so `CORSMiddleware` rejects the preflight with 400 \"Disallowed CORS origin\".",
+      "ar": "الأصل غير موجود في `allow_origins`، فيرفض `CORSMiddleware` الطلب التمهيدي بالرمز 400 \"Disallowed CORS origin\"."
+     }
+    },
+    {
+     "id": 6,
+     "difficulty": "medium",
+     "question": {
+      "en": "What JSON does this test receive?",
+      "ar": "ما الـ JSON الذي يستلمه هذا الاختبار؟"
+     },
+     "codeSnippet": "@app.post(\"/upload\")\nasync def upload(file: UploadFile):\n    data = await file.read()\n    return {\"filename\": file.filename,\n            \"content_type\": file.content_type,\n            \"size\": len(data)}\n\nclient.post(\"/upload\",\n            files={\"file\": (\"notes.txt\", b\"hello\", \"text/plain\")})",
+     "options": [
+      {
+       "en": "{\"filename\": \"file\", \"content_type\": \"text/plain\", \"size\": 5}",
+       "ar": "{\"filename\": \"file\", \"content_type\": \"text/plain\", \"size\": 5}"
+      },
+      {
+       "en": "{\"filename\": \"notes.txt\", \"content_type\": \"bytes\", \"size\": 5}",
+       "ar": "{\"filename\": \"notes.txt\", \"content_type\": \"bytes\", \"size\": 5}"
+      },
+      {
+       "en": "{\"filename\": \"notes.txt\", \"content_type\": \"text/plain\", \"size\": 5}",
+       "ar": "{\"filename\": \"notes.txt\", \"content_type\": \"text/plain\", \"size\": 5}"
+      },
+      {
+       "en": "{\"filename\": \"notes.txt\", \"content_type\": \"text/plain\", \"size\": 0}",
+       "ar": "{\"filename\": \"notes.txt\", \"content_type\": \"text/plain\", \"size\": 0}"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "`filename` and `content_type` come from the client; `await file.read()` returns the 5 bytes of \"hello\".",
+      "ar": "`filename` و`content_type` يأتيان من العميل، و`await file.read()` يُرجع بايتات \"hello\" الخمسة."
+     }
+    },
+    {
+     "id": 7,
+     "difficulty": "medium",
+     "question": {
+      "en": "`POST /buy/milk` is sent. What does the client receive?",
+      "ar": "أُرسل `POST /buy/milk`. ماذا يستلم العميل؟"
+     },
+     "codeSnippet": "class OutOfStock(Exception):\n    def __init__(self, item: str):\n        self.item = item\n\n@app.exception_handler(OutOfStock)\nasync def handler(request: Request, exc: OutOfStock):\n    return JSONResponse(status_code=409, content={\"error\": f\"{exc.item} is out of stock\"})\n\n@app.post(\"/buy/{item}\")\ndef buy(item: str):\n    raise OutOfStock(item)",
+     "options": [
+      {
+       "en": "409 {\"error\": \"milk is out of stock\"}",
+       "ar": "409 {\"error\": \"milk is out of stock\"}"
+      },
+      {
+       "en": "500 Internal Server Error",
+       "ar": "500 Internal Server Error"
+      },
+      {
+       "en": "200 {\"error\": \"milk is out of stock\"}",
+       "ar": "200 {\"error\": \"milk is out of stock\"}"
+      },
+      {
+       "en": "400 {\"detail\": \"OutOfStock\"}",
+       "ar": "400 {\"detail\": \"OutOfStock\"}"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "The raised `OutOfStock` is caught by its handler, which returns 409 with the custom JSON.",
+      "ar": "الاستثناء `OutOfStock` يلتقطه معالجه، فيُرجع 409 مع الـ JSON المخصّص."
+     }
+    },
+    {
+     "id": 8,
+     "difficulty": "hard",
+     "question": {
+      "en": "A `GET` reaches an endpoint that prints \"endpoint\". In what order are lines printed?",
+      "ar": "طلب `GET` يصل إلى دالة مسار تطبع \"endpoint\". بأي ترتيب تُطبع الأسطر؟"
+     },
+     "codeSnippet": "@app.middleware(\"http\")\nasync def a(request: Request, call_next):\n    print(\"A in\")\n    response = await call_next(request)\n    print(\"A out\")\n    return response\n\n@app.middleware(\"http\")\nasync def b(request: Request, call_next):\n    print(\"B in\")\n    response = await call_next(request)\n    print(\"B out\")\n    return response",
+     "options": [
+      {
+       "en": "A in, B in, endpoint, B out, A out",
+       "ar": "A in, B in, endpoint, B out, A out"
+      },
+      {
+       "en": "A in, B in, endpoint, A out, B out",
+       "ar": "A in, B in, endpoint, A out, B out"
+      },
+      {
+       "en": "B in, A in, endpoint, B out, A out",
+       "ar": "B in, A in, endpoint, B out, A out"
+      },
+      {
+       "en": "B in, A in, endpoint, A out, B out",
+       "ar": "B in, A in, endpoint, A out, B out"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "`b` was added last, so it is the outer layer: it runs first on the way in and last on the way out.",
+      "ar": "أُضيف `b` أخيرًا فهو الغلاف الخارجي: يعمل أولًا عند الدخول وأخيرًا عند الخروج."
+     }
+    },
+    {
+     "id": 9,
+     "difficulty": "hard",
+     "question": {
+      "en": "A client sends this request. What is the response?",
+      "ar": "يرسل عميل هذا الطلب. ما الاستجابة؟"
+     },
+     "codeSnippet": "@app.post(\"/login\")\ndef login(username: str = Form(), password: str = Form()):\n    return {\"username\": username}\n\nclient.post(\"/login\", json={\"username\": \"sara\", \"password\": \"x\"})",
+     "options": [
+      {
+       "en": "200 with `{\"username\": \"sara\"}`",
+       "ar": "200 مع `{\"username\": \"sara\"}`"
+      },
+      {
+       "en": "422: both form fields are missing",
+       "ar": "422: حقلا النموذج مفقودان"
+      },
+      {
+       "en": "415: JSON is not a supported type",
+       "ar": "415: صيغة JSON غير مدعومة"
+      },
+      {
+       "en": "200 with `{\"username\": null}`",
+       "ar": "200 مع `{\"username\": null}`"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "`Form()` reads form data, not a JSON body. Both fields are missing, so FastAPI returns 422.",
+      "ar": "`Form()` يقرأ بيانات النموذج وليس جسم JSON. الحقلان مفقودان، فيُرجع FastAPI الرمز 422."
+     }
+    },
+    {
+     "id": 10,
+     "difficulty": "hard",
+     "question": {
+      "en": "A 5-byte file is uploaded. What does this endpoint return?",
+      "ar": "رُفع ملف من 5 بايت. ماذا تُرجع دالة المسار هذه؟"
+     },
+     "codeSnippet": "@app.post(\"/twice\")\nasync def twice(file: UploadFile):\n    a = await file.read()\n    b = await file.read()\n    return {\"first\": len(a), \"second\": len(b)}",
+     "options": [
+      {
+       "en": "{\"first\": 5, \"second\": 5}",
+       "ar": "{\"first\": 5, \"second\": 5}"
+      },
+      {
+       "en": "{\"first\": 0, \"second\": 5}",
+       "ar": "{\"first\": 0, \"second\": 5}"
+      },
+      {
+       "en": "{\"first\": 5, \"second\": 0}",
+       "ar": "{\"first\": 5, \"second\": 0}"
+      },
+      {
+       "en": "500 Internal Server Error",
+       "ar": "500 Internal Server Error"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "The first read consumes the whole file. The second read starts at the end and returns `b\"\"`.",
+      "ar": "القراءة الأولى تستهلك الملف كاملًا، والثانية تبدأ من النهاية فتُرجع `b\"\"`."
+     }
+    }
+   ]
+  },
+  {
+   "id": "async-websockets",
+   "icon": "⚡",
+   "title": {
+    "en": "Async and WebSockets",
+    "ar": "Async وWebSockets"
+   },
+   "summary": {
+    "en": "Wait without blocking with async/await, call other APIs concurrently, and build a live WebSocket chat.",
+    "ar": "انتظر دون تعطيل باستخدام async/await، واستدعِ APIs أخرى بالتوازي، وابنِ دردشة مباشرة بـ WebSocket."
+   },
+   "lessons": [
+    {
+     "id": "waiting-without-blocking",
+     "title": {
+      "en": "Async: waiting without blocking",
+      "ar": "Async: الانتظار دون تعطيل"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "☕",
+       "en": "Wait smart: start the next job meanwhile",
+       "ar": "انتظر بذكاء: ابدأ المهمة التالية أثناء الانتظار"
+      },
+      {
+       "type": "compare",
+       "left": {
+        "title": {
+         "en": "Blocking: one at a time",
+         "ar": "Blocking: واحدة تلو الأخرى"
+        },
+        "tone": "bad",
+        "items": [
+         {
+          "en": "Boil water, stare at kettle",
+          "ar": "اغلِ الماء وحدّق في الإبريق"
+         },
+         {
+          "en": "Only then start the toast",
+          "ar": "ثم ابدأ تحميص الخبز"
+         },
+         {
+          "en": "Total: 2 seconds",
+          "ar": "المجموع: ثانيتان"
+         }
+        ]
+       },
+       "right": {
+        "title": {
+         "en": "Async: overlap the waiting",
+         "ar": "Async: تداخل أوقات الانتظار"
+        },
+        "tone": "good",
+        "items": [
+         {
+          "en": "Start water, then start toast",
+          "ar": "ابدأ الماء ثم ابدأ الخبز"
+         },
+         {
+          "en": "Both wait at the same time",
+          "ar": "كلاهما ينتظر في الوقت نفسه"
+         },
+         {
+          "en": "Total: 1 second",
+          "ar": "المجموع: ثانية واحدة"
+         }
+        ]
+       }
+      },
+      {
+       "type": "cards",
+       "items": [
+        {
+         "icon": "🏷️",
+         "color": "purple",
+         "title": {
+          "en": "async def",
+          "ar": "async def"
+         },
+         "text": {
+          "en": "Defines a function that can pause",
+          "ar": "تعرّف دالة يمكنها التوقف مؤقتًا"
+         }
+        },
+        {
+         "icon": "⏸️",
+         "color": "yellow",
+         "title": {
+          "en": "await",
+          "ar": "await"
+         },
+         "text": {
+          "en": "Pause here; let other tasks run meanwhile",
+          "ar": "توقّف هنا ودع المهام الأخرى تعمل في الأثناء"
+         }
+        },
+        {
+         "icon": "🔄",
+         "color": "cyan",
+         "title": {
+          "en": "Event loop",
+          "ar": "حلقة الأحداث (event loop)"
+         },
+         "text": {
+          "en": "Runs whichever task is ready next",
+          "ar": "تشغّل أي مهمة أصبحت جاهزة"
+         }
+        }
+       ]
+      },
+      {
+       "type": "flow",
+       "nodes": [
+        {
+         "icon": "🅰️",
+         "label": {
+          "en": "Task A awaits",
+          "ar": "المهمة A تنتظر"
+         }
+        },
+        {
+         "icon": "🔄",
+         "label": {
+          "en": "Event loop",
+          "ar": "حلقة الأحداث"
+         }
+        },
+        {
+         "icon": "🅱️",
+         "label": {
+          "en": "Task B runs",
+          "ar": "المهمة B تعمل"
+         }
+        }
+       ],
+       "links": [
+        {
+         "label": {
+          "en": "pauses",
+          "ar": "تتوقف مؤقتًا"
+         }
+        },
+        {
+         "label": {
+          "en": "switches",
+          "ar": "تنتقل"
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "import asyncio\n\nasync def make_tea():\n    await asyncio.sleep(1)  # wait 1s, without blocking\n    return \"tea\"\n\nasync def main():\n    tea = await make_tea()\n    print(tea)  # tea\n\nasyncio.run(main())",
+       "highlight": [
+        3,
+        4,
+        8,
+        11
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "Calling `make_tea()` without `await` gives a coroutine object, not \"tea\".",
+       "ar": "استدعاء `make_tea()` بدون `await` يعطي كائن coroutine وليس \"tea\"."
+      }
+     ]
+    },
+    {
+     "id": "async-def-vs-def",
+     "title": {
+      "en": "`async def` or `def`?",
+      "ar": "`async def` أم `def`؟"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🧵",
+       "en": "FastAPI accepts both kinds of endpoints",
+       "ar": "FastAPI يقبل النوعين من دوال المسارات"
+      },
+      {
+       "type": "cards",
+       "items": [
+        {
+         "icon": "🧵",
+         "color": "blue",
+         "title": {
+          "en": "def",
+          "ar": "def"
+         },
+         "text": {
+          "en": "Runs in a threadpool, so blocking code is OK",
+          "ar": "تعمل في مجموعة خيوط (threadpool)، فالكود المعطِّل مقبول"
+         }
+        },
+        {
+         "icon": "⚡",
+         "color": "purple",
+         "title": {
+          "en": "async def",
+          "ar": "async def"
+         },
+         "text": {
+          "en": "Runs on the event loop; use `await` for waiting",
+          "ar": "تعمل على حلقة الأحداث؛ استخدم `await` للانتظار"
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "import asyncio, time\n\n@app.get(\"/report\")\ndef report():  # plain def -> threadpool\n    time.sleep(1)  # OK here\n    return {\"ready\": True}\n\n@app.get(\"/ping\")\nasync def ping():  # async def -> event loop\n    await asyncio.sleep(1)  # never time.sleep here!\n    return {\"pong\": True}",
+       "highlight": [
+        4,
+        5,
+        9,
+        10
+       ]
+      },
+      {
+       "type": "compare",
+       "left": {
+        "title": {
+         "en": "Inside `async def`: do",
+         "ar": "داخل `async def`: افعل"
+        },
+        "tone": "good",
+        "items": [
+         {
+          "en": "`await asyncio.sleep(1)`",
+          "ar": "`await asyncio.sleep(1)`"
+         },
+         {
+          "en": "`await client.get(url)` with httpx",
+          "ar": "`await client.get(url)` مع httpx"
+         }
+        ]
+       },
+       "right": {
+        "title": {
+         "en": "Inside `async def`: never",
+         "ar": "داخل `async def`: أبدًا"
+        },
+        "tone": "bad",
+        "items": [
+         {
+          "en": "`time.sleep(1)`",
+          "ar": "`time.sleep(1)`"
+         },
+         {
+          "en": "Slow libraries without `await`",
+          "ar": "مكتبات بطيئة بدون `await`"
+         }
+        ]
+       }
+      },
+      {
+       "type": "pills",
+       "items": [
+        {
+         "text": "def + time.sleep",
+         "color": "green",
+         "label": {
+          "en": "3 requests ≈ 1s",
+          "ar": "3 طلبات ≈ 1 ثانية"
+         }
+        },
+        {
+         "text": "async def + await",
+         "color": "green",
+         "label": {
+          "en": "3 requests ≈ 1s",
+          "ar": "3 طلبات ≈ 1 ثانية"
+         }
+        },
+        {
+         "text": "async def + time.sleep",
+         "color": "red",
+         "label": {
+          "en": "3 requests ≈ 3s",
+          "ar": "3 طلبات ≈ 3 ثوانٍ"
+         }
+        }
+       ]
+      },
+      {
+       "type": "warn",
+       "en": "`time.sleep` inside `async def` freezes the event loop, so every request waits.",
+       "ar": "`time.sleep` داخل `async def` يجمّد حلقة الأحداث، فتنتظر كل الطلبات."
+      }
+     ]
+    },
+    {
+     "id": "httpx-and-gather",
+     "title": {
+      "en": "Call other APIs, all at once",
+      "ar": "استدعِ APIs أخرى دفعة واحدة"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🛰️",
+       "en": "Your API can call other APIs",
+       "ar": "الـ API الخاصة بك تستطيع استدعاء APIs أخرى"
+      },
+      {
+       "type": "flow",
+       "nodes": [
+        {
+         "icon": "💻",
+         "label": {
+          "en": "Client",
+          "ar": "العميل"
+         }
+        },
+        {
+         "icon": "⚡",
+         "label": {
+          "en": "Your FastAPI app",
+          "ar": "تطبيق FastAPI الخاص بك"
+         }
+        },
+        {
+         "icon": "🌦️",
+         "label": {
+          "en": "Weather API",
+          "ar": "API الطقس"
+         }
+        }
+       ],
+       "links": [
+        {
+         "label": {
+          "en": "GET /trip/Riyadh",
+          "ar": "GET /trip/Riyadh"
+         }
+        },
+        {
+         "label": {
+          "en": "await client.get(...)",
+          "ar": "await client.get(...)"
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "import httpx\n\n@app.get(\"/trip/{city}\")\nasync def trip(city: str):\n    async with httpx.AsyncClient() as client:\n        r = await client.get(f\"https://weather.example.com/{city}\")\n    return {\"city\": city, \"temp\": r.json()[\"temp\"]}",
+       "highlight": [
+        5,
+        6
+       ]
+      },
+      {
+       "type": "compare",
+       "left": {
+        "title": {
+         "en": "One by one",
+         "ar": "واحدًا تلو الآخر"
+        },
+        "tone": "neutral",
+        "items": [
+         {
+          "en": "`await` request A (1s)",
+          "ar": "`await` للطلب A (ثانية)"
+         },
+         {
+          "en": "then `await` request B (1s)",
+          "ar": "ثم `await` للطلب B (ثانية)"
+         },
+         {
+          "en": "Total ≈ 2s",
+          "ar": "المجموع ≈ ثانيتان"
+         }
+        ]
+       },
+       "right": {
+        "title": {
+         "en": "`asyncio.gather`",
+         "ar": "`asyncio.gather`"
+        },
+        "tone": "good",
+        "items": [
+         {
+          "en": "Start A and B together",
+          "ar": "ابدأ A وB معًا"
+         },
+         {
+          "en": "Total ≈ 1s",
+          "ar": "المجموع ≈ ثانية واحدة"
+         }
+        ]
+       }
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "@app.get(\"/compare\")\nasync def compare():\n    async with httpx.AsyncClient() as client:\n        r1, r2 = await asyncio.gather(\n            client.get(\"https://weather.example.com/Riyadh\"),\n            client.get(\"https://weather.example.com/Jeddah\"),\n        )\n    return [r1.json(), r2.json()]",
+       "highlight": [
+        4,
+        5,
+        6
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "`gather` returns results in the order you passed them, not finish order.",
+       "ar": "`gather` يُرجع النتائج بترتيب تمريرها، لا بترتيب انتهائها."
+      }
+     ]
+    },
+    {
+     "id": "websocket-basics",
+     "title": {
+      "en": "WebSockets: a two-way line",
+      "ar": "WebSockets: خط مفتوح في الاتجاهين"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "📞",
+       "en": "WebSocket: a phone call, not letters",
+       "ar": "WebSocket: مكالمة هاتفية لا رسائل بريدية"
+      },
+      {
+       "type": "compare",
+       "left": {
+        "title": {
+         "en": "HTTP",
+         "ar": "HTTP"
+        },
+        "tone": "neutral",
+        "items": [
+         {
+          "en": "Client asks, server answers",
+          "ar": "العميل يسأل والخادم يجيب"
+         },
+         {
+          "en": "A new request every time",
+          "ar": "طلب جديد في كل مرة"
+         },
+         {
+          "en": "Server never speaks first",
+          "ar": "الخادم لا يبدأ الكلام أبدًا"
+         }
+        ]
+       },
+       "right": {
+        "title": {
+         "en": "WebSocket",
+         "ar": "WebSocket"
+        },
+        "tone": "good",
+        "items": [
+         {
+          "en": "One connection stays open",
+          "ar": "اتصال واحد يبقى مفتوحًا"
+         },
+         {
+          "en": "Both sides send any time",
+          "ar": "الطرفان يرسلان في أي وقت"
+         },
+         {
+          "en": "Great for chat and live updates",
+          "ar": "ممتاز للدردشة والتحديثات المباشرة"
+         }
+        ]
+       }
+      },
+      {
+       "type": "anatomy",
+       "parts": [
+        {
+         "text": "ws://",
+         "color": "blue",
+         "label": {
+          "en": "WebSocket protocol",
+          "ar": "بروتوكول WebSocket"
+         }
+        },
+        {
+         "text": "localhost",
+         "color": "green",
+         "label": {
+          "en": "host",
+          "ar": "المضيف (host)"
+         }
+        },
+        {
+         "text": ":8000",
+         "color": "yellow",
+         "label": {
+          "en": "port",
+          "ar": "المنفذ (port)"
+         }
+        },
+        {
+         "text": "/ws",
+         "color": "purple",
+         "label": {
+          "en": "path",
+          "ar": "المسار (path)"
+         }
+        }
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "en": "Client connects to `/ws`",
+         "ar": "العميل يتصل بـ `/ws`"
+        },
+        {
+         "en": "Server: `await websocket.accept()`",
+         "ar": "الخادم: `await websocket.accept()`"
+        },
+        {
+         "en": "Loop: `receive_text` then `send_text`",
+         "ar": "حلقة: `receive_text` ثم `send_text`"
+        },
+        {
+         "en": "Client leaves → `WebSocketDisconnect`",
+         "ar": "العميل يغادر ← `WebSocketDisconnect`"
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi import FastAPI, WebSocket, WebSocketDisconnect\napp = FastAPI()\n\n@app.websocket(\"/ws\")\nasync def echo(websocket: WebSocket):\n    await websocket.accept()\n    try:\n        while True:\n            text = await websocket.receive_text()\n            await websocket.send_text(f\"You said: {text}\")\n    except WebSocketDisconnect:\n        print(\"client left\")",
+       "highlight": [
+        4,
+        6,
+        9,
+        10,
+        11
+       ]
+      },
+      {
+       "type": "chat",
+       "messages": [
+        {
+         "from": "client",
+         "text": "hi",
+         "note": {
+          "en": "client sends",
+          "ar": "العميل يرسل"
+         }
+        },
+        {
+         "from": "server",
+         "text": "You said: hi",
+         "note": {
+          "en": "same connection",
+          "ar": "الاتصال نفسه"
+         }
+        },
+        {
+         "from": "client",
+         "text": "bye"
+        },
+        {
+         "from": "server",
+         "text": "You said: bye",
+         "note": {
+          "en": "still open",
+          "ar": "ما زال مفتوحًا"
+         }
+        }
+       ]
+      },
+      {
+       "type": "warn",
+       "en": "Skip `accept()` and the connection fails before any message.",
+       "ar": "إذا تخطّيت `accept()` يفشل الاتصال قبل أي رسالة."
+      }
+     ]
+    },
+    {
+     "id": "chat-broadcast-and-testing",
+     "title": {
+      "en": "Group chat and testing it",
+      "ar": "دردشة جماعية واختبارها"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "💬",
+       "en": "One message in, everyone gets it",
+       "ar": "رسالة واحدة تدخل، ويستلمها الجميع"
+      },
+      {
+       "type": "flow",
+       "nodes": [
+        {
+         "icon": "👩",
+         "label": {
+          "en": "Sara sends hello",
+          "ar": "سارة ترسل hello"
+         }
+        },
+        {
+         "icon": "📡",
+         "label": {
+          "en": "ConnectionManager",
+          "ar": "ConnectionManager"
+         }
+        },
+        {
+         "icon": "👥",
+         "label": {
+          "en": "Every open connection",
+          "ar": "كل الاتصالات المفتوحة"
+         }
+        }
+       ],
+       "links": [
+        {
+         "label": {
+          "en": "receive_text",
+          "ar": "receive_text"
+         }
+        },
+        {
+         "label": {
+          "en": "broadcast",
+          "ar": "broadcast"
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "class ConnectionManager:\n    def __init__(self):\n        self.active: list[WebSocket] = []\n    async def connect(self, ws: WebSocket):\n        await ws.accept()\n        self.active.append(ws)\n    def disconnect(self, ws: WebSocket):\n        self.active.remove(ws)\n    async def broadcast(self, msg: str):\n        for ws in self.active:\n            await ws.send_text(msg)\nmanager = ConnectionManager()",
+       "highlight": [
+        3,
+        6,
+        8,
+        11
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "@app.websocket(\"/ws/{name}\")\nasync def chat(websocket: WebSocket, name: str):\n    await manager.connect(websocket)\n    try:\n        while True:\n            text = await websocket.receive_text()\n            await manager.broadcast(f\"{name}: {text}\")\n    except WebSocketDisconnect:\n        manager.disconnect(websocket)\n        await manager.broadcast(f\"{name} left\")",
+       "highlight": [
+        3,
+        7,
+        9,
+        10
+       ]
+      },
+      {
+       "type": "chat",
+       "messages": [
+        {
+         "from": "client",
+         "text": "hello",
+         "note": {
+          "en": "Sara sends",
+          "ar": "سارة ترسل"
+         }
+        },
+        {
+         "from": "server",
+         "text": "sara: hello",
+         "note": {
+          "en": "to Sara and Omar",
+          "ar": "إلى سارة وعمر"
+         }
+        },
+        {
+         "from": "server",
+         "text": "omar left",
+         "note": {
+          "en": "Omar disconnected",
+          "ar": "عمر قطع الاتصال"
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from fastapi.testclient import TestClient\nclient = TestClient(app)\n\ndef test_chat():\n    with client.websocket_connect(\"/ws/sara\") as a:\n        with client.websocket_connect(\"/ws/omar\") as b:\n            a.send_text(\"hello\")\n            assert a.receive_text() == \"sara: hello\"\n            assert b.receive_text() == \"sara: hello\"",
+       "highlight": [
+        5,
+        6,
+        7,
+        9
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "The `active` list lives in memory, so it works within one server process.",
+       "ar": "القائمة `active` موجودة في الذاكرة، لذا تعمل داخل عملية خادم واحدة فقط."
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "id": 1,
+     "difficulty": "easy",
+     "question": {
+      "en": "What does `await` do inside an `async def` function?",
+      "ar": "ماذا تفعل `await` داخل دالة `async def`؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "Stops the whole server until it ends",
+       "ar": "توقف الخادم كله حتى تنتهي"
+      },
+      {
+       "en": "Pauses this task so others can run",
+       "ar": "توقف هذه المهمة مؤقتًا لتعمل غيرها"
+      },
+      {
+       "en": "Runs the code in a new process",
+       "ar": "تشغّل الكود في عملية (process) جديدة"
+      },
+      {
+       "en": "Makes the function run two times",
+       "ar": "تجعل الدالة تعمل مرتين"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "`await` pauses only the current task. The event loop runs other ready tasks meanwhile.",
+      "ar": "`await` توقف المهمة الحالية فقط، وتشغّل حلقة الأحداث المهام الجاهزة الأخرى في الأثناء."
+     }
+    },
+    {
+     "id": 2,
+     "difficulty": "easy",
+     "question": {
+      "en": "Which decorator creates a WebSocket endpoint in FastAPI?",
+      "ar": "أي مزخرف (decorator) ينشئ مسار WebSocket في FastAPI؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "@app.websocket(\"/ws\")",
+       "ar": "@app.websocket(\"/ws\")"
+      },
+      {
+       "en": "@app.get(\"/ws\")",
+       "ar": "@app.get(\"/ws\")"
+      },
+      {
+       "en": "@app.socket(\"/ws\")",
+       "ar": "@app.socket(\"/ws\")"
+      },
+      {
+       "en": "@app.post(\"/ws\")",
+       "ar": "@app.post(\"/ws\")"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "WebSocket routes use `@app.websocket(...)`; `@app.get` and `@app.post` are for HTTP.",
+      "ar": "مسارات WebSocket تستخدم `@app.websocket(...)`، أما `@app.get` و`@app.post` فهي لـ HTTP."
+     }
+    },
+    {
+     "id": 3,
+     "difficulty": "easy",
+     "question": {
+      "en": "What must a WebSocket endpoint call before receiving or sending messages?",
+      "ar": "ماذا يجب أن تستدعي دالة WebSocket قبل استقبال الرسائل أو إرسالها؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "websocket.open()",
+       "ar": "websocket.open()"
+      },
+      {
+       "en": "await websocket.connect()",
+       "ar": "await websocket.connect()"
+      },
+      {
+       "en": "await websocket.accept()",
+       "ar": "await websocket.accept()"
+      },
+      {
+       "en": "websocket.start()",
+       "ar": "websocket.start()"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "The server must `await websocket.accept()` first; without it the connection fails.",
+      "ar": "يجب على الخادم أولًا `await websocket.accept()`؛ وبدونها يفشل الاتصال."
+     }
+    },
+    {
+     "id": 4,
+     "difficulty": "medium",
+     "question": {
+      "en": "About how long does `main()` take to finish?",
+      "ar": "كم يستغرق `main()` تقريبًا حتى ينتهي؟"
+     },
+     "codeSnippet": "async def make_tea():\n    await asyncio.sleep(1)\n    return \"tea\"\n\nasync def make_toast():\n    await asyncio.sleep(1)\n    return \"toast\"\n\nasync def main():\n    return await asyncio.gather(make_tea(), make_toast())",
+     "options": [
+      {
+       "en": "About 2 seconds",
+       "ar": "حوالي ثانيتين"
+      },
+      {
+       "en": "About 0.5 seconds",
+       "ar": "حوالي نصف ثانية"
+      },
+      {
+       "en": "It raises an error",
+       "ar": "يرفع خطأ"
+      },
+      {
+       "en": "About 1 second",
+       "ar": "حوالي ثانية واحدة"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "`gather` runs both together, so their 1-second waits overlap: about 1 second total.",
+      "ar": "`gather` يشغّلهما معًا فيتداخل انتظار كل منهما لثانية: المجموع حوالي ثانية واحدة."
+     }
+    },
+    {
+     "id": 5,
+     "difficulty": "medium",
+     "question": {
+      "en": "Three requests hit `/report` at the same moment. About when is the last one answered?",
+      "ar": "ثلاثة طلبات تصل إلى `/report` في اللحظة نفسها. متى تقريبًا يُجاب آخرها؟"
+     },
+     "codeSnippet": "@app.get(\"/report\")\nasync def report():\n    time.sleep(1)\n    return {\"ready\": True}",
+     "options": [
+      {
+       "en": "After about 1 second; they overlap",
+       "ar": "بعد حوالي ثانية؛ تتداخل"
+      },
+      {
+       "en": "After about 3 seconds; one at a time",
+       "ar": "بعد حوالي 3 ثوانٍ؛ واحدًا تلو الآخر"
+      },
+      {
+       "en": "Instantly; FastAPI skips the sleep",
+       "ar": "فورًا؛ يتخطى FastAPI الانتظار"
+      },
+      {
+       "en": "Never; all three get error 422",
+       "ar": "أبدًا؛ تحصل الثلاثة على الخطأ 422"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "`time.sleep` blocks the event loop inside `async def`, so requests run one after another.",
+      "ar": "`time.sleep` يعطّل حلقة الأحداث داخل `async def`، فتُنفَّذ الطلبات واحدًا تلو الآخر."
+     }
+    },
+    {
+     "id": 6,
+     "difficulty": "medium",
+     "question": {
+      "en": "Where does FastAPI run a plain `def` endpoint?",
+      "ar": "أين يشغّل FastAPI دالة مسار عادية معرّفة بـ `def`؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "On the event loop, blocking it",
+       "ar": "على حلقة الأحداث فيعطّلها"
+      },
+      {
+       "en": "In the browser of the client",
+       "ar": "في متصفح العميل"
+      },
+      {
+       "en": "In a threadpool, off the loop",
+       "ar": "في threadpool بعيدًا عن الحلقة"
+      },
+      {
+       "en": "Only after async endpoints finish",
+       "ar": "فقط بعد انتهاء دوال async"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "FastAPI runs `def` endpoints in a threadpool, so blocking code there does not freeze the loop.",
+      "ar": "يشغّل FastAPI دوال `def` في threadpool، فالكود المعطِّل فيها لا يجمّد الحلقة."
+     }
+    },
+    {
+     "id": 7,
+     "difficulty": "medium",
+     "question": {
+      "en": "With the echo endpoint below, what does `ws.receive_text()` return?",
+      "ar": "مع دالة الصدى أدناه، ماذا يُرجع `ws.receive_text()`؟"
+     },
+     "codeSnippet": "@app.websocket(\"/ws\")\nasync def echo(websocket: WebSocket):\n    await websocket.accept()\n    try:\n        while True:\n            text = await websocket.receive_text()\n            await websocket.send_text(f\"You said: {text}\")\n    except WebSocketDisconnect:\n        pass\n\n# test\nwith client.websocket_connect(\"/ws\") as ws:\n    ws.send_text(\"hi\")\n    print(ws.receive_text())",
+     "options": [
+      {
+       "en": "You said: hi",
+       "ar": "You said: hi"
+      },
+      {
+       "en": "You said: {text}",
+       "ar": "You said: {text}"
+      },
+      {
+       "en": "hi",
+       "ar": "hi"
+      },
+      {
+       "en": "The connection closes",
+       "ar": "يُغلق الاتصال"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "The server reads \"hi\" and sends back `f\"You said: {text}\"` on the same connection.",
+      "ar": "يقرأ الخادم \"hi\" ويرسل `f\"You said: {text}\"` على الاتصال نفسه."
+     }
+    },
+    {
+     "id": 8,
+     "difficulty": "hard",
+     "question": {
+      "en": "Sara and Omar are both connected to the chat. Sara sends \"hello\". What does Omar receive?",
+      "ar": "سارة وعمر متصلان بالدردشة. أرسلت سارة \"hello\". ماذا يستلم عمر؟"
+     },
+     "codeSnippet": "@app.websocket(\"/ws/{name}\")\nasync def chat(websocket: WebSocket, name: str):\n    await manager.connect(websocket)\n    try:\n        while True:\n            text = await websocket.receive_text()\n            await manager.broadcast(f\"{name}: {text}\")\n    except WebSocketDisconnect:\n        manager.disconnect(websocket)",
+     "options": [
+      {
+       "en": "Nothing; only Sara gets it",
+       "ar": "لا شيء؛ سارة فقط تستلمها"
+      },
+      {
+       "en": "hello",
+       "ar": "hello"
+      },
+      {
+       "en": "omar: hello",
+       "ar": "omar: hello"
+      },
+      {
+       "en": "sara: hello",
+       "ar": "sara: hello"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "`broadcast` sends to every active connection, using the sender's name: \"sara: hello\".",
+      "ar": "`broadcast` يرسل إلى كل الاتصالات النشطة باسم المرسِل: \"sara: hello\"."
+     }
+    },
+    {
+     "id": 9,
+     "difficulty": "hard",
+     "question": {
+      "en": "In the chat endpoint, why wrap the loop in `try/except WebSocketDisconnect`?",
+      "ar": "في دالة الدردشة، لماذا نضع الحلقة داخل `try/except WebSocketDisconnect`؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "To make messages arrive faster",
+       "ar": "لتصل الرسائل أسرع"
+      },
+      {
+       "en": "To clean up when a client leaves",
+       "ar": "للتنظيف عند مغادرة العميل"
+      },
+      {
+       "en": "To accept connections automatically",
+       "ar": "لقبول الاتصالات تلقائيًا"
+      },
+      {
+       "en": "To turn the socket into HTTP",
+       "ar": "لتحويل الاتصال إلى HTTP"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "When a client leaves, `receive_text` raises `WebSocketDisconnect`; we remove it from the manager.",
+      "ar": "عند مغادرة العميل يرفع `receive_text` الخطأ `WebSocketDisconnect`، فنحذفه من المدير."
+     }
+    },
+    {
+     "id": 10,
+     "difficulty": "hard",
+     "question": {
+      "en": "What does this code print?",
+      "ar": "ماذا يطبع هذا الكود؟"
+     },
+     "codeSnippet": "async def slow(x, delay):\n    await asyncio.sleep(delay)\n    return x\n\nasync def main():\n    print(await asyncio.gather(slow(\"A\", 0.3), slow(\"B\", 0.1)))\n\nasyncio.run(main())",
+     "options": [
+      {
+       "en": "['B', 'A']",
+       "ar": "['B', 'A']"
+      },
+      {
+       "en": "['A']",
+       "ar": "['A']"
+      },
+      {
+       "en": "['A', 'B']",
+       "ar": "['A', 'B']"
+      },
+      {
+       "en": "['B']",
+       "ar": "['B']"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "`gather` returns results in the order the tasks were passed, even though B finished first.",
+      "ar": "`gather` يُرجع النتائج بترتيب تمرير المهام، مع أن B انتهت أولًا."
+     }
+    }
+   ]
+  },
+  {
+   "id": "deployment",
+   "icon": "🚀",
+   "title": {
+    "en": "Deploy to production",
+    "ar": "النشر إلى بيئة الإنتاج"
+   },
+   "summary": {
+    "en": "Run FastAPI in production with env-var config, a Docker image, health checks and HTTPS, then celebrate the whole course.",
+    "ar": "شغّل FastAPI في الإنتاج بإعدادات من متغيرات البيئة وصورة Docker وفحص صحة وHTTPS، ثم احتفل بإنهاء الدورة كاملة."
+   },
+   "lessons": [
+    {
+     "id": "dev-vs-production",
+     "title": {
+      "en": "Dev mode vs production mode",
+      "ar": "وضع التطوير مقابل وضع الإنتاج"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🏭",
+       "en": "`fastapi dev` to build, `fastapi run` to serve",
+       "ar": "`fastapi dev` للبناء، و`fastapi run` للتشغيل الفعلي"
+      },
+      {
+       "type": "compare",
+       "left": {
+        "title": {
+         "en": "`fastapi dev`",
+         "ar": "`fastapi dev`"
+        },
+        "tone": "neutral",
+        "items": [
+         {
+          "en": "Auto-reload on every save",
+          "ar": "إعادة تحميل تلقائية عند كل حفظ"
+         },
+         {
+          "en": "Listens on `127.0.0.1` only",
+          "ar": "يستمع على `127.0.0.1` فقط"
+         },
+         {
+          "en": "For your own laptop",
+          "ar": "لجهازك الشخصي"
+         }
+        ]
+       },
+       "right": {
+        "title": {
+         "en": "`fastapi run`",
+         "ar": "`fastapi run`"
+        },
+        "tone": "good",
+        "items": [
+         {
+          "en": "Reload off: fast and stable",
+          "ar": "بدون إعادة تحميل: سريع ومستقر"
+         },
+         {
+          "en": "Listens on `0.0.0.0`",
+          "ar": "يستمع على `0.0.0.0`"
+         },
+         {
+          "en": "Default port `8000`",
+          "ar": "المنفذ الافتراضي `8000`"
+         },
+         {
+          "en": "For servers and containers",
+          "ar": "للخوادم والحاويات"
+         }
+        ]
+       }
+      },
+      {
+       "type": "anatomy",
+       "parts": [
+        {
+         "text": "fastapi run",
+         "color": "blue",
+         "label": {
+          "en": "production mode",
+          "ar": "وضع الإنتاج"
+         }
+        },
+        {
+         "text": " app/main.py",
+         "color": "green",
+         "label": {
+          "en": "your app file",
+          "ar": "ملف تطبيقك"
+         }
+        },
+        {
+         "text": " --workers 4",
+         "color": "yellow",
+         "label": {
+          "en": "4 processes",
+          "ar": "4 عمليات (processes)"
+         }
+        },
+        {
+         "text": " --port 80",
+         "color": "purple",
+         "label": {
+          "en": "the port",
+          "ar": "المنفذ (port)"
+         }
+        }
+       ]
+      },
+      {
+       "type": "pills",
+       "items": [
+        {
+         "text": "127.0.0.1",
+         "color": "red",
+         "label": {
+          "en": "this machine only",
+          "ar": "هذا الجهاز فقط"
+         }
+        },
+        {
+         "text": "0.0.0.0",
+         "color": "green",
+         "label": {
+          "en": "all network interfaces",
+          "ar": "كل واجهات الشبكة"
+         }
+        },
+        {
+         "text": "8000",
+         "color": "blue",
+         "label": {
+          "en": "default port",
+          "ar": "المنفذ الافتراضي"
+         }
+        },
+        {
+         "text": "80",
+         "color": "purple",
+         "label": {
+          "en": "standard HTTP port",
+          "ar": "منفذ HTTP المعتاد"
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "bash",
+       "code": "# development: reloads when you save\nfastapi dev main.py\n\n# production: no reload, 4 worker processes\nfastapi run main.py --workers 4 --port 8000",
+       "highlight": [
+        2,
+        5
+       ]
+      },
+      {
+       "type": "warn",
+       "en": "`--workers` is ignored when reload is on. Never use reload in production.",
+       "ar": "يُتجاهَل `--workers` عند تفعيل إعادة التحميل. لا تستخدم reload في الإنتاج أبدًا."
+      },
+      {
+       "type": "tip",
+       "en": "More workers handle more requests at once. One per CPU core is a good start.",
+       "ar": "عمّال (workers) أكثر يعني طلبات أكثر في الوقت نفسه. ابدأ بواحد لكل نواة معالج."
+      }
+     ]
+    },
+    {
+     "id": "config-and-secrets",
+     "title": {
+      "en": "Config from environment variables",
+      "ar": "الإعدادات من متغيرات البيئة"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🔐",
+       "en": "Same code everywhere; settings come from the environment",
+       "ar": "الكود نفسه في كل مكان، والإعدادات تأتي من البيئة"
+      },
+      {
+       "type": "flow",
+       "nodes": [
+        {
+         "icon": "🖥️",
+         "label": {
+          "en": "Server env vars",
+          "ar": "متغيرات بيئة الخادم"
+         }
+        },
+        {
+         "icon": "📦",
+         "label": {
+          "en": "`Settings()`",
+          "ar": "`Settings()`"
+         }
+        },
+        {
+         "icon": "⚙️",
+         "label": {
+          "en": "Your app",
+          "ar": "تطبيقك"
+         }
+        }
+       ],
+       "links": [
+        {
+         "label": {
+          "en": "`SECRET_KEY=...`",
+          "ar": "`SECRET_KEY=...`"
+         }
+        },
+        {
+         "label": {
+          "en": "validated values",
+          "ar": "قيم مُتحقَّق منها"
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "from pydantic_settings import BaseSettings, SettingsConfigDict\n\nclass Settings(BaseSettings):\n    model_config = SettingsConfigDict(env_file=\".env\")\n    app_name: str = \"Todo API\"\n    secret_key: str        # required, no default\n    debug: bool = False\n\nsettings = Settings()     # env vars win over .env",
+       "highlight": [
+        4,
+        6,
+        9
+       ]
+      },
+      {
+       "type": "cards",
+       "items": [
+        {
+         "icon": "🥇",
+         "color": "green",
+         "title": {
+          "en": "Env var",
+          "ar": "متغير البيئة"
+         },
+         "text": {
+          "en": "Wins. Set it on the server or container.",
+          "ar": "له الأولوية. اضبطه على الخادم أو الحاوية."
+         }
+        },
+        {
+         "icon": "🥈",
+         "color": "yellow",
+         "title": {
+          "en": "`.env` file",
+          "ar": "ملف `.env`"
+         },
+         "text": {
+          "en": "Used only when the env var is missing.",
+          "ar": "يُستخدم فقط عند غياب متغير البيئة."
+         }
+        },
+        {
+         "icon": "🥉",
+         "color": "blue",
+         "title": {
+          "en": "Default in code",
+          "ar": "القيمة الافتراضية في الكود"
+         },
+         "text": {
+          "en": "Used when neither one is set.",
+          "ar": "تُستخدم عندما لا يوجد أيٌّ منهما."
+         }
+        }
+       ]
+      },
+      {
+       "type": "compare",
+       "left": {
+        "title": {
+         "en": "Do",
+         "ar": "افعل"
+        },
+        "tone": "good",
+        "items": [
+         {
+          "en": "Read secrets from env vars",
+          "ar": "اقرأ الأسرار من متغيرات البيئة"
+         },
+         {
+          "en": "Keep `.env` on your laptop only",
+          "ar": "أبقِ `.env` على جهازك فقط"
+         },
+         {
+          "en": "Add `.env` to `.gitignore`",
+          "ar": "أضف `.env` إلى `.gitignore`"
+         }
+        ]
+       },
+       "right": {
+        "title": {
+         "en": "Don't",
+         "ar": "لا تفعل"
+        },
+        "tone": "bad",
+        "items": [
+         {
+          "en": "`SECRET_KEY = \"abc123\"` in code",
+          "ar": "`SECRET_KEY = \"abc123\"` داخل الكود"
+         },
+         {
+          "en": "Commit `.env` to git",
+          "ar": "رفع `.env` إلى git"
+         },
+         {
+          "en": "Copy `.env` into the image",
+          "ar": "نسخ `.env` داخل الصورة (image)"
+         }
+        ]
+       }
+      },
+      {
+       "type": "warn",
+       "en": "A missing required setting stops the app at startup with `ValidationError`.",
+       "ar": "إذا غاب إعداد مطلوب يتوقف التطبيق عند بدء التشغيل بخطأ `ValidationError`."
+      }
+     ]
+    },
+    {
+     "id": "docker-image",
+     "title": {
+      "en": "Pin requirements, build a Docker image",
+      "ar": "ثبّت المتطلبات وابنِ صورة Docker"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🐳",
+       "en": "Pack your app and its Python into one image",
+       "ar": "اجمع تطبيقك ومعه Python في صورة (image) واحدة"
+      },
+      {
+       "type": "code",
+       "lang": "text",
+       "code": "# requirements.txt: exact, pinned versions\nfastapi[standard]==0.162.0\npydantic-settings==2.15.0",
+       "highlight": [
+        2,
+        3
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "Pinned versions: every build installs exactly the same packages.",
+       "ar": "الإصدارات المثبّتة: كل بناء يثبّت الحزم نفسها تمامًا."
+      },
+      {
+       "type": "code",
+       "lang": "text",
+       "code": "FROM python:3.14-slim\n\nWORKDIR /code\n\nCOPY ./requirements.txt /code/requirements.txt\nRUN pip install --no-cache-dir --upgrade -r /code/requirements.txt\n\nCOPY ./app /code/app\n\nCMD [\"fastapi\", \"run\", \"app/main.py\", \"--port\", \"80\"]",
+       "highlight": [
+        5,
+        6,
+        8,
+        10
+       ]
+      },
+      {
+       "type": "cards",
+       "items": [
+        {
+         "icon": "📄",
+         "color": "blue",
+         "title": {
+          "en": "Requirements first",
+          "ar": "المتطلبات أولًا"
+         },
+         "text": {
+          "en": "Copied alone, so its layer gets cached.",
+          "ar": "تُنسخ وحدها، فتُخزَّن طبقتها مؤقتًا (cache)."
+         }
+        },
+        {
+         "icon": "📦",
+         "color": "yellow",
+         "title": {
+          "en": "`pip install`",
+          "ar": "`pip install`"
+         },
+         "text": {
+          "en": "Re-runs only when `requirements.txt` changes.",
+          "ar": "لا يُعاد إلا عند تغيّر `requirements.txt`."
+         }
+        },
+        {
+         "icon": "🐍",
+         "color": "green",
+         "title": {
+          "en": "Code last",
+          "ar": "الكود أخيرًا"
+         },
+         "text": {
+          "en": "A code edit rebuilds only this quick step.",
+          "ar": "تعديل الكود يعيد بناء هذه الخطوة السريعة فقط."
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "text",
+       "code": "# .dockerignore: never send these into the image\n.env\n.git\n.venv\n__pycache__\n*.pyc",
+       "highlight": [
+        2
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "bash",
+       "code": "docker build -t todo-api ."
+      },
+      {
+       "type": "anatomy",
+       "parts": [
+        {
+         "text": "docker run -d",
+         "color": "blue",
+         "label": {
+          "en": "run in background",
+          "ar": "تشغيل في الخلفية"
+         }
+        },
+        {
+         "text": " -p 8000:80",
+         "color": "yellow",
+         "label": {
+          "en": "your port : container port",
+          "ar": "منفذك : منفذ الحاوية"
+         }
+        },
+        {
+         "text": " -e SECRET_KEY=change-me",
+         "color": "red",
+         "label": {
+          "en": "an env var",
+          "ar": "متغير بيئة"
+         }
+        },
+        {
+         "text": " todo-api",
+         "color": "green",
+         "label": {
+          "en": "image name",
+          "ar": "اسم الصورة"
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "production-ready",
+     "title": {
+      "en": "HTTPS proxy, health checks and logs",
+      "ar": "وكيل HTTPS وفحص الصحة والسجلات"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🛡️",
+       "en": "Behind HTTPS, healthy, and easy to debug",
+       "ar": "خلف HTTPS، سليم، وسهل التتبّع"
+      },
+      {
+       "type": "flow",
+       "nodes": [
+        {
+         "icon": "🌍",
+         "label": {
+          "en": "Browser",
+          "ar": "المتصفح"
+         }
+        },
+        {
+         "icon": "🔒",
+         "label": {
+          "en": "HTTPS proxy",
+          "ar": "وكيل HTTPS (proxy)"
+         }
+        },
+        {
+         "icon": "🐳",
+         "label": {
+          "en": "Container on port 80",
+          "ar": "الحاوية على المنفذ 80"
+         }
+        }
+       ],
+       "links": [
+        {
+         "label": {
+          "en": "HTTPS :443",
+          "ar": "HTTPS :443"
+         }
+        },
+        {
+         "label": {
+          "en": "HTTP + `X-Forwarded-*`",
+          "ar": "HTTP + `X-Forwarded-*`"
+         }
+        }
+       ]
+      },
+      {
+       "type": "code",
+       "lang": "text",
+       "code": "# trust X-Forwarded-Proto: the app sees https\nCMD [\"fastapi\", \"run\", \"app/main.py\", \"--proxy-headers\", \"--port\", \"80\"]",
+       "highlight": [
+        2
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "Proxy on another machine? Also trust its IP with `--forwarded-allow-ips`.",
+       "ar": "الوكيل على جهاز آخر؟ ثِق بعنوان IP الخاص به أيضًا عبر `--forwarded-allow-ips`."
+      },
+      {
+       "type": "code",
+       "lang": "python",
+       "code": "import logging\n\nlogging.basicConfig(level=logging.INFO)\nlogger = logging.getLogger(\"app\")\n\n@app.get(\"/health\")\ndef health():\n    logger.info(\"health check\")  # never log secrets\n    return {\"status\": \"ok\"}",
+       "highlight": [
+        3,
+        6,
+        9
+       ]
+      },
+      {
+       "type": "chat",
+       "messages": [
+        {
+         "from": "client",
+         "text": "GET /health",
+         "note": {
+          "en": "the host checks in",
+          "ar": "المنصة تطمئن على التطبيق"
+         }
+        },
+        {
+         "from": "server",
+         "text": "200 OK  {\"status\": \"ok\"}",
+         "note": {
+          "en": "alive: keep sending traffic",
+          "ar": "يعمل: استمر بإرسال الطلبات"
+         }
+        }
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "en": "`fastapi run`, reload off",
+         "ar": "`fastapi run` بدون reload"
+        },
+        {
+         "en": "Secrets in env vars, not git",
+         "ar": "الأسرار في متغيرات البيئة لا في git"
+        },
+        {
+         "en": "Pinned `requirements.txt`",
+         "ar": "`requirements.txt` بإصدارات مثبّتة"
+        },
+        {
+         "en": "`.dockerignore` excludes `.env`",
+         "ar": "`.dockerignore` يستبعد `.env`"
+        },
+        {
+         "en": "`/health` returns 200",
+         "ar": "`/health` يُرجع 200"
+        },
+        {
+         "en": "HTTPS proxy plus `--proxy-headers`",
+         "ar": "وكيل HTTPS مع `--proxy-headers`"
+        }
+       ]
+      },
+      {
+       "type": "cards",
+       "items": [
+        {
+         "icon": "🐳",
+         "color": "cyan",
+         "title": {
+          "en": "Container host",
+          "ar": "منصة حاويات"
+         },
+         "text": {
+          "en": "Runs your image; set env vars there.",
+          "ar": "تشغّل صورتك، واضبط متغيرات البيئة هناك."
+         }
+        },
+        {
+         "icon": "☁️",
+         "color": "purple",
+         "title": {
+          "en": "PaaS",
+          "ar": "منصة PaaS"
+         },
+         "text": {
+          "en": "Push code or an image; HTTPS often included.",
+          "ar": "ارفع الكود أو الصورة، وغالبًا يأتي HTTPS جاهزًا."
+         }
+        },
+        {
+         "icon": "🖥️",
+         "color": "blue",
+         "title": {
+          "en": "Your own server",
+          "ar": "خادمك الخاص"
+         },
+         "text": {
+          "en": "Docker plus a reverse proxy for HTTPS.",
+          "ar": "Docker مع وكيل عكسي (reverse proxy) لـ HTTPS."
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "course-complete",
+     "title": {
+      "en": "You finished the course!",
+      "ar": "أنهيت الدورة!"
+     },
+     "blocks": [
+      {
+       "type": "hero",
+       "emoji": "🎉",
+       "en": "11 levels done: you can build and ship APIs",
+       "ar": "أنهيت 11 مستوى: صرت تبني الـ APIs وتنشرها"
+      },
+      {
+       "type": "cards",
+       "items": [
+        {
+         "icon": "🌐",
+         "color": "blue",
+         "title": {
+          "en": "1 · Web basics",
+          "ar": "1 · أساسيات الويب"
+         },
+         "text": {
+          "en": "HTTP, methods, status codes and JSON",
+          "ar": "HTTP والطرق ورموز الحالة وJSON"
+         }
+        },
+        {
+         "icon": "👋",
+         "color": "green",
+         "title": {
+          "en": "2 · First app",
+          "ar": "2 · التطبيق الأول"
+         },
+         "text": {
+          "en": "`fastapi dev` and the automatic `/docs`",
+          "ar": "`fastapi dev` وصفحة `/docs` التلقائية"
+         }
+        },
+        {
+         "icon": "🧭",
+         "color": "yellow",
+         "title": {
+          "en": "3 · Parameters",
+          "ar": "3 · المعاملات"
+         },
+         "text": {
+          "en": "Path and query parameters with validation",
+          "ar": "معاملات المسار والاستعلام مع التحقق"
+         }
+        },
+        {
+         "icon": "📦",
+         "color": "purple",
+         "title": {
+          "en": "4 · Request bodies",
+          "ar": "4 · جسم الطلب"
+         },
+         "text": {
+          "en": "Pydantic models in, responses out",
+          "ar": "نماذج Pydantic للدخول والاستجابات للخروج"
+         }
+        },
+        {
+         "icon": "🗂️",
+         "color": "cyan",
+         "title": {
+          "en": "5 · CRUD API",
+          "ar": "5 · CRUD API"
+         },
+         "text": {
+          "en": "Create, read, update, delete, plus `Depends`",
+          "ar": "إنشاء وقراءة وتعديل وحذف، مع `Depends`"
+         }
+        },
+        {
+         "icon": "🗄️",
+         "color": "red",
+         "title": {
+          "en": "6 · Databases",
+          "ar": "6 · قواعد البيانات"
+         },
+         "text": {
+          "en": "Data that survives restarts",
+          "ar": "بيانات تبقى بعد إعادة التشغيل"
+         }
+        }
+       ]
+      },
+      {
+       "type": "cards",
+       "items": [
+        {
+         "icon": "🔐",
+         "color": "purple",
+         "title": {
+          "en": "7 · Auth",
+          "ar": "7 · المصادقة (Auth)"
+         },
+         "text": {
+          "en": "Logins, tokens and protected routes",
+          "ar": "تسجيل الدخول والـ tokens والمسارات المحمية"
+         }
+        },
+        {
+         "icon": "🧩",
+         "color": "blue",
+         "title": {
+          "en": "8 · Routers & settings",
+          "ar": "8 · الموجّهات والإعدادات"
+         },
+         "text": {
+          "en": "`APIRouter` files and `pydantic-settings`",
+          "ar": "ملفات `APIRouter` و`pydantic-settings`"
+         }
+        },
+        {
+         "icon": "🧱",
+         "color": "yellow",
+         "title": {
+          "en": "9 · Middleware & uploads",
+          "ar": "9 · الوسيط ورفع الملفات"
+         },
+         "text": {
+          "en": "Middleware, CORS and file uploads",
+          "ar": "الوسيط (middleware) وCORS ورفع الملفات"
+         }
+        },
+        {
+         "icon": "⚡",
+         "color": "cyan",
+         "title": {
+          "en": "10 · Async & WebSockets",
+          "ar": "10 · Async وWebSockets"
+         },
+         "text": {
+          "en": "`async def` and live two-way messages",
+          "ar": "`async def` ورسائل حيّة في الاتجاهين"
+         }
+        },
+        {
+         "icon": "🚀",
+         "color": "green",
+         "title": {
+          "en": "11 · Deployment",
+          "ar": "11 · النشر"
+         },
+         "text": {
+          "en": "Docker, env vars, health checks, HTTPS",
+          "ar": "Docker ومتغيرات البيئة وفحص الصحة وHTTPS"
+         }
+        }
+       ]
+      },
+      {
+       "type": "flow",
+       "nodes": [
+        {
+         "icon": "💡",
+         "label": {
+          "en": "Idea",
+          "ar": "فكرة"
+         }
+        },
+        {
+         "icon": "💻",
+         "label": {
+          "en": "`fastapi dev`",
+          "ar": "`fastapi dev`"
+         }
+        },
+        {
+         "icon": "🐳",
+         "label": {
+          "en": "Docker image",
+          "ar": "صورة Docker"
+         }
+        },
+        {
+         "icon": "🌍",
+         "label": {
+          "en": "Live API",
+          "ar": "API منشورة"
+         }
+        }
+       ],
+       "links": [
+        {
+         "label": {
+          "en": "code",
+          "ar": "برمجة"
+         }
+        },
+        {
+         "label": {
+          "en": "build",
+          "ar": "بناء"
+         }
+        },
+        {
+         "label": {
+          "en": "deploy",
+          "ar": "نشر"
+         }
+        }
+       ]
+      },
+      {
+       "type": "steps",
+       "items": [
+        {
+         "en": "Build a small project of your own",
+         "ar": "ابنِ مشروعًا صغيرًا خاصًا بك"
+        },
+        {
+         "en": "Write tests for every route",
+         "ar": "اكتب اختبارات لكل مسار"
+        },
+        {
+         "en": "Deploy it and share the link",
+         "ar": "انشره وشارك الرابط"
+        },
+        {
+         "en": "Explore the official FastAPI docs",
+         "ar": "تصفّح توثيق FastAPI الرسمي"
+        }
+       ]
+      },
+      {
+       "type": "tip",
+       "en": "Congratulations! Keep building: every real project teaches you something new.",
+       "ar": "مبروك! واصل البناء: كل مشروع حقيقي يعلّمك شيئًا جديدًا."
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "id": 1,
+     "difficulty": "easy",
+     "question": {
+      "en": "Which command runs a FastAPI app in production mode, with reload off?",
+      "ar": "أي أمر يشغّل تطبيق FastAPI في وضع الإنتاج، بدون إعادة تحميل؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "`fastapi dev main.py`",
+       "ar": "`fastapi dev main.py`"
+      },
+      {
+       "en": "`fastapi run main.py`",
+       "ar": "`fastapi run main.py`"
+      },
+      {
+       "en": "`python main.py --prod`",
+       "ar": "`python main.py --prod`"
+      },
+      {
+       "en": "`fastapi start main.py`",
+       "ar": "`fastapi start main.py`"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "`fastapi run` is production mode: no auto-reload, listening on `0.0.0.0`. `fastapi dev` is for development.",
+      "ar": "`fastapi run` هو وضع الإنتاج: بدون إعادة تحميل ويستمع على `0.0.0.0`. أما `fastapi dev` فللتطوير."
+     }
+    },
+    {
+     "id": 2,
+     "difficulty": "easy",
+     "question": {
+      "en": "What is a `/health` endpoint for?",
+      "ar": "ما فائدة المسار `/health`؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "Lets the host check the app is alive",
+       "ar": "يتيح للمنصة التأكد أن التطبيق يعمل"
+      },
+      {
+       "en": "Shows the app's secret settings",
+       "ar": "يعرض إعدادات التطبيق السرية"
+      },
+      {
+       "en": "Restarts the app when it crashes",
+       "ar": "يعيد تشغيل التطبيق عند تعطّله"
+      },
+      {
+       "en": "Lists every route in the API",
+       "ar": "يعرض كل مسارات الـ API"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "The host or load balancer calls `/health`; a 200 response means the app is up and can receive traffic.",
+      "ar": "تستدعي المنصة أو موزّع الحمل `/health`، والرد 200 يعني أن التطبيق يعمل ويمكنه استقبال الطلبات."
+     }
+    },
+    {
+     "id": 3,
+     "difficulty": "easy",
+     "question": {
+      "en": "Where should a production `SECRET_KEY` come from?",
+      "ar": "من أين يجب أن يأتي `SECRET_KEY` في الإنتاج؟"
+     },
+     "codeSnippet": "",
+     "options": [
+      {
+       "en": "A constant in `main.py`",
+       "ar": "ثابت داخل `main.py`"
+      },
+      {
+       "en": "A `.env` file committed to git",
+       "ar": "ملف `.env` مرفوع إلى git"
+      },
+      {
+       "en": "A query parameter on each request",
+       "ar": "معامل استعلام في كل طلب"
+      },
+      {
+       "en": "An environment variable on the server",
+       "ar": "متغير بيئة على الخادم"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "Secrets live in environment variables set on the server. Never in code or git; `.env` is only for your laptop.",
+      "ar": "الأسرار مكانها متغيرات البيئة على الخادم، لا الكود ولا git. ملف `.env` لجهازك فقط."
+     }
+    },
+    {
+     "id": 4,
+     "difficulty": "medium",
+     "question": {
+      "en": "Why does this Dockerfile copy `requirements.txt` before the app code?",
+      "ar": "لماذا ينسخ ملف Dockerfile هذا `requirements.txt` قبل كود التطبيق؟"
+     },
+     "codeSnippet": "FROM python:3.14-slim\n\nWORKDIR /code\n\nCOPY ./requirements.txt /code/requirements.txt\nRUN pip install --no-cache-dir --upgrade -r /code/requirements.txt\n\nCOPY ./app /code/app\n\nCMD [\"fastapi\", \"run\", \"app/main.py\", \"--port\", \"80\"]",
+     "options": [
+      {
+       "en": "Docker can copy only one file per step",
+       "ar": "Docker ينسخ ملفًا واحدًا فقط في كل خطوة"
+      },
+      {
+       "en": "pip cannot read files inside `/code/app`",
+       "ar": "pip لا يقرأ الملفات داخل `/code/app`"
+      },
+      {
+       "en": "Code edits reuse the cached pip install layer",
+       "ar": "تعديل الكود يعيد استخدام طبقة pip المخزّنة"
+      },
+      {
+       "en": "It makes the final image smaller on disk",
+       "ar": "يجعل الصورة النهائية أصغر حجمًا"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "Layers are cached. If only code changes, Docker reuses the `pip install` layer and rebuilds just the last steps.",
+      "ar": "الطبقات تُخزَّن مؤقتًا. إذا تغيّر الكود فقط يعيد Docker استخدام طبقة `pip install` ويبني الخطوات الأخيرة فقط."
+     }
+    },
+    {
+     "id": 5,
+     "difficulty": "medium",
+     "question": {
+      "en": "Both a `.env` file and a real environment variable set `SECRET_KEY`. What is printed?",
+      "ar": "ملف `.env` ومتغير بيئة حقيقي كلاهما يضبط `SECRET_KEY`. ماذا يُطبع؟"
+     },
+     "codeSnippet": "# .env file:      SECRET_KEY=from-dotenv\n# server env var: SECRET_KEY=from-env-var\n\nclass Settings(BaseSettings):\n    model_config = SettingsConfigDict(env_file=\".env\")\n    secret_key: str\n\nprint(Settings().secret_key)",
+     "options": [
+      {
+       "en": "from-env-var",
+       "ar": "from-env-var"
+      },
+      {
+       "en": "from-dotenv",
+       "ar": "from-dotenv"
+      },
+      {
+       "en": "from-dotenv,from-env-var",
+       "ar": "from-dotenv,from-env-var"
+      },
+      {
+       "en": "ValidationError: duplicate value",
+       "ar": "ValidationError: duplicate value"
+      }
+     ],
+     "answer": 0,
+     "explanation": {
+      "en": "In `pydantic-settings`, a real environment variable wins over the `.env` file.",
+      "ar": "في `pydantic-settings` تكون الأولوية لمتغير البيئة الحقيقي على ملف `.env`."
+     }
+    },
+    {
+     "id": 6,
+     "difficulty": "medium",
+     "question": {
+      "en": "What happens with this command?",
+      "ar": "ماذا يحدث مع هذا الأمر؟"
+     },
+     "codeSnippet": "$ fastapi run main.py --reload --workers 4",
+     "options": [
+      {
+       "en": "4 workers start, each reloading on save",
+       "ar": "تبدأ 4 عمليات، وكلٌّ منها يعيد التحميل عند الحفظ"
+      },
+      {
+       "en": "It fails: the two flags cannot combine",
+       "ar": "يفشل: لا يمكن الجمع بين الخيارين"
+      },
+      {
+       "en": "4 workers start and reload is ignored",
+       "ar": "تبدأ 4 عمليات ويُتجاهَل reload"
+      },
+      {
+       "en": "Reload runs; the workers flag is ignored",
+       "ar": "يعمل reload ويُتجاهَل خيار workers"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "Uvicorn warns that `workers` is ignored when reloading is enabled, so one reloading process runs.",
+      "ar": "يحذّر Uvicorn بأن `workers` يُتجاهَل عند تفعيل إعادة التحميل، فتعمل عملية واحدة تعيد التحميل."
+     }
+    },
+    {
+     "id": 7,
+     "difficulty": "medium",
+     "question": {
+      "en": "The image runs `fastapi run` on port 80. Which URL reaches the API from your own computer?",
+      "ar": "الصورة تشغّل `fastapi run` على المنفذ 80. أي رابط يصل إلى الـ API من جهازك؟"
+     },
+     "codeSnippet": "$ docker run -d -p 8000:80 -e SECRET_KEY=change-me todo-api",
+     "options": [
+      {
+       "en": "http://localhost:80",
+       "ar": "http://localhost:80"
+      },
+      {
+       "en": "http://localhost:8000",
+       "ar": "http://localhost:8000"
+      },
+      {
+       "en": "http://localhost:8080",
+       "ar": "http://localhost:8080"
+      },
+      {
+       "en": "http://0.0.0.0:443",
+       "ar": "http://0.0.0.0:443"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "`-p 8000:80` maps your port 8000 to the container's port 80, so you open `http://localhost:8000`.",
+      "ar": "`-p 8000:80` يربط المنفذ 8000 على جهازك بالمنفذ 80 في الحاوية، فتفتح `http://localhost:8000`."
+     }
+    },
+    {
+     "id": 8,
+     "difficulty": "hard",
+     "question": {
+      "en": "The app starts with no `SECRET_KEY` anywhere. What happens?",
+      "ar": "يبدأ التطبيق ولا يوجد `SECRET_KEY` في أي مكان. ماذا يحدث؟"
+     },
+     "codeSnippet": "# app/main.py\nclass Settings(BaseSettings):\n    model_config = SettingsConfigDict(env_file=\".env\")\n    app_name: str = \"Todo API\"\n    secret_key: str\n\nsettings = Settings()\napp = FastAPI(title=settings.app_name)\n\n# no SECRET_KEY env var, no .env file\n# $ fastapi run app/main.py",
+     "options": [
+      {
+       "en": "It starts; `secret_key` becomes `None`",
+       "ar": "يعمل، ويصبح `secret_key` قيمة `None`"
+      },
+      {
+       "en": "It starts; the first request returns 500",
+       "ar": "يعمل، وأول طلب يُرجع 500"
+      },
+      {
+       "en": "It stops at startup with `ValidationError`",
+       "ar": "يتوقف عند البدء بخطأ `ValidationError`"
+      },
+      {
+       "en": "It starts; `secret_key` becomes `\"\"`",
+       "ar": "يعمل، ويصبح `secret_key` نصًا فارغًا `\"\"`"
+      }
+     ],
+     "answer": 2,
+     "explanation": {
+      "en": "`secret_key` has no default, so `Settings()` raises `ValidationError` (Field required) on import and the app never starts.",
+      "ar": "ليس لـ `secret_key` قيمة افتراضية، فيرفع `Settings()` خطأ `ValidationError` (Field required) عند الاستيراد ولا يبدأ التطبيق."
+     }
+    },
+    {
+     "id": 9,
+     "difficulty": "hard",
+     "question": {
+      "en": "The project folder has a `.env` with real secrets. What is the problem?",
+      "ar": "مجلد المشروع فيه ملف `.env` بأسرار حقيقية. ما المشكلة؟"
+     },
+     "codeSnippet": "# .dockerignore\n.git\n.venv\n\n# Dockerfile\nCOPY . /code",
+     "options": [
+      {
+       "en": "The build fails because `.env` is hidden",
+       "ar": "يفشل البناء لأن `.env` ملف مخفي"
+      },
+      {
+       "en": "The secrets get baked into the image",
+       "ar": "تُحفَظ الأسرار داخل الصورة نفسها"
+      },
+      {
+       "en": "Docker deletes `.env` after copying it",
+       "ar": "يحذف Docker ملف `.env` بعد نسخه"
+      },
+      {
+       "en": "The container ignores every `-e` variable",
+       "ar": "تتجاهل الحاوية كل متغيرات `-e`"
+      }
+     ],
+     "answer": 1,
+     "explanation": {
+      "en": "`.env` is not in `.dockerignore`, so `COPY .` puts it in the image. Anyone with the image can read it.",
+      "ar": "`.env` غير موجود في `.dockerignore`، فينسخه `COPY .` إلى الصورة، ويستطيع أي شخص لديه الصورة قراءته."
+     }
+    },
+    {
+     "id": 10,
+     "difficulty": "hard",
+     "question": {
+      "en": "The trusted HTTPS proxy forwards this request to the app. What is returned?",
+      "ar": "وكيل HTTPS الموثوق يمرّر هذا الطلب إلى التطبيق. ماذا يُرجع؟"
+     },
+     "codeSnippet": "# CMD [\"fastapi\", \"run\", \"app/main.py\", \"--proxy-headers\", \"--port\", \"80\"]\n\n@app.get(\"/scheme\")\ndef scheme(request: Request):\n    return {\"scheme\": request.url.scheme}\n\n# from the proxy:\nGET /scheme\nX-Forwarded-Proto: https",
+     "options": [
+      {
+       "en": "{\"scheme\": \"http\"}",
+       "ar": "{\"scheme\": \"http\"}"
+      },
+      {
+       "en": "{\"scheme\": \"tcp\"}",
+       "ar": "{\"scheme\": \"tcp\"}"
+      },
+      {
+       "en": "{\"scheme\": null}",
+       "ar": "{\"scheme\": null}"
+      },
+      {
+       "en": "{\"scheme\": \"https\"}",
+       "ar": "{\"scheme\": \"https\"}"
+      }
+     ],
+     "answer": 3,
+     "explanation": {
+      "en": "With proxy headers on and the proxy trusted, the app reads `X-Forwarded-Proto` and sees `https`.",
+      "ar": "مع تفعيل proxy headers والوثوق بالوكيل، يقرأ التطبيق `X-Forwarded-Proto` فيرى `https`."
      }
     }
    ]

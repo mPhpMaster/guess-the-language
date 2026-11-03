@@ -45,10 +45,15 @@ taken straight away; passing a level's test (70%) unlocks the next level.
 Lessons and tests are bilingual (English / Arabic, following the interface
 language). Progress is kept per device.
 
-- **Build an API with FastAPI** — 5 levels, 25 lessons, 50 questions: web basics
-  (HTTP, request/response, status codes, JSON) → first app → path & query
-  parameters → request bodies with Pydantic → a complete CRUD API with tests.
-  Every code example was run against FastAPI 0.162 / Pydantic 2.14.
+- **Build an API with FastAPI** — 11 levels, 55 lessons, 110 questions: web
+  basics (HTTP, request/response, status codes, JSON) → first app → path & query
+  parameters → request bodies with Pydantic → a CRUD API → SQLModel databases →
+  auth (password hashing, OAuth2, JWT) → bigger apps (APIRouter, settings,
+  dependency overrides) → middleware, CORS, uploads, background tasks → async &
+  WebSockets → deployment (workers, env config, Docker, proxies, health checks).
+  Lessons are visual-first (animated chat, flow, anatomy, cards; ~15 words of
+  prose each). Every code example was run against FastAPI 0.162 / Pydantic 2.14
+  / SQLModel 0.0.48 with TestClient.
 - Content: `src/data/courses/<id>.json`, assembled from per-level files in
   `scripts/new/learn-<id>-<n>.json` by `node scripts/build-course.js <id>`
   (authoring guide: `scripts/new/learn-GUIDE.md`); checked by

@@ -1,0 +1,1074 @@
+{
+ "id": "databases",
+ "icon": "🗄️",
+ "title": {
+  "en": "Databases with SQLModel",
+  "ar": "قواعد البيانات مع SQLModel"
+ },
+ "summary": {
+  "en": "Replace the in-memory dict with a SQLite database using SQLModel tables, sessions and queries.",
+  "ar": "استبدل القاموس في الذاكرة بقاعدة بيانات SQLite باستخدام جداول SQLModel والجلسات والاستعلامات."
+ },
+ "lessons": [
+  {
+   "id": "why-a-database",
+   "title": {
+    "en": "From a dict to a database",
+    "ar": "من القاموس (dict) إلى قاعدة بيانات"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🗄️",
+     "en": "Swap the dict for a real database",
+     "ar": "استبدل القاموس بقاعدة بيانات حقيقية"
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "dict in memory",
+       "ar": "dict في الذاكرة"
+      },
+      "tone": "bad",
+      "items": [
+       {
+        "en": "Lost on every restart",
+        "ar": "يضيع مع كل إعادة تشغيل"
+       },
+       {
+        "en": "Only lives inside the running process",
+        "ar": "يعيش داخل العملية الشغّالة فقط"
+       },
+       {
+        "en": "Counter `next_id` kept by hand",
+        "ar": "العدّاد `next_id` نديره يدويًا"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "SQLite database",
+       "ar": "قاعدة بيانات SQLite"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "Saved in the `database.db` file",
+        "ar": "محفوظة في الملف `database.db`"
+       },
+       {
+        "en": "Survives restarts",
+        "ar": "تبقى بعد إعادة التشغيل"
+       },
+       {
+        "en": "The database picks each `id`",
+        "ar": "قاعدة البيانات تختار كل `id`"
+       }
+      ]
+     }
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "🐍",
+       "label": {
+        "en": "Python objects",
+        "ar": "كائنات Python"
+       }
+      },
+      {
+       "icon": "🧰",
+       "label": {
+        "en": "SQLModel",
+        "ar": "SQLModel"
+       }
+      },
+      {
+       "icon": "💾",
+       "label": {
+        "en": "database.db",
+        "ar": "database.db"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "`Todo(...)`",
+        "ar": "`Todo(...)`"
+       }
+      },
+      {
+       "label": {
+        "en": "SQL for you",
+        "ar": "يكتب SQL عنك"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "💾",
+       "color": "cyan",
+       "title": {
+        "en": "SQLite",
+        "ar": "SQLite"
+       },
+       "text": {
+        "en": "A whole database in one file",
+        "ar": "قاعدة بيانات كاملة في ملف واحد"
+       }
+      },
+      {
+       "icon": "🧰",
+       "color": "purple",
+       "title": {
+        "en": "SQLModel",
+        "ar": "SQLModel"
+       },
+       "text": {
+        "en": "Pydantic models that are also tables",
+        "ar": "نماذج Pydantic هي جداول أيضًا"
+       }
+      },
+      {
+       "icon": "🧾",
+       "color": "blue",
+       "title": {
+        "en": "Session",
+        "ar": "Session"
+       },
+       "text": {
+        "en": "One conversation with the database",
+        "ar": "محادثة واحدة مع قاعدة البيانات"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "bash",
+     "code": "pip install sqlmodel",
+     "highlight": [
+      1
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "SQLite comes with Python, so there is no database server to install.",
+     "ar": "SQLite يأتي مع Python، فلا حاجة لتثبيت خادم قاعدة بيانات."
+    }
+   ]
+  },
+  {
+   "id": "table-models",
+   "title": {
+    "en": "Table models",
+    "ar": "نماذج الجداول (table models)"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🧱",
+     "en": "One class with `table=True` = one table",
+     "ar": "صنف واحد مع `table=True` = جدول واحد"
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "class Todo",
+       "color": "blue",
+       "label": {
+        "en": "table name: todo",
+        "ar": "اسم الجدول: todo"
+       }
+      },
+      {
+       "text": "(TodoBase",
+       "color": "purple",
+       "label": {
+        "en": "shared columns",
+        "ar": "أعمدة مشتركة"
+       }
+      },
+      {
+       "text": ", table=True",
+       "color": "green",
+       "label": {
+        "en": "make it a table",
+        "ar": "اجعله جدولًا"
+       }
+      },
+      {
+       "text": "):\n    "
+      },
+      {
+       "text": "id: int | None",
+       "color": "yellow",
+       "label": {
+        "en": "None until saved",
+        "ar": "None حتى الحفظ"
+       }
+      },
+      {
+       "text": " = Field(default=None, primary_key=True)",
+       "color": "red",
+       "label": {
+        "en": "unique key per row",
+        "ar": "مفتاح فريد لكل صف"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "class TodoBase(SQLModel):  # shared fields\n    title: str = Field(min_length=1, max_length=100)\n    done: bool = False\n\nclass Todo(TodoBase, table=True):  # a real table\n    id: int | None = Field(default=None, primary_key=True)",
+     "highlight": [
+      1,
+      5,
+      6
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🧱",
+       "color": "green",
+       "title": {
+        "en": "Todo",
+        "ar": "Todo"
+       },
+       "text": {
+        "en": "The table. Rows live in `database.db`.",
+        "ar": "الجدول. صفوفه في `database.db`."
+       }
+      },
+      {
+       "icon": "📥",
+       "color": "blue",
+       "title": {
+        "en": "TodoCreate",
+        "ar": "TodoCreate"
+       },
+       "text": {
+        "en": "POST body. No `id`.",
+        "ar": "جسم طلب POST. بدون `id`."
+       }
+      },
+      {
+       "icon": "🩹",
+       "color": "yellow",
+       "title": {
+        "en": "TodoUpdate",
+        "ar": "TodoUpdate"
+       },
+       "text": {
+        "en": "PATCH body. Every field optional.",
+        "ar": "جسم طلب PATCH. كل الحقول اختيارية."
+       }
+      },
+      {
+       "icon": "📤",
+       "color": "cyan",
+       "title": {
+        "en": "TodoPublic",
+        "ar": "TodoPublic"
+       },
+       "text": {
+        "en": "Response. `id` is always an `int`.",
+        "ar": "الاستجابة. `id` دائمًا `int`."
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "class TodoCreate(TodoBase):  # what the client sends\n    pass\n\nclass TodoPublic(TodoBase):  # what the API returns\n    id: int\n\nclass TodoUpdate(SQLModel):  # every field optional\n    title: str | None = Field(default=None, min_length=1, max_length=100)\n    done: bool | None = None",
+     "highlight": [
+      1,
+      4,
+      5,
+      7
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "Only `Todo` has `table=True`; the others just validate data, like Pydantic.",
+     "ar": "فقط `Todo` فيه `table=True`؛ البقية تتحقق من البيانات فقط مثل Pydantic."
+    }
+   ]
+  },
+  {
+   "id": "engine-and-session",
+   "title": {
+    "en": "Engine, startup and sessions",
+    "ar": "المحرّك (engine) والبدء والجلسات (sessions)"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🔌",
+     "en": "Engine connects, Session talks, per request",
+     "ar": "الـ engine يتصل والـ Session يتحدث، لكل طلب"
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "📨",
+       "label": {
+        "en": "POST /todos",
+        "ar": "POST /todos"
+       }
+      },
+      {
+       "icon": "⚙️",
+       "label": {
+        "en": "endpoint",
+        "ar": "دالة المسار"
+       }
+      },
+      {
+       "icon": "🧾",
+       "label": {
+        "en": "Session",
+        "ar": "Session"
+       }
+      },
+      {
+       "icon": "💾",
+       "label": {
+        "en": "database.db",
+        "ar": "database.db"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "gets `SessionDep`",
+        "ar": "يستلم `SessionDep`"
+       }
+      },
+      {
+       "label": {
+        "en": "`add` / `get` / `exec`",
+        "ar": "`add` / `get` / `exec`"
+       }
+      },
+      {
+       "label": {
+        "en": "runs SQL",
+        "ar": "ينفّذ SQL"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "sqlite_url = \"sqlite:///database.db\"\nengine = create_engine(sqlite_url, connect_args={\"check_same_thread\": False})\n\ndef create_db_and_tables():\n    SQLModel.metadata.create_all(engine)\n\n@asynccontextmanager\nasync def lifespan(app: FastAPI):\n    create_db_and_tables()  # runs once, on startup\n    yield\n\napp = FastAPI(lifespan=lifespan)",
+     "highlight": [
+      2,
+      5,
+      7,
+      9,
+      12
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "def get_session():\n    with Session(engine) as session:  # one per request\n        yield session  # closed after the response\n\nSessionDep = Annotated[Session, Depends(get_session)]",
+     "highlight": [
+      2,
+      3,
+      5
+     ]
+    },
+    {
+     "type": "steps",
+     "items": [
+      {
+       "en": "App starts: tables are created",
+       "ar": "يبدأ التطبيق: تُنشأ الجداول"
+      },
+      {
+       "en": "Request arrives",
+       "ar": "يصل الطلب"
+      },
+      {
+       "en": "`get_session` opens a `Session`",
+       "ar": "`get_session` يفتح `Session`"
+      },
+      {
+       "en": "Endpoint uses `session`",
+       "ar": "دالة المسار تستخدم `session`"
+      },
+      {
+       "en": "Response sent, `Session` closed",
+       "ar": "تُرسل الاستجابة ويُغلق `Session`"
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "`check_same_thread=False` lets FastAPI use SQLite from different threads.",
+     "ar": "`check_same_thread=False` يسمح لـ FastAPI باستخدام SQLite من خيوط (threads) مختلفة."
+    }
+   ]
+  },
+  {
+   "id": "create-and-read",
+   "title": {
+    "en": "Create and read rows",
+    "ar": "إنشاء الصفوف وقراءتها"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "✨",
+     "en": "`add`, `commit`, `refresh` — then read it back",
+     "ar": "`add` ثم `commit` ثم `refresh` — ثم اقرأها"
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "➕",
+       "color": "blue",
+       "title": {
+        "en": "session.add(obj)",
+        "ar": "session.add(obj)"
+       },
+       "text": {
+        "en": "Stage a new or changed row",
+        "ar": "جهّز صفًا جديدًا أو معدّلًا"
+       }
+      },
+      {
+       "icon": "💾",
+       "color": "green",
+       "title": {
+        "en": "session.commit()",
+        "ar": "session.commit()"
+       },
+       "text": {
+        "en": "Write staged changes to the file",
+        "ar": "اكتب التغييرات المجهّزة في الملف"
+       }
+      },
+      {
+       "icon": "🔄",
+       "color": "cyan",
+       "title": {
+        "en": "session.refresh(obj)",
+        "ar": "session.refresh(obj)"
+       },
+       "text": {
+        "en": "Reload the row, with its new `id`",
+        "ar": "أعد تحميل الصف مع `id` الجديد"
+       }
+      },
+      {
+       "icon": "🔍",
+       "color": "yellow",
+       "title": {
+        "en": "session.get(Todo, 1)",
+        "ar": "session.get(Todo, 1)"
+       },
+       "text": {
+        "en": "One row by key, or `None`",
+        "ar": "صف واحد بالمفتاح، أو `None`"
+       }
+      },
+      {
+       "icon": "📋",
+       "color": "purple",
+       "title": {
+        "en": "session.exec(select(...))",
+        "ar": "session.exec(select(...))"
+       },
+       "text": {
+        "en": "Run a query, `.all()` gives a list",
+        "ar": "نفّذ استعلامًا، و`.all()` تعطي قائمة"
+       }
+      },
+      {
+       "icon": "🗑️",
+       "color": "red",
+       "title": {
+        "en": "session.delete(obj)",
+        "ar": "session.delete(obj)"
+       },
+       "text": {
+        "en": "Mark a row for deletion",
+        "ar": "علّم صفًا للحذف"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "@app.post(\"/todos\", response_model=TodoPublic, status_code=201)\ndef create_todo(data: TodoCreate, session: SessionDep):\n    todo = Todo.model_validate(data)\n    session.add(todo)\n    session.commit()\n    session.refresh(todo)  # now todo.id is set\n    return todo",
+     "highlight": [
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "session.exec(",
+       "color": "purple",
+       "label": {
+        "en": "run it",
+        "ar": "نفّذه"
+       }
+      },
+      {
+       "text": "select(Todo)",
+       "color": "blue",
+       "label": {
+        "en": "from the todo table",
+        "ar": "من جدول todo"
+       }
+      },
+      {
+       "text": ".where(Todo.done == True)",
+       "color": "green",
+       "label": {
+        "en": "only done ones",
+        "ar": "المنجزة فقط"
+       }
+      },
+      {
+       "text": ".offset(10)",
+       "color": "yellow",
+       "label": {
+        "en": "skip first 10",
+        "ar": "تخطَّ أول 10"
+       }
+      },
+      {
+       "text": ".limit(10)",
+       "color": "red",
+       "label": {
+        "en": "at most 10",
+        "ar": "10 على الأكثر"
+       }
+      },
+      {
+       "text": ").all()",
+       "color": "cyan",
+       "label": {
+        "en": "list of Todo",
+        "ar": "قائمة Todo"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "@app.get(\"/todos\", response_model=list[TodoPublic])\ndef list_todos(session: SessionDep, offset: int = Query(default=0, ge=0),\n               limit: int = Query(default=10, ge=1, le=100)):\n    return session.exec(select(Todo).offset(offset).limit(limit)).all()\n\n@app.get(\"/todos/{todo_id}\", response_model=TodoPublic)\ndef read_todo(todo_id: int, session: SessionDep):\n    todo = session.get(Todo, todo_id)\n    if todo is None:\n        raise HTTPException(status_code=404, detail=\"Todo not found\")\n    return todo",
+     "highlight": [
+      4,
+      8,
+      9,
+      10
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "POST /todos  {\"title\": \"Buy milk\"}",
+       "note": {
+        "en": "create",
+        "ar": "إنشاء"
+       }
+      },
+      {
+       "from": "server",
+       "text": "201 Created  {\"title\": \"Buy milk\", \"done\": false, \"id\": 1}",
+       "note": {
+        "en": "id from the database",
+        "ar": "المعرّف من قاعدة البيانات"
+       }
+      },
+      {
+       "from": "client",
+       "text": "GET /todos/99",
+       "note": {
+        "en": "no such row",
+        "ar": "لا يوجد صف كهذا"
+       }
+      },
+      {
+       "from": "server",
+       "text": "404 Not Found  {\"detail\": \"Todo not found\"}",
+       "note": {
+        "en": "`get` returned `None`",
+        "ar": "`get` أرجع `None`"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "update-and-delete",
+   "title": {
+    "en": "Update, delete, restart",
+    "ar": "التعديل والحذف وإعادة التشغيل"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🔁",
+     "en": "Change rows — and they survive restarts",
+     "ar": "عدّل الصفوف — وستبقى بعد إعادة التشغيل"
+    },
+    {
+     "type": "steps",
+     "items": [
+      {
+       "en": "`session.get` the row, or 404",
+       "ar": "`session.get` للصف، أو 404"
+      },
+      {
+       "en": "`model_dump(exclude_unset=True)`: only sent fields",
+       "ar": "`model_dump(exclude_unset=True)`: المرسل فقط"
+      },
+      {
+       "en": "`todo.sqlmodel_update(data)` copies them in",
+       "ar": "`todo.sqlmodel_update(data)` ينسخها إليه"
+      },
+      {
+       "en": "`add` → `commit` → `refresh`",
+       "ar": "`add` ← `commit` ← `refresh`"
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "@app.patch(\"/todos/{todo_id}\", response_model=TodoPublic)\ndef update_todo(todo_id: int, changes: TodoUpdate, session: SessionDep):\n    todo = session.get(Todo, todo_id)\n    if todo is None:\n        raise HTTPException(status_code=404, detail=\"Todo not found\")\n    todo.sqlmodel_update(changes.model_dump(exclude_unset=True))\n    session.add(todo)\n    session.commit()\n    session.refresh(todo)\n    return todo",
+     "highlight": [
+      3,
+      6,
+      8
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "@app.delete(\"/todos/{todo_id}\", status_code=204)\ndef delete_todo(todo_id: int, session: SessionDep):\n    todo = session.get(Todo, todo_id)\n    if todo is None:\n        raise HTTPException(status_code=404, detail=\"Todo not found\")\n    session.delete(todo)\n    session.commit()",
+     "highlight": [
+      6,
+      7
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "Forget `session.commit()` and nothing is saved to the database.",
+     "ar": "إذا نسيت `session.commit()` فلن يُحفظ أي شيء في قاعدة البيانات."
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "PATCH /todos/1  {\"done\": true}",
+       "note": {
+        "en": "only done changes",
+        "ar": "يتغيّر done فقط"
+       }
+      },
+      {
+       "from": "server",
+       "text": "200 OK  {\"title\": \"Buy milk\", \"done\": true, \"id\": 1}",
+       "note": {
+        "en": "saved to the file",
+        "ar": "حُفظ في الملف"
+       }
+      },
+      {
+       "from": "client",
+       "text": "GET /todos/1",
+       "note": {
+        "en": "after a server restart",
+        "ar": "بعد إعادة تشغيل الخادم"
+       }
+      },
+      {
+       "from": "server",
+       "text": "200 OK  {\"title\": \"Buy milk\", \"done\": true, \"id\": 1}",
+       "note": {
+        "en": "still there!",
+        "ar": "ما زالت موجودة!"
+       }
+      },
+      {
+       "from": "client",
+       "text": "DELETE /todos/1",
+       "note": {
+        "en": "remove it",
+        "ar": "احذفها"
+       }
+      },
+      {
+       "from": "server",
+       "text": "204 No Content",
+       "note": {
+        "en": "row deleted",
+        "ar": "حُذف الصف"
+       }
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "For tests, override `get_session` with in-memory `sqlite://` and `StaticPool`.",
+     "ar": "في الاختبارات، استبدل `get_session` بقاعدة `sqlite://` في الذاكرة مع `StaticPool`."
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "difficulty": "easy",
+   "question": {
+    "en": "Which argument turns a SQLModel class into a database table?",
+    "ar": "أي وسيط (argument) يحوّل صنف SQLModel إلى جدول في قاعدة البيانات؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "primary_key=True",
+     "ar": "primary_key=True"
+    },
+    {
+     "en": "orm_mode=True",
+     "ar": "orm_mode=True"
+    },
+    {
+     "en": "table=True",
+     "ar": "table=True"
+    },
+    {
+     "en": "database=True",
+     "ar": "database=True"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "`class Todo(TodoBase, table=True)` makes a table. Classes without it only validate data.",
+    "ar": "`class Todo(TodoBase, table=True)` ينشئ جدولًا. الأصناف بدونه تتحقق من البيانات فقط."
+   }
+  },
+  {
+   "id": 2,
+   "difficulty": "easy",
+   "question": {
+    "en": "What is the main gain of SQLite over the level 5 in-memory dict?",
+    "ar": "ما الفائدة الأساسية من SQLite مقارنةً بقاموس الذاكرة في المستوى 5؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "Data survives a server restart",
+     "ar": "تبقى البيانات بعد إعادة تشغيل الخادم"
+    },
+    {
+     "en": "Requests no longer need validation",
+     "ar": "لم تعد الطلبات بحاجة إلى تحقق"
+    },
+    {
+     "en": "Routes no longer need any models",
+     "ar": "لم تعد المسارات بحاجة إلى نماذج"
+    },
+    {
+     "en": "Every response becomes 200 OK",
+     "ar": "تصبح كل استجابة 200 OK"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "Rows are saved in the `database.db` file, so they are still there after a restart.",
+    "ar": "الصفوف محفوظة في الملف `database.db`، فتبقى موجودة بعد إعادة التشغيل."
+   }
+  },
+  {
+   "id": 3,
+   "difficulty": "easy",
+   "question": {
+    "en": "No row has id 99. What does `session.get(Todo, 99)` do?",
+    "ar": "لا يوجد صف بالمعرّف 99. ماذا يفعل `session.get(Todo, 99)`؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "It raises a `KeyError`",
+     "ar": "يرفع `KeyError`"
+    },
+    {
+     "en": "It returns an empty `Todo`",
+     "ar": "يُرجع `Todo` فارغًا"
+    },
+    {
+     "en": "It raises a 404 error",
+     "ar": "يرفع خطأ 404"
+    },
+    {
+     "en": "It returns `None`",
+     "ar": "يُرجع `None`"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`session.get` returns `None` for a missing key; your route then raises the 404 itself.",
+    "ar": "`session.get` يُرجع `None` لمفتاح غير موجود، ثم يرفع المسار الخطأ 404 بنفسه."
+   }
+  },
+  {
+   "id": 4,
+   "difficulty": "medium",
+   "question": {
+    "en": "What does this code print?",
+    "ar": "ماذا يطبع هذا الكود؟"
+   },
+   "codeSnippet": "# The todo table is empty\ntodo = Todo(title=\"Demo\")\nsession.add(todo)\nprint(todo.id)\nsession.commit()\nsession.refresh(todo)\nprint(todo.id)",
+   "options": [
+    {
+     "en": "1, then 1",
+     "ar": "1 ثم 1"
+    },
+    {
+     "en": "None, then 1",
+     "ar": "None ثم 1"
+    },
+    {
+     "en": "None, then None",
+     "ar": "None ثم None"
+    },
+    {
+     "en": "0, then 1",
+     "ar": "0 ثم 1"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`id` stays `None` until the database saves the row on `commit`; `refresh` loads the new id 1.",
+    "ar": "يبقى `id` بقيمة `None` حتى تحفظ قاعدة البيانات الصف عند `commit`، ثم يحمّل `refresh` المعرّف 1."
+   }
+  },
+  {
+   "id": 5,
+   "difficulty": "medium",
+   "question": {
+    "en": "What does `get_session` (with `yield`) do for each request?",
+    "ar": "ماذا تفعل `get_session` (مع `yield`) في كل طلب؟"
+   },
+   "codeSnippet": "def get_session():\n    with Session(engine) as session:  # one per request\n        yield session  # closed after the response\n\nSessionDep = Annotated[Session, Depends(get_session)]",
+   "options": [
+    {
+     "en": "Creates all tables in the database",
+     "ar": "تنشئ كل الجداول في قاعدة البيانات"
+    },
+    {
+     "en": "Opens the database file only once",
+     "ar": "تفتح ملف قاعدة البيانات مرة واحدة فقط"
+    },
+    {
+     "en": "Opens a Session, then closes it",
+     "ar": "تفتح Session ثم تغلقها"
+    },
+    {
+     "en": "Commits every change automatically",
+     "ar": "تحفظ (commit) كل تغيير تلقائيًا"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "Each request gets its own `Session`; the `with` block closes it after the response is sent.",
+    "ar": "كل طلب يحصل على `Session` خاص به، وكتلة `with` تغلقه بعد إرسال الاستجابة."
+   }
+  },
+  {
+   "id": 6,
+   "difficulty": "medium",
+   "question": {
+    "en": "The table holds todos with ids 1, 2, 3 and 4. Which todos come back?",
+    "ar": "الجدول يحوي مهام بالمعرّفات 1 و2 و3 و4. ما المهام التي تعود؟"
+   },
+   "codeSnippet": "return session.exec(select(Todo).offset(offset).limit(limit)).all()\n\n# GET /todos?offset=1&limit=2",
+   "options": [
+    {
+     "en": "Todos 1 and 2",
+     "ar": "المهمتان 1 و2"
+    },
+    {
+     "en": "Todos 2 and 3",
+     "ar": "المهمتان 2 و3"
+    },
+    {
+     "en": "Todos 3 and 4",
+     "ar": "المهمتان 3 و4"
+    },
+    {
+     "en": "Only todo 2",
+     "ar": "المهمة 2 فقط"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`offset(1)` skips todo 1, then `limit(2)` keeps two rows: todos 2 and 3.",
+    "ar": "`offset(1)` يتخطى المهمة 1، ثم `limit(2)` يُبقي صفين: المهمتين 2 و3."
+   }
+  },
+  {
+   "id": 7,
+   "difficulty": "medium",
+   "question": {
+    "en": "The PATCH route uses `sqlmodel_update(changes.model_dump(exclude_unset=True))`. What is returned?",
+    "ar": "مسار PATCH يستخدم `sqlmodel_update(changes.model_dump(exclude_unset=True))`. ماذا يُرجع؟"
+   },
+   "codeSnippet": "# Stored: {\"title\": \"Buy milk\", \"done\": false, \"id\": 1}\n\nPATCH /todos/1\n{\"done\": true}",
+   "options": [
+    {
+     "en": "{\"title\": null, \"done\": true, \"id\": 1}",
+     "ar": "{\"title\": null, \"done\": true, \"id\": 1}"
+    },
+    {
+     "en": "{\"title\": \"Buy milk\", \"done\": false, \"id\": 1}",
+     "ar": "{\"title\": \"Buy milk\", \"done\": false, \"id\": 1}"
+    },
+    {
+     "en": "{\"title\": \"Buy milk\", \"done\": true, \"id\": 2}",
+     "ar": "{\"title\": \"Buy milk\", \"done\": true, \"id\": 2}"
+    },
+    {
+     "en": "{\"title\": \"Buy milk\", \"done\": true, \"id\": 1}",
+     "ar": "{\"title\": \"Buy milk\", \"done\": true, \"id\": 1}"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "Only `done` was sent, so only `done` changes. The title and id stay the same.",
+    "ar": "أُرسل `done` فقط، فيتغيّر `done` وحده ويبقى العنوان والمعرّف كما هما."
+   }
+  },
+  {
+   "id": 8,
+   "difficulty": "hard",
+   "question": {
+    "en": "The database starts empty. What does the final `GET /todos` return?",
+    "ar": "قاعدة البيانات فارغة في البداية. ماذا يُرجع `GET /todos` الأخير؟"
+   },
+   "codeSnippet": "@app.post(\"/todos\", status_code=201)\ndef create_todo(data: TodoCreate, session: SessionDep):\n    todo = Todo.model_validate(data)\n    session.add(todo)\n    return {\"ok\": True}\n\n# POST /todos  {\"title\": \"Buy milk\"}  -> 201\n# GET  /todos  -> ?",
+   "options": [
+    {
+     "en": "`[]`: nothing was committed",
+     "ar": "`[]`: لم يُنفَّذ أي commit"
+    },
+    {
+     "en": "One todo with the id 1",
+     "ar": "مهمة واحدة بالمعرّف 1"
+    },
+    {
+     "en": "A 500 error from the POST",
+     "ar": "خطأ 500 من طلب POST"
+    },
+    {
+     "en": "One todo with the id `null`",
+     "ar": "مهمة واحدة بالمعرّف `null`"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "`session.add` only stages the row. Without `session.commit()` the Session closes and nothing is saved.",
+    "ar": "`session.add` يجهّز الصف فقط. بدون `session.commit()` تُغلق الجلسة ولا يُحفظ شيء."
+   }
+  },
+  {
+   "id": 9,
+   "difficulty": "hard",
+   "question": {
+    "en": "With the SQLite version, this happens. What does the last request return?",
+    "ar": "مع نسخة SQLite يحدث التالي. ماذا يُرجع الطلب الأخير؟"
+   },
+   "codeSnippet": "POST /todos  {\"title\": \"Buy milk\"}   # 201, id 1\n\n# stop the server, start it again\n\nGET /todos/1",
+   "options": [
+    {
+     "en": "404 {\"detail\": \"Todo not found\"}",
+     "ar": "404 {\"detail\": \"Todo not found\"}"
+    },
+    {
+     "en": "500: table todo already exists",
+     "ar": "500: table todo already exists"
+    },
+    {
+     "en": "200 with the saved Buy milk todo",
+     "ar": "200 مع المهمة Buy milk المحفوظة"
+    },
+    {
+     "en": "422: id must be sent again",
+     "ar": "422: يجب إرسال المعرّف مجددًا"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "The row lives in `database.db`. On startup `create_all` keeps existing tables, so todo 1 is still there.",
+    "ar": "الصف محفوظ في `database.db`. عند البدء يُبقي `create_all` الجداول الموجودة، فتبقى المهمة 1."
+   }
+  },
+  {
+   "id": 10,
+   "difficulty": "hard",
+   "question": {
+    "en": "The table is empty. What does the server respond?",
+    "ar": "الجدول فارغ. بماذا يرد الخادم؟"
+   },
+   "codeSnippet": "POST /todos\n{\"title\": \"Buy milk\", \"id\": 99}",
+   "options": [
+    {
+     "en": "201 {\"title\": \"Buy milk\", \"done\": false, \"id\": 99}",
+     "ar": "201 {\"title\": \"Buy milk\", \"done\": false, \"id\": 99}"
+    },
+    {
+     "en": "201 {\"title\": \"Buy milk\", \"done\": false, \"id\": 1}",
+     "ar": "201 {\"title\": \"Buy milk\", \"done\": false, \"id\": 1}"
+    },
+    {
+     "en": "422 {\"detail\": \"id is not allowed\"}",
+     "ar": "422 {\"detail\": \"id is not allowed\"}"
+    },
+    {
+     "en": "201 {\"title\": \"Buy milk\", \"done\": false, \"id\": null}",
+     "ar": "201 {\"title\": \"Buy milk\", \"done\": false, \"id\": null}"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`TodoCreate` has no `id` field, so 99 is ignored. The database assigns the first id: 1.",
+    "ar": "`TodoCreate` ليس فيه حقل `id`، فتُتجاهل القيمة 99. وقاعدة البيانات تعطي أول معرّف: 1."
+   }
+  }
+ ]
+}

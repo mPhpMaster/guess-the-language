@@ -1,0 +1,997 @@
+{
+ "id": "auth",
+ "icon": "🔐",
+ "title": {
+  "en": "Authentication & JWT",
+  "ar": "المصادقة وJWT"
+ },
+ "summary": {
+  "en": "Hash passwords, log users in with OAuth2 and JWT tokens, and protect routes with 401 and 403.",
+  "ar": "جزّئ كلمات المرور، وسجّل دخول المستخدمين بـ OAuth2 وتوكنات JWT، واحمِ المسارات بـ 401 و403."
+ },
+ "lessons": [
+  {
+   "id": "authn-vs-authz",
+   "title": {
+    "en": "Who are you? What may you do?",
+    "ar": "من أنت؟ وماذا يُسمح لك؟"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🔐",
+     "en": "Log in once, show your token every time",
+     "ar": "سجّل الدخول مرة، وأظهر التوكن (token) في كل طلب"
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🪪",
+       "color": "blue",
+       "title": {
+        "en": "Authentication",
+        "ar": "المصادقة (Authentication)"
+       },
+       "text": {
+        "en": "Who are you? Proved by password, then token.",
+        "ar": "من أنت؟ تُثبتها كلمة المرور ثم التوكن."
+       }
+      },
+      {
+       "icon": "🎟️",
+       "color": "purple",
+       "title": {
+        "en": "Authorization",
+        "ar": "التفويض (Authorization)"
+       },
+       "text": {
+        "en": "What may you do? Checked on every route.",
+        "ar": "ماذا يُسمح لك؟ يُفحص في كل مسار."
+       }
+      }
+     ]
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": "200",
+       "color": "green",
+       "label": {
+        "en": "allowed",
+        "ar": "مسموح"
+       }
+      },
+      {
+       "text": "401",
+       "color": "yellow",
+       "label": {
+        "en": "who are you?",
+        "ar": "من أنت؟"
+       }
+      },
+      {
+       "text": "403",
+       "color": "red",
+       "label": {
+        "en": "known, but not allowed",
+        "ar": "معروف لكن غير مسموح"
+       }
+      }
+     ]
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "🙋",
+       "label": {
+        "en": "client",
+        "ar": "العميل (client)"
+       }
+      },
+      {
+       "icon": "🔑",
+       "label": {
+        "en": "POST /token",
+        "ar": "POST /token"
+       }
+      },
+      {
+       "icon": "🎫",
+       "label": {
+        "en": "access token",
+        "ar": "توكن الوصول"
+       }
+      },
+      {
+       "icon": "🛡️",
+       "label": {
+        "en": "GET /users/me",
+        "ar": "GET /users/me"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "username + password",
+        "ar": "اسم المستخدم + كلمة المرور"
+       }
+      },
+      {
+       "label": {
+        "en": "signed JWT",
+        "ar": "JWT موقّع"
+       }
+      },
+      {
+       "label": {
+        "en": "Authorization: Bearer ...",
+        "ar": "Authorization: Bearer ..."
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🧂",
+       "color": "green",
+       "title": {
+        "en": "pwdlib",
+        "ar": "pwdlib"
+       },
+       "text": {
+        "en": "Hashes and checks passwords with argon2",
+        "ar": "يجزّئ كلمات المرور ويتحقق منها بـ argon2"
+       }
+      },
+      {
+       "icon": "🎫",
+       "color": "yellow",
+       "title": {
+        "en": "PyJWT",
+        "ar": "PyJWT"
+       },
+       "text": {
+        "en": "Signs and reads tokens: `jwt.encode` / `jwt.decode`",
+        "ar": "يوقّع التوكنات ويقرؤها: `jwt.encode` / `jwt.decode`"
+       }
+      },
+      {
+       "icon": "🛡️",
+       "color": "cyan",
+       "title": {
+        "en": "OAuth2PasswordBearer",
+        "ar": "OAuth2PasswordBearer"
+       },
+       "text": {
+        "en": "Reads the Bearer token from the request",
+        "ar": "يقرأ توكن Bearer من الطلب"
+       }
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "Install both: `pip install pyjwt \"pwdlib[argon2]\"`",
+     "ar": "ثبّت الاثنين: `pip install pyjwt \"pwdlib[argon2]\"`"
+    }
+   ]
+  },
+  {
+   "id": "hash-passwords",
+   "title": {
+    "en": "Never store plain passwords",
+    "ar": "لا تخزّن كلمات المرور كما هي أبدًا"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🧂",
+     "en": "Store a hash, never the password",
+     "ar": "خزّن الـ hash، لا كلمة المرور نفسها"
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "Plain password",
+       "ar": "كلمة مرور صريحة"
+      },
+      "tone": "bad",
+      "items": [
+       {
+        "en": "`secret123` saved as-is",
+        "ar": "`secret123` محفوظة كما هي"
+       },
+       {
+        "en": "A database leak exposes everyone",
+        "ar": "تسريب القاعدة يكشف الجميع"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "Hashed with argon2",
+       "ar": "مجزّأة بـ argon2"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "`$argon2id$...` saved instead",
+        "ar": "يُحفظ `$argon2id$...` بدلًا منها"
+       },
+       {
+        "en": "Cannot be turned back",
+        "ar": "لا يمكن عكسها"
+       },
+       {
+        "en": "Same password, different hash each time",
+        "ar": "نفس الكلمة، hash مختلف كل مرة"
+       }
+      ]
+     }
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from pwdlib import PasswordHash\n\npassword_hash = PasswordHash.recommended()  # argon2\n\nhashed = password_hash.hash(\"secret123\")\n# '$argon2id$v=19$m=65536,t=3,p=4$X8kL...$CH8Y...'\n\npassword_hash.verify(\"secret123\", hashed)  # True\npassword_hash.verify(\"Secret123\", hashed)  # False",
+     "highlight": [
+      3,
+      5,
+      8,
+      9
+     ]
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "$argon2id",
+       "color": "blue",
+       "label": {
+        "en": "algorithm",
+        "ar": "الخوارزمية"
+       }
+      },
+      {
+       "text": "$v=19$m=65536,t=3,p=4",
+       "color": "yellow",
+       "label": {
+        "en": "cost settings",
+        "ar": "إعدادات الكلفة"
+       }
+      },
+      {
+       "text": "$X8kL2xwROdMdP4Vode2GyQ",
+       "color": "purple",
+       "label": {
+        "en": "random salt",
+        "ar": "ملح (salt) عشوائي"
+       }
+      },
+      {
+       "text": "$CH8YFa0bAzPlOTNq83KeT...",
+       "color": "green",
+       "label": {
+        "en": "the hash",
+        "ar": "الـ hash"
+       }
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "The salt lives inside the hash, so `verify` needs only the password and hash.",
+     "ar": "الملح محفوظ داخل الـ hash، لذا يحتاج `verify` كلمة المرور والـ hash فقط."
+    }
+   ]
+  },
+  {
+   "id": "login-endpoint",
+   "title": {
+    "en": "The login endpoint",
+    "ar": "مسار تسجيل الدخول"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🔑",
+     "en": "POST /token trades a password for a token",
+     "ar": "POST /token يبادل كلمة المرور بتوكن"
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "POST /token",
+       "color": "blue",
+       "label": {
+        "en": "login route",
+        "ar": "مسار الدخول"
+       }
+      },
+      {
+       "text": "\n"
+      },
+      {
+       "text": "username=sara",
+       "color": "green",
+       "label": {
+        "en": "form field",
+        "ar": "حقل نموذج (form)"
+       }
+      },
+      {
+       "text": "&password=secret123",
+       "color": "yellow",
+       "label": {
+        "en": "form field",
+        "ar": "حقل نموذج (form)"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "def authenticate_user(username: str, password: str) -> UserInDB | None:\n    user = users_db.get(username)\n    if user is None or not password_hash.verify(password, user.hashed_password):\n        return None\n    return user",
+     "highlight": [
+      3,
+      4
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from fastapi.security import OAuth2PasswordRequestForm\n\n@app.post(\"/token\")\ndef login(form: Annotated[OAuth2PasswordRequestForm, Depends()]) -> Token:\n    user = authenticate_user(form.username, form.password)\n    if user is None:\n        raise HTTPException(status_code=401, detail=\"Incorrect username or password\",\n                            headers={\"WWW-Authenticate\": \"Bearer\"})\n    token = create_access_token(user.username, timedelta(minutes=30))\n    return Token(access_token=token, token_type=\"bearer\")",
+     "highlight": [
+      4,
+      7,
+      10
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "POST /token  username=sara&password=secret123",
+       "note": {
+        "en": "form data",
+        "ar": "بيانات form"
+       }
+      },
+      {
+       "from": "server",
+       "text": "200 OK  {\"access_token\": \"eyJhbGciOi...\", \"token_type\": \"bearer\"}",
+       "note": {
+        "en": "here is your token",
+        "ar": "هذا توكنك"
+       }
+      },
+      {
+       "from": "client",
+       "text": "POST /token  username=sara&password=oops",
+       "note": {
+        "en": "wrong password",
+        "ar": "كلمة مرور خاطئة"
+       }
+      },
+      {
+       "from": "server",
+       "text": "401 Unauthorized  {\"detail\": \"Incorrect username or password\"}",
+       "note": {
+        "en": "no token for you",
+        "ar": "لا توكن لك"
+       }
+      }
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "Login is form data, not JSON. A JSON body gets 422.",
+     "ar": "الدخول ببيانات form وليس JSON. جسم JSON يحصل على 422."
+    }
+   ]
+  },
+  {
+   "id": "jwt-tokens",
+   "title": {
+    "en": "JWT: a signed token",
+    "ar": "JWT: توكن موقّع"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🎫",
+     "en": "A JWT is three parts joined by dots",
+     "ar": "الـ JWT ثلاثة أجزاء تفصلها نقاط"
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+       "color": "blue",
+       "label": {
+        "en": "header",
+        "ar": "الترويسة (header)"
+       }
+      },
+      {
+       "text": "."
+      },
+      {
+       "text": "eyJzdWIiOiJzYXJhIiwiZXhwIjoxNzkzNjg0Mjc5fQ",
+       "color": "purple",
+       "label": {
+        "en": "payload",
+        "ar": "الحمولة (payload)"
+       }
+      },
+      {
+       "text": "."
+      },
+      {
+       "text": "q5-oOCPoANgNRg2OJ2CugEi2E2Oz17EwZtLmiPFBDIQ",
+       "color": "green",
+       "label": {
+        "en": "signature",
+        "ar": "التوقيع (signature)"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "📋",
+       "color": "blue",
+       "title": {
+        "en": "header",
+        "ar": "header"
+       },
+       "text": {
+        "en": "`{\"alg\": \"HS256\", \"typ\": \"JWT\"}`",
+        "ar": "`{\"alg\": \"HS256\", \"typ\": \"JWT\"}`"
+       }
+      },
+      {
+       "icon": "📦",
+       "color": "purple",
+       "title": {
+        "en": "payload",
+        "ar": "payload"
+       },
+       "text": {
+        "en": "`sub`: who it is. `exp`: when it expires.",
+        "ar": "`sub`: من هو. `exp`: متى ينتهي."
+       }
+      },
+      {
+       "icon": "✍️",
+       "color": "green",
+       "title": {
+        "en": "signature",
+        "ar": "signature"
+       },
+       "text": {
+        "en": "Made with `SECRET_KEY`. Edit anything and it breaks.",
+        "ar": "يُصنع بـ `SECRET_KEY`. عدّل أي شيء فينكسر."
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "import os\nfrom datetime import datetime, timedelta, timezone\nimport jwt\n\nSECRET_KEY = os.environ[\"SECRET_KEY\"]  # never in code\nALGORITHM = \"HS256\"\n\ndef create_access_token(username: str, expires: timedelta) -> str:\n    payload = {\"sub\": username, \"exp\": datetime.now(timezone.utc) + expires}\n    return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)",
+     "highlight": [
+      5,
+      9,
+      10
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])\n# {'sub': 'sara', 'exp': 1793684279}\n# expired -> jwt.ExpiredSignatureError\n# wrong signature -> jwt.InvalidSignatureError",
+     "highlight": [
+      1,
+      3
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "The payload is only encoded, not encrypted. Anyone can read it: no secrets inside.",
+     "ar": "الحمولة مُرمَّزة فقط وليست مشفّرة. يستطيع أي أحد قراءتها: لا أسرار فيها."
+    },
+    {
+     "type": "tip",
+     "en": "Make a key with `openssl rand -hex 32` and keep it in an env variable.",
+     "ar": "أنشئ مفتاحًا بـ `openssl rand -hex 32` واحفظه في متغيّر بيئة."
+    }
+   ]
+  },
+  {
+   "id": "protect-routes",
+   "title": {
+    "en": "Protecting routes",
+    "ar": "حماية المسارات"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🛡️",
+     "en": "No valid token, no entry",
+     "ar": "لا توكن صالح، لا دخول"
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "Authorization",
+       "color": "blue",
+       "label": {
+        "en": "header name",
+        "ar": "اسم الترويسة"
+       }
+      },
+      {
+       "text": ": "
+      },
+      {
+       "text": "Bearer",
+       "color": "yellow",
+       "label": {
+        "en": "token type",
+        "ar": "نوع التوكن"
+       }
+      },
+      {
+       "text": " eyJhbGciOi...",
+       "color": "green",
+       "label": {
+        "en": "the JWT",
+        "ar": "الـ JWT"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "oauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")\ndef get_current_user(token: Annotated[str, Depends(oauth2_scheme)]) -> User:\n    error = HTTPException(401, \"Could not validate credentials\",\n                          headers={\"WWW-Authenticate\": \"Bearer\"})\n    try:\n        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])\n    except InvalidTokenError:  # bad signature or expired\n        raise error\n    user = users_db.get(payload.get(\"sub\"))\n    if user is None:\n        raise error\n    return user",
+     "highlight": [
+      1,
+      2,
+      3,
+      6,
+      7
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "CurrentUser = Annotated[User, Depends(get_current_user)]\n\n@app.get(\"/users/me\")\ndef read_me(user: CurrentUser) -> User:\n    return user\n\n@app.get(\"/admin/stats\")\ndef admin_stats(user: CurrentUser):\n    if not user.is_admin:\n        raise HTTPException(status_code=403, detail=\"Admins only\")\n    return {\"users\": len(users_db)}",
+     "highlight": [
+      1,
+      4,
+      9,
+      10
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "GET /users/me  Authorization: Bearer eyJhbGciOi...",
+       "note": {
+        "en": "valid token",
+        "ar": "توكن صالح"
+       }
+      },
+      {
+       "from": "server",
+       "text": "200 OK  {\"username\": \"sara\", \"is_admin\": false}"
+      },
+      {
+       "from": "client",
+       "text": "GET /users/me",
+       "note": {
+        "en": "no token",
+        "ar": "بدون توكن"
+       }
+      },
+      {
+       "from": "server",
+       "text": "401  {\"detail\": \"Not authenticated\"}  WWW-Authenticate: Bearer"
+      },
+      {
+       "from": "client",
+       "text": "GET /users/me  Authorization: Bearer <expired>",
+       "note": {
+        "en": "expired token",
+        "ar": "توكن منتهي"
+       }
+      },
+      {
+       "from": "server",
+       "text": "401  {\"detail\": \"Could not validate credentials\"}"
+      },
+      {
+       "from": "client",
+       "text": "GET /admin/stats  Authorization: Bearer eyJhbGciOi...",
+       "note": {
+        "en": "sara is not admin",
+        "ar": "sara ليست مشرفة"
+       }
+      },
+      {
+       "from": "server",
+       "text": "403  {\"detail\": \"Admins only\"}",
+       "note": {
+        "en": "known, not allowed",
+        "ar": "معروفة لكن غير مسموح"
+       }
+      }
+     ]
+    },
+    {
+     "type": "steps",
+     "items": [
+      {
+       "en": "Open `/docs` in the browser",
+       "ar": "افتح `/docs` في المتصفح"
+      },
+      {
+       "en": "Click the 🔒 Authorize button",
+       "ar": "اضغط زر 🔒 Authorize"
+      },
+      {
+       "en": "Type username and password",
+       "ar": "اكتب اسم المستخدم وكلمة المرور"
+      },
+      {
+       "en": "It calls `/token` for you",
+       "ar": "يستدعي `/token` نيابةً عنك"
+      },
+      {
+       "en": "Try `/users/me` → 200",
+       "ar": "جرّب `/users/me` ← 200"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "difficulty": "easy",
+   "question": {
+    "en": "Sara is logged in with a valid token but is not an admin. What does an admin-only route return?",
+    "ar": "سارة مسجّلة بتوكن صالح لكنها ليست مشرفة. ماذا يُرجع مسار خاص بالمشرفين؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "401 Unauthorized",
+     "ar": "401 Unauthorized"
+    },
+    {
+     "en": "404 Not Found",
+     "ar": "404 Not Found"
+    },
+    {
+     "en": "403 Forbidden",
+     "ar": "403 Forbidden"
+    },
+    {
+     "en": "422 Unprocessable",
+     "ar": "422 Unprocessable"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "She is authenticated (we know who she is) but not authorized for this route, so it is 403.",
+    "ar": "هي مُصادَقة (نعرف من هي) لكنها غير مفوَّضة لهذا المسار، لذا الرد 403."
+   }
+  },
+  {
+   "id": 2,
+   "difficulty": "easy",
+   "question": {
+    "en": "Why do we store `password_hash.hash(password)` instead of the password itself?",
+    "ar": "لماذا نخزّن `password_hash.hash(password)` بدلًا من كلمة المرور نفسها؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "A leaked database does not reveal passwords",
+     "ar": "تسريب القاعدة لا يكشف كلمات المرور"
+    },
+    {
+     "en": "Hashes make the login endpoint run faster",
+     "ar": "الـ hash يجعل مسار الدخول أسرع"
+    },
+    {
+     "en": "Hashes let us decrypt passwords when needed",
+     "ar": "الـ hash يسمح بفك كلمات المرور عند الحاجة"
+    },
+    {
+     "en": "JWT tokens can only carry hashed values",
+     "ar": "توكنات JWT تحمل القيم المجزّأة فقط"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "A hash cannot be turned back into the password, so a stolen database does not expose them.",
+    "ar": "لا يمكن إرجاع الـ hash إلى كلمة المرور، فلا تنكشف إذا سُرقت القاعدة."
+   }
+  },
+  {
+   "id": 3,
+   "difficulty": "easy",
+   "question": {
+    "en": "How does the client send username and password to `POST /token`?",
+    "ar": "كيف يرسل العميل اسم المستخدم وكلمة المرور إلى `POST /token`؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "As a JSON body",
+     "ar": "كجسم JSON"
+    },
+    {
+     "en": "As form data",
+     "ar": "كبيانات form"
+    },
+    {
+     "en": "As query parameters",
+     "ar": "كمعاملات استعلام (query)"
+    },
+    {
+     "en": "In the Bearer header",
+     "ar": "في ترويسة Bearer"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`OAuth2PasswordRequestForm` reads the `username` and `password` form fields.",
+    "ar": "`OAuth2PasswordRequestForm` يقرأ حقلي `username` و`password` من بيانات form."
+   }
+  },
+  {
+   "id": 4,
+   "difficulty": "medium",
+   "question": {
+    "en": "Login returned this. How should the client call `GET /users/me` next?",
+    "ar": "أرجع الدخول هذا. كيف يستدعي العميل `GET /users/me` بعده؟"
+   },
+   "codeSnippet": "POST /token  username=sara&password=secret123\n\n200 OK\n{\"access_token\": \"eyJhbGciOi...\", \"token_type\": \"bearer\"}",
+   "options": [
+    {
+     "en": "GET /users/me?token=eyJhbGciOi...",
+     "ar": "GET /users/me?token=eyJhbGciOi..."
+    },
+    {
+     "en": "Cookie: access_token=eyJhbGciOi...",
+     "ar": "Cookie: access_token=eyJhbGciOi..."
+    },
+    {
+     "en": "Authorization: Token eyJhbGciOi...",
+     "ar": "Authorization: Token eyJhbGciOi..."
+    },
+    {
+     "en": "Authorization: Bearer eyJhbGciOi...",
+     "ar": "Authorization: Bearer eyJhbGciOi..."
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`OAuth2PasswordBearer` reads the `Authorization` header with the `Bearer` scheme. Anything else gives 401.",
+    "ar": "`OAuth2PasswordBearer` يقرأ ترويسة `Authorization` بالنوع `Bearer`. أي شيء آخر يعطي 401."
+   }
+  },
+  {
+   "id": 5,
+   "difficulty": "medium",
+   "question": {
+    "en": "What does this code print?",
+    "ar": "ماذا يطبع هذا الكود؟"
+   },
+   "codeSnippet": "password_hash = PasswordHash.recommended()\na = password_hash.hash(\"cat\")\nb = password_hash.hash(\"cat\")\nprint(a == b, password_hash.verify(\"cat\", b))",
+   "options": [
+    {
+     "en": "True True",
+     "ar": "True True"
+    },
+    {
+     "en": "False True",
+     "ar": "False True"
+    },
+    {
+     "en": "True False",
+     "ar": "True False"
+    },
+    {
+     "en": "False False",
+     "ar": "False False"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "Each hash gets a new random salt, so `a != b`. `verify` still matches the password: `True`.",
+    "ar": "كل hash يأخذ ملحًا عشوائيًا جديدًا، فـ `a != b`. ويبقى `verify` مطابقًا لكلمة المرور: `True`."
+   }
+  },
+  {
+   "id": 6,
+   "difficulty": "medium",
+   "question": {
+    "en": "The route depends on `get_current_user`. What does this request return?",
+    "ar": "المسار يعتمد على `get_current_user`. ماذا يُرجع هذا الطلب؟"
+   },
+   "codeSnippet": "@app.get(\"/users/me\")\ndef read_me(user: CurrentUser) -> User:\n    return user\n\n# GET /users/me   (no Authorization header)",
+   "options": [
+    {
+     "en": "200 with `null`",
+     "ar": "200 مع `null`"
+    },
+    {
+     "en": "403 Forbidden",
+     "ar": "403 Forbidden"
+    },
+    {
+     "en": "401 Not authenticated",
+     "ar": "401 Not authenticated"
+    },
+    {
+     "en": "422 Field required",
+     "ar": "422 Field required"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "`OAuth2PasswordBearer` finds no token and answers 401 `Not authenticated` with `WWW-Authenticate: Bearer`.",
+    "ar": "لا يجد `OAuth2PasswordBearer` توكنًا فيرد 401 `Not authenticated` مع `WWW-Authenticate: Bearer`."
+   }
+  },
+  {
+   "id": 7,
+   "difficulty": "medium",
+   "question": {
+    "en": "Which statement about the JWT payload is true?",
+    "ar": "أي عبارة عن حمولة (payload) الـ JWT صحيحة؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "Anyone can read it, so keep secrets out",
+     "ar": "أي أحد يقرؤها، فلا تضع فيها أسرارًا"
+    },
+    {
+     "en": "Only the server can read it, it is encrypted",
+     "ar": "الخادم وحده يقرؤها لأنها مشفّرة"
+    },
+    {
+     "en": "It must contain the hashed password",
+     "ar": "يجب أن تحتوي كلمة المرور المجزّأة"
+    },
+    {
+     "en": "It is ignored when checking the signature",
+     "ar": "تُتجاهل عند فحص التوقيع"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "The payload is only base64-encoded and signed, not encrypted. Put `sub` and `exp` there, never secrets.",
+    "ar": "الحمولة مُرمَّزة base64 وموقّعة فقط، وليست مشفّرة. ضع فيها `sub` و`exp`، لا الأسرار."
+   }
+  },
+  {
+   "id": 8,
+   "difficulty": "hard",
+   "question": {
+    "en": "Sara's token has an `exp` 5 minutes in the past. What does `GET /users/me` return?",
+    "ar": "توكن سارة فيه `exp` قبل 5 دقائق. ماذا يُرجع `GET /users/me`؟"
+   },
+   "codeSnippet": "try:\n    payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])\nexcept InvalidTokenError:\n    raise error  # 401 \"Could not validate credentials\"\n\n# GET /users/me  Authorization: Bearer <expired token>",
+   "options": [
+    {
+     "en": "200, the signature is still valid",
+     "ar": "200، التوقيع ما زال صالحًا"
+    },
+    {
+     "en": "403, the user is no longer allowed",
+     "ar": "403، المستخدم لم يعد مسموحًا له"
+    },
+    {
+     "en": "500, ExpiredSignatureError is not caught",
+     "ar": "500، لا يُلتقط ExpiredSignatureError"
+    },
+    {
+     "en": "401, Could not validate credentials",
+     "ar": "401، Could not validate credentials"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`jwt.decode` raises `ExpiredSignatureError`, a subclass of `InvalidTokenError`, so the 401 is raised.",
+    "ar": "يرفع `jwt.decode` الخطأ `ExpiredSignatureError` وهو فرع من `InvalidTokenError`، فيُرفع خطأ 401."
+   }
+  },
+  {
+   "id": 9,
+   "difficulty": "hard",
+   "question": {
+    "en": "What happens with this login request?",
+    "ar": "ماذا يحدث مع طلب الدخول هذا؟"
+   },
+   "codeSnippet": "@app.post(\"/token\")\ndef login(form: Annotated[OAuth2PasswordRequestForm, Depends()]) -> Token:\n    ...\n\nPOST /token\nContent-Type: application/json\n{\"username\": \"sara\", \"password\": \"secret123\"}",
+   "options": [
+    {
+     "en": "200, FastAPI reads JSON as a form",
+     "ar": "200، يقرأ FastAPI الـ JSON كـ form"
+    },
+    {
+     "en": "401, Incorrect username or password",
+     "ar": "401، Incorrect username or password"
+    },
+    {
+     "en": "422, username and password missing",
+     "ar": "422، غياب username وpassword"
+    },
+    {
+     "en": "415, unsupported media type",
+     "ar": "415، نوع وسائط غير مدعوم"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "The form fields are not in the body, so validation fails: 422 with `username` and `password` missing.",
+    "ar": "حقول form غير موجودة في الجسم، فيفشل التحقق: 422 مع غياب `username` و`password`."
+   }
+  },
+  {
+   "id": 10,
+   "difficulty": "hard",
+   "question": {
+    "en": "An attacker edits the payload of Sara's valid token to `\"sub\": \"omar\"`, keeping the old signature. Result?",
+    "ar": "مهاجم عدّل حمولة توكن سارة الصالح إلى `\"sub\": \"omar\"` وأبقى التوقيع القديم. النتيجة؟"
+   },
+   "codeSnippet": "GET /users/me\nAuthorization: Bearer <sara header>.<edited payload: sub=omar>.<sara signature>",
+   "options": [
+    {
+     "en": "401, the signature no longer matches",
+     "ar": "401، التوقيع لم يعد مطابقًا"
+    },
+    {
+     "en": "200, now logged in as omar instead",
+     "ar": "200، أصبح الدخول باسم omar"
+    },
+    {
+     "en": "200, the old sub sara is still used",
+     "ar": "200، يبقى الـ sub القديم sara"
+    },
+    {
+     "en": "403, edited tokens are forbidden",
+     "ar": "403، التوكنات المعدَّلة ممنوعة"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "The signature covers header and payload. Changed payload, invalid signature: `jwt.decode` fails and returns 401.",
+    "ar": "التوقيع يغطي الترويسة والحمولة. تغيّرت الحمولة فبطل التوقيع: يفشل `jwt.decode` ويُرجع 401."
+   }
+  }
+ ]
+}

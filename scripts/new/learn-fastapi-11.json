@@ -1,0 +1,1185 @@
+{
+ "id": "deployment",
+ "icon": "🚀",
+ "title": {
+  "en": "Deploy to production",
+  "ar": "النشر إلى بيئة الإنتاج"
+ },
+ "summary": {
+  "en": "Run FastAPI in production with env-var config, a Docker image, health checks and HTTPS, then celebrate the whole course.",
+  "ar": "شغّل FastAPI في الإنتاج بإعدادات من متغيرات البيئة وصورة Docker وفحص صحة وHTTPS، ثم احتفل بإنهاء الدورة كاملة."
+ },
+ "lessons": [
+  {
+   "id": "dev-vs-production",
+   "title": {
+    "en": "Dev mode vs production mode",
+    "ar": "وضع التطوير مقابل وضع الإنتاج"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🏭",
+     "en": "`fastapi dev` to build, `fastapi run` to serve",
+     "ar": "`fastapi dev` للبناء، و`fastapi run` للتشغيل الفعلي"
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "`fastapi dev`",
+       "ar": "`fastapi dev`"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "Auto-reload on every save",
+        "ar": "إعادة تحميل تلقائية عند كل حفظ"
+       },
+       {
+        "en": "Listens on `127.0.0.1` only",
+        "ar": "يستمع على `127.0.0.1` فقط"
+       },
+       {
+        "en": "For your own laptop",
+        "ar": "لجهازك الشخصي"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "`fastapi run`",
+       "ar": "`fastapi run`"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "Reload off: fast and stable",
+        "ar": "بدون إعادة تحميل: سريع ومستقر"
+       },
+       {
+        "en": "Listens on `0.0.0.0`",
+        "ar": "يستمع على `0.0.0.0`"
+       },
+       {
+        "en": "Default port `8000`",
+        "ar": "المنفذ الافتراضي `8000`"
+       },
+       {
+        "en": "For servers and containers",
+        "ar": "للخوادم والحاويات"
+       }
+      ]
+     }
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "fastapi run",
+       "color": "blue",
+       "label": {
+        "en": "production mode",
+        "ar": "وضع الإنتاج"
+       }
+      },
+      {
+       "text": " app/main.py",
+       "color": "green",
+       "label": {
+        "en": "your app file",
+        "ar": "ملف تطبيقك"
+       }
+      },
+      {
+       "text": " --workers 4",
+       "color": "yellow",
+       "label": {
+        "en": "4 processes",
+        "ar": "4 عمليات (processes)"
+       }
+      },
+      {
+       "text": " --port 80",
+       "color": "purple",
+       "label": {
+        "en": "the port",
+        "ar": "المنفذ (port)"
+       }
+      }
+     ]
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": "127.0.0.1",
+       "color": "red",
+       "label": {
+        "en": "this machine only",
+        "ar": "هذا الجهاز فقط"
+       }
+      },
+      {
+       "text": "0.0.0.0",
+       "color": "green",
+       "label": {
+        "en": "all network interfaces",
+        "ar": "كل واجهات الشبكة"
+       }
+      },
+      {
+       "text": "8000",
+       "color": "blue",
+       "label": {
+        "en": "default port",
+        "ar": "المنفذ الافتراضي"
+       }
+      },
+      {
+       "text": "80",
+       "color": "purple",
+       "label": {
+        "en": "standard HTTP port",
+        "ar": "منفذ HTTP المعتاد"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "bash",
+     "code": "# development: reloads when you save\nfastapi dev main.py\n\n# production: no reload, 4 worker processes\nfastapi run main.py --workers 4 --port 8000",
+     "highlight": [
+      2,
+      5
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "`--workers` is ignored when reload is on. Never use reload in production.",
+     "ar": "يُتجاهَل `--workers` عند تفعيل إعادة التحميل. لا تستخدم reload في الإنتاج أبدًا."
+    },
+    {
+     "type": "tip",
+     "en": "More workers handle more requests at once. One per CPU core is a good start.",
+     "ar": "عمّال (workers) أكثر يعني طلبات أكثر في الوقت نفسه. ابدأ بواحد لكل نواة معالج."
+    }
+   ]
+  },
+  {
+   "id": "config-and-secrets",
+   "title": {
+    "en": "Config from environment variables",
+    "ar": "الإعدادات من متغيرات البيئة"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🔐",
+     "en": "Same code everywhere; settings come from the environment",
+     "ar": "الكود نفسه في كل مكان، والإعدادات تأتي من البيئة"
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "🖥️",
+       "label": {
+        "en": "Server env vars",
+        "ar": "متغيرات بيئة الخادم"
+       }
+      },
+      {
+       "icon": "📦",
+       "label": {
+        "en": "`Settings()`",
+        "ar": "`Settings()`"
+       }
+      },
+      {
+       "icon": "⚙️",
+       "label": {
+        "en": "Your app",
+        "ar": "تطبيقك"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "`SECRET_KEY=...`",
+        "ar": "`SECRET_KEY=...`"
+       }
+      },
+      {
+       "label": {
+        "en": "validated values",
+        "ar": "قيم مُتحقَّق منها"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from pydantic_settings import BaseSettings, SettingsConfigDict\n\nclass Settings(BaseSettings):\n    model_config = SettingsConfigDict(env_file=\".env\")\n    app_name: str = \"Todo API\"\n    secret_key: str        # required, no default\n    debug: bool = False\n\nsettings = Settings()     # env vars win over .env",
+     "highlight": [
+      4,
+      6,
+      9
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🥇",
+       "color": "green",
+       "title": {
+        "en": "Env var",
+        "ar": "متغير البيئة"
+       },
+       "text": {
+        "en": "Wins. Set it on the server or container.",
+        "ar": "له الأولوية. اضبطه على الخادم أو الحاوية."
+       }
+      },
+      {
+       "icon": "🥈",
+       "color": "yellow",
+       "title": {
+        "en": "`.env` file",
+        "ar": "ملف `.env`"
+       },
+       "text": {
+        "en": "Used only when the env var is missing.",
+        "ar": "يُستخدم فقط عند غياب متغير البيئة."
+       }
+      },
+      {
+       "icon": "🥉",
+       "color": "blue",
+       "title": {
+        "en": "Default in code",
+        "ar": "القيمة الافتراضية في الكود"
+       },
+       "text": {
+        "en": "Used when neither one is set.",
+        "ar": "تُستخدم عندما لا يوجد أيٌّ منهما."
+       }
+      }
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "Do",
+       "ar": "افعل"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "Read secrets from env vars",
+        "ar": "اقرأ الأسرار من متغيرات البيئة"
+       },
+       {
+        "en": "Keep `.env` on your laptop only",
+        "ar": "أبقِ `.env` على جهازك فقط"
+       },
+       {
+        "en": "Add `.env` to `.gitignore`",
+        "ar": "أضف `.env` إلى `.gitignore`"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "Don't",
+       "ar": "لا تفعل"
+      },
+      "tone": "bad",
+      "items": [
+       {
+        "en": "`SECRET_KEY = \"abc123\"` in code",
+        "ar": "`SECRET_KEY = \"abc123\"` داخل الكود"
+       },
+       {
+        "en": "Commit `.env` to git",
+        "ar": "رفع `.env` إلى git"
+       },
+       {
+        "en": "Copy `.env` into the image",
+        "ar": "نسخ `.env` داخل الصورة (image)"
+       }
+      ]
+     }
+    },
+    {
+     "type": "warn",
+     "en": "A missing required setting stops the app at startup with `ValidationError`.",
+     "ar": "إذا غاب إعداد مطلوب يتوقف التطبيق عند بدء التشغيل بخطأ `ValidationError`."
+    }
+   ]
+  },
+  {
+   "id": "docker-image",
+   "title": {
+    "en": "Pin requirements, build a Docker image",
+    "ar": "ثبّت المتطلبات وابنِ صورة Docker"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🐳",
+     "en": "Pack your app and its Python into one image",
+     "ar": "اجمع تطبيقك ومعه Python في صورة (image) واحدة"
+    },
+    {
+     "type": "code",
+     "lang": "text",
+     "code": "# requirements.txt: exact, pinned versions\nfastapi[standard]==0.162.0\npydantic-settings==2.15.0",
+     "highlight": [
+      2,
+      3
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "Pinned versions: every build installs exactly the same packages.",
+     "ar": "الإصدارات المثبّتة: كل بناء يثبّت الحزم نفسها تمامًا."
+    },
+    {
+     "type": "code",
+     "lang": "text",
+     "code": "FROM python:3.14-slim\n\nWORKDIR /code\n\nCOPY ./requirements.txt /code/requirements.txt\nRUN pip install --no-cache-dir --upgrade -r /code/requirements.txt\n\nCOPY ./app /code/app\n\nCMD [\"fastapi\", \"run\", \"app/main.py\", \"--port\", \"80\"]",
+     "highlight": [
+      5,
+      6,
+      8,
+      10
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "📄",
+       "color": "blue",
+       "title": {
+        "en": "Requirements first",
+        "ar": "المتطلبات أولًا"
+       },
+       "text": {
+        "en": "Copied alone, so its layer gets cached.",
+        "ar": "تُنسخ وحدها، فتُخزَّن طبقتها مؤقتًا (cache)."
+       }
+      },
+      {
+       "icon": "📦",
+       "color": "yellow",
+       "title": {
+        "en": "`pip install`",
+        "ar": "`pip install`"
+       },
+       "text": {
+        "en": "Re-runs only when `requirements.txt` changes.",
+        "ar": "لا يُعاد إلا عند تغيّر `requirements.txt`."
+       }
+      },
+      {
+       "icon": "🐍",
+       "color": "green",
+       "title": {
+        "en": "Code last",
+        "ar": "الكود أخيرًا"
+       },
+       "text": {
+        "en": "A code edit rebuilds only this quick step.",
+        "ar": "تعديل الكود يعيد بناء هذه الخطوة السريعة فقط."
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "text",
+     "code": "# .dockerignore: never send these into the image\n.env\n.git\n.venv\n__pycache__\n*.pyc",
+     "highlight": [
+      2
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "bash",
+     "code": "docker build -t todo-api ."
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "docker run -d",
+       "color": "blue",
+       "label": {
+        "en": "run in background",
+        "ar": "تشغيل في الخلفية"
+       }
+      },
+      {
+       "text": " -p 8000:80",
+       "color": "yellow",
+       "label": {
+        "en": "your port : container port",
+        "ar": "منفذك : منفذ الحاوية"
+       }
+      },
+      {
+       "text": " -e SECRET_KEY=change-me",
+       "color": "red",
+       "label": {
+        "en": "an env var",
+        "ar": "متغير بيئة"
+       }
+      },
+      {
+       "text": " todo-api",
+       "color": "green",
+       "label": {
+        "en": "image name",
+        "ar": "اسم الصورة"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "production-ready",
+   "title": {
+    "en": "HTTPS proxy, health checks and logs",
+    "ar": "وكيل HTTPS وفحص الصحة والسجلات"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🛡️",
+     "en": "Behind HTTPS, healthy, and easy to debug",
+     "ar": "خلف HTTPS، سليم، وسهل التتبّع"
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "🌍",
+       "label": {
+        "en": "Browser",
+        "ar": "المتصفح"
+       }
+      },
+      {
+       "icon": "🔒",
+       "label": {
+        "en": "HTTPS proxy",
+        "ar": "وكيل HTTPS (proxy)"
+       }
+      },
+      {
+       "icon": "🐳",
+       "label": {
+        "en": "Container on port 80",
+        "ar": "الحاوية على المنفذ 80"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "HTTPS :443",
+        "ar": "HTTPS :443"
+       }
+      },
+      {
+       "label": {
+        "en": "HTTP + `X-Forwarded-*`",
+        "ar": "HTTP + `X-Forwarded-*`"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "text",
+     "code": "# trust X-Forwarded-Proto: the app sees https\nCMD [\"fastapi\", \"run\", \"app/main.py\", \"--proxy-headers\", \"--port\", \"80\"]",
+     "highlight": [
+      2
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "Proxy on another machine? Also trust its IP with `--forwarded-allow-ips`.",
+     "ar": "الوكيل على جهاز آخر؟ ثِق بعنوان IP الخاص به أيضًا عبر `--forwarded-allow-ips`."
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "import logging\n\nlogging.basicConfig(level=logging.INFO)\nlogger = logging.getLogger(\"app\")\n\n@app.get(\"/health\")\ndef health():\n    logger.info(\"health check\")  # never log secrets\n    return {\"status\": \"ok\"}",
+     "highlight": [
+      3,
+      6,
+      9
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "GET /health",
+       "note": {
+        "en": "the host checks in",
+        "ar": "المنصة تطمئن على التطبيق"
+       }
+      },
+      {
+       "from": "server",
+       "text": "200 OK  {\"status\": \"ok\"}",
+       "note": {
+        "en": "alive: keep sending traffic",
+        "ar": "يعمل: استمر بإرسال الطلبات"
+       }
+      }
+     ]
+    },
+    {
+     "type": "steps",
+     "items": [
+      {
+       "en": "`fastapi run`, reload off",
+       "ar": "`fastapi run` بدون reload"
+      },
+      {
+       "en": "Secrets in env vars, not git",
+       "ar": "الأسرار في متغيرات البيئة لا في git"
+      },
+      {
+       "en": "Pinned `requirements.txt`",
+       "ar": "`requirements.txt` بإصدارات مثبّتة"
+      },
+      {
+       "en": "`.dockerignore` excludes `.env`",
+       "ar": "`.dockerignore` يستبعد `.env`"
+      },
+      {
+       "en": "`/health` returns 200",
+       "ar": "`/health` يُرجع 200"
+      },
+      {
+       "en": "HTTPS proxy plus `--proxy-headers`",
+       "ar": "وكيل HTTPS مع `--proxy-headers`"
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🐳",
+       "color": "cyan",
+       "title": {
+        "en": "Container host",
+        "ar": "منصة حاويات"
+       },
+       "text": {
+        "en": "Runs your image; set env vars there.",
+        "ar": "تشغّل صورتك، واضبط متغيرات البيئة هناك."
+       }
+      },
+      {
+       "icon": "☁️",
+       "color": "purple",
+       "title": {
+        "en": "PaaS",
+        "ar": "منصة PaaS"
+       },
+       "text": {
+        "en": "Push code or an image; HTTPS often included.",
+        "ar": "ارفع الكود أو الصورة، وغالبًا يأتي HTTPS جاهزًا."
+       }
+      },
+      {
+       "icon": "🖥️",
+       "color": "blue",
+       "title": {
+        "en": "Your own server",
+        "ar": "خادمك الخاص"
+       },
+       "text": {
+        "en": "Docker plus a reverse proxy for HTTPS.",
+        "ar": "Docker مع وكيل عكسي (reverse proxy) لـ HTTPS."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "course-complete",
+   "title": {
+    "en": "You finished the course!",
+    "ar": "أنهيت الدورة!"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🎉",
+     "en": "11 levels done: you can build and ship APIs",
+     "ar": "أنهيت 11 مستوى: صرت تبني الـ APIs وتنشرها"
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🌐",
+       "color": "blue",
+       "title": {
+        "en": "1 · Web basics",
+        "ar": "1 · أساسيات الويب"
+       },
+       "text": {
+        "en": "HTTP, methods, status codes and JSON",
+        "ar": "HTTP والطرق ورموز الحالة وJSON"
+       }
+      },
+      {
+       "icon": "👋",
+       "color": "green",
+       "title": {
+        "en": "2 · First app",
+        "ar": "2 · التطبيق الأول"
+       },
+       "text": {
+        "en": "`fastapi dev` and the automatic `/docs`",
+        "ar": "`fastapi dev` وصفحة `/docs` التلقائية"
+       }
+      },
+      {
+       "icon": "🧭",
+       "color": "yellow",
+       "title": {
+        "en": "3 · Parameters",
+        "ar": "3 · المعاملات"
+       },
+       "text": {
+        "en": "Path and query parameters with validation",
+        "ar": "معاملات المسار والاستعلام مع التحقق"
+       }
+      },
+      {
+       "icon": "📦",
+       "color": "purple",
+       "title": {
+        "en": "4 · Request bodies",
+        "ar": "4 · جسم الطلب"
+       },
+       "text": {
+        "en": "Pydantic models in, responses out",
+        "ar": "نماذج Pydantic للدخول والاستجابات للخروج"
+       }
+      },
+      {
+       "icon": "🗂️",
+       "color": "cyan",
+       "title": {
+        "en": "5 · CRUD API",
+        "ar": "5 · CRUD API"
+       },
+       "text": {
+        "en": "Create, read, update, delete, plus `Depends`",
+        "ar": "إنشاء وقراءة وتعديل وحذف، مع `Depends`"
+       }
+      },
+      {
+       "icon": "🗄️",
+       "color": "red",
+       "title": {
+        "en": "6 · Databases",
+        "ar": "6 · قواعد البيانات"
+       },
+       "text": {
+        "en": "Data that survives restarts",
+        "ar": "بيانات تبقى بعد إعادة التشغيل"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🔐",
+       "color": "purple",
+       "title": {
+        "en": "7 · Auth",
+        "ar": "7 · المصادقة (Auth)"
+       },
+       "text": {
+        "en": "Logins, tokens and protected routes",
+        "ar": "تسجيل الدخول والـ tokens والمسارات المحمية"
+       }
+      },
+      {
+       "icon": "🧩",
+       "color": "blue",
+       "title": {
+        "en": "8 · Routers & settings",
+        "ar": "8 · الموجّهات والإعدادات"
+       },
+       "text": {
+        "en": "`APIRouter` files and `pydantic-settings`",
+        "ar": "ملفات `APIRouter` و`pydantic-settings`"
+       }
+      },
+      {
+       "icon": "🧱",
+       "color": "yellow",
+       "title": {
+        "en": "9 · Middleware & uploads",
+        "ar": "9 · الوسيط ورفع الملفات"
+       },
+       "text": {
+        "en": "Middleware, CORS and file uploads",
+        "ar": "الوسيط (middleware) وCORS ورفع الملفات"
+       }
+      },
+      {
+       "icon": "⚡",
+       "color": "cyan",
+       "title": {
+        "en": "10 · Async & WebSockets",
+        "ar": "10 · Async وWebSockets"
+       },
+       "text": {
+        "en": "`async def` and live two-way messages",
+        "ar": "`async def` ورسائل حيّة في الاتجاهين"
+       }
+      },
+      {
+       "icon": "🚀",
+       "color": "green",
+       "title": {
+        "en": "11 · Deployment",
+        "ar": "11 · النشر"
+       },
+       "text": {
+        "en": "Docker, env vars, health checks, HTTPS",
+        "ar": "Docker ومتغيرات البيئة وفحص الصحة وHTTPS"
+       }
+      }
+     ]
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "💡",
+       "label": {
+        "en": "Idea",
+        "ar": "فكرة"
+       }
+      },
+      {
+       "icon": "💻",
+       "label": {
+        "en": "`fastapi dev`",
+        "ar": "`fastapi dev`"
+       }
+      },
+      {
+       "icon": "🐳",
+       "label": {
+        "en": "Docker image",
+        "ar": "صورة Docker"
+       }
+      },
+      {
+       "icon": "🌍",
+       "label": {
+        "en": "Live API",
+        "ar": "API منشورة"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "code",
+        "ar": "برمجة"
+       }
+      },
+      {
+       "label": {
+        "en": "build",
+        "ar": "بناء"
+       }
+      },
+      {
+       "label": {
+        "en": "deploy",
+        "ar": "نشر"
+       }
+      }
+     ]
+    },
+    {
+     "type": "steps",
+     "items": [
+      {
+       "en": "Build a small project of your own",
+       "ar": "ابنِ مشروعًا صغيرًا خاصًا بك"
+      },
+      {
+       "en": "Write tests for every route",
+       "ar": "اكتب اختبارات لكل مسار"
+      },
+      {
+       "en": "Deploy it and share the link",
+       "ar": "انشره وشارك الرابط"
+      },
+      {
+       "en": "Explore the official FastAPI docs",
+       "ar": "تصفّح توثيق FastAPI الرسمي"
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "Congratulations! Keep building: every real project teaches you something new.",
+     "ar": "مبروك! واصل البناء: كل مشروع حقيقي يعلّمك شيئًا جديدًا."
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "difficulty": "easy",
+   "question": {
+    "en": "Which command runs a FastAPI app in production mode, with reload off?",
+    "ar": "أي أمر يشغّل تطبيق FastAPI في وضع الإنتاج، بدون إعادة تحميل؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "`fastapi dev main.py`",
+     "ar": "`fastapi dev main.py`"
+    },
+    {
+     "en": "`fastapi run main.py`",
+     "ar": "`fastapi run main.py`"
+    },
+    {
+     "en": "`python main.py --prod`",
+     "ar": "`python main.py --prod`"
+    },
+    {
+     "en": "`fastapi start main.py`",
+     "ar": "`fastapi start main.py`"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`fastapi run` is production mode: no auto-reload, listening on `0.0.0.0`. `fastapi dev` is for development.",
+    "ar": "`fastapi run` هو وضع الإنتاج: بدون إعادة تحميل ويستمع على `0.0.0.0`. أما `fastapi dev` فللتطوير."
+   }
+  },
+  {
+   "id": 2,
+   "difficulty": "easy",
+   "question": {
+    "en": "What is a `/health` endpoint for?",
+    "ar": "ما فائدة المسار `/health`؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "Lets the host check the app is alive",
+     "ar": "يتيح للمنصة التأكد أن التطبيق يعمل"
+    },
+    {
+     "en": "Shows the app's secret settings",
+     "ar": "يعرض إعدادات التطبيق السرية"
+    },
+    {
+     "en": "Restarts the app when it crashes",
+     "ar": "يعيد تشغيل التطبيق عند تعطّله"
+    },
+    {
+     "en": "Lists every route in the API",
+     "ar": "يعرض كل مسارات الـ API"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "The host or load balancer calls `/health`; a 200 response means the app is up and can receive traffic.",
+    "ar": "تستدعي المنصة أو موزّع الحمل `/health`، والرد 200 يعني أن التطبيق يعمل ويمكنه استقبال الطلبات."
+   }
+  },
+  {
+   "id": 3,
+   "difficulty": "easy",
+   "question": {
+    "en": "Where should a production `SECRET_KEY` come from?",
+    "ar": "من أين يجب أن يأتي `SECRET_KEY` في الإنتاج؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "A constant in `main.py`",
+     "ar": "ثابت داخل `main.py`"
+    },
+    {
+     "en": "A `.env` file committed to git",
+     "ar": "ملف `.env` مرفوع إلى git"
+    },
+    {
+     "en": "A query parameter on each request",
+     "ar": "معامل استعلام في كل طلب"
+    },
+    {
+     "en": "An environment variable on the server",
+     "ar": "متغير بيئة على الخادم"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "Secrets live in environment variables set on the server. Never in code or git; `.env` is only for your laptop.",
+    "ar": "الأسرار مكانها متغيرات البيئة على الخادم، لا الكود ولا git. ملف `.env` لجهازك فقط."
+   }
+  },
+  {
+   "id": 4,
+   "difficulty": "medium",
+   "question": {
+    "en": "Why does this Dockerfile copy `requirements.txt` before the app code?",
+    "ar": "لماذا ينسخ ملف Dockerfile هذا `requirements.txt` قبل كود التطبيق؟"
+   },
+   "codeSnippet": "FROM python:3.14-slim\n\nWORKDIR /code\n\nCOPY ./requirements.txt /code/requirements.txt\nRUN pip install --no-cache-dir --upgrade -r /code/requirements.txt\n\nCOPY ./app /code/app\n\nCMD [\"fastapi\", \"run\", \"app/main.py\", \"--port\", \"80\"]",
+   "options": [
+    {
+     "en": "Docker can copy only one file per step",
+     "ar": "Docker ينسخ ملفًا واحدًا فقط في كل خطوة"
+    },
+    {
+     "en": "pip cannot read files inside `/code/app`",
+     "ar": "pip لا يقرأ الملفات داخل `/code/app`"
+    },
+    {
+     "en": "Code edits reuse the cached pip install layer",
+     "ar": "تعديل الكود يعيد استخدام طبقة pip المخزّنة"
+    },
+    {
+     "en": "It makes the final image smaller on disk",
+     "ar": "يجعل الصورة النهائية أصغر حجمًا"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "Layers are cached. If only code changes, Docker reuses the `pip install` layer and rebuilds just the last steps.",
+    "ar": "الطبقات تُخزَّن مؤقتًا. إذا تغيّر الكود فقط يعيد Docker استخدام طبقة `pip install` ويبني الخطوات الأخيرة فقط."
+   }
+  },
+  {
+   "id": 5,
+   "difficulty": "medium",
+   "question": {
+    "en": "Both a `.env` file and a real environment variable set `SECRET_KEY`. What is printed?",
+    "ar": "ملف `.env` ومتغير بيئة حقيقي كلاهما يضبط `SECRET_KEY`. ماذا يُطبع؟"
+   },
+   "codeSnippet": "# .env file:      SECRET_KEY=from-dotenv\n# server env var: SECRET_KEY=from-env-var\n\nclass Settings(BaseSettings):\n    model_config = SettingsConfigDict(env_file=\".env\")\n    secret_key: str\n\nprint(Settings().secret_key)",
+   "options": [
+    {
+     "en": "from-env-var",
+     "ar": "from-env-var"
+    },
+    {
+     "en": "from-dotenv",
+     "ar": "from-dotenv"
+    },
+    {
+     "en": "from-dotenv,from-env-var",
+     "ar": "from-dotenv,from-env-var"
+    },
+    {
+     "en": "ValidationError: duplicate value",
+     "ar": "ValidationError: duplicate value"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "In `pydantic-settings`, a real environment variable wins over the `.env` file.",
+    "ar": "في `pydantic-settings` تكون الأولوية لمتغير البيئة الحقيقي على ملف `.env`."
+   }
+  },
+  {
+   "id": 6,
+   "difficulty": "medium",
+   "question": {
+    "en": "What happens with this command?",
+    "ar": "ماذا يحدث مع هذا الأمر؟"
+   },
+   "codeSnippet": "$ fastapi run main.py --reload --workers 4",
+   "options": [
+    {
+     "en": "4 workers start, each reloading on save",
+     "ar": "تبدأ 4 عمليات، وكلٌّ منها يعيد التحميل عند الحفظ"
+    },
+    {
+     "en": "It fails: the two flags cannot combine",
+     "ar": "يفشل: لا يمكن الجمع بين الخيارين"
+    },
+    {
+     "en": "4 workers start and reload is ignored",
+     "ar": "تبدأ 4 عمليات ويُتجاهَل reload"
+    },
+    {
+     "en": "Reload runs; the workers flag is ignored",
+     "ar": "يعمل reload ويُتجاهَل خيار workers"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "Uvicorn warns that `workers` is ignored when reloading is enabled, so one reloading process runs.",
+    "ar": "يحذّر Uvicorn بأن `workers` يُتجاهَل عند تفعيل إعادة التحميل، فتعمل عملية واحدة تعيد التحميل."
+   }
+  },
+  {
+   "id": 7,
+   "difficulty": "medium",
+   "question": {
+    "en": "The image runs `fastapi run` on port 80. Which URL reaches the API from your own computer?",
+    "ar": "الصورة تشغّل `fastapi run` على المنفذ 80. أي رابط يصل إلى الـ API من جهازك؟"
+   },
+   "codeSnippet": "$ docker run -d -p 8000:80 -e SECRET_KEY=change-me todo-api",
+   "options": [
+    {
+     "en": "http://localhost:80",
+     "ar": "http://localhost:80"
+    },
+    {
+     "en": "http://localhost:8000",
+     "ar": "http://localhost:8000"
+    },
+    {
+     "en": "http://localhost:8080",
+     "ar": "http://localhost:8080"
+    },
+    {
+     "en": "http://0.0.0.0:443",
+     "ar": "http://0.0.0.0:443"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`-p 8000:80` maps your port 8000 to the container's port 80, so you open `http://localhost:8000`.",
+    "ar": "`-p 8000:80` يربط المنفذ 8000 على جهازك بالمنفذ 80 في الحاوية، فتفتح `http://localhost:8000`."
+   }
+  },
+  {
+   "id": 8,
+   "difficulty": "hard",
+   "question": {
+    "en": "The app starts with no `SECRET_KEY` anywhere. What happens?",
+    "ar": "يبدأ التطبيق ولا يوجد `SECRET_KEY` في أي مكان. ماذا يحدث؟"
+   },
+   "codeSnippet": "# app/main.py\nclass Settings(BaseSettings):\n    model_config = SettingsConfigDict(env_file=\".env\")\n    app_name: str = \"Todo API\"\n    secret_key: str\n\nsettings = Settings()\napp = FastAPI(title=settings.app_name)\n\n# no SECRET_KEY env var, no .env file\n# $ fastapi run app/main.py",
+   "options": [
+    {
+     "en": "It starts; `secret_key` becomes `None`",
+     "ar": "يعمل، ويصبح `secret_key` قيمة `None`"
+    },
+    {
+     "en": "It starts; the first request returns 500",
+     "ar": "يعمل، وأول طلب يُرجع 500"
+    },
+    {
+     "en": "It stops at startup with `ValidationError`",
+     "ar": "يتوقف عند البدء بخطأ `ValidationError`"
+    },
+    {
+     "en": "It starts; `secret_key` becomes `\"\"`",
+     "ar": "يعمل، ويصبح `secret_key` نصًا فارغًا `\"\"`"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "`secret_key` has no default, so `Settings()` raises `ValidationError` (Field required) on import and the app never starts.",
+    "ar": "ليس لـ `secret_key` قيمة افتراضية، فيرفع `Settings()` خطأ `ValidationError` (Field required) عند الاستيراد ولا يبدأ التطبيق."
+   }
+  },
+  {
+   "id": 9,
+   "difficulty": "hard",
+   "question": {
+    "en": "The project folder has a `.env` with real secrets. What is the problem?",
+    "ar": "مجلد المشروع فيه ملف `.env` بأسرار حقيقية. ما المشكلة؟"
+   },
+   "codeSnippet": "# .dockerignore\n.git\n.venv\n\n# Dockerfile\nCOPY . /code",
+   "options": [
+    {
+     "en": "The build fails because `.env` is hidden",
+     "ar": "يفشل البناء لأن `.env` ملف مخفي"
+    },
+    {
+     "en": "The secrets get baked into the image",
+     "ar": "تُحفَظ الأسرار داخل الصورة نفسها"
+    },
+    {
+     "en": "Docker deletes `.env` after copying it",
+     "ar": "يحذف Docker ملف `.env` بعد نسخه"
+    },
+    {
+     "en": "The container ignores every `-e` variable",
+     "ar": "تتجاهل الحاوية كل متغيرات `-e`"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`.env` is not in `.dockerignore`, so `COPY .` puts it in the image. Anyone with the image can read it.",
+    "ar": "`.env` غير موجود في `.dockerignore`، فينسخه `COPY .` إلى الصورة، ويستطيع أي شخص لديه الصورة قراءته."
+   }
+  },
+  {
+   "id": 10,
+   "difficulty": "hard",
+   "question": {
+    "en": "The trusted HTTPS proxy forwards this request to the app. What is returned?",
+    "ar": "وكيل HTTPS الموثوق يمرّر هذا الطلب إلى التطبيق. ماذا يُرجع؟"
+   },
+   "codeSnippet": "# CMD [\"fastapi\", \"run\", \"app/main.py\", \"--proxy-headers\", \"--port\", \"80\"]\n\n@app.get(\"/scheme\")\ndef scheme(request: Request):\n    return {\"scheme\": request.url.scheme}\n\n# from the proxy:\nGET /scheme\nX-Forwarded-Proto: https",
+   "options": [
+    {
+     "en": "{\"scheme\": \"http\"}",
+     "ar": "{\"scheme\": \"http\"}"
+    },
+    {
+     "en": "{\"scheme\": \"tcp\"}",
+     "ar": "{\"scheme\": \"tcp\"}"
+    },
+    {
+     "en": "{\"scheme\": null}",
+     "ar": "{\"scheme\": null}"
+    },
+    {
+     "en": "{\"scheme\": \"https\"}",
+     "ar": "{\"scheme\": \"https\"}"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "With proxy headers on and the proxy trusted, the app reads `X-Forwarded-Proto` and sees `https`.",
+    "ar": "مع تفعيل proxy headers والوثوق بالوكيل، يقرأ التطبيق `X-Forwarded-Proto` فيرى `https`."
+   }
+  }
+ ]
+}

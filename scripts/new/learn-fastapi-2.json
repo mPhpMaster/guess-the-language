@@ -1,5 +1,6 @@
 {
  "id": "first-app",
+ "icon": "👋",
  "title": {
   "en": "Your first FastAPI app",
   "ar": "تطبيقك الأول بـ FastAPI"

@@ -1,5 +1,6 @@
 {
  "id": "web-basics",
+ "icon": "🌐",
  "title": {
   "en": "Web basics: HTTP, APIs and JSON",
   "ar": "أساسيات الويب: HTTP والـ APIs والـ JSON"

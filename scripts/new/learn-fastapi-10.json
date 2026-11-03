@@ -1,0 +1,1029 @@
+{
+ "id": "async-websockets",
+ "icon": "⚡",
+ "title": {
+  "en": "Async and WebSockets",
+  "ar": "Async وWebSockets"
+ },
+ "summary": {
+  "en": "Wait without blocking with async/await, call other APIs concurrently, and build a live WebSocket chat.",
+  "ar": "انتظر دون تعطيل باستخدام async/await، واستدعِ APIs أخرى بالتوازي، وابنِ دردشة مباشرة بـ WebSocket."
+ },
+ "lessons": [
+  {
+   "id": "waiting-without-blocking",
+   "title": {
+    "en": "Async: waiting without blocking",
+    "ar": "Async: الانتظار دون تعطيل"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "☕",
+     "en": "Wait smart: start the next job meanwhile",
+     "ar": "انتظر بذكاء: ابدأ المهمة التالية أثناء الانتظار"
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "Blocking: one at a time",
+       "ar": "Blocking: واحدة تلو الأخرى"
+      },
+      "tone": "bad",
+      "items": [
+       {
+        "en": "Boil water, stare at kettle",
+        "ar": "اغلِ الماء وحدّق في الإبريق"
+       },
+       {
+        "en": "Only then start the toast",
+        "ar": "ثم ابدأ تحميص الخبز"
+       },
+       {
+        "en": "Total: 2 seconds",
+        "ar": "المجموع: ثانيتان"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "Async: overlap the waiting",
+       "ar": "Async: تداخل أوقات الانتظار"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "Start water, then start toast",
+        "ar": "ابدأ الماء ثم ابدأ الخبز"
+       },
+       {
+        "en": "Both wait at the same time",
+        "ar": "كلاهما ينتظر في الوقت نفسه"
+       },
+       {
+        "en": "Total: 1 second",
+        "ar": "المجموع: ثانية واحدة"
+       }
+      ]
+     }
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🏷️",
+       "color": "purple",
+       "title": {
+        "en": "async def",
+        "ar": "async def"
+       },
+       "text": {
+        "en": "Defines a function that can pause",
+        "ar": "تعرّف دالة يمكنها التوقف مؤقتًا"
+       }
+      },
+      {
+       "icon": "⏸️",
+       "color": "yellow",
+       "title": {
+        "en": "await",
+        "ar": "await"
+       },
+       "text": {
+        "en": "Pause here; let other tasks run meanwhile",
+        "ar": "توقّف هنا ودع المهام الأخرى تعمل في الأثناء"
+       }
+      },
+      {
+       "icon": "🔄",
+       "color": "cyan",
+       "title": {
+        "en": "Event loop",
+        "ar": "حلقة الأحداث (event loop)"
+       },
+       "text": {
+        "en": "Runs whichever task is ready next",
+        "ar": "تشغّل أي مهمة أصبحت جاهزة"
+       }
+      }
+     ]
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "🅰️",
+       "label": {
+        "en": "Task A awaits",
+        "ar": "المهمة A تنتظر"
+       }
+      },
+      {
+       "icon": "🔄",
+       "label": {
+        "en": "Event loop",
+        "ar": "حلقة الأحداث"
+       }
+      },
+      {
+       "icon": "🅱️",
+       "label": {
+        "en": "Task B runs",
+        "ar": "المهمة B تعمل"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "pauses",
+        "ar": "تتوقف مؤقتًا"
+       }
+      },
+      {
+       "label": {
+        "en": "switches",
+        "ar": "تنتقل"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "import asyncio\n\nasync def make_tea():\n    await asyncio.sleep(1)  # wait 1s, without blocking\n    return \"tea\"\n\nasync def main():\n    tea = await make_tea()\n    print(tea)  # tea\n\nasyncio.run(main())",
+     "highlight": [
+      3,
+      4,
+      8,
+      11
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "Calling `make_tea()` without `await` gives a coroutine object, not \"tea\".",
+     "ar": "استدعاء `make_tea()` بدون `await` يعطي كائن coroutine وليس \"tea\"."
+    }
+   ]
+  },
+  {
+   "id": "async-def-vs-def",
+   "title": {
+    "en": "`async def` or `def`?",
+    "ar": "`async def` أم `def`؟"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🧵",
+     "en": "FastAPI accepts both kinds of endpoints",
+     "ar": "FastAPI يقبل النوعين من دوال المسارات"
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🧵",
+       "color": "blue",
+       "title": {
+        "en": "def",
+        "ar": "def"
+       },
+       "text": {
+        "en": "Runs in a threadpool, so blocking code is OK",
+        "ar": "تعمل في مجموعة خيوط (threadpool)، فالكود المعطِّل مقبول"
+       }
+      },
+      {
+       "icon": "⚡",
+       "color": "purple",
+       "title": {
+        "en": "async def",
+        "ar": "async def"
+       },
+       "text": {
+        "en": "Runs on the event loop; use `await` for waiting",
+        "ar": "تعمل على حلقة الأحداث؛ استخدم `await` للانتظار"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "import asyncio, time\n\n@app.get(\"/report\")\ndef report():  # plain def -> threadpool\n    time.sleep(1)  # OK here\n    return {\"ready\": True}\n\n@app.get(\"/ping\")\nasync def ping():  # async def -> event loop\n    await asyncio.sleep(1)  # never time.sleep here!\n    return {\"pong\": True}",
+     "highlight": [
+      4,
+      5,
+      9,
+      10
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "Inside `async def`: do",
+       "ar": "داخل `async def`: افعل"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "`await asyncio.sleep(1)`",
+        "ar": "`await asyncio.sleep(1)`"
+       },
+       {
+        "en": "`await client.get(url)` with httpx",
+        "ar": "`await client.get(url)` مع httpx"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "Inside `async def`: never",
+       "ar": "داخل `async def`: أبدًا"
+      },
+      "tone": "bad",
+      "items": [
+       {
+        "en": "`time.sleep(1)`",
+        "ar": "`time.sleep(1)`"
+       },
+       {
+        "en": "Slow libraries without `await`",
+        "ar": "مكتبات بطيئة بدون `await`"
+       }
+      ]
+     }
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": "def + time.sleep",
+       "color": "green",
+       "label": {
+        "en": "3 requests ≈ 1s",
+        "ar": "3 طلبات ≈ 1 ثانية"
+       }
+      },
+      {
+       "text": "async def + await",
+       "color": "green",
+       "label": {
+        "en": "3 requests ≈ 1s",
+        "ar": "3 طلبات ≈ 1 ثانية"
+       }
+      },
+      {
+       "text": "async def + time.sleep",
+       "color": "red",
+       "label": {
+        "en": "3 requests ≈ 3s",
+        "ar": "3 طلبات ≈ 3 ثوانٍ"
+       }
+      }
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "`time.sleep` inside `async def` freezes the event loop, so every request waits.",
+     "ar": "`time.sleep` داخل `async def` يجمّد حلقة الأحداث، فتنتظر كل الطلبات."
+    }
+   ]
+  },
+  {
+   "id": "httpx-and-gather",
+   "title": {
+    "en": "Call other APIs, all at once",
+    "ar": "استدعِ APIs أخرى دفعة واحدة"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🛰️",
+     "en": "Your API can call other APIs",
+     "ar": "الـ API الخاصة بك تستطيع استدعاء APIs أخرى"
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "💻",
+       "label": {
+        "en": "Client",
+        "ar": "العميل"
+       }
+      },
+      {
+       "icon": "⚡",
+       "label": {
+        "en": "Your FastAPI app",
+        "ar": "تطبيق FastAPI الخاص بك"
+       }
+      },
+      {
+       "icon": "🌦️",
+       "label": {
+        "en": "Weather API",
+        "ar": "API الطقس"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "GET /trip/Riyadh",
+        "ar": "GET /trip/Riyadh"
+       }
+      },
+      {
+       "label": {
+        "en": "await client.get(...)",
+        "ar": "await client.get(...)"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "import httpx\n\n@app.get(\"/trip/{city}\")\nasync def trip(city: str):\n    async with httpx.AsyncClient() as client:\n        r = await client.get(f\"https://weather.example.com/{city}\")\n    return {\"city\": city, \"temp\": r.json()[\"temp\"]}",
+     "highlight": [
+      5,
+      6
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "One by one",
+       "ar": "واحدًا تلو الآخر"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "`await` request A (1s)",
+        "ar": "`await` للطلب A (ثانية)"
+       },
+       {
+        "en": "then `await` request B (1s)",
+        "ar": "ثم `await` للطلب B (ثانية)"
+       },
+       {
+        "en": "Total ≈ 2s",
+        "ar": "المجموع ≈ ثانيتان"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "`asyncio.gather`",
+       "ar": "`asyncio.gather`"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "Start A and B together",
+        "ar": "ابدأ A وB معًا"
+       },
+       {
+        "en": "Total ≈ 1s",
+        "ar": "المجموع ≈ ثانية واحدة"
+       }
+      ]
+     }
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "@app.get(\"/compare\")\nasync def compare():\n    async with httpx.AsyncClient() as client:\n        r1, r2 = await asyncio.gather(\n            client.get(\"https://weather.example.com/Riyadh\"),\n            client.get(\"https://weather.example.com/Jeddah\"),\n        )\n    return [r1.json(), r2.json()]",
+     "highlight": [
+      4,
+      5,
+      6
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "`gather` returns results in the order you passed them, not finish order.",
+     "ar": "`gather` يُرجع النتائج بترتيب تمريرها، لا بترتيب انتهائها."
+    }
+   ]
+  },
+  {
+   "id": "websocket-basics",
+   "title": {
+    "en": "WebSockets: a two-way line",
+    "ar": "WebSockets: خط مفتوح في الاتجاهين"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "📞",
+     "en": "WebSocket: a phone call, not letters",
+     "ar": "WebSocket: مكالمة هاتفية لا رسائل بريدية"
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "HTTP",
+       "ar": "HTTP"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "Client asks, server answers",
+        "ar": "العميل يسأل والخادم يجيب"
+       },
+       {
+        "en": "A new request every time",
+        "ar": "طلب جديد في كل مرة"
+       },
+       {
+        "en": "Server never speaks first",
+        "ar": "الخادم لا يبدأ الكلام أبدًا"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "WebSocket",
+       "ar": "WebSocket"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "One connection stays open",
+        "ar": "اتصال واحد يبقى مفتوحًا"
+       },
+       {
+        "en": "Both sides send any time",
+        "ar": "الطرفان يرسلان في أي وقت"
+       },
+       {
+        "en": "Great for chat and live updates",
+        "ar": "ممتاز للدردشة والتحديثات المباشرة"
+       }
+      ]
+     }
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "ws://",
+       "color": "blue",
+       "label": {
+        "en": "WebSocket protocol",
+        "ar": "بروتوكول WebSocket"
+       }
+      },
+      {
+       "text": "localhost",
+       "color": "green",
+       "label": {
+        "en": "host",
+        "ar": "المضيف (host)"
+       }
+      },
+      {
+       "text": ":8000",
+       "color": "yellow",
+       "label": {
+        "en": "port",
+        "ar": "المنفذ (port)"
+       }
+      },
+      {
+       "text": "/ws",
+       "color": "purple",
+       "label": {
+        "en": "path",
+        "ar": "المسار (path)"
+       }
+      }
+     ]
+    },
+    {
+     "type": "steps",
+     "items": [
+      {
+       "en": "Client connects to `/ws`",
+       "ar": "العميل يتصل بـ `/ws`"
+      },
+      {
+       "en": "Server: `await websocket.accept()`",
+       "ar": "الخادم: `await websocket.accept()`"
+      },
+      {
+       "en": "Loop: `receive_text` then `send_text`",
+       "ar": "حلقة: `receive_text` ثم `send_text`"
+      },
+      {
+       "en": "Client leaves → `WebSocketDisconnect`",
+       "ar": "العميل يغادر ← `WebSocketDisconnect`"
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from fastapi import FastAPI, WebSocket, WebSocketDisconnect\napp = FastAPI()\n\n@app.websocket(\"/ws\")\nasync def echo(websocket: WebSocket):\n    await websocket.accept()\n    try:\n        while True:\n            text = await websocket.receive_text()\n            await websocket.send_text(f\"You said: {text}\")\n    except WebSocketDisconnect:\n        print(\"client left\")",
+     "highlight": [
+      4,
+      6,
+      9,
+      10,
+      11
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "hi",
+       "note": {
+        "en": "client sends",
+        "ar": "العميل يرسل"
+       }
+      },
+      {
+       "from": "server",
+       "text": "You said: hi",
+       "note": {
+        "en": "same connection",
+        "ar": "الاتصال نفسه"
+       }
+      },
+      {
+       "from": "client",
+       "text": "bye"
+      },
+      {
+       "from": "server",
+       "text": "You said: bye",
+       "note": {
+        "en": "still open",
+        "ar": "ما زال مفتوحًا"
+       }
+      }
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "Skip `accept()` and the connection fails before any message.",
+     "ar": "إذا تخطّيت `accept()` يفشل الاتصال قبل أي رسالة."
+    }
+   ]
+  },
+  {
+   "id": "chat-broadcast-and-testing",
+   "title": {
+    "en": "Group chat and testing it",
+    "ar": "دردشة جماعية واختبارها"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "💬",
+     "en": "One message in, everyone gets it",
+     "ar": "رسالة واحدة تدخل، ويستلمها الجميع"
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "👩",
+       "label": {
+        "en": "Sara sends hello",
+        "ar": "سارة ترسل hello"
+       }
+      },
+      {
+       "icon": "📡",
+       "label": {
+        "en": "ConnectionManager",
+        "ar": "ConnectionManager"
+       }
+      },
+      {
+       "icon": "👥",
+       "label": {
+        "en": "Every open connection",
+        "ar": "كل الاتصالات المفتوحة"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "receive_text",
+        "ar": "receive_text"
+       }
+      },
+      {
+       "label": {
+        "en": "broadcast",
+        "ar": "broadcast"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "class ConnectionManager:\n    def __init__(self):\n        self.active: list[WebSocket] = []\n    async def connect(self, ws: WebSocket):\n        await ws.accept()\n        self.active.append(ws)\n    def disconnect(self, ws: WebSocket):\n        self.active.remove(ws)\n    async def broadcast(self, msg: str):\n        for ws in self.active:\n            await ws.send_text(msg)\nmanager = ConnectionManager()",
+     "highlight": [
+      3,
+      6,
+      8,
+      11
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "@app.websocket(\"/ws/{name}\")\nasync def chat(websocket: WebSocket, name: str):\n    await manager.connect(websocket)\n    try:\n        while True:\n            text = await websocket.receive_text()\n            await manager.broadcast(f\"{name}: {text}\")\n    except WebSocketDisconnect:\n        manager.disconnect(websocket)\n        await manager.broadcast(f\"{name} left\")",
+     "highlight": [
+      3,
+      7,
+      9,
+      10
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "hello",
+       "note": {
+        "en": "Sara sends",
+        "ar": "سارة ترسل"
+       }
+      },
+      {
+       "from": "server",
+       "text": "sara: hello",
+       "note": {
+        "en": "to Sara and Omar",
+        "ar": "إلى سارة وعمر"
+       }
+      },
+      {
+       "from": "server",
+       "text": "omar left",
+       "note": {
+        "en": "Omar disconnected",
+        "ar": "عمر قطع الاتصال"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from fastapi.testclient import TestClient\nclient = TestClient(app)\n\ndef test_chat():\n    with client.websocket_connect(\"/ws/sara\") as a:\n        with client.websocket_connect(\"/ws/omar\") as b:\n            a.send_text(\"hello\")\n            assert a.receive_text() == \"sara: hello\"\n            assert b.receive_text() == \"sara: hello\"",
+     "highlight": [
+      5,
+      6,
+      7,
+      9
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "The `active` list lives in memory, so it works within one server process.",
+     "ar": "القائمة `active` موجودة في الذاكرة، لذا تعمل داخل عملية خادم واحدة فقط."
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "difficulty": "easy",
+   "question": {
+    "en": "What does `await` do inside an `async def` function?",
+    "ar": "ماذا تفعل `await` داخل دالة `async def`؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "Stops the whole server until it ends",
+     "ar": "توقف الخادم كله حتى تنتهي"
+    },
+    {
+     "en": "Pauses this task so others can run",
+     "ar": "توقف هذه المهمة مؤقتًا لتعمل غيرها"
+    },
+    {
+     "en": "Runs the code in a new process",
+     "ar": "تشغّل الكود في عملية (process) جديدة"
+    },
+    {
+     "en": "Makes the function run two times",
+     "ar": "تجعل الدالة تعمل مرتين"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`await` pauses only the current task. The event loop runs other ready tasks meanwhile.",
+    "ar": "`await` توقف المهمة الحالية فقط، وتشغّل حلقة الأحداث المهام الجاهزة الأخرى في الأثناء."
+   }
+  },
+  {
+   "id": 2,
+   "difficulty": "easy",
+   "question": {
+    "en": "Which decorator creates a WebSocket endpoint in FastAPI?",
+    "ar": "أي مزخرف (decorator) ينشئ مسار WebSocket في FastAPI؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "@app.websocket(\"/ws\")",
+     "ar": "@app.websocket(\"/ws\")"
+    },
+    {
+     "en": "@app.get(\"/ws\")",
+     "ar": "@app.get(\"/ws\")"
+    },
+    {
+     "en": "@app.socket(\"/ws\")",
+     "ar": "@app.socket(\"/ws\")"
+    },
+    {
+     "en": "@app.post(\"/ws\")",
+     "ar": "@app.post(\"/ws\")"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "WebSocket routes use `@app.websocket(...)`; `@app.get` and `@app.post` are for HTTP.",
+    "ar": "مسارات WebSocket تستخدم `@app.websocket(...)`، أما `@app.get` و`@app.post` فهي لـ HTTP."
+   }
+  },
+  {
+   "id": 3,
+   "difficulty": "easy",
+   "question": {
+    "en": "What must a WebSocket endpoint call before receiving or sending messages?",
+    "ar": "ماذا يجب أن تستدعي دالة WebSocket قبل استقبال الرسائل أو إرسالها؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "websocket.open()",
+     "ar": "websocket.open()"
+    },
+    {
+     "en": "await websocket.connect()",
+     "ar": "await websocket.connect()"
+    },
+    {
+     "en": "await websocket.accept()",
+     "ar": "await websocket.accept()"
+    },
+    {
+     "en": "websocket.start()",
+     "ar": "websocket.start()"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "The server must `await websocket.accept()` first; without it the connection fails.",
+    "ar": "يجب على الخادم أولًا `await websocket.accept()`؛ وبدونها يفشل الاتصال."
+   }
+  },
+  {
+   "id": 4,
+   "difficulty": "medium",
+   "question": {
+    "en": "About how long does `main()` take to finish?",
+    "ar": "كم يستغرق `main()` تقريبًا حتى ينتهي؟"
+   },
+   "codeSnippet": "async def make_tea():\n    await asyncio.sleep(1)\n    return \"tea\"\n\nasync def make_toast():\n    await asyncio.sleep(1)\n    return \"toast\"\n\nasync def main():\n    return await asyncio.gather(make_tea(), make_toast())",
+   "options": [
+    {
+     "en": "About 2 seconds",
+     "ar": "حوالي ثانيتين"
+    },
+    {
+     "en": "About 0.5 seconds",
+     "ar": "حوالي نصف ثانية"
+    },
+    {
+     "en": "It raises an error",
+     "ar": "يرفع خطأ"
+    },
+    {
+     "en": "About 1 second",
+     "ar": "حوالي ثانية واحدة"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`gather` runs both together, so their 1-second waits overlap: about 1 second total.",
+    "ar": "`gather` يشغّلهما معًا فيتداخل انتظار كل منهما لثانية: المجموع حوالي ثانية واحدة."
+   }
+  },
+  {
+   "id": 5,
+   "difficulty": "medium",
+   "question": {
+    "en": "Three requests hit `/report` at the same moment. About when is the last one answered?",
+    "ar": "ثلاثة طلبات تصل إلى `/report` في اللحظة نفسها. متى تقريبًا يُجاب آخرها؟"
+   },
+   "codeSnippet": "@app.get(\"/report\")\nasync def report():\n    time.sleep(1)\n    return {\"ready\": True}",
+   "options": [
+    {
+     "en": "After about 1 second; they overlap",
+     "ar": "بعد حوالي ثانية؛ تتداخل"
+    },
+    {
+     "en": "After about 3 seconds; one at a time",
+     "ar": "بعد حوالي 3 ثوانٍ؛ واحدًا تلو الآخر"
+    },
+    {
+     "en": "Instantly; FastAPI skips the sleep",
+     "ar": "فورًا؛ يتخطى FastAPI الانتظار"
+    },
+    {
+     "en": "Never; all three get error 422",
+     "ar": "أبدًا؛ تحصل الثلاثة على الخطأ 422"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`time.sleep` blocks the event loop inside `async def`, so requests run one after another.",
+    "ar": "`time.sleep` يعطّل حلقة الأحداث داخل `async def`، فتُنفَّذ الطلبات واحدًا تلو الآخر."
+   }
+  },
+  {
+   "id": 6,
+   "difficulty": "medium",
+   "question": {
+    "en": "Where does FastAPI run a plain `def` endpoint?",
+    "ar": "أين يشغّل FastAPI دالة مسار عادية معرّفة بـ `def`؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "On the event loop, blocking it",
+     "ar": "على حلقة الأحداث فيعطّلها"
+    },
+    {
+     "en": "In the browser of the client",
+     "ar": "في متصفح العميل"
+    },
+    {
+     "en": "In a threadpool, off the loop",
+     "ar": "في threadpool بعيدًا عن الحلقة"
+    },
+    {
+     "en": "Only after async endpoints finish",
+     "ar": "فقط بعد انتهاء دوال async"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "FastAPI runs `def` endpoints in a threadpool, so blocking code there does not freeze the loop.",
+    "ar": "يشغّل FastAPI دوال `def` في threadpool، فالكود المعطِّل فيها لا يجمّد الحلقة."
+   }
+  },
+  {
+   "id": 7,
+   "difficulty": "medium",
+   "question": {
+    "en": "With the echo endpoint below, what does `ws.receive_text()` return?",
+    "ar": "مع دالة الصدى أدناه، ماذا يُرجع `ws.receive_text()`؟"
+   },
+   "codeSnippet": "@app.websocket(\"/ws\")\nasync def echo(websocket: WebSocket):\n    await websocket.accept()\n    try:\n        while True:\n            text = await websocket.receive_text()\n            await websocket.send_text(f\"You said: {text}\")\n    except WebSocketDisconnect:\n        pass\n\n# test\nwith client.websocket_connect(\"/ws\") as ws:\n    ws.send_text(\"hi\")\n    print(ws.receive_text())",
+   "options": [
+    {
+     "en": "You said: hi",
+     "ar": "You said: hi"
+    },
+    {
+     "en": "You said: {text}",
+     "ar": "You said: {text}"
+    },
+    {
+     "en": "hi",
+     "ar": "hi"
+    },
+    {
+     "en": "The connection closes",
+     "ar": "يُغلق الاتصال"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "The server reads \"hi\" and sends back `f\"You said: {text}\"` on the same connection.",
+    "ar": "يقرأ الخادم \"hi\" ويرسل `f\"You said: {text}\"` على الاتصال نفسه."
+   }
+  },
+  {
+   "id": 8,
+   "difficulty": "hard",
+   "question": {
+    "en": "Sara and Omar are both connected to the chat. Sara sends \"hello\". What does Omar receive?",
+    "ar": "سارة وعمر متصلان بالدردشة. أرسلت سارة \"hello\". ماذا يستلم عمر؟"
+   },
+   "codeSnippet": "@app.websocket(\"/ws/{name}\")\nasync def chat(websocket: WebSocket, name: str):\n    await manager.connect(websocket)\n    try:\n        while True:\n            text = await websocket.receive_text()\n            await manager.broadcast(f\"{name}: {text}\")\n    except WebSocketDisconnect:\n        manager.disconnect(websocket)",
+   "options": [
+    {
+     "en": "Nothing; only Sara gets it",
+     "ar": "لا شيء؛ سارة فقط تستلمها"
+    },
+    {
+     "en": "hello",
+     "ar": "hello"
+    },
+    {
+     "en": "omar: hello",
+     "ar": "omar: hello"
+    },
+    {
+     "en": "sara: hello",
+     "ar": "sara: hello"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`broadcast` sends to every active connection, using the sender's name: \"sara: hello\".",
+    "ar": "`broadcast` يرسل إلى كل الاتصالات النشطة باسم المرسِل: \"sara: hello\"."
+   }
+  },
+  {
+   "id": 9,
+   "difficulty": "hard",
+   "question": {
+    "en": "In the chat endpoint, why wrap the loop in `try/except WebSocketDisconnect`?",
+    "ar": "في دالة الدردشة، لماذا نضع الحلقة داخل `try/except WebSocketDisconnect`؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "To make messages arrive faster",
+     "ar": "لتصل الرسائل أسرع"
+    },
+    {
+     "en": "To clean up when a client leaves",
+     "ar": "للتنظيف عند مغادرة العميل"
+    },
+    {
+     "en": "To accept connections automatically",
+     "ar": "لقبول الاتصالات تلقائيًا"
+    },
+    {
+     "en": "To turn the socket into HTTP",
+     "ar": "لتحويل الاتصال إلى HTTP"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "When a client leaves, `receive_text` raises `WebSocketDisconnect`; we remove it from the manager.",
+    "ar": "عند مغادرة العميل يرفع `receive_text` الخطأ `WebSocketDisconnect`، فنحذفه من المدير."
+   }
+  },
+  {
+   "id": 10,
+   "difficulty": "hard",
+   "question": {
+    "en": "What does this code print?",
+    "ar": "ماذا يطبع هذا الكود؟"
+   },
+   "codeSnippet": "async def slow(x, delay):\n    await asyncio.sleep(delay)\n    return x\n\nasync def main():\n    print(await asyncio.gather(slow(\"A\", 0.3), slow(\"B\", 0.1)))\n\nasyncio.run(main())",
+   "options": [
+    {
+     "en": "['B', 'A']",
+     "ar": "['B', 'A']"
+    },
+    {
+     "en": "['A']",
+     "ar": "['A']"
+    },
+    {
+     "en": "['A', 'B']",
+     "ar": "['A', 'B']"
+    },
+    {
+     "en": "['B']",
+     "ar": "['B']"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "`gather` returns results in the order the tasks were passed, even though B finished first.",
+    "ar": "`gather` يُرجع النتائج بترتيب تمرير المهام، مع أن B انتهت أولًا."
+   }
+  }
+ ]
+}

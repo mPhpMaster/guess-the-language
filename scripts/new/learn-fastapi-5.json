@@ -1,5 +1,6 @@
 {
  "id": "crud-api",
+ "icon": "🗂️",
  "title": {
   "en": "Build a CRUD API",
   "ar": "بناء واجهة CRUD API"
