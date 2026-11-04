@@ -13,6 +13,15 @@ const fs = require('fs');
 const path = require('path');
 
 const COURSES = {
+  'from-zero': {
+    id: 'from-zero',
+    files: 'zero', // scripts/new/learn-zero-<n>.json
+    title: { en: 'From Zero to your first API', ar: 'من الصفر إلى أول API لك' },
+    summary: {
+      en: 'Never programmed? Start here: computers, links, protocols, Python — then your first API.',
+      ar: 'لم تبرمج من قبل؟ ابدأ هنا: الحاسوب، الروابط، البروتوكولات، Python — ثم أول API لك.'
+    }
+  },
   fastapi: {
     id: 'fastapi',
     title: { en: 'Build an API with FastAPI', ar: 'ابنِ API باستخدام FastAPI' },
@@ -29,13 +38,14 @@ if (!meta) { console.error(`usage: build-course.js <${Object.keys(COURSES).join(
 
 const dir = path.join(__dirname, 'new');
 const files = fs.readdirSync(dir)
-  .map((f) => ({ f, m: f.match(new RegExp(`^learn-${id}-(\\d+)\\.json$`)) }))
+  .map((f) => ({ f, m: f.match(new RegExp(`^learn-${meta.files || id}-(\\d+)\\.json$`)) }))
   .filter((x) => x.m)
   .sort((a, b) => Number(a.m[1]) - Number(b.m[1]));
 if (!files.length) { console.error('no level files found'); process.exit(1); }
 
 const levels = files.map(({ f }) => JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')));
-const course = { ...meta, levels };
+const { files: _files, ...courseMeta } = meta;
+const course = { ...courseMeta, levels };
 const out = path.join(__dirname, '..', 'src', 'data', 'courses', `${id}.json`);
 fs.mkdirSync(path.dirname(out), { recursive: true });
 fs.writeFileSync(out, JSON.stringify(course, null, 1) + '\n');

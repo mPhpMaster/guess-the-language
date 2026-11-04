@@ -1,0 +1,1225 @@
+{
+ "id": "internet-and-links",
+ "icon": "🌍",
+ "title": {
+  "en": "The internet and links",
+  "ar": "الإنترنت والروابط"
+ },
+ "summary": {
+  "en": "How computers find each other online, and what every part of a link means.",
+  "ar": "كيف تجد الحواسيب بعضها على الإنترنت، وماذا يعني كل جزء من الرابط."
+ },
+ "lessons": [
+  {
+   "id": "what-is-the-internet",
+   "title": {
+    "en": "The internet: clients and servers",
+    "ar": "الإنترنت: العملاء والخوادم"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🌍",
+     "en": "The internet is computers talking to each other",
+     "ar": "الإنترنت حواسيب يتحدث بعضها مع بعض"
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "📱",
+       "label": {
+        "en": "Your phone",
+        "ar": "هاتفك"
+       }
+      },
+      {
+       "icon": "📡",
+       "label": {
+        "en": "Router and cables",
+        "ar": "الراوتر والكابلات"
+       }
+      },
+      {
+       "icon": "🖥️",
+       "label": {
+        "en": "A computer far away",
+        "ar": "حاسوب بعيد"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "Wi-Fi",
+        "ar": "الـ Wi-Fi"
+       }
+      },
+      {
+       "label": {
+        "en": "cables, even undersea",
+        "ar": "كابلات، حتى تحت البحر"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🧑",
+       "color": "blue",
+       "title": {
+        "en": "Customer = client",
+        "ar": "الزبون = العميل (client)"
+       },
+       "text": {
+        "en": "Your browser or app; it asks for things",
+        "ar": "متصفحك أو تطبيقك؛ هو الذي يطلب"
+       }
+      },
+      {
+       "icon": "🧾",
+       "color": "yellow",
+       "title": {
+        "en": "Order = request",
+        "ar": "الطلب = request"
+       },
+       "text": {
+        "en": "\"Give me this page, please\"",
+        "ar": "«أعطني هذه الصفحة من فضلك»"
+       }
+      },
+      {
+       "icon": "👨‍🍳",
+       "color": "green",
+       "title": {
+        "en": "Kitchen = server",
+        "ar": "المطبخ = الخادم (server)"
+       },
+       "text": {
+        "en": "Prepares what you asked for and sends it",
+        "ar": "يجهّز ما طلبته ويرسله إليك"
+       }
+      },
+      {
+       "icon": "🍽️",
+       "color": "purple",
+       "title": {
+        "en": "Dish = response",
+        "ar": "الطبق = الاستجابة (response)"
+       },
+       "text": {
+        "en": "The page, photo or data you receive",
+        "ar": "الصفحة أو الصورة أو البيانات التي تصلك"
+       }
+      }
+     ]
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "💻",
+       "label": {
+        "en": "Client (browser)",
+        "ar": "العميل (المتصفح)"
+       }
+      },
+      {
+       "icon": "🖥️",
+       "label": {
+        "en": "Server",
+        "ar": "الخادم"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "request",
+        "ar": "طلب (request)"
+       }
+      }
+     ],
+     "returns": {
+      "en": "response",
+      "ar": "استجابة (response)"
+     }
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": "google.com",
+       "color": "blue",
+       "label": {
+        "en": "search server",
+        "ar": "خادم بحث"
+       }
+      },
+      {
+       "text": "youtube.com",
+       "color": "red",
+       "label": {
+        "en": "video server",
+        "ar": "خادم فيديو"
+       }
+      },
+      {
+       "text": "wikipedia.org",
+       "color": "green",
+       "label": {
+        "en": "article server",
+        "ar": "خادم مقالات"
+       }
+      },
+      {
+       "text": "your-app",
+       "color": "purple",
+       "label": {
+        "en": "soon: yours!",
+        "ar": "قريبًا: خادمك أنت!"
+       }
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "A server is just a computer that is always on, waiting for requests.",
+     "ar": "الخادم (server) مجرد حاسوب يعمل دائمًا وينتظر الطلبات."
+    }
+   ]
+  },
+  {
+   "id": "ip-addresses-and-dns",
+   "title": {
+    "en": "IP addresses and DNS",
+    "ar": "عناوين IP ونظام DNS"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "📞",
+     "en": "Every computer online has a number, like a phone",
+     "ar": "لكل حاسوب على الإنترنت رقم، مثل رقم الهاتف"
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "104",
+       "color": "blue",
+       "label": {
+        "en": "0 to 255",
+        "ar": "من 0 إلى 255"
+       }
+      },
+      {
+       "text": "."
+      },
+      {
+       "text": "20",
+       "color": "green",
+       "label": {
+        "en": "0 to 255",
+        "ar": "من 0 إلى 255"
+       }
+      },
+      {
+       "text": "."
+      },
+      {
+       "text": "23",
+       "color": "yellow",
+       "label": {
+        "en": "0 to 255",
+        "ar": "من 0 إلى 255"
+       }
+      },
+      {
+       "text": "."
+      },
+      {
+       "text": "154",
+       "color": "purple",
+       "label": {
+        "en": "0 to 255",
+        "ar": "من 0 إلى 255"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🔢",
+       "color": "blue",
+       "title": {
+        "en": "IP address",
+        "ar": "عنوان IP (IP address)"
+       },
+       "text": {
+        "en": "The computer's number, e.g. `104.20.23.154`",
+        "ar": "رقم الحاسوب، مثل `104.20.23.154`"
+       }
+      },
+      {
+       "icon": "4️⃣",
+       "color": "green",
+       "title": {
+        "en": "IPv4",
+        "ar": "الـ IPv4"
+       },
+       "text": {
+        "en": "Four numbers from 0 to 255, joined by dots",
+        "ar": "أربعة أرقام من 0 إلى 255 بينها نقاط"
+       }
+      },
+      {
+       "icon": "📒",
+       "color": "yellow",
+       "title": {
+        "en": "DNS = contacts app",
+        "ar": "الـ DNS = تطبيق جهات الاتصال"
+       },
+       "text": {
+        "en": "You type a name, it finds the number",
+        "ar": "تكتب الاسم، فيجد لك الرقم"
+       }
+      }
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "example.com ?",
+       "note": {
+        "en": "what is its number?",
+        "ar": "ما رقمه؟"
+       }
+      },
+      {
+       "from": "server",
+       "text": "104.20.23.154",
+       "note": {
+        "en": "DNS answers with the IP",
+        "ar": "الـ DNS يجيب بعنوان IP"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "text",
+     "code": "> nslookup example.com\nName:    example.com\nAddresses:  172.66.147.243\n            104.20.23.154",
+     "highlight": [
+      1,
+      3,
+      4
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "`nslookup` asks DNS yourself. Big sites have several IPs, and they can change.",
+     "ar": "الأمر `nslookup` يسأل الـ DNS بنفسك. للمواقع الكبيرة عدة عناوين IP، وقد تتغيّر."
+    }
+   ]
+  },
+  {
+   "id": "url-scheme-domain-port",
+   "title": {
+    "en": "A link, part 1: scheme, domain, port",
+    "ar": "الرابط، الجزء 1: البروتوكول والنطاق والمنفذ"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🔗",
+     "en": "A link (URL) is a full address",
+     "ar": "الرابط (URL) عنوان كامل"
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "https",
+       "color": "purple",
+       "label": {
+        "en": "scheme (protocol)",
+        "ar": "الـ scheme (البروتوكول)"
+       }
+      },
+      {
+       "text": "://"
+      },
+      {
+       "text": "shop.example.com",
+       "color": "blue",
+       "label": {
+        "en": "domain",
+        "ar": "النطاق (domain)"
+       }
+      },
+      {
+       "text": ":443",
+       "color": "cyan",
+       "label": {
+        "en": "port",
+        "ar": "المنفذ (port)"
+       }
+      },
+      {
+       "text": "/products/42",
+       "color": "green",
+       "label": {
+        "en": "path",
+        "ar": "المسار (path)"
+       }
+      },
+      {
+       "text": "?color=red",
+       "color": "yellow",
+       "label": {
+        "en": "query string",
+        "ar": "الـ query string"
+       }
+      },
+      {
+       "text": "#reviews",
+       "color": "red",
+       "label": {
+        "en": "fragment",
+        "ar": "الـ fragment"
+       }
+      }
+     ]
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "shop",
+       "color": "green",
+       "label": {
+        "en": "subdomain",
+        "ar": "النطاق الفرعي (subdomain)"
+       }
+      },
+      {
+       "text": "."
+      },
+      {
+       "text": "example",
+       "color": "blue",
+       "label": {
+        "en": "domain name",
+        "ar": "اسم النطاق (domain name)"
+       }
+      },
+      {
+       "text": "."
+      },
+      {
+       "text": "com",
+       "color": "yellow",
+       "label": {
+        "en": "TLD (top-level domain)",
+        "ar": "الـ TLD (النطاق العلوي)"
+       }
+      }
+     ]
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": ".com",
+       "color": "blue",
+       "label": {
+        "en": "commercial",
+        "ar": "تجاري"
+       }
+      },
+      {
+       "text": ".org",
+       "color": "green",
+       "label": {
+        "en": "organisations",
+        "ar": "منظمات"
+       }
+      },
+      {
+       "text": ".sa",
+       "color": "purple",
+       "label": {
+        "en": "Saudi Arabia",
+        "ar": "السعودية"
+       }
+      },
+      {
+       "text": ".edu",
+       "color": "yellow",
+       "label": {
+        "en": "education",
+        "ar": "تعليم"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🗣️",
+       "color": "purple",
+       "title": {
+        "en": "Scheme",
+        "ar": "الـ scheme"
+       },
+       "text": {
+        "en": "The shared language: `https` is secure, `http` is not",
+        "ar": "اللغة المشتركة: `https` آمن، و`http` غير آمن"
+       }
+      },
+      {
+       "icon": "🏢",
+       "color": "blue",
+       "title": {
+        "en": "Domain",
+        "ar": "النطاق (domain)"
+       },
+       "text": {
+        "en": "Which server; DNS turns it into an IP",
+        "ar": "أي خادم؛ والـ DNS يحوّله إلى IP"
+       }
+      },
+      {
+       "icon": "🚪",
+       "color": "cyan",
+       "title": {
+        "en": "Port",
+        "ar": "المنفذ (port)"
+       },
+       "text": {
+        "en": "Which door on that server; usually hidden",
+        "ar": "أي باب في ذلك الخادم؛ غالبًا مخفي"
+       }
+      }
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "https (default port)",
+       "ar": "https (المنفذ الافتراضي)"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "Hidden port is `443`",
+        "ar": "المنفذ المخفي هو `443`"
+       },
+       {
+        "en": "`example.com` = `example.com:443`",
+        "ar": "`example.com` = `example.com:443`"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "http (default port)",
+       "ar": "http (المنفذ الافتراضي)"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "Hidden port is `80`",
+        "ar": "المنفذ المخفي هو `80`"
+       },
+       {
+        "en": "Other ports must be written: `:8000`",
+        "ar": "غير ذلك يجب كتابته: `:8000`"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "url-path-query-fragment",
+   "title": {
+    "en": "A link, part 2: path, query, fragment",
+    "ar": "الرابط، الجزء 2: المسار والاستعلام والجزء"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🗺️",
+     "en": "After the domain: where, which, and jump-to",
+     "ar": "بعد النطاق: أين، وأيّ، وإلى أين تقفز"
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "https://www.example.com"
+      },
+      {
+       "text": "/search",
+       "color": "green",
+       "label": {
+        "en": "path: which page",
+        "ar": "المسار: أي صفحة"
+       }
+      },
+      {
+       "text": "?",
+       "color": "yellow",
+       "label": {
+        "en": "query starts here",
+        "ar": "بداية الـ query"
+       }
+      },
+      {
+       "text": "q=cats",
+       "color": "yellow",
+       "label": {
+        "en": "key=value",
+        "ar": "مفتاح=قيمة"
+       }
+      },
+      {
+       "text": "&",
+       "color": "cyan",
+       "label": {
+        "en": "joins pairs",
+        "ar": "يربط الأزواج"
+       }
+      },
+      {
+       "text": "page=2",
+       "color": "yellow",
+       "label": {
+        "en": "key=value",
+        "ar": "مفتاح=قيمة"
+       }
+      }
+     ]
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "https://en.wikipedia.org"
+      },
+      {
+       "text": "/wiki/Internet",
+       "color": "green",
+       "label": {
+        "en": "path",
+        "ar": "المسار (path)"
+       }
+      },
+      {
+       "text": "#History",
+       "color": "red",
+       "label": {
+        "en": "fragment: jump to section",
+        "ar": "الـ fragment: قفزة إلى قسم"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "📂",
+       "color": "green",
+       "title": {
+        "en": "Path `/a/b`",
+        "ar": "المسار `/a/b`"
+       },
+       "text": {
+        "en": "Like folders: which page on the server",
+        "ar": "مثل المجلدات: أي صفحة في الخادم"
+       }
+      },
+      {
+       "icon": "🎛️",
+       "color": "yellow",
+       "title": {
+        "en": "Query `?k=v&k2=v2`",
+        "ar": "الـ query `?k=v&k2=v2`"
+       },
+       "text": {
+        "en": "Extra choices: search words, page number, colour",
+        "ar": "خيارات إضافية: كلمات البحث، رقم الصفحة، اللون"
+       }
+      },
+      {
+       "icon": "🔖",
+       "color": "red",
+       "title": {
+        "en": "Fragment `#name`",
+        "ar": "الـ fragment `#name`"
+       },
+       "text": {
+        "en": "Bookmark inside the page; stays in your browser",
+        "ar": "علامة داخل الصفحة؛ تبقى في متصفحك"
+       }
+      }
+     ]
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "http",
+       "color": "purple",
+       "label": {
+        "en": "scheme",
+        "ar": "الـ scheme"
+       }
+      },
+      {
+       "text": "://"
+      },
+      {
+       "text": "127.0.0.1",
+       "color": "blue",
+       "label": {
+        "en": "IP instead of name",
+        "ar": "IP بدل الاسم"
+       }
+      },
+      {
+       "text": ":8000",
+       "color": "cyan",
+       "label": {
+        "en": "port, written out",
+        "ar": "منفذ مكتوب صراحة"
+       }
+      },
+      {
+       "text": "/items/5",
+       "color": "green",
+       "label": {
+        "en": "path",
+        "ar": "المسار (path)"
+       }
+      },
+      {
+       "text": "?q=book",
+       "color": "yellow",
+       "label": {
+        "en": "query string",
+        "ar": "الـ query string"
+       }
+      }
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "The `#fragment` is never sent to the server. Only your browser uses it.",
+     "ar": "الـ `#fragment` لا يُرسل إلى الخادم أبدًا. متصفحك وحده يستخدمه."
+    }
+   ]
+  },
+  {
+   "id": "press-enter-and-localhost",
+   "title": {
+    "en": "Press Enter, and localhost",
+    "ar": "اضغط Enter، والـ localhost"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "⏎",
+     "en": "One key press, five quick steps",
+     "ar": "ضغطة زر واحدة، وخمس خطوات سريعة"
+    },
+    {
+     "type": "steps",
+     "items": [
+      {
+       "en": "You type the URL, press Enter",
+       "ar": "تكتب الرابط (URL) وتضغط Enter"
+      },
+      {
+       "en": "DNS turns the domain into IP",
+       "ar": "الـ DNS يحوّل النطاق إلى IP"
+      },
+      {
+       "en": "Browser connects to that IP and port",
+       "ar": "المتصفح يتصل بذلك الـ IP والمنفذ"
+      },
+      {
+       "en": "Browser sends a request: `GET /products/42`",
+       "ar": "المتصفح يرسل طلبًا: `GET /products/42`"
+      },
+      {
+       "en": "Server replies; browser draws the page",
+       "ar": "الخادم يرد؛ والمتصفح يرسم الصفحة"
+      }
+     ]
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "⌨️",
+       "label": {
+        "en": "You",
+        "ar": "أنت"
+       }
+      },
+      {
+       "icon": "📒",
+       "label": {
+        "en": "DNS",
+        "ar": "الـ DNS"
+       }
+      },
+      {
+       "icon": "🖥️",
+       "label": {
+        "en": "Server",
+        "ar": "الخادم"
+       }
+      },
+      {
+       "icon": "🖼️",
+       "label": {
+        "en": "Page on screen",
+        "ar": "الصفحة على الشاشة"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "name?",
+        "ar": "ما الرقم؟"
+       }
+      },
+      {
+       "label": {
+        "en": "connect + request",
+        "ar": "اتصال + طلب"
+       }
+      },
+      {
+       "label": {
+        "en": "response",
+        "ar": "استجابة (response)"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🏠",
+       "color": "green",
+       "title": {
+        "en": "`localhost`",
+        "ar": "`localhost`"
+       },
+       "text": {
+        "en": "A special name meaning \"this very computer\"",
+        "ar": "اسم خاص معناه «هذا الحاسوب نفسه»"
+       }
+      },
+      {
+       "icon": "🔁",
+       "color": "blue",
+       "title": {
+        "en": "`127.0.0.1`",
+        "ar": "`127.0.0.1`"
+       },
+       "text": {
+        "en": "The IP of localhost; it never leaves your PC",
+        "ar": "عنوان IP للـ localhost؛ لا يغادر جهازك"
+       }
+      },
+      {
+       "icon": "⚡",
+       "color": "purple",
+       "title": {
+        "en": "FastAPI uses it",
+        "ar": "FastAPI يستخدمه"
+       },
+       "text": {
+        "en": "Your app will run at `http://127.0.0.1:8000`",
+        "ar": "تطبيقك سيعمل على `http://127.0.0.1:8000`"
+       }
+      }
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "Works",
+       "ar": "يعمل"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "You open `localhost:8000` on your PC",
+        "ar": "تفتح `localhost:8000` على جهازك"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "Does not work",
+       "ar": "لا يعمل"
+      },
+      "tone": "bad",
+      "items": [
+       {
+        "en": "A friend opens it on theirs",
+        "ar": "صديقك يفتحه على جهازه"
+       }
+      ]
+     }
+    },
+    {
+     "type": "tip",
+     "en": "On a friend's computer, `localhost` means THEIR computer, not yours.",
+     "ar": "على حاسوب صديقك، `localhost` يعني حاسوبه هو، لا حاسوبك."
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "difficulty": "easy",
+   "question": {
+    "en": "In the restaurant picture of the internet, what is the server?",
+    "ar": "في تشبيه المطعم للإنترنت، ما هو الخادم (server)؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "The customer placing an order",
+     "ar": "الزبون الذي يطلب الطعام"
+    },
+    {
+     "en": "The kitchen preparing the food",
+     "ar": "المطبخ الذي يجهّز الطعام"
+    },
+    {
+     "en": "The menu lying on the table",
+     "ar": "قائمة الطعام على الطاولة"
+    },
+    {
+     "en": "The street outside the shop",
+     "ar": "الشارع خارج المطعم"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "The server is the kitchen: it receives requests and sends back responses. The client (browser) is the customer.",
+    "ar": "الخادم هو المطبخ: يستقبل الطلبات ويرسل الاستجابات. أما العميل (المتصفح) فهو الزبون."
+   }
+  },
+  {
+   "id": 2,
+   "difficulty": "easy",
+   "question": {
+    "en": "What does DNS do?",
+    "ar": "ما وظيفة الـ DNS؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "It makes web pages load faster",
+     "ar": "يجعل صفحات الويب أسرع تحميلًا"
+    },
+    {
+     "en": "It encrypts your password online",
+     "ar": "يشفّر كلمة مرورك على الإنترنت"
+    },
+    {
+     "en": "It stores the pages of every site",
+     "ar": "يخزّن صفحات كل المواقع"
+    },
+    {
+     "en": "It turns a name into an IP address",
+     "ar": "يحوّل الاسم إلى عنوان IP"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "DNS is like a contacts app: you give a name such as `example.com`, it gives back the number (IP).",
+    "ar": "الـ DNS مثل تطبيق جهات الاتصال: تعطيه اسمًا مثل `example.com` فيعيد الرقم (IP)."
+   }
+  },
+  {
+   "id": 3,
+   "difficulty": "easy",
+   "question": {
+    "en": "In this link, which part is the TLD?",
+    "ar": "في هذا الرابط، أي جزء هو الـ TLD؟"
+   },
+   "codeSnippet": "https://shop.example.com/products/42",
+   "options": [
+    {
+     "en": "`com`",
+     "ar": "`com`"
+    },
+    {
+     "en": "`shop`",
+     "ar": "`shop`"
+    },
+    {
+     "en": "`https`",
+     "ar": "`https`"
+    },
+    {
+     "en": "`products`",
+     "ar": "`products`"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "The TLD is the last part of the domain: `com`. `shop` is the subdomain and `example` the domain name.",
+    "ar": "الـ TLD هو آخر جزء في النطاق: `com`. أما `shop` فهو النطاق الفرعي، و`example` اسم النطاق."
+   }
+  },
+  {
+   "id": 4,
+   "difficulty": "medium",
+   "question": {
+    "en": "What is the query string of this link?",
+    "ar": "ما هو الـ query string في هذا الرابط؟"
+   },
+   "codeSnippet": "https://www.example.com/search?q=cats&page=2",
+   "options": [
+    {
+     "en": "`/search`",
+     "ar": "`/search`"
+    },
+    {
+     "en": "`www.example.com`",
+     "ar": "`www.example.com`"
+    },
+    {
+     "en": "`q=cats&page=2`",
+     "ar": "`q=cats&page=2`"
+    },
+    {
+     "en": "`search?q=cats`",
+     "ar": "`search?q=cats`"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "The query starts after `?`: `q=cats&page=2`, two `key=value` pairs joined by `&`. `/search` is the path.",
+    "ar": "الـ query يبدأ بعد `?`: `q=cats&page=2`، زوجان `key=value` يربطهما `&`. أما `/search` فهو المسار."
+   }
+  },
+  {
+   "id": 5,
+   "difficulty": "medium",
+   "question": {
+    "en": "Which of these is a valid IPv4 address?",
+    "ar": "أيٌّ مما يلي عنوان IPv4 صحيح؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "`192.168.1.300`",
+     "ar": "`192.168.1.300`"
+    },
+    {
+     "en": "`172.16.5.4`",
+     "ar": "`172.16.5.4`"
+    },
+    {
+     "en": "`10.0.0`",
+     "ar": "`10.0.0`"
+    },
+    {
+     "en": "`256.1.1.1`",
+     "ar": "`256.1.1.1`"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "IPv4 needs four numbers, each 0 to 255. `300` and `256` are too big; `10.0.0` has only three.",
+    "ar": "الـ IPv4 يحتاج أربعة أرقام، كل منها من 0 إلى 255. `300` و`256` أكبر من اللازم، و`10.0.0` فيه ثلاثة فقط."
+   }
+  },
+  {
+   "id": 6,
+   "difficulty": "medium",
+   "question": {
+    "en": "What did this command just do?",
+    "ar": "ماذا فعل هذا الأمر؟"
+   },
+   "codeSnippet": "> nslookup example.com\nName:    example.com\nAddresses:  172.66.147.243\n            104.20.23.154",
+   "options": [
+    {
+     "en": "It downloaded the example.com page",
+     "ar": "نزّل صفحة example.com كاملة"
+    },
+    {
+     "en": "It bought the domain example.com",
+     "ar": "اشترى النطاق example.com لك"
+    },
+    {
+     "en": "It sent a message to example.com",
+     "ar": "أرسل رسالة إلى example.com"
+    },
+    {
+     "en": "It asked DNS for the site's IPs",
+     "ar": "سأل الـ DNS عن عناوين الموقع"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`nslookup` asks DNS which IP addresses belong to a name. Big sites often have several.",
+    "ar": "الأمر `nslookup` يسأل الـ DNS عن عناوين IP التابعة لاسم ما. للمواقع الكبيرة غالبًا عدة عناوين."
+   }
+  },
+  {
+   "id": 7,
+   "difficulty": "medium",
+   "question": {
+    "en": "Do these two links reach the same place?",
+    "ar": "هل يصل هذان الرابطان إلى المكان نفسه؟"
+   },
+   "codeSnippet": "https://example.com:443/\nhttps://example.com/",
+   "options": [
+    {
+     "en": "Yes, 443 is the hidden https port",
+     "ar": "نعم، 443 هو منفذ https المخفي"
+    },
+    {
+     "en": "No, the first one goes to port 80",
+     "ar": "لا، الأول يذهب إلى المنفذ 80"
+    },
+    {
+     "en": "No, the second one has no port",
+     "ar": "لا، الثاني بلا منفذ إطلاقًا"
+    },
+    {
+     "en": "Yes, but only if you use http",
+     "ar": "نعم، لكن فقط إذا استخدمت http"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "When no port is written, `https` uses `443` (and `http` uses `80`). Writing `:443` changes nothing.",
+    "ar": "إذا لم يُكتب منفذ، يستخدم `https` المنفذ `443` (ويستخدم `http` المنفذ `80`). كتابة `:443` لا تغيّر شيئًا."
+   }
+  },
+  {
+   "id": 8,
+   "difficulty": "hard",
+   "question": {
+    "en": "You type a URL and press Enter. What is the right order?",
+    "ar": "تكتب رابطًا وتضغط Enter. ما الترتيب الصحيح؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "Request, then DNS, then connect, then page",
+     "ar": "طلب، ثم DNS، ثم اتصال، ثم صفحة"
+    },
+    {
+     "en": "Connect, then request, then DNS, then page",
+     "ar": "اتصال، ثم طلب، ثم DNS، ثم صفحة"
+    },
+    {
+     "en": "DNS, then connect, then request, then page",
+     "ar": "DNS، ثم اتصال، ثم طلب، ثم صفحة"
+    },
+    {
+     "en": "Page, then DNS, then request, then connect",
+     "ar": "صفحة، ثم DNS، ثم طلب، ثم اتصال"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "The browser needs the IP first (DNS), then connects to it, sends the request, and draws the response.",
+    "ar": "المتصفح يحتاج الـ IP أولًا (DNS)، ثم يتصل به، ثم يرسل الطلب، ثم يرسم الاستجابة."
+   }
+  },
+  {
+   "id": 9,
+   "difficulty": "hard",
+   "question": {
+    "en": "Your FastAPI app runs here. A friend opens the same link on their laptop. What happens?",
+    "ar": "تطبيق FastAPI الخاص بك يعمل هنا. صديقك يفتح الرابط نفسه على حاسوبه. ماذا يحدث؟"
+   },
+   "codeSnippet": "http://127.0.0.1:8000/docs",
+   "options": [
+    {
+     "en": "They see your app, just more slowly",
+     "ar": "يرى تطبيقك، لكن أبطأ قليلًا"
+    },
+    {
+     "en": "It reaches their laptop, not yours",
+     "ar": "يشير إلى حاسوبه هو، لا حاسوبك"
+    },
+    {
+     "en": "DNS sends them on to your computer",
+     "ar": "الـ DNS يحوّله إلى حاسوبك"
+    },
+    {
+     "en": "They see it only if they use https",
+     "ar": "يراه فقط إذا استخدم https"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`127.0.0.1` (localhost) always means \"this computer\". On your friend's laptop it is their laptop.",
+    "ar": "العنوان `127.0.0.1` (localhost) يعني دائمًا «هذا الحاسوب». على حاسوب صديقك يعني حاسوبه هو."
+   }
+  },
+  {
+   "id": 10,
+   "difficulty": "hard",
+   "question": {
+    "en": "Which part of this link is NOT sent to the server?",
+    "ar": "أي جزء من هذا الرابط لا يُرسل إلى الخادم؟"
+   },
+   "codeSnippet": "https://shop.example.com:8080/cart?id=7#top",
+   "options": [
+    {
+     "en": "`/cart`",
+     "ar": "`/cart`"
+    },
+    {
+     "en": "`?id=7`",
+     "ar": "`?id=7`"
+    },
+    {
+     "en": "`:8080`",
+     "ar": "`:8080`"
+    },
+    {
+     "en": "`#top`",
+     "ar": "`#top`"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "The fragment `#top` stays in the browser and only scrolls the page. Path and query are sent; the port picks the door.",
+    "ar": "الـ fragment `#top` يبقى في المتصفح ويحرّك الصفحة فقط. المسار والـ query يُرسلان، والمنفذ يحدّد الباب."
+   }
+  }
+ ]
+}

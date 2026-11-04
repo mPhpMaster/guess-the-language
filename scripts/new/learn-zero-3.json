@@ -1,0 +1,1112 @@
+{
+ "id": "protocols",
+ "icon": "🤝",
+ "title": {
+  "en": "Protocols: how computers talk",
+  "ar": "البروتوكولات: كيف تتحدث الحواسيب"
+ },
+ "summary": {
+  "en": "The shared rules behind the internet: packets, HTTP, HTTPS, ports and friends.",
+  "ar": "القواعد المشتركة وراء الإنترنت: الحزم و HTTP و HTTPS والمنافذ وغيرها."
+ },
+ "lessons": [
+  {
+   "id": "what-is-a-protocol",
+   "title": {
+    "en": "What is a protocol?",
+    "ar": "ما هو البروتوكول (protocol)؟"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🤝",
+     "en": "A protocol is a set of agreed rules",
+     "ar": "البروتوكول (protocol) مجموعة قواعد متفق عليها"
+    },
+    {
+     "type": "p",
+     "en": "When both sides follow the same rules, they understand each other. People and computers alike.",
+     "ar": "عندما يتبع الطرفان القواعد نفسها يفهم كلٌّ منهما الآخر، سواء كانا بشرًا أو حواسيب."
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "👋",
+       "color": "green",
+       "title": {
+        "en": "Greeting etiquette",
+        "ar": "آداب التحية"
+       },
+       "text": {
+        "en": "Someone says hello, you answer hello. Everyone knows it.",
+        "ar": "يقول أحدهم مرحبًا فتردّ مرحبًا. الجميع يعرف ذلك."
+       }
+      },
+      {
+       "icon": "✉️",
+       "color": "blue",
+       "title": {
+        "en": "Postal address format",
+        "ar": "صيغة العنوان البريدي"
+       },
+       "text": {
+        "en": "Name, street, city, country: an order every post office knows.",
+        "ar": "الاسم، الشارع، المدينة، الدولة: ترتيب يعرفه كل مكتب بريد."
+       }
+      },
+      {
+       "icon": "📞",
+       "color": "yellow",
+       "title": {
+        "en": "A phone call",
+        "ar": "مكالمة هاتفية"
+       },
+       "text": {
+        "en": "Start with hello, take turns, end with bye.",
+        "ar": "تبدأ بـ«ألو»، ثم تتناوبان الكلام، وتنتهي بـ«مع السلامة»."
+       }
+      }
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "HELLO",
+       "note": {
+        "en": "I want to talk",
+        "ar": "أريد أن أتحدث"
+       }
+      },
+      {
+       "from": "server",
+       "text": "HELLO",
+       "note": {
+        "en": "I am ready",
+        "ar": "أنا جاهز"
+       }
+      },
+      {
+       "from": "client",
+       "text": "ASK menu",
+       "note": {
+        "en": "a question, in the agreed format",
+        "ar": "سؤال بالصيغة المتفق عليها"
+       }
+      },
+      {
+       "from": "server",
+       "text": "ANSWER pizza, salad",
+       "note": {
+        "en": "an answer, same format",
+        "ar": "جواب بالصيغة نفسها"
+       }
+      },
+      {
+       "from": "client",
+       "text": "BYE",
+       "note": {
+        "en": "the talk ends cleanly",
+        "ar": "ينتهي الحديث بشكل مرتب"
+       }
+      }
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "Same protocol",
+       "ar": "البروتوكول نفسه"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "Every message is understood",
+        "ar": "كل رسالة مفهومة"
+       },
+       {
+        "en": "Both know whose turn it is",
+        "ar": "كلاهما يعرف دور من الآن"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "Different rules",
+       "ar": "قواعد مختلفة"
+      },
+      "tone": "bad",
+      "items": [
+       {
+        "en": "Messages make no sense",
+        "ar": "الرسائل بلا معنى"
+       },
+       {
+        "en": "Nobody knows when to answer",
+        "ar": "لا أحد يعرف متى يرد"
+       }
+      ]
+     }
+    },
+    {
+     "type": "tip",
+     "en": "Every internet app (web, email, chat) works because both sides follow one protocol.",
+     "ar": "كل تطبيق على الإنترنت (الويب، البريد، الدردشة) يعمل لأن الطرفين يتبعان بروتوكولًا واحدًا."
+    }
+   ]
+  },
+  {
+   "id": "packets-and-layers",
+   "title": {
+    "en": "Packets and layers",
+    "ar": "الحزم (packets) والطبقات (layers)"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "📮",
+     "en": "Data travels as numbered postcards called packets",
+     "ar": "البيانات تسافر كبطاقات بريدية مرقّمة اسمها الحزم (packets)"
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "📄",
+       "label": {
+        "en": "A big web page",
+        "ar": "صفحة ويب كبيرة"
+       }
+      },
+      {
+       "icon": "✂️",
+       "label": {
+        "en": "Cut into packets",
+        "ar": "تُقطَّع إلى حزم"
+       }
+      },
+      {
+       "icon": "🌍",
+       "label": {
+        "en": "Travel the internet",
+        "ar": "تسافر عبر الإنترنت"
+       }
+      },
+      {
+       "icon": "🧩",
+       "label": {
+        "en": "Put back in order",
+        "ar": "تُعاد بالترتيب"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "split",
+        "ar": "تقسيم"
+       }
+      },
+      {
+       "label": {
+        "en": "send",
+        "ar": "إرسال"
+       }
+      },
+      {
+       "label": {
+        "en": "arrive",
+        "ar": "وصول"
+       }
+      }
+     ]
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "#2/4",
+       "color": "yellow",
+       "label": {
+        "en": "packet number (TCP)",
+        "ar": "رقم الحزمة (TCP)"
+       }
+      },
+      {
+       "text": " | "
+      },
+      {
+       "text": "to: 203.0.113.7",
+       "color": "blue",
+       "label": {
+        "en": "destination address (IP)",
+        "ar": "عنوان الوجهة (IP)"
+       }
+      },
+      {
+       "text": " | "
+      },
+      {
+       "text": "from: 192.168.1.5",
+       "color": "cyan",
+       "label": {
+        "en": "return address (IP)",
+        "ar": "عنوان المُرسِل (IP)"
+       }
+      },
+      {
+       "text": " | "
+      },
+      {
+       "text": "data: \"lo, wor\"",
+       "color": "green",
+       "label": {
+        "en": "a small piece of data",
+        "ar": "قطعة صغيرة من البيانات"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "📬",
+       "color": "blue",
+       "title": {
+        "en": "IP: the address",
+        "ar": "IP: العنوان"
+       },
+       "text": {
+        "en": "Puts an address on every packet and finds a road.",
+        "ar": "يضع عنوانًا على كل حزمة ويجد لها طريقًا."
+       }
+      },
+      {
+       "icon": "🔢",
+       "color": "yellow",
+       "title": {
+        "en": "TCP: the numbering",
+        "ar": "TCP: الترقيم"
+       },
+       "text": {
+        "en": "Numbers packets, checks all arrived, re-sends lost ones.",
+        "ar": "يرقّم الحزم، ويتأكد من وصولها كلها، ويعيد إرسال المفقود."
+       }
+      },
+      {
+       "icon": "💬",
+       "color": "green",
+       "title": {
+        "en": "HTTP: the conversation",
+        "ar": "HTTP: المحادثة"
+       },
+       "text": {
+        "en": "What the packets actually say: questions and answers.",
+        "ar": "ما تقوله الحزم فعلًا: أسئلة وأجوبة."
+       }
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "TCP/IP is the post office that delivers. HTTP is the language written on the letters.",
+     "ar": "TCP/IP هو مكتب البريد الذي يوصل. وHTTP هو اللغة المكتوبة في الرسائل."
+    }
+   ]
+  },
+  {
+   "id": "http-and-https",
+   "title": {
+    "en": "HTTP and HTTPS",
+    "ar": "HTTP و HTTPS"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🌐",
+     "en": "HTTP is how browsers and websites talk",
+     "ar": "HTTP هو طريقة الحديث بين المتصفحات والمواقع"
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "GET /about HTTP/1.1\nHost: example.com",
+       "note": {
+        "en": "request: send the About page",
+        "ar": "طلب (request): أرسل صفحة About"
+       }
+      },
+      {
+       "from": "server",
+       "text": "HTTP/1.1 200 OK\n\n<html>About us...</html>",
+       "note": {
+        "en": "a response: here it is",
+        "ar": "استجابة (response): تفضّل"
+       }
+      }
+     ]
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": "200",
+       "color": "green",
+       "label": {
+        "en": "OK, here it is",
+        "ar": "تمام، تفضّل"
+       }
+      },
+      {
+       "text": "404",
+       "color": "yellow",
+       "label": {
+        "en": "Not Found",
+        "ar": "غير موجود"
+       }
+      },
+      {
+       "text": "500",
+       "color": "red",
+       "label": {
+        "en": "Server error",
+        "ar": "خطأ في الخادم"
+       }
+      }
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "HTTP = a postcard",
+       "ar": "HTTP = بطاقة بريدية"
+      },
+      "tone": "bad",
+      "items": [
+       {
+        "en": "Anyone on the way can read it",
+        "ar": "أي أحد في الطريق يقرؤها"
+       },
+       {
+        "en": "It could be changed on the way",
+        "ar": "يمكن تغييرها في الطريق"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "HTTPS = sealed envelope",
+       "ar": "HTTPS = ظرف مختوم"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "Encrypted: looks like noise to others",
+        "ar": "مشفّرة: تبدو للآخرين كلامًا بلا معنى"
+       },
+       {
+        "en": "Only your browser and the site read it",
+        "ar": "لا يقرؤها إلا متصفحك والموقع"
+       }
+      ]
+     }
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🔒",
+       "color": "green",
+       "title": {
+        "en": "Check the address bar",
+        "ar": "انظر إلى شريط العنوان"
+       },
+       "text": {
+        "en": "`https://` is protected; \"Not secure\" means plain HTTP.",
+        "ar": "`https://` محمي؛ و«Not secure» تعني HTTP عاديًا."
+       }
+      },
+      {
+       "icon": "🪪",
+       "color": "blue",
+       "title": {
+        "en": "Certificate",
+        "ar": "الشهادة (certificate)"
+       },
+       "text": {
+        "en": "A digital ID card proving the site owns its name.",
+        "ar": "بطاقة هوية رقمية تثبت أن الموقع يملك اسمه."
+       }
+      },
+      {
+       "icon": "🏛️",
+       "color": "purple",
+       "title": {
+        "en": "Certificate authority",
+        "ar": "جهة إصدار الشهادات (CA)"
+       },
+       "text": {
+        "en": "A trusted organisation that checks and signs those ID cards.",
+        "ar": "جهة موثوقة تتحقق من بطاقات الهوية هذه وتوقّعها."
+       }
+      }
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "On public Wi-Fi, people on the same network can read plain HTTP. Never log in without HTTPS.",
+     "ar": "في شبكات Wi-Fi العامة يستطيع من على الشبكة نفسها قراءة HTTP العادي. لا تسجّل الدخول أبدًا بدون HTTPS."
+    },
+    {
+     "type": "tip",
+     "en": "HTTPS means private, not honest: a fake site can have HTTPS too. Check the name.",
+     "ar": "HTTPS يعني خصوصية لا أمانة: الموقع المزيّف قد يملك HTTPS أيضًا. تحقّق من الاسم."
+    }
+   ]
+  },
+  {
+   "id": "ports",
+   "title": {
+    "en": "Ports: doors on a building",
+    "ar": "المنافذ (ports): أبواب في مبنى"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🚪",
+     "en": "A port is a numbered door on a computer",
+     "ar": "المنفذ (port) باب مرقّم على الحاسوب"
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "💻",
+       "label": {
+        "en": "Your browser",
+        "ar": "متصفحك"
+       }
+      },
+      {
+       "icon": "🏢",
+       "label": {
+        "en": "Server address (IP)",
+        "ar": "عنوان الخادم (IP)"
+       }
+      },
+      {
+       "icon": "🚪",
+       "label": {
+        "en": "Door 443",
+        "ar": "الباب 443"
+       }
+      },
+      {
+       "icon": "🧑‍🍳",
+       "label": {
+        "en": "Web server program",
+        "ar": "برنامج خادم الويب"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "go to",
+        "ar": "اذهب إلى"
+       }
+      },
+      {
+       "label": {
+        "en": "knock on",
+        "ar": "اطرق"
+       }
+      },
+      {
+       "label": {
+        "en": "answered by",
+        "ar": "يردّ عليه"
+       }
+      }
+     ]
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": "80",
+       "color": "blue",
+       "label": {
+        "en": "HTTP",
+        "ar": "HTTP"
+       }
+      },
+      {
+       "text": "443",
+       "color": "green",
+       "label": {
+        "en": "HTTPS",
+        "ar": "HTTPS"
+       }
+      },
+      {
+       "text": "22",
+       "color": "purple",
+       "label": {
+        "en": "SSH",
+        "ar": "SSH"
+       }
+      },
+      {
+       "text": "8000",
+       "color": "yellow",
+       "label": {
+        "en": "your dev server",
+        "ar": "خادم التطوير عندك"
+       }
+      }
+     ]
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "http://",
+       "color": "purple",
+       "label": {
+        "en": "protocol",
+        "ar": "البروتوكول"
+       }
+      },
+      {
+       "text": "127.0.0.1",
+       "color": "blue",
+       "label": {
+        "en": "address: this computer",
+        "ar": "العنوان: هذا الحاسوب"
+       }
+      },
+      {
+       "text": ":8000",
+       "color": "yellow",
+       "label": {
+        "en": "port (the door)",
+        "ar": "المنفذ (الباب)"
+       }
+      },
+      {
+       "text": "/docs",
+       "color": "green",
+       "label": {
+        "en": "path (the room)",
+        "ar": "المسار (الغرفة)"
+       }
+      }
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "You type",
+       "ar": "ما تكتبه"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "`https://example.com`",
+        "ar": "`https://example.com`"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "The browser uses",
+       "ar": "ما يستخدمه المتصفح"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "`https://example.com:443`",
+        "ar": "`https://example.com:443`"
+       }
+      ]
+     }
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "import socket\n\nprint(socket.getservbyname(\"http\"))   # 80\nprint(socket.getservbyname(\"https\"))  # 443\nprint(socket.getservbyname(\"ssh\"))    # 22",
+     "highlight": [
+      4
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "`127.0.0.1` (also called `localhost`) always means \"this same computer\".",
+     "ar": "`127.0.0.1` (ويُسمّى أيضًا `localhost`) يعني دائمًا «هذا الحاسوب نفسه»."
+    }
+   ]
+  },
+  {
+   "id": "protocol-tour",
+   "title": {
+    "en": "A tour of other protocols",
+    "ar": "جولة في بروتوكولات أخرى"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🗺️",
+     "en": "Each job on the internet has its own protocol",
+     "ar": "لكل مهمة على الإنترنت بروتوكولها الخاص"
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🔎",
+       "color": "cyan",
+       "title": {
+        "en": "DNS: the phone book",
+        "ar": "DNS: دليل الهاتف"
+       },
+       "text": {
+        "en": "Turns names like `example.com` into IP addresses. Port 53.",
+        "ar": "يحوّل أسماء مثل `example.com` إلى عناوين IP. المنفذ 53."
+       }
+      },
+      {
+       "icon": "📤",
+       "color": "blue",
+       "title": {
+        "en": "SMTP: sending email",
+        "ar": "SMTP: إرسال البريد"
+       },
+       "text": {
+        "en": "Carries your email to the recipient's mail server.",
+        "ar": "ينقل رسالتك إلى خادم بريد المستلم."
+       }
+      },
+      {
+       "icon": "📥",
+       "color": "green",
+       "title": {
+        "en": "IMAP: reading email",
+        "ar": "IMAP: قراءة البريد"
+       },
+       "text": {
+        "en": "Keeps your inbox on the server, synced on every device.",
+        "ar": "يُبقي صندوق الوارد على الخادم، متزامنًا على كل أجهزتك."
+       }
+      },
+      {
+       "icon": "📁",
+       "color": "yellow",
+       "title": {
+        "en": "FTP / SFTP: moving files",
+        "ar": "FTP / SFTP: نقل الملفات"
+       },
+       "text": {
+        "en": "FTP is old and unencrypted; SFTP sends files safely over SSH.",
+        "ar": "FTP قديم وغير مشفّر؛ وSFTP ينقل الملفات بأمان عبر SSH."
+       }
+      },
+      {
+       "icon": "🖥️",
+       "color": "purple",
+       "title": {
+        "en": "SSH: remote terminal",
+        "ar": "SSH: طرفية عن بُعد"
+       },
+       "text": {
+        "en": "Type commands on a faraway computer, encrypted. Port 22.",
+        "ar": "اكتب أوامر على حاسوب بعيد، بشكل مشفّر. المنفذ 22."
+       }
+      },
+      {
+       "icon": "💬",
+       "color": "red",
+       "title": {
+        "en": "WebSocket: a live line",
+        "ar": "WebSocket: خط مفتوح"
+       },
+       "text": {
+        "en": "Stays open so both sides can talk anytime, like chat.",
+        "ar": "يبقى مفتوحًا ليتحدث الطرفان في أي وقت، مثل الدردشة."
+       }
+      }
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "GET /live HTTP/1.1\nUpgrade: websocket",
+       "note": {
+        "en": "can we keep the line open?",
+        "ar": "هل نُبقي الخط مفتوحًا؟"
+       }
+      },
+      {
+       "from": "server",
+       "text": "HTTP/1.1 101 Switching Protocols",
+       "note": {
+        "en": "yes, the line stays open",
+        "ar": "نعم، الخط يبقى مفتوحًا"
+       }
+      },
+      {
+       "from": "server",
+       "text": "new message: \"Hi!\"",
+       "note": {
+        "en": "now the server can talk first",
+        "ar": "الآن يستطيع الخادم أن يبدأ الكلام"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "bash",
+     "code": "nslookup example.com    # DNS: name -> IP address\nssh sara@myserver.com   # SSH: remote terminal (port 22)"
+    },
+    {
+     "type": "tip",
+     "en": "Notice the pattern: the safe versions add encryption, like HTTPS, SFTP and `wss://`.",
+     "ar": "لاحظ النمط: النسخ الآمنة تضيف التشفير، مثل HTTPS وSFTP و`wss://`."
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "difficulty": "easy",
+   "question": {
+    "en": "What is a protocol?",
+    "ar": "ما هو البروتوكول (protocol)؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "A fast cable between two computers",
+     "ar": "كابل سريع بين حاسوبين"
+    },
+    {
+     "en": "Agreed rules so both sides understand",
+     "ar": "قواعد متفق عليها ليفهم الطرفان بعضهما"
+    },
+    {
+     "en": "A program that shows web pages",
+     "ar": "برنامج يعرض صفحات الويب"
+    },
+    {
+     "en": "A password that protects a website",
+     "ar": "كلمة مرور تحمي الموقع"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "A protocol is a set of agreed rules, like greeting etiquette, so both sides understand each other.",
+    "ar": "البروتوكول مجموعة قواعد متفق عليها، مثل آداب التحية، ليفهم الطرفان بعضهما."
+   }
+  },
+  {
+   "id": 2,
+   "difficulty": "easy",
+   "question": {
+    "en": "Which port does this address use by default?",
+    "ar": "ما المنفذ (port) الذي يستخدمه هذا العنوان افتراضيًا؟"
+   },
+   "codeSnippet": "https://example.com/login",
+   "options": [
+    {
+     "en": "80",
+     "ar": "80"
+    },
+    {
+     "en": "22",
+     "ar": "22"
+    },
+    {
+     "en": "8000",
+     "ar": "8000"
+    },
+    {
+     "en": "443",
+     "ar": "443"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`https://` uses port 443 by default; the browser just hides it.",
+    "ar": "`https://` يستخدم المنفذ 443 افتراضيًا؛ والمتصفح يخفيه فقط."
+   }
+  },
+  {
+   "id": 3,
+   "difficulty": "easy",
+   "question": {
+    "en": "In this address, which part is the port?",
+    "ar": "في هذا العنوان، أي جزء هو المنفذ (port)؟"
+   },
+   "codeSnippet": "http://127.0.0.1:8000/docs",
+   "options": [
+    {
+     "en": "8000",
+     "ar": "8000"
+    },
+    {
+     "en": "127.0.0.1",
+     "ar": "127.0.0.1"
+    },
+    {
+     "en": "/docs",
+     "ar": "/docs"
+    },
+    {
+     "en": "http",
+     "ar": "http"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "The number after the colon, `8000`, is the port: the door on that computer.",
+    "ar": "الرقم بعد النقطتين، `8000`، هو المنفذ: الباب على ذلك الحاسوب."
+   }
+  },
+  {
+   "id": 4,
+   "difficulty": "medium",
+   "question": {
+    "en": "A page was sent as 5 packets, but packet 3 got lost. What does TCP do?",
+    "ar": "أُرسلت صفحة في 5 حزم، لكن الحزمة 3 ضاعت. ماذا يفعل TCP؟"
+   },
+   "codeSnippet": "sent:     [1/5] [2/5] [3/5] [4/5] [5/5]\narrived:  [1/5] [2/5]   ?   [4/5] [5/5]",
+   "options": [
+    {
+     "en": "Shows the page without that part",
+     "ar": "يعرض الصفحة بدون ذلك الجزء"
+    },
+    {
+     "en": "Deletes the other four packets",
+     "ar": "يحذف الحزم الأربع الأخرى"
+    },
+    {
+     "en": "Notices and gets packet 3 re-sent",
+     "ar": "يلاحظ ذلك ويُعاد إرسال الحزمة 3"
+    },
+    {
+     "en": "Changes the destination address",
+     "ar": "يغيّر عنوان الوجهة"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "TCP numbers the packets, checks they all arrived, and re-sends lost ones.",
+    "ar": "TCP يرقّم الحزم ويتأكد من وصولها كلها ويعيد إرسال المفقود."
+   }
+  },
+  {
+   "id": 5,
+   "difficulty": "medium",
+   "question": {
+    "en": "Which sentence about TCP/IP and HTTP is true?",
+    "ar": "أي جملة عن TCP/IP و HTTP صحيحة؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "TCP/IP delivers packets; HTTP is the talk on top",
+     "ar": "TCP/IP يوصل الحزم؛ وHTTP هو الحديث فوقه"
+    },
+    {
+     "en": "HTTP delivers packets; TCP/IP is the talk on top",
+     "ar": "HTTP يوصل الحزم؛ وTCP/IP هو الحديث فوقه"
+    },
+    {
+     "en": "They are two names for the same protocol",
+     "ar": "هما اسمان للبروتوكول نفسه"
+    },
+    {
+     "en": "HTTP only works without TCP/IP underneath",
+     "ar": "HTTP يعمل فقط بدون TCP/IP تحته"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "TCP/IP is the post office that delivers; HTTP is the language written on the letters.",
+    "ar": "TCP/IP هو مكتب البريد الذي يوصل؛ وHTTP هو اللغة المكتوبة في الرسائل."
+   }
+  },
+  {
+   "id": 6,
+   "difficulty": "medium",
+   "question": {
+    "en": "At a cafe's public Wi-Fi you open this login page. What is the risk?",
+    "ar": "على شبكة Wi-Fi عامة في مقهى فتحت صفحة الدخول هذه. ما الخطر؟"
+   },
+   "codeSnippet": "http://shop-example.com/login",
+   "options": [
+    {
+     "en": "The page will load more slowly",
+     "ar": "ستُحمَّل الصفحة ببطء أكبر"
+    },
+    {
+     "en": "The site cannot receive your password",
+     "ar": "لن يستلم الموقع كلمة مرورك"
+    },
+    {
+     "en": "The browser will block the page",
+     "ar": "سيحظر المتصفح الصفحة"
+    },
+    {
+     "en": "Others on the Wi-Fi could read it",
+     "ar": "قد يقرؤها آخرون على الشبكة"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "Plain `http://` is not encrypted, like a postcard. People on the same Wi-Fi can read it.",
+    "ar": "`http://` العادي غير مشفّر، كالبطاقة البريدية. يستطيع من على الشبكة نفسها قراءته."
+   }
+  },
+  {
+   "id": 7,
+   "difficulty": "medium",
+   "question": {
+    "en": "What does this response mean?",
+    "ar": "ماذا تعني هذه الاستجابة (response)؟"
+   },
+   "codeSnippet": "GET /menu HTTP/1.1\nHost: cafe.example.com\n\nHTTP/1.1 404 Not Found",
+   "options": [
+    {
+     "en": "The page was sent successfully",
+     "ar": "أُرسلت الصفحة بنجاح"
+    },
+    {
+     "en": "The page /menu was not found",
+     "ar": "لم يُعثر على الصفحة /menu"
+    },
+    {
+     "en": "The server crashed while answering",
+     "ar": "تعطّل الخادم أثناء الرد"
+    },
+    {
+     "en": "The connection is now encrypted",
+     "ar": "أصبح الاتصال مشفّرًا الآن"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`404 Not Found` means the server understood the request but has no `/menu` page.",
+    "ar": "`404 Not Found` يعني أن الخادم فهم الطلب لكن لا توجد عنده صفحة `/menu`."
+   }
+  },
+  {
+   "id": 8,
+   "difficulty": "hard",
+   "question": {
+    "en": "What is the main job of a website's certificate?",
+    "ar": "ما الوظيفة الأساسية لشهادة (certificate) الموقع؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "To make the website load faster",
+     "ar": "تسريع تحميل الموقع"
+    },
+    {
+     "en": "To prove the site is honest and safe",
+     "ar": "إثبات أن الموقع أمين وآمن"
+    },
+    {
+     "en": "To prove the site really owns its name",
+     "ar": "إثبات أن الموقع يملك اسمه فعلًا"
+    },
+    {
+     "en": "To choose which port the site uses",
+     "ar": "اختيار المنفذ الذي يستخدمه الموقع"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "A certificate is a digital ID card, signed by a trusted authority, proving the site owns its name. It does not prove honesty.",
+    "ar": "الشهادة بطاقة هوية رقمية توقّعها جهة موثوقة، تثبت أن الموقع يملك اسمه. لكنها لا تثبت أمانته."
+   }
+  },
+  {
+   "id": 9,
+   "difficulty": "hard",
+   "question": {
+    "en": "Match each job to its protocol.",
+    "ar": "طابِق كل مهمة مع بروتوكولها."
+   },
+   "codeSnippet": "A: find the IP address of a name\nB: send an email\nC: type commands on a faraway computer",
+   "options": [
+    {
+     "en": "A=DNS, B=SMTP, C=SSH",
+     "ar": "A=DNS, B=SMTP, C=SSH"
+    },
+    {
+     "en": "A=SSH, B=DNS, C=SMTP",
+     "ar": "A=SSH, B=DNS, C=SMTP"
+    },
+    {
+     "en": "A=DNS, B=IMAP, C=FTP",
+     "ar": "A=DNS, B=IMAP, C=FTP"
+    },
+    {
+     "en": "A=SMTP, B=DNS, C=SSH",
+     "ar": "A=SMTP, B=DNS, C=SSH"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "DNS turns names into IP addresses, SMTP sends email, and SSH opens a remote terminal.",
+    "ar": "DNS يحوّل الأسماء إلى عناوين IP، وSMTP يرسل البريد، وSSH يفتح طرفية عن بُعد."
+   }
+  },
+  {
+   "id": 10,
+   "difficulty": "hard",
+   "question": {
+    "en": "A chat app must show new messages instantly, with the server speaking first. Which protocol fits best?",
+    "ar": "تطبيق دردشة يجب أن يعرض الرسائل فورًا، والخادم يبدأ الكلام. أي بروتوكول أنسب؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "FTP",
+     "ar": "FTP"
+    },
+    {
+     "en": "SMTP",
+     "ar": "SMTP"
+    },
+    {
+     "en": "DNS",
+     "ar": "DNS"
+    },
+    {
+     "en": "WebSocket",
+     "ar": "WebSocket"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "A WebSocket line stays open, so both sides, including the server, can talk anytime.",
+    "ar": "خط WebSocket يبقى مفتوحًا، فيستطيع الطرفان، ومنهما الخادم، الكلام في أي وقت."
+   }
+  }
+ ]
+}

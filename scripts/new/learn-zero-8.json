@@ -1,0 +1,1115 @@
+{
+ "id": "python-functions",
+ "icon": "🧩",
+ "title": {
+  "en": "Functions, Classes & Decorators",
+  "ar": "الدوال والأصناف والمُزخرِفات"
+ },
+ "summary": {
+  "en": "Learn the Python pieces every FastAPI file uses: functions, type hints, imports, classes and `@`.",
+  "ar": "تعلّم قطع بايثون التي يستخدمها كل ملف FastAPI: الدوال وتلميحات الأنواع والاستيراد والأصناف و`@`."
+ },
+ "lessons": [
+  {
+   "id": "functions",
+   "title": {
+    "en": "Functions: name a recipe once",
+    "ar": "الدوال: سمِّ الوصفة مرة واحدة"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "⚙️",
+     "en": "A function is a machine: inputs in, result out",
+     "ar": "الدالة (function) آلة: مدخلات تدخل، ونتيجة تخرج"
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "🥕",
+       "label": {
+        "en": "Inputs (parameters)",
+        "ar": "المدخلات (parameters)"
+       }
+      },
+      {
+       "icon": "⚙️",
+       "label": {
+        "en": "Function follows its recipe",
+        "ar": "الدالة تتبع وصفتها"
+       }
+      },
+      {
+       "icon": "🍲",
+       "label": {
+        "en": "Result (return)",
+        "ar": "النتيجة (return)"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "go in",
+        "ar": "تدخل"
+       }
+      },
+      {
+       "label": {
+        "en": "comes out",
+        "ar": "تخرج"
+       }
+      }
+     ]
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "def",
+       "color": "blue",
+       "label": {
+        "en": "keyword: define",
+        "ar": "كلمة: عرِّف (define)"
+       }
+      },
+      {
+       "text": " greet",
+       "color": "green",
+       "label": {
+        "en": "function name",
+        "ar": "اسم الدالة"
+       }
+      },
+      {
+       "text": "("
+      },
+      {
+       "text": "name",
+       "color": "yellow",
+       "label": {
+        "en": "parameter (an input)",
+        "ar": "مُعامِل (parameter) = مُدخَل"
+       }
+      },
+      {
+       "text": ", "
+      },
+      {
+       "text": "greeting=\"Hello\"",
+       "color": "purple",
+       "label": {
+        "en": "default value",
+        "ar": "قيمة افتراضية (default)"
+       }
+      },
+      {
+       "text": "):\n    "
+      },
+      {
+       "text": "return greeting + \", \" + name + \"!\"",
+       "color": "cyan",
+       "label": {
+        "en": "sends the result back",
+        "ar": "تُرجِع النتيجة"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "def greet(name, greeting=\"Hello\"):\n    return greeting + \", \" + name + \"!\"\n\nprint(greet(\"Sara\"))                 # Hello, Sara!\nprint(greet(\"Ali\", greeting=\"Hi\"))   # Hi, Ali!",
+     "highlight": [
+      4,
+      5
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "`greeting=\"Hi\"` is a keyword argument: you name the input, so it is clear.",
+     "ar": "`greeting=\"Hi\"` وسيط بالاسم (keyword argument): تُسمّي المُدخَل فيصبح واضحًا."
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "def add_print(a, b):\n    print(a + b)       # only shows it\n\ndef add_return(a, b):\n    return a + b       # hands it back\n\nx = add_print(2, 3)    # screen: 5\ny = add_return(2, 3)\nprint(x)               # None\nprint(y)               # 5",
+     "highlight": [
+      2,
+      5,
+      9,
+      10
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "`return` hands it back",
+       "ar": "`return` تُعيد القيمة"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "The caller gets the value",
+        "ar": "من استدعى الدالة يأخذ القيمة"
+       },
+       {
+        "en": "`y = add_return(2, 3)` → `y` is `5`",
+        "ar": "`y = add_return(2, 3)` ← `y` تساوي `5`"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "`print` only shows it",
+       "ar": "`print` تعرض فقط"
+      },
+      "tone": "bad",
+      "items": [
+       {
+        "en": "Text appears on the screen",
+        "ar": "يظهر نص على الشاشة"
+       },
+       {
+        "en": "`x = add_print(2, 3)` → `x` is `None`",
+        "ar": "`x = add_print(2, 3)` ← `x` تساوي `None`"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "type-hints",
+   "title": {
+    "en": "Type hints: labels on the boxes",
+    "ar": "تلميحات الأنواع: ملصقات على الصناديق"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🏷️",
+     "en": "Type hints are labels saying what goes in each box",
+     "ar": "تلميحات الأنواع (type hints) ملصقات تقول ماذا يوضع في كل صندوق"
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "def add("
+      },
+      {
+       "text": "a: int",
+       "color": "blue",
+       "label": {
+        "en": "a should be an int",
+        "ar": "a يُفترض أن يكون int"
+       }
+      },
+      {
+       "text": ", "
+      },
+      {
+       "text": "b: int",
+       "color": "blue",
+       "label": {
+        "en": "b should be an int",
+        "ar": "b يُفترض أن يكون int"
+       }
+      },
+      {
+       "text": ") "
+      },
+      {
+       "text": "-> int",
+       "color": "green",
+       "label": {
+        "en": "returns an int",
+        "ar": "تُرجِع int"
+       }
+      },
+      {
+       "text": ":"
+      }
+     ]
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": "int",
+       "color": "blue",
+       "label": {
+        "en": "whole number",
+        "ar": "عدد صحيح"
+       }
+      },
+      {
+       "text": "float",
+       "color": "cyan",
+       "label": {
+        "en": "decimal number",
+        "ar": "عدد عشري"
+       }
+      },
+      {
+       "text": "str",
+       "color": "green",
+       "label": {
+        "en": "text",
+        "ar": "نص"
+       }
+      },
+      {
+       "text": "bool",
+       "color": "yellow",
+       "label": {
+        "en": "True or False",
+        "ar": "True أو False"
+       }
+      },
+      {
+       "text": "str | None",
+       "color": "purple",
+       "label": {
+        "en": "text or nothing",
+        "ar": "نص أو لا شيء"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "def add(a: int, b: int) -> int:\n    return a + b\n\nprint(add(2, 3))       # 5\nprint(add(\"2\", \"3\"))   # 23  (no error!)",
+     "highlight": [
+      5
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "Python does NOT enforce hints. Wrong types still run: `add(\"2\", \"3\")` joins text into `23`.",
+     "ar": "بايثون (Python) لا تفرض التلميحات. الأنواع الخاطئة تعمل: `add(\"2\", \"3\")` تلصق النصين فتعطي `23`."
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🐍",
+       "color": "red",
+       "title": {
+        "en": "Python",
+        "ar": "بايثون (Python)"
+       },
+       "text": {
+        "en": "Ignores the labels while running",
+        "ar": "تتجاهل الملصقات أثناء التشغيل"
+       }
+      },
+      {
+       "icon": "🧠",
+       "color": "blue",
+       "title": {
+        "en": "Your editor",
+        "ar": "محرّر الكود"
+       },
+       "text": {
+        "en": "Uses them to warn and autocomplete",
+        "ar": "يستخدمها ليحذّرك ويكمل الكود"
+       }
+      },
+      {
+       "icon": "⚡",
+       "color": "green",
+       "title": {
+        "en": "FastAPI",
+        "ar": "FastAPI"
+       },
+       "text": {
+        "en": "Reads them to check incoming data",
+        "ar": "يقرؤها ليتحقق من البيانات القادمة"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "def welcome(name: str | None = None) -> str:\n    if name is None:\n        return \"Welcome, guest!\"\n    return \"Welcome, \" + name + \"!\"\n\nprint(welcome())          # Welcome, guest!\nprint(welcome(\"Sara\"))    # Welcome, Sara!",
+     "highlight": [
+      1
+     ]
+    }
+   ]
+  },
+  {
+   "id": "imports",
+   "title": {
+    "en": "Import: borrow ready-made tools",
+    "ar": "الاستيراد: استعِر أدوات جاهزة"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🧰",
+     "en": "Import tools that other people already built",
+     "ar": "استورد (import) أدوات بناها غيرك مسبقًا"
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "📚",
+       "label": {
+        "en": "Module: a file of tools",
+        "ar": "الوحدة (module): ملف أدوات"
+       }
+      },
+      {
+       "icon": "📥",
+       "label": {
+        "en": "`import` brings it in",
+        "ar": "`import` تُحضرها"
+       }
+      },
+      {
+       "icon": "🐍",
+       "label": {
+        "en": "Your code uses it",
+        "ar": "كودك يستخدمها"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "import",
+        "ar": "استيراد"
+       }
+      },
+      {
+       "label": {
+        "en": "use with a dot",
+        "ar": "استخدم بنقطة"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "import math\nfrom datetime import date\n\nprint(math.sqrt(16))    # 4.0\nd = date(2026, 1, 15)\nprint(d.year)           # 2026\nprint(d)                # 2026-01-15",
+     "highlight": [
+      1,
+      2
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "`import math`",
+       "ar": "`import math`"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "Brings the whole module",
+        "ar": "تُحضر الوحدة كلها"
+       },
+       {
+        "en": "Use the prefix: `math.sqrt(16)`",
+        "ar": "استخدم البادئة: `math.sqrt(16)`"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "`from math import sqrt`",
+       "ar": "`from math import sqrt`"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "Brings just one tool",
+        "ar": "تُحضر أداة واحدة فقط"
+       },
+       {
+        "en": "Use it directly: `sqrt(16)`",
+        "ar": "استخدمها مباشرة: `sqrt(16)`"
+       }
+      ]
+     }
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🎁",
+       "color": "green",
+       "title": {
+        "en": "Built in",
+        "ar": "مدمجة"
+       },
+       "text": {
+        "en": "Comes with Python: `math`, `datetime`",
+        "ar": "تأتي مع بايثون: `math` و `datetime`"
+       }
+      },
+      {
+       "icon": "📦",
+       "color": "purple",
+       "title": {
+        "en": "Package from pip",
+        "ar": "حزمة من pip"
+       },
+       "text": {
+        "en": "A bundle of modules you download: `fastapi`",
+        "ar": "مجموعة وحدات تنزّلها: `fastapi`"
+       }
+      }
+     ]
+    },
+    {
+     "type": "steps",
+     "items": [
+      {
+       "en": "Activate your venv",
+       "ar": "فعّل البيئة الافتراضية (venv)"
+      },
+      {
+       "en": "Run `pip install fastapi`",
+       "ar": "شغّل `pip install fastapi`"
+      },
+      {
+       "en": "Now `from fastapi import FastAPI` works",
+       "ar": "الآن `from fastapi import FastAPI` تعمل"
+      }
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "Not installed? Python stops with `ModuleNotFoundError: No module named 'fastapi'`.",
+     "ar": "غير مثبّتة؟ تتوقف بايثون برسالة `ModuleNotFoundError: No module named 'fastapi'`."
+    },
+    {
+     "type": "tip",
+     "en": "On macOS/Linux outside a venv, type `pip3` instead of `pip`.",
+     "ar": "على macOS/Linux خارج البيئة الافتراضية، اكتب `pip3` بدل `pip`."
+    }
+   ]
+  },
+  {
+   "id": "classes",
+   "title": {
+    "en": "Classes: a cookie cutter",
+    "ar": "الأصناف: قالب الكعك"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🍪",
+     "en": "A class is a cookie cutter; objects are the cookies",
+     "ar": "الصنف (class) قالب كعك، والكائنات (objects) هي الكعكات"
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "📐",
+       "label": {
+        "en": "Class `Dog`: the blueprint",
+        "ar": "الصنف `Dog`: المخطط"
+       }
+      },
+      {
+       "icon": "🏭",
+       "label": {
+        "en": "Call `Dog(\"Rex\", 3)`",
+        "ar": "استدعِ `Dog(\"Rex\", 3)`"
+       }
+      },
+      {
+       "icon": "🐶",
+       "label": {
+        "en": "Object `rex`",
+        "ar": "الكائن `rex`"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "create",
+        "ar": "أنشئ"
+       }
+      },
+      {
+       "label": {
+        "en": "a real dog",
+        "ar": "كلب حقيقي"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "class Dog:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n\nrex = Dog(\"Rex\", 3)\nbella = Dog(\"Bella\", 5)\nprint(rex.name)     # Rex\nprint(bella.age)    # 5",
+     "highlight": [
+      1,
+      6,
+      8
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🧱",
+       "color": "blue",
+       "title": {
+        "en": "`__init__`",
+        "ar": "`__init__`"
+       },
+       "text": {
+        "en": "Runs when a new object is made",
+        "ar": "تعمل عند إنشاء كائن جديد"
+       }
+      },
+      {
+       "icon": "🪞",
+       "color": "purple",
+       "title": {
+        "en": "`self`",
+        "ar": "`self`"
+       },
+       "text": {
+        "en": "Means this object itself",
+        "ar": "تعني هذا الكائن نفسه"
+       }
+      },
+      {
+       "icon": "🔹",
+       "color": "green",
+       "title": {
+        "en": "`rex.name`",
+        "ar": "`rex.name`"
+       },
+       "text": {
+        "en": "The dot reads an attribute (stored value)",
+        "ar": "النقطة تقرأ خاصية (attribute) = قيمة محفوظة"
+       }
+      }
+     ]
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "class",
+       "color": "blue",
+       "label": {
+        "en": "make a class",
+        "ar": "أنشئ صنفًا"
+       }
+      },
+      {
+       "text": " Item",
+       "color": "green",
+       "label": {
+        "en": "its name",
+        "ar": "اسمه"
+       }
+      },
+      {
+       "text": "(BaseModel)",
+       "color": "purple",
+       "label": {
+        "en": "gets Pydantic's powers",
+        "ar": "يأخذ قدرات Pydantic"
+       }
+      },
+      {
+       "text": ":"
+      },
+      {
+       "text": "\n    name: str\n    price: float",
+       "color": "yellow",
+       "label": {
+        "en": "fields with type hints",
+        "ar": "حقول مع تلميحات أنواع"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from pydantic import BaseModel\n\nclass Item(BaseModel):\n    name: str\n    price: float\n\npen = Item(name=\"Pen\", price=2.5)\nprint(pen.name)     # Pen\nprint(pen.price)    # 2.5",
+     "highlight": [
+      3,
+      7,
+      8
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "Pydantic needs no `__init__`, and unlike plain Python it DOES check the types.",
+     "ar": "Pydantic لا يحتاج `__init__`، وبخلاف بايثون العادية فهو يتحقق فعلًا من الأنواع."
+    }
+   ]
+  },
+  {
+   "id": "decorators",
+   "title": {
+    "en": "Decorators: the @ sticker",
+    "ar": "المُزخرِفات: ملصق @"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "✨",
+     "en": "`@` is a sticker that adds behaviour to a function",
+     "ar": "`@` ملصق يضيف سلوكًا جديدًا إلى الدالة"
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "def shout(func):\n    def wrapper():\n        return func().upper() + \"!\"\n    return wrapper\n\n@shout\ndef hello():\n    return \"hello\"\n\nprint(hello())    # HELLO!",
+     "highlight": [
+      6,
+      10
+     ]
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "🙂",
+       "label": {
+        "en": "`hello()` gives \"hello\"",
+        "ar": "`hello()` تعطي \"hello\""
+       }
+      },
+      {
+       "icon": "🏷️",
+       "label": {
+        "en": "`@shout` wraps it",
+        "ar": "`@shout` يغلّفها"
+       }
+      },
+      {
+       "icon": "📣",
+       "label": {
+        "en": "You get \"HELLO!\"",
+        "ar": "تحصل على \"HELLO!\""
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "sticker added",
+        "ar": "أُضيف الملصق"
+       }
+      },
+      {
+       "label": {
+        "en": "louder result",
+        "ar": "نتيجة أعلى"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/\")\ndef home():\n    return {\"message\": \"Hello\"}",
+     "highlight": [
+      5
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "GET /",
+       "note": {
+        "en": "a visitor opens /",
+        "ar": "زائر يفتح /"
+       }
+      },
+      {
+       "from": "server",
+       "text": "200 OK  {\"message\": \"Hello\"}",
+       "note": {
+        "en": "FastAPI ran home()",
+        "ar": "FastAPI شغّل home()"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "📣",
+       "color": "yellow",
+       "title": {
+        "en": "`@shout`",
+        "ar": "`@shout`"
+       },
+       "text": {
+        "en": "Changes what the function returns",
+        "ar": "يغيّر ما تُرجِعه الدالة"
+       }
+      },
+      {
+       "icon": "⚡",
+       "color": "green",
+       "title": {
+        "en": "`@app.get(\"/\")`",
+        "ar": "`@app.get(\"/\")`"
+       },
+       "text": {
+        "en": "Tells FastAPI: run this for GET /",
+        "ar": "يخبر FastAPI: شغّل هذه لطلب GET /"
+       }
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "You may see `async def home():` in FastAPI code. Still a function; more on it later.",
+     "ar": "قد ترى `async def home():` في كود FastAPI. هي دالة أيضًا؛ سنعود إليها لاحقًا."
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "difficulty": "easy",
+   "question": {
+    "en": "Which word starts a function definition in Python?",
+    "ar": "ما الكلمة التي تبدأ بها تعريف دالة في بايثون؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "`function`",
+     "ar": "`function`"
+    },
+    {
+     "en": "`def`",
+     "ar": "`def`"
+    },
+    {
+     "en": "`func`",
+     "ar": "`func`"
+    },
+    {
+     "en": "`define`",
+     "ar": "`define`"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`def` (short for define) starts every function, like `def greet(name):`.",
+    "ar": "`def` (اختصار define) تبدأ بها كل دالة، مثل `def greet(name):`."
+   }
+  },
+  {
+   "id": 2,
+   "difficulty": "easy",
+   "question": {
+    "en": "In `def welcome(name: str | None = None)`, what does `str | None = None` mean?",
+    "ar": "في `def welcome(name: str | None = None)`، ماذا تعني `str | None = None`؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "name is text or nothing; nothing by default",
+     "ar": "name نص أو لا شيء؛ لا شيء افتراضيًا"
+    },
+    {
+     "en": "name must be text, or Python crashes",
+     "ar": "name يجب أن يكون نصًا وإلا تنهار بايثون"
+    },
+    {
+     "en": "name is always None, whatever you pass",
+     "ar": "name دائمًا None مهما مرّرت"
+    },
+    {
+     "en": "name is text; empty text by default",
+     "ar": "name نص؛ ونص فارغ افتراضيًا"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "`str | None` labels it \"text or nothing\", and `= None` makes nothing the default value.",
+    "ar": "`str | None` تعني \"نص أو لا شيء\"، و`= None` تجعل لا شيء هو القيمة الافتراضية."
+   }
+  },
+  {
+   "id": 3,
+   "difficulty": "easy",
+   "question": {
+    "en": "How do you get a package like FastAPI that is not built into Python?",
+    "ar": "كيف تحصل على حزمة مثل FastAPI غير مدمجة في بايثون؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "`import install fastapi`",
+     "ar": "`import install fastapi`"
+    },
+    {
+     "en": "`python fastapi`",
+     "ar": "`python fastapi`"
+    },
+    {
+     "en": "`pip install fastapi`",
+     "ar": "`pip install fastapi`"
+    },
+    {
+     "en": "`def fastapi()`",
+     "ar": "`def fastapi()`"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "`pip install` downloads a package; after that, `import` can use it.",
+    "ar": "`pip install` تنزّل الحزمة؛ وبعدها تستطيع `import` استخدامها."
+   }
+  },
+  {
+   "id": 4,
+   "difficulty": "medium",
+   "question": {
+    "en": "What does this print?",
+    "ar": "ماذا يطبع هذا الكود؟"
+   },
+   "codeSnippet": "def greet(name, greeting=\"Hello\"):\n    return greeting + \", \" + name\n\nprint(greet(\"Sara\", greeting=\"Hi\"))",
+   "options": [
+    {
+     "en": "`Hello, Sara`",
+     "ar": "`Hello, Sara`"
+    },
+    {
+     "en": "`Sara, Hi`",
+     "ar": "`Sara, Hi`"
+    },
+    {
+     "en": "An error: too many inputs",
+     "ar": "خطأ: مدخلات كثيرة"
+    },
+    {
+     "en": "`Hi, Sara`",
+     "ar": "`Hi, Sara`"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "The keyword argument `greeting=\"Hi\"` replaces the default `\"Hello\"`.",
+    "ar": "الوسيط بالاسم `greeting=\"Hi\"` يحلّ محل القيمة الافتراضية `\"Hello\"`."
+   }
+  },
+  {
+   "id": 5,
+   "difficulty": "medium",
+   "question": {
+    "en": "What appears on the screen?",
+    "ar": "ماذا يظهر على الشاشة؟"
+   },
+   "codeSnippet": "def add(a, b):\n    print(a + b)\n\nx = add(2, 3)\nprint(x)",
+   "options": [
+    {
+     "en": "`5` then `5`",
+     "ar": "`5` ثم `5`"
+    },
+    {
+     "en": "`5` then `None`",
+     "ar": "`5` ثم `None`"
+    },
+    {
+     "en": "Only `5`",
+     "ar": "`5` فقط"
+    },
+    {
+     "en": "`None` then `5`",
+     "ar": "`None` ثم `5`"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`add` prints 5 but returns nothing, so `x` is `None`.",
+    "ar": "`add` تطبع 5 لكنها لا تُرجِع شيئًا، لذا `x` تساوي `None`."
+   }
+  },
+  {
+   "id": 6,
+   "difficulty": "medium",
+   "question": {
+    "en": "What does this print?",
+    "ar": "ماذا يطبع هذا الكود؟"
+   },
+   "codeSnippet": "from pydantic import BaseModel\n\nclass User(BaseModel):\n    name: str\n    age: int\n\nu = User(name=\"Omar\", age=30)\nprint(u.age + 1)",
+   "options": [
+    {
+     "en": "`31`",
+     "ar": "`31`"
+    },
+    {
+     "en": "`30`",
+     "ar": "`30`"
+    },
+    {
+     "en": "`None`",
+     "ar": "`None`"
+    },
+    {
+     "en": "`301`",
+     "ar": "`301`"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "`u.age` reads the attribute `30` (an int), and `30 + 1` is `31`.",
+    "ar": "`u.age` تقرأ الخاصية `30` (int)، و`30 + 1` تساوي `31`."
+   }
+  },
+  {
+   "id": 7,
+   "difficulty": "medium",
+   "question": {
+    "en": "What does the `@app.get(\"/\")` line do to `home`?",
+    "ar": "ماذا يفعل السطر `@app.get(\"/\")` بالدالة `home`؟"
+   },
+   "codeSnippet": "@app.get(\"/\")\ndef home():\n    return {\"message\": \"Hello\"}",
+   "options": [
+    {
+     "en": "Runs `home()` once when the file starts",
+     "ar": "يشغّل `home()` مرة عند بدء الملف"
+    },
+    {
+     "en": "Renames the function `home` to `get`",
+     "ar": "يغيّر اسم الدالة `home` إلى `get`"
+    },
+    {
+     "en": "Makes `home` return text, not JSON",
+     "ar": "يجعل `home` تُرجِع نصًا لا JSON"
+    },
+    {
+     "en": "Tells FastAPI to run `home` for GET `/`",
+     "ar": "يخبر FastAPI أن يشغّل `home` لطلب GET `/`"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "It is a decorator: a sticker that registers `home` as the answer to GET `/`.",
+    "ar": "إنه مُزخرِف (decorator): ملصق يسجّل `home` كجواب لطلب GET `/`."
+   }
+  },
+  {
+   "id": 8,
+   "difficulty": "hard",
+   "question": {
+    "en": "What does this print?",
+    "ar": "ماذا يطبع هذا الكود؟"
+   },
+   "codeSnippet": "def add(a: int, b: int) -> int:\n    return a + b\n\nprint(add(\"2\", \"3\"))",
+   "options": [
+    {
+     "en": "`5`",
+     "ar": "`5`"
+    },
+    {
+     "en": "TypeError: expected int",
+     "ar": "TypeError: expected int"
+    },
+    {
+     "en": "`23`",
+     "ar": "`23`"
+    },
+    {
+     "en": "`None`",
+     "ar": "`None`"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "Python does not enforce type hints. `\"2\" + \"3\"` joins the text into `23`.",
+    "ar": "بايثون لا تفرض تلميحات الأنواع. `\"2\" + \"3\"` تلصق النصين فتعطي `23`."
+   }
+  },
+  {
+   "id": 9,
+   "difficulty": "hard",
+   "question": {
+    "en": "What happens when this runs?",
+    "ar": "ماذا يحدث عند تشغيل هذا الكود؟"
+   },
+   "codeSnippet": "import math\nprint(sqrt(16))",
+   "options": [
+    {
+     "en": "NameError: `sqrt` is not defined",
+     "ar": "NameError: `sqrt` غير معرّفة"
+    },
+    {
+     "en": "It prints `4.0`",
+     "ar": "يطبع `4.0`"
+    },
+    {
+     "en": "It prints `4`",
+     "ar": "يطبع `4`"
+    },
+    {
+     "en": "ModuleNotFoundError: no `math`",
+     "ar": "ModuleNotFoundError: لا يوجد `math`"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "`import math` needs the prefix: `math.sqrt(16)`. Plain `sqrt` needs `from math import sqrt`.",
+    "ar": "`import math` تحتاج البادئة: `math.sqrt(16)`. أما `sqrt` وحدها فتحتاج `from math import sqrt`."
+   }
+  },
+  {
+   "id": 10,
+   "difficulty": "hard",
+   "question": {
+    "en": "What does this print?",
+    "ar": "ماذا يطبع هذا الكود؟"
+   },
+   "codeSnippet": "def twice(func):\n    def wrapper():\n        return func() + func()\n    return wrapper\n\n@twice\ndef ha():\n    return \"ha\"\n\nprint(ha())",
+   "options": [
+    {
+     "en": "`ha`",
+     "ar": "`ha`"
+    },
+    {
+     "en": "`ha ha`",
+     "ar": "`ha ha`"
+    },
+    {
+     "en": "`hahaha`",
+     "ar": "`hahaha`"
+    },
+    {
+     "en": "`haha`",
+     "ar": "`haha`"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "The `@twice` sticker wraps `ha`: the wrapper calls it two times and joins `\"ha\" + \"ha\"`.",
+    "ar": "الملصق `@twice` يغلّف `ha`: الغلاف يستدعيها مرتين ويلصق `\"ha\" + \"ha\"`."
+   }
+  }
+ ]
+}

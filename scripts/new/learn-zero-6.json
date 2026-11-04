@@ -1,0 +1,1043 @@
+{
+ "id": "python-values",
+ "icon": "🔤",
+ "title": {
+  "en": "Values, variables and text",
+  "ar": "القيم والمتغيرات والنصوص"
+ },
+ "summary": {
+  "en": "Store values in named boxes, do maths, shape text and read what the user types.",
+  "ar": "خزّن القيم في صناديق مسمّاة، واحسب، وشكّل النصوص، واقرأ ما يكتبه المستخدم."
+ },
+ "lessons": [
+  {
+   "id": "labelled-boxes",
+   "title": {
+    "en": "Variables are labelled boxes",
+    "ar": "المتغيرات صناديق عليها أسماء"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "📦",
+     "en": "A variable is a labelled box",
+     "ar": "المتغير (variable) صندوق عليه اسم"
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "age",
+       "color": "blue",
+       "label": {
+        "en": "the label (name)",
+        "ar": "الملصق (الاسم)"
+       }
+      },
+      {
+       "text": " = ",
+       "color": "yellow",
+       "label": {
+        "en": "put inside",
+        "ar": "ضع في الداخل"
+       }
+      },
+      {
+       "text": "25",
+       "color": "green",
+       "label": {
+        "en": "the value",
+        "ar": "القيمة"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "name = \"Sara\"\nage = 25\nprint(name, age)   # Sara 25\n\nage = 26           # new value, same box\nprint(age)         # 26",
+     "highlight": [
+      1,
+      2,
+      5
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🐍",
+       "color": "green",
+       "title": {
+        "en": "Use snake_case",
+        "ar": "استخدم snake_case"
+       },
+       "text": {
+        "en": "Small letters, words joined by `_`: `first_name`",
+        "ar": "حروف صغيرة وكلمات يربطها `_`: `first_name`"
+       }
+      },
+      {
+       "icon": "🚫",
+       "color": "red",
+       "title": {
+        "en": "No spaces or dashes",
+        "ar": "بلا مسافات أو شرطات"
+       },
+       "text": {
+        "en": "`my name` and `my-name` are errors",
+        "ar": "`my name` و `my-name` خطأ"
+       }
+      },
+      {
+       "icon": "🔢",
+       "color": "yellow",
+       "title": {
+        "en": "Never start with digit",
+        "ar": "لا تبدأ برقم"
+       },
+       "text": {
+        "en": "`2name` fails, `name2` is fine",
+        "ar": "`2name` يفشل، و `name2` سليم"
+       }
+      },
+      {
+       "icon": "🔠",
+       "color": "purple",
+       "title": {
+        "en": "Case-sensitive",
+        "ar": "حساس لحالة الأحرف"
+       },
+       "text": {
+        "en": "`Score` and `score` are two different boxes",
+        "ar": "`Score` و `score` صندوقان مختلفان"
+       }
+      }
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "Good names",
+       "ar": "أسماء جيدة"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "`user_name`",
+        "ar": "`user_name`"
+       },
+       {
+        "en": "`total_price`",
+        "ar": "`total_price`"
+       },
+       {
+        "en": "`age2`",
+        "ar": "`age2`"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "Broken names",
+       "ar": "أسماء معطوبة"
+      },
+      "tone": "bad",
+      "items": [
+       {
+        "en": "`user name`",
+        "ar": "`user name`"
+       },
+       {
+        "en": "`total-price`",
+        "ar": "`total-price`"
+       },
+       {
+        "en": "`2age`",
+        "ar": "`2age`"
+       }
+      ]
+     }
+    },
+    {
+     "type": "warn",
+     "en": "Typo in case? `print(score)` after `Score = 10` gives `NameError: name 'score' is not defined`.",
+     "ar": "خطأ في حالة الأحرف؟ `print(score)` بعد `Score = 10` يعطي `NameError: name 'score' is not defined`."
+    }
+   ]
+  },
+  {
+   "id": "value-types",
+   "title": {
+    "en": "Kinds of values (types)",
+    "ar": "أنواع القيم (types)"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🎨",
+     "en": "Every value has a type",
+     "ar": "لكل قيمة نوع (type)"
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🔤",
+       "color": "blue",
+       "title": {
+        "en": "str = text",
+        "ar": "str = نص"
+       },
+       "text": {
+        "en": "Inside quotes: `\"Sara\"`, `\"25\"`",
+        "ar": "داخل علامات تنصيص: `\"Sara\"`، `\"25\"`"
+       }
+      },
+      {
+       "icon": "🔢",
+       "color": "green",
+       "title": {
+        "en": "int = whole number",
+        "ar": "int = عدد صحيح"
+       },
+       "text": {
+        "en": "No dot: `25`, `-3`, `0`",
+        "ar": "بلا فاصلة: `25`، `-3`، `0`"
+       }
+      },
+      {
+       "icon": "💧",
+       "color": "cyan",
+       "title": {
+        "en": "float = decimal number",
+        "ar": "float = عدد عشري"
+       },
+       "text": {
+        "en": "Has a dot: `2.5`, `3.0`",
+        "ar": "فيه فاصلة: `2.5`، `3.0`"
+       }
+      },
+      {
+       "icon": "💡",
+       "color": "yellow",
+       "title": {
+        "en": "bool = yes / no",
+        "ar": "bool = نعم / لا"
+       },
+       "text": {
+        "en": "Only `True` or `False`",
+        "ar": "فقط `True` أو `False`"
+       }
+      },
+      {
+       "icon": "🫙",
+       "color": "purple",
+       "title": {
+        "en": "None = empty box",
+        "ar": "None = صندوق فارغ"
+       },
+       "text": {
+        "en": "Means \"no value yet\"",
+        "ar": "تعني «لا قيمة بعد»"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "print(type(\"hi\"))   # <class 'str'>\nprint(type(5))      # <class 'int'>\nprint(type(2.5))    # <class 'float'>\nprint(type(True))   # <class 'bool'>\nprint(type(None))   # <class 'NoneType'>",
+     "highlight": [
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": "\"25\"",
+       "color": "blue",
+       "label": {
+        "en": "str",
+        "ar": "str"
+       }
+      },
+      {
+       "text": "25",
+       "color": "green",
+       "label": {
+        "en": "int",
+        "ar": "int"
+       }
+      },
+      {
+       "text": "25.0",
+       "color": "cyan",
+       "label": {
+        "en": "float",
+        "ar": "float"
+       }
+      },
+      {
+       "text": "True",
+       "color": "yellow",
+       "label": {
+        "en": "bool",
+        "ar": "bool"
+       }
+      },
+      {
+       "text": "None",
+       "color": "purple",
+       "label": {
+        "en": "NoneType",
+        "ar": "NoneType"
+       }
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "`print()` shows values on screen. `type()` tells you what kind a value is.",
+     "ar": "`print()` يعرض القيم على الشاشة. و `type()` يخبرك بنوع القيمة."
+    }
+   ]
+  },
+  {
+   "id": "doing-math",
+   "title": {
+    "en": "Python as a calculator",
+    "ar": "Python كآلة حاسبة"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🧮",
+     "en": "Python does maths instantly",
+     "ar": "Python يحسب في لمح البصر"
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": "+",
+       "color": "green",
+       "label": {
+        "en": "add",
+        "ar": "جمع"
+       }
+      },
+      {
+       "text": "-",
+       "color": "red",
+       "label": {
+        "en": "subtract",
+        "ar": "طرح"
+       }
+      },
+      {
+       "text": "*",
+       "color": "blue",
+       "label": {
+        "en": "multiply",
+        "ar": "ضرب"
+       }
+      },
+      {
+       "text": "/",
+       "color": "cyan",
+       "label": {
+        "en": "divide",
+        "ar": "قسمة"
+       }
+      },
+      {
+       "text": "//",
+       "color": "purple",
+       "label": {
+        "en": "whole division",
+        "ar": "قسمة صحيحة"
+       }
+      },
+      {
+       "text": "%",
+       "color": "yellow",
+       "label": {
+        "en": "remainder",
+        "ar": "باقي القسمة"
+       }
+      },
+      {
+       "text": "**",
+       "color": "red",
+       "label": {
+        "en": "power",
+        "ar": "أُس (قوة)"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "print(3 + 2)    # 5\nprint(10 - 3)   # 7\nprint(4 * 2)    # 8\nprint(7 / 2)    # 3.5\nprint(7 // 2)   # 3\nprint(7 % 2)    # 1\nprint(2 ** 3)   # 8",
+     "highlight": [
+      4,
+      5,
+      6
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🍕",
+       "color": "purple",
+       "title": {
+        "en": "// = full boxes",
+        "ar": "// = العلب الممتلئة"
+       },
+       "text": {
+        "en": "7 slices, 2 per plate: 3 full plates",
+        "ar": "7 شرائح، 2 لكل طبق: 3 أطباق كاملة"
+       }
+      },
+      {
+       "icon": "🧩",
+       "color": "yellow",
+       "title": {
+        "en": "% = what is left",
+        "ar": "% = ما يتبقى"
+       },
+       "text": {
+        "en": "7 slices, 2 per plate: 1 left over",
+        "ar": "7 شرائح، 2 لكل طبق: تبقى 1"
+       }
+      }
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "You might expect",
+       "ar": "قد تتوقع"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "`6 / 2` gives `3`",
+        "ar": "`6 / 2` يعطي `3`"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "Python really says",
+       "ar": "Python يقول فعلًا"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "`6 / 2` gives `3.0`",
+        "ar": "`6 / 2` يعطي `3.0`"
+       }
+      ]
+     }
+    },
+    {
+     "type": "warn",
+     "en": "Surprise: `/` ALWAYS gives a float, even `10 / 5` is `2.0`.",
+     "ar": "مفاجأة: `/` يعطي دائمًا float، حتى `10 / 5` يساوي `2.0`."
+    }
+   ]
+  },
+  {
+   "id": "playing-with-text",
+   "title": {
+    "en": "Playing with text (strings)",
+    "ar": "اللعب بالنصوص (strings)"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🔤",
+     "en": "Text lives between quotes",
+     "ar": "النص يعيش بين علامات التنصيص"
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "Join with +",
+       "ar": "اربط بـ +"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "`\"Hi \" + name`",
+        "ar": "`\"Hi \" + name`"
+       },
+       {
+        "en": "You add the spaces yourself",
+        "ar": "تضيف المسافات بنفسك"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "f-string (easier)",
+       "ar": "f-string (أسهل)"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "`f\"Hi {name}\"`",
+        "ar": "`f\"Hi {name}\"`"
+       },
+       {
+        "en": "Values drop into `{ }`",
+        "ar": "القيم تسقط داخل `{ }`"
+       }
+      ]
+     }
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "f",
+       "color": "purple",
+       "label": {
+        "en": "f = fill in",
+        "ar": "f = املأ الفراغ"
+       }
+      },
+      {
+       "text": "\"Hi ",
+       "color": "blue",
+       "label": {
+        "en": "normal text",
+        "ar": "نص عادي"
+       }
+      },
+      {
+       "text": "{name}",
+       "color": "green",
+       "label": {
+        "en": "replaced by the value",
+        "ar": "تُستبدل بالقيمة"
+       }
+      },
+      {
+       "text": "\"",
+       "color": "blue"
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "name = \"Sara\"\nprint(f\"Hi {name}\")      # Hi Sara\nprint(len(name))         # 4\nprint(name.upper())      # SARA\nprint(name.lower())      # sara\nprint(\"  hi  \".strip())  # hi",
+     "highlight": [
+      2,
+      3,
+      6
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "📏",
+       "color": "blue",
+       "title": {
+        "en": "len()",
+        "ar": "len()"
+       },
+       "text": {
+        "en": "Counts the characters",
+        "ar": "يعدّ الحروف"
+       }
+      },
+      {
+       "icon": "🔊",
+       "color": "green",
+       "title": {
+        "en": ".upper() / .lower()",
+        "ar": ".upper() / .lower()"
+       },
+       "text": {
+        "en": "ALL CAPS or all small",
+        "ar": "كلها كبيرة أو كلها صغيرة"
+       }
+      },
+      {
+       "icon": "✂️",
+       "color": "yellow",
+       "title": {
+        "en": ".strip()",
+        "ar": ".strip()"
+       },
+       "text": {
+        "en": "Cuts spaces from both ends",
+        "ar": "يقص المسافات من الطرفين"
+       }
+      }
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "`\"Age: \" + 25` fails: `TypeError: can only concatenate str (not \"int\") to str`.",
+     "ar": "`\"Age: \" + 25` يفشل: `TypeError: can only concatenate str (not \"int\") to str`."
+    }
+   ]
+  },
+  {
+   "id": "convert-and-input",
+   "title": {
+    "en": "Converting types and input()",
+    "ar": "تحويل الأنواع و input()"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🔄",
+     "en": "Turn one type into another",
+     "ar": "حوّل نوعًا إلى نوع آخر"
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": "int(\"5\")",
+       "color": "green",
+       "label": {
+        "en": "→ 5",
+        "ar": "← 5"
+       }
+      },
+      {
+       "text": "str(5)",
+       "color": "blue",
+       "label": {
+        "en": "→ \"5\"",
+        "ar": "← \"5\""
+       }
+      },
+      {
+       "text": "float(\"2.5\")",
+       "color": "cyan",
+       "label": {
+        "en": "→ 2.5",
+        "ar": "← 2.5"
+       }
+      },
+      {
+       "text": "int(\"abc\")",
+       "color": "red",
+       "label": {
+        "en": "→ ValueError",
+        "ar": "← ValueError"
+       }
+      }
+     ]
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "🙋",
+       "label": {
+        "en": "You type 7",
+        "ar": "تكتب 7"
+       }
+      },
+      {
+       "icon": "⌨️",
+       "label": {
+        "en": "input() gives \"7\"",
+        "ar": "input() يعطي \"7\""
+       }
+      },
+      {
+       "icon": "🔢",
+       "label": {
+        "en": "int() makes 7",
+        "ar": "int() يجعله 7"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "keyboard",
+        "ar": "لوحة المفاتيح"
+       }
+      },
+      {
+       "label": {
+        "en": "convert",
+        "ar": "تحويل"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "age = input(\"Age? \")    # user types 7\nprint(type(age))        # <class 'str'>\nprint(age * 2)          # 77  (text repeated!)\n\nage = int(age)\nprint(age + 1)          # 8",
+     "highlight": [
+      2,
+      3,
+      5
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "`input()` ALWAYS returns `str`, even when the user types a number.",
+     "ar": "`input()` يُرجع دائمًا `str`، حتى لو كتب المستخدم رقمًا."
+    },
+    {
+     "type": "code",
+     "lang": "text",
+     "code": ">>> int(\"abc\")\nValueError: invalid literal for int() with base 10: 'abc'",
+     "highlight": [
+      2
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "`int()` only accepts digits. Letters, or even `\"2.5\"`, raise `ValueError`.",
+     "ar": "`int()` يقبل الأرقام فقط. الحروف، بل حتى `\"2.5\"`، تُطلق `ValueError`."
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "difficulty": "easy",
+   "question": {
+    "en": "Which of these is a valid Python variable name?",
+    "ar": "أيٌّ من هذه اسم متغير صالح في Python؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "`my name`",
+     "ar": "`my name`"
+    },
+    {
+     "en": "`2name`",
+     "ar": "`2name`"
+    },
+    {
+     "en": "`my_name`",
+     "ar": "`my_name`"
+    },
+    {
+     "en": "`my-name`",
+     "ar": "`my-name`"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "Use snake_case: letters and `_`. Spaces, dashes and a leading digit are errors.",
+    "ar": "استخدم snake_case: حروف و `_`. المسافات والشرطات والبدء برقم أخطاء."
+   }
+  },
+  {
+   "id": 2,
+   "difficulty": "easy",
+   "question": {
+    "en": "What does this print?",
+    "ar": "ماذا يطبع هذا الكود؟"
+   },
+   "codeSnippet": "print(type(2.5))",
+   "options": [
+    {
+     "en": "<class 'float'>",
+     "ar": "<class 'float'>"
+    },
+    {
+     "en": "<class 'int'>",
+     "ar": "<class 'int'>"
+    },
+    {
+     "en": "<class 'str'>",
+     "ar": "<class 'str'>"
+    },
+    {
+     "en": "<class 'bool'>",
+     "ar": "<class 'bool'>"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "A number with a dot is a `float` (decimal number).",
+    "ar": "العدد الذي فيه فاصلة عشرية من نوع `float` (عدد عشري)."
+   }
+  },
+  {
+   "id": 3,
+   "difficulty": "easy",
+   "question": {
+    "en": "Which value means \"nothing here yet\"?",
+    "ar": "أي قيمة تعني «لا شيء هنا بعد»؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "`False`",
+     "ar": "`False`"
+    },
+    {
+     "en": "`None`",
+     "ar": "`None`"
+    },
+    {
+     "en": "`0`",
+     "ar": "`0`"
+    },
+    {
+     "en": "`\"\"`",
+     "ar": "`\"\"`"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`None` is the empty box: no value at all. `False`, `0` and `\"\"` are real values.",
+    "ar": "`None` هو الصندوق الفارغ: لا قيمة إطلاقًا. أما `False` و `0` و `\"\"` فقيم حقيقية."
+   }
+  },
+  {
+   "id": 4,
+   "difficulty": "medium",
+   "question": {
+    "en": "What does this print?",
+    "ar": "ماذا يطبع هذا الكود؟"
+   },
+   "codeSnippet": "print(10 / 5)",
+   "options": [
+    {
+     "en": "2",
+     "ar": "2"
+    },
+    {
+     "en": "2.5",
+     "ar": "2.5"
+    },
+    {
+     "en": "0.5",
+     "ar": "0.5"
+    },
+    {
+     "en": "2.0",
+     "ar": "2.0"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`/` always gives a float, even when the division is exact.",
+    "ar": "`/` يعطي دائمًا float، حتى عندما تكون القسمة بلا باقٍ."
+   }
+  },
+  {
+   "id": 5,
+   "difficulty": "medium",
+   "question": {
+    "en": "What are the two printed lines?",
+    "ar": "ما السطران المطبوعان؟"
+   },
+   "codeSnippet": "print(7 // 2)\nprint(7 % 2)",
+   "options": [
+    {
+     "en": "3.5 and 1",
+     "ar": "3.5 and 1"
+    },
+    {
+     "en": "3 and 1",
+     "ar": "3 and 1"
+    },
+    {
+     "en": "3 and 3.5",
+     "ar": "3 and 3.5"
+    },
+    {
+     "en": "1 and 3",
+     "ar": "1 and 3"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`//` keeps the whole part (3); `%` gives the remainder (1).",
+    "ar": "`//` يحتفظ بالجزء الصحيح (3)، و `%` يعطي الباقي (1)."
+   }
+  },
+  {
+   "id": 6,
+   "difficulty": "medium",
+   "question": {
+    "en": "What does this print?",
+    "ar": "ماذا يطبع هذا الكود؟"
+   },
+   "codeSnippet": "name = \"Sara\"\nprint(f\"Hi {name}!\")",
+   "options": [
+    {
+     "en": "Hi Sara!",
+     "ar": "Hi Sara!"
+    },
+    {
+     "en": "Hi {name}!",
+     "ar": "Hi {name}!"
+    },
+    {
+     "en": "Hi name!",
+     "ar": "Hi name!"
+    },
+    {
+     "en": "f\"Hi Sara!\"",
+     "ar": "f\"Hi Sara!\""
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "In an f-string, `{name}` is replaced by the variable's value.",
+    "ar": "في الـ f-string تُستبدل `{name}` بقيمة المتغير."
+   }
+  },
+  {
+   "id": 7,
+   "difficulty": "medium",
+   "question": {
+    "en": "What happens when this runs?",
+    "ar": "ماذا يحدث عند تشغيل هذا الكود؟"
+   },
+   "codeSnippet": "age = 25\nprint(\"Age: \" + age)",
+   "options": [
+    {
+     "en": "It prints Age: 25 because Python converts the number",
+     "ar": "It prints Age: 25 because Python converts the number"
+    },
+    {
+     "en": "NameError: name 'age' is not defined",
+     "ar": "NameError: name 'age' is not defined"
+    },
+    {
+     "en": "TypeError: can only concatenate str (not \"int\") to str",
+     "ar": "TypeError: can only concatenate str (not \"int\") to str"
+    },
+    {
+     "en": "ValueError: invalid literal for int() with base 10: 'Age: '",
+     "ar": "ValueError: invalid literal for int() with base 10: 'Age: '"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "`+` cannot glue text to a number. Use `str(age)` or an f-string.",
+    "ar": "`+` لا يستطيع لصق نص برقم. استخدم `str(age)` أو f-string."
+   }
+  },
+  {
+   "id": 8,
+   "difficulty": "hard",
+   "question": {
+    "en": "The user types 7. What is printed?",
+    "ar": "المستخدم يكتب 7. ماذا يُطبع؟"
+   },
+   "codeSnippet": "a = input(\"Number? \")\nprint(a * 2)",
+   "options": [
+    {
+     "en": "14",
+     "ar": "14"
+    },
+    {
+     "en": "7.0",
+     "ar": "7.0"
+    },
+    {
+     "en": "TypeError",
+     "ar": "TypeError"
+    },
+    {
+     "en": "77",
+     "ar": "77"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`input()` returns the text \"7\"; text times 2 repeats it: \"77\".",
+    "ar": "`input()` يُرجع النص \"7\"؛ والنص مضروبًا في 2 يتكرر: \"77\"."
+   }
+  },
+  {
+   "id": 9,
+   "difficulty": "hard",
+   "question": {
+    "en": "What does Python say here?",
+    "ar": "ماذا يقول Python هنا؟"
+   },
+   "codeSnippet": "print(int(\"abc\"))",
+   "options": [
+    {
+     "en": "ValueError: invalid literal for int() with base 10: 'abc'",
+     "ar": "ValueError: invalid literal for int() with base 10: 'abc'"
+    },
+    {
+     "en": "TypeError: can only concatenate str (not \"int\") to str",
+     "ar": "TypeError: can only concatenate str (not \"int\") to str"
+    },
+    {
+     "en": "NameError: name 'abc' is not defined",
+     "ar": "NameError: name 'abc' is not defined"
+    },
+    {
+     "en": "It prints abc, int() leaves text unchanged",
+     "ar": "It prints abc, int() leaves text unchanged"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "`\"abc\"` is text with no digits, so `int()` cannot convert it: `ValueError`.",
+    "ar": "`\"abc\"` نص بلا أرقام، فلا يستطيع `int()` تحويله: `ValueError`."
+   }
+  },
+  {
+   "id": 10,
+   "difficulty": "hard",
+   "question": {
+    "en": "What happens when this runs?",
+    "ar": "ماذا يحدث عند تشغيل هذا الكود؟"
+   },
+   "codeSnippet": "Score = 10\nprint(score)",
+   "options": [
+    {
+     "en": "It prints 10, names ignore capital letters",
+     "ar": "It prints 10, names ignore capital letters"
+    },
+    {
+     "en": "NameError: name 'score' is not defined",
+     "ar": "NameError: name 'score' is not defined"
+    },
+    {
+     "en": "It prints None because score is still empty",
+     "ar": "It prints None because score is still empty"
+    },
+    {
+     "en": "SyntaxError: invalid syntax on the first line",
+     "ar": "SyntaxError: invalid syntax on the first line"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "Names are case-sensitive: only `Score` exists. Python 3.10+ even adds `Did you mean: 'Score'?`.",
+    "ar": "الأسماء حساسة لحالة الأحرف: يوجد `Score` فقط. بل يضيف Python 3.10+ عبارة `Did you mean: 'Score'?`."
+   }
+  }
+ ]
+}

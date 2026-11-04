@@ -16,7 +16,9 @@ import { state } from './state.js';
 //  gameAPI.getCourse (fetch on the web, IPC in Electron). Progress is per device,
 //  in localStorage — it is a study tool, not a leaderboard.
 // ============================================================
+// In the order they are meant to be taken. `start` marks the beginner entry point.
 export const COURSES = [
+    { id: 'from-zero', icon: '🌱', start: true },
     { id: 'fastapi', icon: '⚡' }
 ];
 export const PASS_PCT = 70;
@@ -156,6 +158,10 @@ export async function renderCourseList() {
         try {
             const c = await getCourse(meta.id);
             const passed = c.levels.filter((lv) => isLevelPassed(c.id, lv.id)).length;
+            if (meta.start) {
+                card.classList.add('is-start');
+                card.appendChild(el('span', 'learn-start-badge', t('learnStartHere')));
+            }
             card.append(
                 el('span', 'learn-course-icon', meta.icon),
                 el('strong', 'learn-course-title', L(c.title)),

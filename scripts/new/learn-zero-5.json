@@ -1,0 +1,1143 @@
+{
+ "id": "python-setup",
+ "icon": "🐍",
+ "title": {
+  "en": "Set up Python",
+  "ar": "جهّز Python"
+ },
+ "summary": {
+  "en": "Install Python, use the `>>>` prompt, run your first file, install packages with pip and keep each project in its own virtual environment.",
+  "ar": "ثبّت Python، واستخدم موجّه `>>>`، وشغّل ملفك الأول، وثبّت الحزم بـ pip، واجعل لكل مشروع بيئته الافتراضية الخاصة."
+ },
+ "lessons": [
+  {
+   "id": "install-python",
+   "title": {
+    "en": "Install Python",
+    "ar": "ثبّت Python"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🐍",
+     "en": "Python is the engine that runs your code",
+     "ar": "Python هو المحرّك الذي يشغّل الكود الذي تكتبه"
+    },
+    {
+     "type": "steps",
+     "items": [
+      {
+       "en": "Open `python.org/downloads` in your browser",
+       "ar": "افتح `python.org/downloads` في المتصفح"
+      },
+      {
+       "en": "Download the Windows installer",
+       "ar": "نزّل المثبِّت (installer) الخاص بـ Windows"
+      },
+      {
+       "en": "Tick \"Add python.exe to PATH\"",
+       "ar": "ضع علامة على \"Add python.exe to PATH\""
+      },
+      {
+       "en": "Click \"Install Now\" and wait",
+       "ar": "اضغط \"Install Now\" وانتظر"
+      }
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "Windows",
+       "ar": "Windows"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "Installer from python.org",
+        "ar": "المثبِّت من python.org"
+       },
+       {
+        "en": "Tick \"Add python.exe to PATH\"",
+        "ar": "فعّل \"Add python.exe to PATH\""
+       },
+       {
+        "en": "Check: `python --version` or `py --version`",
+        "ar": "للتأكد: `python --version` أو `py --version`"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "macOS / Linux",
+       "ar": "macOS / Linux"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "macOS: installer from python.org",
+        "ar": "macOS: المثبِّت من python.org"
+       },
+       {
+        "en": "Linux: often already installed",
+        "ar": "Linux: غالبًا مثبّت مسبقًا"
+       },
+       {
+        "en": "Check: `python3 --version`",
+        "ar": "للتأكد: `python3 --version`"
+       }
+      ]
+     }
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "python --version",
+       "note": {
+        "en": "type it in the terminal",
+        "ar": "اكتبه في الطرفية (terminal)"
+       }
+      },
+      {
+       "from": "server",
+       "text": "Python 3.10.11",
+       "note": {
+        "en": "installed! yours may be newer",
+        "ar": "تم التثبيت! قد يكون رقمك أحدث"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🔎",
+       "color": "blue",
+       "title": {
+        "en": "PATH",
+        "ar": "الـ PATH"
+       },
+       "text": {
+        "en": "The list of folders Windows searches for commands",
+        "ar": "قائمة المجلدات التي يبحث فيها Windows عن الأوامر"
+       }
+      },
+      {
+       "icon": "📇",
+       "color": "purple",
+       "title": {
+        "en": "Like phone contacts",
+        "ar": "مثل جهات الاتصال في هاتفك"
+       },
+       "text": {
+        "en": "Not on the list? Windows cannot find it",
+        "ar": "ليس في القائمة؟ لن يجده Windows"
+       }
+      }
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "python --version",
+       "note": {
+        "en": "PATH box was not ticked",
+        "ar": "لم تُفعَّل خانة PATH"
+       }
+      },
+      {
+       "from": "server",
+       "text": "'python' is not recognized as an internal or external command,\noperable program or batch file.",
+       "note": {
+        "en": "Windows cannot find Python",
+        "ar": "Windows لا يجد Python"
+       }
+      }
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "Fix: uninstall, reinstall with the PATH box ticked, then open a new terminal. Or try `py`.",
+     "ar": "الحل: أزِل التثبيت، ثم ثبّت مجددًا مع تفعيل خانة PATH، وافتح طرفية جديدة. أو جرّب `py`."
+    }
+   ]
+  },
+  {
+   "id": "editor-and-repl",
+   "title": {
+    "en": "Your tools and the >>> prompt",
+    "ar": "أدواتك وموجّه >>>"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "⌨️",
+     "en": "The `>>>` prompt is a super calculator",
+     "ar": "موجّه `>>>` آلة حاسبة خارقة"
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "📝",
+       "color": "blue",
+       "title": {
+        "en": "Code editor",
+        "ar": "محرّر الأكواد (code editor)"
+       },
+       "text": {
+        "en": "Where you write files, such as VS Code (free)",
+        "ar": "مكان كتابة الملفات، مثل VS Code (مجاني)"
+       }
+      },
+      {
+       "icon": "⬛",
+       "color": "purple",
+       "title": {
+        "en": "Terminal",
+        "ar": "الطرفية (terminal)"
+       },
+       "text": {
+        "en": "A window for typing commands; Windows: Command Prompt",
+        "ar": "نافذة لكتابة الأوامر؛ في Windows: Command Prompt"
+       }
+      },
+      {
+       "icon": "🐍",
+       "color": "green",
+       "title": {
+        "en": "Python prompt `>>>`",
+        "ar": "موجّه Python `>>>`"
+       },
+       "text": {
+        "en": "Type one line, Python answers at once",
+        "ar": "اكتب سطرًا واحدًا، ويجيب Python فورًا"
+       }
+      }
+     ]
+    },
+    {
+     "type": "steps",
+     "items": [
+      {
+       "en": "Open the terminal",
+       "ar": "افتح الطرفية"
+      },
+      {
+       "en": "Type `python` and press Enter",
+       "ar": "اكتب `python` واضغط Enter"
+      },
+      {
+       "en": "See `>>>`: Python is listening",
+       "ar": "ترى `>>>`: الـ Python يستمع إليك"
+      },
+      {
+       "en": "Type `exit()` to leave",
+       "ar": "اكتب `exit()` للخروج"
+      }
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": ">>> 2 + 3"
+      },
+      {
+       "from": "server",
+       "text": "5",
+       "note": {
+        "en": "instant answer",
+        "ar": "إجابة فورية"
+       }
+      },
+      {
+       "from": "client",
+       "text": ">>> 10 / 4"
+      },
+      {
+       "from": "server",
+       "text": "2.5",
+       "note": {
+        "en": "division gives decimals",
+        "ar": "القسمة تعطي كسورًا عشرية"
+       }
+      },
+      {
+       "from": "client",
+       "text": ">>> 2 ** 10"
+      },
+      {
+       "from": "server",
+       "text": "1024",
+       "note": {
+        "en": "2 to the power 10",
+        "ar": "2 أُس 10"
+       }
+      },
+      {
+       "from": "client",
+       "text": ">>> \"Hi\" * 3"
+      },
+      {
+       "from": "server",
+       "text": "'HiHiHi'",
+       "note": {
+        "en": "text works too!",
+        "ar": "النصوص تعمل أيضًا!"
+       }
+      }
+     ]
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": "+",
+       "color": "green",
+       "label": {
+        "en": "add",
+        "ar": "جمع"
+       }
+      },
+      {
+       "text": "-",
+       "color": "red",
+       "label": {
+        "en": "subtract",
+        "ar": "طرح"
+       }
+      },
+      {
+       "text": "*",
+       "color": "blue",
+       "label": {
+        "en": "multiply",
+        "ar": "ضرب"
+       }
+      },
+      {
+       "text": "/",
+       "color": "yellow",
+       "label": {
+        "en": "divide",
+        "ar": "قسمة"
+       }
+      },
+      {
+       "text": "**",
+       "color": "purple",
+       "label": {
+        "en": "power",
+        "ar": "أُس"
+       }
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "On macOS/Linux, type `python3` to open the `>>>` prompt.",
+     "ar": "على macOS/Linux اكتب `python3` لفتح موجّه `>>>`."
+    }
+   ]
+  },
+  {
+   "id": "first-file",
+   "title": {
+    "en": "Your first file: hello.py",
+    "ar": "ملفك الأول: hello.py"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "📄",
+     "en": "A file keeps your code for next time",
+     "ar": "الملف يحفظ الكود لتشغيله في أي وقت"
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "💾",
+       "color": "blue",
+       "title": {
+        "en": "Save as `hello.py`",
+        "ar": "احفظه باسم `hello.py`"
+       },
+       "text": {
+        "en": "`.py` at the end means Python code",
+        "ar": "النهاية `.py` تعني أنه كود Python"
+       }
+      },
+      {
+       "icon": "💬",
+       "color": "yellow",
+       "title": {
+        "en": "Comment `#`",
+        "ar": "التعليق (comment) `#`"
+       },
+       "text": {
+        "en": "A note for humans; Python skips it",
+        "ar": "ملاحظة للبشر؛ يتجاهلها Python"
+       }
+      },
+      {
+       "icon": "🖨️",
+       "color": "green",
+       "title": {
+        "en": "`print()`",
+        "ar": "`print()`"
+       },
+       "text": {
+        "en": "Shows a value on the screen",
+        "ar": "يعرض قيمة على الشاشة"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "# My first program\nprint(\"Hello, world!\")  # say hello\nprint(2 + 3)",
+     "highlight": [
+      1,
+      2
+     ]
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "python",
+       "color": "blue",
+       "label": {
+        "en": "run Python",
+        "ar": "شغّل Python"
+       }
+      },
+      {
+       "text": " "
+      },
+      {
+       "text": "hello.py",
+       "color": "green",
+       "label": {
+        "en": "your file name",
+        "ar": "اسم ملفك"
+       }
+      }
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "C:\\Users\\Sara\\code> python hello.py",
+       "note": {
+        "en": "run it in the file's folder",
+        "ar": "شغّله داخل مجلد الملف"
+       }
+      },
+      {
+       "from": "server",
+       "text": "Hello, world!\n5",
+       "note": {
+        "en": "comments are not printed",
+        "ar": "التعليقات لا تُطبع"
+       }
+      }
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "C:\\Users\\Sara> python hello.py",
+       "note": {
+        "en": "oops, wrong folder",
+        "ar": "خطأ: مجلد مختلف"
+       }
+      },
+      {
+       "from": "server",
+       "text": "...\\python.exe: can't open file 'C:\\\\Users\\\\Sara\\\\hello.py': [Errno 2] No such file or directory",
+       "note": {
+        "en": "hello.py is not here",
+        "ar": "الملف hello.py ليس هنا"
+       }
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "Move to the file's folder with `cd`. List files: `dir` (Windows), `ls` (macOS/Linux).",
+     "ar": "انتقل إلى مجلد الملف بـ `cd`. لعرض الملفات: `dir` (Windows)، `ls` (macOS/Linux)."
+    }
+   ]
+  },
+  {
+   "id": "pip-packages",
+   "title": {
+    "en": "pip: install extra tools",
+    "ar": "pip: ثبّت أدوات إضافية"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "📦",
+     "en": "pip is an app store for Python",
+     "ar": "الـ pip متجر تطبيقات خاص بـ Python"
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "📦",
+       "color": "yellow",
+       "title": {
+        "en": "Package",
+        "ar": "الحزمة (package)"
+       },
+       "text": {
+        "en": "Ready-made code someone wrote and shared",
+        "ar": "كود جاهز كتبه شخص آخر وشاركه"
+       }
+      },
+      {
+       "icon": "🛒",
+       "color": "blue",
+       "title": {
+        "en": "pip",
+        "ar": "الـ pip"
+       },
+       "text": {
+        "en": "The tool that downloads and installs packages",
+        "ar": "الأداة التي تنزّل الحزم وتثبّتها"
+       }
+      },
+      {
+       "icon": "🌍",
+       "color": "green",
+       "title": {
+        "en": "PyPI",
+        "ar": "الـ PyPI"
+       },
+       "text": {
+        "en": "The free online shop of Python packages",
+        "ar": "المتجر المجاني لحزم Python على الإنترنت"
+       }
+      }
+     ]
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "💻",
+       "label": {
+        "en": "You",
+        "ar": "أنت"
+       }
+      },
+      {
+       "icon": "🛒",
+       "label": {
+        "en": "pip",
+        "ar": "الـ pip"
+       }
+      },
+      {
+       "icon": "🌍",
+       "label": {
+        "en": "PyPI",
+        "ar": "الـ PyPI"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "`pip install requests`",
+        "ar": "`pip install requests`"
+       }
+      },
+      {
+       "label": {
+        "en": "downloads the package",
+        "ar": "ينزّل الحزمة"
+       }
+      }
+     ]
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "pip",
+       "color": "blue",
+       "label": {
+        "en": "the installer",
+        "ar": "أداة التثبيت"
+       }
+      },
+      {
+       "text": " "
+      },
+      {
+       "text": "install",
+       "color": "purple",
+       "label": {
+        "en": "the action",
+        "ar": "الفعل"
+       }
+      },
+      {
+       "text": " "
+      },
+      {
+       "text": "requests",
+       "color": "green",
+       "label": {
+        "en": "package name",
+        "ar": "اسم الحزمة"
+       }
+      }
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": ">>> import requests",
+       "note": {
+        "en": "before installing",
+        "ar": "قبل التثبيت"
+       }
+      },
+      {
+       "from": "server",
+       "text": "ModuleNotFoundError: No module named 'requests'",
+       "note": {
+        "en": "not installed yet",
+        "ar": "غير مثبّتة بعد"
+       }
+      }
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "pip install requests",
+       "note": {
+        "en": "in the terminal, not `>>>`",
+        "ar": "في الطرفية، وليس في `>>>`"
+       }
+      },
+      {
+       "from": "server",
+       "text": "Collecting requests\n...\nSuccessfully installed ... requests-...",
+       "note": {
+        "en": "versions may differ",
+        "ar": "أرقام الإصدارات قد تختلف"
+       }
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "`pip` not found? Try `python -m pip install requests` (macOS: `pip3`).",
+     "ar": "لم يُعثر على `pip`؟ جرّب `python -m pip install requests` (في macOS: `pip3`)."
+    }
+   ]
+  },
+  {
+   "id": "virtual-envs",
+   "title": {
+    "en": "Virtual environments",
+    "ar": "البيئات الافتراضية (virtual environments)"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🧰",
+     "en": "A separate toolbox for each project",
+     "ar": "صندوق أدوات منفصل لكل مشروع"
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "Without a venv",
+       "ar": "بدون venv"
+      },
+      "tone": "bad",
+      "items": [
+       {
+        "en": "All projects share one toolbox",
+        "ar": "كل المشاريع تشترك في صندوق واحد"
+       },
+       {
+        "en": "One upgrade can break another project",
+        "ar": "تحديث واحد قد يُعطّل مشروعًا آخر"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "With a venv",
+       "ar": "مع venv"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "Each project has its own `.venv`",
+        "ar": "لكل مشروع مجلد `.venv` خاص به"
+       },
+       {
+        "en": "Projects cannot break each other",
+        "ar": "المشاريع لا تُعطّل بعضها"
+       }
+      ]
+     }
+    },
+    {
+     "type": "steps",
+     "items": [
+      {
+       "en": "`cd` into your project folder",
+       "ar": "ادخل مجلد مشروعك بـ `cd`"
+      },
+      {
+       "en": "Create it: `python -m venv .venv`",
+       "ar": "أنشئها: `python -m venv .venv`"
+      },
+      {
+       "en": "Activate it (see below)",
+       "ar": "فعّلها (انظر بالأسفل)"
+      },
+      {
+       "en": "Install: `pip install requests`",
+       "ar": "ثبّت: `pip install requests`"
+      },
+      {
+       "en": "Finished? Type `deactivate`",
+       "ar": "انتهيت؟ اكتب `deactivate`"
+      }
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "Windows",
+       "ar": "Windows"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "`python -m venv .venv`",
+        "ar": "`python -m venv .venv`"
+       },
+       {
+        "en": "`.venv\\Scripts\\activate`",
+        "ar": "`.venv\\Scripts\\activate`"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "macOS / Linux",
+       "ar": "macOS / Linux"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "`python3 -m venv .venv`",
+        "ar": "`python3 -m venv .venv`"
+       },
+       {
+        "en": "`source .venv/bin/activate`",
+        "ar": "`source .venv/bin/activate`"
+       }
+      ]
+     }
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "C:\\shop> .venv\\Scripts\\activate",
+       "note": {
+        "en": "open the toolbox",
+        "ar": "افتح صندوق الأدوات"
+       }
+      },
+      {
+       "from": "server",
+       "text": "(.venv) C:\\shop>",
+       "note": {
+        "en": "`(.venv)` means it is active",
+        "ar": "`(.venv)` تعني أنها مفعّلة"
+       }
+      },
+      {
+       "from": "client",
+       "text": "(.venv) C:\\shop> deactivate",
+       "note": {
+        "en": "close the toolbox",
+        "ar": "أغلق صندوق الأدوات"
+       }
+      },
+      {
+       "from": "server",
+       "text": "C:\\shop>",
+       "note": {
+        "en": "back to normal",
+        "ar": "عدنا للوضع العادي"
+       }
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "Activate the venv again each time you open a new terminal.",
+     "ar": "فعّل الـ venv من جديد كلما فتحت طرفية جديدة."
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "difficulty": "easy",
+   "question": {
+    "en": "In the Windows Python installer, which option should you tick?",
+    "ar": "في مثبِّت Python على Windows، أي خيار يجب أن تفعّله؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "Use admin privileges only",
+     "ar": "Use admin privileges only"
+    },
+    {
+     "en": "Disable path length limit",
+     "ar": "Disable path length limit"
+    },
+    {
+     "en": "Add python.exe to PATH",
+     "ar": "Add python.exe to PATH"
+    },
+    {
+     "en": "Install for all users",
+     "ar": "Install for all users"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "Ticking \"Add python.exe to PATH\" lets Windows find the `python` command in the terminal.",
+    "ar": "تفعيل \"Add python.exe to PATH\" يجعل Windows يجد الأمر `python` في الطرفية."
+   }
+  },
+  {
+   "id": 2,
+   "difficulty": "easy",
+   "question": {
+    "en": "You type this at the Python prompt. What does Python show?",
+    "ar": "كتبت هذا في موجّه Python. ماذا يعرض Python؟"
+   },
+   "codeSnippet": ">>> 7 * 6",
+   "options": [
+    {
+     "en": "7 * 6",
+     "ar": "7 * 6"
+    },
+    {
+     "en": "42",
+     "ar": "42"
+    },
+    {
+     "en": "76",
+     "ar": "76"
+    },
+    {
+     "en": "13",
+     "ar": "13"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`*` multiplies, and the `>>>` prompt prints the result at once: `42`.",
+    "ar": "الرمز `*` يضرب، وموجّه `>>>` يطبع النتيجة فورًا: `42`."
+   }
+  },
+  {
+   "id": 3,
+   "difficulty": "easy",
+   "question": {
+    "en": "What does a line starting with `#` mean in a Python file?",
+    "ar": "ماذا يعني السطر الذي يبدأ بـ `#` في ملف Python؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "It prints the line twice",
+     "ar": "يطبع السطر مرتين"
+    },
+    {
+     "en": "It must be the file name",
+     "ar": "يجب أن يكون اسم الملف"
+    },
+    {
+     "en": "It stops the whole program",
+     "ar": "يوقف البرنامج كله"
+    },
+    {
+     "en": "A comment Python ignores",
+     "ar": "تعليق يتجاهله Python"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`#` starts a comment: a note for humans that Python skips.",
+    "ar": "الرمز `#` يبدأ تعليقًا (comment): ملاحظة للبشر يتخطاها Python."
+   }
+  },
+  {
+   "id": 4,
+   "difficulty": "medium",
+   "question": {
+    "en": "A Windows user sees this after typing `python --version`. What is the most likely cause?",
+    "ar": "ظهر هذا لمستخدم Windows بعد كتابة `python --version`. ما السبب الأرجح؟"
+   },
+   "codeSnippet": "'python' is not recognized as an internal or external command,\noperable program or batch file.",
+   "options": [
+    {
+     "en": "Python is not on the PATH",
+     "ar": "Python ليس في الـ PATH"
+    },
+    {
+     "en": "The file hello.py is missing",
+     "ar": "الملف hello.py غير موجود"
+    },
+    {
+     "en": "The venv is not deactivated",
+     "ar": "الـ venv لم يُلغَ تفعيلها"
+    },
+    {
+     "en": "`--version` is spelled wrong",
+     "ar": "`--version` مكتوبة خطأ"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "Windows cannot find the `python` command, usually because \"Add python.exe to PATH\" was not ticked.",
+    "ar": "Windows لا يجد الأمر `python`، غالبًا لأن خيار \"Add python.exe to PATH\" لم يُفعَّل."
+   }
+  },
+  {
+   "id": 5,
+   "difficulty": "medium",
+   "question": {
+    "en": "You run `python hello.py`. What appears on the screen?",
+    "ar": "شغّلت `python hello.py`. ماذا يظهر على الشاشة؟"
+   },
+   "codeSnippet": "# My first program\nprint(\"Hello, world!\")  # say hello\nprint(2 + 3)",
+   "options": [
+    {
+     "en": "An error, because `#` is not allowed",
+     "ar": "خطأ، لأن `#` غير مسموح"
+    },
+    {
+     "en": "`Hello, world!` and then `2 + 3`",
+     "ar": "`Hello, world!` ثم `2 + 3`"
+    },
+    {
+     "en": "`Hello, world!` and then `5`",
+     "ar": "`Hello, world!` ثم `5`"
+    },
+    {
+     "en": "All three lines, comments included",
+     "ar": "الأسطر الثلاثة مع التعليقات"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "Comments are skipped, and `print(2 + 3)` prints the result `5`, not the text.",
+    "ar": "التعليقات تُتخطى، و`print(2 + 3)` يطبع النتيجة `5` وليس النص."
+   }
+  },
+  {
+   "id": 6,
+   "difficulty": "medium",
+   "question": {
+    "en": "`hello.py` exists in `C:\\Users\\Sara\\code`, but you got this. What went wrong?",
+    "ar": "الملف `hello.py` موجود في `C:\\Users\\Sara\\code`، لكن ظهر هذا. ما الخطأ؟"
+   },
+   "codeSnippet": "C:\\Users\\Sara> python hello.py\n...\\python.exe: can't open file 'C:\\\\Users\\\\Sara\\\\hello.py': [Errno 2] No such file or directory",
+   "options": [
+    {
+     "en": "Python is not installed at all",
+     "ar": "Python غير مثبّت أصلًا"
+    },
+    {
+     "en": "The terminal is in the wrong folder",
+     "ar": "الطرفية في مجلد خاطئ"
+    },
+    {
+     "en": "The file needs a `#` comment first",
+     "ar": "الملف يحتاج تعليق `#` أولًا"
+    },
+    {
+     "en": "You must use `pip` to run files",
+     "ar": "يجب استخدام `pip` لتشغيل الملفات"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "Python looked for `hello.py` in `C:\\Users\\Sara`. Use `cd code` first, then run it.",
+    "ar": "بحث Python عن `hello.py` في `C:\\Users\\Sara`. نفّذ `cd code` أولًا ثم شغّله."
+   }
+  },
+  {
+   "id": 7,
+   "difficulty": "medium",
+   "question": {
+    "en": "What is `pip`?",
+    "ar": "ما هو `pip`؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "The `>>>` prompt in the terminal",
+     "ar": "موجّه `>>>` في الطرفية"
+    },
+    {
+     "en": "A free code editor for Python",
+     "ar": "محرّر أكواد مجاني لـ Python"
+    },
+    {
+     "en": "A list of folders Windows searches",
+     "ar": "قائمة مجلدات يبحث فيها Windows"
+    },
+    {
+     "en": "A tool that installs Python packages",
+     "ar": "أداة تثبّت حزم Python"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`pip` downloads packages (ready-made code) from PyPI and installs them.",
+    "ar": "الـ `pip` ينزّل الحزم (كود جاهز) من PyPI ويثبّتها."
+   }
+  },
+  {
+   "id": 8,
+   "difficulty": "hard",
+   "question": {
+    "en": "What does Python show for this?",
+    "ar": "ماذا يعرض Python هنا؟"
+   },
+   "codeSnippet": ">>> 10 / 4",
+   "options": [
+    {
+     "en": "2.5",
+     "ar": "2.5"
+    },
+    {
+     "en": "2",
+     "ar": "2"
+    },
+    {
+     "en": "2.25",
+     "ar": "2.25"
+    },
+    {
+     "en": "3",
+     "ar": "3"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "`/` is normal division and gives a decimal result: `2.5`.",
+    "ar": "الرمز `/` قسمة عادية وتعطي نتيجة عشرية: `2.5`."
+   }
+  },
+  {
+   "id": 9,
+   "difficulty": "hard",
+   "question": {
+    "en": "On Windows, which command creates a virtual environment named `.venv`?",
+    "ar": "على Windows، أي أمر ينشئ بيئة افتراضية اسمها `.venv`؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "pip install venv .venv",
+     "ar": "pip install venv .venv"
+    },
+    {
+     "en": "python venv create .venv",
+     "ar": "python venv create .venv"
+    },
+    {
+     "en": "source .venv/bin/activate",
+     "ar": "source .venv/bin/activate"
+    },
+    {
+     "en": "python -m venv .venv",
+     "ar": "python -m venv .venv"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`python -m venv .venv` creates it. `source .venv/bin/activate` only activates it, on macOS/Linux.",
+    "ar": "الأمر `python -m venv .venv` ينشئها. أما `source .venv/bin/activate` فيفعّلها فقط على macOS/Linux."
+   }
+  },
+  {
+   "id": 10,
+   "difficulty": "hard",
+   "question": {
+    "en": "Your prompt looks like this. Where will `requests` be installed?",
+    "ar": "هكذا يبدو الموجّه عندك. أين ستُثبَّت `requests`؟"
+   },
+   "codeSnippet": "(.venv) C:\\shop> pip install requests",
+   "options": [
+    {
+     "en": "For every project on the computer",
+     "ar": "لكل المشاريع على الجهاز"
+    },
+    {
+     "en": "Only inside this project's `.venv`",
+     "ar": "داخل `.venv` لهذا المشروع فقط"
+    },
+    {
+     "en": "Nowhere: venvs block `pip` installs",
+     "ar": "لا مكان: الـ venv تمنع `pip`"
+    },
+    {
+     "en": "Inside the file `hello.py`",
+     "ar": "داخل الملف `hello.py`"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`(.venv)` shows the venv is active, so packages go into this project's own toolbox.",
+    "ar": "`(.venv)` تعني أن الـ venv مفعّلة، فتذهب الحزم إلى صندوق أدوات هذا المشروع فقط."
+   }
+  }
+ ]
+}

@@ -1,0 +1,1155 @@
+{
+ "id": "computer-basics",
+ "icon": "💻",
+ "title": {
+  "en": "Computer basics: files, paths and the terminal",
+  "ar": "أساسيات الحاسوب: الملفات والمسارات والطرفية"
+ },
+ "summary": {
+  "en": "Learn what a program is, how files and paths work, and type your first terminal commands.",
+  "ar": "تعرّف على معنى البرنامج، وكيف تعمل الملفات والمسارات، واكتب أول أوامرك في الطرفية."
+ },
+ "lessons": [
+  {
+   "id": "what-is-a-program",
+   "title": {
+    "en": "What is a program?",
+    "ar": "ما هو البرنامج (program)؟"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "⚙️",
+     "en": "A program turns input into output",
+     "ar": "البرنامج يحوّل المُدخلات إلى مُخرجات"
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "⌨️",
+       "label": {
+        "en": "Input: what you give",
+        "ar": "المُدخلات (input): ما تعطيه"
+       }
+      },
+      {
+       "icon": "⚙️",
+       "label": {
+        "en": "Program: does the work",
+        "ar": "البرنامج: يقوم بالعمل"
+       }
+      },
+      {
+       "icon": "🖥️",
+       "label": {
+        "en": "Output: the result",
+        "ar": "المُخرجات (output): النتيجة"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "goes in",
+        "ar": "تدخل"
+       }
+      },
+      {
+       "label": {
+        "en": "comes out",
+        "ar": "تخرج"
+       }
+      }
+     ]
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "🥕",
+       "label": {
+        "en": "Ingredients",
+        "ar": "المكوّنات"
+       }
+      },
+      {
+       "icon": "👩‍🍳",
+       "label": {
+        "en": "Cook follows a recipe",
+        "ar": "الطاهي يتبع الوصفة"
+       }
+      },
+      {
+       "icon": "🍲",
+       "label": {
+        "en": "A meal",
+        "ar": "وجبة جاهزة"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "input",
+        "ar": "مُدخلات"
+       }
+      },
+      {
+       "label": {
+        "en": "output",
+        "ar": "مُخرجات"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🧮",
+       "color": "blue",
+       "title": {
+        "en": "Calculator",
+        "ar": "الآلة الحاسبة"
+       },
+       "text": {
+        "en": "Input `2 + 3`, output `5`",
+        "ar": "المُدخل `2 + 3` والمُخرج `5`"
+       }
+      },
+      {
+       "icon": "🗺️",
+       "color": "green",
+       "title": {
+        "en": "Maps app",
+        "ar": "تطبيق الخرائط"
+       },
+       "text": {
+        "en": "Input an address, output a route",
+        "ar": "المُدخل عنوان، والمُخرج طريق إليه"
+       }
+      },
+      {
+       "icon": "📷",
+       "color": "yellow",
+       "title": {
+        "en": "Camera app",
+        "ar": "تطبيق الكاميرا"
+       },
+       "text": {
+        "en": "Input light, output a photo",
+        "ar": "المُدخل ضوء، والمُخرج صورة"
+       }
+      },
+      {
+       "icon": "💬",
+       "color": "purple",
+       "title": {
+        "en": "Chat app",
+        "ar": "تطبيق المحادثة"
+       },
+       "text": {
+        "en": "Input your message, output it on a friend's phone",
+        "ar": "المُدخل رسالتك، والمُخرج ظهورها على هاتف صديقك"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "text",
+     "code": "input:   2 + 3\nprocess: add the numbers\noutput:  5",
+     "highlight": [
+      3
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "An app is just a program with buttons and screens.",
+     "ar": "التطبيق (app) هو ببساطة برنامج له أزرار وشاشات."
+    }
+   ]
+  },
+  {
+   "id": "files-and-extensions",
+   "title": {
+    "en": "Files, folders and extensions",
+    "ar": "الملفات والمجلدات والامتدادات"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🗂️",
+     "en": "Files are papers, folders are drawers",
+     "ar": "الملفات أوراق، والمجلدات أدراج"
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "📄",
+       "color": "blue",
+       "title": {
+        "en": "File",
+        "ar": "الملف (file)"
+       },
+       "text": {
+        "en": "Holds one thing: text, a photo, or code",
+        "ar": "يحفظ شيئًا واحدًا: نصًا أو صورة أو كودًا"
+       }
+      },
+      {
+       "icon": "📁",
+       "color": "yellow",
+       "title": {
+        "en": "Folder",
+        "ar": "المجلد (folder)"
+       },
+       "text": {
+        "en": "Holds files and other folders",
+        "ar": "يحفظ ملفات ومجلدات أخرى"
+       }
+      }
+     ]
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "📁",
+       "label": {
+        "en": "Documents",
+        "ar": "Documents"
+       }
+      },
+      {
+       "icon": "📁",
+       "label": {
+        "en": "project",
+        "ar": "project"
+       }
+      },
+      {
+       "icon": "📄",
+       "label": {
+        "en": "main.py",
+        "ar": "main.py"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "contains",
+        "ar": "يحتوي"
+       }
+      },
+      {
+       "label": {
+        "en": "contains",
+        "ar": "يحتوي"
+       }
+      }
+     ]
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "main",
+       "color": "green",
+       "label": {
+        "en": "name you choose",
+        "ar": "اسم تختاره أنت"
+       }
+      },
+      {
+       "text": ".py",
+       "color": "purple",
+       "label": {
+        "en": "extension: the file type",
+        "ar": "الامتداد (extension): نوع الملف"
+       }
+      }
+     ]
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": ".txt",
+       "color": "blue",
+       "label": {
+        "en": "plain text",
+        "ar": "نص عادي"
+       }
+      },
+      {
+       "text": ".py",
+       "color": "purple",
+       "label": {
+        "en": "Python code",
+        "ar": "كود Python"
+       }
+      },
+      {
+       "text": ".json",
+       "color": "yellow",
+       "label": {
+        "en": "data",
+        "ar": "بيانات"
+       }
+      },
+      {
+       "text": ".png",
+       "color": "green",
+       "label": {
+        "en": "image",
+        "ar": "صورة"
+       }
+      },
+      {
+       "text": ".exe",
+       "color": "red",
+       "label": {
+        "en": "Windows program",
+        "ar": "برنامج Windows"
+       }
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "Windows hides extensions. Show them: File Explorer → View → Show → File name extensions.",
+     "ar": "يخفي Windows الامتدادات. لإظهارها: File Explorer ← View ← Show ← File name extensions."
+    }
+   ]
+  },
+  {
+   "id": "paths",
+   "title": {
+    "en": "Paths: a file's address",
+    "ar": "المسار (path): عنوان الملف"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "📍",
+     "en": "A path is a file's full address",
+     "ar": "المسار (path) هو العنوان الكامل للملف"
+    },
+    {
+     "type": "p",
+     "en": "Like a home address: from the biggest place down to the exact door.",
+     "ar": "مثل عنوان البيت: من المكان الأكبر وصولًا إلى الباب نفسه."
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "C:",
+       "color": "red",
+       "label": {
+        "en": "drive",
+        "ar": "القرص (drive)"
+       }
+      },
+      {
+       "text": "\\Users\\Sara\\project\\",
+       "color": "yellow",
+       "label": {
+        "en": "folders",
+        "ar": "المجلدات"
+       }
+      },
+      {
+       "text": "main",
+       "color": "green",
+       "label": {
+        "en": "file name",
+        "ar": "اسم الملف"
+       }
+      },
+      {
+       "text": ".py",
+       "color": "purple",
+       "label": {
+        "en": "extension",
+        "ar": "الامتداد"
+       }
+      }
+     ]
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "/",
+       "color": "red",
+       "label": {
+        "en": "root: the very start",
+        "ar": "الجذر (root): نقطة البداية"
+       }
+      },
+      {
+       "text": "home/sara/project/",
+       "color": "yellow",
+       "label": {
+        "en": "folders",
+        "ar": "المجلدات"
+       }
+      },
+      {
+       "text": "main",
+       "color": "green",
+       "label": {
+        "en": "file name",
+        "ar": "اسم الملف"
+       }
+      },
+      {
+       "text": ".py",
+       "color": "purple",
+       "label": {
+        "en": "extension",
+        "ar": "الامتداد"
+       }
+      }
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "Windows",
+       "ar": "Windows"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "Starts with a drive, like `C:`",
+        "ar": "يبدأ بحرف القرص، مثل `C:`"
+       },
+       {
+        "en": "Folders separated by backslash `\\`",
+        "ar": "المجلدات تفصلها الشرطة المائلة للخلف `\\`"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "macOS / Linux",
+       "ar": "macOS / Linux"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "Starts at the root `/`",
+        "ar": "يبدأ من الجذر `/`"
+       },
+       {
+        "en": "Folders separated by slash `/`",
+        "ar": "المجلدات تفصلها الشرطة المائلة `/`"
+       },
+       {
+        "en": "macOS home: `/Users/sara`",
+        "ar": "مجلد المستخدم في macOS: `/Users/sara`"
+       }
+      ]
+     }
+    },
+    {
+     "type": "steps",
+     "items": [
+      {
+       "en": "Open drive `C:`",
+       "ar": "افتح القرص `C:`"
+      },
+      {
+       "en": "Open `Users`, then `Sara`",
+       "ar": "افتح `Users` ثم `Sara`"
+      },
+      {
+       "en": "Open the `project` folder",
+       "ar": "افتح المجلد `project`"
+      },
+      {
+       "en": "There it is: `main.py`",
+       "ar": "ها هو الملف: `main.py`"
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "One letter matters: `main.py` and `main.txt` are different files.",
+     "ar": "كل حرف مهم: `main.py` و `main.txt` ملفان مختلفان."
+    }
+   ]
+  },
+  {
+   "id": "the-terminal",
+   "title": {
+    "en": "The terminal (command line)",
+    "ar": "الطرفية (terminal) أو سطر الأوامر"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "⌨️",
+     "en": "The terminal: give orders by typing",
+     "ar": "الطرفية (terminal): أعطِ الأوامر بالكتابة"
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "Clicking (GUI)",
+       "ar": "النقر (GUI)"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "Open folders with the mouse",
+        "ar": "تفتح المجلدات بالفأرة"
+       },
+       {
+        "en": "Easy to explore",
+        "ar": "سهل للاستكشاف"
+       },
+       {
+        "en": "Hard to repeat exactly",
+        "ar": "صعب أن تكرره بالضبط"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "Typing (terminal)",
+       "ar": "الكتابة (terminal)"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "Type one short command",
+        "ar": "تكتب أمرًا (command) قصيرًا"
+       },
+       {
+        "en": "Fast and easy to repeat",
+        "ar": "سريع وسهل التكرار"
+       },
+       {
+        "en": "Developer tools run here",
+        "ar": "أدوات المبرمجين تعمل هنا"
+       }
+      ]
+     }
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "⚡",
+       "color": "yellow",
+       "title": {
+        "en": "Fast",
+        "ar": "سريع"
+       },
+       "text": {
+        "en": "One line instead of ten clicks",
+        "ar": "سطر واحد بدل عشر نقرات"
+       }
+      },
+      {
+       "icon": "🔁",
+       "color": "blue",
+       "title": {
+        "en": "Repeatable",
+        "ar": "قابل للتكرار"
+       },
+       "text": {
+        "en": "Run the same command again anytime",
+        "ar": "شغّل الأمر نفسه مرة أخرى متى شئت"
+       }
+      },
+      {
+       "icon": "🐍",
+       "color": "green",
+       "title": {
+        "en": "Python lives here",
+        "ar": "Python يعمل هنا"
+       },
+       "text": {
+        "en": "You will run your programs from it",
+        "ar": "ستشغّل برامجك منها"
+       }
+      },
+      {
+       "icon": "☁️",
+       "color": "purple",
+       "title": {
+        "en": "Servers",
+        "ar": "الخوادم (servers)"
+       },
+       "text": {
+        "en": "Servers often have no screen, only a terminal",
+        "ar": "الخوادم غالبًا بلا شاشة، فقط طرفية"
+       }
+      }
+     ]
+    },
+    {
+     "type": "steps",
+     "items": [
+      {
+       "en": "Press the Windows key ⊞",
+       "ar": "اضغط زر Windows ⊞"
+      },
+      {
+       "en": "Type `Terminal` (or `PowerShell`, `cmd`)",
+       "ar": "اكتب `Terminal` (أو `PowerShell` أو `cmd`)"
+      },
+      {
+       "en": "Press Enter",
+       "ar": "اضغط Enter"
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "macOS: press `Cmd + Space`, type `Terminal`, then press Enter.",
+     "ar": "في macOS: اضغط `Cmd + Space` واكتب `Terminal` ثم اضغط Enter."
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "PS ",
+       "color": "blue",
+       "label": {
+        "en": "PowerShell",
+        "ar": "PowerShell"
+       }
+      },
+      {
+       "text": "C:\\Users\\Sara",
+       "color": "yellow",
+       "label": {
+        "en": "the current folder",
+        "ar": "المجلد الحالي"
+       }
+      },
+      {
+       "text": ">",
+       "color": "green",
+       "label": {
+        "en": "ready: type here",
+        "ar": "جاهز: اكتب هنا"
+       }
+      }
+     ]
+    },
+    {
+     "type": "p",
+     "en": "The current folder is where you stand now. Commands work there.",
+     "ar": "المجلد الحالي (current folder) هو المكان الذي تقف فيه الآن، والأوامر تعمل فيه."
+    }
+   ]
+  },
+  {
+   "id": "first-commands",
+   "title": {
+    "en": "Your first commands",
+    "ar": "أوامرك الأولى"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "💬",
+     "en": "Type a command, the terminal answers",
+     "ar": "اكتب أمرًا، فتجيبك الطرفية"
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "dir",
+       "note": {
+        "en": "what is in here?",
+        "ar": "ماذا يوجد هنا؟"
+       }
+      },
+      {
+       "from": "server",
+       "text": "Desktop  Documents  Downloads",
+       "note": {
+        "en": "the list (shortened)",
+        "ar": "القائمة (مختصرة)"
+       }
+      },
+      {
+       "from": "client",
+       "text": "mkdir project",
+       "note": {
+        "en": "make a new folder",
+        "ar": "أنشئ مجلدًا جديدًا"
+       }
+      },
+      {
+       "from": "server",
+       "text": "C:\\Users\\Sara>",
+       "note": {
+        "en": "back to the prompt: done!",
+        "ar": "عاد سطر الأوامر: تم!"
+       }
+      },
+      {
+       "from": "client",
+       "text": "cd project",
+       "note": {
+        "en": "go into it",
+        "ar": "ادخل إليه"
+       }
+      },
+      {
+       "from": "server",
+       "text": "C:\\Users\\Sara\\project>",
+       "note": {
+        "en": "the current folder changed",
+        "ar": "تغيّر المجلد الحالي"
+       }
+      },
+      {
+       "from": "client",
+       "text": "whoami",
+       "note": {
+        "en": "run a program by its name",
+        "ar": "شغّل برنامجًا باسمه"
+       }
+      },
+      {
+       "from": "server",
+       "text": "laptop\\sara",
+       "note": {
+        "en": "the whoami program answered",
+        "ar": "أجاب برنامج whoami"
+       }
+      }
+     ]
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": "cd project",
+       "color": "cyan",
+       "label": {
+        "en": "go into a folder",
+        "ar": "ادخل إلى مجلد"
+       }
+      },
+      {
+       "text": "cd ..",
+       "color": "blue",
+       "label": {
+        "en": "go up one folder",
+        "ar": "اصعد مجلدًا واحدًا"
+       }
+      },
+      {
+       "text": "dir",
+       "color": "green",
+       "label": {
+        "en": "list files (Windows)",
+        "ar": "اعرض الملفات (Windows)"
+       }
+      },
+      {
+       "text": "ls",
+       "color": "green",
+       "label": {
+        "en": "list files (macOS/Linux)",
+        "ar": "اعرض الملفات (macOS/Linux)"
+       }
+      },
+      {
+       "text": "mkdir data",
+       "color": "yellow",
+       "label": {
+        "en": "make a folder",
+        "ar": "أنشئ مجلدًا"
+       }
+      }
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "Windows (cmd)",
+       "ar": "Windows (cmd)"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "`dir` lists files",
+        "ar": "`dir` يعرض الملفات"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "macOS / Linux",
+       "ar": "macOS / Linux"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "`ls` lists files",
+        "ar": "`ls` يعرض الملفات"
+       }
+      ]
+     }
+    },
+    {
+     "type": "tip",
+     "en": "PowerShell understands both `dir` and `ls`, and prints a few extra lines.",
+     "ar": "PowerShell يفهم `dir` و `ls` معًا، ويطبع بعض الأسطر الإضافية."
+    },
+    {
+     "type": "warn",
+     "en": "A typo gives \"not recognized\" or \"command not found\". Check the spelling.",
+     "ar": "الخطأ في الكتابة يُظهر \"not recognized\" أو \"command not found\". راجع الإملاء."
+    },
+    {
+     "type": "tip",
+     "en": "Later, `python main.py` runs the program `python` on your file.",
+     "ar": "لاحقًا، الأمر `python main.py` يشغّل البرنامج `python` على ملفك."
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "difficulty": "easy",
+   "question": {
+    "en": "A calculator gets `2 + 3` and shows `5`. What is the output?",
+    "ar": "آلة حاسبة تستقبل `2 + 3` وتعرض `5`. ما هو المُخرج (output)؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "The keys `2 + 3`",
+     "ar": "الأزرار `2 + 3`"
+    },
+    {
+     "en": "The number `5`",
+     "ar": "الرقم `5`"
+    },
+    {
+     "en": "The calculator app",
+     "ar": "تطبيق الآلة الحاسبة"
+    },
+    {
+     "en": "The plus sign `+`",
+     "ar": "علامة الجمع `+`"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "Input goes in (`2 + 3`), the program adds, and the result `5` is the output.",
+    "ar": "المُدخل `2 + 3` يدخل، والبرنامج يجمع، والنتيجة `5` هي المُخرج."
+   }
+  },
+  {
+   "id": 2,
+   "difficulty": "easy",
+   "question": {
+    "en": "Which extension usually means a Python code file?",
+    "ar": "أي امتداد يعني عادةً ملف كود Python؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": ".txt",
+     "ar": ".txt"
+    },
+    {
+     "en": ".json",
+     "ar": ".json"
+    },
+    {
+     "en": ".png",
+     "ar": ".png"
+    },
+    {
+     "en": ".py",
+     "ar": ".py"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`.py` marks Python code; `.txt` is text, `.json` is data, `.png` is an image.",
+    "ar": "`.py` يدل على كود Python؛ و `.txt` نص، و `.json` بيانات، و `.png` صورة."
+   }
+  },
+  {
+   "id": 3,
+   "difficulty": "medium",
+   "question": {
+    "en": "In this path, which folder directly contains `main.py`?",
+    "ar": "في هذا المسار، أي مجلد يحتوي `main.py` مباشرة؟"
+   },
+   "codeSnippet": "C:\\Users\\Sara\\project\\main.py",
+   "options": [
+    {
+     "en": "project",
+     "ar": "project"
+    },
+    {
+     "en": "Sara",
+     "ar": "Sara"
+    },
+    {
+     "en": "Users",
+     "ar": "Users"
+    },
+    {
+     "en": "C:",
+     "ar": "C:"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "Read left to right; the last folder before the file name is `project`.",
+    "ar": "اقرأ من اليسار إلى اليمين؛ آخر مجلد قبل اسم الملف هو `project`."
+   }
+  },
+  {
+   "id": 4,
+   "difficulty": "hard",
+   "question": {
+    "en": "Sara types this command. Where is the new folder created?",
+    "ar": "كتبت سارة هذا الأمر. أين يُنشأ المجلد الجديد؟"
+   },
+   "codeSnippet": "C:\\Users\\Sara\\project> mkdir data",
+   "options": [
+    {
+     "en": "C:\\Users\\Sara\\data",
+     "ar": "C:\\Users\\Sara\\data"
+    },
+    {
+     "en": "C:\\Users\\Sara\\Desktop\\data",
+     "ar": "C:\\Users\\Sara\\Desktop\\data"
+    },
+    {
+     "en": "C:\\Users\\Sara\\project\\data",
+     "ar": "C:\\Users\\Sara\\project\\data"
+    },
+    {
+     "en": "C:\\Users\\data",
+     "ar": "C:\\Users\\data"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "`mkdir` works in the current folder, shown in the prompt: `C:\\Users\\Sara\\project`.",
+    "ar": "`mkdir` يعمل في المجلد الحالي الظاهر في سطر الأوامر: `C:\\Users\\Sara\\project`."
+   }
+  },
+  {
+   "id": 5,
+   "difficulty": "medium",
+   "question": {
+    "en": "After these two commands, what is the current folder?",
+    "ar": "بعد هذين الأمرين، ما هو المجلد الحالي؟"
+   },
+   "codeSnippet": "C:\\Users\\Sara> cd project\nC:\\Users\\Sara\\project> cd ..",
+   "options": [
+    {
+     "en": "C:\\Users\\Sara",
+     "ar": "C:\\Users\\Sara"
+    },
+    {
+     "en": "C:\\Users\\Sara\\project",
+     "ar": "C:\\Users\\Sara\\project"
+    },
+    {
+     "en": "C:\\Users",
+     "ar": "C:\\Users"
+    },
+    {
+     "en": "C:\\",
+     "ar": "C:\\"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "`cd project` goes in, then `cd ..` goes up one folder, back to `C:\\Users\\Sara`.",
+    "ar": "`cd project` يدخل المجلد، ثم `cd ..` يصعد مجلدًا واحدًا فنعود إلى `C:\\Users\\Sara`."
+   }
+  },
+  {
+   "id": 6,
+   "difficulty": "medium",
+   "question": {
+    "en": "The terminal printed this. What went wrong?",
+    "ar": "طبعت الطرفية هذه الرسالة. ما الخطأ؟"
+   },
+   "codeSnippet": "C:\\Users\\Sara> mkdri project\n'mkdri' is not recognized as an internal or external command,\noperable program or batch file.",
+   "options": [
+    {
+     "en": "The folder already exists",
+     "ar": "المجلد موجود مسبقًا"
+    },
+    {
+     "en": "The disk is completely full",
+     "ar": "القرص ممتلئ تمامًا"
+    },
+    {
+     "en": "The terminal must be restarted",
+     "ar": "يجب إعادة تشغيل الطرفية"
+    },
+    {
+     "en": "The command name is misspelled",
+     "ar": "اسم الأمر مكتوب خطأ"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`mkdri` is a typo for `mkdir`, so no program has that name.",
+    "ar": "`mkdri` خطأ إملائي في `mkdir`، فلا يوجد برنامج بهذا الاسم."
+   }
+  },
+  {
+   "id": 7,
+   "difficulty": "easy",
+   "question": {
+    "en": "Which command lists the files in the current folder on macOS or Linux?",
+    "ar": "أي أمر يعرض الملفات في المجلد الحالي على macOS أو Linux؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "cd ..",
+     "ar": "cd .."
+    },
+    {
+     "en": "ls",
+     "ar": "ls"
+    },
+    {
+     "en": "mkdir",
+     "ar": "mkdir"
+    },
+    {
+     "en": "whoami",
+     "ar": "whoami"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`ls` lists files on macOS/Linux; on Windows cmd it is `dir`.",
+    "ar": "`ls` يعرض الملفات على macOS/Linux؛ وفي cmd على Windows هو `dir`."
+   }
+  },
+  {
+   "id": 8,
+   "difficulty": "hard",
+   "question": {
+    "en": "Why did the second command print a message?",
+    "ar": "لماذا طبع الأمر الثاني رسالة؟"
+   },
+   "codeSnippet": "C:\\Users\\Sara> mkdir project\nC:\\Users\\Sara> mkdir project\nA subdirectory or file project already exists.",
+   "options": [
+    {
+     "en": "The disk has run out of space",
+     "ar": "نفدت مساحة القرص"
+    },
+    {
+     "en": "The folder `project` already exists",
+     "ar": "المجلد `project` موجود مسبقًا"
+    },
+    {
+     "en": "The `mkdir` command is misspelled",
+     "ar": "الأمر `mkdir` مكتوب خطأ"
+    },
+    {
+     "en": "Folder names must start uppercase",
+     "ar": "أسماء المجلدات يجب أن تبدأ بحرف كبير"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "The first `mkdir` created `project`, so the second one finds it already there.",
+    "ar": "أول `mkdir` أنشأ `project`، فوجده الأمر الثاني موجودًا مسبقًا."
+   }
+  },
+  {
+   "id": 9,
+   "difficulty": "medium",
+   "question": {
+    "en": "Why do developers use the terminal so much?",
+    "ar": "لماذا يستخدم المبرمجون الطرفية كثيرًا؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "Commands are fast and easy to repeat",
+     "ar": "الأوامر سريعة وسهلة التكرار"
+    },
+    {
+     "en": "It is the only way to open files",
+     "ar": "إنها الطريقة الوحيدة لفتح الملفات"
+    },
+    {
+     "en": "It makes the internet run faster",
+     "ar": "إنها تجعل الإنترنت أسرع"
+    },
+    {
+     "en": "It removes the need for folders",
+     "ar": "إنها تلغي الحاجة إلى المجلدات"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "Typed commands are quick, repeatable, and developer tools like Python run there.",
+    "ar": "الأوامر المكتوبة سريعة وقابلة للتكرار، وأدوات المبرمجين مثل Python تعمل هناك."
+   }
+  },
+  {
+   "id": 10,
+   "difficulty": "hard",
+   "question": {
+    "en": "What did typing `whoami` do here?",
+    "ar": "ماذا فعلت كتابة `whoami` هنا؟"
+   },
+   "codeSnippet": "C:\\Users\\Sara> whoami\nlaptop\\sara",
+   "options": [
+    {
+     "en": "It made a folder named `sara`",
+     "ar": "أنشأت مجلدًا اسمه `sara`"
+    },
+    {
+     "en": "It moved into the `sara` folder",
+     "ar": "انتقلت إلى المجلد `sara`"
+    },
+    {
+     "en": "It ran a program named `whoami`",
+     "ar": "شغّلت برنامجًا اسمه `whoami`"
+    },
+    {
+     "en": "It opened a website about Sara",
+     "ar": "فتحت موقعًا عن سارة"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "Typing a program's name runs it; `whoami` prints your computer and user name.",
+    "ar": "كتابة اسم البرنامج تشغّله؛ و `whoami` يطبع اسم جهازك واسم المستخدم."
+   }
+  }
+ ]
+}

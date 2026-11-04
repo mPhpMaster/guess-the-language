@@ -486,6 +486,7 @@ export const I18N = {
         // ---- Learn ----
         learnButton: '📚 Learn',
         learnTitle: 'Learn',
+        learnStartHere: '🌱 Start here',
         learnSubtitle: 'Short lessons, then a test. Pass a level’s test to unlock the next one — or skip the lessons and go straight to the test.',
         learnBack: '◂ back',
         learnCourseProgress: '{n} / {total} levels passed',

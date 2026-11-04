@@ -1,0 +1,1029 @@
+{
+ "id": "first-api",
+ "icon": "🎉",
+ "title": {
+  "en": "Your first API in 10 minutes",
+  "ar": "أول API لك في 10 دقائق"
+ },
+ "summary": {
+  "en": "Use everything you learned to build and run a tiny FastAPI app.",
+  "ar": "استخدم كل ما تعلمته لتبني تطبيق FastAPI صغيرًا وتشغّله."
+ },
+ "lessons": [
+  {
+   "id": "api-is-a-waiter",
+   "title": {
+    "en": "An API is a waiter",
+    "ar": "الـ API نادل بين البرامج"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🤵",
+     "en": "An API is a waiter between programs",
+     "ar": "الـ API نادل يتنقّل بين البرامج"
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "📱",
+       "label": {
+        "en": "Program A (customer)",
+        "ar": "البرنامج A (الزبون)"
+       }
+      },
+      {
+       "icon": "🤵",
+       "label": {
+        "en": "API (waiter)",
+        "ar": "الـ API (النادل)"
+       }
+      },
+      {
+       "icon": "🧑‍🍳",
+       "label": {
+        "en": "Program B (kitchen)",
+        "ar": "البرنامج B (المطبخ)"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "order",
+        "ar": "الطلب"
+       }
+      },
+      {
+       "label": {
+        "en": "passes it on",
+        "ar": "ينقله للمطبخ"
+       }
+      }
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "GET /",
+       "note": {
+        "en": "one greeting, please!",
+        "ar": "تحية واحدة من فضلك!"
+       }
+      },
+      {
+       "from": "server",
+       "text": "{\"message\": \"Hello, Sara!\"}",
+       "note": {
+        "en": "here is your dish",
+        "ar": "تفضّل طبقك"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "📜",
+       "color": "blue",
+       "title": {
+        "en": "Menu = endpoints",
+        "ar": "القائمة = الـ endpoints"
+       },
+       "text": {
+        "en": "What you are allowed to ask for",
+        "ar": "ما يُسمح لك أن تطلبه"
+       }
+      },
+      {
+       "icon": "📝",
+       "color": "yellow",
+       "title": {
+        "en": "Order = request",
+        "ar": "الطلب = request"
+       },
+       "text": {
+        "en": "What the customer asks",
+        "ar": "ما يطلبه الزبون"
+       }
+      },
+      {
+       "icon": "🍲",
+       "color": "green",
+       "title": {
+        "en": "Dish = response",
+        "ar": "الطبق = response"
+       },
+       "text": {
+        "en": "What comes back, usually JSON",
+        "ar": "ما يعود إليك، غالبًا JSON"
+       }
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "Today YOU build the waiter. It takes about 10 minutes!",
+     "ar": "اليوم أنت من سيبني النادل. يستغرق ذلك نحو 10 دقائق فقط!"
+    }
+   ]
+  },
+  {
+   "id": "get-ready",
+   "title": {
+    "en": "Folder, venv, install",
+    "ar": "مجلد وvenv وتثبيت"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "📁",
+     "en": "Three minutes of setup, then the fun starts",
+     "ar": "ثلاث دقائق تجهيز، ثم تبدأ المتعة"
+    },
+    {
+     "type": "steps",
+     "items": [
+      {
+       "en": "Make a folder: `mkdir hello-api`",
+       "ar": "أنشئ مجلدًا: `mkdir hello-api`"
+      },
+      {
+       "en": "Go inside: `cd hello-api`",
+       "ar": "ادخل إليه: `cd hello-api`"
+      },
+      {
+       "en": "Create a venv: `python -m venv .venv`",
+       "ar": "أنشئ venv: `python -m venv .venv`"
+      },
+      {
+       "en": "Activate it (see below)",
+       "ar": "فعّله (انظر بالأسفل)"
+      },
+      {
+       "en": "Install FastAPI with `pip`",
+       "ar": "ثبّت FastAPI باستخدام `pip`"
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "bash",
+     "code": "mkdir hello-api\ncd hello-api\npython -m venv .venv\n.venv\\Scripts\\activate\npip install \"fastapi[standard]\"",
+     "highlight": [
+      5
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "Windows",
+       "ar": "Windows"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "`python -m venv .venv`",
+        "ar": "`python -m venv .venv`"
+       },
+       {
+        "en": "`.venv\\Scripts\\activate`",
+        "ar": "`.venv\\Scripts\\activate`"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "macOS / Linux",
+       "ar": "macOS / Linux"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "`python3 -m venv .venv`",
+        "ar": "`python3 -m venv .venv`"
+       },
+       {
+        "en": "`source .venv/bin/activate`",
+        "ar": "`source .venv/bin/activate`"
+       }
+      ]
+     }
+    },
+    {
+     "type": "tip",
+     "en": "See `(.venv)` at the start of your prompt? The venv is active.",
+     "ar": "هل ترى `(.venv)` في بداية سطر الأوامر؟ إذن الـ venv مفعّل."
+    }
+   ]
+  },
+  {
+   "id": "hello-api",
+   "title": {
+    "en": "Six lines, one API",
+    "ar": "ستة أسطر، API واحدة"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "👋",
+     "en": "Create main.py and say hello",
+     "ar": "أنشئ main.py وقل مرحبًا"
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "from fastapi import FastAPI\napp = FastAPI()\n\n@app.get(\"/\")\ndef home():\n    return {\"message\": \"Hello, Sara!\"}",
+     "highlight": [
+      4,
+      5,
+      6
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "text",
+     "code": "> fastapi dev main.py\n\n Server started at http://127.0.0.1:8000\n Documentation at http://127.0.0.1:8000/docs",
+     "highlight": [
+      3,
+      4
+     ]
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "🌍",
+       "label": {
+        "en": "Your browser",
+        "ar": "متصفحك"
+       }
+      },
+      {
+       "icon": "🐍",
+       "label": {
+        "en": "Your FastAPI app",
+        "ar": "تطبيق FastAPI الخاص بك"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "GET /",
+        "ar": "GET /"
+       }
+      }
+     ],
+     "returns": {
+      "en": "{\"message\": ...}",
+      "ar": "{\"message\": ...}"
+     }
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": "http://127.0.0.1:8000",
+       "color": "green",
+       "label": {
+        "en": "your greeting",
+        "ar": "تحيتك"
+       }
+      },
+      {
+       "text": "http://127.0.0.1:8000/docs",
+       "color": "purple",
+       "label": {
+        "en": "free docs page",
+        "ar": "صفحة توثيق مجانية"
+       }
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "Press `Ctrl+C` in the terminal to stop the server.",
+     "ar": "اضغط `Ctrl+C` في الطرفية لإيقاف الخادم."
+    }
+   ]
+  },
+  {
+   "id": "second-endpoint",
+   "title": {
+    "en": "A greeting for anyone",
+    "ar": "تحية لأي اسم"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🎯",
+     "en": "Add a second endpoint that knows your name",
+     "ar": "أضف endpoint ثانيًا يعرف اسمك"
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "@app.get(\"/hello/{name}\")\ndef hello(name: str):\n    return {\"message\": f\"Hello, {name}!\"}",
+     "highlight": [
+      1,
+      3
+     ]
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "http://127.0.0.1:8000",
+       "color": "blue",
+       "label": {
+        "en": "your computer",
+        "ar": "جهازك"
+       }
+      },
+      {
+       "text": "/hello/",
+       "color": "green",
+       "label": {
+        "en": "fixed path",
+        "ar": "مسار ثابت"
+       }
+      },
+      {
+       "text": "Omar",
+       "color": "yellow",
+       "label": {
+        "en": "path parameter `{name}`",
+        "ar": "معامل المسار `{name}`"
+       }
+      }
+     ]
+    },
+    {
+     "type": "chat",
+     "messages": [
+      {
+       "from": "client",
+       "text": "GET /hello/Omar"
+      },
+      {
+       "from": "server",
+       "text": "{\"message\": \"Hello, Omar!\"}",
+       "note": {
+        "en": "the f-string filled in the name",
+        "ar": "الـ f-string وضعت الاسم"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "⌨️",
+       "color": "blue",
+       "title": {
+        "en": "Terminal",
+        "ar": "الطرفية (terminal)"
+       },
+       "text": {
+        "en": "Where you typed every command",
+        "ar": "حيث كتبت كل الأوامر"
+       }
+      },
+      {
+       "icon": "📦",
+       "color": "green",
+       "title": {
+        "en": "venv",
+        "ar": "الـ venv"
+       },
+       "text": {
+        "en": "A private box for this project",
+        "ar": "صندوق خاص بهذا المشروع"
+       }
+      },
+      {
+       "icon": "⬇️",
+       "color": "yellow",
+       "title": {
+        "en": "pip",
+        "ar": "pip"
+       },
+       "text": {
+        "en": "Downloaded and installed FastAPI",
+        "ar": "نزّل FastAPI وثبّته"
+       }
+      },
+      {
+       "icon": "🗂️",
+       "color": "purple",
+       "title": {
+        "en": "Python dict",
+        "ar": "قاموس Python (dict)"
+       },
+       "text": {
+        "en": "`{\"message\": ...}` is what you returned",
+        "ar": "`{\"message\": ...}` هو ما أعدته"
+       }
+      },
+      {
+       "icon": "🧩",
+       "color": "cyan",
+       "title": {
+        "en": "Function",
+        "ar": "الدالة (function)"
+       },
+       "text": {
+        "en": "`home()` and `hello()` do the work",
+        "ar": "`home()` و`hello()` تقومان بالعمل"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🎀",
+       "color": "red",
+       "title": {
+        "en": "Decorator",
+        "ar": "الـ decorator"
+       },
+       "text": {
+        "en": "`@app.get` ties a URL to a function",
+        "ar": "`@app.get` يربط URL بدالة"
+       }
+      },
+      {
+       "icon": "📍",
+       "color": "green",
+       "title": {
+        "en": "URL path",
+        "ar": "مسار الـ URL"
+       },
+       "text": {
+        "en": "`/hello/Omar` picks the endpoint",
+        "ar": "`/hello/Omar` يحدد الـ endpoint"
+       }
+      },
+      {
+       "icon": "📄",
+       "color": "yellow",
+       "title": {
+        "en": "JSON",
+        "ar": "JSON"
+       },
+       "text": {
+        "en": "Your dict travelled as JSON text",
+        "ar": "قاموسك سافر كنص JSON"
+       }
+      },
+      {
+       "icon": "🏠",
+       "color": "blue",
+       "title": {
+        "en": "localhost",
+        "ar": "localhost"
+       },
+       "text": {
+        "en": "`127.0.0.1` means this very computer",
+        "ar": "`127.0.0.1` يعني هذا الجهاز نفسه"
+       }
+      },
+      {
+       "icon": "🤝",
+       "color": "purple",
+       "title": {
+        "en": "HTTP",
+        "ar": "HTTP"
+       },
+       "text": {
+        "en": "The language browser and server spoke",
+        "ar": "اللغة التي تحدث بها المتصفح والخادم"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "course-recap",
+   "title": {
+    "en": "You did it!",
+    "ar": "لقد فعلتها!"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🎉",
+     "en": "From zero to your own API. Congratulations!",
+     "ar": "من الصفر إلى API خاصة بك. مبروك!"
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "💻",
+       "color": "blue",
+       "title": {
+        "en": "1. Computer basics",
+        "ar": "1. أساسيات الحاسوب"
+       },
+       "text": {
+        "en": "Files, folders, paths and the terminal",
+        "ar": "الملفات والمجلدات والمسارات والطرفية"
+       }
+      },
+      {
+       "icon": "🔗",
+       "color": "green",
+       "title": {
+        "en": "2. Internet & links",
+        "ar": "2. الإنترنت والروابط"
+       },
+       "text": {
+        "en": "A URL is an address",
+        "ar": "الرابط (URL) عنوان"
+       }
+      },
+      {
+       "icon": "🤝",
+       "color": "yellow",
+       "title": {
+        "en": "3. Protocols",
+        "ar": "3. البروتوكولات"
+       },
+       "text": {
+        "en": "Shared rules like HTTP",
+        "ar": "قواعد مشتركة مثل HTTP"
+       }
+      },
+      {
+       "icon": "🗣️",
+       "color": "purple",
+       "title": {
+        "en": "4. Programming languages",
+        "ar": "4. لغات البرمجة"
+       },
+       "text": {
+        "en": "How we talk to computers",
+        "ar": "كيف نخاطب الحاسوب"
+       }
+      },
+      {
+       "icon": "🐍",
+       "color": "cyan",
+       "title": {
+        "en": "5. Python setup",
+        "ar": "5. تجهيز Python"
+       },
+       "text": {
+        "en": "Python, venv and pip installed",
+        "ar": "ثبّتنا Python والـ venv وpip"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🔢",
+       "color": "blue",
+       "title": {
+        "en": "6. Values & types",
+        "ar": "6. القيم والأنواع"
+       },
+       "text": {
+        "en": "Numbers, text and labelled boxes",
+        "ar": "أرقام ونصوص وصناديق بأسماء"
+       }
+      },
+      {
+       "icon": "🔁",
+       "color": "green",
+       "title": {
+        "en": "7. Lists, dicts, loops",
+        "ar": "7. القوائم والقواميس والحلقات"
+       },
+       "text": {
+        "en": "Groups of data, repeated work",
+        "ar": "مجموعات بيانات وتكرار العمل"
+       }
+      },
+      {
+       "icon": "🧩",
+       "color": "yellow",
+       "title": {
+        "en": "8. Functions & classes",
+        "ar": "8. الدوال والأصناف"
+       },
+       "text": {
+        "en": "Reusable recipes and blueprints",
+        "ar": "وصفات ومخططات قابلة لإعادة الاستخدام"
+       }
+      },
+      {
+       "icon": "📄",
+       "color": "red",
+       "title": {
+        "en": "9. JSON & errors",
+        "ar": "9. JSON والأخطاء"
+       },
+       "text": {
+        "en": "Sharing data, reading error messages",
+        "ar": "مشاركة البيانات وقراءة رسائل الخطأ"
+       }
+      },
+      {
+       "icon": "🎉",
+       "color": "purple",
+       "title": {
+        "en": "10. First API",
+        "ar": "10. أول API"
+       },
+       "text": {
+        "en": "Your own FastAPI app, running!",
+        "ar": "تطبيق FastAPI خاص بك يعمل!"
+       }
+      }
+     ]
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "🌱",
+       "label": {
+        "en": "From Zero ✅",
+        "ar": "من الصفر ✅"
+       }
+      },
+      {
+       "icon": "🚀",
+       "label": {
+        "en": "FastAPI course",
+        "ar": "دورة FastAPI"
+       }
+      },
+      {
+       "icon": "🏆",
+       "label": {
+        "en": "Real APIs",
+        "ar": "APIs حقيقية"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "next",
+        "ar": "التالي"
+       }
+      },
+      {
+       "label": {
+        "en": "build",
+        "ar": "ابنِ"
+       }
+      }
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "Next: open the FastAPI course and keep building!",
+     "ar": "التالي: افتح دورة FastAPI واستمر في البناء!"
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "difficulty": "easy",
+   "question": {
+    "en": "In the restaurant picture, what is the API?",
+    "ar": "في صورة المطعم، ما هو الـ API؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "The kitchen that cooks every dish",
+     "ar": "المطبخ الذي يطبخ كل الأطباق"
+    },
+    {
+     "en": "The waiter who carries the orders",
+     "ar": "النادل الذي ينقل الطلبات"
+    },
+    {
+     "en": "The hungry customer placing an order",
+     "ar": "الزبون الجائع الذي يطلب"
+    },
+    {
+     "en": "The table where everyone sits",
+     "ar": "الطاولة التي يجلس عليها الجميع"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "An API sits between programs, carrying requests and responses like a waiter.",
+    "ar": "الـ API تقف بين البرامج وتنقل الطلبات والردود مثل النادل."
+   }
+  },
+  {
+   "id": 2,
+   "difficulty": "easy",
+   "question": {
+    "en": "Which command installs FastAPI with its tools?",
+    "ar": "أي أمر يثبّت FastAPI مع أدواته؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "`python install \"fastapi\"`",
+     "ar": "`python install \"fastapi\"`"
+    },
+    {
+     "en": "`pip get \"fastapi[standard]\"`",
+     "ar": "`pip get \"fastapi[standard]\"`"
+    },
+    {
+     "en": "`fastapi install --standard`",
+     "ar": "`fastapi install --standard`"
+    },
+    {
+     "en": "`pip install \"fastapi[standard]\"`",
+     "ar": "`pip install \"fastapi[standard]\"`"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`pip` installs packages; `[standard]` adds the `fastapi dev` tool and the server.",
+    "ar": "`pip` يثبّت الحزم، و`[standard]` يضيف أداة `fastapi dev` والخادم."
+   }
+  },
+  {
+   "id": 3,
+   "difficulty": "easy",
+   "question": {
+    "en": "Which address opens the automatic docs page?",
+    "ar": "أي عنوان يفتح صفحة التوثيق التلقائية؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "`http://127.0.0.1:8000/docs`",
+     "ar": "`http://127.0.0.1:8000/docs`"
+    },
+    {
+     "en": "`http://127.0.0.1:8000/help`",
+     "ar": "`http://127.0.0.1:8000/help`"
+    },
+    {
+     "en": "`http://docs.127.0.0.1:8000`",
+     "ar": "`http://docs.127.0.0.1:8000`"
+    },
+    {
+     "en": "`http://127.0.0.1:8000/main.py`",
+     "ar": "`http://127.0.0.1:8000/main.py`"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "FastAPI serves its interactive docs at `/docs` for free.",
+    "ar": "FastAPI يقدّم صفحة التوثيق التفاعلية على `/docs` مجانًا."
+   }
+  },
+  {
+   "id": 4,
+   "difficulty": "medium",
+   "question": {
+    "en": "You run this app and open `http://127.0.0.1:8000`. What appears?",
+    "ar": "شغّلت هذا التطبيق وفتحت `http://127.0.0.1:8000`. ماذا يظهر؟"
+   },
+   "codeSnippet": "from fastapi import FastAPI\napp = FastAPI()\n\n@app.get(\"/\")\ndef home():\n    return {\"message\": \"Hello, Sara!\"}",
+   "options": [
+    {
+     "en": "`{\"home\": \"Hello, Sara!\"}`",
+     "ar": "`{\"home\": \"Hello, Sara!\"}`"
+    },
+    {
+     "en": "A 404 Not Found error",
+     "ar": "خطأ 404 Not Found"
+    },
+    {
+     "en": "`{\"message\": \"Hello, Sara!\"}`",
+     "ar": "`{\"message\": \"Hello, Sara!\"}`"
+    },
+    {
+     "en": "The text `home()`",
+     "ar": "النص `home()`"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "Path `/` runs `home()`, and its dict is sent back as JSON.",
+    "ar": "المسار `/` يشغّل `home()`، ويُرسَل قاموسها كـ JSON."
+   }
+  },
+  {
+   "id": 5,
+   "difficulty": "medium",
+   "question": {
+    "en": "`fastapi dev` printed this. What is `127.0.0.1`?",
+    "ar": "طبع `fastapi dev` هذا. ما هو `127.0.0.1`؟"
+   },
+   "codeSnippet": " Server started at http://127.0.0.1:8000\n Documentation at http://127.0.0.1:8000/docs",
+   "options": [
+    {
+     "en": "A big server somewhere online",
+     "ar": "خادم كبير في مكان ما على الإنترنت"
+    },
+    {
+     "en": "The FastAPI company's website",
+     "ar": "موقع شركة FastAPI"
+    },
+    {
+     "en": "Your own computer (localhost)",
+     "ar": "جهازك أنت (localhost)"
+    },
+    {
+     "en": "A password for the docs page",
+     "ar": "كلمة مرور لصفحة التوثيق"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "`127.0.0.1` (localhost) always means this very computer.",
+    "ar": "`127.0.0.1` (localhost) يعني دائمًا هذا الجهاز نفسه."
+   }
+  },
+  {
+   "id": 6,
+   "difficulty": "medium",
+   "question": {
+    "en": "What does `GET /hello/Omar` return?",
+    "ar": "ماذا يُرجع `GET /hello/Omar`؟"
+   },
+   "codeSnippet": "from fastapi import FastAPI\napp = FastAPI()\n\n@app.get(\"/\")\ndef home():\n    return {\"message\": \"Hello, Sara!\"}\n\n@app.get(\"/hello/{name}\")\ndef hello(name: str):\n    return {\"message\": f\"Hello, {name}!\"}",
+   "options": [
+    {
+     "en": "`{\"message\": \"Hello, Omar!\"}`",
+     "ar": "`{\"message\": \"Hello, Omar!\"}`"
+    },
+    {
+     "en": "`{\"message\": \"Hello, Sara!\"}`",
+     "ar": "`{\"message\": \"Hello, Sara!\"}`"
+    },
+    {
+     "en": "`{\"name\": \"Omar\"}`",
+     "ar": "`{\"name\": \"Omar\"}`"
+    },
+    {
+     "en": "`{\"message\": \"Hello, name!\"}`",
+     "ar": "`{\"message\": \"Hello, name!\"}`"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "`Omar` fills `{name}`, and the f-string puts it into the greeting.",
+    "ar": "`Omar` يملأ `{name}`، والـ f-string تضعه داخل التحية."
+   }
+  },
+  {
+   "id": 7,
+   "difficulty": "medium",
+   "question": {
+    "en": "What does `(.venv)` at the start of the prompt tell you?",
+    "ar": "ماذا تعني `(.venv)` في بداية سطر الأوامر؟"
+   },
+   "codeSnippet": "(.venv) C:\\hello-api>",
+   "options": [
+    {
+     "en": "FastAPI is already running",
+     "ar": "FastAPI يعمل بالفعل"
+    },
+    {
+     "en": "The folder is named `.venv`",
+     "ar": "اسم المجلد `.venv`"
+    },
+    {
+     "en": "Python is not installed",
+     "ar": "Python غير مثبّتة"
+    },
+    {
+     "en": "The venv is switched on",
+     "ar": "الـ venv مفعّلة الآن"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "After activating, the prompt shows `(.venv)`; `pip` now installs into it.",
+    "ar": "بعد التفعيل يظهر `(.venv)` في السطر، و`pip` يثبّت داخلها الآن."
+   }
+  },
+  {
+   "id": 8,
+   "difficulty": "hard",
+   "question": {
+    "en": "With this app running, what does `GET /hello` (no name) return?",
+    "ar": "والتطبيق يعمل، ماذا يُرجع `GET /hello` (بدون اسم)؟"
+   },
+   "codeSnippet": "from fastapi import FastAPI\napp = FastAPI()\n\n@app.get(\"/\")\ndef home():\n    return {\"message\": \"Hello, Sara!\"}\n\n@app.get(\"/hello/{name}\")\ndef hello(name: str):\n    return {\"message\": f\"Hello, {name}!\"}",
+   "options": [
+    {
+     "en": "`{\"message\": \"Hello, !\"}`",
+     "ar": "`{\"message\": \"Hello, !\"}`"
+    },
+    {
+     "en": "404 `{\"detail\": \"Not Found\"}`",
+     "ar": "404 `{\"detail\": \"Not Found\"}`"
+    },
+    {
+     "en": "`{\"message\": \"Hello, Sara!\"}`",
+     "ar": "`{\"message\": \"Hello, Sara!\"}`"
+    },
+    {
+     "en": "`{\"message\": \"Hello, None!\"}`",
+     "ar": "`{\"message\": \"Hello, None!\"}`"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "No path matches `/hello` alone, since `/hello/{name}` needs a name.",
+    "ar": "لا يوجد مسار يطابق `/hello` وحده، لأن `/hello/{name}` يحتاج اسمًا."
+   }
+  },
+  {
+   "id": 9,
+   "difficulty": "hard",
+   "question": {
+    "en": "Someone forgot something. What does `GET /hello/Omar` return?",
+    "ar": "أحدهم نسي شيئًا. ماذا يُرجع `GET /hello/Omar`؟"
+   },
+   "codeSnippet": "@app.get(\"/hello/{name}\")\ndef hello(name: str):\n    return {\"message\": \"Hello, {name}!\"}",
+   "options": [
+    {
+     "en": "`{\"message\": \"Hello, {name}!\"}`",
+     "ar": "`{\"message\": \"Hello, {name}!\"}`"
+    },
+    {
+     "en": "`{\"message\": \"Hello, Omar!\"}`",
+     "ar": "`{\"message\": \"Hello, Omar!\"}`"
+    },
+    {
+     "en": "404 `{\"detail\": \"Not Found\"}`",
+     "ar": "404 `{\"detail\": \"Not Found\"}`"
+    },
+    {
+     "en": "A crash with a `NameError`",
+     "ar": "انهيار مع خطأ `NameError`"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "Without the `f` it is a plain string, so `{name}` stays as text.",
+    "ar": "بدون الحرف `f` يصبح نصًا عاديًا، فيبقى `{name}` كما هو."
+   }
+  },
+  {
+   "id": 10,
+   "difficulty": "hard",
+   "question": {
+    "en": "What is the job of the first line?",
+    "ar": "ما وظيفة السطر الأول؟"
+   },
+   "codeSnippet": "@app.get(\"/hello/{name}\")\ndef hello(name: str):\n    return {\"message\": f\"Hello, {name}!\"}",
+   "options": [
+    {
+     "en": "It prints the greeting in the terminal",
+     "ar": "يطبع التحية في الطرفية"
+    },
+    {
+     "en": "It installs a package named hello",
+     "ar": "يثبّت حزمة اسمها hello"
+    },
+    {
+     "en": "It ties a URL path to the function below",
+     "ar": "يربط مسار URL بالدالة التي تحته"
+    },
+    {
+     "en": "It opens the browser at `/hello`",
+     "ar": "يفتح المتصفح على `/hello`"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "The decorator `@app.get` tells FastAPI which URL runs this function.",
+    "ar": "الـ decorator `@app.get` يخبر FastAPI أي URL يشغّل هذه الدالة."
+   }
+  }
+ ]
+}

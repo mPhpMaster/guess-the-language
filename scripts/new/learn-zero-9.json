@@ -1,0 +1,1097 @@
+{
+ "id": "json-and-errors",
+ "icon": "📄",
+ "title": {
+  "en": "JSON and reading errors",
+  "ar": "JSON وقراءة الأخطاء"
+ },
+ "summary": {
+  "en": "Learn JSON, the shared data format, use it from Python and files, and read error messages calmly.",
+  "ar": "تعلّم JSON، صيغة البيانات المشتركة، واستخدمها من Python والملفات، واقرأ رسائل الخطأ بهدوء."
+ },
+ "lessons": [
+  {
+   "id": "what-is-json",
+   "title": {
+    "en": "Data formats and JSON",
+    "ar": "صيغ البيانات و JSON"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "📦",
+     "en": "Programs swap data like parcels",
+     "ar": "البرامج تتبادل البيانات كالطرود"
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "🐍",
+       "label": {
+        "en": "Python app",
+        "ar": "تطبيق Python"
+       }
+      },
+      {
+       "icon": "📄",
+       "label": {
+        "en": "JSON text",
+        "ar": "نص JSON"
+       }
+      },
+      {
+       "icon": "📱",
+       "label": {
+        "en": "Phone app",
+        "ar": "تطبيق الجوال"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "writes",
+        "ar": "يكتب"
+       },
+       "back": false
+      },
+      {
+       "label": {
+        "en": "reads",
+        "ar": "يقرأ"
+       },
+       "back": false
+      }
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "No shared format",
+       "ar": "بلا صيغة مشتركة"
+      },
+      "tone": "bad",
+      "items": [
+       {
+        "en": "Each program speaks its own way",
+        "ar": "كل برنامج يتكلم بطريقته"
+       },
+       {
+        "en": "Data arrives scrambled",
+        "ar": "البيانات تصل مشوّشة"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "A shared format (JSON)",
+       "ar": "صيغة مشتركة (JSON)"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "Every language reads the same text",
+        "ar": "كل لغة تقرأ النص نفسه"
+       },
+       {
+        "en": "Like one shared language",
+        "ar": "مثل لغة مشتركة واحدة"
+       }
+      ]
+     }
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "{",
+       "color": "purple",
+       "label": {
+        "en": "object starts",
+        "ar": "بداية كائن (object)"
+       }
+      },
+      {
+       "text": "\"name\"",
+       "color": "blue",
+       "label": {
+        "en": "key, in double quotes",
+        "ar": "مفتاح (key) بين علامتي تنصيص مزدوجة"
+       }
+      },
+      {
+       "text": ": "
+      },
+      {
+       "text": "\"Sara\"",
+       "color": "green",
+       "label": {
+        "en": "string (text)",
+        "ar": "نص (string)"
+       }
+      },
+      {
+       "text": ", \"age\": "
+      },
+      {
+       "text": "25",
+       "color": "yellow",
+       "label": {
+        "en": "number",
+        "ar": "رقم (number)"
+       }
+      },
+      {
+       "text": ", \"langs\": "
+      },
+      {
+       "text": "[\"ar\", \"en\"]",
+       "color": "cyan",
+       "label": {
+        "en": "array (a list)",
+        "ar": "مصفوفة (array) = قائمة"
+       }
+      },
+      {
+       "text": ", \"admin\": "
+      },
+      {
+       "text": "false",
+       "color": "red",
+       "label": {
+        "en": "true / false",
+        "ar": "صح / خطأ (true / false)"
+       }
+      },
+      {
+       "text": "}"
+      }
+     ]
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": "{ }",
+       "color": "purple",
+       "label": {
+        "en": "object",
+        "ar": "كائن"
+       }
+      },
+      {
+       "text": "[ ]",
+       "color": "cyan",
+       "label": {
+        "en": "array",
+        "ar": "مصفوفة"
+       }
+      },
+      {
+       "text": "\"hi\"",
+       "color": "green",
+       "label": {
+        "en": "string",
+        "ar": "نص"
+       }
+      },
+      {
+       "text": "3.5",
+       "color": "yellow",
+       "label": {
+        "en": "number",
+        "ar": "رقم"
+       }
+      },
+      {
+       "text": "true",
+       "color": "red",
+       "label": {
+        "en": "true / false",
+        "ar": "صح / خطأ"
+       }
+      },
+      {
+       "text": "null",
+       "color": "blue",
+       "label": {
+        "en": "nothing",
+        "ar": "لا شيء"
+       }
+      }
+     ]
+    },
+    {
+     "type": "warn",
+     "en": "JSON allows only double quotes: `\"Sara\"` works, `'Sara'` breaks.",
+     "ar": "JSON يقبل علامات التنصيص المزدوجة فقط: `\"Sara\"` يعمل، و`'Sara'` يكسره."
+    },
+    {
+     "type": "tip",
+     "en": "JSON means JavaScript Object Notation. It is just text, so any language can read it.",
+     "ar": "JSON اختصار JavaScript Object Notation. هو مجرد نص، لذا تقرؤه أي لغة."
+    }
+   ]
+  },
+  {
+   "id": "json-and-python",
+   "title": {
+    "en": "JSON and Python side by side",
+    "ar": "JSON و Python جنبًا إلى جنب"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🔁",
+     "en": "JSON text ↔ Python dict",
+     "ar": "نص JSON ↔ قاموس Python (dict)"
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "JSON",
+       "ar": "JSON"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "`true` / `false`",
+        "ar": "`true` / `false`"
+       },
+       {
+        "en": "`null`",
+        "ar": "`null`"
+       },
+       {
+        "en": "only `\"double\"` quotes",
+        "ar": "علامات `\"مزدوجة\"` فقط"
+       },
+       {
+        "en": "`{ }` object, `[ ]` array",
+        "ar": "`{ }` كائن، `[ ]` مصفوفة"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "Python",
+       "ar": "Python"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "`True` / `False`",
+        "ar": "`True` / `False`"
+       },
+       {
+        "en": "`None`",
+        "ar": "`None`"
+       },
+       {
+        "en": "`'single'` or `\"double\"`",
+        "ar": "`'مفردة'` أو `\"مزدوجة\"`"
+       },
+       {
+        "en": "`{ }` dict, `[ ]` list",
+        "ar": "`{ }` قاموس، `[ ]` قائمة"
+       }
+      ]
+     }
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "🐍",
+       "label": {
+        "en": "Python dict",
+        "ar": "قاموس Python"
+       }
+      },
+      {
+       "icon": "📄",
+       "label": {
+        "en": "JSON text",
+        "ar": "نص JSON"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "json.dumps()",
+        "ar": "json.dumps()"
+       },
+       "back": false
+      }
+     ],
+     "returns": {
+      "en": "json.loads()",
+      "ar": "json.loads()"
+     }
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "import json\nuser = {\"name\": \"Sara\", \"admin\": False, \"pet\": None}\ntext = json.dumps(user)\nprint(text)\n# {\"name\": \"Sara\", \"admin\": false, \"pet\": null}\n\ndata = json.loads('{\"name\": \"Ali\", \"ok\": true}')\nprint(data[\"name\"])   # Ali\nprint(data)           # {'name': 'Ali', 'ok': True}",
+     "highlight": [
+      3,
+      7
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "print(json.dumps({\"name\": \"Sara\", \"langs\": [\"en\", \"ar\"]}, indent=2))\n# {\n#   \"name\": \"Sara\",\n#   \"langs\": [\n#     \"en\",\n#     \"ar\"\n#   ]\n# }",
+     "highlight": [
+      1
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "The `s` means string: `dumps` = dump to string, `loads` = load from string. `indent=2` makes it pretty.",
+     "ar": "الحرف `s` يعني نص (string): `dumps` = حوّل إلى نص، `loads` = اقرأ من نص. و`indent=2` يجعله مرتبًا."
+    }
+   ]
+  },
+  {
+   "id": "json-files",
+   "title": {
+    "en": "Saving and loading a .json file",
+    "ar": "حفظ ملف ‎.json وقراءته"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "💾",
+     "en": "A .json file is a notebook",
+     "ar": "ملف ‎.json مثل دفتر ملاحظات"
+    },
+    {
+     "type": "steps",
+     "items": [
+      {
+       "en": "Open the file with `\"w\"` (write)",
+       "ar": "افتح الملف بـ `\"w\"` (كتابة)"
+      },
+      {
+       "en": "Save data: `json.dump(data, f)`",
+       "ar": "احفظ البيانات: `json.dump(data, f)`"
+      },
+      {
+       "en": "Later, open it again to read",
+       "ar": "لاحقًا، افتحه مجددًا للقراءة"
+      },
+      {
+       "en": "Load data: `json.load(f)`",
+       "ar": "اقرأ البيانات: `json.load(f)`"
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "import json\nscores = {\"Sara\": 90, \"Ali\": 75}\nwith open(\"scores.json\", \"w\", encoding=\"utf-8\") as f:\n    json.dump(scores, f, indent=2)\n\nwith open(\"scores.json\", encoding=\"utf-8\") as f:\n    data = json.load(f)\nprint(data[\"Sara\"])   # 90",
+     "highlight": [
+      4,
+      7
+     ]
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "with",
+       "color": "blue",
+       "label": {
+        "en": "closes the file for you",
+        "ar": "يغلق الملف عنك"
+       }
+      },
+      {
+       "text": " open("
+      },
+      {
+       "text": "\"scores.json\"",
+       "color": "green",
+       "label": {
+        "en": "file name",
+        "ar": "اسم الملف"
+       }
+      },
+      {
+       "text": ", "
+      },
+      {
+       "text": "\"w\"",
+       "color": "yellow",
+       "label": {
+        "en": "mode: write",
+        "ar": "الوضع: كتابة"
+       }
+      },
+      {
+       "text": ", "
+      },
+      {
+       "text": "encoding=\"utf-8\"",
+       "color": "cyan",
+       "label": {
+        "en": "keeps Arabic safe",
+        "ar": "يحفظ العربية سليمة"
+       }
+      },
+      {
+       "text": ") "
+      },
+      {
+       "text": "as f",
+       "color": "purple",
+       "label": {
+        "en": "f = the open file",
+        "ar": "f = الملف المفتوح"
+       }
+      },
+      {
+       "text": ":"
+      }
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "No `s`: a file",
+       "ar": "بدون `s`: ملف"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "`json.dump(data, f)` writes to file",
+        "ar": "`json.dump(data, f)` يكتب في ملف"
+       },
+       {
+        "en": "`json.load(f)` reads from file",
+        "ar": "`json.load(f)` يقرأ من ملف"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "With `s`: a string",
+       "ar": "مع `s`: نص"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "`json.dumps(data)` gives text",
+        "ar": "`json.dumps(data)` يعطيك نصًا"
+       },
+       {
+        "en": "`json.loads(text)` reads text",
+        "ar": "`json.loads(text)` يقرأ نصًا"
+       }
+      ]
+     }
+    },
+    {
+     "type": "warn",
+     "en": "Mode `\"w\"` wipes the old file first. Reading needs no mode (it is `\"r\"`).",
+     "ar": "الوضع `\"w\"` يمسح الملف القديم أولًا. القراءة لا تحتاج وضعًا (فهو `\"r\"`)."
+    }
+   ]
+  },
+  {
+   "id": "read-a-traceback",
+   "title": {
+    "en": "Reading an error without panic",
+    "ar": "قراءة الخطأ بلا ذعر"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🔍",
+     "en": "Errors are clues, not failures",
+     "ar": "الأخطاء أدلة، وليست فشلًا"
+    },
+    {
+     "type": "anatomy",
+     "parts": [
+      {
+       "text": "Traceback (most recent call last):\n",
+       "color": "purple",
+       "label": {
+        "en": "error report starts",
+        "ar": "بداية تقرير الخطأ"
+       }
+      },
+      {
+       "text": "  File "
+      },
+      {
+       "text": "\"C:\\code\\app.py\"",
+       "color": "blue",
+       "label": {
+        "en": "which file",
+        "ar": "أي ملف"
+       }
+      },
+      {
+       "text": ", "
+      },
+      {
+       "text": "line 2",
+       "color": "yellow",
+       "label": {
+        "en": "which line",
+        "ar": "أي سطر"
+       }
+      },
+      {
+       "text": ", in <module>\n"
+      },
+      {
+       "text": "    print(\"Age: \" + age)\n",
+       "color": "cyan",
+       "label": {
+        "en": "the line itself",
+        "ar": "السطر نفسه"
+       }
+      },
+      {
+       "text": "TypeError",
+       "color": "red",
+       "label": {
+        "en": "error type",
+        "ar": "نوع الخطأ"
+       }
+      },
+      {
+       "text": ": "
+      },
+      {
+       "text": "can only concatenate str (not \"int\") to str",
+       "color": "green",
+       "label": {
+        "en": "the message",
+        "ar": "الرسالة"
+       }
+      }
+     ]
+    },
+    {
+     "type": "steps",
+     "items": [
+      {
+       "en": "Read the LAST line first",
+       "ar": "اقرأ السطر الأخير أولًا"
+      },
+      {
+       "en": "Note the error type and message",
+       "ar": "لاحظ نوع الخطأ ورسالته"
+      },
+      {
+       "en": "Find the `line` number above it",
+       "ar": "ابحث عن رقم السطر `line` فوقه"
+      },
+      {
+       "en": "Open that line, fix, run again",
+       "ar": "افتح ذلك السطر، أصلحه، شغّل مجددًا"
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "text",
+     "code": "Traceback (most recent call last):\n  File \"C:\\code\\greet.py\", line 4, in <module>\n    print(greet(5))\n  File \"C:\\code\\greet.py\", line 2, in greet\n    return \"Hi \" + name\nTypeError: can only concatenate str (not \"int\") to str",
+     "highlight": [
+      4,
+      6
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "The bottom `File` is where Python stopped. The cause may sit higher, like `greet(5)` on line 4.",
+     "ar": "آخر سطر `File` هو حيث توقف Python. وقد يكون السبب أعلى، مثل `greet(5)` في السطر 4."
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "Panic",
+       "ar": "الذعر"
+      },
+      "tone": "bad",
+      "items": [
+       {
+        "en": "Red text means I failed",
+        "ar": "النص الأحمر يعني أنني فشلت"
+       },
+       {
+        "en": "Delete everything and restart",
+        "ar": "أحذف كل شيء وأبدأ من جديد"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "Calm",
+       "ar": "الهدوء"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "Read the bottom line first",
+        "ar": "اقرأ السطر الأخير أولًا"
+       },
+       {
+        "en": "Go to the line number",
+        "ar": "اذهب إلى رقم السطر"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "common-errors",
+   "title": {
+    "en": "Five common errors and a habit",
+    "ar": "خمسة أخطاء شائعة وعادة مفيدة"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🩺",
+     "en": "Five errors you will meet often",
+     "ar": "خمسة أخطاء ستقابلها كثيرًا"
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "✏️",
+       "color": "red",
+       "title": {
+        "en": "SyntaxError",
+        "ar": "SyntaxError"
+       },
+       "text": {
+        "en": "Missing `:` or bracket → add it where `^` points",
+        "ar": "نقص `:` أو قوس ← أضفه حيث يشير `^`"
+       }
+      },
+      {
+       "icon": "❓",
+       "color": "yellow",
+       "title": {
+        "en": "NameError",
+        "ar": "NameError"
+       },
+       "text": {
+        "en": "Typo or not created: `nmae` → spell `name`",
+        "ar": "خطأ إملائي أو اسم غير موجود: `nmae` ← اكتب `name`"
+       }
+      },
+      {
+       "icon": "🧩",
+       "color": "blue",
+       "title": {
+        "en": "TypeError",
+        "ar": "TypeError"
+       },
+       "text": {
+        "en": "`\"Age: \" + 30` mixes types → use `str(30)`",
+        "ar": "`\"Age: \" + 30` يخلط الأنواع ← استخدم `str(30)`"
+       }
+      },
+      {
+       "icon": "↔️",
+       "color": "purple",
+       "title": {
+        "en": "IndentationError",
+        "ar": "IndentationError"
+       },
+       "text": {
+        "en": "Nothing indented after `if ...:` → add 4 spaces",
+        "ar": "لا إزاحة بعد `if ...:` ← أضف 4 مسافات"
+       }
+      },
+      {
+       "icon": "🔑",
+       "color": "cyan",
+       "title": {
+        "en": "KeyError",
+        "ar": "KeyError"
+       },
+       "text": {
+        "en": "Missing dict key `\"email\"` → check spelling or `.get()`",
+        "ar": "المفتاح `\"email\"` غير موجود ← راجع الإملاء أو استخدم `.get()`"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "text",
+     "code": "SyntaxError: expected ':'\nNameError: name 'nmae' is not defined\nTypeError: can only concatenate str (not \"int\") to str\nIndentationError: expected an indented block after 'if' statement on line 2\nKeyError: 'email'"
+    },
+    {
+     "type": "steps",
+     "items": [
+      {
+       "en": "Print the value: `print(age)`",
+       "ar": "اطبع القيمة: `print(age)`"
+      },
+      {
+       "en": "Print its type: `type(age)`",
+       "ar": "اطبع نوعها: `type(age)`"
+      },
+      {
+       "en": "Compare with what you expected",
+       "ar": "قارنها بما توقعته"
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "lang": "python",
+     "code": "import json\ndata = json.loads('{\"age\": \"30\"}')\nage = data[\"age\"]\nprint(age, type(age))   # 30 <class 'str'>\nprint(int(age) + 1)     # 31",
+     "highlight": [
+      4
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "`\"30\"` in quotes is text, not a number. `print(x, type(x))` reveals it instantly.",
+     "ar": "`\"30\"` بين علامتي تنصيص نص وليس رقمًا. و`print(x, type(x))` يكشف ذلك فورًا."
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "difficulty": "easy",
+   "question": {
+    "en": "Which line is valid JSON?",
+    "ar": "أي سطر يُعد JSON صحيحًا؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "{'name': 'Sara'}",
+     "ar": "{'name': 'Sara'}"
+    },
+    {
+     "en": "{\"name\": \"Sara\"}",
+     "ar": "{\"name\": \"Sara\"}"
+    },
+    {
+     "en": "{name: \"Sara\"}",
+     "ar": "{name: \"Sara\"}"
+    },
+    {
+     "en": "{\"name\": 'Sara'}",
+     "ar": "{\"name\": 'Sara'}"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "JSON needs double quotes around every key and every string.",
+    "ar": "يحتاج JSON إلى علامات تنصيص مزدوجة حول كل مفتاح وكل نص."
+   }
+  },
+  {
+   "id": 2,
+   "difficulty": "easy",
+   "question": {
+    "en": "When Python reads JSON, what does `null` become?",
+    "ar": "عندما يقرأ Python نص JSON، إلى ماذا تتحول `null`؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "0",
+     "ar": "0"
+    },
+    {
+     "en": "False",
+     "ar": "False"
+    },
+    {
+     "en": "None",
+     "ar": "None"
+    },
+    {
+     "en": "\"\"",
+     "ar": "\"\""
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "JSON `null` means \"nothing\"; Python's word for nothing is `None`.",
+    "ar": "`null` في JSON تعني «لا شيء»، وكلمة Python لـ«لا شيء» هي `None`."
+   }
+  },
+  {
+   "id": 3,
+   "difficulty": "easy",
+   "question": {
+    "en": "Where should you start reading a Python traceback?",
+    "ar": "من أين تبدأ قراءة تقرير الخطأ (traceback) في Python؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "The first line at the top",
+     "ar": "السطر الأول في الأعلى"
+    },
+    {
+     "en": "The middle `File` line",
+     "ar": "سطر `File` في المنتصف"
+    },
+    {
+     "en": "The longest line of text",
+     "ar": "أطول سطر في النص"
+    },
+    {
+     "en": "The last line at the bottom",
+     "ar": "السطر الأخير في الأسفل"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "The last line holds the error type and the message. Start there, then go up.",
+    "ar": "السطر الأخير يحمل نوع الخطأ والرسالة. ابدأ منه ثم اصعد للأعلى."
+   }
+  },
+  {
+   "id": 4,
+   "difficulty": "medium",
+   "question": {
+    "en": "What does this print?",
+    "ar": "ماذا يطبع هذا الكود؟"
+   },
+   "codeSnippet": "import json\ndata = {\"ok\": True, \"pet\": None}\nprint(json.dumps(data))",
+   "options": [
+    {
+     "en": "{\"ok\": true, \"pet\": null}",
+     "ar": "{\"ok\": true, \"pet\": null}"
+    },
+    {
+     "en": "{'ok': True, 'pet': None}",
+     "ar": "{'ok': True, 'pet': None}"
+    },
+    {
+     "en": "{\"ok\": True, \"pet\": None}",
+     "ar": "{\"ok\": True, \"pet\": None}"
+    },
+    {
+     "en": "{\"ok\": \"true\", \"pet\": \"null\"}",
+     "ar": "{\"ok\": \"true\", \"pet\": \"null\"}"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "`json.dumps` writes JSON text: `True` becomes `true`, `None` becomes `null`, quotes become double.",
+    "ar": "`json.dumps` يكتب نص JSON: `True` تصبح `true`، و`None` تصبح `null`، وتصبح علامات التنصيص مزدوجة."
+   }
+  },
+  {
+   "id": 5,
+   "difficulty": "medium",
+   "question": {
+    "en": "What does this print?",
+    "ar": "ماذا يطبع هذا الكود؟"
+   },
+   "codeSnippet": "import json\ndata = json.loads('{\"name\": \"Ali\", \"age\": 20}')\nprint(type(data))",
+   "options": [
+    {
+     "en": "<class 'str'>",
+     "ar": "<class 'str'>"
+    },
+    {
+     "en": "<class 'json'>",
+     "ar": "<class 'json'>"
+    },
+    {
+     "en": "<class 'list'>",
+     "ar": "<class 'list'>"
+    },
+    {
+     "en": "<class 'dict'>",
+     "ar": "<class 'dict'>"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`json.loads` turns a JSON object `{ }` into a Python dict.",
+    "ar": "`json.loads` يحوّل كائن JSON ‏`{ }` إلى قاموس Python (dict)."
+   }
+  },
+  {
+   "id": 6,
+   "difficulty": "medium",
+   "question": {
+    "en": "What is the problem here?",
+    "ar": "ما المشكلة هنا؟"
+   },
+   "codeSnippet": "Traceback (most recent call last):\n  File \"C:\\code\\shop.py\", line 3, in <module>\n    print(prices[\"tea\"])\nKeyError: 'tea'",
+   "options": [
+    {
+     "en": "The variable `prices` was never created",
+     "ar": "المتغير `prices` لم يُنشأ أصلًا"
+    },
+    {
+     "en": "Line 3 is missing a colon at the end",
+     "ar": "السطر 3 ينقصه نقطتان `:` في آخره"
+    },
+    {
+     "en": "The dict `prices` has no key `\"tea\"`",
+     "ar": "القاموس `prices` لا يحوي المفتاح `\"tea\"`"
+    },
+    {
+     "en": "`print` cannot show values from a dict",
+     "ar": "`print` لا يستطيع عرض قيم من قاموس"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "`KeyError: 'tea'` means you asked a dict for a key it does not have.",
+    "ar": "`KeyError: 'tea'` تعني أنك طلبت من القاموس مفتاحًا غير موجود فيه."
+   }
+  },
+  {
+   "id": 7,
+   "difficulty": "medium",
+   "question": {
+    "en": "Which call saves a dict into a file opened as `f`?",
+    "ar": "أي استدعاء يحفظ قاموسًا في ملف مفتوح باسم `f`؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "json.load(f)",
+     "ar": "json.load(f)"
+    },
+    {
+     "en": "json.dump(data, f)",
+     "ar": "json.dump(data, f)"
+    },
+    {
+     "en": "json.loads(data)",
+     "ar": "json.loads(data)"
+    },
+    {
+     "en": "json.dumps(data)",
+     "ar": "json.dumps(data)"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "`json.dump` (no `s`) writes into a file; `json.dumps` only returns a string.",
+    "ar": "`json.dump` (بدون `s`) يكتب في ملف، أما `json.dumps` فيعيد نصًا فقط."
+   }
+  },
+  {
+   "id": 8,
+   "difficulty": "hard",
+   "question": {
+    "en": "Which error does Python report for this file?",
+    "ar": "أي خطأ يُظهره Python لهذا الملف؟"
+   },
+   "codeSnippet": "age = 20\nif age > 18:\nprint(\"adult\")",
+   "options": [
+    {
+     "en": "SyntaxError",
+     "ar": "SyntaxError"
+    },
+    {
+     "en": "NameError",
+     "ar": "NameError"
+    },
+    {
+     "en": "IndentationError",
+     "ar": "IndentationError"
+    },
+    {
+     "en": "TypeError",
+     "ar": "TypeError"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "The line after `if ...:` must be indented. Python says: expected an indented block.",
+    "ar": "السطر بعد `if ...:` يجب أن يكون مُزاحًا. يقول Python: expected an indented block."
+   }
+  },
+  {
+   "id": 9,
+   "difficulty": "hard",
+   "question": {
+    "en": "What happens when this runs?",
+    "ar": "ماذا يحدث عند تشغيل هذا الكود؟"
+   },
+   "codeSnippet": "import json\ndata = json.loads('{\"age\": \"30\"}')\nprint(data[\"age\"] + 1)",
+   "options": [
+    {
+     "en": "It raises a `TypeError`",
+     "ar": "يرفع خطأ `TypeError`"
+    },
+    {
+     "en": "It prints `31`",
+     "ar": "يطبع `31`"
+    },
+    {
+     "en": "It prints `301`",
+     "ar": "يطبع `301`"
+    },
+    {
+     "en": "It raises a `KeyError`",
+     "ar": "يرفع خطأ `KeyError`"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "`\"30\"` is in quotes, so it is a string. Adding `1` to a string gives a `TypeError`.",
+    "ar": "`\"30\"` بين علامتي تنصيص، فهو نص. وجمع `1` مع نص يعطي `TypeError`."
+   }
+  },
+  {
+   "id": 10,
+   "difficulty": "hard",
+   "question": {
+    "en": "Why does this line fail?",
+    "ar": "لماذا يفشل هذا السطر؟"
+   },
+   "codeSnippet": "import json\njson.loads(\"{'name': 'Ali'}\")",
+   "options": [
+    {
+     "en": "JSON needs double quotes, not single",
+     "ar": "JSON يحتاج تنصيصًا مزدوجًا لا مفردًا"
+    },
+    {
+     "en": "`json.loads` only accepts lists",
+     "ar": "`json.loads` يقبل القوائم فقط"
+    },
+    {
+     "en": "`name` is a reserved word in JSON",
+     "ar": "`name` كلمة محجوزة في JSON"
+    },
+    {
+     "en": "The text must end with a newline",
+     "ar": "يجب أن ينتهي النص بسطر جديد"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "Single quotes are Python style, not JSON. Python reports a `JSONDecodeError`.",
+    "ar": "التنصيص المفرد أسلوب Python وليس JSON، فيُظهر Python خطأ `JSONDecodeError`."
+   }
+  }
+ ]
+}

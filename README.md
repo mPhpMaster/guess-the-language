@@ -45,6 +45,13 @@ taken straight away; passing a level's test (70%) unlocks the next level.
 Lessons and tests are bilingual (English / Arabic, following the interface
 language). Progress is kept per device.
 
+- **🌱 From Zero to your first API** (start here) — 10 levels, 50 lessons, 100
+  questions for someone who has never programmed: the computer & terminal → the
+  internet & links (URL anatomy, DNS, localhost) → protocols (HTTP/HTTPS, ports)
+  → programming languages (Java ≠ JavaScript, Python) → installing Python, pip,
+  venv → values & types → lists, dicts, if, loops → functions, type hints,
+  classes, decorators → JSON & reading tracebacks → a first FastAPI app. Every
+  Python snippet and error message was run on Python 3.10.
 - **Build an API with FastAPI** — 11 levels, 55 lessons, 110 questions: web
   basics (HTTP, request/response, status codes, JSON) → first app → path & query
   parameters → request bodies with Pydantic → a CRUD API → SQLModel databases →

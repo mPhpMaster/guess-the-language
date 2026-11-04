@@ -369,6 +369,7 @@ export const AR = {
     otherGamesTitle: 'ألعاب أخرى من نفس المطوّر',
     learnButton: '📚 تعلّم',
     learnTitle: 'تعلّم',
+    learnStartHere: '🌱 ابدأ من هنا',
     learnSubtitle: 'دروس قصيرة ثم اختبار. اجتز اختبار المستوى لتفتح المستوى التالي — أو تخطَّ الدروس واذهب للاختبار مباشرة.',
     learnBack: '◂ رجوع',
     learnCourseProgress: 'اجتزت {n} من {total} مستويات',

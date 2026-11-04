@@ -1,0 +1,1070 @@
+{
+ "id": "programming-languages",
+ "icon": "🗣️",
+ "title": {
+  "en": "Programming languages",
+  "ar": "لغات البرمجة"
+ },
+ "summary": {
+  "en": "What code is, why there are many languages, and where Python, Java and JavaScript fit.",
+  "ar": "ما هو الكود، ولماذا توجد لغات كثيرة، وأين تقع Python وJava وJavaScript."
+ },
+ "lessons": [
+  {
+   "id": "what-is-code",
+   "title": {
+    "en": "What code is",
+    "ar": "ما هو الكود؟"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "📜",
+     "en": "Code is a recipe the computer follows",
+     "ar": "الكود (code) وصفة طبخ ينفّذها الحاسوب"
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "👩‍💻",
+       "label": {
+        "en": "You write code",
+        "ar": "أنت تكتب الكود"
+       }
+      },
+      {
+       "icon": "📄",
+       "label": {
+        "en": "A program (file)",
+        "ar": "برنامج (ملف)"
+       }
+      },
+      {
+       "icon": "💻",
+       "label": {
+        "en": "Computer runs it",
+        "ar": "الحاسوب ينفّذه"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "save",
+        "ar": "احفظ"
+       }
+      },
+      {
+       "label": {
+        "en": "run",
+        "ar": "شغّل"
+       }
+      }
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "🍳 A recipe",
+       "ar": "🍳 وصفة الطبخ"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "Steps, one after another",
+        "ar": "خطوات، واحدة تلو الأخرى"
+       },
+       {
+        "en": "Exact amounts: 2 eggs",
+        "ar": "كميات دقيقة: بيضتان"
+       },
+       {
+        "en": "The cook follows it",
+        "ar": "الطبّاخ يتّبعها"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "💻 A program",
+       "ar": "💻 البرنامج"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "Lines, top to bottom",
+        "ar": "أسطر، من الأعلى للأسفل"
+       },
+       {
+        "en": "Exact instructions: print `Hello`",
+        "ar": "تعليمات دقيقة: اطبع `Hello`"
+       },
+       {
+        "en": "The computer follows it",
+        "ar": "الحاسوب يتّبعه"
+       }
+      ]
+     }
+    },
+    {
+     "type": "code",
+     "code": "name = \"Sara\"\nprint(\"Hello,\", name)\nprint(\"Welcome!\")",
+     "lang": "python",
+     "highlight": [
+      2,
+      3
+     ]
+    },
+    {
+     "type": "code",
+     "code": "Hello, Sara\nWelcome!",
+     "lang": "text"
+    },
+    {
+     "type": "warn",
+     "en": "The computer never guesses: it does exactly what you wrote, in order.",
+     "ar": "الحاسوب لا يخمّن أبدًا: ينفّذ ما كتبته بالضبط، وبالترتيب."
+    }
+   ]
+  },
+  {
+   "id": "languages-and-translators",
+   "title": {
+    "en": "Languages and translators",
+    "ar": "اللغات والمترجمون"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🗣️",
+     "en": "A programming language: words humans can write",
+     "ar": "لغة البرمجة (programming language): كلمات يستطيع البشر كتابتها"
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "🧑",
+       "label": {
+        "en": "Your code (readable words)",
+        "ar": "كودك (كلمات مقروءة)"
+       }
+      },
+      {
+       "icon": "🔄",
+       "label": {
+        "en": "Translator program",
+        "ar": "برنامج مترجم"
+       }
+      },
+      {
+       "icon": "🤖",
+       "label": {
+        "en": "Machine code: 0s and 1s",
+        "ar": "لغة الآلة: أصفار وآحاد"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "in",
+        "ar": "يدخل"
+       }
+      },
+      {
+       "label": {
+        "en": "out",
+        "ar": "يخرج"
+       }
+      }
+     ]
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "📱",
+       "color": "green",
+       "title": {
+        "en": "Phone apps",
+        "ar": "تطبيقات الهاتف"
+       },
+       "text": {
+        "en": "Kotlin, Java, Swift",
+        "ar": "Kotlin وJava وSwift"
+       }
+      },
+      {
+       "icon": "🌐",
+       "color": "blue",
+       "title": {
+        "en": "Websites",
+        "ar": "مواقع الويب"
+       },
+       "text": {
+        "en": "JavaScript runs in every browser",
+        "ar": "JavaScript تعمل في كل متصفح"
+       }
+      },
+      {
+       "icon": "📊",
+       "color": "purple",
+       "title": {
+        "en": "Data and AI",
+        "ar": "البيانات والذكاء الاصطناعي"
+       },
+       "text": {
+        "en": "Python is the favourite",
+        "ar": "Python هي المفضّلة"
+       }
+      },
+      {
+       "icon": "⚡",
+       "color": "red",
+       "title": {
+        "en": "Very fast systems",
+        "ar": "أنظمة سريعة جدًا"
+       },
+       "text": {
+        "en": "C, C++, Rust",
+        "ar": "C وC++ وRust"
+       }
+      }
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "📚 Compiled",
+       "ar": "📚 لغة مُترجَمة مسبقًا (compiled)"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "Translate the whole book first",
+        "ar": "تُترجَم الرواية كلها أولًا"
+       },
+       {
+        "en": "Then run it, fast",
+        "ar": "ثم تُشغَّل، بسرعة"
+       },
+       {
+        "en": "e.g. C, Go, Rust",
+        "ar": "مثل C وGo وRust"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "🎧 Interpreted",
+       "ar": "🎧 لغة مُفسَّرة (interpreted)"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "A live interpreter, line by line",
+        "ar": "مترجم فوري، سطرًا بسطر"
+       },
+       {
+        "en": "Run it right away",
+        "ar": "تُشغَّل فورًا"
+       },
+       {
+        "en": "e.g. Python, JavaScript",
+        "ar": "مثل Python وJavaScript"
+       }
+      ]
+     }
+    },
+    {
+     "type": "code",
+     "code": "# Interpreted: run the code directly\npython hello.py\n\n# Compiled: translate first, then run\ngcc hello.c -o hello.exe\n.\\hello.exe",
+     "lang": "bash",
+     "highlight": [
+      2,
+      5,
+      6
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "Many tools exist like a toolbox: pick the language that fits the job.",
+     "ar": "اللغات كثيرة مثل صندوق العُدّة: اختر اللغة التي تناسب المهمة."
+    },
+    {
+     "type": "tip",
+     "en": "macOS/Linux: type `python3 hello.py`, and run `./hello` (no `.exe`).",
+     "ar": "على macOS/Linux: اكتب `python3 hello.py`، وشغّل `./hello` (بدون `.exe`)."
+    }
+   ]
+  },
+  {
+   "id": "hello-tour",
+   "title": {
+    "en": "Hello in four languages",
+    "ar": "Hello بأربع لغات"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "👋",
+     "en": "Same job, four languages: print Hello",
+     "ar": "المهمة نفسها بأربع لغات: اطبع Hello"
+    },
+    {
+     "type": "pills",
+     "items": [
+      {
+       "text": "Python",
+       "color": "green",
+       "label": {
+        "en": "1 line",
+        "ar": "سطر واحد"
+       }
+      },
+      {
+       "text": "JavaScript",
+       "color": "yellow",
+       "label": {
+        "en": "1 line",
+        "ar": "سطر واحد"
+       }
+      },
+      {
+       "text": "Java",
+       "color": "red",
+       "label": {
+        "en": "5 lines",
+        "ar": "5 أسطر"
+       }
+      },
+      {
+       "text": "C",
+       "color": "blue",
+       "label": {
+        "en": "5 lines",
+        "ar": "5 أسطر"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "code": "# Python\nprint(\"Hello\")",
+     "highlight": [
+      2
+     ]
+    },
+    {
+     "type": "code",
+     "code": "// JavaScript\nconsole.log(\"Hello\");",
+     "highlight": [
+      2
+     ]
+    },
+    {
+     "type": "code",
+     "code": "// Java\npublic class Hello {\n    public static void main(String[] args) {\n        System.out.println(\"Hello\");\n    }\n}",
+     "highlight": [
+      4
+     ]
+    },
+    {
+     "type": "code",
+     "code": "// C\n#include <stdio.h>\n\nint main(void) {\n    printf(\"Hello\\n\");\n    return 0;\n}",
+     "highlight": [
+      5
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "Short and friendly",
+       "ar": "قصيرة وودودة"
+      },
+      "tone": "good",
+      "items": [
+       {
+        "en": "Python: `print`",
+        "ar": "Python: `print`"
+       },
+       {
+        "en": "JavaScript: `console.log`",
+        "ar": "JavaScript: `console.log`"
+       },
+       {
+        "en": "Great for a first step",
+        "ar": "ممتازة كبداية"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "More ceremony",
+       "ar": "مراسم أكثر"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "Java: a `class` and `main`",
+        "ar": "Java: `class` و`main`"
+       },
+       {
+        "en": "C: `#include` and `main`",
+        "ar": "C: `#include` و`main`"
+       },
+       {
+        "en": "More rules, more control",
+        "ar": "قواعد أكثر، تحكّم أكثر"
+       }
+      ]
+     }
+    },
+    {
+     "type": "tip",
+     "en": "All four print the same word: `Hello`. Only the spelling changes.",
+     "ar": "الأربعة تطبع الكلمة نفسها: `Hello`. فقط طريقة الكتابة تختلف."
+    }
+   ]
+  },
+  {
+   "id": "java-vs-javascript",
+   "title": {
+    "en": "Java is not JavaScript",
+    "ar": "Java ليست JavaScript"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🚗",
+     "en": "Java vs JavaScript: like car vs carpet",
+     "ar": "Java مقابل JavaScript: مثل «كار» و«كاربت» (سيارة وسجّادة)"
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "☕",
+       "color": "red",
+       "title": {
+        "en": "Java",
+        "ar": "Java"
+       },
+       "text": {
+        "en": "Android apps and big company backends",
+        "ar": "تطبيقات Android وأنظمة الخلفية (backend) للشركات الكبيرة"
+       }
+      },
+      {
+       "icon": "🌐",
+       "color": "yellow",
+       "title": {
+        "en": "JavaScript",
+        "ar": "JavaScript"
+       },
+       "text": {
+        "en": "Web pages in every browser, and servers with Node.js",
+        "ar": "صفحات الويب في كل متصفح، والخوادم عبر Node.js"
+       }
+      }
+     ]
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "📄",
+       "label": {
+        "en": "`Hello.java`",
+        "ar": "`Hello.java`"
+       }
+      },
+      {
+       "icon": "⚙️",
+       "label": {
+        "en": "`javac` compiles",
+        "ar": "`javac` يترجم"
+       }
+      },
+      {
+       "icon": "📦",
+       "label": {
+        "en": "`Hello.class` bytecode",
+        "ar": "ملف `Hello.class` (bytecode)"
+       }
+      },
+      {
+       "icon": "☕",
+       "label": {
+        "en": "JVM runs it",
+        "ar": "الـ JVM يشغّله"
+       }
+      }
+     ],
+     "links": [
+      {},
+      {},
+      {}
+     ]
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "☕ Java",
+       "ar": "☕ Java"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "Compiled first with `javac`",
+        "ar": "تُترجَم أولًا بـ `javac`"
+       },
+       {
+        "en": "Runs on the JVM",
+        "ar": "تعمل على الـ JVM"
+       },
+       {
+        "en": "Android, banks, big backends",
+        "ar": "Android، البنوك، أنظمة خلفية ضخمة"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "🌐 JavaScript",
+       "ar": "🌐 JavaScript"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "No compile step for you",
+        "ar": "لا خطوة ترجمة عليك"
+       },
+       {
+        "en": "Runs in browsers and Node.js",
+        "ar": "تعمل في المتصفحات وNode.js"
+       },
+       {
+        "en": "Buttons, menus, web apps",
+        "ar": "أزرار، قوائم، تطبيقات ويب"
+       }
+      ]
+     }
+    },
+    {
+     "type": "code",
+     "code": "# Java: compile, then run on the JVM\njavac Hello.java\njava Hello\n\n# JavaScript: run with Node.js\nnode hello.js",
+     "lang": "bash",
+     "highlight": [
+      2,
+      3,
+      6
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "JVM = Java Virtual Machine. Node.js = runs JavaScript outside the browser.",
+     "ar": "الـ JVM = آلة Java الافتراضية (Java Virtual Machine). وNode.js = يشغّل JavaScript خارج المتصفح."
+    }
+   ]
+  },
+  {
+   "id": "python-frontend-backend",
+   "title": {
+    "en": "Python, frontend and backend",
+    "ar": "Python والواجهة والخلفية"
+   },
+   "blocks": [
+    {
+     "type": "hero",
+     "emoji": "🍽️",
+     "en": "An app is a restaurant: dining room and kitchen",
+     "ar": "التطبيق مطعم: صالة الطعام والمطبخ"
+    },
+    {
+     "type": "flow",
+     "nodes": [
+      {
+       "icon": "🪑",
+       "label": {
+        "en": "Frontend: the dining room",
+        "ar": "الواجهة (frontend): صالة الطعام"
+       }
+      },
+      {
+       "icon": "👨‍🍳",
+       "label": {
+        "en": "Backend: the kitchen",
+        "ar": "الخلفية (backend): المطبخ"
+       }
+      }
+     ],
+     "links": [
+      {
+       "label": {
+        "en": "API: the waiter",
+        "ar": "الـ API: النادل"
+       }
+      }
+     ],
+     "returns": {
+      "en": "the dish (data)",
+      "ar": "الطبق (البيانات)"
+     }
+    },
+    {
+     "type": "compare",
+     "left": {
+      "title": {
+       "en": "🪑 Frontend",
+       "ar": "🪑 الواجهة (frontend)"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "What you see and tap",
+        "ar": "ما تراه وتلمسه"
+       },
+       {
+        "en": "Buttons, colours, menus",
+        "ar": "أزرار، ألوان، قوائم"
+       },
+       {
+        "en": "Runs on your phone or browser",
+        "ar": "تعمل على هاتفك أو متصفحك"
+       }
+      ]
+     },
+     "right": {
+      "title": {
+       "en": "👨‍🍳 Backend",
+       "ar": "👨‍🍳 الخلفية (backend)"
+      },
+      "tone": "neutral",
+      "items": [
+       {
+        "en": "Hidden work on a server",
+        "ar": "عمل خفي على الخادم"
+       },
+       {
+        "en": "Passwords, orders, the database",
+        "ar": "كلمات المرور، الطلبات، قاعدة البيانات"
+       },
+       {
+        "en": "Answers through the API",
+        "ar": "يجيب عبر الـ API"
+       }
+      ]
+     }
+    },
+    {
+     "type": "cards",
+     "items": [
+      {
+       "icon": "🌱",
+       "color": "green",
+       "title": {
+        "en": "Beginners",
+        "ar": "المبتدئون"
+       },
+       "text": {
+        "en": "Reads almost like English",
+        "ar": "تُقرأ تقريبًا مثل الإنجليزية"
+       }
+      },
+      {
+       "icon": "📊",
+       "color": "blue",
+       "title": {
+        "en": "Data",
+        "ar": "البيانات"
+       },
+       "text": {
+        "en": "Tables, charts, big spreadsheets",
+        "ar": "جداول، رسوم بيانية، ملفات ضخمة"
+       }
+      },
+      {
+       "icon": "🤖",
+       "color": "purple",
+       "title": {
+        "en": "AI",
+        "ar": "الذكاء الاصطناعي"
+       },
+       "text": {
+        "en": "Most AI tools speak Python",
+        "ar": "معظم أدوات الذكاء الاصطناعي تتحدث Python"
+       }
+      },
+      {
+       "icon": "🔁",
+       "color": "yellow",
+       "title": {
+        "en": "Automation",
+        "ar": "الأتمتة"
+       },
+       "text": {
+        "en": "Boring tasks done for you",
+        "ar": "مهام مملة تُنجز عنك"
+       }
+      },
+      {
+       "icon": "🔌",
+       "color": "cyan",
+       "title": {
+        "en": "Web APIs",
+        "ar": "واجهات الويب (APIs)"
+       },
+       "text": {
+        "en": "FastAPI builds backends quickly",
+        "ar": "FastAPI يبني الخلفية بسرعة"
+       }
+      }
+     ]
+    },
+    {
+     "type": "code",
+     "code": "from fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/\")\ndef home():\n    return {\"message\": \"Hello\"}",
+     "lang": "python",
+     "highlight": [
+      5,
+      7
+     ]
+    },
+    {
+     "type": "tip",
+     "en": "This course uses Python + FastAPI: easy to read, and a real backend.",
+     "ar": "هذه الدورة تستخدم Python + FastAPI: سهلة القراءة، وخلفية (backend) حقيقية."
+    }
+   ]
+  }
+ ],
+ "quiz": [
+  {
+   "id": 1,
+   "difficulty": "easy",
+   "question": {
+    "en": "What is code?",
+    "ar": "ما هو الكود (code)؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "A secret password that locks the computer",
+     "ar": "كلمة سر تقفل الحاسوب"
+    },
+    {
+     "en": "A picture that appears on the screen",
+     "ar": "صورة تظهر على الشاشة"
+    },
+    {
+     "en": "Steps the computer follows, in order",
+     "ar": "خطوات ينفّذها الحاسوب بالترتيب"
+    },
+    {
+     "en": "The electricity that powers the computer",
+     "ar": "الكهرباء التي تشغّل الحاسوب"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "Code is a list of exact instructions, like a recipe, that the computer follows in order.",
+    "ar": "الكود قائمة تعليمات دقيقة، مثل وصفة الطبخ، ينفّذها الحاسوب بالترتيب."
+   }
+  },
+  {
+   "id": 2,
+   "difficulty": "easy",
+   "question": {
+    "en": "Which sentence about Java and JavaScript is true?",
+    "ar": "أي جملة عن Java وJavaScript صحيحة؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "Different languages; only the names look alike",
+     "ar": "لغتان مختلفتان؛ الاسمان متشابهان فقط"
+    },
+    {
+     "en": "Same language; JavaScript is the newer version",
+     "ar": "لغة واحدة؛ JavaScript هي النسخة الأحدث"
+    },
+    {
+     "en": "Same language; Java is just the short name",
+     "ar": "لغة واحدة؛ Java مجرد اسم مختصر"
+    },
+    {
+     "en": "JavaScript is Java that runs only on phones",
+     "ar": "JavaScript هي Java تعمل على الهواتف فقط"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "Like car and carpet: similar names, different things. Java runs on the JVM; JavaScript runs in browsers and Node.js.",
+    "ar": "مثل «كار» و«كاربت»: اسمان متشابهان وشيئان مختلفان. Java تعمل على الـ JVM، وJavaScript في المتصفحات وNode.js."
+   }
+  },
+  {
+   "id": 3,
+   "difficulty": "easy",
+   "question": {
+    "en": "Which language is this line written in?",
+    "ar": "بأي لغة كُتب هذا السطر؟"
+   },
+   "codeSnippet": "console.log(\"Hello\");",
+   "options": [
+    {
+     "en": "Python",
+     "ar": "Python"
+    },
+    {
+     "en": "Java",
+     "ar": "Java"
+    },
+    {
+     "en": "C",
+     "ar": "C"
+    },
+    {
+     "en": "JavaScript",
+     "ar": "JavaScript"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "`console.log(...)` is how JavaScript prints. Python uses `print`, Java `System.out.println`, C `printf`.",
+    "ar": "الأمر `console.log(...)` هو طريقة الطباعة في JavaScript. أما Python فتستخدم `print`، وJava `System.out.println`، وC `printf`."
+   }
+  },
+  {
+   "id": 4,
+   "difficulty": "medium",
+   "question": {
+    "en": "What does this Python program show?",
+    "ar": "ماذا يعرض برنامج Python هذا؟"
+   },
+   "codeSnippet": "print(\"Hi\")\nprint(\"Sara\")",
+   "options": [
+    {
+     "en": "`Sara`, then `Hi` on the next line",
+     "ar": "`Sara` ثم `Hi` في السطر التالي"
+    },
+    {
+     "en": "`Hi`, then `Sara` on the next line",
+     "ar": "`Hi` ثم `Sara` في السطر التالي"
+    },
+    {
+     "en": "`Hi Sara` together on one line",
+     "ar": "`Hi Sara` معًا في سطر واحد"
+    },
+    {
+     "en": "Nothing, because it has no `main`",
+     "ar": "لا شيء، لأنه بلا `main`"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "The computer runs lines top to bottom, and each `print` writes its own line.",
+    "ar": "الحاسوب ينفّذ الأسطر من الأعلى للأسفل، وكل `print` يكتب سطرًا خاصًا به."
+   }
+  },
+  {
+   "id": 5,
+   "difficulty": "medium",
+   "question": {
+    "en": "Which sentence describes a COMPILED language?",
+    "ar": "أي جملة تصف لغة مُترجَمة مسبقًا (compiled)؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "The whole program is translated first, then run",
+     "ar": "البرنامج كله يُترجَم أولًا، ثم يُشغَّل"
+    },
+    {
+     "en": "Each line is translated while the program runs",
+     "ar": "كل سطر يُترجَم أثناء تشغيل البرنامج"
+    },
+    {
+     "en": "The program can only run inside a browser",
+     "ar": "البرنامج لا يعمل إلا داخل المتصفح"
+    },
+    {
+     "en": "The computer reads it with no translation",
+     "ar": "الحاسوب يقرؤه بلا أي ترجمة"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "Compiled = translate the whole book first. Line-by-line translation while running is an interpreter.",
+    "ar": "المُترجَمة مسبقًا = ترجمة الرواية كلها أولًا. أما الترجمة سطرًا بسطر أثناء التشغيل فهي المُفسِّر (interpreter)."
+   }
+  },
+  {
+   "id": 6,
+   "difficulty": "medium",
+   "question": {
+    "en": "What does `javac` do in these two commands?",
+    "ar": "ماذا يفعل `javac` في هذين الأمرين؟"
+   },
+   "codeSnippet": "javac Hello.java\njava Hello",
+   "options": [
+    {
+     "en": "Runs the program and prints `Hello`",
+     "ar": "يشغّل البرنامج ويطبع `Hello`"
+    },
+    {
+     "en": "Opens `Hello.java` in a web browser",
+     "ar": "يفتح `Hello.java` في متصفح الويب"
+    },
+    {
+     "en": "Compiles it into bytecode for the JVM",
+     "ar": "يترجمه إلى bytecode للـ JVM"
+    },
+    {
+     "en": "Installs JavaScript on the computer",
+     "ar": "يثبّت JavaScript على الحاسوب"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "`javac` compiles the code into `Hello.class` (bytecode). Then `java Hello` runs it on the JVM.",
+    "ar": "الأمر `javac` يترجم الكود إلى `Hello.class` (bytecode). ثم `java Hello` يشغّله على الـ JVM."
+   }
+  },
+  {
+   "id": 7,
+   "difficulty": "medium",
+   "question": {
+    "en": "Omar wants to analyse a huge sales spreadsheet and try some AI. Which language fits best?",
+    "ar": "يريد عمر تحليل ملف مبيعات ضخم وتجربة بعض الذكاء الاصطناعي. أي لغة تناسبه أكثر؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "C",
+     "ar": "C"
+    },
+    {
+     "en": "Python",
+     "ar": "Python"
+    },
+    {
+     "en": "Java",
+     "ar": "Java"
+    },
+    {
+     "en": "JavaScript",
+     "ar": "JavaScript"
+    }
+   ],
+   "answer": 1,
+   "explanation": {
+    "en": "Python is the favourite for data and AI, and it is friendly for beginners.",
+    "ar": "Python هي المفضّلة للبيانات والذكاء الاصطناعي، وهي سهلة للمبتدئين."
+   }
+  },
+  {
+   "id": 8,
+   "difficulty": "hard",
+   "question": {
+    "en": "In this picture, what usually sits at the `?` so the app and the server can talk?",
+    "ar": "في هذا الرسم، ما الذي يكون عادةً مكان `?` ليتحدث التطبيق مع الخادم؟"
+   },
+   "codeSnippet": "[ Phone app ]  --->  [  ?  ]  --->  [ Server + database ]\n  frontend                            backend",
+   "options": [
+    {
+     "en": "A compiler",
+     "ar": "مترجم (compiler)"
+    },
+    {
+     "en": "The JVM",
+     "ar": "الـ JVM"
+    },
+    {
+     "en": "A web browser",
+     "ar": "متصفح ويب"
+    },
+    {
+     "en": "An API",
+     "ar": "واجهة API"
+    }
+   ],
+   "answer": 3,
+   "explanation": {
+    "en": "The API is the waiter: it carries requests from the frontend to the backend and brings the data back.",
+    "ar": "الـ API هو النادل: ينقل الطلبات من الواجهة (frontend) إلى الخلفية (backend) ويعيد البيانات."
+   }
+  },
+  {
+   "id": 9,
+   "difficulty": "hard",
+   "question": {
+    "en": "This C program is saved as `hello.c`. What must happen before it can run?",
+    "ar": "هذا البرنامج بلغة C محفوظ باسم `hello.c`. ما الذي يجب أن يحدث قبل تشغيله؟"
+   },
+   "codeSnippet": "#include <stdio.h>\n\nint main(void) {\n    printf(\"Hello\\n\");\n    return 0;\n}",
+   "options": [
+    {
+     "en": "It must be compiled into a program first",
+     "ar": "يجب أن يُترجَم أولًا إلى برنامج"
+    },
+    {
+     "en": "It must be opened inside a web browser",
+     "ar": "يجب أن يُفتح داخل متصفح ويب"
+    },
+    {
+     "en": "It must be run with `node hello.c`",
+     "ar": "يجب أن يُشغَّل بالأمر `node hello.c`"
+    },
+    {
+     "en": "Nothing: the computer reads `.c` files directly",
+     "ar": "لا شيء: الحاسوب يقرأ ملفات `.c` مباشرة"
+    }
+   ],
+   "answer": 0,
+   "explanation": {
+    "en": "C is a compiled language: a compiler such as `gcc` turns `hello.c` into a program you then run.",
+    "ar": "لغة C مُترجَمة مسبقًا: مترجم مثل `gcc` يحوّل `hello.c` إلى برنامج تشغّله بعد ذلك."
+   }
+  },
+  {
+   "id": 10,
+   "difficulty": "hard",
+   "question": {
+    "en": "You log in to a shopping app. Which part is BACKEND work?",
+    "ar": "تسجّل الدخول في تطبيق تسوّق. أي جزء هو عمل الخلفية (backend)؟"
+   },
+   "codeSnippet": "",
+   "options": [
+    {
+     "en": "Choosing the colour of the login button",
+     "ar": "اختيار لون زر تسجيل الدخول"
+    },
+    {
+     "en": "Showing a menu when you tap an icon",
+     "ar": "إظهار قائمة عند لمس أيقونة"
+    },
+    {
+     "en": "Checking your password against the database",
+     "ar": "مطابقة كلمة مرورك مع قاعدة البيانات"
+    },
+    {
+     "en": "Making the page fit a small phone screen",
+     "ar": "جعل الصفحة تناسب شاشة هاتف صغيرة"
+    }
+   ],
+   "answer": 2,
+   "explanation": {
+    "en": "The backend is the kitchen: hidden server work like checking passwords. The rest is frontend, what you see.",
+    "ar": "الخلفية هي المطبخ: عمل خفي على الخادم مثل فحص كلمات المرور. والباقي واجهة (frontend)، أي ما تراه."
+   }
+  }
+ ]
+}

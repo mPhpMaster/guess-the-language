@@ -5104,3 +5104,12 @@ html[dir="rtl"] .lv-step { animation-name: lv-slide-r; }
 /* Locked levels: the cascade animation ends at full opacity, so dim with a
    filter instead of opacity. */
 .learn-level.is-locked { opacity: 0; filter: grayscale(1) brightness(.7); }
+/* The beginner course: flagged so a newcomer knows where to begin. */
+.learn-course-card { position: relative; }
+.learn-course-card.is-start { border-color: #6ee7a088; box-shadow: 0 0 0 1px #6ee7a033, 0 10px 30px #6ee7a01a; }
+.learn-start-badge {
+  position: absolute; top: -10px; inset-inline-end: 14px;
+  padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700;
+  color: var(--accent-ink); background: linear-gradient(135deg, #6ee7a0, #5fd8e8);
+  animation: lv-bounce 2.4s ease-in-out infinite;
+}
