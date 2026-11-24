@@ -5413,5 +5413,860 @@
     "explanation": {
       "en": "Each int is boxed into its own object, and == on object compares references. Equals is virtual, so it runs Int32.Equals and compares the values."
     }
+  },
+  {
+    "id": 286,
+    "category": "dotnet-core",
+    "difficulty": "medium",
+    "codeSnippet": "builder.Services.AddScoped<AppDb>();\nbuilder.Services.AddSingleton<ReportService>();\n// Development startup fails: \"Cannot consume scoped\n// service 'AppDb' from singleton 'ReportService'\"\n\npublic class ReportService(AppDb db) { /* ... */ }",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Register it with `TryAddSingleton` instead",
+      "Resolve it with `GetService` instead",
+      "Register ReportService with `AddScoped`",
+      "Mark the AppDb class as `sealed`"
+    ],
+    "answer": "Register ReportService with `AddScoped`",
+    "explanation": {
+      "en": "A singleton lives forever, so the scoped AppDb it captures would outlive its request (a captive dependency). Scope validation catches this. Making ReportService scoped too gives it a fresh AppDb per request; TryAddSingleton is still a singleton and fails the same way."
+    }
+  },
+  {
+    "id": 287,
+    "category": "dotnet-core",
+    "difficulty": "medium",
+    "codeSnippet": "builder.Services.AddSingleton(new ShopDb(options));\napp.MapGet(\"/orders\", (ShopDb db) => db.Orders.ToListAsync());\n// under load: \"A second operation was started on this\n// context instance before a previous operation completed\"",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Register it with `AddDbContext<ShopDb>(...)`",
+      "Add `.AsNoTracking()` before `ToListAsync()`",
+      "Wrap the query in `Task.Run(() => ...)`",
+      "Call `db.ChangeTracker.Clear()` first"
+    ],
+    "answer": "Register it with `AddDbContext<ShopDb>(...)`",
+    "explanation": {
+      "en": "A DbContext is not thread-safe, and a singleton is shared by every concurrent request. AddDbContext registers it as scoped, so each request gets its own instance."
+    }
+  },
+  {
+    "id": 288,
+    "category": "dotnet-core",
+    "difficulty": "easy",
+    "codeSnippet": "app.UseRouting();\napp.UseAuthorization();\napp.UseAuthentication();\napp.MapGet(\"/me\", (ClaimsPrincipal u) => u.Identity!.Name)\n   .RequireAuthorization();\n// signed-in users still get 401 from /me",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Call `AddAuthorization()` before `AddAuthentication()`",
+      "Call `UseAuthorization()` again after authentication",
+      "Move `app.MapGet(...)` above the `app.UseRouting()` call",
+      "Call `UseAuthentication()` before `UseAuthorization()`"
+    ],
+    "answer": "Call `UseAuthentication()` before `UseAuthorization()`",
+    "explanation": {
+      "en": "Middleware runs in the order it is added. Authorization checks the user before authentication has read the cookie or token, so the user is still anonymous. The order is UseRouting, UseAuthentication, UseAuthorization."
+    }
+  },
+  {
+    "id": 289,
+    "category": "dotnet-core",
+    "difficulty": "hard",
+    "codeSnippet": "app.Use(async (ctx, next) =>\n{\n    var sw = Stopwatch.StartNew();\n    await next(ctx);\n    ctx.Response.Headers[\"X-Elapsed\"] = $\"{sw.ElapsedMilliseconds}ms\";\n    // InvalidOperationException: Headers are read-only,\n    // response has already started.\n});",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `ctx.Response.Headers.Append(...)` instead",
+      "Set it in a `ctx.Response.OnStarting` callback",
+      "Flush with `ctx.Response.Body.FlushAsync()` first",
+      "Set the header in a `finally` around `next`"
+    ],
+    "answer": "Set it in a `ctx.Response.OnStarting` callback",
+    "explanation": {
+      "en": "Once the endpoint writes the body, the headers have been sent. OnStarting registers a callback that runs just before the headers go out, so it can still add X-Elapsed. Append and finally both run too late; flushing only sends the response sooner."
+    }
+  },
+  {
+    "id": 290,
+    "category": "dotnet-core",
+    "difficulty": "hard",
+    "codeSnippet": "app.Use(async (ctx, next) =>\n{\n    using var reader = new StreamReader(ctx.Request.Body, leaveOpen: true);\n    app.Logger.LogInformation(await reader.ReadToEndAsync());\n    await next(ctx); // the endpoint now reads an empty body\n});",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Read it with `ReadToEnd()`, not the async version",
+      "Drop `leaveOpen: true` so the reader closes the body",
+      "Call `EnableBuffering()`, then reset `Body.Position = 0`",
+      "Call `ctx.Request.Body.Flush()` after reading it"
+    ],
+    "answer": "Call `EnableBuffering()`, then reset `Body.Position = 0`",
+    "explanation": {
+      "en": "The request body is a forward-only network stream: once read, it is consumed. EnableBuffering makes it seekable (buffered in memory or on disk), so the middleware can rewind it for the endpoint. Synchronous reads are disallowed by Kestrel by default."
+    }
+  },
+  {
+    "id": 291,
+    "category": "dotnet-core",
+    "difficulty": "easy",
+    "codeSnippet": "[HttpPost(\"upload\")]\npublic async void Upload(IFormFile file)\n{\n    await _store.SaveAsync(file);\n} // 200 is sent before SaveAsync ends, and its errors\n  // are never returned to the client",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Return `async Task<IActionResult>` and `Ok()`",
+      "Call `.ConfigureAwait(false)` on SaveAsync",
+      "Add `[DisableRequestSizeLimit]` to it",
+      "Run the body in `Task.Run(async () => ...)`"
+    ],
+    "answer": "Return `async Task<IActionResult>` and `Ok()`",
+    "explanation": {
+      "en": "MVC cannot await an async void action, so it finishes the request at the first await, and the uploaded file may be disposed mid-save. Returning Task<IActionResult> lets the framework wait and turn exceptions into a 500."
+    }
+  },
+  {
+    "id": 292,
+    "category": "dotnet-core",
+    "difficulty": "medium",
+    "codeSnippet": "app.MapGet(\"/price/{id}\", (int id, PriceApi api) =>\n{\n    var price = api.GetPriceAsync(id).Result;\n    return Results.Ok(price);\n}); // fine in tests, but under load requests stall\n    // and the thread pool keeps growing",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `.GetAwaiter().GetResult()` instead",
+      "Add `.ConfigureAwait(false)` before `.Result`",
+      "Wrap it as `Task.Run(() => ...).Result`",
+      "Make the lambda `async` and `await` the call"
+    ],
+    "answer": "Make the lambda `async` and `await` the call",
+    "explanation": {
+      "en": "ASP.NET Core has no synchronization context, so .Result rarely deadlocks, but every waiting request blocks a thread-pool thread: thread-pool starvation. All three distractors still block. Awaiting frees the thread while the call is in flight."
+    }
+  },
+  {
+    "id": 293,
+    "category": "dotnet-core",
+    "difficulty": "medium",
+    "codeSnippet": "builder.Services.Configure<Features>(\n    builder.Configuration.GetSection(\"Features\"));\nbuilder.Services.AddSingleton<FeatureGate>();\n\npublic class FeatureGate(IOptions<Features> opts)\n{\n    public bool Beta => opts.Value.Beta;\n} // editing appsettings.json never changes Beta",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Inject `IOptionsSnapshot<Features>` in the singleton",
+      "Inject `IOptionsMonitor<Features>`, read `CurrentValue`",
+      "Pass `reloadOnChange: true` to `AddJsonFile`",
+      "Copy `opts.Value` into a field in the constructor"
+    ],
+    "answer": "Inject `IOptionsMonitor<Features>`, read `CurrentValue`",
+    "explanation": {
+      "en": "IOptions<T> is computed once and cached forever. IOptionsMonitor<T> is a singleton that recomputes when the configuration reloads. IOptionsSnapshot is scoped, so a singleton cannot take it, and CreateBuilder already reloads appsettings.json on change."
+    }
+  },
+  {
+    "id": 294,
+    "category": "dotnet-core",
+    "difficulty": "easy",
+    "codeSnippet": "var builder = WebApplication.CreateBuilder(args);\nbuilder.Services.AddControllers();\nvar app = builder.Build();\napp.UseAuthorization();\napp.Run(); // every /api/... controller route returns 404",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Call `builder.Services.AddMvcCore()` as well",
+      "Call `app.MapControllers()` before `app.Run()`",
+      "Call `app.UseRouting()` before `app.Run()`",
+      "Add `[ApiController]` to each controller class"
+    ],
+    "answer": "Call `app.MapControllers()` before `app.Run()`",
+    "explanation": {
+      "en": "AddControllers only registers the MVC services. The controller routes become endpoints only when MapControllers adds them to the app."
+    }
+  },
+  {
+    "id": 295,
+    "category": "dotnet-core",
+    "difficulty": "medium",
+    "codeSnippet": "builder.Services.AddCors(o => o.AddPolicy(\"web\",\n    p => p.WithOrigins(\"https://shop.example\")));\nvar app = builder.Build();\napp.UseCors();\napp.UseRouting();\napp.MapGet(\"/api/data\", () => \"ok\").RequireCors(\"web\");\n// 500: endpoint has CORS metadata but no CORS middleware ran",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Add `.AllowAnyHeader()` to the \"web\" policy",
+      "Move `app.MapGet(...)` above `app.UseCors()`",
+      "Call `AddCors` after `builder.Build()` instead",
+      "Call `app.UseCors()` after `app.UseRouting()`"
+    ],
+    "answer": "Call `app.UseCors()` after `app.UseRouting()`",
+    "explanation": {
+      "en": "RequireCors attaches the policy to the endpoint, but the endpoint is only known after UseRouting has matched it. Running UseCors earlier sees no endpoint, so it does nothing, and the endpoint middleware fails because no CORS middleware handled it."
+    }
+  },
+  {
+    "id": 296,
+    "category": "dotnet-core",
+    "difficulty": "medium",
+    "codeSnippet": "public class Poller : BackgroundService\n{\n    protected override async Task ExecuteAsync(CancellationToken stoppingToken)\n    {\n        while (true)\n        {\n            await PollAsync();\n            await Task.Delay(TimeSpan.FromSeconds(30));\n        }\n    } // Ctrl+C waits for the full host shutdown timeout\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Wrap the loop body in `try { ... } catch { }`",
+      "Start the loop with `await Task.Yield();` first",
+      "Loop on `stoppingToken` and pass it to `Task.Delay`",
+      "Use `Thread.Sleep(30_000)` instead of Delay"
+    ],
+    "answer": "Loop on `stoppingToken` and pass it to `Task.Delay`",
+    "explanation": {
+      "en": "On shutdown the host cancels stoppingToken and waits for ExecuteAsync to finish. This loop never looks at the token, so the host waits until its shutdown timeout. Checking it and passing it to Task.Delay ends the loop at once."
+    }
+  },
+  {
+    "id": 297,
+    "category": "dotnet-core",
+    "difficulty": "hard",
+    "codeSnippet": "builder.Services.AddSingleton<HttpClient>();\napp.MapGet(\"/me\", async (HttpClient http, HttpRequest req) =>\n{\n    http.DefaultRequestHeaders.Authorization =\n        new(\"Bearer\", req.Headers[\"X-Token\"].ToString());\n    return await http.GetStringAsync(\"https://api.example/me\");\n}); // under load, users sometimes get someone else's profile",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Put the token on a per-call `HttpRequestMessage`",
+      "Call `DefaultRequestHeaders.Clear()` first",
+      "Wrap only the assignment in a `lock (http)`",
+      "Use `TryAddWithoutValidation` for the header"
+    ],
+    "answer": "Put the token on a per-call `HttpRequestMessage`",
+    "explanation": {
+      "en": "DefaultRequestHeaders belongs to the shared client, so one request can overwrite it while another is still sending. Set per-user headers on an HttpRequestMessage and send it with SendAsync."
+    }
+  },
+  {
+    "id": 298,
+    "category": "dotnet-core",
+    "difficulty": "easy",
+    "codeSnippet": "app.MapPost(\"/todos\", (Todo todo, TodoDb db) =>\n{\n    db.Todos.Add(todo);\n    db.SaveChangesAsync();\n    return Results.Created($\"/todos/{todo.Id}\", todo);\n}); // rows go missing; sometimes ObjectDisposedException",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Call `db.Todos.AddAsync(todo)` instead",
+      "Call `db.ChangeTracker.DetectChanges()` first",
+      "Make the handler `async` and `await` the save",
+      "Return `Results.Ok(todo)` instead of Created"
+    ],
+    "answer": "Make the handler `async` and `await` the save",
+    "explanation": {
+      "en": "The save is started but never awaited, so the request ends and the scoped DbContext is disposed while it is still running. Awaiting it also means todo.Id is set before the response is built."
+    }
+  },
+  {
+    "id": 299,
+    "category": "dotnet-core",
+    "difficulty": "hard",
+    "codeSnippet": "public IQueryable<Order> Recent(DateTime since)\n{\n    using var db = new ShopDb();\n    return db.Orders.Where(o => o.Date >= since);\n}\n// caller: foreach (var o in repo.Recent(day)) ...\n// ObjectDisposedException: Cannot access a disposed context",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Return `IEnumerable<Order>` instead of IQueryable",
+      "Return `List<Order>` built with `.ToList()` inside",
+      "Declare it as `await using var db` instead",
+      "Add `.AsNoTracking()` to the Where query"
+    ],
+    "answer": "Return `List<Order>` built with `.ToList()` inside",
+    "explanation": {
+      "en": "A LINQ query is deferred: it runs when the caller enumerates it, after the method has disposed db. ToList() executes it while the context is alive. IEnumerable is still deferred, and await using still disposes."
+    }
+  },
+  {
+    "id": 300,
+    "category": "dotnet-core",
+    "difficulty": "easy",
+    "codeSnippet": "var app = builder.Build();\napp.UseDeveloperExceptionPage();\napp.MapControllers();\napp.Run(); // production users see full stack traces",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Call `app.UseHsts()` right after this line",
+      "Move it below the `app.MapControllers()` call",
+      "Set `ASPNETCORE_ENVIRONMENT=Production`",
+      "Wrap it in `if (app.Environment.IsDevelopment())`"
+    ],
+    "answer": "Wrap it in `if (app.Environment.IsDevelopment())`",
+    "explanation": {
+      "en": "An explicit UseDeveloperExceptionPage runs in every environment, so setting Production changes nothing. Guard it with IsDevelopment (WebApplication already adds it in Development) and use UseExceptionHandler elsewhere."
+    }
+  },
+  {
+    "id": 301,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "var seen = new Dictionary<Pos, string>();\nseen[new Pos { X = 1, Y = 2 }] = \"tree\";\nConsole.WriteLine(seen.ContainsKey(new Pos { X = 1, Y = 2 })); // False\n\nclass Pos\n{\n    public int X, Y;\n    public override bool Equals(object? o) => o is Pos p && p.X == X && p.Y == Y;\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Also override `GetHashCode()` using X and Y",
+      "Mark the `Equals` override as `sealed`",
+      "Implement `IComparable<Pos>` on the class",
+      "Compare with `ReferenceEquals` inside `Equals`"
+    ],
+    "answer": "Also override `GetHashCode()` using X and Y",
+    "explanation": {
+      "en": "Dictionary first buckets keys by GetHashCode, then confirms with Equals. Without an override, two equal Pos objects get different reference-based hashes, so Equals is never reached. Override both together (or make Pos a record)."
+    }
+  },
+  {
+    "id": 302,
+    "category": "csharp",
+    "difficulty": "hard",
+    "codeSnippet": "struct Counter { int n; public void Inc() => n++; public int N => n; }\nclass Score\n{\n    readonly Counter hits;\n    public void Hit() => hits.Inc();\n    public int Hits => hits.N; // always 0\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Make `Inc` a `static` method on the struct",
+      "Initialise it: `= new Counter()`",
+      "Remove `readonly` from the `hits` field",
+      "Declare it as a `readonly struct`"
+    ],
+    "answer": "Remove `readonly` from the `hits` field",
+    "explanation": {
+      "en": "Calling a method on a readonly struct field runs it on a defensive copy, so the n++ is lost each time. Make the field writable (or make Counter a class). A readonly struct cannot contain a mutating n++ at all."
+    }
+  },
+  {
+    "id": 303,
+    "category": "csharp",
+    "difficulty": "easy",
+    "codeSnippet": "string line = \"red,,blue,\";\nstring[] tags = line.Split(',');\nConsole.WriteLine(tags.Length); // 4, expected 2",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Split on the string `\",\"` instead",
+      "Pass `StringSplitOptions.RemoveEmptyEntries`",
+      "Call `line.Trim(',')` before splitting",
+      "Pass `StringSplitOptions.TrimEntries` instead"
+    ],
+    "answer": "Pass `StringSplitOptions.RemoveEmptyEntries`",
+    "explanation": {
+      "en": "Split keeps an empty string between the two commas and after the trailing one: \"red\", \"\", \"blue\", \"\". RemoveEmptyEntries drops them. Trimming the trailing comma still leaves the middle empty entry (3)."
+    }
+  },
+  {
+    "id": 304,
+    "category": "csharp",
+    "difficulty": "easy",
+    "codeSnippet": "string code = \"ID-12345\";\nstring digits = code.Substring(3, code.Length);\n// ArgumentOutOfRangeException",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `code.Substring(3, code.Length - 1)`",
+      "Use `code.Substring(4, code.Length)`",
+      "Use `code.Remove(3, code.Length)`",
+      "Use `code.Substring(3)` for the rest"
+    ],
+    "answer": "Use `code.Substring(3)` for the rest",
+    "explanation": {
+      "en": "The second argument of Substring is a length, not an end index: 3 + 8 runs past the end of the 8-character string. Substring(3) (or code[3..]) takes everything from index 3 and returns \"12345\"."
+    }
+  },
+  {
+    "id": 305,
+    "category": "csharp",
+    "difficulty": "easy",
+    "codeSnippet": "static int Factorial(int n)\n{\n    return n * Factorial(n - 1);\n}\nConsole.WriteLine(Factorial(5)); // Stack overflow",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Change the return type to `long`",
+      "Recurse with `Factorial(n + 1)` instead",
+      "Add `if (n <= 1) return 1;` first",
+      "Wrap the call in a `try/catch` block"
+    ],
+    "answer": "Add `if (n <= 1) return 1;` first",
+    "explanation": {
+      "en": "Without a base case the recursion never stops, and the process dies with a stack overflow. Returning 1 for n <= 1 ends it: Factorial(5) prints 120. A StackOverflowException cannot be caught in .NET."
+    }
+  },
+  {
+    "id": 306,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "int[] sales = { 2_000_000_000, 2_000_000_000 };\nint total = 0;\nforeach (int s in sales) total += s;\nConsole.WriteLine(total); // -294967296",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Declare `total` as `long` instead",
+      "Declare `total` with `var` instead",
+      "Write `total = total + s` instead",
+      "Use `sales.Sum()` instead of the loop"
+    ],
+    "answer": "Declare `total` as `long` instead",
+    "explanation": {
+      "en": "int tops out at about 2.1 billion, so 4 billion wraps around to a negative number (arithmetic is unchecked by default). A long total prints 4000000000. Enumerable.Sum on an int[] is checked and throws OverflowException instead."
+    }
+  },
+  {
+    "id": 307,
+    "category": "csharp",
+    "difficulty": "easy",
+    "codeSnippet": "switch (day)\n{\n    case 1: name = \"Mon\";\n    case 2: name = \"Tue\"; break;\n    default: name = \"?\"; break;\n}\n// error CS0163: Control cannot fall through",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Move the `default` case to the top",
+      "Add `continue;` at the end of `case 1`",
+      "Wrap the `case 1` body in braces",
+      "Add `break;` at the end of `case 1`"
+    ],
+    "answer": "Add `break;` at the end of `case 1`",
+    "explanation": {
+      "en": "C# forbids implicit fall-through from a case that has statements; each section must end in break, return, throw or goto. continue only works inside a loop, and braces or reordering do not end the section."
+    }
+  },
+  {
+    "id": 308,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "object value = 42;\nstring text = value as string;\nConsole.WriteLine(text.Length); // NullReferenceException",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use a direct cast: `(string)value`",
+      "Convert it with `value.ToString()`",
+      "Write `text!.Length` instead",
+      "Declare it as `var text = value as string`"
+    ],
+    "answer": "Convert it with `value.ToString()`",
+    "explanation": {
+      "en": "`as` returns null when the object is not that type, and the boxed int is not a string. A direct cast fails too, with InvalidCastException, and ! only silences the warning. ToString() produces \"42\", length 2."
+    }
+  },
+  {
+    "id": 309,
+    "category": "csharp",
+    "difficulty": "hard",
+    "codeSnippet": "class Badge\n{\n    public Badge(Game g) => g.ScoreChanged += OnScore;\n    void OnScore(object? s, EventArgs e) => Redraw();\n}\n// closed badges are never garbage-collected while the game lives",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Set the badge variable to `null` when closed",
+      "Unsubscribe with `-= OnScore` in Dispose",
+      "Call `GC.Collect()` after closing a badge",
+      "Declare `ScoreChanged` as a `static event`"
+    ],
+    "answer": "Unsubscribe with `-= OnScore` in Dispose",
+    "explanation": {
+      "en": "The game's event holds a delegate that references each Badge, so every badge stays reachable as long as the game does. Removing the handler when the badge closes releases it. Nulling your own variable leaves the event's reference in place."
+    }
+  },
+  {
+    "id": 310,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "var rolls = new List<int>();\nfor (int i = 0; i < 5; i++)\n{\n    var rng = new Random(Environment.TickCount);\n    rolls.Add(rng.Next(1, 7));\n}\n// rolls is 4,4,4,4,4",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Seed it with `DateTime.Now.Millisecond`",
+      "Call `rng.Next(1, 7)` twice in each pass",
+      "Use `rng.Next(7)` to include the six",
+      "Use `Random.Shared.Next(1, 7)` instead"
+    ],
+    "answer": "Use `Random.Shared.Next(1, 7)` instead",
+    "explanation": {
+      "en": "TickCount only changes every few milliseconds, so every Random in the loop gets the same seed and returns the same first number. Share one generator: Random.Shared (.NET 6+) is thread-safe and seeded once."
+    }
+  },
+  {
+    "id": 311,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "CultureInfo.CurrentCulture = new CultureInfo(\"fr-FR\");\nvar date = DateTime.Parse(\"03/04/2025\"); // meant March 4\nConsole.WriteLine(date.Month); // 4",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `ParseExact(s, \"MM/dd/yyyy\", CultureInfo.InvariantCulture)`",
+      "Use `Convert.ToDateTime(s, CultureInfo.CurrentCulture)`",
+      "Use `DateTime.Parse(s, CultureInfo.GetCultureInfo(\"fr-FR\"))`",
+      "Use `DateTime.Parse(s).ToUniversalTime()` instead of it"
+    ],
+    "answer": "Use `ParseExact(s, \"MM/dd/yyyy\", CultureInfo.InvariantCulture)`",
+    "explanation": {
+      "en": "DateTime.Parse uses the current culture, and French dates are day/month, so \"03/04\" is 3 April. ParseExact with an explicit format and the invariant culture reads month 3 on every machine."
+    }
+  },
+  {
+    "id": 312,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "CultureInfo.CurrentCulture = new CultureInfo(\"de-DE\");\ndouble price = double.Parse(\"3.5\"); // from a JSON feed\nConsole.WriteLine(price * 2); // 70",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `Convert.ToDouble(\"3.5\")` instead of `Parse`",
+      "Use `(double)decimal.Parse(\"3.5\")` instead of it",
+      "Use `double.Parse(\"3.5\", CultureInfo.InvariantCulture)`",
+      "Use `double.Parse(\"3.5\", NumberStyles.Float)` instead"
+    ],
+    "answer": "Use `double.Parse(\"3.5\", CultureInfo.InvariantCulture)`",
+    "explanation": {
+      "en": "In German \",\" is the decimal separator and \".\" groups thousands, so \"3.5\" parses as 35. Machine-format data needs CultureInfo.InvariantCulture. Convert.ToDouble and decimal.Parse use the same current culture."
+    }
+  },
+  {
+    "id": 313,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "decimal total = 2.5m;\ndecimal rounded = decimal.Round(total);\nConsole.WriteLine(rounded); // 2, the invoice expects 3",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Pass `MidpointRounding.ToEven` as the mode",
+      "Use `Math.Round(total)` instead of it",
+      "Use `decimal.Truncate(total)` instead",
+      "Pass `MidpointRounding.AwayFromZero` too"
+    ],
+    "answer": "Pass `MidpointRounding.AwayFromZero` too",
+    "explanation": {
+      "en": "decimal.Round and Math.Round default to banker's rounding (ToEven): a midpoint goes to the nearest even number, so 2.5 becomes 2. AwayFromZero gives the schoolbook 3."
+    }
+  },
+  {
+    "id": 314,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "List<int> banned = LoadBannedIds();   // 50,000 ids\nforeach (var msg in messages)         // 50,000 messages\n    if (banned.Contains(msg.UserId))\n        Hide(msg); // takes minutes",
+    "question": {
+      "en": "Which fix removes the slowdown?"
+    },
+    "options": [
+      "Call `banned.Sort()` before the loop",
+      "Load the ids into a `HashSet<int>` first",
+      "Use `banned.Exists(id => id == msg.UserId)`",
+      "Use `banned.Any(id => id == msg.UserId)`"
+    ],
+    "answer": "Load the ids into a `HashSet<int>` first",
+    "explanation": {
+      "en": "List.Contains scans the list, so the loop does up to 2.5 billion comparisons. A HashSet lookup is O(1) on average. Sorting alone does not help Contains, and Exists/Any are linear scans too."
+    }
+  },
+  {
+    "id": 315,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "var results = new List<int>();\nParallel.For(0, 100_000, i => results.Add(i));\nConsole.WriteLine(results.Count); // often below 100000",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Read the count with `results.Count()` instead",
+      "Call `results.TrimExcess()` before counting",
+      "Collect into a `ConcurrentBag<int>` instead",
+      "Store `results` in a `volatile` field instead"
+    ],
+    "answer": "Collect into a `ConcurrentBag<int>` instead",
+    "explanation": {
+      "en": "List<T> is not thread-safe: concurrent Adds overwrite each other's slots or corrupt the size, and can even throw. ConcurrentBag (or a lock around Add) is safe for parallel writers."
+    }
+  },
+  {
+    "id": 316,
+    "category": "csharp",
+    "difficulty": "hard",
+    "codeSnippet": "var users = new List<string> { \"ann\", \"bob\" };\nusers.ForEach(async u => await SendAsync(u));\nConsole.WriteLine(\"all sent\"); // printed before any send finishes",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `await Task.WhenAll(users.Select(SendAsync))`",
+      "Add `.ConfigureAwait(false)` inside the lambda",
+      "Use `users.AsParallel().ForAll(...)` instead",
+      "Give the lambda an explicit `async Task` type"
+    ],
+    "answer": "Use `await Task.WhenAll(users.Select(SendAsync))`",
+    "explanation": {
+      "en": "List.ForEach takes an Action, so the async lambda becomes async void: ForEach starts each send and returns at once, with nothing to await. Task.WhenAll over the tasks waits for all of them. Action cannot hold an async Task lambda."
+    }
+  },
+  {
+    "id": 317,
+    "category": "csharp",
+    "difficulty": "hard",
+    "codeSnippet": "Task<string> ReadAsync(string path)\n{\n    using var reader = new StreamReader(path);\n    return reader.ReadToEndAsync();\n} // large files: ObjectDisposedException",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Mark it `async` and `return await` the read",
+      "Use a `using (...) { }` block instead",
+      "Open the file with `File.OpenRead(path)` instead",
+      "Return `ReadToEndAsync().ConfigureAwait(false)`"
+    ],
+    "answer": "Mark it `async` and `return await` the read",
+    "explanation": {
+      "en": "The method returns the unfinished task and the using disposes the reader right away, while the read is still running. With async/await the method waits for the read before leaving the using scope."
+    }
+  },
+  {
+    "id": 318,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "var ms = new MemoryStream();\nvar writer = new StreamWriter(ms);\nwriter.Write(\"hello\");\nstring text = new StreamReader(ms).ReadToEnd();\nConsole.WriteLine(text); // prints an empty line",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Set `ms.Position = 0` before reading it",
+      "Call `writer.Flush()` before reading it",
+      "Flush the writer, then set `ms.Position = 0`",
+      "Write it with `writer.WriteLine` instead"
+    ],
+    "answer": "Flush the writer, then set `ms.Position = 0`",
+    "explanation": {
+      "en": "Two things are wrong: StreamWriter buffers, so nothing reached the stream yet, and once flushed the stream position sits at the end. Either fix alone still reads \"\". Flush, rewind to 0, then read."
+    }
+  },
+  {
+    "id": 319,
+    "category": "csharp",
+    "difficulty": "easy",
+    "codeSnippet": "var level = Enum.Parse<Difficulty>(\"easy\"); // ArgumentException\n\nenum Difficulty { Easy, Hard }",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `Enum.Parse(typeof(Difficulty), \"easy\")` instead",
+      "Use `Enum.Parse<Difficulty>(\"easy\".ToLower())`",
+      "Use `Enum.Parse<Difficulty>(\"easy\".Trim().ToLower())`",
+      "Use `Enum.Parse<Difficulty>(\"easy\", ignoreCase: true)`"
+    ],
+    "answer": "Use `Enum.Parse<Difficulty>(\"easy\", ignoreCase: true)`",
+    "explanation": {
+      "en": "Enum.Parse matches member names case-sensitively, and the member is Easy, not easy. The ignoreCase overload accepts any casing. Lowercasing the input makes it worse, not better."
+    }
+  },
+  {
+    "id": 320,
+    "category": "csharp",
+    "difficulty": "easy",
+    "codeSnippet": "var scores = new List<int>();\nint top = scores.First(s => s > 90); // InvalidOperationException",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `scores.Single(s => s > 90)` to get it",
+      "Use `scores.FirstOrDefault(s => s > 90)`",
+      "Use `scores.Last(s => s > 90)` instead",
+      "Use `scores.First(s => s >= 90)` instead"
+    ],
+    "answer": "Use `scores.FirstOrDefault(s => s > 90)`",
+    "explanation": {
+      "en": "First throws when no element matches. FirstOrDefault returns default(int), 0, instead. Single and Last throw on an empty sequence too."
+    }
+  },
+  {
+    "id": 321,
+    "category": "csharp",
+    "difficulty": "easy",
+    "codeSnippet": "string input = \"2.50\";\ndecimal price = int.Parse(input); // FormatException",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `(decimal)int.Parse(input)` to convert it",
+      "Use `Convert.ToInt32(input)` to parse it instead",
+      "Use `decimal.Parse(input, CultureInfo.InvariantCulture)`",
+      "Use `int.Parse(input, CultureInfo.InvariantCulture)`"
+    ],
+    "answer": "Use `decimal.Parse(input, CultureInfo.InvariantCulture)`",
+    "explanation": {
+      "en": "int.Parse accepts whole numbers only, so \"2.50\" throws whatever the culture. Parse it as a decimal; the invariant culture makes \".\" the separator on every machine."
+    }
+  },
+  {
+    "id": 322,
+    "category": "csharp",
+    "difficulty": "easy",
+    "codeSnippet": "string code = \"abc123\";\ncode.ToUpper();\nConsole.WriteLine(code); // abc123",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Assign it back: `code = code.ToUpper();`",
+      "Call `code.ToUpperInvariant();` instead",
+      "Declare `code` with `var` instead",
+      "Call `code.ToUpper().Trim();` on it instead"
+    ],
+    "answer": "Assign it back: `code = code.ToUpper();`",
+    "explanation": {
+      "en": "Strings are immutable: ToUpper returns a new string and leaves the original alone. The result was thrown away; assign it to keep it."
+    }
+  },
+  {
+    "id": 323,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "try { Save(); }\ncatch (Exception ex)\n{\n    Log(ex.Message);\n    throw ex; // callers lose the stack trace from inside Save()\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `throw new Exception(ex.Message);`",
+      "Rethrow it with a bare `throw;`",
+      "Use `throw ex.GetBaseException();`",
+      "Catch `Exception e` and use `throw e;`"
+    ],
+    "answer": "Rethrow it with a bare `throw;`",
+    "explanation": {
+      "en": "`throw ex;` restarts the stack trace at the catch block, so the frames inside Save disappear. A bare `throw;` rethrows the same exception with its original trace intact."
+    }
+  },
+  {
+    "id": 324,
+    "category": "csharp",
+    "difficulty": "hard",
+    "codeSnippet": "Cache<int>.Hits++;\nCache<string>.Hits++;\nConsole.WriteLine(Cache<int>.Hits); // 1, expected one shared total of 2\n\nclass Cache<T> { public static int Hits; }",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Mark `Hits` with `[ThreadStatic]`",
+      "Make `Cache<T>` a `static class`",
+      "Declare `Hits` as `static readonly`",
+      "Keep the counter in a non-generic class"
+    ],
+    "answer": "Keep the counter in a non-generic class",
+    "explanation": {
+      "en": "Each closed generic type (Cache<int>, Cache<string>) gets its own copy of every static field. A counter shared by all of them must live in a non-generic class (or a non-generic base class)."
+    }
+  },
+  {
+    "id": 325,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "players.Sort(); // expected lowest level first, got highest first\n\nclass Player : IComparable<Player>\n{\n    public int Level;\n    public int CompareTo(Player? o) => o!.Level - Level;\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Return `o!.Level.CompareTo(Level)`",
+      "Return `Math.Abs(o!.Level - Level)`",
+      "Call `players.Reverse()` before `Sort`",
+      "Return `Level.CompareTo(o!.Level)`"
+    ],
+    "answer": "Return `Level.CompareTo(o!.Level)`",
+    "explanation": {
+      "en": "CompareTo must be negative when this comes first. o.Level - Level has the sign backwards, giving a descending sort. Level.CompareTo(o.Level) is ascending and also avoids the overflow risk of subtracting."
+    }
+  },
+  {
+    "id": 326,
+    "category": "csharp",
+    "difficulty": "hard",
+    "codeSnippet": "var stock = new Dictionary<string, int> { [\"a\"] = 1, [\"b\"] = 2 };\nforeach (var key in stock.Keys)\n    stock[key + \"-copy\"] = stock[key]; // InvalidOperationException",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Loop over `stock.Keys.AsEnumerable()` instead",
+      "Loop over a snapshot: `stock.Keys.ToList()`",
+      "Use `stock.TryAdd(key + \"-copy\", ...)` instead",
+      "Wrap the loop body in a `lock (stock)` block"
+    ],
+    "answer": "Loop over a snapshot: `stock.Keys.ToList()`",
+    "explanation": {
+      "en": "Adding a new key while enumerating the dictionary invalidates the enumerator. (Overwriting an existing key, or Remove, is allowed since .NET Core 3.0.) ToList copies the keys first, so the loop no longer walks the live collection."
+    }
+  },
+  {
+    "id": 327,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "var ids = new List<int> { 1, 2, 2, 3 };\nfor (int i = 0; i < ids.Count; i++)\n    if (ids[i] == 2) ids.RemoveAt(i);\nConsole.WriteLine(string.Join(\",\", ids)); // 1,2,3",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Loop backwards, from `ids.Count - 1` to 0",
+      "Loop while `i <= ids.Count` instead",
+      "Call `ids.Remove(2)` inside the loop body",
+      "Cache `int n = ids.Count;` before the loop"
+    ],
+    "answer": "Loop backwards, from `ids.Count - 1` to 0",
+    "explanation": {
+      "en": "RemoveAt shifts the next element into index i, and then i++ skips it, so the second 2 survives. Walking backwards removes from the end, which never moves the elements still to be checked. (ids.RemoveAll(x => x == 2) also works.)"
+    }
+  },
+  {
+    "id": 328,
+    "category": "csharp",
+    "difficulty": "easy",
+    "codeSnippet": "char first = 'A', last = 'Z';\nConsole.WriteLine(first + last); // 155, expected AZ",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `(first + last).ToString()`",
+      "Use `Convert.ToString(first + last)`",
+      "Use `string.Concat(first, last)`",
+      "Cast it: `(char)(first + last)`"
+    ],
+    "answer": "Use `string.Concat(first, last)`",
+    "explanation": {
+      "en": "char + char is numeric addition: both are promoted to int, 65 + 90 = 155. string.Concat (or \"\" + first + last) joins them as text. Calling ToString on the sum just prints \"155\"."
+    }
+  },
+  {
+    "id": 329,
+    "category": "csharp",
+    "difficulty": "easy",
+    "codeSnippet": "TimeSpan played = TimeSpan.FromMinutes(90);\nConsole.WriteLine($\"{played.Minutes} min\"); // 30 min",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `played.Duration().Minutes`",
+      "Use `played.TotalMinutes` instead",
+      "Use `played.Hours * 60` instead",
+      "Use `played.Ticks / 60` instead"
+    ],
+    "answer": "Use `played.TotalMinutes` instead",
+    "explanation": {
+      "en": "Minutes is only the minutes component (1 hour 30 minutes gives 30). TotalMinutes is the whole span as a double, 90. Hours * 60 drops the 30 minutes."
+    }
+  },
+  {
+    "id": 330,
+    "category": "csharp",
+    "difficulty": "hard",
+    "codeSnippet": "string folder = \"uploads\";\nstring file = \"/avatar.png\"; // from user input\nstring path = Path.Combine(folder, file);\nConsole.WriteLine(path); // /avatar.png, outside uploads",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `Path.GetFullPath(file)` instead",
+      "Use `Path.Combine(file, folder)` instead",
+      "Use `Path.Join(folder, file)` instead",
+      "Use `Path.Combine(folder, \"\", file)`"
+    ],
+    "answer": "Use `Path.Join(folder, file)` instead",
+    "explanation": {
+      "en": "Path.Combine discards everything before an argument that is rooted, so \"/avatar.png\" wins. Path.Join (.NET Core 2.1+) just concatenates with a separator: uploads/avatar.png. Still validate user paths for \"..\"."
+    }
   }
 ]

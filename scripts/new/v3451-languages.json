@@ -1,0 +1,137 @@
+[
+ {
+  "id": 652,
+  "correctLanguage": "C#",
+  "difficulty": "easy",
+  "codeSnippet": "var builder = WebApplication.CreateBuilder(args);\nvar app = builder.Build();\n\napp.MapGet(\"/hello/{name}\", (string name) => $\"Hello, {name}!\");\napp.MapPost(\"/notes\", (Note note) => Results.Created($\"/notes/{note.Id}\", note));\n\napp.Run();",
+  "explanation": {
+   "en": "`WebApplication.CreateBuilder` plus `app.MapGet`/`app.MapPost` with lambda handlers is the ASP.NET Core minimal API hosting model in C#; the `(string name) => $\"...\"` lambda binds the `{name}` route value."
+  }
+ },
+ {
+  "id": 653,
+  "correctLanguage": "C#",
+  "difficulty": "easy",
+  "codeSnippet": "builder.Services.AddScoped<IOrderRepository, SqlOrderRepository>();\nbuilder.Services.AddSingleton<IClock, SystemClock>();\nbuilder.Services.AddTransient<IEmailSender, SmtpEmailSender>();\nvar app = builder.Build();",
+  "explanation": {
+   "en": "`builder.Services.AddScoped`/`AddSingleton`/`AddTransient<TService, TImpl>()` registers services with ASP.NET Core's built-in dependency injection container in C#, one lifetime per call."
+  }
+ },
+ {
+  "id": 654,
+  "correctLanguage": "C#",
+  "difficulty": "medium",
+  "codeSnippet": "public class InvoiceService\n{\n    private readonly ILogger<InvoiceService> _logger;\n\n    public InvoiceService(ILogger<InvoiceService> logger) => _logger = logger;\n\n    public void Issue(int id) => _logger.LogInformation(\"Issued invoice {InvoiceId}\", id);\n}",
+  "explanation": {
+   "en": "A constructor-injected `ILogger<InvoiceService>` with a structured `LogInformation(\"... {InvoiceId}\", id)` template is .NET Core's Microsoft.Extensions.Logging in C#; the `=>` expression-bodied constructor is C#-only."
+  }
+ },
+ {
+  "id": 655,
+  "correctLanguage": "C#",
+  "difficulty": "easy",
+  "codeSnippet": "app.Use(async (ctx, next) =>\n{\n    ctx.Response.Headers[\"X-Request-Id\"] = Guid.NewGuid().ToString();\n    await next(ctx);\n    app.Logger.LogInformation(\"{Path} -> {Status}\", ctx.Request.Path, ctx.Response.StatusCode);\n});",
+  "explanation": {
+   "en": "`app.Use(async (ctx, next) => { ... await next(ctx); })` is inline ASP.NET Core middleware in C#: code before `next` runs on the way in, code after it on the way out."
+  }
+ },
+ {
+  "id": 656,
+  "correctLanguage": "C#",
+  "difficulty": "medium",
+  "codeSnippet": "builder.Services.Configure<SmtpOptions>(builder.Configuration.GetSection(\"Smtp\"));\n\npublic class Mailer(IOptions<SmtpOptions> options)\n{\n    private readonly SmtpOptions _smtp = options.Value;\n    public string Server => $\"{_smtp.Host}:{_smtp.Port}\";\n}",
+  "explanation": {
+   "en": "`builder.Services.Configure<SmtpOptions>(builder.Configuration.GetSection(\"Smtp\"))` plus an injected `IOptions<SmtpOptions>` read through `.Value` is the .NET Core options pattern in C#."
+  }
+ },
+ {
+  "id": 657,
+  "correctLanguage": "C#",
+  "difficulty": "medium",
+  "codeSnippet": "var limits = builder.Configuration.GetSection(\"Upload\").Get<UploadLimits>()\n             ?? new UploadLimits();\nint maxMb = builder.Configuration.GetValue<int>(\"Upload:MaxMegabytes\", 10);\nstring? db = builder.Configuration.GetConnectionString(\"Default\");",
+  "explanation": {
+   "en": "`Configuration.GetSection(...).Get<T>()`, `GetValue<int>(\"Upload:MaxMegabytes\", 10)` with the colon section path, and `GetConnectionString` bind appsettings.json values in .NET Core configuration, written in C#."
+  }
+ },
+ {
+  "id": 658,
+  "correctLanguage": "C#",
+  "difficulty": "hard",
+  "codeSnippet": "public class ShopContext(DbContextOptions<ShopContext> options) : DbContext(options)\n{\n    public DbSet<Product> Products => Set<Product>();\n\n    protected override void OnModelCreating(ModelBuilder modelBuilder) =>\n        modelBuilder.Entity<Product>().HasIndex(p => p.Sku).IsUnique();\n}",
+  "explanation": {
+   "en": "A `DbContext` subclass exposing `DbSet<Product>` and overriding `OnModelCreating(ModelBuilder)` with the fluent `HasIndex(...).IsUnique()` API is Entity Framework Core in C#."
+  }
+ },
+ {
+  "id": 659,
+  "correctLanguage": "C#",
+  "difficulty": "hard",
+  "codeSnippet": "public class CleanupWorker(ISessionStore store) : BackgroundService\n{\n    protected override async Task ExecuteAsync(CancellationToken stoppingToken)\n    {\n        using var timer = new PeriodicTimer(TimeSpan.FromMinutes(5));\n        while (await timer.WaitForNextTickAsync(stoppingToken)) await store.PurgeExpiredAsync();\n    }\n}",
+  "explanation": {
+   "en": "Subclassing `BackgroundService` and overriding `ExecuteAsync(CancellationToken stoppingToken)` is how .NET Core writes a long-running hosted service (IHostedService) in C#; `PeriodicTimer.WaitForNextTickAsync` paces the loop."
+  }
+ },
+ {
+  "id": 660,
+  "correctLanguage": "C#",
+  "difficulty": "hard",
+  "codeSnippet": "app.MapGet(\"/todos/{id:int}\", Results<Ok<Todo>, NotFound> (int id, ITodoStore store) =>\n    store.Find(id) is { } todo ? TypedResults.Ok(todo) : TypedResults.NotFound());\n\napp.MapDelete(\"/todos/{id:int}\", (int id) => Results.NoContent());",
+  "explanation": {
+   "en": "A lambda with an explicit `Results<Ok<Todo>, NotFound>` return type built from `TypedResults.Ok`/`TypedResults.NotFound`, next to `Results.NoContent()`, is ASP.NET Core minimal API typed results in C#."
+  }
+ },
+ {
+  "id": 661,
+  "correctLanguage": "C#",
+  "difficulty": "medium",
+  "codeSnippet": "[ApiController, Route(\"api/orders\")]\npublic class OrdersController(IOrderService orders) : ControllerBase\n{\n    [HttpPost]\n    public async Task<ActionResult<OrderDto>> Create(CreateOrder cmd) =>\n        CreatedAtAction(nameof(Create), await orders.CreateAsync(cmd));\n}",
+  "explanation": {
+   "en": "An `[ApiController]` class deriving from `ControllerBase` whose action returns `Task<ActionResult<OrderDto>>` via `CreatedAtAction(nameof(Create), ...)` is an ASP.NET Core Web API controller in C#."
+  }
+ },
+ {
+  "id": 662,
+  "correctLanguage": "C#",
+  "difficulty": "medium",
+  "codeSnippet": "builder.Services.AddHttpClient(\"github\", c =>\n{\n    c.BaseAddress = new Uri(\"https://api.github.com/\");\n    c.DefaultRequestHeaders.UserAgent.ParseAdd(\"shop-api\");\n});\nvar app = builder.Build();\napp.MapGet(\"/repos\", (IHttpClientFactory factory) =>\n    factory.CreateClient(\"github\").GetStringAsync(\"orgs/dotnet/repos\"));",
+  "explanation": {
+   "en": "`builder.Services.AddHttpClient(\"github\", ...)` registers a named client and `IHttpClientFactory.CreateClient(\"github\")` hands out pooled `HttpClient` instances: the .NET Core HTTP client factory, in C#."
+  }
+ },
+ {
+  "id": 663,
+  "correctLanguage": "C#",
+  "difficulty": "easy",
+  "codeSnippet": "builder.Services.AddAuthentication().AddJwtBearer();\nbuilder.Services.AddAuthorization();\nvar app = builder.Build();\n\napp.UseAuthentication();\napp.UseAuthorization();\napp.MapGet(\"/me\", (ClaimsPrincipal user) => user.Identity?.Name).RequireAuthorization();",
+  "explanation": {
+   "en": "`AddAuthentication().AddJwtBearer()`, the `app.UseAuthentication()`/`app.UseAuthorization()` middleware pair and `.RequireAuthorization()` on an endpoint are ASP.NET Core authentication and authorization in C#."
+  }
+ },
+ {
+  "id": 664,
+  "correctLanguage": "C#",
+  "difficulty": "easy",
+  "codeSnippet": "var builder = Host.CreateApplicationBuilder(args);\nbuilder.Services.AddHostedService<QueueWorker>();\nbuilder.Logging.AddConsole();\n\nusing IHost host = builder.Build();\nawait host.RunAsync();",
+  "explanation": {
+   "en": "`Host.CreateApplicationBuilder(args)` is the .NET Core Generic Host for console and worker apps in C#; `AddHostedService<T>()` and `using IHost host = ...` then `await host.RunAsync()` start it without a web server."
+  }
+ },
+ {
+  "id": 665,
+  "correctLanguage": "C#",
+  "difficulty": "hard",
+  "codeSnippet": "app.MapPost(\"/products\", (Product p) => TypedResults.Created($\"/products/{p.Id}\", p))\n   .AddEndpointFilter(async (ctx, next) =>\n   {\n       var p = ctx.GetArgument<Product>(0);\n       if (string.IsNullOrWhiteSpace(p.Name))\n           return Results.BadRequest(\"Name is required\");\n       return await next(ctx);\n   });",
+  "explanation": {
+   "en": "`.AddEndpointFilter(async (ctx, next) => ...)` with `ctx.GetArgument<Product>(0)` is an ASP.NET Core minimal API endpoint filter in C#: it can short-circuit with `Results.BadRequest` or call `next(ctx)`."
+  }
+ },
+ {
+  "id": 666,
+  "correctLanguage": "C#",
+  "difficulty": "medium",
+  "codeSnippet": "builder.Services.AddRateLimiter(o =>\n    o.AddFixedWindowLimiter(\"per-minute\", w => { w.PermitLimit = 60; w.Window = TimeSpan.FromMinutes(1); }));\nvar app = builder.Build();\napp.UseRateLimiter();\napp.MapGet(\"/search\", (string q) => q).RequireRateLimiting(\"per-minute\");",
+  "explanation": {
+   "en": "`builder.Services.AddRateLimiter` with `AddFixedWindowLimiter(\"per-minute\", ...)`, `app.UseRateLimiter()` and `.RequireRateLimiting(...)` is ASP.NET Core's built-in rate limiting middleware (.NET 7+) in C#."
+  }
+ }
+]

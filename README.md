@@ -5,12 +5,12 @@ An interactive quiz game for **Windows** (Electron), the **web** (also an
 installable **PWA / mobile app**), and **Discord** (as an embedded Activity).
 From a single home page you pick one of twelve quiz modes and race the timer — with
 scoring, streaks, a correct/total counter, XP and levels, daily challenges, and a
-per-mode **live global leaderboard** (Supabase). **3,102 questions** across
+per-mode **live global leaderboard** (Supabase). **3,302 questions** across
 thirteen banks. The UI is in **English and Arabic** (full right-to-left layout);
 question content is English.
 
 ### Twelve game modes
-Every mode includes C# / .NET questions (v3.45.0).
+Every mode includes C# / .NET questions (v3.45.0), plus 200 more C# / .NET Core questions in Programming Languages and Problem Solving (v3.46.0).
 - **💻 Programming Languages** — a code snippet appears; guess the language.
   15-language pool (Python, JavaScript, TypeScript, C, C++, C#, Java, Kotlin,
   Swift, Rust, Go, Ruby, PHP, SQL, Bash); each question shows the correct answer
@@ -86,18 +86,18 @@ language). Progress is kept per device.
 
 | Mode | Bank(s) | Questions |
 | --- | --- | ---: |
-| Programming Languages | `questions.json` | 630 |
-| Cybersecurity | `questions-cyber.json` | 315 |
-| DevOps | `questions-devops.json` | 275 |
-| Networking | `questions-network.json` | 275 |
-| Game Dev | `questions-gamedev.json` | 275 |
-| Problem Solving | `questions-algo.json` + `-bug` + `-output` | 853 |
-| SQL & Databases | `questions-sql.json` | 60 |
-| Regex | `questions-regex.json` | 60 |
-| Git | `questions-git.json` | 60 |
-| Linux CLI | `questions-linux.json` | 60 |
-| AI & ML | `questions-ai.json` | 60 |
-| **All (Mixed)** | every bank | **3102** |
+| Programming Languages | `questions.json` | 702 |
+| Cybersecurity | `questions-cyber.json` | 327 |
+| DevOps | `questions-devops.json` | 290 |
+| Networking | `questions-network.json` | 287 |
+| Game Dev | `questions-gamedev.json` | 290 |
+| Problem Solving | `questions-algo.json` + `-bug` + `-output` | 1073 |
+| SQL & Databases | `questions-sql.json` | 68 |
+| Regex | `questions-regex.json` | 68 |
+| Git | `questions-git.json` | 65 |
+| Linux CLI | `questions-linux.json` | 66 |
+| AI & ML | `questions-ai.json` | 66 |
+| **All (Mixed)** | every bank | **3302** |
 
 ![Home](screenshots/8-modeselect.png)
 
@@ -276,7 +276,7 @@ prog-game2/
 │  ├─ vendor/supabase.js        # bundled @supabase/supabase-js (UMD)
 │  ├─ supabase-config.js        # Supabase creds (local, git-ignored)
 │  ├─ discord-config.js         # Discord client id (local, git-ignored)
-│  └─ data/                     # 3102 questions, English only
+│  └─ data/                     # 3302 questions, English only
 │     ├─ questions.json          # languages bank (522, 15 languages)
 │     ├─ questions-cyber.json    # cybersecurity bank (240)
 │     ├─ questions-devops.json   # devops bank (200)

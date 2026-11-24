@@ -1,0 +1,247 @@
+[
+    {
+        "id": 362,
+        "category": "dotnet-core",
+        "difficulty": "easy",
+        "codeSnippet": "// one Cart per HTTP request\nbuilder.Services.____<ICart, Cart>();",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "AddScoped",
+        "accept": [
+            "AddScoped"
+        ],
+        "explanation": {
+            "en": "AddScoped creates one instance per scope, and ASP.NET Core opens a scope for every HTTP request."
+        }
+    },
+    {
+        "id": 363,
+        "category": "dotnet-core",
+        "difficulty": "easy",
+        "codeSnippet": "// one shared instance for the whole lifetime of the app\nbuilder.Services.____<IClock, SystemClock>();",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "AddSingleton",
+        "accept": [
+            "AddSingleton"
+        ],
+        "explanation": {
+            "en": "AddSingleton creates the instance once and hands the same object to every consumer until the app stops."
+        }
+    },
+    {
+        "id": 364,
+        "category": "dotnet-core",
+        "difficulty": "easy",
+        "codeSnippet": "var builder = WebApplication.____(args);\nvar app = builder.Build();\napp.MapGet(\"/\", () => \"Hi\");\napp.Run();",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "CreateBuilder",
+        "accept": [
+            "CreateBuilder",
+            "CreateSlimBuilder"
+        ],
+        "explanation": {
+            "en": "WebApplication.CreateBuilder sets up configuration, logging, DI and Kestrel with the usual defaults. CreateSlimBuilder is a trimmed version for Native AOT."
+        }
+    },
+    {
+        "id": 365,
+        "category": "dotnet-core",
+        "difficulty": "easy",
+        "codeSnippet": "// GET /hello  ->  \"Hello!\"\napp.____(\"/hello\", () => \"Hello!\");",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "MapGet",
+        "accept": [
+            "MapGet"
+        ],
+        "explanation": {
+            "en": "MapGet maps a route template and handler for HTTP GET requests in a minimal API."
+        }
+    },
+    {
+        "id": 366,
+        "category": "dotnet-core",
+        "difficulty": "easy",
+        "codeSnippet": "public class OrderService(____<OrderService> log)\n{\n    public void Place(int id) =>\n        log.LogInformation(\"Order {Id} placed\", id);\n}",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "ILogger",
+        "accept": [
+            "ILogger"
+        ],
+        "explanation": {
+            "en": "Injecting ILogger<T> gives a logger whose category is the class name, so its messages can be filtered per type."
+        }
+    },
+    {
+        "id": 367,
+        "category": "dotnet-core",
+        "difficulty": "medium",
+        "codeSnippet": "// throws if IEmailSender was never registered\nvar mail = app.Services.____<IEmailSender>();",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "GetRequiredService",
+        "accept": [
+            "GetRequiredService"
+        ],
+        "explanation": {
+            "en": "GetRequiredService<T> throws InvalidOperationException when nothing is registered; GetService<T> would quietly return null."
+        }
+    },
+    {
+        "id": 368,
+        "category": "dotnet-core",
+        "difficulty": "medium",
+        "codeSnippet": "// one view over appsettings.json, env vars and the command line\npublic class Mailer(____ config)\n{\n    public string Host => config[\"Smtp:Host\"] ?? \"localhost\";\n}",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "IConfiguration",
+        "accept": [
+            "IConfiguration"
+        ],
+        "explanation": {
+            "en": "IConfiguration is registered by the host and merges every configuration source; a colon walks into nested sections."
+        }
+    },
+    {
+        "id": 369,
+        "category": "dotnet-core",
+        "difficulty": "medium",
+        "codeSnippet": "// appsettings.json: { \"Smtp\": { \"Host\": \"mail.local\", \"Port\": 25 } }\nvar smtp = builder.Configuration.____(\"Smtp\");\nConsole.WriteLine(smtp[\"Host\"]);",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "GetSection",
+        "accept": [
+            "GetSection",
+            "GetRequiredSection"
+        ],
+        "explanation": {
+            "en": "GetSection returns the sub-tree under a key, and keys inside it are relative (\"Host\" instead of \"Smtp:Host\"). GetRequiredSection does the same but throws if the section is missing."
+        }
+    },
+    {
+        "id": 370,
+        "category": "dotnet-core",
+        "difficulty": "hard",
+        "codeSnippet": "// bind the \"Smtp\" section to IOptions<SmtpOptions>\nbuilder.Services.____<SmtpOptions>(\n    builder.Configuration.GetSection(\"Smtp\"));",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "Configure",
+        "accept": [
+            "Configure"
+        ],
+        "explanation": {
+            "en": "services.Configure<T>(section) binds the section to T and makes it available as IOptions<T>, IOptionsSnapshot<T> and IOptionsMonitor<T>."
+        }
+    },
+    {
+        "id": 371,
+        "category": "dotnet-core",
+        "difficulty": "hard",
+        "codeSnippet": "// AppDb is scoped, so open a scope to use it at startup\nusing (var scope = app.Services.____())\n{\n    var db = scope.ServiceProvider.GetRequiredService<AppDb>();\n    db.Database.EnsureCreated();\n}",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "CreateScope",
+        "accept": [
+            "CreateScope",
+            "CreateAsyncScope"
+        ],
+        "explanation": {
+            "en": "Outside a request there is no scope, and resolving a scoped service from the root provider is an error in Development. CreateScope makes one and disposes its services at the end of the using block."
+        }
+    },
+    {
+        "id": 372,
+        "category": "dotnet-core",
+        "difficulty": "hard",
+        "codeSnippet": "// a long-running worker that the host starts and stops\npublic class Cleaner : ____\n{\n    protected override async Task ExecuteAsync(CancellationToken ct)\n    {\n        while (!ct.IsCancellationRequested)\n            await Task.Delay(1000, ct);\n    }\n}",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "BackgroundService",
+        "accept": [
+            "BackgroundService"
+        ],
+        "explanation": {
+            "en": "BackgroundService implements IHostedService and calls ExecuteAsync once the host starts, cancelling the token on shutdown. Register it with AddHostedService<Cleaner>()."
+        }
+    },
+    {
+        "id": 373,
+        "category": "dotnet-core",
+        "difficulty": "medium",
+        "codeSnippet": "app.MapGet(\"/items/{id}\", (int id) =>\n    id <= 0 ? ____.NotFound() : Results.Ok(id));",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "Results",
+        "accept": [
+            "Results",
+            "TypedResults"
+        ],
+        "explanation": {
+            "en": "The static Results class builds IResult values such as Ok, NotFound and Created. TypedResults.NotFound() also fits: its NotFound type converts to IResult, the type of the other branch."
+        }
+    },
+    {
+        "id": 374,
+        "category": "dotnet-core",
+        "difficulty": "medium",
+        "codeSnippet": "// register EF Core's context; it is scoped by default\nbuilder.Services.____<ShopDb>(o => o.UseSqlite(\"Data Source=shop.db\"));",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "AddDbContext",
+        "accept": [
+            "AddDbContext",
+            "AddDbContextPool"
+        ],
+        "explanation": {
+            "en": "AddDbContext registers the DbContext as a scoped service, configured by the options lambda. AddDbContextPool does the same but reuses instances from a pool."
+        }
+    },
+    {
+        "id": 375,
+        "category": "dotnet-core",
+        "difficulty": "medium",
+        "codeSnippet": "app.MapDelete(\"/todos/{id}\", async (int id, TodoDb db) =>\n{\n    var todo = await db.Todos.FindAsync(id);\n    if (todo is null) return Results.NotFound();\n    db.Todos.Remove(todo);\n    await db.____();\n    return Results.NoContent();\n});",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "SaveChangesAsync",
+        "accept": [
+            "SaveChangesAsync"
+        ],
+        "explanation": {
+            "en": "Remove only marks the entity as Deleted in the change tracker. SaveChangesAsync sends the DELETE to the database."
+        }
+    },
+    {
+        "id": 376,
+        "category": "dotnet-core",
+        "difficulty": "hard",
+        "codeSnippet": "// only signed-in users may call this endpoint\napp.MapGet(\"/account\", (ClaimsPrincipal user) => user.Identity!.Name)\n   .____();",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "RequireAuthorization",
+        "accept": [
+            "RequireAuthorization"
+        ],
+        "explanation": {
+            "en": "RequireAuthorization adds authorization metadata (the default policy: an authenticated user) to the endpoint; the authorization middleware enforces it."
+        }
+    }
+]

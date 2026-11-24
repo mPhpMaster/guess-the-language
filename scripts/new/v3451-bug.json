@@ -1,0 +1,287 @@
+[
+    {
+        "id": 286,
+        "category": "dotnet-core",
+        "difficulty": "medium",
+        "codeSnippet": "builder.Services.AddScoped<AppDb>();\nbuilder.Services.AddSingleton<ReportService>();\n// Development startup fails: \"Cannot consume scoped\n// service 'AppDb' from singleton 'ReportService'\"\n\npublic class ReportService(AppDb db) { /* ... */ }",
+        "question": {
+            "en": "Which fix removes the bug?"
+        },
+        "options": [
+            "Register it with `TryAddSingleton` instead",
+            "Resolve it with `GetService` instead",
+            "Register ReportService with `AddScoped`",
+            "Mark the AppDb class as `sealed`"
+        ],
+        "answer": "Register ReportService with `AddScoped`",
+        "explanation": {
+            "en": "A singleton lives forever, so the scoped AppDb it captures would outlive its request (a captive dependency). Scope validation catches this. Making ReportService scoped too gives it a fresh AppDb per request; TryAddSingleton is still a singleton and fails the same way."
+        }
+    },
+    {
+        "id": 287,
+        "category": "dotnet-core",
+        "difficulty": "medium",
+        "codeSnippet": "builder.Services.AddSingleton(new ShopDb(options));\napp.MapGet(\"/orders\", (ShopDb db) => db.Orders.ToListAsync());\n// under load: \"A second operation was started on this\n// context instance before a previous operation completed\"",
+        "question": {
+            "en": "Which fix removes the bug?"
+        },
+        "options": [
+            "Register it with `AddDbContext<ShopDb>(...)`",
+            "Add `.AsNoTracking()` before `ToListAsync()`",
+            "Wrap the query in `Task.Run(() => ...)`",
+            "Call `db.ChangeTracker.Clear()` first"
+        ],
+        "answer": "Register it with `AddDbContext<ShopDb>(...)`",
+        "explanation": {
+            "en": "A DbContext is not thread-safe, and a singleton is shared by every concurrent request. AddDbContext registers it as scoped, so each request gets its own instance."
+        }
+    },
+    {
+        "id": 288,
+        "category": "dotnet-core",
+        "difficulty": "easy",
+        "codeSnippet": "app.UseRouting();\napp.UseAuthorization();\napp.UseAuthentication();\napp.MapGet(\"/me\", (ClaimsPrincipal u) => u.Identity!.Name)\n   .RequireAuthorization();\n// signed-in users still get 401 from /me",
+        "question": {
+            "en": "Which fix removes the bug?"
+        },
+        "options": [
+            "Call `AddAuthorization()` before `AddAuthentication()`",
+            "Call `UseAuthorization()` again after authentication",
+            "Move `app.MapGet(...)` above the `app.UseRouting()` call",
+            "Call `UseAuthentication()` before `UseAuthorization()`"
+        ],
+        "answer": "Call `UseAuthentication()` before `UseAuthorization()`",
+        "explanation": {
+            "en": "Middleware runs in the order it is added. Authorization checks the user before authentication has read the cookie or token, so the user is still anonymous. The order is UseRouting, UseAuthentication, UseAuthorization."
+        }
+    },
+    {
+        "id": 289,
+        "category": "dotnet-core",
+        "difficulty": "hard",
+        "codeSnippet": "app.Use(async (ctx, next) =>\n{\n    var sw = Stopwatch.StartNew();\n    await next(ctx);\n    ctx.Response.Headers[\"X-Elapsed\"] = $\"{sw.ElapsedMilliseconds}ms\";\n    // InvalidOperationException: Headers are read-only,\n    // response has already started.\n});",
+        "question": {
+            "en": "Which fix removes the bug?"
+        },
+        "options": [
+            "Use `ctx.Response.Headers.Append(...)` instead",
+            "Set it in a `ctx.Response.OnStarting` callback",
+            "Flush with `ctx.Response.Body.FlushAsync()` first",
+            "Set the header in a `finally` around `next`"
+        ],
+        "answer": "Set it in a `ctx.Response.OnStarting` callback",
+        "explanation": {
+            "en": "Once the endpoint writes the body, the headers have been sent. OnStarting registers a callback that runs just before the headers go out, so it can still add X-Elapsed. Append and finally both run too late; flushing only sends the response sooner."
+        }
+    },
+    {
+        "id": 290,
+        "category": "dotnet-core",
+        "difficulty": "hard",
+        "codeSnippet": "app.Use(async (ctx, next) =>\n{\n    using var reader = new StreamReader(ctx.Request.Body, leaveOpen: true);\n    app.Logger.LogInformation(await reader.ReadToEndAsync());\n    await next(ctx); // the endpoint now reads an empty body\n});",
+        "question": {
+            "en": "Which fix removes the bug?"
+        },
+        "options": [
+            "Read it with `ReadToEnd()`, not the async version",
+            "Drop `leaveOpen: true` so the reader closes the body",
+            "Call `EnableBuffering()`, then reset `Body.Position = 0`",
+            "Call `ctx.Request.Body.Flush()` after reading it"
+        ],
+        "answer": "Call `EnableBuffering()`, then reset `Body.Position = 0`",
+        "explanation": {
+            "en": "The request body is a forward-only network stream: once read, it is consumed. EnableBuffering makes it seekable (buffered in memory or on disk), so the middleware can rewind it for the endpoint. Synchronous reads are disallowed by Kestrel by default."
+        }
+    },
+    {
+        "id": 291,
+        "category": "dotnet-core",
+        "difficulty": "easy",
+        "codeSnippet": "[HttpPost(\"upload\")]\npublic async void Upload(IFormFile file)\n{\n    await _store.SaveAsync(file);\n} // 200 is sent before SaveAsync ends, and its errors\n  // are never returned to the client",
+        "question": {
+            "en": "Which fix removes the bug?"
+        },
+        "options": [
+            "Return `async Task<IActionResult>` and `Ok()`",
+            "Call `.ConfigureAwait(false)` on SaveAsync",
+            "Add `[DisableRequestSizeLimit]` to it",
+            "Run the body in `Task.Run(async () => ...)`"
+        ],
+        "answer": "Return `async Task<IActionResult>` and `Ok()`",
+        "explanation": {
+            "en": "MVC cannot await an async void action, so it finishes the request at the first await, and the uploaded file may be disposed mid-save. Returning Task<IActionResult> lets the framework wait and turn exceptions into a 500."
+        }
+    },
+    {
+        "id": 292,
+        "category": "dotnet-core",
+        "difficulty": "medium",
+        "codeSnippet": "app.MapGet(\"/price/{id}\", (int id, PriceApi api) =>\n{\n    var price = api.GetPriceAsync(id).Result;\n    return Results.Ok(price);\n}); // fine in tests, but under load requests stall\n    // and the thread pool keeps growing",
+        "question": {
+            "en": "Which fix removes the bug?"
+        },
+        "options": [
+            "Use `.GetAwaiter().GetResult()` instead",
+            "Add `.ConfigureAwait(false)` before `.Result`",
+            "Wrap it as `Task.Run(() => ...).Result`",
+            "Make the lambda `async` and `await` the call"
+        ],
+        "answer": "Make the lambda `async` and `await` the call",
+        "explanation": {
+            "en": "ASP.NET Core has no synchronization context, so .Result rarely deadlocks, but every waiting request blocks a thread-pool thread: thread-pool starvation. All three distractors still block. Awaiting frees the thread while the call is in flight."
+        }
+    },
+    {
+        "id": 293,
+        "category": "dotnet-core",
+        "difficulty": "medium",
+        "codeSnippet": "builder.Services.Configure<Features>(\n    builder.Configuration.GetSection(\"Features\"));\nbuilder.Services.AddSingleton<FeatureGate>();\n\npublic class FeatureGate(IOptions<Features> opts)\n{\n    public bool Beta => opts.Value.Beta;\n} // editing appsettings.json never changes Beta",
+        "question": {
+            "en": "Which fix removes the bug?"
+        },
+        "options": [
+            "Inject `IOptionsSnapshot<Features>` in the singleton",
+            "Inject `IOptionsMonitor<Features>`, read `CurrentValue`",
+            "Pass `reloadOnChange: true` to `AddJsonFile`",
+            "Copy `opts.Value` into a field in the constructor"
+        ],
+        "answer": "Inject `IOptionsMonitor<Features>`, read `CurrentValue`",
+        "explanation": {
+            "en": "IOptions<T> is computed once and cached forever. IOptionsMonitor<T> is a singleton that recomputes when the configuration reloads. IOptionsSnapshot is scoped, so a singleton cannot take it, and CreateBuilder already reloads appsettings.json on change."
+        }
+    },
+    {
+        "id": 294,
+        "category": "dotnet-core",
+        "difficulty": "easy",
+        "codeSnippet": "var builder = WebApplication.CreateBuilder(args);\nbuilder.Services.AddControllers();\nvar app = builder.Build();\napp.UseAuthorization();\napp.Run(); // every /api/... controller route returns 404",
+        "question": {
+            "en": "Which fix removes the bug?"
+        },
+        "options": [
+            "Call `builder.Services.AddMvcCore()` as well",
+            "Call `app.MapControllers()` before `app.Run()`",
+            "Call `app.UseRouting()` before `app.Run()`",
+            "Add `[ApiController]` to each controller class"
+        ],
+        "answer": "Call `app.MapControllers()` before `app.Run()`",
+        "explanation": {
+            "en": "AddControllers only registers the MVC services. The controller routes become endpoints only when MapControllers adds them to the app."
+        }
+    },
+    {
+        "id": 295,
+        "category": "dotnet-core",
+        "difficulty": "medium",
+        "codeSnippet": "builder.Services.AddCors(o => o.AddPolicy(\"web\",\n    p => p.WithOrigins(\"https://shop.example\")));\nvar app = builder.Build();\napp.UseCors();\napp.UseRouting();\napp.MapGet(\"/api/data\", () => \"ok\").RequireCors(\"web\");\n// 500: endpoint has CORS metadata but no CORS middleware ran",
+        "question": {
+            "en": "Which fix removes the bug?"
+        },
+        "options": [
+            "Add `.AllowAnyHeader()` to the \"web\" policy",
+            "Move `app.MapGet(...)` above `app.UseCors()`",
+            "Call `AddCors` after `builder.Build()` instead",
+            "Call `app.UseCors()` after `app.UseRouting()`"
+        ],
+        "answer": "Call `app.UseCors()` after `app.UseRouting()`",
+        "explanation": {
+            "en": "RequireCors attaches the policy to the endpoint, but the endpoint is only known after UseRouting has matched it. Running UseCors earlier sees no endpoint, so it does nothing, and the endpoint middleware fails because no CORS middleware handled it."
+        }
+    },
+    {
+        "id": 296,
+        "category": "dotnet-core",
+        "difficulty": "medium",
+        "codeSnippet": "public class Poller : BackgroundService\n{\n    protected override async Task ExecuteAsync(CancellationToken stoppingToken)\n    {\n        while (true)\n        {\n            await PollAsync();\n            await Task.Delay(TimeSpan.FromSeconds(30));\n        }\n    } // Ctrl+C waits for the full host shutdown timeout\n}",
+        "question": {
+            "en": "Which fix removes the bug?"
+        },
+        "options": [
+            "Wrap the loop body in `try { ... } catch { }`",
+            "Start the loop with `await Task.Yield();` first",
+            "Loop on `stoppingToken` and pass it to `Task.Delay`",
+            "Use `Thread.Sleep(30_000)` instead of Delay"
+        ],
+        "answer": "Loop on `stoppingToken` and pass it to `Task.Delay`",
+        "explanation": {
+            "en": "On shutdown the host cancels stoppingToken and waits for ExecuteAsync to finish. This loop never looks at the token, so the host waits until its shutdown timeout. Checking it and passing it to Task.Delay ends the loop at once."
+        }
+    },
+    {
+        "id": 297,
+        "category": "dotnet-core",
+        "difficulty": "hard",
+        "codeSnippet": "builder.Services.AddSingleton<HttpClient>();\napp.MapGet(\"/me\", async (HttpClient http, HttpRequest req) =>\n{\n    http.DefaultRequestHeaders.Authorization =\n        new(\"Bearer\", req.Headers[\"X-Token\"].ToString());\n    return await http.GetStringAsync(\"https://api.example/me\");\n}); // under load, users sometimes get someone else's profile",
+        "question": {
+            "en": "Which fix removes the bug?"
+        },
+        "options": [
+            "Put the token on a per-call `HttpRequestMessage`",
+            "Call `DefaultRequestHeaders.Clear()` first",
+            "Wrap only the assignment in a `lock (http)`",
+            "Use `TryAddWithoutValidation` for the header"
+        ],
+        "answer": "Put the token on a per-call `HttpRequestMessage`",
+        "explanation": {
+            "en": "DefaultRequestHeaders belongs to the shared client, so one request can overwrite it while another is still sending. Set per-user headers on an HttpRequestMessage and send it with SendAsync."
+        }
+    },
+    {
+        "id": 298,
+        "category": "dotnet-core",
+        "difficulty": "easy",
+        "codeSnippet": "app.MapPost(\"/todos\", (Todo todo, TodoDb db) =>\n{\n    db.Todos.Add(todo);\n    db.SaveChangesAsync();\n    return Results.Created($\"/todos/{todo.Id}\", todo);\n}); // rows go missing; sometimes ObjectDisposedException",
+        "question": {
+            "en": "Which fix removes the bug?"
+        },
+        "options": [
+            "Call `db.Todos.AddAsync(todo)` instead",
+            "Call `db.ChangeTracker.DetectChanges()` first",
+            "Make the handler `async` and `await` the save",
+            "Return `Results.Ok(todo)` instead of Created"
+        ],
+        "answer": "Make the handler `async` and `await` the save",
+        "explanation": {
+            "en": "The save is started but never awaited, so the request ends and the scoped DbContext is disposed while it is still running. Awaiting it also means todo.Id is set before the response is built."
+        }
+    },
+    {
+        "id": 299,
+        "category": "dotnet-core",
+        "difficulty": "hard",
+        "codeSnippet": "public IQueryable<Order> Recent(DateTime since)\n{\n    using var db = new ShopDb();\n    return db.Orders.Where(o => o.Date >= since);\n}\n// caller: foreach (var o in repo.Recent(day)) ...\n// ObjectDisposedException: Cannot access a disposed context",
+        "question": {
+            "en": "Which fix removes the bug?"
+        },
+        "options": [
+            "Return `IEnumerable<Order>` instead of IQueryable",
+            "Return `List<Order>` built with `.ToList()` inside",
+            "Declare it as `await using var db` instead",
+            "Add `.AsNoTracking()` to the Where query"
+        ],
+        "answer": "Return `List<Order>` built with `.ToList()` inside",
+        "explanation": {
+            "en": "A LINQ query is deferred: it runs when the caller enumerates it, after the method has disposed db. ToList() executes it while the context is alive. IEnumerable is still deferred, and await using still disposes."
+        }
+    },
+    {
+        "id": 300,
+        "category": "dotnet-core",
+        "difficulty": "easy",
+        "codeSnippet": "var app = builder.Build();\napp.UseDeveloperExceptionPage();\napp.MapControllers();\napp.Run(); // production users see full stack traces",
+        "question": {
+            "en": "Which fix removes the bug?"
+        },
+        "options": [
+            "Call `app.UseHsts()` right after this line",
+            "Move it below the `app.MapControllers()` call",
+            "Set `ASPNETCORE_ENVIRONMENT=Production`",
+            "Wrap it in `if (app.Environment.IsDevelopment())`"
+        ],
+        "answer": "Wrap it in `if (app.Environment.IsDevelopment())`",
+        "explanation": {
+            "en": "An explicit UseDeveloperExceptionPage runs in every environment, so setting Production changes nothing. Guard it with IsDevelopment (WebApplication already adds it in Development) and use UseExceptionHandler elsewhere."
+        }
+    }
+]

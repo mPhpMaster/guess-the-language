@@ -1,0 +1,287 @@
+[
+    {
+        "id": 288,
+        "category": "dotnet-core",
+        "difficulty": "easy",
+        "codeSnippet": "var sp = new ServiceCollection()\n    .AddSingleton<Clock>()\n    .BuildServiceProvider();\nvar a = sp.GetService<Clock>();\nvar b = sp.GetService<Clock>();\nConsole.WriteLine(ReferenceEquals(a, b));\n\nclass Clock { }",
+        "question": {
+            "en": "What is printed?"
+        },
+        "options": [
+            "False",
+            "True",
+            "null",
+            "throws"
+        ],
+        "answer": "True",
+        "explanation": {
+            "en": "A singleton is created once by the root provider and every later resolve returns that same object, so both variables point at one Clock."
+        }
+    },
+    {
+        "id": 289,
+        "category": "dotnet-core",
+        "difficulty": "easy",
+        "codeSnippet": "var sp = new ServiceCollection()\n    .AddTransient<Job>()\n    .BuildServiceProvider();\nsp.GetRequiredService<Job>();\nsp.GetRequiredService<Job>();\nsp.GetRequiredService<Job>();\nConsole.WriteLine(Job.Created);\n\nclass Job { public static int Created; public Job() => Created++; }",
+        "question": {
+            "en": "What is printed?"
+        },
+        "options": [
+            "1",
+            "0",
+            "2",
+            "3"
+        ],
+        "answer": "3",
+        "explanation": {
+            "en": "A transient service is constructed on every resolve. Three GetRequiredService calls run the constructor three times."
+        }
+    },
+    {
+        "id": 290,
+        "category": "dotnet-core",
+        "difficulty": "medium",
+        "codeSnippet": "var sp = new ServiceCollection().AddScoped<Cart>().BuildServiceProvider();\nCart a, b, c;\nusing (var s1 = sp.CreateScope())\n{\n    a = s1.ServiceProvider.GetRequiredService<Cart>();\n    b = s1.ServiceProvider.GetRequiredService<Cart>();\n}\nusing (var s2 = sp.CreateScope())\n    c = s2.ServiceProvider.GetRequiredService<Cart>();\nConsole.WriteLine($\"{ReferenceEquals(a, b)} {ReferenceEquals(a, c)}\");\n\nclass Cart { }",
+        "question": {
+            "en": "What is printed?"
+        },
+        "options": [
+            "True True",
+            "True False",
+            "False False",
+            "False True"
+        ],
+        "answer": "True False",
+        "explanation": {
+            "en": "A scoped service is one instance per scope: a and b come from the same scope, c from a new one. In ASP.NET Core each HTTP request is a scope."
+        }
+    },
+    {
+        "id": 291,
+        "category": "dotnet-core",
+        "difficulty": "medium",
+        "codeSnippet": "var sp = new ServiceCollection()\n    .AddSingleton<IGreeter, En>()\n    .AddSingleton<IGreeter, Fr>()\n    .BuildServiceProvider();\nvar one = sp.GetRequiredService<IGreeter>().Hi();\nConsole.WriteLine($\"{one} {sp.GetServices<IGreeter>().Count()}\");\n\ninterface IGreeter { string Hi(); }\nclass En : IGreeter { public string Hi() => \"hello\"; }\nclass Fr : IGreeter { public string Hi() => \"bonjour\"; }",
+        "question": {
+            "en": "What is printed?"
+        },
+        "options": [
+            "hello 2",
+            "bonjour 1",
+            "hello 1",
+            "bonjour 2"
+        ],
+        "answer": "bonjour 2",
+        "explanation": {
+            "en": "Both registrations are kept. Resolving a single IGreeter returns the LAST one registered (Fr), while GetServices returns all of them, in registration order."
+        }
+    },
+    {
+        "id": 292,
+        "category": "dotnet-core",
+        "difficulty": "medium",
+        "codeSnippet": "using Microsoft.Extensions.DependencyInjection.Extensions;\n\nvar services = new ServiceCollection();\nservices.AddSingleton<IStore, SqlStore>();\nservices.TryAddSingleton<IStore, MemStore>();\nvar store = services.BuildServiceProvider().GetRequiredService<IStore>();\nConsole.WriteLine($\"{services.Count} {store.GetType().Name}\");\n\ninterface IStore { }\nclass SqlStore : IStore { }\nclass MemStore : IStore { }",
+        "question": {
+            "en": "What is printed?"
+        },
+        "options": [
+            "2 MemStore",
+            "1 SqlStore",
+            "2 SqlStore",
+            "1 MemStore"
+        ],
+        "answer": "1 SqlStore",
+        "explanation": {
+            "en": "TryAdd* registers only when the service type has no registration yet. IStore already has one, so MemStore is skipped: one descriptor, SqlStore."
+        }
+    },
+    {
+        "id": 293,
+        "category": "dotnet-core",
+        "difficulty": "easy",
+        "codeSnippet": "var log = new List<string>();\nvar app = new ApplicationBuilder(new ServiceCollection().BuildServiceProvider());\napp.Use(async (ctx, next) => { log.Add(\"A1\"); await next(ctx); log.Add(\"A2\"); });\napp.Use(async (ctx, next) => { log.Add(\"B1\"); await next(ctx); log.Add(\"B2\"); });\napp.Run(ctx => { log.Add(\"C\"); return Task.CompletedTask; });\n\nawait app.Build()(new DefaultHttpContext());\nConsole.WriteLine(string.Join(\" \", log));",
+        "question": {
+            "en": "What is printed?"
+        },
+        "options": [
+            "A1 A2 B1 B2 C",
+            "A1 B1 C A2 B2",
+            "C B2 B1 A2 A1",
+            "A1 B1 C B2 A2"
+        ],
+        "answer": "A1 B1 C B2 A2",
+        "explanation": {
+            "en": "Middleware runs in registration order on the way in and unwinds in reverse on the way out: code after await next() runs once the inner part of the pipeline has finished."
+        }
+    },
+    {
+        "id": 294,
+        "category": "dotnet-core",
+        "difficulty": "hard",
+        "codeSnippet": "var log = new List<string>();\nvar app = new ApplicationBuilder(new ServiceCollection().BuildServiceProvider());\napp.Use(async (ctx, next) => { log.Add(\"A\"); await next(ctx); });\n\nvar ctx = new DefaultHttpContext();\nawait app.Build()(ctx);\nConsole.WriteLine($\"{string.Join(\"\", log)} {ctx.Response.StatusCode}\");",
+        "question": {
+            "en": "What is printed?"
+        },
+        "options": [
+            "A 200",
+            "A 500",
+            "A 404",
+            "A 204"
+        ],
+        "answer": "A 404",
+        "explanation": {
+            "en": "No middleware ends the pipeline, so next() reaches the terminal delegate that Build() appends. With no endpoint selected, it sets the status code to 404."
+        }
+    },
+    {
+        "id": 295,
+        "category": "dotnet-core",
+        "difficulty": "easy",
+        "codeSnippet": "var config = new ConfigurationBuilder()\n    .AddInMemoryCollection(new Dictionary<string, string?>\n        { [\"Port\"] = \"80\", [\"Host\"] = \"a\" })\n    .AddInMemoryCollection(new Dictionary<string, string?>\n        { [\"Port\"] = \"8080\" })\n    .Build();\nConsole.WriteLine($\"{config[\"Host\"]}:{config[\"Port\"]}\");",
+        "question": {
+            "en": "What is printed?"
+        },
+        "options": [
+            "a:80",
+            ":8080",
+            "a:8080",
+            "80:8080"
+        ],
+        "answer": "a:8080",
+        "explanation": {
+            "en": "Configuration providers are layered: a source added later overrides the same key from an earlier one. Keys it does not define (Host) still come from the earlier source. That is how environment variables override appsettings.json."
+        }
+    },
+    {
+        "id": 296,
+        "category": "dotnet-core",
+        "difficulty": "easy",
+        "codeSnippet": "var config = new ConfigurationBuilder()\n    .AddInMemoryCollection(new Dictionary<string, string?> { [\"Retries\"] = \"3\" })\n    .Build();\nint a = config.GetValue<int>(\"Retries\");\nint b = config.GetValue<int>(\"Timeout\");\nint c = config.GetValue(\"Timeout\", 30);\nConsole.WriteLine($\"{a} {b} {c}\");",
+        "question": {
+            "en": "What is printed?"
+        },
+        "options": [
+            "3 0 0",
+            "3 30 30",
+            "3 0 30",
+            "3 -1 30"
+        ],
+        "answer": "3 0 30",
+        "explanation": {
+            "en": "GetValue converts the string \"3\" to an int. A missing key gives default(int), which is 0, unless you pass your own default value, here 30."
+        }
+    },
+    {
+        "id": 297,
+        "category": "dotnet-core",
+        "difficulty": "hard",
+        "codeSnippet": "var config = new ConfigurationBuilder()\n    .AddInMemoryCollection(new Dictionary<string, string?>\n        { [\"Db:Host\"] = \"srv\", [\"Db:Port\"] = \"5432\" })\n    .Build();\nvar db = config.GetSection(\"db\");\nstring parent = config[\"Db\"] ?? \"null\";\nConsole.WriteLine($\"{db[\"HOST\"]} {parent} {db.GetChildren().Count()}\");",
+        "question": {
+            "en": "What is printed?"
+        },
+        "options": [
+            "srv null 2",
+            "null null 2",
+            "srv srv 2",
+            "srv null 0"
+        ],
+        "answer": "srv null 2",
+        "explanation": {
+            "en": "The colon is the hierarchy separator, so Db:Host and Db:Port are two children of a Db section. Keys are case-insensitive. A section that only has children has no value of its own, so config[\"Db\"] is null."
+        }
+    },
+    {
+        "id": 298,
+        "category": "dotnet-core",
+        "difficulty": "medium",
+        "codeSnippet": "var config = new ConfigurationBuilder().AddInMemoryCollection(\n    new Dictionary<string, string?> { [\"Mail:Port\"] = \"2525\" }).Build();\nvar sp = new ServiceCollection()\n    .Configure<MailOptions>(config.GetSection(\"Mail\"))\n    .BuildServiceProvider();\nvar o = sp.GetRequiredService<IOptions<MailOptions>>().Value;\nConsole.WriteLine($\"{o.Port} {o.UseSsl}\");\n\nclass MailOptions { public int Port { get; set; } = 25; public bool UseSsl { get; set; } = true; }",
+        "question": {
+            "en": "What is printed?"
+        },
+        "options": [
+            "25 True",
+            "2525 False",
+            "25 False",
+            "2525 True"
+        ],
+        "answer": "2525 True",
+        "explanation": {
+            "en": "Binding sets only the properties the section contains. Port is overwritten with 2525; UseSsl has no key, so it keeps its initializer value, true."
+        }
+    },
+    {
+        "id": 299,
+        "category": "dotnet-core",
+        "difficulty": "hard",
+        "codeSnippet": "var sp = new ServiceCollection()\n    .PostConfigure<Opt>(o => o.Name += \"-post\")\n    .Configure<Opt>(o => o.Name += \"-a\")\n    .Configure<Opt>(o => o.Name += \"-b\")\n    .BuildServiceProvider();\nConsole.WriteLine(sp.GetRequiredService<IOptions<Opt>>().Value.Name);\n\nclass Opt { public string Name { get; set; } = \"x\"; }",
+        "question": {
+            "en": "What is printed?"
+        },
+        "options": [
+            "x-post-a-b",
+            "x-b-a-post",
+            "x-a-b-post",
+            "x-post-b-a"
+        ],
+        "answer": "x-a-b-post",
+        "explanation": {
+            "en": "All Configure actions run first, in registration order, and only then every PostConfigure, regardless of where it was registered."
+        }
+    },
+    {
+        "id": 300,
+        "category": "dotnet-core",
+        "difficulty": "hard",
+        "codeSnippet": "using var factory = LoggerFactory.Create(b => b\n    .SetMinimumLevel(LogLevel.Warning)\n    .AddFilter(\"Db\", LogLevel.Debug)\n    .AddConsole());\nvar app = factory.CreateLogger(\"App\");\nvar db = factory.CreateLogger(\"Db.Query\");\nConsole.WriteLine($\"{app.IsEnabled(LogLevel.Information)} \" +\n    $\"{db.IsEnabled(LogLevel.Debug)} {db.IsEnabled(LogLevel.Trace)}\");",
+        "question": {
+            "en": "What is printed?"
+        },
+        "options": [
+            "False True False",
+            "True True False",
+            "False False False",
+            "False True True"
+        ],
+        "answer": "False True False",
+        "explanation": {
+            "en": "The minimum level, Warning, applies to every category without a more specific rule. The \"Db\" filter matches categories starting with Db, so Db.Query logs from Debug up, but Trace is still below Debug."
+        }
+    },
+    {
+        "id": 301,
+        "category": "dotnet-core",
+        "difficulty": "medium",
+        "codeSnippet": "using var cts = new CancellationTokenSource();\nvar token = cts.Token;\ntoken.Register(() => Console.Write(\"A\"));\nConsole.Write(token.IsCancellationRequested ? \"1\" : \"0\");\ncts.Cancel();\ntoken.Register(() => Console.Write(\"B\"));\nConsole.Write(token.IsCancellationRequested ? \"1\" : \"0\");",
+        "question": {
+            "en": "What is printed?"
+        },
+        "options": [
+            "0A1",
+            "0A1B",
+            "A0B1",
+            "0AB1"
+        ],
+        "answer": "0AB1",
+        "explanation": {
+            "en": "Cancel() runs the registered callbacks synchronously, printing A. Registering on a token that is already cancelled runs the callback immediately, so B prints before the final 1."
+        }
+    },
+    {
+        "id": 302,
+        "category": "dotnet-core",
+        "difficulty": "medium",
+        "codeSnippet": "var builder = Host.CreateApplicationBuilder();\nbuilder.Logging.ClearProviders();\nbuilder.Services.AddHostedService<A>();\nbuilder.Services.AddHostedService<B>();\nusing var host = builder.Build();\nawait host.StartAsync(); await host.StopAsync();\n\nclass A : Svc { } class B : Svc { }\nclass Svc : IHostedService {\n    public Task StartAsync(CancellationToken _) { Console.Write(GetType().Name + \"+\"); return Task.CompletedTask; }\n    public Task StopAsync(CancellationToken _) { Console.Write(GetType().Name + \"-\"); return Task.CompletedTask; }\n}",
+        "question": {
+            "en": "What is printed?"
+        },
+        "options": [
+            "A+B+A-B-",
+            "A+A-B+B-",
+            "A+B+B-A-",
+            "B+A+A-B-"
+        ],
+        "answer": "A+B+B-A-",
+        "explanation": {
+            "en": "Hosted services start one after another in registration order and stop in reverse order, so the service started last is stopped first."
+        }
+    }
+]

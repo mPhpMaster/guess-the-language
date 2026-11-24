@@ -1,0 +1,484 @@
+[
+ {
+  "id": 377,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "// two pointers walking inward\nstatic bool IsPalindrome(string s)\n{\n    int lo = 0, hi = s.Length - 1;\n    while (lo < hi)\n    {\n        if (s[lo] != s[hi]) return false;\n        lo++;\n        hi____;\n    }\n    return true;\n}",
+  "question": {
+   "en": "Fill the operator that moves the right pointer one step left."
+  },
+  "answer": "--",
+  "accept": [
+   "--",
+   "-= 1"
+  ],
+  "explanation": {
+   "en": "hi-- decrements the right index so both pointers close in on the middle; hi -= 1 is the same."
+  }
+ },
+ {
+  "id": 378,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "// binary search on a sorted array; index or -1\nstatic int Search(int[] a, int target)\n{\n    int lo = 0, hi = a.Length - 1;\n    while (lo <= hi)\n    {\n        int mid = lo + (hi - lo) ____ 2;\n        if (a[mid] == target) return mid;\n        if (a[mid] < target) lo = mid + 1;\n        else hi = mid - 1;\n    }\n    return -1;\n}",
+  "question": {
+   "en": "Fill the operator that finds the midpoint without overflowing."
+  },
+  "answer": "/",
+  "accept": [
+   "/"
+  ],
+  "explanation": {
+   "en": "lo + (hi - lo) / 2 is the midpoint; unlike (lo + hi) / 2 it cannot overflow int when both indexes are large."
+  }
+ },
+ {
+  "id": 379,
+  "category": "csharp",
+  "difficulty": "hard",
+  "codeSnippet": "// largest sum of any k consecutive elements\nstatic int MaxWindow(int[] a, int k)\n{\n    int sum = 0;\n    for (int i = 0; i < k; i++) sum += a[i];\n    int best = sum;\n    for (int i = k; i < a.Length; i++)\n    {\n        sum += a[i] - a[i - ____];\n        best = Math.Max(best, sum);\n    }\n    return best;\n}",
+  "question": {
+   "en": "Fill the offset of the element that leaves the window."
+  },
+  "answer": "k",
+  "accept": [
+   "k"
+  ],
+  "explanation": {
+   "en": "Sliding the window right adds a[i] and drops a[i - k], the element k places behind it, so each step is O(1)."
+  }
+ },
+ {
+  "id": 380,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "// pre[i] = sum of the first i elements\nint[] pre = new int[nums.Length ____ 1];\nfor (int i = 0; i < nums.Length; i++)\n    pre[i + 1] = pre[i] + nums[i];\n// sum of nums[2..4] is pre[5] - pre[2]",
+  "question": {
+   "en": "Fill the operator that sizes the prefix-sum array."
+  },
+  "answer": "+",
+  "accept": [
+   "+"
+  ],
+  "explanation": {
+   "en": "A prefix array needs n + 1 slots: pre[0] = 0 is the empty prefix, so any range sum is pre[r + 1] - pre[l]."
+  }
+ },
+ {
+  "id": 381,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "// first value that appears twice, or -1\nstatic int FirstRepeat(int[] nums)\n{\n    var seen = new HashSet<int>();\n    foreach (int x in nums)\n        if (!seen.____(x)) return x;\n    return -1;\n}",
+  "question": {
+   "en": "Fill the HashSet method whose bool result reveals a repeat."
+  },
+  "answer": "Add",
+  "accept": [
+   "Add"
+  ],
+  "explanation": {
+   "en": "HashSet.Add returns false when the value is already present, so one call both checks and records it."
+  }
+ },
+ {
+  "id": 382,
+  "category": "csharp",
+  "difficulty": "hard",
+  "codeSnippet": "// grid paths moving only right or down\nstatic int Paths(int rows, int cols)\n{\n    var dp = new int[rows, cols];\n    for (int r = 0; r < dp.____(0); r++)\n        for (int c = 0; c < dp.GetLength(1); c++)\n            dp[r, c] = (r == 0 || c == 0) ? 1 : dp[r - 1, c] + dp[r, c - 1];\n    return dp[rows - 1, cols - 1];\n}",
+  "question": {
+   "en": "Fill the method that returns the size of one dimension of a 2D array."
+  },
+  "answer": "GetLength",
+  "accept": [
+   "GetLength"
+  ],
+  "explanation": {
+   "en": "A rectangular int[,] has one Length for all cells; GetLength(0) is the row count and GetLength(1) the column count."
+  }
+ },
+ {
+  "id": 383,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "// word frequencies\nvar counts = new Dictionary<string, int>();\nforeach (string w in words)\n    counts[w] = counts.____(w) + 1;",
+  "question": {
+   "en": "Fill the Dictionary method that returns 0 for a missing key."
+  },
+  "answer": "GetValueOrDefault",
+  "accept": [
+   "GetValueOrDefault"
+  ],
+  "explanation": {
+   "en": "GetValueOrDefault returns default(int), 0, for an unseen key, so the first occurrence becomes 1 without a KeyNotFoundException."
+  }
+ },
+ {
+  "id": 384,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "// are the brackets balanced?\nstatic bool Balanced(string s)\n{\n    var pairs = new Dictionary<char, char> { [')'] = '(', [']'] = '[', ['}'] = '{' };\n    var stack = new Stack<char>();\n    foreach (char c in s)\n    {\n        if (c is '(' or '[' or '{') stack.Push(c);\n        else if (pairs.ContainsKey(c))\n            if (stack.Count == 0 || stack.____() != pairs[c]) return false;\n    }\n    return stack.Count == 0;\n}",
+  "question": {
+   "en": "Fill the Stack method that removes and returns the top item."
+  },
+  "answer": "Pop",
+  "accept": [
+   "Pop"
+  ],
+  "explanation": {
+   "en": "Each closer must match the most recent unmatched opener, and Pop removes it so the next closer sees the one below. Peek would never remove anything."
+  }
+ },
+ {
+  "id": 385,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "// BFS: edge distance from node 0\nvar dist = new int[graph.Length];\nArray.Fill(dist, -1);\ndist[0] = 0;\nvar queue = new Queue<int>();\nqueue.Enqueue(0);\nwhile (queue.Count > 0)\n{\n    int cur = queue.____();\n    foreach (int next in graph[cur])\n        if (dist[next] == -1)\n        {\n            dist[next] = dist[cur] + 1;\n            queue.Enqueue(next);\n        }\n}",
+  "question": {
+   "en": "Fill the Queue method that takes the next node to visit."
+  },
+  "answer": "Dequeue",
+  "accept": [
+   "Dequeue"
+  ],
+  "explanation": {
+   "en": "Dequeue removes the oldest node (FIFO), so nodes are expanded in order of distance, which is what makes BFS find shortest edge counts."
+  }
+ },
+ {
+  "id": 386,
+  "category": "csharp",
+  "difficulty": "hard",
+  "codeSnippet": "// Dijkstra from node 0; adj[u] holds (v, weight)\nvar dist = new int[adj.Length];\nArray.Fill(dist, int.MaxValue);\ndist[0] = 0;\nvar pq = new PriorityQueue<int, int>();\npq.Enqueue(0, 0);\nwhile (pq.____(out int u, out int d))\n{\n    if (d > dist[u]) continue;   // stale entry\n    foreach (var (v, w) in adj[u])\n        if (d + w < dist[v])\n        {\n            dist[v] = d + w;\n            pq.Enqueue(v, dist[v]);\n        }\n}",
+  "question": {
+   "en": "Fill the PriorityQueue method that pops the cheapest entry and ends the loop when empty."
+  },
+  "answer": "TryDequeue",
+  "accept": [
+   "TryDequeue"
+  ],
+  "explanation": {
+   "en": "TryDequeue(out element, out priority) returns false once the queue is empty and otherwise hands back the lowest-priority (shortest-distance) entry."
+  }
+ },
+ {
+  "id": 387,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "// keep the k largest values in a min-heap of size k\nvar heap = new PriorityQueue<int, int>();\nforeach (int x in nums)\n{\n    heap.____(x, x);\n    if (heap.Count > k) heap.Dequeue();   // drop the smallest\n}",
+  "question": {
+   "en": "Fill the method that adds a value with its priority."
+  },
+  "answer": "Enqueue",
+  "accept": [
+   "Enqueue"
+  ],
+  "explanation": {
+   "en": "PriorityQueue<TElement, TPriority>.Enqueue takes the element and its priority; the smallest priority is dequeued first, so it acts as a min-heap."
+  }
+ },
+ {
+  "id": 388,
+  "category": "csharp",
+  "difficulty": "hard",
+  "codeSnippet": "// DFS: sink one island of '1' cells\nstatic void Sink(char[][] g, int r, int c)\n{\n    if (r < 0 || c < 0 || r >= g.Length || c >= g[0].Length ____ g[r][c] != '1')\n        return;\n    g[r][c] = '0';\n    Sink(g, r + 1, c); Sink(g, r - 1, c);\n    Sink(g, r, c + 1); Sink(g, r, c - 1);\n}",
+  "question": {
+   "en": "Fill the operator that keeps g[r][c] from being read out of bounds."
+  },
+  "answer": "||",
+  "accept": [
+   "||"
+  ],
+  "explanation": {
+   "en": "|| short-circuits: once a bounds test is true the cell is never indexed. A single | evaluates both sides and throws IndexOutOfRangeException at the edge."
+  }
+ },
+ {
+  "id": 389,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "// memoised Fibonacci\nvar memo = new Dictionary<int, long>();\nlong Fib(int n)\n{\n    if (n < 2) return n;\n    if (memo.____(n)) return memo[n];\n    return memo[n] = Fib(n - 1) + Fib(n - 2);\n}",
+  "question": {
+   "en": "Fill the Dictionary method that checks for a cached result."
+  },
+  "answer": "ContainsKey",
+  "accept": [
+   "ContainsKey"
+  ],
+  "explanation": {
+   "en": "ContainsKey tells whether n was already computed, turning the exponential recursion into O(n)."
+  }
+ },
+ {
+  "id": 390,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "// ways to climb n stairs taking 1 or 2 steps\nstatic int Climb(int n)\n{\n    var dp = ____ int[n + 1];\n    dp[0] = 1; dp[1] = 1;\n    for (int i = 2; i <= n; i++)\n        dp[i] = dp[i - 1] + dp[i - 2];\n    return dp[n];\n}",
+  "question": {
+   "en": "Fill the keyword that allocates the DP array."
+  },
+  "answer": "new",
+  "accept": [
+   "new"
+  ],
+  "explanation": {
+   "en": "new int[n + 1] allocates n + 1 zeroed ints, one slot per step from 0 to n."
+  }
+ },
+ {
+  "id": 391,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "// fewest coins that make amount, or -1\nstatic int CoinChange(int[] coins, int amount)\n{\n    var dp = new int[amount + 1];\n    Array.____(dp, amount + 1);   // \"infinity\"\n    dp[0] = 0;\n    for (int a = 1; a <= amount; a++)\n        foreach (int c in coins)\n            if (c <= a) dp[a] = Math.Min(dp[a], dp[a - c] + 1);\n    return dp[amount] > amount ? -1 : dp[amount];\n}",
+  "question": {
+   "en": "Fill the Array method that sets every slot to one value."
+  },
+  "answer": "Fill",
+  "accept": [
+   "Fill"
+  ],
+  "explanation": {
+   "en": "Array.Fill writes amount + 1 into every slot, a value no real answer can reach, so Math.Min works from the first comparison."
+  }
+ },
+ {
+  "id": 392,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "// sort intervals by start, then merge overlaps\nArray.Sort(iv, (a, b) => a[0].____(b[0]));\nvar merged = new List<int[]> { iv[0] };\nforeach (var cur in iv)\n{\n    var last = merged[^1];\n    if (cur[0] <= last[1]) last[1] = Math.Max(last[1], cur[1]);\n    else merged.Add(cur);\n}",
+  "question": {
+   "en": "Fill the method the comparison lambda uses to order two ints."
+  },
+  "answer": "CompareTo",
+  "accept": [
+   "CompareTo"
+  ],
+  "explanation": {
+   "en": "The Comparison<T> must return negative, zero or positive; int.CompareTo does exactly that, so the array is ordered by start."
+  }
+ },
+ {
+  "id": 393,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "// \"stressed\" -> \"desserts\"\nstatic string Backwards(string s)\n{\n    char[] chars = s.ToCharArray();\n    Array.____(chars);\n    return new string(chars);\n}",
+  "question": {
+   "en": "Fill the Array method that flips the order of the characters."
+  },
+  "answer": "Reverse",
+  "accept": [
+   "Reverse"
+  ],
+  "explanation": {
+   "en": "Strings are immutable, so copy them to a char[], reverse it in place with Array.Reverse, and build a new string from it."
+  }
+ },
+ {
+  "id": 394,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "// Caesar shift each lowercase letter by 3\nchar[] cs = text.____();\nfor (int i = 0; i < cs.Length; i++)\n    if (char.IsLower(cs[i]))\n        cs[i] = (char)('a' + (cs[i] - 'a' + 3) % 26);\nstring shifted = new string(cs);",
+  "question": {
+   "en": "Fill the string method that copies the characters into a mutable array."
+  },
+  "answer": "ToCharArray",
+  "accept": [
+   "ToCharArray"
+  ],
+  "explanation": {
+   "en": "ToCharArray returns a new char[] that can be edited in place; the string itself cannot be changed."
+  }
+ },
+ {
+  "id": 395,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "// anagram check with a 26-slot letter count\nstatic bool IsAnagram(string s, string t)\n{\n    if (s.Length != t.Length) return false;\n    var count = new int[26];\n    for (int i = 0; i < s.Length; i++)\n    {\n        count[s[i] - ____]++;\n        count[t[i] - 'a']--;\n    }\n    return count.All(x => x == 0);\n}",
+  "question": {
+   "en": "Fill the value that maps a lowercase letter to index 0-25."
+  },
+  "answer": "'a'",
+  "accept": [
+   "'a'",
+   "97"
+  ],
+  "explanation": {
+   "en": "char minus char is an int: 'a' - 'a' is 0 and 'z' - 'a' is 25. 97 is the same code point written as a number."
+  }
+ },
+ {
+  "id": 396,
+  "category": "csharp",
+  "difficulty": "hard",
+  "codeSnippet": "// count the 1 bits, one per loop step\nstatic int PopCount(int n)\n{\n    int bits = 0;\n    while (n != 0)\n    {\n        n = n ____ (n - 1);\n        bits++;\n    }\n    return bits;\n}",
+  "question": {
+   "en": "Fill the bitwise operator that clears the lowest set bit."
+  },
+  "answer": "&",
+  "accept": [
+   "&"
+  ],
+  "explanation": {
+   "en": "n - 1 flips the lowest 1 bit and every 0 below it, so n & (n - 1) drops exactly that bit (Kernighan). The loop runs once per set bit."
+  }
+ },
+ {
+  "id": 397,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "// Kadane: largest contiguous subarray sum\nint cur = nums[0], best = nums[0];\nfor (int i = 1; i < nums.Length; i++)\n{\n    cur = Math.____(nums[i], cur + nums[i]);\n    best = cur > best ? cur : best;\n}",
+  "question": {
+   "en": "Fill the Math method that decides whether to extend or restart the run."
+  },
+  "answer": "Max",
+  "accept": [
+   "Max"
+  ],
+  "explanation": {
+   "en": "Math.Max keeps the larger of starting fresh at nums[i] or extending the current run; the best run here is 4, -1, 2, 1 = 6."
+  }
+ },
+ {
+  "id": 398,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "// smallest value, starting above any possible input\nint min = int.____;\nforeach (int x in nums)\n    if (x < min) min = x;",
+  "question": {
+   "en": "Fill the int constant used as the starting sentinel."
+  },
+  "answer": "MaxValue",
+  "accept": [
+   "MaxValue"
+  ],
+  "explanation": {
+   "en": "int.MaxValue (2147483647) is larger than every int input, so the first comparison always replaces it."
+  }
+ },
+ {
+  "id": 399,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "// nums holds 0..n with exactly one number missing\nint n = nums.Length;\nint missing = n * (n + 1) / 2 - nums.____();",
+  "question": {
+   "en": "Fill the LINQ method that adds up the array."
+  },
+  "answer": "Sum",
+  "accept": [
+   "Sum"
+  ],
+  "explanation": {
+   "en": "The numbers 0..n add up to n(n + 1) / 2; subtracting the actual Sum leaves the missing one."
+  }
+ },
+ {
+  "id": 400,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "// squares of 1..5\nvar squares = Enumerable.____(1, 5).Select(i => i * i);",
+  "question": {
+   "en": "Fill the Enumerable method that yields 1, 2, 3, 4, 5."
+  },
+  "answer": "Range",
+  "accept": [
+   "Range"
+  ],
+  "explanation": {
+   "en": "Enumerable.Range(start, count) produces count consecutive ints beginning at start, so (1, 5) is 1 through 5."
+  }
+ },
+ {
+  "id": 401,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "// run-length encode: \"aaabcc\" -> \"a3b1c2\"\nvar sb = new StringBuilder();\nfor (int i = 0; i < s.Length; )\n{\n    int j = i;\n    while (j < s.Length && s[j] == s[i]) j++;\n    sb.____($\"{s[i]}{j - i}\");\n    i = j;\n}",
+  "question": {
+   "en": "Fill the StringBuilder method that adds each run to the output."
+  },
+  "answer": "Append",
+  "accept": [
+   "Append"
+  ],
+  "explanation": {
+   "en": "Append adds text to the builder without creating a new string each time, which matters in a loop. AppendLine would add a newline after every run."
+  }
+ },
+ {
+  "id": 402,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "// reverse an array in place with two pointers\nfor (int i = 0, j = a.Length - 1; i < j; i++, j--)\n    (a[i], a[j]) = (a[j], a[____]);",
+  "question": {
+   "en": "Fill the index that completes the tuple swap."
+  },
+  "answer": "i",
+  "accept": [
+   "i"
+  ],
+  "explanation": {
+   "en": "The right-hand tuple is evaluated first, so (a[i], a[j]) = (a[j], a[i]) swaps without a temporary variable."
+  }
+ },
+ {
+  "id": 403,
+  "category": "csharp",
+  "difficulty": "hard",
+  "codeSnippet": "// split an array into halves without allocating\nSpan<int> span = data;\nint mid = span.Length / 2;\nSpan<int> left = span[..mid];\nSpan<int> right = span.____(mid);",
+  "question": {
+   "en": "Fill the Span method that views the second half without copying."
+  },
+  "answer": "Slice",
+  "accept": [
+   "Slice"
+  ],
+  "explanation": {
+   "en": "Slice(start) returns a Span over the same memory from start to the end, like span[mid..]; no elements are copied."
+  }
+ },
+ {
+  "id": 404,
+  "category": "csharp",
+  "difficulty": "hard",
+  "codeSnippet": "// endless Fibonacci generator; the caller decides when to stop\nstatic ____<long> Fibs()\n{\n    long a = 0, b = 1;\n    while (true)\n    {\n        yield return a;\n        (a, b) = (b, a + b);\n    }\n}",
+  "question": {
+   "en": "Fill the return type that lets this method use yield return."
+  },
+  "answer": "IEnumerable",
+  "accept": [
+   "IEnumerable"
+  ],
+  "explanation": {
+   "en": "An iterator method must return IEnumerable<T> (or IEnumerator<T>); returning IEnumerable<long> lets callers use LINQ such as Take(10) on the lazy sequence."
+  }
+ },
+ {
+  "id": 405,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "// greatest common divisor (Euclid)\nstatic int Gcd(int a, int b) => b == 0 ? a : Gcd(b, a ____ b);",
+  "question": {
+   "en": "Fill the operator in Euclid's step."
+  },
+  "answer": "%",
+  "accept": [
+   "%"
+  ],
+  "explanation": {
+   "en": "gcd(a, b) = gcd(b, a % b); the remainder shrinks every call until it reaches 0, leaving the gcd in a."
+  }
+ },
+ {
+  "id": 406,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "// 3Sum: each zero-sum triplet reported once\nArray.Sort(nums);\nfor (int i = 0; i < nums.Length - 2; i++)\n{\n    if (i > 0 && nums[i] == nums[i - 1]) ____;\n    int lo = i + 1, hi = nums.Length - 1;\n    while (lo < hi)\n    {\n        int sum = nums[i] + nums[lo] + nums[hi];\n        if (sum < 0) lo++;\n        else if (sum > 0) hi--;\n        else\n        {\n            found.Add($\"{nums[i]},{nums[lo]},{nums[hi]}\");\n            lo++; hi--;\n            while (lo < hi && nums[lo] == nums[lo - 1]) lo++;\n        }\n    }\n}",
+  "question": {
+   "en": "Fill the keyword that skips a repeated anchor value."
+  },
+  "answer": "continue",
+  "accept": [
+   "continue"
+  ],
+  "explanation": {
+   "en": "After sorting, equal anchors produce the same triplets; continue jumps to the next i. break would stop the whole search early."
+  }
+ }
+]

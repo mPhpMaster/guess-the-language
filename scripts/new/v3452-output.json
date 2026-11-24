@@ -1,0 +1,667 @@
+[
+    {
+        "id": 303,
+        "category": "csharp",
+        "difficulty": "easy",
+        "codeSnippet": "string s = \"hello world\";\nint i = s.IndexOf('o');\nConsole.WriteLine(s.Substring(i, 4));",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "o w",
+            "lo w",
+            "o wor",
+            "o wo"
+        ],
+        "answer": "o wo",
+        "explanation": {
+            "en": "IndexOf('o') finds the first o at index 4. Substring(4, 4) takes four characters from there: \"o wo\"."
+        }
+    },
+    {
+        "id": 304,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "string csv = \"a,,b,\";\nvar all = csv.Split(',');\nvar some = csv.Split(',', StringSplitOptions.RemoveEmptyEntries);\nConsole.WriteLine($\"{all.Length} {some.Length}\");",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "3 2",
+            "4 2",
+            "4 3",
+            "2 2"
+        ],
+        "answer": "4 2",
+        "explanation": {
+            "en": "Split keeps empty entries by default: \"a\", \"\", \"b\", \"\" is 4 parts. RemoveEmptyEntries drops the two empty ones, leaving 2."
+        }
+    },
+    {
+        "id": 305,
+        "category": "csharp",
+        "difficulty": "easy",
+        "codeSnippet": "string s = \"Hello\";\nbool a = s.StartsWith(\"he\");\nbool b = s.StartsWith(\"he\", StringComparison.OrdinalIgnoreCase);\nConsole.WriteLine($\"{a} {b} {s.Contains(\"ll\")}\");",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "True True True",
+            "False False True",
+            "False True True",
+            "True False True"
+        ],
+        "answer": "False True True",
+        "explanation": {
+            "en": "StartsWith(string) is case-sensitive, so \"he\" does not match \"He\". OrdinalIgnoreCase ignores case, and Contains finds \"ll\"."
+        }
+    },
+    {
+        "id": 306,
+        "category": "csharp",
+        "difficulty": "hard",
+        "codeSnippet": "using System.Globalization;\nvar inv = CultureInfo.InvariantCulture;\nConsole.WriteLine(string.Format(inv, \"[{0,5}][{1:P0}]\", \"ab\", 0.256));",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "[ab   ][26%]",
+            "[   ab][25.6%]",
+            "[ab   ][26 %]",
+            "[   ab][26 %]"
+        ],
+        "answer": "[   ab][26 %]",
+        "explanation": {
+            "en": "{0,5} right-aligns in 5 characters. P0 multiplies by 100 and rounds to 26; the invariant culture puts a space before the % sign."
+        }
+    },
+    {
+        "id": 307,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "Console.WriteLine($\"{Math.Round(2.5)} {Math.Round(-1.5)} {Math.Round(2.5, MidpointRounding.AwayFromZero)}\");",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "3 -2 3",
+            "3 -1 3",
+            "2 -2 3",
+            "2 -1 2"
+        ],
+        "answer": "2 -2 3",
+        "explanation": {
+            "en": "Math.Round defaults to banker's rounding (to even): 2.5 becomes 2 and -1.5 becomes -2. AwayFromZero rounds 2.5 up to 3."
+        }
+    },
+    {
+        "id": 308,
+        "category": "csharp",
+        "difficulty": "easy",
+        "codeSnippet": "bool d = 0.1 + 0.2 == 0.3;\nbool m = 0.1m + 0.2m == 0.3m;\nConsole.WriteLine($\"{d} {m}\");",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "True True",
+            "False False",
+            "True False",
+            "False True"
+        ],
+        "answer": "False True",
+        "explanation": {
+            "en": "0.1 and 0.2 have no exact binary double form, so their sum is 0.30000000000000004. decimal stores base-10 digits exactly, so it is equal."
+        }
+    },
+    {
+        "id": 309,
+        "category": "csharp",
+        "difficulty": "easy",
+        "codeSnippet": "string s = \"aB1c23D\";\nint digits = s.Count(char.IsDigit);\nint upper = s.Count(char.IsUpper);\nConsole.WriteLine($\"{digits} {upper}\");",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "2 3",
+            "3 2",
+            "3 3",
+            "4 2"
+        ],
+        "answer": "3 2",
+        "explanation": {
+            "en": "Count with char.IsDigit counts 1, 2 and 3. char.IsUpper counts B and D, so the result is 3 2."
+        }
+    },
+    {
+        "id": 310,
+        "category": "csharp",
+        "difficulty": "easy",
+        "codeSnippet": "bool ok = int.TryParse(\"12a\", out int n);\nConsole.WriteLine($\"{ok} {n}\");",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "False 0",
+            "True 12",
+            "False 12",
+            "False -1"
+        ],
+        "answer": "False 0",
+        "explanation": {
+            "en": "\"12a\" is not a valid integer, so TryParse returns false and sets the out parameter to 0 rather than a partial value."
+        }
+    },
+    {
+        "id": 311,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "int a = Convert.ToInt32(3.5);\nint b = Convert.ToInt32(4.5);\nint c = (int)3.9;\nConsole.WriteLine($\"{a} {b} {c}\");",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "4 5 4",
+            "3 4 3",
+            "4 4 3",
+            "4 5 3"
+        ],
+        "answer": "4 4 3",
+        "explanation": {
+            "en": "Convert.ToInt32 rounds to the nearest even number on a tie: 3.5 gives 4 and 4.5 gives 4. A cast just truncates, so (int)3.9 is 3."
+        }
+    },
+    {
+        "id": 312,
+        "category": "csharp",
+        "difficulty": "hard",
+        "codeSnippet": "Console.WriteLine($\"{1 << 4} {-16 >> 2} {1 << 33}\");",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "16 -4 2",
+            "16 -4 0",
+            "16 4 2",
+            "8 -4 0"
+        ],
+        "answer": "16 -4 2",
+        "explanation": {
+            "en": "1 << 4 is 16 and >> on a negative int is arithmetic, giving -4. For an int, only the low 5 bits of the shift count are used, so 1 << 33 is 1 << 1."
+        }
+    },
+    {
+        "id": 313,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "byte b = 255;\nb++;\nConsole.Write(b);\ntry { checked { byte c = 255; c++; } }\ncatch (OverflowException) { Console.Write(\" X\"); }",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "256 X",
+            "0",
+            "0 X",
+            "255 X"
+        ],
+        "answer": "0 X",
+        "explanation": {
+            "en": "Unchecked byte arithmetic wraps 255 around to 0. Inside a checked block the same increment throws OverflowException, so X is printed."
+        }
+    },
+    {
+        "id": 314,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "int i = 5;\nint a = i++ + ++i;\nConsole.WriteLine($\"{a} {i}\");",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "11 7",
+            "12 7",
+            "12 6",
+            "10 7"
+        ],
+        "answer": "12 7",
+        "explanation": {
+            "en": "i++ yields 5 and makes i 6; ++i then makes i 7 and yields 7. So a is 5 + 7 = 12 and i ends at 7."
+        }
+    },
+    {
+        "id": 315,
+        "category": "csharp",
+        "difficulty": "hard",
+        "codeSnippet": "int c = 0;\nbool F() { c++; return true; }\nbool r = false && F() || F() & F();\nConsole.WriteLine($\"{r} {c}\");",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "True 2",
+            "True 1",
+            "False 0",
+            "True 3"
+        ],
+        "answer": "True 2",
+        "explanation": {
+            "en": "& binds tighter than && and ||. false && F() skips F, then the right side F() & F() calls both, because & does not short-circuit."
+        }
+    },
+    {
+        "id": 316,
+        "category": "csharp",
+        "difficulty": "easy",
+        "codeSnippet": "int[] a = { 3, 1, 2 };\nArray.Sort(a);\nArray.Reverse(a, 0, 2);\nConsole.WriteLine(string.Join(\"\", a));",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "123",
+            "321",
+            "213",
+            "312"
+        ],
+        "answer": "213",
+        "explanation": {
+            "en": "Sort gives 1,2,3. Reverse(a, 0, 2) reverses only the first two elements, giving 2,1,3."
+        }
+    },
+    {
+        "id": 317,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "var d = new Dictionary<string, int> { [\"b\"] = 1, [\"a\"] = 2 };\nd[\"c\"] = 3;\nd[\"b\"] = 9;\nConsole.WriteLine(string.Join(\",\", d.Select(kv => kv.Key + kv.Value)));",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "a2,b9,c3",
+            "b9,a2,c3",
+            "b1,a2,c3",
+            "c3,b9,a2"
+        ],
+        "answer": "b9,a2,c3",
+        "explanation": {
+            "en": "With no removals, a Dictionary enumerates in insertion order. Assigning d[\"b\"] again updates the value in place without moving the key."
+        }
+    },
+    {
+        "id": 318,
+        "category": "csharp",
+        "difficulty": "easy",
+        "codeSnippet": "var set = new HashSet<int>();\nConsole.WriteLine($\"{set.Add(1)} {set.Add(1)} {set.Add(2)} {set.Count}\");",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "True False True 2",
+            "True True True 3",
+            "True False True 3",
+            "False False True 2"
+        ],
+        "answer": "True False True 2",
+        "explanation": {
+            "en": "HashSet.Add returns false when the item is already present instead of throwing. Only 1 and 2 are stored, so Count is 2."
+        }
+    },
+    {
+        "id": 319,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "var st = new Stack<int>(new[] { 1, 2, 3 });\nvar q = new Queue<int>(new[] { 1, 2, 3 });\nConsole.WriteLine($\"{st.Pop()}{st.Peek()} {q.Dequeue()}{q.Peek()}\");",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "12 12",
+            "32 32",
+            "21 12",
+            "32 12"
+        ],
+        "answer": "32 12",
+        "explanation": {
+            "en": "A stack built from 1,2,3 has 3 on top: Pop returns 3, then Peek sees 2. A queue is FIFO: Dequeue returns 1, then Peek sees 2."
+        }
+    },
+    {
+        "id": 320,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "var names = new[] { \"bob\", \"al\", \"cy\", \"dave\" };\nvar sorted = names.OrderBy(n => n.Length).ThenByDescending(n => n);\nConsole.WriteLine(string.Join(\",\", sorted));",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "al,cy,bob,dave",
+            "cy,al,bob,dave",
+            "dave,bob,cy,al",
+            "al,bob,cy,dave"
+        ],
+        "answer": "cy,al,bob,dave",
+        "explanation": {
+            "en": "OrderBy sorts by length first. ThenByDescending only breaks ties, so the two-letter names come out as cy before al."
+        }
+    },
+    {
+        "id": 321,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "var e = new int[0];\nConsole.WriteLine($\"{e.Any()} {e.All(x => x > 100)} {e.Sum()}\");",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "False True 0",
+            "False False 0",
+            "True True 0",
+            "False False null"
+        ],
+        "answer": "False True 0",
+        "explanation": {
+            "en": "Any on an empty sequence is false, All is vacuously true because no element fails, and Sum of no ints is 0."
+        }
+    },
+    {
+        "id": 322,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "var words = new[] { \"cat\", \"ant\", \"cow\", \"bee\", \"ape\" };\nvar groups = words.GroupBy(w => w[0]).Select(g => $\"{g.Key}{g.Count()}\");\nConsole.WriteLine(string.Join(\" \", groups));",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "a2 b1 c2",
+            "c2 a2 b1",
+            "c1 a1 c1 b1 a1",
+            "a2 c2 b1"
+        ],
+        "answer": "c2 a2 b1",
+        "explanation": {
+            "en": "GroupBy yields groups in the order their keys first appear: c, then a, then b. Each group holds every word with that first letter."
+        }
+    },
+    {
+        "id": 323,
+        "category": "csharp",
+        "difficulty": "easy",
+        "codeSnippet": "var parts = new[] { \"ab\", \"cd\" };\nConsole.WriteLine(string.Concat(parts.SelectMany(s => s.Reverse())));",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "abcd",
+            "dcba",
+            "cdab",
+            "badc"
+        ],
+        "answer": "badc",
+        "explanation": {
+            "en": "SelectMany reverses each string and flattens the characters: b,a then d,c. string.Concat joins them into one string."
+        }
+    },
+    {
+        "id": 324,
+        "category": "csharp",
+        "difficulty": "hard",
+        "codeSnippet": "int calls = 0;\nint Fib(int n) { calls++; return n < 2 ? n : Fib(n - 1) + Fib(n - 2); }\nConsole.WriteLine($\"{Fib(5)} {calls}\");",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "5 15",
+            "5 9",
+            "8 15",
+            "5 8"
+        ],
+        "answer": "5 15",
+        "explanation": {
+            "en": "Fib(5) is 5. The naive recursion recomputes subproblems, making 15 calls in total, counting the first one."
+        }
+    },
+    {
+        "id": 325,
+        "category": "csharp",
+        "difficulty": "easy",
+        "codeSnippet": "new C(); new C();\nvar c = new C();\nConsole.WriteLine($\"{C.S} {c.I}\");\n\nclass C {\n    public static int S;\n    public int I;\n    public C() { S++; I++; }\n}",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "3 3",
+            "1 1",
+            "3 1",
+            "1 3"
+        ],
+        "answer": "3 1",
+        "explanation": {
+            "en": "S is static, shared by every instance, so three constructions make it 3. I is a separate field per object, so the last one has I = 1."
+        }
+    },
+    {
+        "id": 326,
+        "category": "csharp",
+        "difficulty": "hard",
+        "codeSnippet": "new B();\n\nclass A {\n    public A() => Show();\n    public virtual void Show() => Console.Write(\"A\");\n}\nclass B : A {\n    int n = 5;\n    public override void Show() => Console.Write($\"B{n}\");\n}",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "A",
+            "B0",
+            "AB5",
+            "B5"
+        ],
+        "answer": "B5",
+        "explanation": {
+            "en": "Field initializers run before the base constructor in C#. So n is already 5 when A's constructor makes the virtual call that dispatches to B."
+        }
+    },
+    {
+        "id": 327,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "IGreet a = new G(), b = new H();\nConsole.WriteLine(a.Hi() + b.Hi());\n\ninterface IGreet { string Hi() => \"I\"; }\nclass G : IGreet { }\nclass H : IGreet { public string Hi() => \"H\"; }",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "II",
+            "IH",
+            "HH",
+            "HI"
+        ],
+        "answer": "IH",
+        "explanation": {
+            "en": "G does not implement Hi, so the interface default runs and gives I. H supplies its own Hi, which is what the interface call uses."
+        }
+    },
+    {
+        "id": 328,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "string K<T>(T x) => typeof(T).Name;\nobject o = 1;\nConsole.WriteLine($\"{K(1)} {K(o)} {K(1L)}\");",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "Int32 Int32 Int64",
+            "Int32 Object Int32",
+            "Int32 Object Int64",
+            "Object Object Int64"
+        ],
+        "answer": "Int32 Object Int64",
+        "explanation": {
+            "en": "Generic type inference uses the static type of the argument. o is declared object, so T is Object even though it holds an int."
+        }
+    },
+    {
+        "id": 329,
+        "category": "csharp",
+        "difficulty": "hard",
+        "codeSnippet": "string a = \"abc\";\nstring b = \"ab\" + \"c\";\nstring c = string.Concat(\"ab\", \"c\".ToString());\nConsole.WriteLine($\"{ReferenceEquals(a, b)} {ReferenceEquals(a, c)} {ReferenceEquals(a, string.Intern(c))}\");",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "True False True",
+            "False False True",
+            "True True True",
+            "True False False"
+        ],
+        "answer": "True False True",
+        "explanation": {
+            "en": "\"ab\" + \"c\" is folded at compile time into the interned literal. Concat at run time builds a new string; Intern returns the pooled one."
+        }
+    },
+    {
+        "id": 330,
+        "category": "csharp",
+        "difficulty": "hard",
+        "codeSnippet": "var a = new S();\nS b = default;\nvar arr = new S[1];\nConsole.WriteLine($\"{a.X} {b.X} {arr[0].X}\");\n\nstruct S {\n    public int X = 5;\n    public S() { }\n}",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "5 5 5",
+            "0 0 0",
+            "5 5 0",
+            "5 0 0"
+        ],
+        "answer": "5 0 0",
+        "explanation": {
+            "en": "new S() calls the parameterless constructor that runs the initializer. default and array elements are zeroed memory and skip it."
+        }
+    },
+    {
+        "id": 331,
+        "category": "csharp",
+        "difficulty": "easy",
+        "codeSnippet": "Console.WriteLine($\"{Color.Blue} {(int)Color.Blue} {(Color)1}\");\n\nenum Color { Red, Green = 5, Blue }",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "Blue 2 Green",
+            "Blue 6 1",
+            "2 6 Green",
+            "Blue 6 Red"
+        ],
+        "answer": "Blue 6 1",
+        "explanation": {
+            "en": "Members count up from the last explicit value, so Blue is 6. Casting 1 to Color gives a value with no member, and ToString prints 1."
+        }
+    },
+    {
+        "id": 332,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "var p = Perm.Read | Perm.Write;\nConsole.WriteLine($\"{p} {(int)p} {p.HasFlag(Perm.Exec)}\");\n\n[Flags] enum Perm { None = 0, Read = 1, Write = 2, Exec = 4 }",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "Read, Write 3 False",
+            "Read|Write 3 False",
+            "Write, Read 3 False",
+            "Read, Write 3 True"
+        ],
+        "answer": "Read, Write 3 False",
+        "explanation": {
+            "en": "With [Flags], ToString lists the set flags separated by a comma and space. Read | Write is 3, and the Exec bit is not set."
+        }
+    },
+    {
+        "id": 333,
+        "category": "csharp",
+        "difficulty": "hard",
+        "codeSnippet": "var a = (X: 1, Y: 2);\nvar b = (Y: 2, X: 1);\nConsole.WriteLine($\"{a == b} {a == (1, 2)} {b.X}\");",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "True True 1",
+            "False True 1",
+            "True True 2",
+            "False False 2"
+        ],
+        "answer": "False True 1",
+        "explanation": {
+            "en": "Tuple == compares elements by position and ignores names. a is (1, 2) and b is (2, 1), so they differ; b.X is its second element, 1."
+        }
+    },
+    {
+        "id": 334,
+        "category": "csharp",
+        "difficulty": "easy",
+        "codeSnippet": "object o = \"hello\";\nif (o is string { Length: > 3 } s)\n    Console.WriteLine(s[..3]);\nelse\n    Console.WriteLine(\"no\");",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "hello",
+            "no",
+            "hel",
+            "ell"
+        ],
+        "answer": "hel",
+        "explanation": {
+            "en": "The property pattern checks that o is a string with Length > 3 and binds it to s. s[..3] takes the first three characters."
+        }
+    },
+    {
+        "id": 335,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "int calls = 0;\nvar q = Enumerable.Range(1, 10)\n    .Where(x => { calls++; return x % 3 == 0; })\n    .Take(2).ToList();\nConsole.WriteLine($\"{string.Join(\",\", q)} {calls}\");",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "3,6 10",
+            "3,6 6",
+            "3,6,9 10",
+            "3,6 2"
+        ],
+        "answer": "3,6 6",
+        "explanation": {
+            "en": "LINQ is lazy and Take stops pulling once it has two items. Where runs its predicate only for 1 to 6, so it is called 6 times."
+        }
+    },
+    {
+        "id": 336,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "try { throw new Exception(\"b\"); }\ncatch (Exception e) when (e.Message == \"a\") { Console.Write(\"A\"); }\ncatch (Exception e) when (e.Message.Length == 1) { Console.Write(\"L\"); }\ncatch { Console.Write(\"X\"); }",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "A",
+            "LX",
+            "X",
+            "L"
+        ],
+        "answer": "L",
+        "explanation": {
+            "en": "Exception filters are tested in order. The message is not \"a\", so the first catch is skipped; its length is 1, so the second runs."
+        }
+    },
+    {
+        "id": 337,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "using var a = new Res(\"1\");\nusing var b = new Res(\"2\");\nConsole.Write(\"0\");\n\nclass Res(string n) : IDisposable {\n    public void Dispose() => Console.Write(n);\n}",
+        "question": {
+            "en": "What is the output?"
+        },
+        "options": [
+            "012",
+            "021",
+            "0",
+            "120"
+        ],
+        "answer": "021",
+        "explanation": {
+            "en": "using declarations dispose at the end of the scope in reverse order of declaration, so b (2) is disposed before a (1)."
+        }
+    }
+]

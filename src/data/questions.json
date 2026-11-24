@@ -5776,5 +5776,545 @@
     "explanation": {
       "en": "`where T : INumber<T>` and `T.Zero` use C# 11 generic math (static abstract interface members from System.Numerics); `Sum<double>([1.5, 2.5])` passes a collection expression."
     }
+  },
+  {
+    "id": 652,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "var builder = WebApplication.CreateBuilder(args);\nvar app = builder.Build();\n\napp.MapGet(\"/hello/{name}\", (string name) => $\"Hello, {name}!\");\napp.MapPost(\"/notes\", (Note note) => Results.Created($\"/notes/{note.Id}\", note));\n\napp.Run();",
+    "explanation": {
+      "en": "`WebApplication.CreateBuilder` plus `app.MapGet`/`app.MapPost` with lambda handlers is the ASP.NET Core minimal API hosting model in C#; the `(string name) => $\"...\"` lambda binds the `{name}` route value."
+    }
+  },
+  {
+    "id": 653,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "builder.Services.AddScoped<IOrderRepository, SqlOrderRepository>();\nbuilder.Services.AddSingleton<IClock, SystemClock>();\nbuilder.Services.AddTransient<IEmailSender, SmtpEmailSender>();\nvar app = builder.Build();",
+    "explanation": {
+      "en": "`builder.Services.AddScoped`/`AddSingleton`/`AddTransient<TService, TImpl>()` registers services with ASP.NET Core's built-in dependency injection container in C#, one lifetime per call."
+    }
+  },
+  {
+    "id": 654,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "public class InvoiceService\n{\n    private readonly ILogger<InvoiceService> _logger;\n\n    public InvoiceService(ILogger<InvoiceService> logger) => _logger = logger;\n\n    public void Issue(int id) => _logger.LogInformation(\"Issued invoice {InvoiceId}\", id);\n}",
+    "explanation": {
+      "en": "A constructor-injected `ILogger<InvoiceService>` with a structured `LogInformation(\"... {InvoiceId}\", id)` template is .NET Core's Microsoft.Extensions.Logging in C#; the `=>` expression-bodied constructor is C#-only."
+    }
+  },
+  {
+    "id": 655,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "app.Use(async (ctx, next) =>\n{\n    ctx.Response.Headers[\"X-Request-Id\"] = Guid.NewGuid().ToString();\n    await next(ctx);\n    app.Logger.LogInformation(\"{Path} -> {Status}\", ctx.Request.Path, ctx.Response.StatusCode);\n});",
+    "explanation": {
+      "en": "`app.Use(async (ctx, next) => { ... await next(ctx); })` is inline ASP.NET Core middleware in C#: code before `next` runs on the way in, code after it on the way out."
+    }
+  },
+  {
+    "id": 656,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "builder.Services.Configure<SmtpOptions>(builder.Configuration.GetSection(\"Smtp\"));\n\npublic class Mailer(IOptions<SmtpOptions> options)\n{\n    private readonly SmtpOptions _smtp = options.Value;\n    public string Server => $\"{_smtp.Host}:{_smtp.Port}\";\n}",
+    "explanation": {
+      "en": "`builder.Services.Configure<SmtpOptions>(builder.Configuration.GetSection(\"Smtp\"))` plus an injected `IOptions<SmtpOptions>` read through `.Value` is the .NET Core options pattern in C#."
+    }
+  },
+  {
+    "id": 657,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "var limits = builder.Configuration.GetSection(\"Upload\").Get<UploadLimits>()\n             ?? new UploadLimits();\nint maxMb = builder.Configuration.GetValue<int>(\"Upload:MaxMegabytes\", 10);\nstring? db = builder.Configuration.GetConnectionString(\"Default\");",
+    "explanation": {
+      "en": "`Configuration.GetSection(...).Get<T>()`, `GetValue<int>(\"Upload:MaxMegabytes\", 10)` with the colon section path, and `GetConnectionString` bind appsettings.json values in .NET Core configuration, written in C#."
+    }
+  },
+  {
+    "id": 658,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "public class ShopContext(DbContextOptions<ShopContext> options) : DbContext(options)\n{\n    public DbSet<Product> Products => Set<Product>();\n\n    protected override void OnModelCreating(ModelBuilder modelBuilder) =>\n        modelBuilder.Entity<Product>().HasIndex(p => p.Sku).IsUnique();\n}",
+    "explanation": {
+      "en": "A `DbContext` subclass exposing `DbSet<Product>` and overriding `OnModelCreating(ModelBuilder)` with the fluent `HasIndex(...).IsUnique()` API is Entity Framework Core in C#."
+    }
+  },
+  {
+    "id": 659,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "public class CleanupWorker(ISessionStore store) : BackgroundService\n{\n    protected override async Task ExecuteAsync(CancellationToken stoppingToken)\n    {\n        using var timer = new PeriodicTimer(TimeSpan.FromMinutes(5));\n        while (await timer.WaitForNextTickAsync(stoppingToken)) await store.PurgeExpiredAsync();\n    }\n}",
+    "explanation": {
+      "en": "Subclassing `BackgroundService` and overriding `ExecuteAsync(CancellationToken stoppingToken)` is how .NET Core writes a long-running hosted service (IHostedService) in C#; `PeriodicTimer.WaitForNextTickAsync` paces the loop."
+    }
+  },
+  {
+    "id": 660,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "app.MapGet(\"/todos/{id:int}\", Results<Ok<Todo>, NotFound> (int id, ITodoStore store) =>\n    store.Find(id) is { } todo ? TypedResults.Ok(todo) : TypedResults.NotFound());\n\napp.MapDelete(\"/todos/{id:int}\", (int id) => Results.NoContent());",
+    "explanation": {
+      "en": "A lambda with an explicit `Results<Ok<Todo>, NotFound>` return type built from `TypedResults.Ok`/`TypedResults.NotFound`, next to `Results.NoContent()`, is ASP.NET Core minimal API typed results in C#."
+    }
+  },
+  {
+    "id": 661,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "[ApiController, Route(\"api/orders\")]\npublic class OrdersController(IOrderService orders) : ControllerBase\n{\n    [HttpPost]\n    public async Task<ActionResult<OrderDto>> Create(CreateOrder cmd) =>\n        CreatedAtAction(nameof(Create), await orders.CreateAsync(cmd));\n}",
+    "explanation": {
+      "en": "An `[ApiController]` class deriving from `ControllerBase` whose action returns `Task<ActionResult<OrderDto>>` via `CreatedAtAction(nameof(Create), ...)` is an ASP.NET Core Web API controller in C#."
+    }
+  },
+  {
+    "id": 662,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "builder.Services.AddHttpClient(\"github\", c =>\n{\n    c.BaseAddress = new Uri(\"https://api.github.com/\");\n    c.DefaultRequestHeaders.UserAgent.ParseAdd(\"shop-api\");\n});\nvar app = builder.Build();\napp.MapGet(\"/repos\", (IHttpClientFactory factory) =>\n    factory.CreateClient(\"github\").GetStringAsync(\"orgs/dotnet/repos\"));",
+    "explanation": {
+      "en": "`builder.Services.AddHttpClient(\"github\", ...)` registers a named client and `IHttpClientFactory.CreateClient(\"github\")` hands out pooled `HttpClient` instances: the .NET Core HTTP client factory, in C#."
+    }
+  },
+  {
+    "id": 663,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "builder.Services.AddAuthentication().AddJwtBearer();\nbuilder.Services.AddAuthorization();\nvar app = builder.Build();\n\napp.UseAuthentication();\napp.UseAuthorization();\napp.MapGet(\"/me\", (ClaimsPrincipal user) => user.Identity?.Name).RequireAuthorization();",
+    "explanation": {
+      "en": "`AddAuthentication().AddJwtBearer()`, the `app.UseAuthentication()`/`app.UseAuthorization()` middleware pair and `.RequireAuthorization()` on an endpoint are ASP.NET Core authentication and authorization in C#."
+    }
+  },
+  {
+    "id": 664,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "var builder = Host.CreateApplicationBuilder(args);\nbuilder.Services.AddHostedService<QueueWorker>();\nbuilder.Logging.AddConsole();\n\nusing IHost host = builder.Build();\nawait host.RunAsync();",
+    "explanation": {
+      "en": "`Host.CreateApplicationBuilder(args)` is the .NET Core Generic Host for console and worker apps in C#; `AddHostedService<T>()` and `using IHost host = ...` then `await host.RunAsync()` start it without a web server."
+    }
+  },
+  {
+    "id": 665,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "app.MapPost(\"/products\", (Product p) => TypedResults.Created($\"/products/{p.Id}\", p))\n   .AddEndpointFilter(async (ctx, next) =>\n   {\n       var p = ctx.GetArgument<Product>(0);\n       if (string.IsNullOrWhiteSpace(p.Name))\n           return Results.BadRequest(\"Name is required\");\n       return await next(ctx);\n   });",
+    "explanation": {
+      "en": "`.AddEndpointFilter(async (ctx, next) => ...)` with `ctx.GetArgument<Product>(0)` is an ASP.NET Core minimal API endpoint filter in C#: it can short-circuit with `Results.BadRequest` or call `next(ctx)`."
+    }
+  },
+  {
+    "id": 666,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "builder.Services.AddRateLimiter(o =>\n    o.AddFixedWindowLimiter(\"per-minute\", w => { w.PermitLimit = 60; w.Window = TimeSpan.FromMinutes(1); }));\nvar app = builder.Build();\napp.UseRateLimiter();\napp.MapGet(\"/search\", (string q) => q).RequireRateLimiting(\"per-minute\");",
+    "explanation": {
+      "en": "`builder.Services.AddRateLimiter` with `AddFixedWindowLimiter(\"per-minute\", ...)`, `app.UseRateLimiter()` and `.RequireRateLimiting(...)` is ASP.NET Core's built-in rate limiting middleware (.NET 7+) in C#."
+    }
+  },
+  {
+    "id": 667,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "Func<int, int, int> add = (a, b) => a + b;\nAction<string> log = msg => Console.WriteLine($\"[log] {msg}\");\nlog($\"2 + 3 = {add(2, 3)}\");",
+    "explanation": {
+      "en": "`Func<int, int, int>` and `Action<string>` are the built-in .NET delegate types, and `Console.WriteLine` with a `$\"...\"` interpolated string is classic C#."
+    }
+  },
+  {
+    "id": 668,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "var a = new Point { X = 1, Y = 2 };\nvar b = a;   // copies the whole struct\nb.X = 99;\nConsole.WriteLine($\"{a.X} {b.X}\");\n\nstruct Point { public int X, Y; }",
+    "explanation": {
+      "en": "`struct Point` is a C# value type: `var b = a` copies it, so changing `b.X` leaves `a.X` at 1. The object initializer `new Point { X = 1, Y = 2 }` and `Console.WriteLine` confirm C#."
+    }
+  },
+  {
+    "id": 669,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "var p = Perm.Read | Perm.Write;\nConsole.WriteLine(p.HasFlag(Perm.Write));\nConsole.WriteLine(p);\n\n[Flags]\nenum Perm { None = 0, Read = 1, Write = 2, Exec = 4 }",
+    "explanation": {
+      "en": "The `[Flags]` attribute on an enum plus `HasFlag` is .NET; printing the combined value shows \"Read, Write\" because the flags formatter names each set bit."
+    }
+  },
+  {
+    "id": 670,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "using static System.Math;\nusing static System.Console;\n\nWriteLine($\"Hypotenuse: {Sqrt(Pow(3, 2) + Pow(4, 2))}\");",
+    "explanation": {
+      "en": "`using static System.Math;` imports the static members of a class so `Sqrt` and `Pow` (and `WriteLine` from `System.Console`) can be called unqualified. Java spells this `import static`."
+    }
+  },
+  {
+    "id": 671,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "double ratio = 0.8734;\nint count = 42;\nConsole.WriteLine($\"Hit rate {ratio:P1}, id {count:D5}, hex {count:X}\");",
+    "explanation": {
+      "en": "Format specifiers after a colon inside `$\"{...}\"` (`P1` percent, `D5` zero-padded, `X` hex) are .NET composite formatting in a C# interpolated string."
+    }
+  },
+  {
+    "id": 672,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "int[] digits = { 4, 0, 7 };\nint number = digits.Aggregate(0, (acc, d) => acc * 10 + d);\nConsole.WriteLine(number);",
+    "explanation": {
+      "en": "`Aggregate` is LINQ's fold (other languages call it reduce); with a seed of 0 it builds 407. LINQ and `Console.WriteLine` make it C#."
+    }
+  },
+  {
+    "id": 673,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "object boxed = 42;\nConsole.WriteLine(boxed.GetType().Name);\nConsole.WriteLine(typeof(List<string>).IsGenericType);",
+    "explanation": {
+      "en": "`GetType()` on an instance and the `typeof(...)` operator on a type are C# reflection entry points; they print \"Int32\" and \"True\"."
+    }
+  },
+  {
+    "id": 674,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "string path = Path.Combine(AppContext.BaseDirectory, \"data\", \"users.txt\");\nstring[] lines = File.ReadAllLines(path);\nConsole.WriteLine($\"{lines.Length} users loaded\");",
+    "explanation": {
+      "en": "`Path.Combine`, `File.ReadAllLines` and `AppContext.BaseDirectory` are .NET base class library APIs from System.IO, called from C#."
+    }
+  },
+  {
+    "id": 675,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "var id = Guid.NewGuid();\nDateTime started = DateTime.UtcNow;\nTimeSpan uptime = DateTime.UtcNow - started;\nConsole.WriteLine($\"{id:N} up {uptime.TotalMilliseconds} ms\");",
+    "explanation": {
+      "en": "`Guid.NewGuid()`, `DateTime.UtcNow` and subtracting two DateTimes into a `TimeSpan` are .NET types used from C#; `{id:N}` formats the GUID without dashes."
+    }
+  },
+  {
+    "id": 676,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "using System.Diagnostics;\n\nvar sw = Stopwatch.StartNew();\nThread.Sleep(100);\nsw.Stop();\nConsole.WriteLine($\"Elapsed: {sw.ElapsedMilliseconds} ms\");",
+    "explanation": {
+      "en": "`System.Diagnostics.Stopwatch` with `StartNew()` and `ElapsedMilliseconds` is the standard .NET way to time code in C#."
+    }
+  },
+  {
+    "id": 677,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "using System.Text;\n\nvar sb = new StringBuilder();\nfor (int i = 1; i <= 3; i++) sb.Append(i).Append(',');\nsb.Length--;\nConsole.WriteLine(sb.ToString());",
+    "explanation": {
+      "en": "`using System.Text;` and `StringBuilder` with a writable `Length` property (here trimming the last comma with `sb.Length--`) are C#; Java would need `setLength`."
+    }
+  },
+  {
+    "id": 678,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);\nforeach (var w in \"The cat saw the CAT\".Split(' '))\n    if (!seen.Add(w)) Console.WriteLine($\"dup: {w}\");",
+    "explanation": {
+      "en": "`HashSet<string>` with `StringComparer.OrdinalIgnoreCase` is .NET; `Add` returns false for an existing item, so \"the\" and \"CAT\" are reported as duplicates."
+    }
+  },
+  {
+    "id": 679,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "var teams = new[] { new[] { \"Ada\", \"Bob\" }, new[] { \"Cy\" } };\nvar everyone = teams.SelectMany(t => t).OrderBy(n => n).ToList();\nConsole.WriteLine(string.Join(\" | \", everyone));",
+    "explanation": {
+      "en": "`SelectMany` flattens nested sequences in LINQ; implicitly typed arrays `new[] { ... }` and `string.Join` are C#."
+    }
+  },
+  {
+    "id": 680,
+    "correctLanguage": "C#",
+    "difficulty": "easy",
+    "codeSnippet": "string folder = @\"C:\\Users\\ada\\notes\";\nstring sql = @\"SELECT *\nFROM Users\nWHERE Name = \"\"Ada\"\"\";\nConsole.WriteLine(folder + Environment.NewLine + sql);",
+    "explanation": {
+      "en": "`@\"...\"` is a C# verbatim string: backslashes are literal, it may span lines, and a quote is written by doubling it (`\"\"Ada\"\"`)."
+    }
+  },
+  {
+    "id": 681,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "var btn = new Button();\nbtn.Clicked += (s, e) => Console.WriteLine(\"Clicked!\");\nbtn.Click();\n\nclass Button {\n    public event EventHandler? Clicked;\n    public void Click() => Clicked?.Invoke(this, EventArgs.Empty);\n}",
+    "explanation": {
+      "en": "The `event EventHandler?` field, subscribing with `+=` and raising with `?.Invoke(this, EventArgs.Empty)` is the standard C# event pattern."
+    }
+  },
+  {
+    "id": 682,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "static List<T> Fill<T>(int n) where T : new()\n{\n    var list = new List<T>();\n    for (int i = 0; i < n; i++) list.Add(new T());\n    return list;\n}\nConsole.WriteLine(Fill<object>(3).Count);",
+    "explanation": {
+      "en": "The `where T : new()` constraint lets generic code call `new T()`; C# reifies generics, which Java's type erasure does not allow."
+    }
+  },
+  {
+    "id": 683,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "PriceRule discount = p => p * 0.9m;\nConsole.WriteLine(discount(80m));\n\ndelegate decimal PriceRule(decimal price);",
+    "explanation": {
+      "en": "`delegate decimal PriceRule(decimal price);` declares a named delegate type, and the `m` suffix makes a `decimal` literal: both are C#-only."
+    }
+  },
+  {
+    "id": 684,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "Console.WriteLine(string.Join(\",\", new[] { 1, 2, 3, 4, 5 }.EveryOther()));\n\nstatic class SeqExtensions\n{\n    public static IEnumerable<T> EveryOther<T>(this IEnumerable<T> src)\n        => src.Where((x, i) => i % 2 == 0);\n}",
+    "explanation": {
+      "en": "A static method whose first parameter is `this IEnumerable<T>` is a C# extension method, so it can be called as if it were a member of the array."
+    }
+  },
+  {
+    "id": 685,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "var words = new List<string> { \"apple\", \"avocado\", \"banana\" };\nDictionary<char, int> byLetter = words\n    .GroupBy(w => w[0])\n    .ToDictionary(g => g.Key, g => g.Count());\nConsole.WriteLine(byLetter['a']);",
+    "explanation": {
+      "en": "LINQ `GroupBy` followed by `ToDictionary(g => g.Key, ...)` turns groups into a `Dictionary<char, int>`; PascalCase LINQ methods and the collection initializer are C#."
+    }
+  },
+  {
+    "id": 686,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "class Matrix {\n    private readonly double[,] _cells = new double[3, 3];\n    public double this[int row, int col] {\n        get => _cells[row, col];\n        set => _cells[row, col] = value;\n    }\n}",
+    "explanation": {
+      "en": "`public double this[int row, int col]` declares an indexer, and `double[,]` is a rectangular multidimensional array: both are C# features."
+    }
+  },
+  {
+    "id": 687,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "public readonly struct Money(decimal amount)\n{\n    public decimal Amount => amount;\n    public static Money operator +(Money a, Money b) => new(a.Amount + b.Amount);\n    public override string ToString() => $\"{Amount:C}\";\n}",
+    "explanation": {
+      "en": "`public static Money operator +(...)` overloads `+` on a `readonly struct` with a primary constructor; target-typed `new(...)` and `{Amount:C}` currency formatting are C#."
+    }
+  },
+  {
+    "id": 688,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "abstract class Animal\n{\n    public abstract string Sound();\n    public virtual string Describe() => $\"{GetType().Name} says {Sound()}\";\n}\n\nclass Dog : Animal { public override string Sound() => \"Woof\"; }",
+    "explanation": {
+      "en": "`abstract`, `virtual` and an explicit `override` keyword, inheritance written as `class Dog : Animal`, and `GetType().Name` mark this as C#."
+    }
+  },
+  {
+    "id": 689,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "#nullable enable\nstatic string Initial(string? name) =>\n    name is { Length: > 0 } ? name[..1] : \"?\";\n\nConsole.WriteLine(Initial(null));\nConsole.WriteLine(Initial(\"Grace\"));",
+    "explanation": {
+      "en": "`#nullable enable` turns on nullable reference types, so `string?` marks a parameter that may be null; `is { Length: > 0 }` is a property pattern and `name[..1]` a range."
+    }
+  },
+  {
+    "id": 690,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "object value = 3.5;\nswitch (value)\n{\n    case int i when i > 0: Console.WriteLine(\"positive int\"); break;\n    case double d: Console.WriteLine($\"double {d}\"); break;\n    case null: Console.WriteLine(\"nothing\"); break;\n}",
+    "explanation": {
+      "en": "A `switch` statement with type patterns (`case int i`), a `when` guard and `case null` is C# pattern matching."
+    }
+  },
+  {
+    "id": 691,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "static void Scale(ref int value, in int factor, out bool clamped)\n{\n    value *= factor;\n    clamped = value > 100;\n    if (clamped) value = 100;\n}",
+    "explanation": {
+      "en": "The parameter modifiers `ref` (read-write by reference), `in` (read-only by reference) and `out` (must be assigned) are C#-specific."
+    }
+  },
+  {
+    "id": 692,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "static async IAsyncEnumerable<int> Ticks(int n)\n{\n    for (int i = 1; i <= n; i++) { await Task.Delay(10); yield return i; }\n}\n\nawait foreach (var t in Ticks(3))\n    Console.WriteLine($\"tick {t}\");",
+    "explanation": {
+      "en": "An `async IAsyncEnumerable<int>` iterator that mixes `await` and `yield return`, consumed with `await foreach`, is a C# async stream."
+    }
+  },
+  {
+    "id": 693,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "var gate = new Lock();\nint counter = 0;\nParallel.For(0, 1000, _ => { lock (gate) counter++; });\nConsole.WriteLine(counter);",
+    "explanation": {
+      "en": "The `lock` statement (on the .NET 9 `System.Threading.Lock` type) and `Parallel.For` with a `_` discard are C#; Java uses `synchronized` instead."
+    }
+  },
+  {
+    "id": 694,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "var tasks = Enumerable.Range(1, 3).Select(async i =>\n{\n    await Task.Delay(i * 10);\n    return i * i;\n});\nint[] results = await Task.WhenAll(tasks);\nConsole.WriteLine(results.Sum());",
+    "explanation": {
+      "en": "`Task.WhenAll` awaits a batch of tasks and returns their results as an `int[]`; async lambdas inside LINQ `Select` and top-level `await` are C#."
+    }
+  },
+  {
+    "id": 695,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "{\n    using var scope = new Scope(\"import\");\n    Console.WriteLine(\"working...\");\n}\n\nsealed class Scope(string name) : IDisposable {\n    public void Dispose() => Console.WriteLine($\"{name} disposed\");\n}",
+    "explanation": {
+      "en": "A `using var` declaration calls `Dispose()` automatically when the enclosing block ends; implementing `IDisposable` is the .NET resource-cleanup contract."
+    }
+  },
+  {
+    "id": 696,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "dynamic bag = new System.Dynamic.ExpandoObject();\nbag.Name = \"Ada\";\nbag.Year = 1843;\nConsole.WriteLine($\"{bag.Name} ({bag.Year})\");",
+    "explanation": {
+      "en": "The `dynamic` type defers member binding to run time, and `ExpandoObject` lets you add properties on the fly: C# with the .NET dynamic language runtime."
+    }
+  },
+  {
+    "id": 697,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "using System.Text.Json;\n\nvar user = new { Name = \"Ada\", Langs = new[] { \"C#\", \"F#\" } };\nvar opts = new JsonSerializerOptions { WriteIndented = true };\nConsole.WriteLine(JsonSerializer.Serialize(user, opts));",
+    "explanation": {
+      "en": "`System.Text.Json.JsonSerializer.Serialize` with `JsonSerializerOptions` is .NET's built-in JSON library; the anonymous type `new { Name = ... }` is C#."
+    }
+  },
+  {
+    "id": 698,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "using System.Text.RegularExpressions;\n\nvar m = Regex.Match(\"Order #4521 shipped\", @\"#(?<id>\\d+)\");\nif (m.Success) Console.WriteLine(m.Groups[\"id\"].Value);",
+    "explanation": {
+      "en": "`Regex.Match` from System.Text.RegularExpressions with a verbatim `@\"...\"` pattern and a named group read via `m.Groups[\"id\"]` is .NET regex in C#."
+    }
+  },
+  {
+    "id": 699,
+    "correctLanguage": "C#",
+    "difficulty": "medium",
+    "codeSnippet": "using Xunit;\n\npublic class CalculatorTests {\n    [Fact]\n    public void Add_ReturnsSum() => Assert.Equal(5, 2 + 3);\n    [Theory, InlineData(2, 4)]\n    public void Double_Works(int x, int expected) => Assert.Equal(expected, x * 2);\n}",
+    "explanation": {
+      "en": "xUnit.net tests: `[Fact]` marks a test, `[Theory]` with `[InlineData]` a parameterised one, and `Assert.Equal(expected, actual)` checks the result. Square-bracket attributes are C#."
+    }
+  },
+  {
+    "id": 700,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "public class Sensor {\n    public event Action<int> onReading;\n    private int last;\n    public void push(int value) {\n        last = value;\n        onReading?.Invoke(value);\n    }\n}",
+    "explanation": {
+      "en": "It looks like Java, but `public event Action<int>` declares a C# event backed by a delegate, and `onReading?.Invoke(value)` raises it only when someone has subscribed."
+    }
+  },
+  {
+    "id": 701,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "public static class TextExtensions\n{\n    extension(string s)\n    {\n        public int WordCount => s.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length;\n    }\n}",
+    "explanation": {
+      "en": "An `extension(string s) { ... }` block is C# 14's extension members syntax: it adds an extension property (`\"text\".WordCount`), which classic `this` extension methods could not."
+    }
+  },
+  {
+    "id": 702,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "public class User {\n    public string Name {\n        get;\n        set => field = value.Trim();\n    }\n}",
+    "explanation": {
+      "en": "The contextual keyword `field` (C# 14) refers to the compiler-generated backing field, so a property can keep an auto `get;` while adding logic to its setter."
+    }
+  },
+  {
+    "id": 703,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "string[] steps = { \"fetch\", \"parse\", \"validate\", \"store\" };\nstring last = steps[^1];\nstring[] inner = steps[1..^1];",
+    "explanation": {
+      "en": "`^1` is a C# index counted from the end (the last element) and `1..^1` a range that slices off the first and last items. Java would also write `String`, not `string`."
+    }
+  },
+  {
+    "id": 704,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "public interface Shape {\n    double area();\n    double scaled(double k) => area() * k * k;\n}\n\npublic class Square : Shape {\n    public double area() { return 4; }\n}",
+    "explanation": {
+      "en": "A Java-like interface, but the method body `=> area() * k * k` needs no `default` keyword: C# 8 default interface methods use an expression body, and `class Square : Shape` implements it."
+    }
+  },
+  {
+    "id": 705,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "public class Job {\n    public virtual void execute() { }\n}\n\npublic class NightlyJob : Job {\n    public sealed override void execute() { base.execute(); }\n}",
+    "explanation": {
+      "en": "Java-style naming, but `virtual`, `sealed override` (stop further overriding) and `base.execute()` are C#; Java would write `extends`, `@Override`, `final` and `super`."
+    }
+  },
+  {
+    "id": 706,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "static ref int Largest(int[] arr)\n{\n    ref int best = ref arr[0];\n    for (int i = 1; i < arr.Length; i++)\n        if (arr[i] > best) best = ref arr[i];\n    return ref best;\n}",
+    "explanation": {
+      "en": "`ref int` locals and `return ref` hand back a reference into the array, so a caller can assign through it (`Largest(xs) = 0`). Ref returns are a C# 7 feature."
+    }
+  },
+  {
+    "id": 707,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "int[] data = { 10, 20, 30 };\nunsafe\n{\n    fixed (int* p = data) *(p + 1) = 99;\n}\nConsole.WriteLine(data[1]);",
+    "explanation": {
+      "en": "Pointer code that looks like C, but `unsafe { }` and `fixed (int* p = data)` (pinning a managed array so the GC cannot move it) exist only in C#."
+    }
+  },
+  {
+    "id": 708,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "try {\n    SyncFolder(path);\n} catch (IOException e) when (e.HResult == unchecked((int)0x80070020)) {\n    RetryLater(path);\n}",
+    "explanation": {
+      "en": "Java-style try/catch, but the `when (...)` exception filter and `unchecked((int)0x80070020)` are C#: the catch only runs when the HResult matches (a sharing violation)."
+    }
+  },
+  {
+    "id": 709,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "var queue = new Queue<int>([1, 2, 3]);\nvar stack = new Stack<int>();\nwhile (queue.Count > 0)\n    stack.Push(queue.Dequeue());\nint top = stack.Peek();",
+    "explanation": {
+      "en": "Java has Queue and Stack too, but `Queue<int>` with a primitive type argument, the `[1, 2, 3]` collection expression, `Dequeue()` and the `Count` property are .NET/C#."
+    }
+  },
+  {
+    "id": 710,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "Span<int> squares = stackalloc int[5];\nfor (int i = 0; i < squares.Length; i++)\n    squares[i] = i * i;\nReadOnlySpan<int> tail = squares[2..];\nint first = tail[0];",
+    "explanation": {
+      "en": "`stackalloc` allocates the buffer on the stack and `Span<int>`/`ReadOnlySpan<int>` view it without copying; slicing with `[2..]` is a C# range."
+    }
+  },
+  {
+    "id": 711,
+    "correctLanguage": "C#",
+    "difficulty": "hard",
+    "codeSnippet": "var x = 1;\nvar y = 2;\n(x, y) = (y, x);\nvar pair = (x, y);\nint first = pair.Item1;",
+    "explanation": {
+      "en": "`(x, y) = (y, x)` swaps through a C# value tuple, and `pair.Item1` is the default name of a ValueTuple element; JavaScript would need `[x, y] = [y, x]`."
+    }
   }
 ]
