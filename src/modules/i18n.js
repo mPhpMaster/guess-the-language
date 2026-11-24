@@ -415,6 +415,7 @@ export const I18N = {
         pack_gameplay: 'Gameplay & AI',
         pack_engine: 'Engine & performance',
         pack_netcode: 'Netcode',
+        pack_dotnet: 'C# & .NET',
         // ---- mistake review ----
         reviewMistakes: 'Review mistakes',
         reviewNextIn: 'in {n}d',

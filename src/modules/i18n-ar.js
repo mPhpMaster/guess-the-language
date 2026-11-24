@@ -440,6 +440,7 @@ export const AR = {
     pack_gameplay: 'أسلوب اللعب والذكاء الاصطناعي',
     pack_engine: 'المحرّك والأداء',
     pack_netcode: 'شيفرة الشبكات (Netcode)',
+    pack_dotnet: 'C# و .NET',
     // ---- mistake review ----
     reviewMistakes: 'مراجعة الأخطاء',
     reviewNextIn: 'بعد {n} يوم',

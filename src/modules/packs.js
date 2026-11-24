@@ -15,7 +15,8 @@ const LANG_FAMILIES = {
     web: ['JavaScript', 'TypeScript', 'PHP'],
     systems: ['C', 'C++', 'Rust', 'Go'],
     jvm: ['Java', 'Kotlin', 'Swift', 'C#'],
-    scripting: ['Python', 'Ruby', 'Bash', 'SQL']
+    scripting: ['Python', 'Ruby', 'Bash', 'SQL'],
+    dotnet: ['C#']
 };
 
 const CATEGORY_PACKS = {
@@ -24,27 +25,31 @@ const CATEGORY_PACKS = {
         web: ['web'],
         crypto: ['crypto', 'auth'],
         defense: ['malware', 'defense', 'social'],
-        concepts: ['concepts', 'principles', 'network']
+        concepts: ['concepts', 'principles', 'network'],
+        dotnet: ['dotnet']
     },
     devops: {
         docker: ['docker', 'containers'],
         kubernetes: ['kubernetes', 'orchestration'],
         cicd: ['cicd', 'ci', 'deployment'],
         iac: ['iac', 'cloud'],
-        ops: ['observability', 'secrets', 'reliability']
+        ops: ['observability', 'secrets', 'reliability'],
+        dotnet: ['dotnet']
     },
     network: {
         fundamentals: ['osi', 'layers', 'tcp', 'transport', 'ip', 'addressing', 'ipv6', 'ports'],
         routing: ['routing', 'switching', 'devices'],
         services: ['dns', 'services', 'protocols'],
-        netsec: ['security', 'diagnostics', 'tools']
+        netsec: ['security', 'diagnostics', 'tools'],
+        dotnet: ['dotnet']
     },
     gamedev: {
         rendering: ['rendering', 'effects', 'animation', 'scene'],
         physics: ['physics', 'collision', 'math'],
         gameplay: ['gameplay', 'ai', 'pathfinding', 'logic', 'state', 'systems', 'input', 'ui', 'save'],
         engine: ['timing', 'optimization', 'architecture', 'assets', 'audio'],
-        netcode: ['netcode', 'networking']
+        netcode: ['netcode', 'networking'],
+        dotnet: ['dotnet']
     }
 };
 
@@ -60,7 +65,8 @@ export function packsFor(mode) {
             { id: 'bug', test: (q) => q.bank === 'bug' },
             { id: 'output', test: (q) => q.bank === 'output' },
             { id: 'python', test: (q) => q.category === 'python' },
-            { id: 'jsts', test: (q) => q.category === 'javascript' || q.category === 'typescript' }
+            { id: 'jsts', test: (q) => q.category === 'javascript' || q.category === 'typescript' },
+            { id: 'dotnet', test: (q) => q.category === 'csharp' || q.category === 'dotnet-core' }
         ];
     }
     const groups = CATEGORY_PACKS[mode];
