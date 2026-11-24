@@ -1,15 +1,16 @@
-# Guess the Language
+66 |66 |65 |68 |68 |933 |290 |287 |290 |327 |642 |# Guess the Language
 
 
 An interactive quiz game for **Windows** (Electron), the **web** (also an
 installable **PWA / mobile app**), and **Discord** (as an embedded Activity).
 From a single home page you pick one of twelve quiz modes and race the timer — with
 scoring, streaks, a correct/total counter, XP and levels, daily challenges, and a
-per-mode **live global leaderboard** (Supabase). **2,923 questions** across
+per-mode **live global leaderboard** (Supabase). **3,102 questions** across
 thirteen banks. The UI is in **English and Arabic** (full right-to-left layout);
 question content is English.
 
 ### Twelve game modes
+Every mode includes C# / .NET questions (v3.45.0).
 - **💻 Programming Languages** — a code snippet appears; guess the language.
   15-language pool (Python, JavaScript, TypeScript, C, C++, C#, Java, Kotlin,
   Swift, Rust, Go, Ruby, PHP, SQL, Bash); each question shows the correct answer
@@ -29,7 +30,7 @@ question content is English.
 - **🗄️ SQL & Databases** — queries, joins, NULLs, window functions, indexes and
   query plans, transactions and isolation, schema design, NoSQL.
 - **🔣 Regex** — classes, quantifiers, anchors, groups, lookarounds, flags,
-  greedy vs lazy, escaping (JavaScript flavour unless a question says otherwise).
+  greedy vs lazy, escaping (JavaScript flavour unless a question says otherwise — e.g. the .NET ones).
 - **🌿 Git** — branching, merging, rebasing, history, undo, remotes, internals.
 - **🐧 Linux CLI** — files, permissions, pipes and text tools, processes,
   packages, the shell.
@@ -96,7 +97,7 @@ language). Progress is kept per device.
 | Git | `questions-git.json` | 60 |
 | Linux CLI | `questions-linux.json` | 60 |
 | AI & ML | `questions-ai.json` | 60 |
-| **All (Mixed)** | every bank | **2923** |
+| **All (Mixed)** | every bank | **3102** |
 
 ![Home](screenshots/8-modeselect.png)
 
@@ -275,7 +276,7 @@ prog-game2/
 │  ├─ vendor/supabase.js        # bundled @supabase/supabase-js (UMD)
 │  ├─ supabase-config.js        # Supabase creds (local, git-ignored)
 │  ├─ discord-config.js         # Discord client id (local, git-ignored)
-│  └─ data/                     # 2923 questions, English only
+│  └─ data/                     # 3102 questions, English only
 │     ├─ questions.json          # languages bank (522, 15 languages)
 │     ├─ questions-cyber.json    # cybersecurity bank (240)
 │     ├─ questions-devops.json   # devops bank (200)

@@ -5983,5 +5983,233 @@
   "explanation": {
    "en": "Browsers only accept a __Host- cookie set over HTTPS with Secure, Path=/ and no Domain attribute, locking it to the exact host so sibling subdomains cannot overwrite it."
   }
+ },
+ {
+  "id": 320,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "[HttpPost]\n[ValidateAntiForgeryToken]\npublic IActionResult Transfer(TransferForm form) { ... }",
+  "question": {
+   "en": "Which attack does this ASP.NET Core MVC attribute defend against?"
+  },
+  "options": [
+   "SQL injection via form fields",
+   "Cross-site request forgery",
+   "Stored cross-site scripting",
+   "Brute-force password guessing"
+  ],
+  "answer": "Cross-site request forgery",
+  "explanation": {
+   "en": "The attribute rejects the POST unless it carries the antiforgery token that the form helper embedded, which a forging third-party site cannot read or guess."
+  }
+ },
+ {
+  "id": 321,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "builder.Services.AddAuthorization(o =>\n    o.AddPolicy(\"Admin\", p => p.RequireRole(\"admin\")));\n\n[Authorize(Policy = \"Admin\")]  // JWT bearer auth\npublic IActionResult Purge() { ... }",
+  "question": {
+   "en": "A user sends a valid JWT that lacks the admin role. What response do they get?"
+  },
+  "options": [
+   "401 Unauthorized",
+   "404 Not Found",
+   "302 to the login page",
+   "403 Forbidden"
+  ],
+  "answer": "403 Forbidden",
+  "explanation": {
+   "en": "The user is authenticated but fails the policy, so the bearer handler forbids (403). A missing or invalid token would instead trigger a challenge (401)."
+  }
+ },
+ {
+  "id": 322,
+  "category": "dotnet",
+  "difficulty": "hard",
+  "codeSnippet": "options.TokenValidationParameters = new TokenValidationParameters {\n    ValidateIssuer = true, ValidateAudience = true,\n    ValidateLifetime = true, ValidateIssuerSigningKey = true,\n    ...\n};",
+  "question": {
+   "en": "Why is a JWT still accepted three minutes after its exp time?"
+  },
+  "options": [
+   "ClockSkew defaults to five minutes",
+   "ValidateLifetime only checks nbf",
+   "Expired tokens get a refresh grace",
+   "The exp claim is read as local time"
+  ],
+  "answer": "ClockSkew defaults to five minutes",
+  "explanation": {
+   "en": "TokenValidationParameters.ClockSkew defaults to 300 seconds to tolerate clock drift, so exp is effectively extended. Set it lower (or to TimeSpan.Zero) for strict expiry."
+  }
+ },
+ {
+  "id": 323,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "var a = provider.CreateProtector(\"Invites\");\nvar b = provider.CreateProtector(\"PasswordReset\");\nstring token = a.Protect(userId);\nb.Unprotect(token);",
+  "question": {
+   "en": "What does the last line do with the ASP.NET Core Data Protection API?"
+  },
+  "options": [
+   "Returns the original userId",
+   "Returns an empty string",
+   "Throws a CryptographicException",
+   "Returns the still-encrypted text"
+  ],
+  "answer": "Throws a CryptographicException",
+  "explanation": {
+   "en": "Purpose strings derive isolated keys, so a payload protected for one purpose cannot be unprotected by another. That stops an invite token being replayed as a reset token."
+  }
+ },
+ {
+  "id": 324,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "How does ASP.NET Core Identity's default PasswordHasher (.NET 7+) store passwords?"
+  },
+  "options": [
+   "bcrypt with a cost factor of 12",
+   "SHA-256 with a per-user salt",
+   "PBKDF2-HMAC-SHA512, 100k rounds",
+   "AES-encrypted with a server key"
+  ],
+  "answer": "PBKDF2-HMAC-SHA512, 100k rounds",
+  "explanation": {
+   "en": "The V3 format is PBKDF2 with HMAC-SHA512, a 128-bit random salt and 100,000 iterations (raised from HMAC-SHA256 and 10,000 in .NET 7). Older hashes are rehashed on login."
+  }
+ },
+ {
+  "id": 325,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "if (!app.Environment.IsDevelopment())\n{\n    app.UseHsts();\n}\napp.UseHttpsRedirection();",
+  "question": {
+   "en": "Why do ASP.NET Core templates skip UseHsts in development?"
+  },
+  "options": [
+   "Browsers cache HSTS and would pin localhost",
+   "HSTS needs a public CA certificate to run",
+   "UseHttpsRedirection already sends the header",
+   "Kestrel cannot serve HTTPS in development"
+  ],
+  "answer": "Browsers cache HSTS and would pin localhost",
+  "explanation": {
+   "en": "The Strict-Transport-Security header is remembered by the browser for max-age, so sending it from localhost would force HTTPS for every local app on that host."
+  }
+ },
+ {
+  "id": 326,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "builder.Services.AddCors(o => o.AddPolicy(\"api\", p =>\n    p.AllowAnyOrigin()\n     .AllowAnyHeader()\n     .AllowCredentials()));",
+  "question": {
+   "en": "What does ASP.NET Core do with this CORS policy?"
+  },
+  "options": [
+   "Sends Allow-Origin: * with cookies",
+   "Silently drops the credentials flag",
+   "Echoes back each request's Origin",
+   "Throws an InvalidOperationException"
+  ],
+  "answer": "Throws an InvalidOperationException",
+  "explanation": {
+   "en": "Building the policy fails: the CORS protocol forbids a wildcard origin together with credentials. List specific origins with WithOrigins if cookies must be sent."
+  }
+ },
+ {
+  "id": 327,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "var users = db.Users\n    .FromSqlRaw(\"SELECT * FROM Users WHERE Name = '\" + name + \"'\")\n    .ToList();",
+  "question": {
+   "en": "What is wrong with this EF Core query, and what fixes it?"
+  },
+  "options": [
+   "SQL injection; use FromSql($\"...{name}\")",
+   "It is slow; add AsNoTracking() before it",
+   "It leaks memory; wrap db in a using block",
+   "Nothing; EF Core escapes the string itself"
+  ],
+  "answer": "SQL injection; use FromSql($\"...{name}\")",
+  "explanation": {
+   "en": "Concatenation pastes user input into the SQL text. FromSql (or FromSqlInterpolated) turns each interpolation hole into a DbParameter, so the value is never parsed as SQL."
+  }
+ },
+ {
+  "id": 328,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "<p>@Model.Comment</p>\n<p>@Html.Raw(Model.Comment)</p>",
+  "question": {
+   "en": "In this Razor view, which line is open to XSS from a user's comment?"
+  },
+  "options": [
+   "The @Model.Comment line only",
+   "The Html.Raw line only",
+   "Both lines equally",
+   "Neither; Razor blocks both"
+  ],
+  "answer": "The Html.Raw line only",
+  "explanation": {
+   "en": "Razor HTML-encodes @ expressions by default, turning <script> into &lt;script&gt;. Html.Raw switches that off and emits the markup as-is."
+  }
+ },
+ {
+  "id": 329,
+  "category": "dotnet",
+  "difficulty": "hard",
+  "codeSnippet": "#pragma warning disable SYSLIB0011\nvar obj = new BinaryFormatter().Deserialize(uploadStream);",
+  "question": {
+   "en": "What happens when this runs on .NET 9 or later?"
+  },
+  "options": [
+   "It works but logs an obsolete warning",
+   "It returns null for any untrusted input",
+   "It throws PlatformNotSupportedException",
+   "It only deserializes primitive types"
+  ],
+  "answer": "It throws PlatformNotSupportedException",
+  "explanation": {
+   "en": "BinaryFormatter let untrusted payloads instantiate arbitrary types (deserialization attacks), so .NET 9 removed its implementation: both Serialize and Deserialize always throw."
+  }
+ },
+ {
+  "id": 330,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Where should a .NET developer keep a local database password instead of appsettings.json?"
+  },
+  "options": [
+   "In a comment in Program.cs",
+   "In dotnet user-secrets storage",
+   "In a public static readonly field",
+   "In appsettings.Development.json"
+  ],
+  "answer": "In dotnet user-secrets storage",
+  "explanation": {
+   "en": "User secrets live in the user profile, outside the repo, and load as configuration in Development. In production use environment variables or a vault such as Azure Key Vault."
+  }
+ },
+ {
+  "id": 331,
+  "category": "dotnet",
+  "difficulty": "hard",
+  "codeSnippet": "builder.Services.AddRateLimiter(o =>\n    o.AddFixedWindowLimiter(\"api\", w => {\n        w.PermitLimit = 10;\n        w.Window = TimeSpan.FromSeconds(1);\n    }));",
+  "question": {
+   "en": "Which status code do rejected requests get unless you change it?"
+  },
+  "options": [
+   "429 Too Many Requests",
+   "403 Forbidden",
+   "408 Request Timeout",
+   "503 Service Unavailable"
+  ],
+  "answer": "503 Service Unavailable",
+  "explanation": {
+   "en": "RateLimiterOptions.RejectionStatusCode defaults to 503. Most APIs set it to 429 (StatusCodes.Status429TooManyRequests) so clients know to back off and retry."
+  }
  }
 ]

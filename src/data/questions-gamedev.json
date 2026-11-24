@@ -5223,5 +5223,290 @@
   "explanation": {
    "en": "32-bit floats have fewer fractional bits at large magnitudes, so far from the origin positions jitter; floating-origin systems recentre the world around the player."
   }
+ },
+ {
+  "id": 276,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "In Unity C#, which callback suits a camera that must follow the player after all movement this frame?"
+  },
+  "options": [
+   "FixedUpdate",
+   "LateUpdate",
+   "Awake",
+   "OnEnable"
+  ],
+  "answer": "LateUpdate",
+  "explanation": {
+   "en": "LateUpdate runs after every Update has finished, so the camera reads the player's final position for the frame and does not jitter."
+  }
+ },
+ {
+  "id": 277,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "void FixedUpdate()\n{\n    Debug.Log(Time.deltaTime);\n}",
+  "question": {
+   "en": "With default Unity project settings, what does this log?"
+  },
+  "options": [
+   "0.016",
+   "1",
+   "0",
+   "0.02"
+  ],
+  "answer": "0.02",
+  "explanation": {
+   "en": "Inside FixedUpdate, Time.deltaTime returns Time.fixedDeltaTime, which defaults to 0.02 seconds (50 physics steps per second)."
+  }
+ },
+ {
+  "id": 278,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "Rigidbody rb;\n\nvoid FixedUpdate()\n{\n    GetComponent<Rigidbody>().AddForce(push);\n}",
+  "question": {
+   "en": "Where should the Rigidbody lookup move so it runs only once?"
+  },
+  "options": [
+   "Into Awake, stored in rb",
+   "Into OnGUI, run per draw",
+   "Into a local in each step",
+   "Into OnDestroy, at cleanup"
+  ],
+  "answer": "Into Awake, stored in rb",
+  "explanation": {
+   "en": "Cache the component once, e.g. rb = GetComponent<Rigidbody>() in Awake, then reuse the field instead of searching every physics step."
+  }
+ },
+ {
+  "id": 279,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "IEnumerator Blink()\n{\n    sprite.enabled = false;\n    yield return new WaitForSeconds(0.2f);\n    sprite.enabled = true;\n}\n\nvoid Start() { Blink(); }",
+  "question": {
+   "en": "Why does the sprite never blink?"
+  },
+  "options": [
+   "IEnumerator methods must be static",
+   "Start cannot begin any coroutine",
+   "It must be passed to StartCoroutine",
+   "WaitForSeconds needs an int value"
+  ],
+  "answer": "It must be passed to StartCoroutine",
+  "explanation": {
+   "en": "Calling an iterator method only creates the enumerator; nothing runs until Unity drives it via StartCoroutine(Blink())."
+  }
+ },
+ {
+  "id": 280,
+  "category": "dotnet",
+  "difficulty": "hard",
+  "codeSnippet": "Time.timeScale = 0f; // game paused\nyield return new WaitForSeconds(1f);\nShowMenu();",
+  "question": {
+   "en": "What happens to this coroutine while the game stays paused?"
+  },
+  "options": [
+   "It resumes after one real second",
+   "It never resumes until unpaused",
+   "It throws when timeScale is zero",
+   "It skips the wait and runs at once"
+  ],
+  "answer": "It never resumes until unpaused",
+  "explanation": {
+   "en": "WaitForSeconds counts scaled time, which stops at timeScale 0. Use WaitForSecondsRealtime for waits that must run while paused."
+  }
+ },
+ {
+  "id": 281,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "[CreateAssetMenu]\npublic class WeaponData : ScriptableObject\n{\n    public int damage;\n}",
+  "question": {
+   "en": "What is a ScriptableObject like this mainly used for?"
+  },
+  "options": [
+   "Physics settings for one body",
+   "A scene object that renders",
+   "A data asset shared by objects",
+   "A thread for background work"
+  ],
+  "answer": "A data asset shared by objects",
+  "explanation": {
+   "en": "A ScriptableObject is saved as a project asset, so many prefabs can reference the same data instead of each copying it."
+  }
+ },
+ {
+  "id": 282,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "void OnHit(GameObject bullet)\n{\n    // bullet came from a pool\n    ____\n}",
+  "question": {
+   "en": "With object pooling, what should replace Destroy(bullet) here?"
+  },
+  "options": [
+   "Call bullet.SetActive(false)",
+   "Call Resources.UnloadAsset",
+   "Call Instantiate(bullet) again",
+   "Call GC.Collect() right away"
+  ],
+  "answer": "Call bullet.SetActive(false)",
+  "explanation": {
+   "en": "A pooled object is deactivated and handed back to the pool, then reactivated on the next shot, so nothing is created or destroyed."
+  }
+ },
+ {
+  "id": 283,
+  "category": "dotnet",
+  "difficulty": "hard",
+  "codeSnippet": "void Update()\n{\n    rb.AddForce(Vector3.forward * 10f);\n}",
+  "question": {
+   "en": "Why does the object speed up more on a faster PC?"
+  },
+  "options": [
+   "AddForce ignores fixedDeltaTime",
+   "Rigidbody mass shrinks at high FPS",
+   "Update skips physics on slow PCs",
+   "Higher FPS adds more force calls"
+  ],
+  "answer": "Higher FPS adds more force calls",
+  "explanation": {
+   "en": "Forces accumulate until the next physics step, so more Update calls per step push harder. Apply continuous forces in FixedUpdate."
+  }
+ },
+ {
+  "id": 284,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "// Two cubes, both colliders set to Is Trigger,\n// neither has a Rigidbody.\nvoid OnTriggerEnter(Collider other) { Debug.Log(other.name); }",
+  "question": {
+   "en": "The cubes overlap but nothing is logged. What is missing?"
+  },
+  "options": [
+   "A Rigidbody on at least one",
+   "A tag set on both of the cubes",
+   "A call to Physics.Simulate()",
+   "Is Trigger turned off on one"
+  ],
+  "answer": "A Rigidbody on at least one",
+  "explanation": {
+   "en": "Unity sends trigger and collision messages only when at least one of the two objects has a Rigidbody (kinematic is fine)."
+  }
+ },
+ {
+  "id": 285,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "A Unity script component is unchecked (disabled) in the Inspector. Which of its methods still runs at scene load?"
+  },
+  "options": [
+   "Awake",
+   "Start",
+   "Update",
+   "OnEnable"
+  ],
+  "answer": "Awake",
+  "explanation": {
+   "en": "Awake runs when the object is initialised even if the script is disabled; Start, Update and OnEnable wait until it is enabled."
+  }
+ },
+ {
+  "id": 286,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "Destroy(gameObject);\nDebug.Log(gameObject.name);",
+  "question": {
+   "en": "When does Unity actually remove the object?"
+  },
+  "options": [
+   "At once, so the log throws",
+   "When the GC next collects it",
+   "After this frame's Update loop",
+   "Only when the scene unloads"
+  ],
+  "answer": "After this frame's Update loop",
+  "explanation": {
+   "en": "Destroy is deferred until after the current Update loop (before rendering), so the next line can still read the object."
+  }
+ },
+ {
+  "id": 287,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "GameObject e = Instantiate(enemyPrefab, spawn.position, Quaternion.identity);",
+  "question": {
+   "en": "What does Instantiate return here?"
+  },
+  "options": [
+   "The prefab asset itself",
+   "A pooled inactive copy",
+   "The spawn point object",
+   "A new clone in the scene"
+  ],
+  "answer": "A new clone in the scene",
+  "explanation": {
+   "en": "Instantiate copies the prefab into the scene at the given position and rotation and returns that new instance."
+  }
+ },
+ {
+  "id": 288,
+  "category": "dotnet",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Called every frame in Update, which of these Unity calls allocates a new array each time?"
+  },
+  "options": [
+   "Physics.RaycastNonAlloc",
+   "Physics.Raycast",
+   "Physics.RaycastAll",
+   "Physics.SphereCastNonAlloc"
+  ],
+  "answer": "Physics.RaycastAll",
+  "explanation": {
+   "en": "RaycastAll returns a fresh RaycastHit[] per call, creating GC garbage; the NonAlloc variants fill a buffer you reuse."
+  }
+ },
+ {
+  "id": 289,
+  "category": "dotnet",
+  "difficulty": "hard",
+  "codeSnippet": "// Godot 4, C#\npublic override void _Process(double delta)\n{\n    Position += Velocity * (float)delta;\n}",
+  "question": {
+   "en": "Why is delta cast to float here?"
+  },
+  "options": [
+   "double cannot hold fractions",
+   "Godot vectors use float parts",
+   "_Process expects a float back",
+   "The cast makes it frame-locked"
+  ],
+  "answer": "Godot vectors use float parts",
+  "explanation": {
+   "en": "Godot 4 passes delta as double, but Vector2/Vector3 components are float in standard builds, so there is no Vector * double operator."
+  }
+ },
+ {
+  "id": 290,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "spriteBatch.Begin();\nspriteBatch.Draw(player, pos, Color.White);\nspriteBatch.End();",
+  "question": {
+   "en": "In a MonoGame Game class, which method should contain this code?"
+  },
+  "options": [
+   "Update(GameTime)",
+   "LoadContent()",
+   "Initialize()",
+   "Draw(GameTime)"
+  ],
+  "answer": "Draw(GameTime)",
+  "explanation": {
+   "en": "MonoGame splits the loop: Update changes game state and Draw renders it, so SpriteBatch calls belong in Draw."
+  }
  }
 ]

@@ -1,0 +1,110 @@
+[
+ {
+  "id": 640,
+  "correctLanguage": "C#",
+  "difficulty": "easy",
+  "codeSnippet": "int[] scores = [90, 75, 88];\nConsole.WriteLine($\"Best: {scores.Max()}\");",
+  "explanation": {
+   "en": "`int[] x = [90, 75, 88];` is a C# 12 collection expression; Java and Kotlin cannot initialise an array with square brackets, and `Console.WriteLine` with `$\"...\"` interpolation is C#."
+  }
+ },
+ {
+  "id": 641,
+  "correctLanguage": "C#",
+  "difficulty": "easy",
+  "codeSnippet": "string? user = args.FirstOrDefault();\nif (user is not null)\n    Console.WriteLine($\"Hi {user}\");\nelse\n    Console.WriteLine(\"No user given\");",
+  "explanation": {
+   "en": "`string?` nullable reference types, the `is not null` pattern and the implicit `args` of top-level statements are C#."
+  }
+ },
+ {
+  "id": 642,
+  "correctLanguage": "C#",
+  "difficulty": "easy",
+  "codeSnippet": "var json = \"\"\"\n    { \"name\": \"Ada\", \"lang\": \"C#\" }\n    \"\"\";\nConsole.WriteLine(json);",
+  "explanation": {
+   "en": "A `\"\"\"` raw string literal assigned with `var` and closed by `;`, then printed with `Console.WriteLine`, is C# 11. Python has triple quotes but no `var` or semicolons."
+  }
+ },
+ {
+  "id": 643,
+  "correctLanguage": "C#",
+  "difficulty": "easy",
+  "codeSnippet": "var ages = new Dictionary<string, int> { [\"Ada\"] = 36, [\"Linus\"] = 28 };\nforeach (var (name, age) in ages)\n    Console.WriteLine($\"{name} is {age}\");",
+  "explanation": {
+   "en": "An index initialiser `[\"Ada\"] = 36` inside `new Dictionary<string, int> { ... }` and deconstructing each pair with `foreach (var (name, age) in ...)` are C#."
+  }
+ },
+ {
+  "id": 644,
+  "correctLanguage": "C#",
+  "difficulty": "medium",
+  "codeSnippet": "var g = new Greeter(\"Hello\");\nConsole.WriteLine(g.Greet(\"Ada\"));\n\npublic class Greeter(string greeting)\n{\n    public string Greet(string name) => $\"{greeting}, {name}!\";\n}",
+  "explanation": {
+   "en": "`public class Greeter(string greeting)` is a C# 12 primary constructor: the parameter has its type first and no `val`/`var`, unlike Kotlin, and top-level statements sit above the class."
+  }
+ },
+ {
+  "id": 645,
+  "correctLanguage": "C#",
+  "difficulty": "medium",
+  "codeSnippet": "var cfg = new DbConfig { Host = \"localhost\" };\nConsole.WriteLine($\"{cfg.Host}:{cfg.Port}\");\n\npublic class DbConfig\n{\n    public required string Host { get; init; }\n    public int Port { get; init; } = 5432;\n}",
+  "explanation": {
+   "en": "The `required` modifier together with `{ get; init; }` accessors is C# 11; the compiler forces callers to set `Host` in the object initializer."
+  }
+ },
+ {
+  "id": 646,
+  "correctLanguage": "C#",
+  "difficulty": "medium",
+  "codeSnippet": "static async Task<int> GetAnswerAsync()\n{\n    await Task.Delay(50);\n    return 42;\n}\n\nConsole.WriteLine(await GetAnswerAsync());",
+  "explanation": {
+   "en": "`static async Task<int>` with `await Task.Delay` is the C# Task-based async model; top-level statements allow a local function and `await` with no `Main`."
+  }
+ },
+ {
+  "id": 647,
+  "correctLanguage": "C#",
+  "difficulty": "medium",
+  "codeSnippet": "namespace Shop.Api.Controllers;\n\n[ApiController]\n[Route(\"api/[controller]\")]\npublic class ProductsController : ControllerBase\n{\n    [HttpGet(\"{id:int}\")]\n    public ActionResult<string> Get(int id) => Ok($\"product {id}\");\n}",
+  "explanation": {
+   "en": "A file-scoped `namespace X;` plus `[ApiController]`, `[Route]` and `[HttpGet(\"{id:int}\")]` attributes on a `ControllerBase` subclass is an ASP.NET Core controller in C#."
+  }
+ },
+ {
+  "id": 648,
+  "correctLanguage": "C#",
+  "difficulty": "medium",
+  "codeSnippet": "string? cached = null;\ncached ??= LoadConfig();\nConsole.WriteLine(cached?.ToUpper());\n\nstatic string LoadConfig() => \"prod\";",
+  "explanation": {
+   "en": "`??=` assigns only when the left side is null and `?.` skips the call on null; with `string?` and `Console.WriteLine` this is C# (Kotlin has `?.` but no `??=`)."
+  }
+ },
+ {
+  "id": 649,
+  "correctLanguage": "C#",
+  "difficulty": "hard",
+  "codeSnippet": "var rows = from o in orders\n           join c in customers on o.CustomerId equals c.Id\n           orderby o.Total descending\n           select new { c.Name, o.Total };",
+  "explanation": {
+   "en": "LINQ query syntax with `join ... on ... equals ...`, `orderby ... descending` and an anonymous type `new { c.Name, o.Total }` is C#; no other mainstream language has `equals` as a join keyword."
+  }
+ },
+ {
+  "id": 650,
+  "correctLanguage": "C#",
+  "difficulty": "hard",
+  "codeSnippet": "int[] data = [3, 5, 8, 13];\nif (data is [var first, .., var last])\n    Console.WriteLine($\"{first}..{last}\");",
+  "explanation": {
+   "en": "`data is [var first, .., var last]` is a C# 11 list pattern: `..` is a slice pattern matching any middle elements."
+  }
+ },
+ {
+  "id": 651,
+  "correctLanguage": "C#",
+  "difficulty": "hard",
+  "codeSnippet": "using System.Numerics;\n\nstatic T Sum<T>(IEnumerable<T> items) where T : INumber<T>\n{\n    T total = T.Zero;\n    foreach (var x in items) total += x;\n    return total;\n}\n\nConsole.WriteLine(Sum<double>([1.5, 2.5]));",
+  "explanation": {
+   "en": "`where T : INumber<T>` and `T.Zero` use C# 11 generic math (static abstract interface members from System.Numerics); `Sum<double>([1.5, 2.5])` passes a collection expression."
+  }
+ }
+]

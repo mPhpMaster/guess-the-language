@@ -1,0 +1,97 @@
+[
+ {
+  "id": 61,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "# .gitignore\n[Bb]in/\n[Oo]bj/",
+  "question": {
+   "en": "Why does a .NET repo ignore these folders?"
+  },
+  "options": [
+   "They hold the source code",
+   "Git cannot store binaries",
+   "They store your user-secrets JSON",
+   "They hold rebuildable output"
+  ],
+  "answer": "They hold rebuildable output",
+  "explanation": {
+   "en": "bin/ and obj/ contain compiled assemblies and intermediate build files that `dotnet build` recreates; committing them causes noisy diffs and conflicts."
+  }
+ },
+ {
+  "id": 62,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "dotnet new gitignore",
+  "question": {
+   "en": "What does this command create?"
+  },
+  "options": [
+   "A .gitignore tuned for .NET",
+   "A repo with a first commit",
+   "A hook that blocks bin/ commits",
+   "A list of tracked files"
+  ],
+  "answer": "A .gitignore tuned for .NET",
+  "explanation": {
+   "en": "The built-in `gitignore` template writes the standard .NET/Visual Studio .gitignore (bin/, obj/, .vs/, *.user and more) into the current folder."
+  }
+ },
+ {
+  "id": 63,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "// appsettings.json\n\"ConnectionStrings\": {\n  \"Db\": \"Host=db;Username=app;Password=hunter2\"\n}",
+  "question": {
+   "en": "What is the best fix before committing this file?"
+  },
+  "options": [
+   "Ignore appsettings.json",
+   "Move it to user-secrets",
+   "Base64-encode the value",
+   "Push to a private branch"
+  ],
+  "answer": "Move it to user-secrets",
+  "explanation": {
+   "en": "Keep the non-secret settings in appsettings.json and put the password in user-secrets locally (and env vars or a vault in production). Base64 is not encryption, and ignoring the file loses all config."
+  }
+ },
+ {
+  "id": 64,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "*.sln    text eol=crlf",
+  "question": {
+   "en": "What does this .gitattributes line do?"
+  },
+  "options": [
+   "Stores .sln files as binary",
+   "Converts .sln to LF on checkout",
+   "Checks out .sln with CRLF",
+   "Hides .sln files from git diff"
+  ],
+  "answer": "Checks out .sln with CRLF",
+  "explanation": {
+   "en": "Git stores the file with LF in the repo but always writes CRLF line endings to the working tree, which Visual Studio expects. `dotnet new gitattributes` includes this rule."
+  }
+ },
+ {
+  "id": 65,
+  "category": "dotnet",
+  "difficulty": "hard",
+  "codeSnippet": "<!-- Directory.Packages.props at the repo root -->\n<PropertyGroup>\n  <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>\n</PropertyGroup>\n<ItemGroup>\n  <PackageVersion Include=\"Serilog\" Version=\"4.2.0\" />\n</ItemGroup>",
+  "question": {
+   "en": "How should each .csproj now reference Serilog?"
+  },
+  "options": [
+   "PackageReference, no Version",
+   "PackageVersion with Version",
+   "Nothing; every project gets it",
+   "Its own copy of this props"
+  ],
+  "answer": "PackageReference, no Version",
+  "explanation": {
+   "en": "With central package management, projects use `<PackageReference Include=\"Serilog\" />` and the version comes from the props file. Adding Version= on the reference fails restore with NU1008."
+  }
+ }
+]

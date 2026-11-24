@@ -1,0 +1,572 @@
+[
+ {
+  "id": 258,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "int a = 7, b = 2;\nConsole.WriteLine($\"{a / b} {a % b} {-7 % 2}\");",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "3.5 1 1",
+   "3 1 -1",
+   "3 1 1",
+   "4 1 -1"
+  ],
+  "answer": "3 1 -1",
+  "explanation": {
+   "en": "Dividing two ints truncates toward zero, so 7 / 2 is 3. The remainder takes the sign of the dividend, so -7 % 2 is -1."
+  }
+ },
+ {
+  "id": 259,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "string s = \"abc\";\nstring t = s;\ns += \"d\";\nConsole.WriteLine(t);",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "abc",
+   "abcd",
+   "d",
+   "abc d"
+  ],
+  "answer": "abc",
+  "explanation": {
+   "en": "Strings are immutable. s += \"d\" builds a new string and points s at it; t still refers to the original \"abc\"."
+  }
+ },
+ {
+  "id": 260,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "string s = \"hello\";\ns.ToUpper();\nConsole.WriteLine(s);",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "HELLO",
+   "Hello",
+   "hELLO",
+   "hello"
+  ],
+  "answer": "hello",
+  "explanation": {
+   "en": "ToUpper returns a new string and leaves s untouched. The result is discarded, so s still prints \"hello\"."
+  }
+ },
+ {
+  "id": 261,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "int n = 42;\nConsole.WriteLine($\"[{n,-5}][{n:D4}][{255:X}]\");",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "[   42][0042][FF]",
+   "[42   ][  42][ff]",
+   "[42   ][0042][FF]",
+   "[42][0042][255]"
+  ],
+  "answer": "[42   ][0042][FF]",
+  "explanation": {
+   "en": "A negative alignment (-5) left-aligns in 5 characters, D4 pads with zeros to 4 digits, and X formats as uppercase hexadecimal."
+  }
+ },
+ {
+  "id": 262,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "var a = new Pt { X = 1 };\nvar b = a;\nb.X = 5;\nConsole.WriteLine($\"{a.X} {b.X}\");\n\nstruct Pt { public int X; }",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "5 5",
+   "1 5",
+   "1 1",
+   "5 1"
+  ],
+  "answer": "1 5",
+  "explanation": {
+   "en": "Pt is a struct, a value type. b = a copies the whole value, so changing b.X does not affect a."
+  }
+ },
+ {
+  "id": 263,
+  "category": "csharp",
+  "difficulty": "hard",
+  "codeSnippet": "object a = 5, b = 5;\nConsole.WriteLine($\"{a == b} {a.Equals(b)}\");",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "False True",
+   "True True",
+   "False False",
+   "True False"
+  ],
+  "answer": "False True",
+  "explanation": {
+   "en": "Each 5 is boxed into its own object. == on object compares references (different boxes), while Equals compares the boxed int values."
+  }
+ },
+ {
+  "id": 264,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "string? s = null;\ns ??= \"first\";\ns ??= \"second\";\nConsole.WriteLine(s ?? \"none\");",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "second",
+   "none",
+   "firstsecond",
+   "first"
+  ],
+  "answer": "first",
+  "explanation": {
+   "en": "??= assigns only when the left side is null. The first one sets \"first\"; the second sees a non-null value and does nothing."
+  }
+ },
+ {
+  "id": 265,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "var list = new List<int> { 1, 2, 3 };\nvar q = list.Where(x => x > 1);\nlist.Add(4);\nConsole.WriteLine(q.Count());",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "2",
+   "4",
+   "3",
+   "1"
+  ],
+  "answer": "3",
+  "explanation": {
+   "en": "Where is deferred: the filter runs only when Count() enumerates it, by which time 4 has been added. 2, 3 and 4 match."
+  }
+ },
+ {
+  "id": 266,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "IEnumerable<int> Gen() {\n    Console.Write(\"A\");\n    yield return 1;\n    Console.Write(\"B\");\n}\nforeach (var n in Gen()) Console.Write(n);",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "AB1",
+   "A1B",
+   "1AB",
+   "A1"
+  ],
+  "answer": "A1B",
+  "explanation": {
+   "en": "An iterator runs lazily. The first MoveNext prints A and yields 1; the loop prints 1; the next MoveNext resumes, prints B and ends."
+  }
+ },
+ {
+  "id": 267,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "object o = 3.5;\nstring r = o switch {\n    int i => \"int\",\n    double d when d > 3 => \"big\",\n    double => \"double\",\n    _ => \"other\"\n};\nConsole.WriteLine(r);",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "big",
+   "double",
+   "int",
+   "other"
+  ],
+  "answer": "big",
+  "explanation": {
+   "en": "Switch arms are tried in order. 3.5 is a double and the when guard d > 3 holds, so the second arm wins before the plain double arm."
+  }
+ },
+ {
+  "id": 268,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "var p = (X: 0, Y: 5);\nConsole.WriteLine(p switch {\n    (0, 0) => \"origin\",\n    (0, _) => \"y-axis\",\n    (_, 0) => \"x-axis\",\n    _ => \"plane\"\n});",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "origin",
+   "x-axis",
+   "plane",
+   "y-axis"
+  ],
+  "answer": "y-axis",
+  "explanation": {
+   "en": "A positional pattern matches the tuple element by element. X is 0 and Y is anything, so (0, _) is the first arm that matches."
+  }
+ },
+ {
+  "id": 269,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "var a = new Point(1, 2);\nvar b = new Point(1, 2);\nConsole.WriteLine($\"{a == b} {ReferenceEquals(a, b)}\");\n\nrecord Point(int X, int Y);",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "False False",
+   "True True",
+   "True False",
+   "False True"
+  ],
+  "answer": "True False",
+  "explanation": {
+   "en": "Records get value-based equality, so == compares X and Y. They are still two separate objects, so ReferenceEquals is false."
+  }
+ },
+ {
+  "id": 270,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "var c1 = new Car(\"VW\", 2020);\nvar c2 = c1 with { Year = 2024 };\nConsole.WriteLine(c2);\n\nrecord Car(string Make, int Year);",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "Car { Make = VW, Year = 2020 }",
+   "Car { Make = VW, Year = 2024 }",
+   "Car(Make: VW, Year: 2024)",
+   "Car { Make = \"VW\", Year = 2024 }"
+  ],
+  "answer": "Car { Make = VW, Year = 2024 }",
+  "explanation": {
+   "en": "with copies the record and changes only Year. A record ToString prints the type name and its properties in braces, strings unquoted."
+  }
+ },
+ {
+  "id": 271,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "var squares = new[] { 1, 2, 3 }.Select(x => x * x);\nConsole.WriteLine(string.Join(\", \", squares));",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "1, 4, 9",
+   "1,4,9",
+   "1, 2, 3",
+   "[1, 4, 9]"
+  ],
+  "answer": "1, 4, 9",
+  "explanation": {
+   "en": "string.Join puts the separator \", \" between each element of the sequence, with no brackets around it."
+  }
+ },
+ {
+  "id": 272,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "var sb = new System.Text.StringBuilder(\"ab\");\nsb.Append('c').Insert(0, \"x\").Append(1 + 2);\nConsole.WriteLine(sb);",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "abcx3",
+   "xabc12",
+   "xabc",
+   "xabc3"
+  ],
+  "answer": "xabc3",
+  "explanation": {
+   "en": "StringBuilder mutates in place and each call returns the same builder. Insert(0, \"x\") prepends, and 1 + 2 is evaluated to 3 before Append."
+  }
+ },
+ {
+  "id": 273,
+  "category": "csharp",
+  "difficulty": "hard",
+  "codeSnippet": "int F() {\n    try { Console.Write(\"T\"); return 1; }\n    finally { Console.Write(\"F\"); }\n}\nConsole.Write(F());",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "T1F",
+   "T1",
+   "TF1",
+   "1TF"
+  ],
+  "answer": "TF1",
+  "explanation": {
+   "en": "The return value is computed first, but finally runs before control leaves F. So T and F print before the caller writes 1."
+  }
+ },
+ {
+  "id": 274,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "try {\n    try { throw new InvalidOperationException(); }\n    finally { Console.Write(\"1\"); }\n} catch (InvalidOperationException) { Console.Write(\"2\"); }\nfinally { Console.Write(\"3\"); }",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "213",
+   "123",
+   "23",
+   "132"
+  ],
+  "answer": "123",
+  "explanation": {
+   "en": "The inner finally runs as the exception leaves the inner try, then the outer catch handles it, then the outer finally runs."
+  }
+ },
+ {
+  "id": 275,
+  "category": "csharp",
+  "difficulty": "hard",
+  "codeSnippet": "Console.Write(\"M\");\nnew Cfg();\nnew Cfg();\n\nclass Cfg {\n    static Cfg() { Console.Write(\"S\"); }\n    public Cfg() { Console.Write(\"I\"); }\n}",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "MSII",
+   "SMII",
+   "MSISI",
+   "MIIS"
+  ],
+  "answer": "MSII",
+  "explanation": {
+   "en": "A static constructor runs once, just before the type is first used. Here that is the first new Cfg(), after M has printed."
+  }
+ },
+ {
+  "id": 276,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "int x = int.MaxValue;\nx++;\nConsole.WriteLine(x);",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "2147483648",
+   "2147483647",
+   "OverflowException",
+   "-2147483648"
+  ],
+  "answer": "-2147483648",
+  "explanation": {
+   "en": "Integer arithmetic is unchecked by default, so incrementing int.MaxValue wraps around to int.MinValue instead of throwing."
+  }
+ },
+ {
+  "id": 277,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "char c = 'A';\nc++;\nConsole.WriteLine($\"{c + 1} {(char)(c + 1)}\");",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "C C",
+   "66 B",
+   "67 C",
+   "B1 C"
+  ],
+  "answer": "67 C",
+  "explanation": {
+   "en": "c++ makes c equal to B (66). c + 1 promotes to int, giving 67; casting that back to char gives C."
+  }
+ },
+ {
+  "id": 278,
+  "category": "csharp",
+  "difficulty": "hard",
+  "codeSnippet": "int? n = null;\nConsole.WriteLine($\"{n.HasValue} {n.GetValueOrDefault()} {n + 1 == null}\");",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "False 0 False",
+   "False 0 True",
+   "True 0 True",
+   "False 1 True"
+  ],
+  "answer": "False 0 True",
+  "explanation": {
+   "en": "n has no value. GetValueOrDefault returns 0, and lifted arithmetic on null gives null, so n + 1 == null is true."
+  }
+ },
+ {
+  "id": 279,
+  "category": "csharp",
+  "difficulty": "hard",
+  "codeSnippet": "async Task<int> F() {\n    Console.Write(\"A\");\n    await Task.CompletedTask;\n    Console.Write(\"B\");\n    return 1;\n}\nvar t = F();\nConsole.Write(\"C\");\nConsole.Write(await t);",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "ABC1",
+   "ACB1",
+   "CAB1",
+   "AC1B"
+  ],
+  "answer": "ABC1",
+  "explanation": {
+   "en": "Awaiting an already-completed task does not yield: the method keeps running synchronously, so A and B print before F returns."
+  }
+ },
+ {
+  "id": 280,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "int[] a = { 10, 20, 30, 40, 50 };\nvar s = a[1..3];\nConsole.WriteLine($\"{a[^1]} {string.Join(\",\", s)}\");",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "40 20,30",
+   "50 20,30,40",
+   "50 10,20,30",
+   "50 20,30"
+  ],
+  "answer": "50 20,30",
+  "explanation": {
+   "en": "^1 is the last element. The range 1..3 includes index 1 and excludes index 3, giving 20 and 30."
+  }
+ },
+ {
+  "id": 281,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "var (a, b) = (1, 2);\n(a, b) = (b, a + b);\nConsole.WriteLine($\"{a} {b}\");",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "2 4",
+   "1 2",
+   "2 3",
+   "2 2"
+  ],
+  "answer": "2 3",
+  "explanation": {
+   "en": "The right-hand tuple is built first from the old values (2 and 1 + 2), then both are assigned, so a is 2 and b is 3."
+  }
+ },
+ {
+  "id": 282,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "int Count(params int[] xs) => xs.Length;\nConsole.WriteLine($\"{Count()} {Count(1, 2)} {Count(new[] { 4, 5, 6 })}\");",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "1 2 1",
+   "0 2 3",
+   "0 2 1",
+   "null 2 3"
+  ],
+  "answer": "0 2 3",
+  "explanation": {
+   "en": "With no arguments params passes an empty array, not null. An existing array is passed as-is, so its length is 3."
+  }
+ },
+ {
+  "id": 283,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "Console.WriteLine($\"[{default(int)}] [{default(string)}] [{default(bool)}]\");",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "[0] [] [False]",
+   "[0] [null] [False]",
+   "[0] [] [false]",
+   "[] [] []"
+  ],
+  "answer": "[0] [] [False]",
+  "explanation": {
+   "en": "default(int) is 0, default(string) is null (which interpolates as empty), and bool prints as False with a capital F."
+  }
+ },
+ {
+  "id": 284,
+  "category": "csharp",
+  "difficulty": "easy",
+  "codeSnippet": "int x = 5;\nstring r = x > 3 ? x > 4 ? \"A\" : \"B\" : \"C\";\nConsole.WriteLine(r);",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "B",
+   "C",
+   "AB",
+   "A"
+  ],
+  "answer": "A",
+  "explanation": {
+   "en": "The conditional operator is right-associative: x > 3 ? (x > 4 ? \"A\" : \"B\") : \"C\". Both conditions hold, so the result is A."
+  }
+ },
+ {
+  "id": 285,
+  "category": "csharp",
+  "difficulty": "medium",
+  "codeSnippet": "var fs = new List<Func<int>>();\nforeach (var i in new[] { 1, 2, 3 })\n    fs.Add(() => i);\nConsole.WriteLine(string.Join(\" \", fs.Select(f => f())));",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "3 3 3",
+   "0 1 2",
+   "1 2 3",
+   "1 1 1"
+  ],
+  "answer": "1 2 3",
+  "explanation": {
+   "en": "Since C# 5 a foreach loop variable is a fresh variable per iteration, so each lambda captures its own i."
+  }
+ },
+ {
+  "id": 286,
+  "category": "csharp",
+  "difficulty": "hard",
+  "codeSnippet": "var fs = new List<Func<int>>();\nfor (int i = 0; i < 3; i++)\n    fs.Add(() => i);\nConsole.WriteLine(string.Join(\" \", fs.Select(f => f())));",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "0 1 2",
+   "3 3 3",
+   "2 2 2",
+   "1 2 3"
+  ],
+  "answer": "3 3 3",
+  "explanation": {
+   "en": "Unlike foreach, a for loop has one i shared by every iteration. All lambdas capture it and run after the loop, when i is 3."
+  }
+ },
+ {
+  "id": 287,
+  "category": "csharp",
+  "difficulty": "hard",
+  "codeSnippet": "var l = new List<int> { 3, 1, 2, 1 };\nl.Remove(1);\nl.RemoveAt(1);\nConsole.WriteLine(string.Join(\",\", l));",
+  "question": {
+   "en": "What is the output?"
+  },
+  "options": [
+   "3,1",
+   "3,2",
+   "2,1",
+   "3,2,1"
+  ],
+  "answer": "3,1",
+  "explanation": {
+   "en": "Remove(1) deletes the first element equal to 1, leaving 3,2,1. RemoveAt(1) deletes index 1 (the 2), leaving 3,1."
+  }
+ }
+]

@@ -5223,5 +5223,233 @@
   "explanation": {
    "en": "The fragment offset counts 8-byte units, so 185 x 8 = 1480, the usual first-fragment payload on a 1500-byte MTU. MF means more fragments follow."
   }
+ },
+ {
+  "id": 285,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "async Task<string> Fetch(string url)\n{\n    using var client = new HttpClient();\n    return await client.GetStringAsync(url);\n}",
+  "question": {
+   "en": "Called thousands of times under load, why can this method fail?"
+  },
+  "options": [
+   "GetStringAsync caps responses at 64 KB",
+   "HttpClient is not safe on async methods",
+   "Closed sockets pile up and exhaust ports",
+   "The using block cancels the request early"
+  ],
+  "answer": "Closed sockets pile up and exhaust ports",
+  "explanation": {
+   "en": "Each disposed client leaves its connections in TIME_WAIT, so ports run out. Reuse one HttpClient (with SocketsHttpHandler.PooledConnectionLifetime) or inject it via IHttpClientFactory."
+  }
+ },
+ {
+  "id": 286,
+  "category": "dotnet",
+  "difficulty": "hard",
+  "codeSnippet": "var http = new HttpClient { Timeout = TimeSpan.FromSeconds(2) };\nawait http.GetAsync(slowUrl);  // server takes 10 s",
+  "question": {
+   "en": "What exception does the await throw once the timeout elapses?"
+  },
+  "options": [
+   "TaskCanceledException",
+   "HttpRequestException",
+   "SocketException",
+   "TimeoutException"
+  ],
+  "answer": "TaskCanceledException",
+  "explanation": {
+   "en": "HttpClient.Timeout (default 100 s) surfaces as a TaskCanceledException whose InnerException is a TimeoutException, which tells it apart from cancelling your own CancellationToken."
+  }
+ },
+ {
+  "id": 287,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "var listener = new TcpListener(IPAddress.Any, 5000);\nlistener.Start();\nusing TcpClient client = await listener.AcceptTcpClientAsync();",
+  "question": {
+   "en": "What does the await on the last line wait for?"
+  },
+  "options": [
+   "The first UDP datagram on port 5000",
+   "A DNS lookup of the local host name",
+   "The server to bind port 5000 again",
+   "An incoming TCP connection on port 5000"
+  ],
+  "answer": "An incoming TCP connection on port 5000",
+  "explanation": {
+   "en": "Start() begins listening on every interface; AcceptTcpClientAsync completes when a client finishes the handshake and returns a TcpClient for that connection."
+  }
+ },
+ {
+  "id": 288,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "using var udp = new UdpClient();\nint sent = await udp.SendAsync(data, new IPEndPoint(target, 9999));",
+  "question": {
+   "en": "What does a completed SendAsync here tell you?"
+  },
+  "options": [
+   "The target acknowledged the datagram",
+   "The datagram was handed to the OS stack",
+   "Port 9999 is open on the target host",
+   "The datagram arrived in the right order"
+  ],
+  "answer": "The datagram was handed to the OS stack",
+  "explanation": {
+   "en": "UDP has no acknowledgements, so SendAsync returns the byte count queued for sending even when nobody is listening. Delivery checks must live in your own protocol."
+  }
+ },
+ {
+  "id": 289,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "var addrs = await Dns.GetHostAddressesAsync(\"localhost\");",
+  "question": {
+   "en": "What type is addrs?"
+  },
+  "options": [
+   "IPHostEntry",
+   "IPEndPoint[]",
+   "List<string>",
+   "IPAddress[]"
+  ],
+  "answer": "IPAddress[]",
+  "explanation": {
+   "en": "It returns every address the name resolves to, for example ::1 and 127.0.0.1 for localhost, so code should not assume a single IPv4 result."
+  }
+ },
+ {
+  "id": 290,
+  "category": "dotnet",
+  "difficulty": "hard",
+  "codeSnippet": "builder.WebHost.ConfigureKestrel(k =>\n    k.ListenAnyIP(5001, o => {\n        o.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;\n        o.UseHttps();\n    }));",
+  "question": {
+   "en": "How does a browser learn that this Kestrel endpoint also speaks HTTP/3?"
+  },
+  "options": [
+   "A DNS SRV record that Kestrel publishes",
+   "An Alt-Svc header on HTTP/1.1 or 2 replies",
+   "The TLS certificate lists the protocol",
+   "It always tries QUIC before TCP first"
+  ],
+  "answer": "An Alt-Svc header on HTTP/1.1 or 2 replies",
+  "explanation": {
+   "en": "Kestrel adds alt-svc: h3=\":5001\" to TCP responses; the browser then retries over QUIC on UDP 5001. HTTP/3 also requires TLS, hence UseHttps()."
+  }
+ },
+ {
+  "id": 291,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "A proxy blocks WebSockets. Which transport does an ASP.NET Core SignalR client try next?"
+  },
+  "options": [
+   "Server-Sent Events",
+   "Long Polling",
+   "Raw TCP sockets",
+   "gRPC streaming"
+  ],
+  "answer": "Server-Sent Events",
+  "explanation": {
+   "en": "SignalR negotiates in order WebSockets, Server-Sent Events, then Long Polling, falling back automatically while keeping the same hub API."
+  }
+ },
+ {
+  "id": 292,
+  "category": "dotnet",
+  "difficulty": "hard",
+  "codeSnippet": "",
+  "question": {
+   "en": "Why can't browser JavaScript call an ASP.NET Core gRPC service without gRPC-Web?"
+  },
+  "options": [
+   "Browsers block binary Protobuf bodies",
+   "gRPC requires a client certificate",
+   "fetch cannot reach HTTP/2 trailers",
+   "gRPC only listens on raw UDP ports"
+  ],
+  "answer": "fetch cannot reach HTTP/2 trailers",
+  "explanation": {
+   "en": "gRPC sends its status in HTTP/2 trailers and relies on frame-level control that browser APIs do not expose. app.UseGrpcWeb() re-encodes calls so browsers can make them."
+  }
+ },
+ {
+  "id": 293,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "var ep = new IPEndPoint(IPAddress.IPv6Loopback, 443);\nConsole.WriteLine(ep);",
+  "question": {
+   "en": "What does this print?"
+  },
+  "options": [
+   "::1:443",
+   "[::1]:443",
+   "127.0.0.1:443",
+   "localhost:443"
+  ],
+  "answer": "[::1]:443",
+  "explanation": {
+   "en": "IPv6 addresses contain colons, so IPEndPoint wraps them in brackets before the port. An IPv4 endpoint prints plainly, e.g. 192.168.1.10:8080."
+  }
+ },
+ {
+  "id": 294,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "int n = await socket.ReceiveAsync(buffer, SocketFlags.None);\nif (n == 0) { ... }",
+  "question": {
+   "en": "On a connected TCP socket, what does n == 0 mean?"
+  },
+  "options": [
+   "The peer closed its side of the connection",
+   "No data has arrived yet; call it again",
+   "The buffer passed in was too small",
+   "The receive timed out with no bytes"
+  ],
+  "answer": "The peer closed its side of the connection",
+  "explanation": {
+   "en": "ReceiveAsync waits until data arrives; returning 0 bytes signals a graceful shutdown (FIN) by the remote end, so the loop should stop reading and close."
+  }
+ },
+ {
+  "id": 295,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "Console.WriteLine($\"{(int)HttpStatusCode.Created} {HttpStatusCode.Created}\");",
+  "question": {
+   "en": "What does this print?"
+  },
+  "options": [
+   "Created Created",
+   "201 201",
+   "201 Created",
+   "200 Created"
+  ],
+  "answer": "201 Created",
+  "explanation": {
+   "en": "HttpStatusCode is an enum: casting to int gives the numeric code 201, while formatting the value itself prints its member name."
+  }
+ },
+ {
+  "id": 296,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "var user = await http.GetFromJsonAsync<User>(\"users/42\");\n// server replies 404 Not Found",
+  "question": {
+   "en": "What happens when the server returns 404?"
+  },
+  "options": [
+   "It returns null without throwing",
+   "Deserializing throws JsonException",
+   "It returns an empty User object",
+   "It throws HttpRequestException"
+  ],
+  "answer": "It throws HttpRequestException",
+  "explanation": {
+   "en": "GetFromJsonAsync calls EnsureSuccessStatusCode before deserializing, so any non-2xx status throws HttpRequestException with StatusCode set to NotFound."
+  }
  }
 ]

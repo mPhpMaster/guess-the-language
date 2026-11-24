@@ -1138,5 +1138,119 @@
   "explanation": {
    "en": "`id` prints the numeric user ID, primary group ID, and every group the user belongs to."
   }
+ },
+ {
+  "id": 61,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "[Service]\nWorkingDirectory=/opt/shop\nExecStart=/usr/bin/dotnet /opt/shop/Shop.dll\nRestart=always\nUser=shop\nEnvironment=ASPNETCORE_ENVIRONMENT=Production",
+  "question": {
+   "en": "What does `Restart=always` do for this Kestrel app?"
+  },
+  "options": [
+   "Restarts it every night",
+   "Restarts it only on reboot",
+   "Restarts it if it ever exits",
+   "Restarts nginx on a crash"
+  ],
+  "answer": "Restarts it if it ever exits",
+  "explanation": {
+   "en": "systemd starts the service again whenever the process exits, cleanly or not. Enable it with `systemctl enable --now shop.service` so it also starts at boot."
+  }
+ },
+ {
+  "id": 62,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "dotnet publish -c Release -r linux-x64 --self-contained\n# copied to the server as a zip\n./Shop   # bash: ./Shop: Permission denied",
+  "question": {
+   "en": "Which command fixes this error?"
+  },
+  "options": [
+   "sudo dotnet ./Shop",
+   "chmod +x ./Shop",
+   "chown root ./Shop",
+   "export PATH=./Shop"
+  ],
+  "answer": "chmod +x ./Shop",
+  "explanation": {
+   "en": "The native apphost lost its execute bit in the zip; `chmod +x ./Shop` restores it. Running it with sudo would not help and would run the app as root."
+  }
+ },
+ {
+  "id": 63,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "ASPNETCORE_URLS=http://0.0.0.0:5000 ./Shop",
+  "question": {
+   "en": "What does this variable change?"
+  },
+  "options": [
+   "Kestrel binds 5000 on all IPs",
+   "nginx forwards 5000 to the app",
+   "The app calls 0.0.0.0 at start",
+   "Kestrel serves only localhost"
+  ],
+  "answer": "Kestrel binds 5000 on all IPs",
+  "explanation": {
+   "en": "ASPNETCORE_URLS sets the addresses Kestrel listens on; 0.0.0.0 means every IPv4 interface, so the app is reachable from other hosts, not just loopback."
+  }
+ },
+ {
+  "id": 64,
+  "category": "dotnet",
+  "difficulty": "hard",
+  "codeSnippet": "location / {\n    proxy_pass http://127.0.0.1:5000;\n    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n    proxy_set_header X-Forwarded-Proto $scheme;\n}",
+  "question": {
+   "en": "What must the ASP.NET Core app add so it sees the real client IP and https scheme?"
+  },
+  "options": [
+   "UseHttpsRedirection()",
+   "AddCors() for nginx",
+   "UseStaticFiles() first",
+   "UseForwardedHeaders()"
+  ],
+  "answer": "UseForwardedHeaders()",
+  "explanation": {
+   "en": "The Forwarded Headers middleware (with ForwardedHeaders.XForwardedFor | XForwardedProto) rewrites RemoteIpAddress and Request.Scheme from the proxy headers; call it early in the pipeline."
+  }
+ },
+ {
+  "id": 65,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "dotnet --list-sdks",
+  "question": {
+   "en": "What does this command print?"
+  },
+  "options": [
+   "Installed SDKs and their paths",
+   "SDKs available to download",
+   "NuGet packages in the project",
+   "Runtimes the app depends on"
+  ],
+  "answer": "Installed SDKs and their paths",
+  "explanation": {
+   "en": "It lists each installed SDK version with its folder, e.g. `10.0.100 [/usr/share/dotnet/sdk]`. `dotnet --list-runtimes` lists the runtimes instead."
+  }
+ },
+ {
+  "id": 66,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "# .NET installed with dotnet-install.sh into ~/.dotnet\n./Shop\nYou must install .NET to run this application.",
+  "question": {
+   "en": "Which variable tells the app host where .NET lives?"
+  },
+  "options": [
+   "DOTNET_CLI_HOME",
+   "DOTNET_ROOT",
+   "NUGET_PACKAGES",
+   "ASPNETCORE_ROOT"
+  ],
+  "answer": "DOTNET_ROOT",
+  "explanation": {
+   "en": "A framework-dependent apphost looks in the default install location; for a custom folder set `DOTNET_ROOT=$HOME/.dotnet`. DOTNET_CLI_HOME only moves the CLI's own home folder."
+  }
  }
 ]

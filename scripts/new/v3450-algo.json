@@ -1,0 +1,408 @@
+[
+    {
+        "id": 337,
+        "category": "csharp",
+        "difficulty": "easy",
+        "codeSnippet": "// print every name\n____ (var name in names)\n    Console.WriteLine(name);",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "foreach",
+        "accept": [
+            "foreach"
+        ],
+        "explanation": {
+            "en": "foreach walks every element of any IEnumerable, here a list or array of names."
+        }
+    },
+    {
+        "id": 338,
+        "category": "csharp",
+        "difficulty": "easy",
+        "codeSnippet": "// let the compiler infer the type (int)\n____ total = 0;\nforeach (int n in nums) total += n;",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "var",
+        "accept": [
+            "var"
+        ],
+        "explanation": {
+            "en": "var declares a local whose type is inferred from the initializer; it is still statically typed as int."
+        }
+    },
+    {
+        "id": 339,
+        "category": "csharp",
+        "difficulty": "hard",
+        "codeSnippet": "// lazily produce the even numbers below n\nIEnumerable<int> Evens(int n)\n{\n    for (int i = 0; i < n; i += 2)\n        ____ return i;\n}",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "yield",
+        "accept": [
+            "yield"
+        ],
+        "explanation": {
+            "en": "yield return turns the method into an iterator: each value is produced only when the caller asks for the next one."
+        }
+    },
+    {
+        "id": 340,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "// read a file without blocking the thread\nstring text = ____ File.ReadAllTextAsync(\"notes.txt\");",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "await",
+        "accept": [
+            "await"
+        ],
+        "explanation": {
+            "en": "await suspends the method until the Task<string> completes and unwraps its result, freeing the thread meanwhile."
+        }
+    },
+    {
+        "id": 341,
+        "category": "csharp",
+        "difficulty": "easy",
+        "codeSnippet": "// keep only the adults\nvar adults = people.____(p => p.Age >= 18).ToList();",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "Where",
+        "accept": [
+            "Where"
+        ],
+        "explanation": {
+            "en": "LINQ Where filters a sequence by a predicate; ToList materialises the result."
+        }
+    },
+    {
+        "id": 342,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "// the message stays right if the parameter is renamed\nif (count < 0)\n    throw new ArgumentOutOfRangeException(____(count));",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "nameof",
+        "accept": [
+            "nameof"
+        ],
+        "explanation": {
+            "en": "nameof(count) is the string \"count\", checked at compile time, so a rename updates it too."
+        }
+    },
+    {
+        "id": 343,
+        "category": "csharp",
+        "difficulty": "hard",
+        "codeSnippet": "// type test and cast in one step\nif (shape ____ Circle c)\n    Console.WriteLine(c.Radius);",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "is",
+        "accept": [
+            "is"
+        ],
+        "explanation": {
+            "en": "A declaration pattern with is tests the type and, on success, assigns the cast value to c."
+        }
+    },
+    {
+        "id": 344,
+        "category": "csharp",
+        "difficulty": "hard",
+        "codeSnippet": "// immutable type with value equality, in one line\npublic ____ Point(int X, int Y);",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "record",
+        "accept": [
+            "record",
+            "record class",
+            "record struct",
+            "readonly record struct"
+        ],
+        "explanation": {
+            "en": "A positional record generates init-only properties, a constructor, Deconstruct and value-based Equals and ToString."
+        }
+    },
+    {
+        "id": 345,
+        "category": "csharp",
+        "difficulty": "easy",
+        "codeSnippet": "// close the file automatically at the end of the scope\n____ var reader = new StreamReader(path);\nConsole.WriteLine(reader.ReadLine());",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "using",
+        "accept": [
+            "using"
+        ],
+        "explanation": {
+            "en": "A using declaration calls Dispose when the enclosing scope ends, releasing the file handle."
+        }
+    },
+    {
+        "id": 346,
+        "category": "csharp",
+        "difficulty": "hard",
+        "codeSnippet": "class Config\n{\n    // may be set in the constructor, never afterwards\n    private ____ string _path;\n    public Config(string path) => _path = path;\n}",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "readonly",
+        "accept": [
+            "readonly"
+        ],
+        "explanation": {
+            "en": "A readonly field can be assigned only in its declaration or a constructor; later writes are compile errors."
+        }
+    },
+    {
+        "id": 347,
+        "category": "csharp",
+        "difficulty": "easy",
+        "codeSnippet": "// the last element of an array\nint last = arr[arr.____ - 1];",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "Length",
+        "accept": [
+            "Length"
+        ],
+        "explanation": {
+            "en": "Arrays expose their size as Length; the last valid index is Length - 1 (or arr[^1])."
+        }
+    },
+    {
+        "id": 348,
+        "category": "csharp",
+        "difficulty": "easy",
+        "codeSnippet": "var list = new List<int> { 4, 8, 15 };\nConsole.WriteLine(list.____); // 3",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "Count",
+        "accept": [
+            "Count",
+            "Count()"
+        ],
+        "explanation": {
+            "en": "List<T> exposes its size as the Count property. Arrays use Length instead."
+        }
+    },
+    {
+        "id": 349,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "// [\"a\", \"b\", \"c\"] -> \"a, b, c\"\nstring line = ____(\", \", items);",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "string.Join",
+        "accept": [
+            "string.Join",
+            "String.Join"
+        ],
+        "explanation": {
+            "en": "string.Join puts the separator between elements, never at the ends."
+        }
+    },
+    {
+        "id": 350,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "// parse without throwing on bad input\nif (int.TryParse(text, ____ int value))\n    Console.WriteLine(value * 2);",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "out",
+        "accept": [
+            "out"
+        ],
+        "explanation": {
+            "en": "TryParse returns success as a bool and writes the number through an out parameter, declared inline here."
+        }
+    },
+    {
+        "id": 351,
+        "category": "csharp",
+        "difficulty": "hard",
+        "codeSnippet": "// the caller's variable is read AND updated in place\nstatic void Bump(____ int counter) => counter++;",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "ref",
+        "accept": [
+            "ref"
+        ],
+        "explanation": {
+            "en": "ref passes the variable itself, so the increment is visible to the caller. out would not compile: it cannot be read before it is assigned."
+        }
+    },
+    {
+        "id": 352,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "// accept any number of arguments: Sum(1, 2, 3)\nstatic int Sum(____ int[] values) => values.Sum();",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "params",
+        "accept": [
+            "params"
+        ],
+        "explanation": {
+            "en": "params lets callers pass a comma-separated list, which the compiler packs into the array."
+        }
+    },
+    {
+        "id": 353,
+        "category": "csharp",
+        "difficulty": "easy",
+        "codeSnippet": "// expression-bodied method\nstatic int Square(int x) ____ x * x;",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "=>",
+        "accept": [
+            "=>"
+        ],
+        "explanation": {
+            "en": "An expression body (=>) replaces a block that contains a single return statement."
+        }
+    },
+    {
+        "id": 354,
+        "category": "csharp",
+        "difficulty": "easy",
+        "codeSnippet": "// fall back to \"guest\" when name is null\nstring shown = name ____ \"guest\";",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "??",
+        "accept": [
+            "??"
+        ],
+        "explanation": {
+            "en": "The null-coalescing operator ?? returns its left operand unless it is null, otherwise the right one."
+        }
+    },
+    {
+        "id": 355,
+        "category": "csharp",
+        "difficulty": "hard",
+        "codeSnippet": "// map a score to a grade with a switch expression\nstring grade = score ____\n{\n    >= 90 => \"A\",\n    >= 80 => \"B\",\n    _ => \"C\"\n};",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "switch",
+        "accept": [
+            "switch"
+        ],
+        "explanation": {
+            "en": "A switch expression puts the value first, then arms of pattern => result; _ is the catch-all."
+        }
+    },
+    {
+        "id": 356,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "public class MathUtil\n{\n    // callable without an instance: MathUtil.Cube(3)\n    public ____ int Cube(int x) => x * x * x;\n}",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "static",
+        "accept": [
+            "static"
+        ],
+        "explanation": {
+            "en": "A static member belongs to the type itself, so it is called on the class name with no object."
+        }
+    },
+    {
+        "id": 357,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "class Cat : Animal\n{\n    // replace the base class's virtual Speak\n    public ____ string Speak() => \"Meow\";\n}",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "override",
+        "accept": [
+            "override"
+        ],
+        "explanation": {
+            "en": "override replaces a virtual or abstract base member, so calls through an Animal reference run Cat's version."
+        }
+    },
+    {
+        "id": 358,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "// a contract that classes can implement\npublic ____ IShape\n{\n    double Area();\n}",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "interface",
+        "accept": [
+            "interface"
+        ],
+        "explanation": {
+            "en": "An interface declares members that implementing classes and structs must provide."
+        }
+    },
+    {
+        "id": 359,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "// sort people by age, youngest first\nvar sorted = people.____(p => p.Age).ToList();",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "OrderBy",
+        "accept": [
+            "OrderBy"
+        ],
+        "explanation": {
+            "en": "OrderBy sorts ascending by the selected key (OrderByDescending sorts the other way). It is a stable sort."
+        }
+    },
+    {
+        "id": 360,
+        "category": "csharp",
+        "difficulty": "medium",
+        "codeSnippet": "// look up a key without risking KeyNotFoundException\nif (prices.____(\"apple\", out var price))\n    Console.WriteLine(price);",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "TryGetValue",
+        "accept": [
+            "TryGetValue"
+        ],
+        "explanation": {
+            "en": "TryGetValue returns whether the key exists and writes the value through out, all in one lookup."
+        }
+    },
+    {
+        "id": 361,
+        "category": "csharp",
+        "difficulty": "easy",
+        "codeSnippet": "// print a line to the terminal\n____(\"Hello, world!\");",
+        "question": {
+            "en": "What goes in the blank?"
+        },
+        "answer": "Console.WriteLine",
+        "accept": [
+            "Console.WriteLine",
+            "System.Console.WriteLine"
+        ],
+        "explanation": {
+            "en": "Console.WriteLine writes the text followed by a newline to standard output."
+        }
+    }
+]

@@ -4938,5 +4938,480 @@
     "explanation": {
       "en": "A user with no orders still gets one joined row (with NULLs), and COUNT(*) counts it. COUNT(o.id) skips the NULL and gives 0."
     }
+  },
+  {
+    "id": 261,
+    "category": "csharp",
+    "difficulty": "easy",
+    "codeSnippet": "int[] scores = { 3, 4, 4 };\ndouble avg = scores.Sum() / scores.Length;\nConsole.WriteLine(avg); // prints 3, not 3.67",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `(double)(scores.Sum() / scores.Length)` instead",
+      "Declare `avg` as `decimal` instead",
+      "Cast first: `(double)scores.Sum() / scores.Length`",
+      "Divide by `scores.Count()` instead"
+    ],
+    "answer": "Cast first: `(double)scores.Sum() / scores.Length`",
+    "explanation": {
+      "en": "Both operands are int, so the division truncates to 3 before the result is widened to double. Casting one operand makes it a floating-point division."
+    }
+  },
+  {
+    "id": 262,
+    "category": "csharp",
+    "difficulty": "easy",
+    "codeSnippet": "int[] a = { 1, 2, 3 };\nfor (int i = 0; i <= a.Length; i++)\n    Console.WriteLine(a[i]); // IndexOutOfRangeException",
+    "question": {
+      "en": "Which fix removes the off-by-one bug?"
+    },
+    "options": [
+      "Loop while `i < a.Length`",
+      "Start the loop at `i = 1`",
+      "Index with `a[i - 1]` instead",
+      "Loop while `i <= a.Length + 1`"
+    ],
+    "answer": "Loop while `i < a.Length`",
+    "explanation": {
+      "en": "Valid indexes run from 0 to Length - 1. With <= the last pass reads a[3], which does not exist."
+    }
+  },
+  {
+    "id": 263,
+    "category": "csharp",
+    "difficulty": "easy",
+    "codeSnippet": "string? name = FindUser(id); // may return null\nint len = name.Length; // NullReferenceException",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `name!.Length`",
+      "Use `name.Length ?? 0`",
+      "Use `(name).Length` instead",
+      "Use `name?.Length ?? 0`"
+    ],
+    "answer": "Use `name?.Length ?? 0`",
+    "explanation": {
+      "en": "The null-conditional ?. yields null instead of throwing, and ?? turns that null into 0. The ! operator only silences the compiler warning; it still throws at runtime."
+    }
+  },
+  {
+    "id": 264,
+    "category": "csharp",
+    "difficulty": "easy",
+    "codeSnippet": "string input = Console.ReadLine() ?? \"\";\nint age = int.Parse(input); // crashes on \"abc\"",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `Convert.ToInt32(input)` to parse it",
+      "Use `int.TryParse(input, out int age)`",
+      "Use `int.Parse(input.Trim())` instead",
+      "Cast it directly: `(int)input`"
+    ],
+    "answer": "Use `int.TryParse(input, out int age)`",
+    "explanation": {
+      "en": "int.Parse and Convert.ToInt32 both throw FormatException on non-numeric text. TryParse returns false instead, so bad input can be handled without an exception."
+    }
+  },
+  {
+    "id": 265,
+    "category": "csharp",
+    "difficulty": "easy",
+    "codeSnippet": "string csv = \"\";\nforeach (var item in items)\n    csv += item + \",\"; // very slow for 100,000 items",
+    "question": {
+      "en": "Which fix removes the inefficiency?"
+    },
+    "options": [
+      "Append to a `StringBuilder` instead",
+      "Write `csv = csv + item` instead",
+      "Declare `csv` as `const string`",
+      "Call `string.Intern(csv)` each pass"
+    ],
+    "answer": "Append to a `StringBuilder` instead",
+    "explanation": {
+      "en": "Strings are immutable, so each += copies everything built so far: quadratic time. StringBuilder appends into a growable buffer."
+    }
+  },
+  {
+    "id": 266,
+    "category": "csharp",
+    "difficulty": "easy",
+    "codeSnippet": "double total = 0.1 + 0.2;\nif (total == 0.3)\n    Console.WriteLine(\"ok\"); // never prints",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Test `total.Equals(0.3)` instead",
+      "Test `total.CompareTo(0.3) == 0` instead",
+      "Test `Math.Abs(total - 0.3) < 1e-9`",
+      "Test `(float)total == 0.3` instead"
+    ],
+    "answer": "Test `Math.Abs(total - 0.3) < 1e-9`",
+    "explanation": {
+      "en": "0.1 + 0.2 is 0.30000000000000004 in binary floating point. Compare doubles with a small tolerance, not exact equality."
+    }
+  },
+  {
+    "id": 267,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "double balance = 0;\nfor (int i = 0; i < 10; i++) balance += 0.10;\nConsole.WriteLine(balance); // 0.9999999999999999",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Store money as `float`: `0.10f`",
+      "Store money as `decimal`: `0.10m`",
+      "Print it with `balance.ToString()`",
+      "Add with `balance = balance + 0.10`"
+    ],
+    "answer": "Store money as `decimal`: `0.10m`",
+    "explanation": {
+      "en": "decimal is base-10, so 0.10 is stored exactly and ten of them make exactly 1.00. double and float cannot represent 0.10 exactly."
+    }
+  },
+  {
+    "id": 268,
+    "category": "csharp",
+    "difficulty": "easy",
+    "codeSnippet": "var stock = new Dictionary<string, int> { [\"apple\"] = 3 };\nint n = stock[\"pear\"]; // KeyNotFoundException",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `int n = stock[\"pear\"] ?? 0;`",
+      "Check `stock.ContainsValue(\"pear\")` before it",
+      "Use `stock.ElementAt(0).Value`",
+      "Use `stock.TryGetValue(\"pear\", out int n)`"
+    ],
+    "answer": "Use `stock.TryGetValue(\"pear\", out int n)`",
+    "explanation": {
+      "en": "The indexer throws for a missing key. TryGetValue returns false and sets n to 0 instead. `??` does not compile on a non-nullable int."
+    }
+  },
+  {
+    "id": 269,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "var nums = new List<int> { 1, 2, 3, 4 };\nforeach (var n in nums)\n    if (n % 2 == 0) nums.Remove(n); // InvalidOperationException",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `nums.RemoveAll(n => n % 2 == 0)`",
+      "Loop over `nums.AsEnumerable()` instead",
+      "Wrap the loop in `lock (nums) { ... }`",
+      "Declare `nums` as `readonly` first"
+    ],
+    "answer": "Use `nums.RemoveAll(n => n % 2 == 0)`",
+    "explanation": {
+      "en": "Removing from a List<T> while foreach is enumerating it invalidates the enumerator. RemoveAll does the filtering in one safe pass. AsEnumerable is still the same list."
+    }
+  },
+  {
+    "id": 270,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "async void SaveAsync()\n{\n    await File.WriteAllTextAsync(\"a.txt\", data);\n}\n// callers cannot await it, and its exceptions crash the app",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Add `.ConfigureAwait(false)` to the call",
+      "Wrap the body in `Task.Run(() => ...)`",
+      "Return a task: `async Task SaveAsync()`",
+      "Declare it as `static async void`"
+    ],
+    "answer": "Return a task: `async Task SaveAsync()`",
+    "explanation": {
+      "en": "async void gives the caller nothing to await, and an exception escapes to the synchronization context instead of a try/catch. Return Task (keep async void for event handlers only)."
+    }
+  },
+  {
+    "id": 271,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "async Task LogAsync(string msg)\n{\n    await Task.Delay(100);\n    Console.WriteLine(msg);\n}\nLogAsync(\"saved\");\nreturn; // exits before \"saved\" is printed",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Add `await Task.Yield();` before `return`",
+      "Call `LogAsync(\"saved\").ConfigureAwait(false);`",
+      "Change LogAsync to return `async void`",
+      "Await it: `await LogAsync(\"saved\");`"
+    ],
+    "answer": "Await it: `await LogAsync(\"saved\");`",
+    "explanation": {
+      "en": "Without await the task is started and forgotten, and the program ends while it is still waiting on the delay. Awaiting it keeps the program alive until it finishes."
+    }
+  },
+  {
+    "id": 272,
+    "category": "csharp",
+    "difficulty": "easy",
+    "codeSnippet": "var reader = new StreamReader(\"log.txt\");\nstring? first = reader.ReadLine();\n// the file stays locked until the GC gets to it",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Set `reader = null;` once you finish reading",
+      "Declare it with `using var reader = ...`",
+      "Call `reader.Peek()` after reading",
+      "Store `reader` in a `static` field"
+    ],
+    "answer": "Declare it with `using var reader = ...`",
+    "explanation": {
+      "en": "StreamReader holds an OS file handle. A using declaration calls Dispose at the end of the scope, closing the file deterministically. Nulling the variable does not."
+    }
+  },
+  {
+    "id": 273,
+    "category": "csharp",
+    "difficulty": "hard",
+    "codeSnippet": "struct Point { public int X; }\nvar pts = new List<Point> { new Point() };\npts[0].X = 5; // error CS1612",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Copy it out, set X, then assign `pts[0] = p`",
+      "Add parentheses around the item: `(pts[0]).X = 5`",
+      "Declare Point as a `readonly struct`",
+      "Write `pts[0].X.Equals(5)` instead"
+    ],
+    "answer": "Copy it out, set X, then assign `pts[0] = p`",
+    "explanation": {
+      "en": "The List indexer returns a copy of the struct, so changing that temporary copy would be lost; the compiler rejects it. Modify a local copy and store it back (or make Point a class)."
+    }
+  },
+  {
+    "id": 274,
+    "category": "csharp",
+    "difficulty": "hard",
+    "codeSnippet": "var actions = new List<Action>();\nfor (int i = 0; i < 3; i++)\n    actions.Add(() => Console.Write(i));\nforeach (var a in actions) a(); // prints 333",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Declare `i` before the `for` loop",
+      "Call `a.Invoke()` instead of plain `a()`",
+      "Mark the lambda `static () => ...`",
+      "Copy `int j = i;` inside, capture `j`"
+    ],
+    "answer": "Copy `int j = i;` inside, capture `j`",
+    "explanation": {
+      "en": "A for loop has one variable i shared by every iteration, and the lambdas read it after the loop ends, when it is 3. A fresh local per iteration is captured separately. (foreach already does this.)"
+    }
+  },
+  {
+    "id": 275,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "var expires = DateTime.Now.AddHours(1);\ndb.Save(expires);\n// servers in other time zones read the wrong expiry",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Store `DateTime.Today.AddHours(1)`",
+      "Store `DateTime.Now.ToLocalTime()`",
+      "Store `DateTime.UtcNow.AddHours(1)`",
+      "Store `DateTime.Now.AddHours(1).Date`"
+    ],
+    "answer": "Store `DateTime.UtcNow.AddHours(1)`",
+    "explanation": {
+      "en": "DateTime.Now is the machine's local time, which differs per server and jumps at DST changes. Store timestamps in UTC and convert only for display."
+    }
+  },
+  {
+    "id": 276,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "async Task<string> Fetch(string url)\n{\n    using var client = new HttpClient();\n    return await client.GetStringAsync(url);\n} // sockets pile up under load",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Remove `using` and let the GC free it later",
+      "Reuse one `static readonly HttpClient`",
+      "Set `client.Timeout` to five seconds",
+      "Call `client.CancelPendingRequests()`"
+    ],
+    "answer": "Reuse one `static readonly HttpClient`",
+    "explanation": {
+      "en": "Each disposed HttpClient leaves its connections in TIME_WAIT, so a client per request exhausts sockets. Share one instance (or use IHttpClientFactory)."
+    }
+  },
+  {
+    "id": 277,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "var sql = \"SELECT * FROM Users WHERE Name = '\" + name + \"'\";\nvar cmd = new SqlCommand(sql, conn);\n// name = \"x' OR '1'='1\" returns every user",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `@name` with `Parameters.AddWithValue`",
+      "Build it with `$\"... = '{name}'\"` instead",
+      "Call `name.Trim()` before concatenating",
+      "Build it with `string.Concat(...)` instead"
+    ],
+    "answer": "Use `@name` with `Parameters.AddWithValue`",
+    "explanation": {
+      "en": "Concatenating user input into SQL lets the input change the query (SQL injection). A parameter is sent separately as data, never parsed as SQL. Interpolation is still concatenation."
+    }
+  },
+  {
+    "id": 278,
+    "category": "csharp",
+    "difficulty": "hard",
+    "codeSnippet": "static int hits;\nstatic void Run()\n{\n    Parallel.For(0, 100_000, _ => hits++);\n    Console.WriteLine(hits); // often below 100000\n}",
+    "question": {
+      "en": "Which fix removes the race?"
+    },
+    "options": [
+      "Declare the field `static volatile int`",
+      "Write `hits += 1` in the lambda instead",
+      "Write `++hits` in the lambda instead",
+      "Use `Interlocked.Increment(ref hits)`"
+    ],
+    "answer": "Use `Interlocked.Increment(ref hits)`",
+    "explanation": {
+      "en": "hits++ is a read, add and write; two threads can read the same value and one update is lost. Interlocked.Increment does it atomically. volatile only affects visibility, not atomicity."
+    }
+  },
+  {
+    "id": 279,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "class Animal { public virtual string Speak() => \"...\"; }\nclass Dog : Animal { public new string Speak() => \"Woof\"; }\nAnimal a = new Dog();\nConsole.WriteLine(a.Speak()); // prints \"...\"",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Declare Dog's Speak as `virtual` too",
+      "Declare Dog's Speak with `override`",
+      "Call it as `(a as Animal).Speak()`",
+      "Mark Animal's Speak as `sealed`"
+    ],
+    "answer": "Declare Dog's Speak with `override`",
+    "explanation": {
+      "en": "`new` hides the base method instead of overriding it, so a call through an Animal reference still binds to Animal.Speak. `override` replaces it in the virtual table."
+    }
+  },
+  {
+    "id": 280,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "public class Account\n{\n    decimal balance;\n    public void Deposit(decimal x)\n    {\n        lock (this) { balance += x; } // outside code can lock it too\n    }\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Lock on `typeof(Account)` instead",
+      "Lock on the string `\"balance\"`",
+      "Lock a `private readonly object _gate`",
+      "Lock on the `balance` field itself instead"
+    ],
+    "answer": "Lock a `private readonly object _gate`",
+    "explanation": {
+      "en": "Any code holding the Account can also lock it, causing deadlocks or contention you cannot see. A private lock object (or a System.Threading.Lock in .NET 9+) is visible only to the class. Types and interned strings are just as public."
+    }
+  },
+  {
+    "id": 281,
+    "category": "csharp",
+    "difficulty": "hard",
+    "codeSnippet": "IEnumerable<Order> big = orders.Where(o => IsBig(o)); // IsBig is slow\nif (big.Any())\n    Console.WriteLine(big.Count()); // runs the filter again",
+    "question": {
+      "en": "Which fix removes the inefficiency?"
+    },
+    "options": [
+      "Run it once: `.Where(...).ToList()`",
+      "Replace `Any()` with `Count() > 0`",
+      "Add `.AsEnumerable()` after `Where`",
+      "Make `IsBig` a `static` method"
+    ],
+    "answer": "Run it once: `.Where(...).ToList()`",
+    "explanation": {
+      "en": "A LINQ query is lazy: Any and Count each enumerate it again and call IsBig again. ToList runs the filter once and keeps the results."
+    }
+  },
+  {
+    "id": 282,
+    "category": "csharp",
+    "difficulty": "hard",
+    "codeSnippet": "// WinForms button handler\nvoid OnClick(object sender, EventArgs e)\n{\n    var data = LoadAsync().Result; // the UI freezes forever\n}",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `LoadAsync().GetAwaiter().GetResult()` instead",
+      "Call `LoadAsync().Wait()` before `.Result`",
+      "Add `Thread.Sleep(100)` before `.Result`",
+      "Make it `async void` and `await LoadAsync()`"
+    ],
+    "answer": "Make it `async void` and `await LoadAsync()`",
+    "explanation": {
+      "en": ".Result blocks the UI thread, while LoadAsync needs that same thread to resume after its await: a deadlock. Awaiting frees the thread. Event handlers are the accepted place for async void."
+    }
+  },
+  {
+    "id": 283,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "// the user typed \"Quit\"\nif (input == \"quit\")\n    Exit(); // never matches \"Quit\" or \"QUIT\"",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `input.Equals(\"quit\", StringComparison.InvariantCulture)`",
+      "Use `ReferenceEquals(input, \"quit\")` instead",
+      "Use `input.Equals(\"quit\", StringComparison.OrdinalIgnoreCase)`",
+      "Use `input.Contains(\"quit\")` instead"
+    ],
+    "answer": "Use `input.Equals(\"quit\", StringComparison.OrdinalIgnoreCase)`",
+    "explanation": {
+      "en": "== on strings is an exact, case-sensitive ordinal comparison. OrdinalIgnoreCase ignores case without depending on the user's culture; InvariantCulture is still case-sensitive."
+    }
+  },
+  {
+    "id": 284,
+    "category": "csharp",
+    "difficulty": "hard",
+    "codeSnippet": "CultureInfo.CurrentCulture = new CultureInfo(\"tr-TR\");\nif (\"file\".ToUpper() == \"FILE\")\n    Open(); // false on Turkish machines",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Use `Equals` instead of `==`",
+      "Use `ToUpperInvariant()` instead",
+      "Call `ToUpper()` on both sides",
+      "Use `ToUpper(CultureInfo.CurrentCulture)`"
+    ],
+    "answer": "Use `ToUpperInvariant()` instead",
+    "explanation": {
+      "en": "In Turkish, uppercase i is the dotted İ, so \"file\".ToUpper() becomes \"FİLE\". ToUpperInvariant (or an OrdinalIgnoreCase comparison) gives culture-independent results."
+    }
+  },
+  {
+    "id": 285,
+    "category": "csharp",
+    "difficulty": "medium",
+    "codeSnippet": "object a = 5;\nobject b = 5;\nConsole.WriteLine(a == b); // False",
+    "question": {
+      "en": "Which fix removes the bug?"
+    },
+    "options": [
+      "Compare with `a.Equals(b)`",
+      "Compare with `(object)a == (object)b`",
+      "Compare with `ReferenceEquals(a, b)`",
+      "Compare with the pattern `a is b`"
+    ],
+    "answer": "Compare with `a.Equals(b)`",
+    "explanation": {
+      "en": "Each int is boxed into its own object, and == on object compares references. Equals is virtual, so it runs Int32.Equals and compares the values."
+    }
   }
 ]

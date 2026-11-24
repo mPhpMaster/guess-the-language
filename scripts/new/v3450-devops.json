@@ -1,0 +1,287 @@
+[
+ {
+  "id": 280,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "dotnet publish -c Release -r linux-x64 --self-contained",
+  "question": {
+   "en": "What does `--self-contained` add to the published output?"
+  },
+  "options": [
+   "The .NET runtime itself",
+   "The NuGet package cache",
+   "A Dockerfile for the app",
+   "Debug symbols (.pdb only)"
+  ],
+  "answer": "The .NET runtime itself",
+  "explanation": {
+   "en": "A self-contained publish copies the .NET runtime for the chosen RID (`-r linux-x64`) next to the app, so the target machine needs no .NET install. The output is larger and RID-specific."
+  }
+ },
+ {
+  "id": 281,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "",
+  "question": {
+   "en": "Which command downloads a project's NuGet dependencies without compiling it?"
+  },
+  "options": [
+   "`dotnet pack`",
+   "`dotnet clean`",
+   "`dotnet restore`",
+   "`dotnet tool restore`"
+  ],
+  "answer": "`dotnet restore`",
+  "explanation": {
+   "en": "`dotnet restore` resolves and downloads the PackageReference dependencies into the global packages folder. `dotnet tool restore` restores local CLI tools from the tool manifest instead."
+  }
+ },
+ {
+  "id": 282,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build\nWORKDIR /src\nCOPY . .\nRUN dotnet publish -c Release -o /app\n\nFROM mcr.microsoft.com/dotnet/aspnet:10.0\nWORKDIR /app\nCOPY --from=build /app .\nENTRYPOINT [\"dotnet\", \"Api.dll\"]",
+  "question": {
+   "en": "Why does the final stage use the `aspnet` image rather than `sdk`?"
+  },
+  "options": [
+   "The sdk image cannot run apps",
+   "It carries only the runtime",
+   "Only aspnet allows ENTRYPOINT",
+   "It caches NuGet between builds"
+  ],
+  "answer": "It carries only the runtime",
+  "explanation": {
+   "en": "The sdk image holds the compilers and CLI needed to build; the aspnet image has just the .NET and ASP.NET Core runtimes, so the shipped image is far smaller and has less attack surface."
+  }
+ },
+ {
+  "id": 283,
+  "category": "dotnet",
+  "difficulty": "hard",
+  "codeSnippet": "FROM mcr.microsoft.com/dotnet/aspnet:10.0-noble-chiseled",
+  "question": {
+   "en": "What is distinctive about this chiseled base image?"
+  },
+  "options": [
+   "It bundles the full .NET SDK",
+   "It only runs on Windows hosts",
+   "It must run as root to start",
+   "It has no shell or apt inside"
+  ],
+  "answer": "It has no shell or apt inside",
+  "explanation": {
+   "en": "Ubuntu chiseled images strip everything the app does not need: no shell, no package manager, and they run as a non-root user by default. You cannot `RUN apt-get` or `docker exec ... sh` into them."
+  }
+ },
+ {
+  "id": 284,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "- uses: actions/setup-dotnet@v4\n  with:\n    dotnet-version: '10.0.x'",
+  "question": {
+   "en": "What does this GitHub Actions step do?"
+  },
+  "options": [
+   "Installs the .NET 10 SDK",
+   "Restores the NuGet packages",
+   "Builds every project file",
+   "Publishes to NuGet.org"
+  ],
+  "answer": "Installs the .NET 10 SDK",
+  "explanation": {
+   "en": "actions/setup-dotnet downloads the requested SDK (here the newest 10.0 patch) and puts `dotnet` on the PATH; restore, build and test are separate `run:` steps."
+  }
+ },
+ {
+  "id": 285,
+  "category": "dotnet",
+  "difficulty": "hard",
+  "codeSnippet": "- uses: actions/setup-dotnet@v4\n  with:\n    dotnet-version: '10.0.x'\n    cache: true",
+  "question": {
+   "en": "By default, which file must exist for this NuGet cache to work?"
+  },
+  "options": [
+   "global.json",
+   "nuget.config",
+   "packages.lock.json",
+   "Directory.Build.props"
+  ],
+  "answer": "packages.lock.json",
+  "explanation": {
+   "en": "setup-dotnet keys the NuGet cache on a hash of `packages.lock.json` files (enable them with `RestorePackagesWithLockFile`). Without a lock file, or a custom `cache-dependency-path`, the step fails."
+  }
+ },
+ {
+  "id": 286,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "builder.Services.AddHealthChecks();\nvar app = builder.Build();\napp.MapHealthChecks(\"/healthz\");",
+  "question": {
+   "en": "With no checks registered, what does `GET /healthz` return?"
+  },
+  "options": [
+   "204 with an empty body",
+   "200 and the text Healthy",
+   "200 and a JSON check list",
+   "503 until a check exists"
+  ],
+  "answer": "200 and the text Healthy",
+  "explanation": {
+   "en": "The default health check writer responds 200 with the plain-text status `Healthy` (503 for `Unhealthy`). A JSON breakdown needs a custom ResponseWriter."
+  }
+ },
+ {
+  "id": 287,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "ASPNETCORE_ENVIRONMENT=Staging",
+  "question": {
+   "en": "Which file is layered over appsettings.json at startup?"
+  },
+  "options": [
+   "appsettings.Development.json",
+   "appsettings.Production.json",
+   "staging.appsettings.json",
+   "appsettings.Staging.json"
+  ],
+  "answer": "appsettings.Staging.json",
+  "explanation": {
+   "en": "The default host loads `appsettings.json` then `appsettings.{Environment}.json`, so values in `appsettings.Staging.json` override the base file; environment variables and command-line args override both."
+  }
+ },
+ {
+  "id": 288,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "",
+  "question": {
+   "en": "If neither ASPNETCORE_ENVIRONMENT nor DOTNET_ENVIRONMENT is set, which environment does an ASP.NET Core app use?"
+  },
+  "options": [
+   "Production",
+   "Development",
+   "Staging",
+   "Default"
+  ],
+  "answer": "Production",
+  "explanation": {
+   "en": "With no variable set the environment is Production. `dotnet run` usually looks like Development only because launchSettings.json sets ASPNETCORE_ENVIRONMENT for you."
+  }
+ },
+ {
+  "id": 289,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "dotnet user-secrets set \"Smtp:Password\" \"local-dev-pw\"",
+  "question": {
+   "en": "Where does this command store the value?"
+  },
+  "options": [
+   "In appsettings.Development.json",
+   "Inside the .csproj as XML",
+   "In a secrets.json in your profile",
+   "In a .env file at the repo root"
+  ],
+  "answer": "In a secrets.json in your profile",
+  "explanation": {
+   "en": "User secrets live in `secrets.json` under the user profile (e.g. `~/.microsoft/usersecrets/<UserSecretsId>/`), outside the repo, keyed by the project's UserSecretsId. They are loaded only in Development and are not encrypted."
+  }
+ },
+ {
+  "id": 290,
+  "category": "dotnet",
+  "difficulty": "hard",
+  "codeSnippet": "{ \"sdk\": { \"version\": \"10.0.100\", \"rollForward\": \"latestPatch\" } }\n# installed SDKs: 10.0.104, 10.0.201",
+  "question": {
+   "en": "Which SDK does the `dotnet` command pick in this folder?"
+  },
+  "options": [
+   "10.0.201",
+   "10.0.104",
+   "10.0.100, else fail",
+   "The newest of any major"
+  ],
+  "answer": "10.0.104",
+  "explanation": {
+   "en": "`latestPatch` rolls forward only within the same feature band (1xx), so 10.0.104 wins; 10.0.201 is a different band. `latestFeature` would have picked 10.0.201."
+  }
+ },
+ {
+  "id": 291,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "dotnet-counters monitor -p 4812 --counters System.Runtime",
+  "question": {
+   "en": "What does this command show?"
+  },
+  "options": [
+   "A full memory dump of 4812",
+   "A CPU flame graph file",
+   "The HTTP request logs",
+   "Live GC, CPU and heap stats"
+  ],
+  "answer": "Live GC, CPU and heap stats",
+  "explanation": {
+   "en": "dotnet-counters polls a running process's metrics (GC heap size, collections, CPU, thread-pool queue) and refreshes them in the console. Dumps come from dotnet-dump and traces from dotnet-trace."
+  }
+ },
+ {
+  "id": 292,
+  "category": "dotnet",
+  "difficulty": "hard",
+  "codeSnippet": "builder.Services.AddOpenTelemetry()\n    .WithTracing(t => t\n        .AddAspNetCoreInstrumentation()\n        .AddOtlpExporter());",
+  "question": {
+   "en": "With no endpoint configured, where does the exporter send spans?"
+  },
+  "options": [
+   "localhost:4317 using gRPC",
+   "localhost:9090 for Prometheus",
+   "localhost:16686 (Jaeger UI)",
+   "The app's console stdout"
+  ],
+  "answer": "localhost:4317 using gRPC",
+  "explanation": {
+   "en": "The OTLP exporter defaults to `http://localhost:4317` over gRPC (override with OTEL_EXPORTER_OTLP_ENDPOINT). A collector or the .NET Aspire dashboard usually listens there."
+  }
+ },
+ {
+  "id": 293,
+  "category": "dotnet",
+  "difficulty": "easy",
+  "codeSnippet": "- run: dotnet restore\n- run: dotnet build -c Release --no-restore\n- run: dotnet test -c Release --no-build",
+  "question": {
+   "en": "Why pass `--no-restore` to the build step?"
+  },
+  "options": [
+   "To force a fresh download",
+   "To build without packages",
+   "It skips a repeat restore",
+   "To switch to Debug output"
+  ],
+  "answer": "It skips a repeat restore",
+  "explanation": {
+   "en": "Restore already ran in its own step, so `--no-restore` avoids doing it again; `--no-build` on test likewise reuses the Release build instead of compiling twice."
+  }
+ },
+ {
+  "id": 294,
+  "category": "dotnet",
+  "difficulty": "medium",
+  "codeSnippet": "dotnet publish",
+  "question": {
+   "en": "For a project targeting .NET 8 or later, which configuration does this use?"
+  },
+  "options": [
+   "Debug",
+   "Release",
+   "Whichever ran last",
+   "Debug unless -r is set"
+  ],
+  "answer": "Release",
+  "explanation": {
+   "en": "Since .NET 8, `dotnet publish` defaults to Release (older targets defaulted to Debug), so `-c Release` is now optional but still common in scripts."
+  }
+ }
+]
